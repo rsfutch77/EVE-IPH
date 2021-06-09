@@ -9702,10 +9702,13 @@ ExitSub:
     ' Loads prices from the cache into the ITEM_PRICES table based on the info selected on the main form
     Private Sub LoadPrices(ByVal SentItems As List(Of PriceItem))
         Dim readerPrices As SQLiteDataReader
+        Dim RiskPrices As SQLiteDataReader
         Dim SQL As String = ""
+        Dim RiskSQL As String = ""
         Dim i As Integer
         Dim RegionList As String
         Dim SelectedPrice As Double
+        Dim RiskPrice As Double
         Dim MP As New MarketPriceInterface(pnlProgressBar)
         Dim ESIData As New ESI
         Dim ItemTypeIDs = New List(Of String)
@@ -9878,6 +9881,7 @@ ExitSub:
 
                 ' Get the data from ESI so we need to do some calcuations depending on the type they want
                 SQL = "SELECT "
+                RiskSQL = "SELECT "
                 Select Case PriceType
                     Case "buyAvg"
                         SQL = SQL & "AVG(PRICE)"
@@ -9909,26 +9913,43 @@ ExitSub:
                         SQL = SQL & CalcSplit(SentItems(i).TypeID, RegionID, SystemID)
                 End Select
 
+                'Switch to the other price type for the risk price
+                If PriceType = "buyPercentile" Then
+                    RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, False)
+                Else
+                    RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, True)
+                End If
+
+
                 ' Set the main from using both price locations
                 SQL = SQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
+                RiskSQL = RiskSQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
+
                 ' If they want a system, then limit all the data to that system id
                 If SentItems(i).SystemID <> "" Then
                     SQL = SQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
+                    RiskSQL = RiskSQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
                 Else
                     ' Use the region
                     SQL = SQL & "AND REGION_ID = " & RegionList & " "
+                    RiskSQL = RiskSQL & "AND REGION_ID = " & RegionList & " "
                 End If
 
                 ' See if we limit to buy/sell only
                 If LimittoBuy Then
                     SQL = SQL & "AND IS_BUY_ORDER <> 0"
+                    RiskSQL = RiskSQL & "AND IS_BUY_ORDER <> 0"
                 ElseIf LimittoSell Then
                     SQL = SQL & "AND IS_BUY_ORDER = 0"
+                    RiskSQL = RiskSQL & "AND IS_BUY_ORDER = 0"
                 End If
             End If
 
             DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
             readerPrices = DBCommand.ExecuteReader
+
+            DBCommand = New SQLiteCommand(RiskSQL, EVEDB.DBREf)
+            RiskPrices = DBCommand.ExecuteReader
 
             ' Grab the first record, which will be the latest one, if no record just leave what is already in item prices
             If readerPrices.Read Then
@@ -9939,9 +9960,26 @@ ExitSub:
                     ' Now Update the ITEM_PRICES table, set price and price type
                     SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(SelectedPrice) & ", PRICE_TYPE = '" & PriceType & "' WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
+
                 End If
                 readerPrices.Close()
                 readerPrices = Nothing
+                DBCommand = Nothing
+            End If
+
+            ' Grab the first record, which will be the latest one, if no record just leave what is already in item prices
+            If RiskPrices.Read Then
+                If Not IsDBNull(RiskPrices.GetValue(0)) Then
+                    ' Modify the price depending on modifier
+                    RiskPrice = RiskPrices.GetDouble(0) * (1 + SentItems(i).PriceModifier)
+
+                    ' Now Update the ITEM_PRICES table, set price and price type
+                    SQL = "UPDATE ITEM_PRICES_FACT SET RISK_PRICE = " & CStr(RiskPrice) & " WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
+                    Call EVEDB.ExecuteNonQuerySQL(SQL)
+
+                End If
+                RiskPrices.Close()
+                RiskPrices = Nothing
                 DBCommand = Nothing
             End If
 
