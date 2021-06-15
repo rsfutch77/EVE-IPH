@@ -137,6 +137,7 @@
             Call UpdateListCheck(.ReactionFacilityTEBonus, 96)
             Call UpdateListCheck(.ReactionFacilityUsage, 97)
             Call UpdateListCheck(.ReactionFacilityFWSystemLevel, 98)
+            Call UpdateListCheck(.Volatility, 99)
 
             chkLstBoxColumns.Update()
 
@@ -294,6 +295,7 @@
             .ReactionFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(96), .ReactionFacilityTEBonus)
             .ReactionFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(97), .ReactionFacilityUsage)
             .ReactionFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(98), .ReactionFacilityFWSystemLevel)
+            .Volatility = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(99), .Volatility)
 
             ' Now in case something was removed, we want to update the indicies
             With UserManufacturingTabColumnSettings
@@ -329,6 +331,7 @@
                     ColumnPositions(.IskperHour) = ProgramSettings.IskperHourColumnName
                     ColumnPositions(.SVR) = ProgramSettings.SVRColumnName
                     ColumnPositions(.SVRxIPH) = ProgramSettings.SVRxIPHColumnName
+                    ColumnPositions(.Volatility) = ProgramSettings.VolatilityColumnName
                     ColumnPositions(.PriceTrend) = ProgramSettings.PriceTrendColumnName
                     ColumnPositions(.TotalItemsSold) = ProgramSettings.TotalItemsSoldColumnName
                     ColumnPositions(.TotalOrdersFilled) = ProgramSettings.TotalOrdersFilledColumnName
@@ -491,6 +494,8 @@
                                 .SVR = i
                             Case ProgramSettings.SVRxIPHColumnName
                                 .SVRxIPH = i
+                            Case ProgramSettings.VolatilityColumnName
+                                .Volatility = i
                             Case ProgramSettings.PriceTrendColumnName
                                 .PriceTrend = i
                             Case ProgramSettings.TotalItemsSoldColumnName

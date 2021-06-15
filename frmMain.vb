@@ -12333,6 +12333,7 @@ CheckTechs:
             ColumnPositions(.SVR) = ProgramSettings.SVRColumnName
             ColumnPositions(.SVRxIPH) = ProgramSettings.SVRxIPHColumnName
             ColumnPositions(.PriceTrend) = ProgramSettings.PriceTrendColumnName
+            ColumnPositions(.Volatility) = ProgramSettings.VolatilityColumnName
             ColumnPositions(.TotalItemsSold) = ProgramSettings.TotalItemsSoldColumnName
             ColumnPositions(.TotalOrdersFilled) = ProgramSettings.TotalOrdersFilledColumnName
             ColumnPositions(.AvgItemsperOrder) = ProgramSettings.AvgItemsperOrderColumnName
@@ -12470,6 +12471,8 @@ CheckTechs:
                     Return .SVRWidth
                 Case ProgramSettings.SVRxIPHColumnName
                     Return .SVRxIPHWidth
+                Case ProgramSettings.VolatilityColumnName
+                    Return .VolatilityWidth
                 Case ProgramSettings.PriceTrendColumnName
                     Return .PriceTrendWidth
                 Case ProgramSettings.TotalItemsSoldColumnName
@@ -12733,6 +12736,8 @@ CheckTechs:
                         .SVR = i
                     Case ProgramSettings.SVRxIPHColumnName
                         .SVRxIPH = i
+                    Case ProgramSettings.VolatilityColumnName
+                        .Volatility = i
                     Case ProgramSettings.PriceTrendColumnName
                         .PriceTrend = i
                     Case ProgramSettings.TotalItemsSoldColumnName
@@ -12948,6 +12953,8 @@ CheckTechs:
                         .SVRWidth = NewWidth
                     Case ProgramSettings.SVRxIPHColumnName
                         .SVRxIPHWidth = NewWidth
+                    Case ProgramSettings.VolatilityColumnName
+                        .VolatilityWidth = NewWidth
                     Case ProgramSettings.PriceTrendColumnName
                         .PriceTrendWidth = NewWidth
                     Case ProgramSettings.TotalItemsSoldColumnName
@@ -13160,6 +13167,8 @@ CheckTechs:
             Case ProgramSettings.SVRColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.SVRxIPHColumnName
+                Return HorizontalAlignment.Right
+            Case ProgramSettings.VolatilityColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.PriceTrendColumnName
                 Return HorizontalAlignment.Right
@@ -14626,6 +14635,7 @@ CheckTechs:
                         InsertItem.CanRE = ManufacturingBlueprint.UserCanInventRE
                         ' Trend data
                         InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
+                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
                         InsertItem.ItemMarketPrice = ManufacturingBlueprint.GetItemMarketPrice
 
                         ' Add all the volume, items on hand, etc here since they won't change
@@ -15125,6 +15135,8 @@ DisplayResults:
                         BPList.SubItems.Add(FinalItemList(i).SVR)
                     Case ProgramSettings.SVRxIPHColumnName
                         BPList.SubItems.Add(FinalItemList(i).SVRxIPH)
+                    Case ProgramSettings.VolatilityColumnName
+                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).Volatility, 3))
                     Case ProgramSettings.PriceTrendColumnName
                         BPList.SubItems.Add(FormatPercent(FinalItemList(i).PriceTrend, 2))
                     Case ProgramSettings.TotalItemsSoldColumnName
@@ -16506,6 +16518,7 @@ ExitCalc:
         Public SVR As String ' Sales volume ratio
         Public SVRxIPH As String
         Public PriceTrend As Double
+        Public Volatility As Double
         Public TotalItemsSold As Long
         Public TotalOrdersFilled As Long
         Public AvgItemsperOrder As Double
@@ -16598,6 +16611,7 @@ ExitCalc:
             CopyofMe.SVR = SVR
             CopyofMe.SVRxIPH = SVRxIPH
             CopyofMe.PriceTrend = PriceTrend
+            CopyofMe.Volatility = Volatility
             CopyofMe.TotalItemsSold = TotalItemsSold
             CopyofMe.TotalOrdersFilled = TotalOrdersFilled
             CopyofMe.AvgItemsperOrder = AvgItemsperOrder
@@ -16774,6 +16788,80 @@ ExitCalc:
         'y = 50,098.90x - 1,518,343.83
         Dim trend As Double = (TodaysTrendLinePrice - y_intercept) / TodaysTrendLinePrice
         Return trend
+
+    End Function
+
+    ' Calculates price volatility
+    ' Formula and logic from here: https://www.investopedia.com/ask/answers/021015/how-can-you-calculate-volatility-excel.asp
+    Private Function CalculateVolatility(ByVal TypeID As Long, ByVal RegionID As Long, DaysfromToday As Integer) As Double
+        Dim SQL As String
+        Dim rsMarketHistory As SQLiteDataReader
+        Dim GraphData As New List(Of EVEIPHPricePoint)
+        Dim counter As Integer = 0
+        Dim n_value As Double = 0 ' Let n = the number of data points, in this case 3
+
+        ' Now get all the prices for the time period
+        SQL = "SELECT PRICE_HISTORY_DATE, AVG_PRICE FROM MARKET_HISTORY WHERE TYPE_ID = " & CStr(TypeID) & " AND REGION_ID = " & CStr(RegionID) & " "
+        SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) >= " & " DateTime('" & Format(DateAdd(DateInterval.Day, -(DaysfromToday + 1), Date.UtcNow.Date), SQLiteDateFormat) & "') "
+        SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) < " & " DateTime('" & Format(Date.UtcNow.Date, SQLiteDateFormat) & "') "
+        SQL = SQL & "ORDER BY PRICE_HISTORY_DATE ASC"
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        rsMarketHistory = DBCommand.ExecuteReader
+
+        While rsMarketHistory.Read
+            Dim TempPoint As EVEIPHPricePoint
+            counter += 1
+            TempPoint.PointDate = rsMarketHistory.GetDateTime(0)
+            TempPoint.X_Date_Marker = counter
+            If counter = 1 Then
+                TempPoint.Y_Price = rsMarketHistory.GetDouble(1)
+            Else
+                TempPoint.Y_Price = rsMarketHistory.GetDouble(1)
+            End If
+
+            GraphData.Add(TempPoint)
+        End While
+
+        ' Set the n_value from the loop
+        If counter <= 1 Or GraphData.Count <> DaysfromToday Then
+            ' If it's 0 or 1, then we can't do a calculation 
+            Return 0
+        End If
+
+        ' Now we have all the data to do the calculations
+        Dim interdayReturn(DaysfromToday - 2) As Single
+        For i = 0 To interdayReturn.Count - 1
+            interdayReturn(i) = CSng((GraphData(i + 1).Y_Price / GraphData(i).Y_Price) - 1)
+        Next
+        Dim volatility As Single = StdDev(interdayReturn)
+        Dim volatilityAnnualized As Single = CSng((365 ^ 0.5) * volatility)
+
+        Return volatilityAnnualized
+
+    End Function
+
+    'Calulate mean
+    Private Function Mean(k As Long, Arr() As Single) As Single
+        Dim Sum As Single = 0
+
+        For i As Integer = 0 To Arr.Count - 1
+            Sum = Sum + Arr(i)
+        Next i
+
+        Return Sum / Arr.Count
+
+    End Function
+
+    'Calculate Standard Deviation
+    Private Function StdDev(Arr() As Single) As Single
+        Dim avg As Single, SumSq As Single
+
+        avg = Mean(Arr.Count, Arr)
+        For i As Integer = 0 To Arr.Count - 1
+            SumSq = CSng(SumSq + (Arr(i) - avg) ^ 2)
+        Next i
+
+        Return CSng((SumSq / (Arr.Count - 1)) ^ (0.5))
 
     End Function
 

@@ -296,6 +296,7 @@ Public Class ProgramSettings
     Public DefaultCalcInventionFWLevel As String = "0"
     Public DefaultCalcColumnSort As Integer = 10 ' Default is sorting descending by IPH
     Public DefaultCalcColumnType As String = "Decending"
+    Public DefaultCalcVolatility As Integer = 30
     Public DefaultCalcPriceTrend As String = "All"
     Public DefaultCalcMinBuildTime As String = "0 Days 00:00:00"
     Public DefaultCalcMinBuildTimeCheck As Boolean = False
@@ -489,6 +490,7 @@ Public Class ProgramSettings
     Public DefaultMTIskperHour As Integer = 10
     Public DefaultMTSVR As Integer = 11
     Public DefaultMTSVRxIPH As Integer = 0
+    Public DefaultMTVolatility As Integer = 0
     Public DefaultMTPriceTrend As Integer = 0
     Public DefaultMTTotalItemsSold As Integer = 0
     Public DefaultMTTotalOrdersFilled As Integer = 0
@@ -589,6 +591,7 @@ Public Class ProgramSettings
     Public DefaultMTIskperHourWidth As Integer = 100
     Public DefaultMTSVRWidth As Integer = 100
     Public DefaultMTSVRxIPHWidth As Integer = 100
+    Public DefaultMTVolatilityWidth As Integer = 100
     Public DefaultMTPriceTrendWidth As Integer = 100
     Public DefaultMTTotalItemsSoldWidth As Integer = 100
     Public DefaultMTTotalOrdersFilledWidth As Integer = 100
@@ -694,6 +697,7 @@ Public Class ProgramSettings
     Public Const SVRColumnName As String = "SVR"
     Public Const SVRxIPHColumnName As String = "SVR * IPH"
     Public Const PriceTrendColumnName As String = "Price Trend"
+    Public Const VolatilityColumnName As String = "Volatility"
     Public Const TotalItemsSoldColumnName As String = "Total Items Sold"
     Public Const TotalOrdersFilledColumnName As String = "Total Orders Filled"
     Public Const AvgItemsperOrderColumnName As String = "Average Items Per Order"
@@ -2005,6 +2009,7 @@ Public Class ProgramSettings
                     .InventionFWUpgradeLevel = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "InventionFWUpgradeLevel", DefaultCalcInventionFWLevel))
                     .ColumnSort = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "ColumnSort", DefaultCalcColumnSort))
                     .ColumnSortType = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "ColumnSortType", DefaultCalcColumnType))
+                    .Volatility = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "Volatility", DefaultCalcVolatility))
                     .PriceTrend = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "PriceTrend", DefaultCalcPriceTrend))
                     .MinBuildTime = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "MinBuildTime", DefaultCalcMinBuildTime))
                     .MinBuildTimeCheck = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "MinBuildTimeCheck", DefaultCalcMinBuildTimeCheck))
@@ -2120,6 +2125,7 @@ Public Class ProgramSettings
             .InventionFWUpgradeLevel = DefaultCalcInventionFWLevel
             .ColumnSort = DefaultCalcColumnSort
             .ColumnSortType = DefaultCalcColumnType
+            .Volatility = DefaultCalcVolatility
             .PriceTrend = DefaultCalcPriceTrend
             .MinBuildTime = DefaultCalcMinBuildTime
             .MinBuildTimeCheck = DefaultCalcMinBuildTimeCheck
@@ -2142,7 +2148,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingSettings(SentSettings As ManufacturingTabSettings)
-        Dim ManufacturingSettingsList(88) As Setting
+        Dim ManufacturingSettingsList(89) As Setting
 
         Try
             ManufacturingSettingsList(0) = New Setting("BlueprintType", CStr(SentSettings.BlueprintType))
@@ -2234,6 +2240,7 @@ Public Class ProgramSettings
             ManufacturingSettingsList(86) = New Setting("CheckSellExcessItems", CStr(SentSettings.CheckSellExcessItems))
             ManufacturingSettingsList(87) = New Setting("CalcBrokerFeeRate", CStr(SentSettings.CalcBrokerFeeRate))
             ManufacturingSettingsList(88) = New Setting("BuildT2T3Materials", CStr(SentSettings.BuildT2T3Materials))
+            ManufacturingSettingsList(89) = New Setting("Volatility", CStr(SentSettings.Volatility))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingSettingsFileName, ManufacturingSettingsList, ManufacturingSettingsFileName)
 
@@ -3076,6 +3083,7 @@ Public Class ProgramSettings
                     .IskperHour = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "IskperHour", DefaultMTIskperHour))
                     .SVR = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVR", DefaultMTSVR))
                     .SVRxIPH = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRxIPH", DefaultMTSVRxIPH))
+                    .Volatility = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "Volatility", DefaultMTVolatility))
                     .PriceTrend = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "PriceTrend", DefaultMTPriceTrend))
                     .TotalItemsSold = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalItemsSold", DefaultMTTotalItemsSold))
                     .TotalOrdersFilled = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalOrdersFilled", DefaultMTTotalOrdersFilled))
@@ -3176,6 +3184,7 @@ Public Class ProgramSettings
                     .IskperHourWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "IskperHourWidth", DefaultMTIskperHourWidth))
                     .SVRWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRWidth", DefaultMTSVRWidth))
                     .SVRxIPHWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRxIPHWidth", DefaultMTSVRxIPHWidth))
+                    .VolatilityWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "VolatilityWidth", DefaultMTVolatilityWidth))
                     .PriceTrendWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "PriceTrendWidth", DefaultMTPriceTrendWidth))
                     .TotalItemsSoldWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalItemsSoldWidth", DefaultMTTotalItemsSoldWidth))
                     .TotalOrdersFilledWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalOrdersFilledWidth", DefaultMTTotalOrdersFilledWidth))
@@ -3304,6 +3313,7 @@ Public Class ProgramSettings
             .IskperHour = DefaultMTIskperHour
             .SVR = DefaultMTSVR
             .SVRxIPH = DefaultMTSVRxIPH
+            .Volatility = DefaultMTVolatility
             .PriceTrend = DefaultMTPriceTrend
             .TotalItemsSold = DefaultMTTotalItemsSold
             .TotalOrdersFilled = DefaultMTTotalOrdersFilled
@@ -3404,6 +3414,7 @@ Public Class ProgramSettings
             .IskperHourWidth = DefaultMTIskperHourWidth
             .SVRWidth = DefaultMTSVRWidth
             .SVRxIPHWidth = DefaultMTSVRxIPHWidth
+            .VolatilityWidth = DefaultMTVolatilityWidth
             .PriceTrendWidth = DefaultMTPriceTrendWidth
             .TotalItemsSoldWidth = DefaultMTTotalItemsSoldWidth
             .TotalOrdersFilledWidth = DefaultMTTotalOrdersFilledWidth
@@ -3490,7 +3501,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingTabColumnSettings(SentSettings As ManufacturingTabColumnSettings)
-        Dim ManufacturingTabColumnSettingsList(199) As Setting
+        Dim ManufacturingTabColumnSettingsList(201) As Setting
 
         Try
             ManufacturingTabColumnSettingsList(0) = New Setting("ItemCategory", CStr(SentSettings.ItemCategory))
@@ -3695,6 +3706,10 @@ Public Class ProgramSettings
 
             ManufacturingTabColumnSettingsList(198) = New Setting("OrderMTByColumn", CStr(SentSettings.OrderByColumn))
             ManufacturingTabColumnSettingsList(199) = New Setting("OrderMTType", CStr(SentSettings.OrderType))
+
+
+            ManufacturingTabColumnSettingsList(200) = New Setting("Volatility", CStr(SentSettings.Volatility))
+            ManufacturingTabColumnSettingsList(201) = New Setting("VolatilityWidth", CStr(SentSettings.VolatilityWidth))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingTabColumnSettingsFileName, ManufacturingTabColumnSettingsList, ManufacturingTabColumnSettingsFileName)
 
@@ -5166,6 +5181,7 @@ Public Structure ManufacturingTabSettings
 
     ' Filter variables
     Dim CheckSVRIncludeNull As Boolean
+    Dim Volatility As Integer
     Dim PriceTrend As String
     Dim MinBuildTime As String
     Dim MinBuildTimeCheck As Boolean
@@ -5623,6 +5639,9 @@ Public Structure ManufacturingTabColumnSettings
 
     Dim OrderByColumn As Integer ' What column index the jobs are sorted
     Dim OrderType As String ' Ascending or Descending
+
+    Dim Volatility As Integer
+    Dim VolatilityWidth As Integer
 
 End Structure
 
