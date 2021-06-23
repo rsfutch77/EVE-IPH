@@ -4269,7 +4269,7 @@ Tabs:
             Dim BIMat As Material
             For Each BI In SelectedBlueprint.BuiltComponentList.GetBuiltItemList
                 With BI
-                    BIMat = New Material(.BPTypeID, .ItemName, "", .ItemQuantity, .ItemVolume, 0, CStr(.BuildME), CStr(.BuildTE), True)
+                    BIMat = New Material(.BPTypeID, .ItemName, "", .ItemQuantity, .ItemVolume, 0, 0, CStr(.BuildME), CStr(.BuildTE), True)
                     Call BuiltList.InsertMaterial(BIMat)
                 End With
             Next
@@ -9635,11 +9635,12 @@ ExitForm:
                         TempItem.RegionID = SearchRegion
                         TempItem.SystemID = SearchSystem
                         TempItem.StructureID = SearchStructureID
+                        'Start with the maximum IPH (normal Buy Orders for Raw and Sell Orders for Manufactured)
                         If TempItem.Manufacture Then
-                            TempItem.PriceType = cmbItemsSplitPrices.Text
+                            TempItem.PriceType = "Percentile Sell"
                             TempItem.PriceModifier = CDbl(txtItemsPriceModifier.Text.Replace("%", "")) / 100
                         Else
-                            TempItem.PriceType = cmbRawMatsSplitPrices.Text
+                            TempItem.PriceType = "Percentile Buy"
                             TempItem.PriceModifier = CDbl(txtRawPriceModifier.Text.Replace("%", "")) / 100
                         End If
                     Else
@@ -16497,6 +16498,7 @@ ExitCalc:
         Public ProfitPercent As Double
         Public IPH As Double
         Public TotalCost As Double
+        Public TotalRiskCost As Double
         Public CalcType As String ' Type of calculation to get the profit - either Components, Raw Mats or Build/Buy
         Public BlueprintType As BPType
 
@@ -16588,6 +16590,7 @@ ExitCalc:
             CopyofMe.ProfitPercent = ProfitPercent
             CopyofMe.IPH = IPH
             CopyofMe.TotalCost = TotalCost
+            CopyofMe.TotalRiskCost = TotalRiskCost
             CopyofMe.CalcType = CalcType
             CopyofMe.BlueprintType = BlueprintType
 

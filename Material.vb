@@ -11,6 +11,7 @@ Public Class Material
 
     ' Look up cost per item when not set
     Private CostPerItem As Double
+    Private RiskCostPerItem As Double
 
     ' If this material is a buildable item, store the ME for the grid
     Private ItemME As String
@@ -20,11 +21,12 @@ Public Class Material
     ' Calculate
     Private TotalMatVolume As Double
     Private TotalCost As Double
+    Private TotalRiskCost As Double
 
     Private ItemType As Integer ' My item type value
 
     Public Sub New(ByVal SentTypeID As Long, ByVal SentTypeName As String, ByVal SentGroupName As String, ByVal SentQuantity As Long,
-                   ByVal SentVolume As Double, ByVal SentPrice As Double, ByVal SentItemME As String, ByVal SentItemTE As String,
+                   ByVal SentVolume As Double, ByVal SentPrice As Double, ByVal SentRiskPrice As Double, ByVal SentItemME As String, ByVal SentItemTE As String,
                    Optional ByVal isBuiltItem As Boolean = False, Optional ByVal SentItemType As Integer = 0)
         TypeID = SentTypeID
         TypeName = SentTypeName
@@ -48,8 +50,10 @@ Public Class Material
 
         If SentPrice = 0 Then
             CostPerItem = GetItemPrice(TypeID)
+            RiskCostPerItem = GetItemRiskPrice(TypeID)
         Else
             CostPerItem = SentPrice
+            RiskCostPerItem = SentRiskPrice
         End If
 
         Call SetTotalCostVolume()
@@ -58,12 +62,13 @@ Public Class Material
 
     ' For doing a deep copy of Materials
     Public Function Clone() As Object Implements ICloneable.Clone
-        Dim CopyOfMe As New Material(Me.TypeID, Me.TypeName, Me.GroupName, Me.Quantity, Me.Volume, Me.CostPerItem, Me.ItemME, Me.ItemTE, Me.BuildItem, Me.ItemType)
+        Dim CopyOfMe As New Material(Me.TypeID, Me.TypeName, Me.GroupName, Me.Quantity, Me.Volume, Me.CostPerItem, Me.RiskCostPerItem, Me.ItemME, Me.ItemTE, Me.BuildItem, Me.ItemType)
         Return CopyOfMe
     End Function
 
     Private Sub SetTotalCostVolume()
         TotalCost = CostPerItem * Quantity
+        TotalRiskCost = RiskCostPerItem * Quantity
         TotalMatVolume = Volume * Quantity
     End Sub
 
@@ -82,9 +87,10 @@ Public Class Material
     End Sub
 
     ' Sets the Total Cost of the material to the sent cost only if it's built
-    Public Sub SetBuildCostPerItem(ByVal BuildCost As Double)
+    Public Sub SetBuildCostPerItem(ByVal BuildCost As Double, ByVal BuildRiskCost As Double)
         If BuildItem Then
             CostPerItem = BuildCost
+            RiskCostPerItem = BuildRiskCost
             Call SetTotalCostVolume()
         End If
     End Sub
@@ -110,8 +116,9 @@ Public Class Material
     End Sub
 
     ' Allow setting total cost
-    Public Sub SetTotalCost(ByVal SentTotalCost As Double)
+    Public Sub SetTotalCost(ByVal SentTotalCost As Double, ByVal SentTotalRiskCost As Double)
         TotalCost = SentTotalCost
+        TotalRiskCost = SentTotalRiskCost
     End Sub
 
     Public Function GetItemType() As Integer
@@ -142,12 +149,19 @@ Public Class Material
         Return CostPerItem
     End Function
 
+    Public Function GetRiskCostPerItem() As Double
+        Return RiskCostPerItem
+    End Function
+
     Public Function GetTotalVolume() As Double
         Return TotalMatVolume
     End Function
 
     Public Function GetTotalCost() As Double
         Return TotalCost
+    End Function
+    Public Function GetRiskTotalCost() As Double
+        Return TotalRiskCost
     End Function
 
     Public Function GetItemME() As String

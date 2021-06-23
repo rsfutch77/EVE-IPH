@@ -8,6 +8,7 @@ Public Class Materials
 
     ' Total Cost of materials in the list
     Private TotalMaterialsCost As Double
+    Private TotalRiskMaterialsCost As Double
     ' Total Volume of materials in the list
     Private TotalMaterialsVolume As Double
 
@@ -16,6 +17,7 @@ Public Class Materials
     ' Constructor
     Public Sub New()
         TotalMaterialsCost = 0
+        TotalRiskMaterialsCost = 0
         TotalMaterialsVolume = 0
 
         MaterialList = New List(Of Material)
@@ -36,6 +38,7 @@ Public Class Materials
         End If
 
         CopyOfMe.TotalMaterialsCost = Me.TotalMaterialsCost
+        CopyOfMe.TotalRiskMaterialsCost = Me.TotalRiskMaterialsCost
         CopyOfMe.TotalMaterialsVolume = Me.TotalMaterialsVolume
 
         Return CopyOfMe
@@ -45,6 +48,7 @@ Public Class Materials
     ' Resets the List
     Public Sub Clear()
         TotalMaterialsCost = 0
+        TotalRiskMaterialsCost = 0
         TotalMaterialsVolume = 0
 
         MaterialList = Nothing
@@ -121,7 +125,7 @@ Public Class Materials
         End If
 
         If OverrideCost <> -1 Then
-            TempMat.SetTotalCost(OverrideCost)
+            TempMat.SetTotalCost(OverrideCost, OverrideCost)
         End If
 
         ' Add the material and update totals
@@ -129,6 +133,7 @@ Public Class Materials
 
         ' Update the total cost of the class
         TotalMaterialsCost = TotalMaterialsCost + CloneMat.GetTotalCost
+        TotalRiskMaterialsCost = TotalRiskMaterialsCost + CloneMat.GetRiskTotalCost
 
         ' Update the total material volume for the list
         TotalMaterialsVolume = TotalMaterialsVolume + CloneMat.GetTotalVolume
@@ -146,12 +151,14 @@ Public Class Materials
         If Not IsNothing(MaterialList) Then
             ' Reset the totals
             TotalMaterialsCost = 0
+            TotalRiskMaterialsCost = 0
             TotalMaterialsVolume = 0
             For i = 0 To MaterialList.Count - 1
                 ' Loop through and multiply everything
                 MaterialList(i).AddQuantity(MaterialList(i).GetQuantity * SentMultiple)
                 ' Update the totals
                 TotalMaterialsCost = TotalMaterialsCost + MaterialList(i).GetTotalCost
+                TotalRiskMaterialsCost = TotalRiskMaterialsCost + MaterialList(i).GetRiskTotalCost
                 TotalMaterialsVolume = TotalMaterialsVolume + MaterialList(i).GetTotalVolume
             Next
         End If
@@ -185,6 +192,7 @@ Public Class Materials
 
         ' Update the total cost of the class
         TotalMaterialsCost = TotalMaterialsCost - SentMaterial.GetTotalCost
+        TotalRiskMaterialsCost = TotalRiskMaterialsCost - SentMaterial.GetRiskTotalCost
 
         ' Update the total material volume for the list
         TotalMaterialsVolume = TotalMaterialsVolume - SentMaterial.GetTotalVolume
@@ -192,13 +200,15 @@ Public Class Materials
     End Sub
 
     ' Resets the value of the list to the sent value
-    Public Sub ResetTotalValue(ByVal TotalValue As Double)
+    Public Sub ResetTotalValue(ByVal TotalValue As Double, ByVal TotalRiskValue As Double)
         TotalMaterialsCost = TotalValue
+        TotalRiskMaterialsCost = TotalRiskValue
     End Sub
 
     ' Adds value to the total value of the list 
-    Public Sub AddTotalValue(ByVal TotalValue As Double)
+    Public Sub AddTotalValue(ByVal TotalValue As Double, ByVal TotalRiskValue As Double)
         TotalMaterialsCost = TotalMaterialsCost + TotalValue
+        TotalRiskMaterialsCost = TotalRiskMaterialsCost + TotalRiskValue
     End Sub
 
     ' Adds volume to the total volume of the list
@@ -209,6 +219,7 @@ Public Class Materials
     ' "Adds" taxes to the total materials - i.e. takes off the taxes for selling these materials
     Public Sub AdjustTaxedPrice(ByVal TotalTax As Double)
         TotalMaterialsCost = TotalMaterialsCost - TotalTax
+        TotalRiskMaterialsCost = TotalRiskMaterialsCost - TotalTax
     End Sub
 
     ' Returns the list of Materials
@@ -255,7 +266,7 @@ Public Class Materials
                     If IncludeDecryptorRelic Then
                         OutputString = OutputString & "Decryptor/Relic, "
                     End If
-                    OutputString = OutputString & "Cost Per Item, Total Cost, Location" & vbCrLf
+                    OutputString = OutputString & "Cost Per Item, Total Cost, Risk Cost, Location" & vbCrLf
 
                 Case SSVDataExport
                     Separator = "; "
@@ -266,7 +277,7 @@ Public Class Materials
                     If IncludeDecryptorRelic Then
                         OutputString = OutputString & "Decryptor/Relic; "
                     End If
-                    OutputString = OutputString & "Cost Per Item; Total Cost; Location" & vbCrLf
+                    OutputString = OutputString & "Cost Per Item; Total Cost; Risk Cost; Location" & vbCrLf
                 Case MultiBuyDataExport
                     OutputString = "" ' no header
                 Case Else ' Default
@@ -409,6 +420,11 @@ SkipFormat:
     ' Returns the total cost of the material list
     Public Function GetTotalMaterialsCost() As Double
         Return TotalMaterialsCost
+    End Function
+
+    ' Returns the total cost of the material list
+    Public Function GetTotalRiskMaterialsCost() As Double
+        Return TotalRiskMaterialsCost
     End Function
 
     ' Returns the total volume of the matierals in the list

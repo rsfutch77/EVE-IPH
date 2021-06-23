@@ -2314,7 +2314,7 @@ Public Class frmShoppingList
 
                     ' Save the mats they probably have on hand to make this change - calc from value in grid vs. value entered
                     Dim OnHandQuantity As Long = CLng(CurrentRow.SubItems(2).Text) - QuantityValue
-                    Dim OnHandMaterial As New Material(0, CurrentRow.SubItems(1).Text, "", OnHandQuantity, 0, 0, "", "")
+                    Dim OnHandMaterial As New Material(0, CurrentRow.SubItems(1).Text, "", OnHandQuantity, 0, 0, 0, "", "")
                     TotalShoppingList.OnHandMatList.InsertMaterial(OnHandMaterial)
 
                     ' Update the buy list
@@ -2336,7 +2336,7 @@ Public Class frmShoppingList
 
                     ' Save the built components they probably have on hand to make this change - calc from value in grid vs. value entered
                     Dim OnHandQuantity As Long = CLng(CurrentRow.SubItems(2).Text) - QuantityValue
-                    Dim OnHandMaterial As New Material(0, CurrentRow.SubItems(1).Text, "", OnHandQuantity, 0, 0, "", "")
+                    Dim OnHandMaterial As New Material(0, CurrentRow.SubItems(1).Text, "", OnHandQuantity, 0, 0, 0, "", "")
                     TotalShoppingList.OnHandComponentList.InsertMaterial(OnHandMaterial)
 
                     ' Update the build list

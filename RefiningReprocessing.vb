@@ -61,6 +61,7 @@ Class Reprocessing
                                       ByVal IncludeTax As Boolean, ByVal BrokerFeeData As BrokerFeeInfo, ByVal RecursiveReprocess As Boolean) As Materials
         Dim SQL As String
         Dim readerBP As SQLiteDataReader
+        Dim readerRiskBP As SQLiteDataReader
         Dim readerReprocess As SQLiteDataReader
 
         Dim TempMaterial As Material
@@ -122,10 +123,28 @@ Class Reprocessing
             End If
 
             If RecursionMaterials.GetMaterialList.Count = 0 Then
-                ' Add the base material if not inserted as recusive mat
-                TempMaterial = New Material(RefinedMatId, readerBP.GetString(1), readerBP.GetString(2),
-                                                NewMaterialQuantity, readerBP.GetDouble(3), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), "", "")
+
+                ' Look up the Risk cost for the material
+                SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(RefinedMatId)
+
+                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                readerRiskBP = DBCommand.ExecuteReader
+
+                If readerRiskBP.Read Then
+                    ' Add the base material if not inserted as recusive mat
+                    TempMaterial = New Material(RefinedMatId, readerBP.GetString(1), readerBP.GetString(2),
+                                                NewMaterialQuantity, readerBP.GetDouble(3), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)), "", "")
+                Else
+                    ' Add the base material if not inserted as recusive mat
+                    TempMaterial = New Material(RefinedMatId, readerBP.GetString(1), readerBP.GetString(2),
+                                                NewMaterialQuantity, readerBP.GetDouble(3), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0, "", "")
+                End If
+
                 TempMaterials.InsertMaterial(TempMaterial)
+
+                readerRiskBP.Close()
+                readerRiskBP = Nothing
+
             End If
 
         End While
@@ -152,6 +171,7 @@ Class Reprocessing
 
         Dim SQL As String
         Dim readerRefine As SQLiteDataReader
+        Dim readerRisk As SQLiteDataReader
 
         Dim RefinedMats As New Materials
         Dim RefinedMat As Material
@@ -159,6 +179,8 @@ Class Reprocessing
 
         Dim TempCost As Double = 0
         Dim AdjustedCost As Double = 0
+        Dim TempRiskCost As Double = 0
+        Dim AdjustedRiskCost As Double = 0
         Dim ModStationTaxRate As Double = 0
 
         ' Reprocessing Rate for Ore & Ice (including Compressed)
@@ -198,12 +220,27 @@ Class Reprocessing
         While readerRefine.Read
             ' Calculate the refine amount based on yield
             NewMaterialQuantity = CLng(Math.Round(CLng(readerRefine.GetValue(4)) * RefineBatches * TotalYield, 0))
-            ' Add the base material
-            RefinedMat = New Material(readerRefine.GetInt64(0), readerRefine.GetString(1), readerRefine.GetString(2),
-                                      NewMaterialQuantity, readerRefine.GetDouble(3), If(readerRefine.IsDBNull(5), 0, readerRefine.GetDouble(5)), "", "")
-            RefinedMats.InsertMaterial(RefinedMat)
-        End While
 
+            ' Look up the Risk cost for the material
+            SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerRefine.GetInt64(0))
+
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            readerRisk = DBCommand.ExecuteReader
+
+            If readerRisk.Read() Then
+                ' Add the base material
+                RefinedMat = New Material(readerRefine.GetInt64(0), readerRefine.GetString(1), readerRefine.GetString(2),
+                                      NewMaterialQuantity, readerRefine.GetDouble(3), If(readerRefine.IsDBNull(5), 0, readerRefine.GetDouble(5)), If(readerRisk.IsDBNull(0), 0, readerRisk.GetDouble(0)), "", "")
+            Else
+                ' Add the base material
+                RefinedMat = New Material(readerRefine.GetInt64(0), readerRefine.GetString(1), readerRefine.GetString(2),
+                                      NewMaterialQuantity, readerRefine.GetDouble(3), If(readerRefine.IsDBNull(5), 0, readerRefine.GetDouble(5)), 0, "", "")
+            End If
+            RefinedMats.InsertMaterial(RefinedMat)
+
+            readerRisk.Close()
+
+        End While
         ' Subtract the station's refine tax
         For Each RefinedMaterial In RefinedMats.GetMaterialList
             SQL = "SELECT ADJUSTED_PRICE FROM ITEM_PRICES WHERE ITEM_ID = " & RefinedMaterial.GetMaterialTypeID
@@ -213,12 +250,14 @@ Class Reprocessing
             ' Adjust the station tax on the material (by reference) - get the total adjusted price times tax rate minus total cost (save total)
             ModStationTaxRate = StationTax - (0.0075 * StationStanding)
             TempCost = RefinedMaterial.GetTotalCost - (readerRefine.GetDouble(0) * RefinedMaterial.GetQuantity * ModStationTaxRate)
-            RefinedMaterial.SetTotalCost(TempCost)
+            TempRiskCost = RefinedMaterial.GetRiskTotalCost - (readerRefine.GetDouble(0) * RefinedMaterial.GetQuantity * ModStationTaxRate)
+            RefinedMaterial.SetTotalCost(TempCost, TempRiskCost)
             AdjustedCost += TempCost
+            AdjustedRiskCost += TempRiskCost
         Next
 
         ' Update the total cost for the list
-        Call RefinedMats.ResetTotalValue(AdjustedCost)
+        Call RefinedMats.ResetTotalValue(AdjustedCost, AdjustedRiskCost)
 
         ' Finally adjust the taxes
         If IncludeTax Then

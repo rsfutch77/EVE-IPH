@@ -534,6 +534,7 @@ Public Class frmIndustryBeltFlip
         Dim checkedItems As ListView.CheckedListViewItemCollection
         Dim TotalRefinedMinerals As New Materials
         Dim TotalCost As Double = 0
+        Dim TotalRiskCost As Double = 0
         Dim OutputNumber As Double
         Dim OreName As String
 
@@ -679,15 +680,23 @@ Public Class frmIndustryBeltFlip
                     If chkCompressOre.Checked = False Then
                         ' Save the total cost separate so we take into account taxes and fees
                         TotalCost = TotalCost + RefinedMaterials.GetTotalMaterialsCost
+                        TotalRiskCost = TotalRiskCost + RefinedMaterials.GetTotalRiskMaterialsCost
                     Else
                         Dim readerOre As SQLiteDataReader
                         Dim OreUnitPrice As Double
+                        Dim readerRiskOre As SQLiteDataReader
+                        Dim OreUnitRiskPrice As Double
                         Dim TotalCompressedUnits As Integer
 
                         ' First, get the unit price and volume for the compressed ore
                         SQL = "SELECT PRICE FROM ITEM_PRICES WHERE ITEM_NAME LIKE 'Compressed " & OreName & "'"
                         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
                         readerOre = DBCommand.ExecuteReader
+
+                        ' First, get the unit risk price and volume for the compressed ore
+                        SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_NAME LIKE 'Compressed " & OreName & "'"
+                        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                        readerRiskOre = DBCommand.ExecuteReader
 
                         If readerOre.Read() Then
                             OreUnitPrice = readerOre.GetDouble(0)
@@ -696,12 +705,20 @@ Public Class frmIndustryBeltFlip
                             TotalCost = TotalCost + (OreUnitPrice * TotalCompressedUnits)
                         End If
 
+                        If readerRiskOre.Read() Then
+                            OreUnitRiskPrice = readerRiskOre.GetDouble(0)
+                            TotalCompressedUnits = CInt(Math.Floor(CInt(item.SubItems(3).Text) / 100))
+                            ' Calc total cost, assume all mined and then compressed
+                            TotalRiskCost = TotalRiskCost + (OreUnitRiskPrice * TotalCompressedUnits)
+                        End If
+
                         readerOre.Close()
+                        readerRiskOre.Close()
 
                     End If
 
                     ' Reset the value of the refined materials
-                    TotalRefinedMinerals.ResetTotalValue(TotalCost)
+                    TotalRefinedMinerals.ResetTotalValue(TotalCost, TotalRiskCost)
 
                 End If
                 readerBelts.Close()

@@ -135,14 +135,23 @@ Public Class Blueprint
 
     ' Price Variables
     Private ItemMarketCost As Double ' Market cost of item 
+    Private ItemRiskMarketCost As Double ' Market cost of item 
     Private TotalRawCost As Double
+    Private TotalRiskRawCost As Double
     Private TotalComponentCost As Double
+    Private TotalRiskComponentCost As Double
     Private TotalRawProfit As Double
+    Private TotalRiskRawProfit As Double
     Private TotalComponentProfit As Double
+    Private TotalRiskComponentProfit As Double
     Private TotalRawProfitPercent As Double
     Private TotalComponentProfitPercent As Double
+    Private TotalRawRiskProfitPercent As Double
+    Private TotalRawComponentProfitPercent As Double
     Private TotalIPHRaw As Double
+    Private TotalRiskIPHRaw As Double
     Private TotalIPHComponent As Double
+    Private TotalRiskIPHComponent As Double
 
     ' Save all the settings here, which has all the standings, fees, etc in it
     Private BPUserSettings As ApplicationSettings
@@ -339,6 +348,7 @@ Public Class Blueprint
 
         ' Full cost of items is portion size (ammo, bombs, etc) times runs times cost
         ItemMarketCost = GetItemPrice(ItemID) * UserRuns * PortionSize
+        ItemRiskMarketCost = GetItemRiskPrice(ItemID) * UserRuns * PortionSize
 
         BuiltComponentList = New BuiltItemList
         BPRawMats = New Materials
@@ -667,10 +677,12 @@ Public Class Blueprint
             For i = 0 To TempBuiltComponents.GetBuiltItemList.Count - 1
                 Dim TempComponentFacility As IndustryFacility
                 Dim rsCheck As SQLiteDataReader
+                Dim readerRiskBP As SQLiteDataReader
                 Dim SQL As String
                 Dim CategoryID As String = ""
                 Dim GroupID As Integer = 0
                 Dim OneItemMarketPrice As Double = 0
+                Dim OneItemMarketRiskPrice As Double = 0
                 Dim PortionSize As Integer = 1
 
                 With TempBuiltComponents.GetBuiltItemList(i)
@@ -683,10 +695,17 @@ Public Class Blueprint
                     DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
                     rsCheck = DBCommand.ExecuteReader
 
-                    If rsCheck.Read() Then
+                    ' Look up the Risk cost for the material
+                    SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(.ItemTypeID)
+
+                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                    readerRiskBP = DBCommand.ExecuteReader
+
+                    If (rsCheck.Read() And readerRiskBP.Read()) Then
                         GroupID = rsCheck.GetInt32(0)
                         CategoryID = CStr(rsCheck.GetInt32(1))
                         OneItemMarketPrice = rsCheck.GetDouble(2)
+                        OneItemMarketRiskPrice = readerRiskBP.GetDouble(0)
                         PortionSize = rsCheck.GetInt32(3)
                     End If
 
@@ -732,7 +751,7 @@ Public Class Blueprint
                     ' Also, if this built item is more than we need for the main blueprint, add it to excess
                     If ComponentQuantity < (ComponentBlueprint.PortionSize * ComponentBlueprint.GetUserRuns) Then
                         ExtraItems = (ComponentBlueprint.PortionSize * ComponentBlueprint.GetUserRuns) - ComponentQuantity
-                        ExtraMaterial = New Material(.ItemTypeID, RemoveItemNameRuns(.ItemName), CategoryID, ExtraItems, .ItemVolume, 0, CStr(.BuildME), CStr(.BuildTE))
+                        ExtraMaterial = New Material(.ItemTypeID, RemoveItemNameRuns(.ItemName), CategoryID, ExtraItems, .ItemVolume, 0, 0, CStr(.BuildME), CStr(.BuildTE))
                         Call ExcessMaterials.InsertMaterial(ExtraMaterial)
                     End If
 
@@ -751,6 +770,7 @@ Public Class Blueprint
                     .IncludeActivityUsage = ComponentBlueprint.MainManufacturingFacility.IncludeActivityUsage
 
                     Dim ItemPrice As Double = 0
+                    Dim ItemRiskPrice As Double = 0
                     Dim OwnedBP As Boolean
 
                     Call GetMETEforBP(ComponentBlueprint.BlueprintID, ComponentBlueprint.TechLevel, BPUserSettings.DefaultBPME, BPUserSettings.DefaultBPTE, OwnedBP)
@@ -775,13 +795,25 @@ Public Class Blueprint
                         BuildFlag = False
                     End If
 
+                    ' Figure out if we build or buy
+                    Dim BuildRiskFlag As Boolean = GetBuildBuyFlag(OneItemMarketRiskPrice, ComponentBlueprint.GetPortionSize, BuildQuantity, ComponentBlueprint.GetTotalRawCost,
+                                                               ComponentBlueprint.BPExcessMaterials, OwnedBP, ComponentBlueprint.ItemID, SetTaxes, BrokerFeeData)
+
+                    If (BuildBuy And BuildRiskFlag) Then
+                        ItemRiskPrice = ComponentBlueprint.GetRawMaterials.GetTotalRiskMaterialsCost / .ItemQuantity
+                    Else
+                        ' Buying item
+                        ItemRiskPrice = OneItemMarketRiskPrice
+                        BuildRiskFlag = False
+                    End If
+
                     ' If we build this blueprint, add on the skills required
                     If ComponentBlueprint.ReqBuildSkills.NumSkills <> 0 Then
                         ReqBuildComponentSkills.InsertSkills(ComponentBlueprint.ReqBuildSkills, True)
                     End If
 
                     ' Add the built material to the component list now - this way we only add one blueprint produced material - use saved component quantity
-                    Dim TempMat As New Material(.ItemTypeID, .ItemName, ComponentBlueprint.GetItemData.GetMaterialGroup, .ItemQuantity, .ItemVolume, ItemPrice, CStr(.BuildME), CStr(.BuildTE), BuildFlag)
+                    Dim TempMat As New Material(.ItemTypeID, .ItemName, ComponentBlueprint.GetItemData.GetMaterialGroup, .ItemQuantity, .ItemVolume, ItemPrice, ItemRiskPrice, CStr(.BuildME), CStr(.BuildTE), BuildFlag)
                     ComponentMaterials.InsertMaterial(TempMat)
 
                     ' Building, so add the raw materials to the raw mats list
@@ -837,6 +869,7 @@ Public Class Blueprint
         Dim SQL As String
         Dim SQLAdd As String = ""
         Dim readerBP As SQLiteDataReader
+        Dim readerRiskBP As SQLiteDataReader
         Dim readerME As SQLiteDataReader
 
         Dim TempME As Integer
@@ -862,6 +895,7 @@ Public Class Blueprint
         Dim TempNumBPs As Integer = 1
 
         Dim SingleRunBuildCost As Double = -1
+        Dim SingleRunBuildRiskCost As Double = -1
         Dim SavedExcessMaterialList As New Materials
         Dim SavedUpdateBPExcessMaterialList As New Materials
 
@@ -893,7 +927,7 @@ Public Class Blueprint
             CurrentMaterialCategoryID = readerBP.GetInt32(5)
 
             ' Adjust the number of runs I need for the main item based on what I have in the excess mats
-            Dim TempMat As Material = New Material(ItemID, ItemName, CStr(ItemGroupID), UserRuns * PortionSize, ItemVolume, 0, "", "")
+            Dim TempMat As Material = New Material(ItemID, ItemName, CStr(ItemGroupID), UserRuns * PortionSize, ItemVolume, 0, 0, "", "")
             Dim TempRuns As Long = TempMat.GetQuantity
 
             UserRuns = CLng(Math.Ceiling(TempRuns / PortionSize))
@@ -908,8 +942,19 @@ Public Class Blueprint
                     SavedExcessMaterialList = CType(ExcessBuildMaterials.Clone, Materials)
                 End If
 
-                ' Set the current material - adjust with portion size though if sent
-                CurrentMaterial = New Material(readerBP.GetInt64(1), readerBP.GetString(3), readerBP.GetString(11), readerBP.GetInt64(2), readerBP.GetDouble(7), If(readerBP.IsDBNull(8), 0, readerBP.GetDouble(8)), "", "")
+                ' Look up the Risk cost for the current material
+                SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerBP.GetInt64(1))
+                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                readerRiskBP = DBCommand.ExecuteReader
+
+                If readerRiskBP.Read Then
+                    ' Set the current material - adjust with portion size though if sent
+                    CurrentMaterial = New Material(readerBP.GetInt64(1), readerBP.GetString(3), readerBP.GetString(11), readerBP.GetInt64(2), readerBP.GetDouble(7), If(readerBP.IsDBNull(8), 0, readerBP.GetDouble(8)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)), "", "")
+                Else
+                    CurrentMaterial = New Material(readerBP.GetInt64(1), readerBP.GetString(3), readerBP.GetString(11), readerBP.GetInt64(2), readerBP.GetDouble(7), If(readerBP.IsDBNull(8), 0, readerBP.GetDouble(8)), 0, "", "")
+                End If
+
+                readerRiskBP.Close()
 
                 ' Save the base costs - before applying ME - if value is null (no price record) then set to 0
                 BaseJobCost += CurrentMaterial.GetQuantity * If(IsDBNull(readerBP.GetValue(9)), 0, readerBP.GetDouble(9))
@@ -1134,7 +1179,8 @@ Public Class Blueprint
                         If BuildBuy Then
 
                             SingleRunBuildCost = ComponentBlueprint.GetRawMaterials.GetTotalMaterialsCost / BuildQuantity
-                            CurrentMaterial.SetBuildCostPerItem(SingleRunBuildCost)
+                            SingleRunBuildRiskCost = ComponentBlueprint.GetRawMaterials.GetTotalRiskMaterialsCost / BuildQuantity
+                            CurrentMaterial.SetBuildCostPerItem(SingleRunBuildCost, SingleRunBuildRiskCost)
 
                             ' Save the item built, it's ME and the materials it used
                             Dim TempBuiltItem As New BuiltItem
@@ -1756,18 +1802,24 @@ SkipProcessing:
         ' Totals 
         TotalRawCost = RawMaterials.GetTotalMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
         TotalComponentCost = ComponentMaterials.GetTotalMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
+        TotalRiskRawCost = RawMaterials.GetTotalRiskMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
+        TotalRiskComponentCost = ComponentMaterials.GetTotalRiskMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
 
         ' Don't include usage in the total cost above but if we are doing build/buy add it back
         If BuildBuy Then
             TotalComponentCost += (ComponentUsage + RemainingReactionUsage)
+            TotalRiskComponentCost += (ComponentUsage + RemainingReactionUsage)
         Else
             ' For component cost without build/buy, we are buying all the components so nothing to build and sell
             TotalComponentCost += SellExcessAmount
+            TotalRiskComponentCost += SellExcessAmount
         End If
 
         ' Profit market cost - total cost of mats and invention and fees
         TotalRawProfit = ItemMarketCost - TotalRawCost
         TotalComponentProfit = ItemMarketCost - TotalComponentCost
+        TotalRiskRawProfit = ItemRiskMarketCost - TotalRiskRawCost
+        TotalRiskComponentProfit = ItemRiskMarketCost - TotalRiskComponentCost
 
         If ItemMarketCost = 0 Then
             TotalRawProfitPercent = 0
@@ -1777,15 +1829,26 @@ SkipProcessing:
             TotalComponentProfitPercent = 1 - (TotalComponentCost / ItemMarketCost)
         End If
 
+        If ItemRiskMarketCost = 0 Then
+            TotalRawRiskProfitPercent = 0
+            TotalRawComponentProfitPercent = 0
+        Else
+            TotalRawRiskProfitPercent = 1 - (TotalRiskRawCost / ItemRiskMarketCost)
+            TotalRawComponentProfitPercent = 1 - (TotalRiskComponentCost / ItemRiskMarketCost)
+        End If
+
         ' Final Calculation
         ' ISK per Hour (divide total cost by production time in seconds for a isk per second calc, then multiply by 3600 for isk per hour)
         TotalIPHRaw = TotalRawProfit / TotalProductionTime * 3600 ' Build everything
+        TotalRiskIPHRaw = TotalRiskRawProfit / TotalProductionTime * 3600 ' Build everything
 
         ' If we are doing build/buy then the total IPH will be the same as RAW since the lists are identical for what to buy 
         If BuildBuy Then
             TotalIPHComponent = TotalIPHRaw
+            TotalRiskIPHComponent = TotalRiskIPHRaw
         Else
             TotalIPHComponent = TotalComponentProfit / BPProductionTime * 3600 ' Buy all components, just production time of BP
+            TotalRiskIPHComponent = TotalRiskComponentProfit / BPProductionTime * 3600 ' Buy all components, just production time of BP
         End If
 
     End Sub
@@ -2052,7 +2115,9 @@ SkipProcessing:
     Private Function InventREBlueprint(Optional ByVal UseTypical As Boolean = False) As Integer
         Dim AvgRunsforSuccess As Double
         Dim readerBP As SQLiteDataReader
+        Dim readerRiskBP As SQLiteDataReader
         Dim readerCost As SQLiteDataReader
+        Dim readerRiskCost As SQLiteDataReader
         Dim MatCost As Double = 0
 
         Dim SQL As String
@@ -2073,9 +2138,25 @@ SkipProcessing:
 
         ' Get all the Datacores
         While readerBP.Read
-            ' Add this to the invention materials - add price for data cores
-            InventionMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                    readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), "", "")
+            ' Look up the Risk cost for the material
+            SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerBP.GetInt64(0))
+
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            readerRiskBP = DBCommand.ExecuteReader
+
+            If readerRiskBP.Read Then
+                ' Add this to the invention materials - add price for data cores
+                InventionMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
+                                    readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)),
+                                    "", "")
+            Else
+                ' Add this to the invention materials - add price for data cores
+                InventionMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
+                                    readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0,
+                                    "", "")
+
+            End If
+            readerRiskBP.Close()
             SingleInventionMats.InsertMaterial(InventionMat)
         End While
 
@@ -2085,7 +2166,8 @@ SkipProcessing:
 
         ' If they selected a decryptor, add that cost for one invention run
         If InventionDecryptor.Name <> None Then
-            InventionMat = New Material(InventionDecryptor.TypeID, InventionDecryptor.Name, "Decryptors", 1, 0.1, GetItemPrice(InventionDecryptor.TypeID), "", "")
+            InventionMat = New Material(InventionDecryptor.TypeID, InventionDecryptor.Name, "Decryptors", 1, 0.1, GetItemPrice(InventionDecryptor.TypeID), GetItemRiskPrice(InventionDecryptor.TypeID),
+                                        "", "")
             SingleInventionMats.InsertMaterial(InventionMat)
         End If
 
@@ -2097,13 +2179,25 @@ SkipProcessing:
             DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
             readerCost = DBCommand.ExecuteReader
 
+            ' Look up the cost for the material
+            SQL = "SELECT RISK_PRICE, ITEM_NAME FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & InventionBPCTypeID
+
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            readerRiskCost = DBCommand.ExecuteReader
+
             If readerCost.Read Then
-                InventionMat = New Material(InventionBPCTypeID, readerCost.GetString(1), "Ancient Relics", 1, 100, readerCost.GetDouble(0), "", "")
+                If readerRiskCost.Read() Then
+                    InventionMat = New Material(InventionBPCTypeID, readerCost.GetString(1), "Ancient Relics", 1, 100, readerCost.GetDouble(0), readerRiskCost.GetDouble(0), "", "")
+                Else
+                    InventionMat = New Material(InventionBPCTypeID, readerCost.GetString(1), "Ancient Relics", 1, 100, readerCost.GetDouble(0), 0, "", "")
+                End If
                 SingleInventionMats.InsertMaterial(InventionMat)
             End If
 
             readerCost.Close()
             readerCost = Nothing
+            readerRiskCost.Close()
+            readerRiskCost = Nothing
             DBCommand = Nothing
 
         End If
@@ -2171,14 +2265,28 @@ SkipProcessing:
 
             ' Get all the mats and add
             While readerBP.Read
-                ' Add this to the copy materials 
-                CopyMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                        readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), "", "")
+
+                ' Look up the Risk cost for the material
+                SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerBP.GetInt64(0))
+
+                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                readerRiskBP = DBCommand.ExecuteReader
+
+                If readerRiskBP.Read Then
+                    ' Add this to the copy materials 
+                    CopyMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
+                                        readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)), "", "")
+                Else
+                    CopyMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
+                                        readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0, "", "")
+                End If
                 SingleCopyMats.InsertMaterial(CopyMat)
             End While
 
             readerBP.Close()
             readerBP = Nothing
+            readerRiskBP.Close()
+            readerRiskBP = Nothing
             DBCommand = Nothing
 
             If Not IsNothing(SingleCopyMats.GetMaterialList) Then
@@ -2229,7 +2337,7 @@ SkipProcessing:
                 readerBP.Read()
 
                 If Not IsNothing(readerBP.GetValue(0)) Then
-                    Dim TempMat = New Material(InventionBPCTypeID, readerBP.GetString(0) & " Copy", "Blueprint", 1, 0.1, 0, "", "")
+                    Dim TempMat = New Material(InventionBPCTypeID, readerBP.GetString(0) & " Copy", "Blueprint", 1, 0.1, 0, 0, "", "")
                     InventionMaterials.InsertMaterial(TempMat)
                 End If
             End If
@@ -2761,9 +2869,19 @@ SkipProcessing:
         Return TotalIPHRaw
     End Function
 
+    ' Returns the Isk per hour using Raw mats
+    Public Function GetTotalRiskIskperHourRaw() As Double
+        Return TotalRiskIPHRaw
+    End Function
+
     ' Returns the Isk per hour using components
     Public Function GetTotalIskperHourComponents() As Double
         Return TotalIPHComponent
+    End Function
+
+    ' Returns the Isk per hour using components
+    Public Function GetTotalRiskIskperHourComponents() As Double
+        Return TotalRiskIPHComponent
     End Function
 
     ' Returns whether this BP had buildable components or not
@@ -2834,7 +2952,7 @@ SkipProcessing:
         rsGroup.Read()
 
         ' Volume doesn't matter
-        TempMat = New Material(ItemID, ItemName, rsGroup.GetString(0), UserRuns, 0, ItemMarketCost, "", "")
+        TempMat = New Material(ItemID, ItemName, rsGroup.GetString(0), UserRuns, 0, ItemMarketCost, ItemRiskMarketCost, "", "")
 
         Return TempMat
 

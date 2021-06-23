@@ -865,6 +865,27 @@ InvalidDate:
 
     End Function
 
+    ' Returns the price of the typeID sent in item_prices
+    Public Function GetItemRiskPrice(ByVal TypeID As Long) As Double
+        Dim readerCost As SQLiteDataReader
+        Dim SQL As String
+        Dim ItemRiskPrice As Double = 0
+
+        ' Look up the cost for the material
+        SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & TypeID
+
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        readerCost = DBCommand.ExecuteReader
+
+        If readerCost.Read Then
+            ItemRiskPrice = If(readerCost.IsDBNull(0), 0, readerCost.GetDouble(0))
+        End If
+
+        readerCost.Close()
+        Return ItemRiskPrice
+
+    End Function
+
     ' Sorts the reference listview and column
     ''' <summary>
     ''' 
@@ -1007,7 +1028,7 @@ InvalidDate:
                         Else
                             TempQuantity = CLng(ItemColumns(1))
                         End If
-                        TempMaterial = New Material(CLng(readerItem.GetValue(0)), ItemColumns(0), "", TempQuantity, 0, 0, "", "")
+                        TempMaterial = New Material(CLng(readerItem.GetValue(0)), ItemColumns(0), "", TempQuantity, 0, 0, 0, "", "")
                         Call CopyPasteMaterials.InsertMaterial(TempMaterial)
                     End If
                 End If
@@ -1766,7 +1787,7 @@ InvalidDate:
             readerLookup = DBCommand.ExecuteReader
 
             readerLookup.Read()
-            TempMat = New Material(readerLookup.GetInt64(0), readerLookup.GetString(1), readerLookup.GetString(2), 1, 1, 0, "0", "0")
+            TempMat = New Material(readerLookup.GetInt64(0), readerLookup.GetString(1), readerLookup.GetString(2), 1, 1, 0, 0, "0", "0")
             readerLookup.Close()
 
         Else
