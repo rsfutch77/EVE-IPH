@@ -296,6 +296,10 @@ Public Class ProgramSettings
     Public DefaultCalcInventionFWLevel As String = "0"
     Public DefaultCalcColumnSort As Integer = 10 ' Default is sorting descending by IPH
     Public DefaultCalcColumnType As String = "Decending"
+    Public DefaultCalcScore As Integer = 30
+    Public DefaultCalcRiskProfit As Integer = 30
+    Public DefaultCalcRiskIPH As Integer = 30
+    Public DefaultCalcRiskPrice As Integer = 0
     Public DefaultCalcVolatility As Integer = 30
     Public DefaultCalcPriceTrend As String = "All"
     Public DefaultCalcMinBuildTime As String = "0 Days 00:00:00"
@@ -490,6 +494,10 @@ Public Class ProgramSettings
     Public DefaultMTIskperHour As Integer = 10
     Public DefaultMTSVR As Integer = 11
     Public DefaultMTSVRxIPH As Integer = 0
+    Public DefaultMTRiskPrice As Integer = 0
+    Public DefaultMTScore As Integer = 0
+    Public DefaultMTRiskProfit As Integer = 0
+    Public DefaultMTRiskIPH As Integer = 0
     Public DefaultMTVolatility As Integer = 0
     Public DefaultMTPriceTrend As Integer = 0
     Public DefaultMTTotalItemsSold As Integer = 0
@@ -591,6 +599,10 @@ Public Class ProgramSettings
     Public DefaultMTIskperHourWidth As Integer = 100
     Public DefaultMTSVRWidth As Integer = 100
     Public DefaultMTSVRxIPHWidth As Integer = 100
+    Public DefaultMTRiskPriceWidth As Integer = 100
+    Public DefaultMTScoreWidth As Integer = 100
+    Public DefaultMTRiskIPHWidth As Integer = 100
+    Public DefaultMTRiskProfitWidth As Integer = 100
     Public DefaultMTVolatilityWidth As Integer = 100
     Public DefaultMTPriceTrendWidth As Integer = 100
     Public DefaultMTTotalItemsSoldWidth As Integer = 100
@@ -697,6 +709,10 @@ Public Class ProgramSettings
     Public Const SVRColumnName As String = "SVR"
     Public Const SVRxIPHColumnName As String = "SVR * IPH"
     Public Const PriceTrendColumnName As String = "Price Trend"
+    Public Const ScoreColumnName As String = "Score"
+    Public Const RiskProfitColumnName As String = "RiskProfit"
+    Public Const RiskIPHColumnName As String = "RiskIPH"
+    Public Const RiskPriceColumnName As String = "Risk Price"
     Public Const VolatilityColumnName As String = "Volatility"
     Public Const TotalItemsSoldColumnName As String = "Total Items Sold"
     Public Const TotalOrdersFilledColumnName As String = "Total Orders Filled"
@@ -2010,6 +2026,10 @@ Public Class ProgramSettings
                     .ColumnSort = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "ColumnSort", DefaultCalcColumnSort))
                     .ColumnSortType = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "ColumnSortType", DefaultCalcColumnType))
                     .Volatility = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "Volatility", DefaultCalcVolatility))
+                    .Score = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "Score", DefaultCalcScore))
+                    .RiskProfit = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "RiskProfit", DefaultCalcRiskProfit))
+                    .RiskIPH = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "RiskIPH", DefaultCalcRiskIPH))
+                    .RiskPrice = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "Risk Price", DefaultCalcRiskPrice))
                     .PriceTrend = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "PriceTrend", DefaultCalcPriceTrend))
                     .MinBuildTime = CStr(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "MinBuildTime", DefaultCalcMinBuildTime))
                     .MinBuildTimeCheck = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "MinBuildTimeCheck", DefaultCalcMinBuildTimeCheck))
@@ -2125,6 +2145,10 @@ Public Class ProgramSettings
             .InventionFWUpgradeLevel = DefaultCalcInventionFWLevel
             .ColumnSort = DefaultCalcColumnSort
             .ColumnSortType = DefaultCalcColumnType
+            .Score = DefaultCalcScore
+            .RiskIPH = DefaultCalcRiskIPH
+            .RiskProfit = DefaultCalcRiskProfit
+            .RiskPrice = DefaultCalcRiskPrice
             .Volatility = DefaultCalcVolatility
             .PriceTrend = DefaultCalcPriceTrend
             .MinBuildTime = DefaultCalcMinBuildTime
@@ -2148,7 +2172,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingSettings(SentSettings As ManufacturingTabSettings)
-        Dim ManufacturingSettingsList(89) As Setting
+        Dim ManufacturingSettingsList(91) As Setting
 
         Try
             ManufacturingSettingsList(0) = New Setting("BlueprintType", CStr(SentSettings.BlueprintType))
@@ -2241,6 +2265,10 @@ Public Class ProgramSettings
             ManufacturingSettingsList(87) = New Setting("CalcBrokerFeeRate", CStr(SentSettings.CalcBrokerFeeRate))
             ManufacturingSettingsList(88) = New Setting("BuildT2T3Materials", CStr(SentSettings.BuildT2T3Materials))
             ManufacturingSettingsList(89) = New Setting("Volatility", CStr(SentSettings.Volatility))
+            ManufacturingSettingsList(90) = New Setting("Score", CStr(SentSettings.Score))
+            ManufacturingSettingsList(90) = New Setting("RiskIPH", CStr(SentSettings.RiskIPH))
+            ManufacturingSettingsList(90) = New Setting("RiskProfit", CStr(SentSettings.RiskProfit))
+            ManufacturingSettingsList(91) = New Setting("RiskPrice", CStr(SentSettings.RiskPrice))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingSettingsFileName, ManufacturingSettingsList, ManufacturingSettingsFileName)
 
@@ -3084,6 +3112,10 @@ Public Class ProgramSettings
                     .SVR = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVR", DefaultMTSVR))
                     .SVRxIPH = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRxIPH", DefaultMTSVRxIPH))
                     .Volatility = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "Volatility", DefaultMTVolatility))
+                    .Score = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "Score", DefaultMTScore))
+                    .RiskProfit = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "RiskProfit", DefaultMTRiskProfit))
+                    .RiskIPH = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "RiskIPH", DefaultMTRiskIPH))
+                    .RiskPrice = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "Risk Price", DefaultMTRiskPrice))
                     .PriceTrend = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "PriceTrend", DefaultMTPriceTrend))
                     .TotalItemsSold = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalItemsSold", DefaultMTTotalItemsSold))
                     .TotalOrdersFilled = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalOrdersFilled", DefaultMTTotalOrdersFilled))
@@ -3185,6 +3217,10 @@ Public Class ProgramSettings
                     .SVRWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRWidth", DefaultMTSVRWidth))
                     .SVRxIPHWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "SVRxIPHWidth", DefaultMTSVRxIPHWidth))
                     .VolatilityWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "VolatilityWidth", DefaultMTVolatilityWidth))
+                    .ScoreWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "ScoreWidth", DefaultMTScoreWidth))
+                    .RiskProfitWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "RiskProfitWidth", DefaultMTRiskProfitWidth))
+                    .RiskIPHWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "RiskIPHWidth", DefaultMTRiskIPHWidth))
+                    .RiskPriceWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "RiskPriceWidth", DefaultMTRiskPriceWidth))
                     .PriceTrendWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "PriceTrendWidth", DefaultMTPriceTrendWidth))
                     .TotalItemsSoldWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalItemsSoldWidth", DefaultMTTotalItemsSoldWidth))
                     .TotalOrdersFilledWidth = CInt(GetSettingValue(SettingsFolder, ManufacturingTabColumnSettingsFileName, SettingTypes.TypeInteger, "ManufacturingTabColumnSettings", "TotalOrdersFilledWidth", DefaultMTTotalOrdersFilledWidth))
@@ -3313,6 +3349,10 @@ Public Class ProgramSettings
             .IskperHour = DefaultMTIskperHour
             .SVR = DefaultMTSVR
             .SVRxIPH = DefaultMTSVRxIPH
+            .Score = DefaultMTScore
+            .RiskProfit = DefaultMTRiskProfit
+            .RiskIPH = DefaultMTRiskIPH
+            .RiskPrice = DefaultMTRiskPrice
             .Volatility = DefaultMTVolatility
             .PriceTrend = DefaultMTPriceTrend
             .TotalItemsSold = DefaultMTTotalItemsSold
@@ -3414,6 +3454,10 @@ Public Class ProgramSettings
             .IskperHourWidth = DefaultMTIskperHourWidth
             .SVRWidth = DefaultMTSVRWidth
             .SVRxIPHWidth = DefaultMTSVRxIPHWidth
+            .ScoreWidth = DefaultMTScoreWidth
+            .RiskProfitWidth = DefaultMTRiskProfitWidth
+            .RiskIPHWidth = DefaultMTRiskIPHWidth
+            .RiskPriceWidth = DefaultMTRiskPriceWidth
             .VolatilityWidth = DefaultMTVolatilityWidth
             .PriceTrendWidth = DefaultMTPriceTrendWidth
             .TotalItemsSoldWidth = DefaultMTTotalItemsSoldWidth
@@ -3501,7 +3545,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingTabColumnSettings(SentSettings As ManufacturingTabColumnSettings)
-        Dim ManufacturingTabColumnSettingsList(201) As Setting
+        Dim ManufacturingTabColumnSettingsList(209) As Setting
 
         Try
             ManufacturingTabColumnSettingsList(0) = New Setting("ItemCategory", CStr(SentSettings.ItemCategory))
@@ -3710,6 +3754,14 @@ Public Class ProgramSettings
 
             ManufacturingTabColumnSettingsList(200) = New Setting("Volatility", CStr(SentSettings.Volatility))
             ManufacturingTabColumnSettingsList(201) = New Setting("VolatilityWidth", CStr(SentSettings.VolatilityWidth))
+            ManufacturingTabColumnSettingsList(202) = New Setting("Score", CStr(SentSettings.Score))
+            ManufacturingTabColumnSettingsList(203) = New Setting("ScoreWidth", CStr(SentSettings.ScoreWidth))
+            ManufacturingTabColumnSettingsList(204) = New Setting("RiskPrice", CStr(SentSettings.RiskPrice))
+            ManufacturingTabColumnSettingsList(205) = New Setting("RiskPriceWidth", CStr(SentSettings.RiskPriceWidth))
+            ManufacturingTabColumnSettingsList(206) = New Setting("RiskProfit", CStr(SentSettings.RiskPrice))
+            ManufacturingTabColumnSettingsList(207) = New Setting("RiskProfitWidth", CStr(SentSettings.RiskPriceWidth))
+            ManufacturingTabColumnSettingsList(208) = New Setting("RiskIPH", CStr(SentSettings.RiskPrice))
+            ManufacturingTabColumnSettingsList(209) = New Setting("RiskIPHWidth", CStr(SentSettings.RiskPriceWidth))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingTabColumnSettingsFileName, ManufacturingTabColumnSettingsList, ManufacturingTabColumnSettingsFileName)
 
@@ -5181,6 +5233,10 @@ Public Structure ManufacturingTabSettings
 
     ' Filter variables
     Dim CheckSVRIncludeNull As Boolean
+    Dim Score As Integer
+    Dim RiskProfit As Integer
+    Dim RiskIPH As Integer
+    Dim RiskPrice As Integer
     Dim Volatility As Integer
     Dim PriceTrend As String
     Dim MinBuildTime As String
@@ -5642,6 +5698,14 @@ Public Structure ManufacturingTabColumnSettings
 
     Dim Volatility As Integer
     Dim VolatilityWidth As Integer
+    Dim Score As Integer
+    Dim ScoreWidth As Integer
+    Dim RiskProfit As Integer
+    Dim RiskProfitWidth As Integer
+    Dim RiskIPH As Integer
+    Dim RiskIPHWidth As Integer
+    Dim RiskPrice As Integer
+    Dim RiskPriceWidth As Integer
 
 End Structure
 

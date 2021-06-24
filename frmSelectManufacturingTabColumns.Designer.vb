@@ -35,7 +35,7 @@ Partial Class frmSelectManufacturingTabColumns
         'btnCancel
         '
         Me.btnCancel.Location = New System.Drawing.Point(200, 669)
-        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(121, 31)
         Me.btnCancel.TabIndex = 67
@@ -45,7 +45,7 @@ Partial Class frmSelectManufacturingTabColumns
         'btnSaveSettings
         '
         Me.btnSaveSettings.Location = New System.Drawing.Point(51, 669)
-        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSaveSettings.Name = "btnSaveSettings"
         Me.btnSaveSettings.Size = New System.Drawing.Size(121, 31)
         Me.btnSaveSettings.TabIndex = 69
@@ -75,9 +75,9 @@ Partial Class frmSelectManufacturingTabColumns
         'chkLstBoxColumns
         '
         Me.chkLstBoxColumns.FormattingEnabled = True
-        Me.chkLstBoxColumns.Items.AddRange(New Object() {"Item Category", "Item Group", "Item Name", "Owned", "Tech", "ME", "TE", "Inputs", "Compared", "Total Runs", "Single Invented BPC Runs", "Production Lines", "Laboratory Lines", "Total Invention Cost", "Total Copy Cost", "Taxes", "Broker Fees", "BP Production Time", "Total Production Time", "Copy Time", "Invention Time", "Item Market Price", "Profit", "Profit Percentage", "Isk per Hour", "SVR", "SVR * IPH", "Price Trend", "Total Items Sold", "Total Orders Filled", "Average Items Per Order", "Current Sell Orders", "Current Buy Orders", "Items in Production", "Items in Stock", "Total Cost", "Base Job Cost", "Num BPs", "Invention Chance", "BP Type", "Race", "Volume per Item", "Total Volume", "Portion Size", "Manufacturing Job Fee", "Manufacturing Facility Name", "Manufacturing Facility System", "Manufacturing Facility Region", "Manufacturing Facility System Index", "Manufacturing Facility Tax", "Manufacturing Facility ME Bonus", "Manufacturing Facility TE Bonus", "Manufacturing Facility Usage", "Manufacturing Facility FW System Level", "Component Facility Name", "Component Facility System", "Component Facility Region", "Component Facility System Index", "Component Facility Tax", "Component Facility ME Bonus", "Component Facility TE Bonus", "Component Facility Usage", "Component Facility FW System Level", "Capital Component Facility Name", "Capital Component Facility System", "Capital Component Facility Region", "Capital Component Facility SystemIndex", "Capital Component Facility Tax", "Capital Component Facility ME Bonus", "Capital Component Facility TE Bonus", "Capital Component Facility Usage", "Capital Component Facility FW System Level", "Copying Facility Name", "Copying Facility System", "Copying Facility Region", "Copying Facility System Index", "Copying Facility Tax", "Copying Facility ME Bonus", "Copying Facility TE Bonus", "Copying Facility Usage", "Copying Facility FW System Level", "Invention Facility Name", "Invention Facility System", "Invention Facility Region", "Invention Facility SystemIndex", "Invention Facility Tax", "Invention Facility ME Bonus", "Invention Facility TE Bonus", "Invention Facility Usage", "Invention Facility FW System Level", "Reaction Facility Name", "Reaction Facility System", "Reaction Facility Region", "Reaction Facility SystemIndex", "Reaction Facility Tax", "Reaction Facility ME Bonus", "Reaction Facility TE Bonus", "Reaction Facility Usage", "Reaction Facility FW System Level", "Volatility"})
+        Me.chkLstBoxColumns.Items.AddRange(New Object() {"Item Category", "Item Group", "Item Name", "Owned", "Tech", "ME", "TE", "Inputs", "Compared", "Total Runs", "Single Invented BPC Runs", "Production Lines", "Laboratory Lines", "Total Invention Cost", "Total Copy Cost", "Taxes", "Broker Fees", "BP Production Time", "Total Production Time", "Copy Time", "Invention Time", "Item Market Price", "Profit", "Profit Percentage", "Isk per Hour", "SVR", "SVR * IPH", "Price Trend", "Total Items Sold", "Total Orders Filled", "Average Items Per Order", "Current Sell Orders", "Current Buy Orders", "Items in Production", "Items in Stock", "Total Cost", "Base Job Cost", "Num BPs", "Invention Chance", "BP Type", "Race", "Volume per Item", "Total Volume", "Portion Size", "Manufacturing Job Fee", "Manufacturing Facility Name", "Manufacturing Facility System", "Manufacturing Facility Region", "Manufacturing Facility System Index", "Manufacturing Facility Tax", "Manufacturing Facility ME Bonus", "Manufacturing Facility TE Bonus", "Manufacturing Facility Usage", "Manufacturing Facility FW System Level", "Component Facility Name", "Component Facility System", "Component Facility Region", "Component Facility System Index", "Component Facility Tax", "Component Facility ME Bonus", "Component Facility TE Bonus", "Component Facility Usage", "Component Facility FW System Level", "Capital Component Facility Name", "Capital Component Facility System", "Capital Component Facility Region", "Capital Component Facility SystemIndex", "Capital Component Facility Tax", "Capital Component Facility ME Bonus", "Capital Component Facility TE Bonus", "Capital Component Facility Usage", "Capital Component Facility FW System Level", "Copying Facility Name", "Copying Facility System", "Copying Facility Region", "Copying Facility System Index", "Copying Facility Tax", "Copying Facility ME Bonus", "Copying Facility TE Bonus", "Copying Facility Usage", "Copying Facility FW System Level", "Invention Facility Name", "Invention Facility System", "Invention Facility Region", "Invention Facility SystemIndex", "Invention Facility Tax", "Invention Facility ME Bonus", "Invention Facility TE Bonus", "Invention Facility Usage", "Invention Facility FW System Level", "Reaction Facility Name", "Reaction Facility System", "Reaction Facility Region", "Reaction Facility SystemIndex", "Reaction Facility Tax", "Reaction Facility ME Bonus", "Reaction Facility TE Bonus", "Reaction Facility Usage", "Reaction Facility FW System Level", "Volatility", "Score", "Risk Price", "Risk Profit", "Risk IPH"})
         Me.chkLstBoxColumns.Location = New System.Drawing.Point(19, 39)
-        Me.chkLstBoxColumns.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkLstBoxColumns.Margin = New System.Windows.Forms.Padding(4)
         Me.chkLstBoxColumns.Name = "chkLstBoxColumns"
         Me.chkLstBoxColumns.Size = New System.Drawing.Size(340, 548)
         Me.chkLstBoxColumns.TabIndex = 72
@@ -85,7 +85,7 @@ Partial Class frmSelectManufacturingTabColumns
         'btnDefaults
         '
         Me.btnDefaults.Location = New System.Drawing.Point(51, 630)
-        Me.btnDefaults.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnDefaults.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDefaults.Name = "btnDefaults"
         Me.btnDefaults.Size = New System.Drawing.Size(121, 31)
         Me.btnDefaults.TabIndex = 73
@@ -95,7 +95,7 @@ Partial Class frmSelectManufacturingTabColumns
         'btnToggleAll
         '
         Me.btnToggleAll.Location = New System.Drawing.Point(200, 630)
-        Me.btnToggleAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnToggleAll.Margin = New System.Windows.Forms.Padding(4)
         Me.btnToggleAll.Name = "btnToggleAll"
         Me.btnToggleAll.Size = New System.Drawing.Size(121, 31)
         Me.btnToggleAll.TabIndex = 74
@@ -117,7 +117,7 @@ Partial Class frmSelectManufacturingTabColumns
         Me.Controls.Add(Me.btnCancel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSelectManufacturingTabColumns"

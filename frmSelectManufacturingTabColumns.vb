@@ -138,6 +138,10 @@
             Call UpdateListCheck(.ReactionFacilityUsage, 97)
             Call UpdateListCheck(.ReactionFacilityFWSystemLevel, 98)
             Call UpdateListCheck(.Volatility, 99)
+            Call UpdateListCheck(.Score, 100)
+            Call UpdateListCheck(.RiskPrice, 101)
+            Call UpdateListCheck(.RiskProfit, 102)
+            Call UpdateListCheck(.RiskIPH, 103)
 
             chkLstBoxColumns.Update()
 
@@ -296,6 +300,10 @@
             .ReactionFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(97), .ReactionFacilityUsage)
             .ReactionFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(98), .ReactionFacilityFWSystemLevel)
             .Volatility = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(99), .Volatility)
+            .Score = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(100), .Score)
+            .RiskPrice = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(101), .RiskPrice)
+            .RiskProfit = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(102), .RiskProfit)
+            .RiskIPH = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(103), .RiskIPH)
 
             ' Now in case something was removed, we want to update the indicies
             With UserManufacturingTabColumnSettings
@@ -331,6 +339,10 @@
                     ColumnPositions(.IskperHour) = ProgramSettings.IskperHourColumnName
                     ColumnPositions(.SVR) = ProgramSettings.SVRColumnName
                     ColumnPositions(.SVRxIPH) = ProgramSettings.SVRxIPHColumnName
+                    ColumnPositions(.Score) = ProgramSettings.ScoreColumnName
+                    ColumnPositions(.RiskProfit) = ProgramSettings.RiskProfitColumnName
+                    ColumnPositions(.RiskIPH) = ProgramSettings.RiskIPHColumnName
+                    ColumnPositions(.RiskPrice) = ProgramSettings.RiskPriceColumnName
                     ColumnPositions(.Volatility) = ProgramSettings.VolatilityColumnName
                     ColumnPositions(.PriceTrend) = ProgramSettings.PriceTrendColumnName
                     ColumnPositions(.TotalItemsSold) = ProgramSettings.TotalItemsSoldColumnName
@@ -494,6 +506,14 @@
                                 .SVR = i
                             Case ProgramSettings.SVRxIPHColumnName
                                 .SVRxIPH = i
+                            Case ProgramSettings.ScoreColumnName
+                                .Score = i
+                            Case ProgramSettings.RiskProfitColumnName
+                                .RiskProfit = i
+                            Case ProgramSettings.RiskIPHColumnName
+                                .RiskIPH = i
+                            Case ProgramSettings.RiskPriceColumnName
+                                .RiskPRice = i
                             Case ProgramSettings.VolatilityColumnName
                                 .Volatility = i
                             Case ProgramSettings.PriceTrendColumnName

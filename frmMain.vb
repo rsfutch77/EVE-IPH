@@ -12334,6 +12334,10 @@ CheckTechs:
             ColumnPositions(.SVR) = ProgramSettings.SVRColumnName
             ColumnPositions(.SVRxIPH) = ProgramSettings.SVRxIPHColumnName
             ColumnPositions(.PriceTrend) = ProgramSettings.PriceTrendColumnName
+            ColumnPositions(.Score) = ProgramSettings.ScoreColumnName
+            ColumnPositions(.RiskProfit) = ProgramSettings.RiskProfitColumnName
+            ColumnPositions(.RiskIPH) = ProgramSettings.RiskIPHColumnName
+            ColumnPositions(.RiskPrice) = ProgramSettings.RiskPriceColumnName
             ColumnPositions(.Volatility) = ProgramSettings.VolatilityColumnName
             ColumnPositions(.TotalItemsSold) = ProgramSettings.TotalItemsSoldColumnName
             ColumnPositions(.TotalOrdersFilled) = ProgramSettings.TotalOrdersFilledColumnName
@@ -12472,6 +12476,14 @@ CheckTechs:
                     Return .SVRWidth
                 Case ProgramSettings.SVRxIPHColumnName
                     Return .SVRxIPHWidth
+                Case ProgramSettings.ScoreColumnName
+                    Return .ScoreWidth
+                Case ProgramSettings.RiskProfitColumnName
+                    Return .RiskProfitWidth
+                Case ProgramSettings.RiskIPHColumnName
+                    Return .RiskIPHWidth
+                Case ProgramSettings.RiskPriceColumnName
+                    Return .RiskPriceWidth
                 Case ProgramSettings.VolatilityColumnName
                     Return .VolatilityWidth
                 Case ProgramSettings.PriceTrendColumnName
@@ -12737,6 +12749,14 @@ CheckTechs:
                         .SVR = i
                     Case ProgramSettings.SVRxIPHColumnName
                         .SVRxIPH = i
+                    Case ProgramSettings.ScoreColumnName
+                        .Score = i
+                    Case ProgramSettings.RiskProfitColumnName
+                        .RiskProfit = i
+                    Case ProgramSettings.RiskIPHColumnName
+                        .RiskIPH = i
+                    Case ProgramSettings.RiskPriceColumnName
+                        .RiskPrice = i
                     Case ProgramSettings.VolatilityColumnName
                         .Volatility = i
                     Case ProgramSettings.PriceTrendColumnName
@@ -12954,6 +12974,14 @@ CheckTechs:
                         .SVRWidth = NewWidth
                     Case ProgramSettings.SVRxIPHColumnName
                         .SVRxIPHWidth = NewWidth
+                    Case ProgramSettings.ScoreColumnName
+                        .ScoreWidth = NewWidth
+                    Case ProgramSettings.RiskProfitColumnName
+                        .RiskProfitWidth = NewWidth
+                    Case ProgramSettings.RiskIPHColumnName
+                        .RiskIPHWidth = NewWidth
+                    Case ProgramSettings.RiskPriceColumnName
+                        .RiskPriceWidth = NewWidth
                     Case ProgramSettings.VolatilityColumnName
                         .VolatilityWidth = NewWidth
                     Case ProgramSettings.PriceTrendColumnName
@@ -13168,6 +13196,14 @@ CheckTechs:
             Case ProgramSettings.SVRColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.SVRxIPHColumnName
+                Return HorizontalAlignment.Right
+            Case ProgramSettings.ScoreColumnName
+                Return HorizontalAlignment.Right
+            Case ProgramSettings.RiskProfitColumnName
+                Return HorizontalAlignment.Right
+            Case ProgramSettings.RiskIPHColumnName
+                Return HorizontalAlignment.Right
+            Case ProgramSettings.RiskPriceColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.VolatilityColumnName
                 Return HorizontalAlignment.Right
@@ -14713,6 +14749,11 @@ CheckTechs:
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
 
+                                InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourComponents)
+                                InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
+                                InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
+                                InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
+
                                 ' Insert Components Item
                                 Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
 
@@ -14780,6 +14821,11 @@ CheckTechs:
 
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
+
+                            InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
+                            InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
+                            InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
+                            InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                             ' Insert Raw Mats item
                             Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
@@ -14865,6 +14911,11 @@ CheckTechs:
 
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
+
+                                InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
+                                InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
+                                InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
+                                InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                                 ' Insert Build/Buy item
                                 Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
@@ -14976,6 +15027,11 @@ CheckTechs:
 
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
+
+                            InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
+                            InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
+                            InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
+                            InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                             ' Insert the chosen item
                             Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
@@ -15136,6 +15192,14 @@ DisplayResults:
                         BPList.SubItems.Add(FinalItemList(i).SVR)
                     Case ProgramSettings.SVRxIPHColumnName
                         BPList.SubItems.Add(FinalItemList(i).SVRxIPH)
+                    Case ProgramSettings.ScoreColumnName
+                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).Score, 3))
+                    Case ProgramSettings.RiskProfitColumnName
+                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).RiskProfit, 2))
+                    Case ProgramSettings.RiskIPHColumnName
+                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).RiskIPH, 2))
+                    Case ProgramSettings.RiskPriceColumnName
+                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).RiskPrice, 2))
                     Case ProgramSettings.VolatilityColumnName
                         BPList.SubItems.Add(FormatNumber(FinalItemList(i).Volatility, 3))
                     Case ProgramSettings.PriceTrendColumnName
@@ -16520,6 +16584,10 @@ ExitCalc:
         Public SVR As String ' Sales volume ratio
         Public SVRxIPH As String
         Public PriceTrend As Double
+        Public Score As Double
+        Public RiskProfit As Double
+        Public RiskIPH As Double
+        Public RiskPrice As Double
         Public Volatility As Double
         Public TotalItemsSold As Long
         Public TotalOrdersFilled As Long
@@ -16614,6 +16682,10 @@ ExitCalc:
             CopyofMe.SVR = SVR
             CopyofMe.SVRxIPH = SVRxIPH
             CopyofMe.PriceTrend = PriceTrend
+            CopyofMe.Score = Score
+            CopyofMe.RiskProfit = RiskProfit
+            CopyofMe.RiskIPH = RiskIPH
+            CopyofMe.RiskPrice = RiskPrice
             CopyofMe.Volatility = Volatility
             CopyofMe.TotalItemsSold = TotalItemsSold
             CopyofMe.TotalOrdersFilled = TotalOrdersFilled
@@ -16840,6 +16912,26 @@ ExitCalc:
         Dim volatilityAnnualized As Single = CSng((365 ^ 0.5) * volatility)
 
         Return volatilityAnnualized
+
+    End Function
+
+    ' Calculates Easy-IPH Score (TM)
+    Private Function CalculateScore(ItemID As Long, IPH As Double, Trend As Double, Volatility As Double, SVRString As String, RiskIPH As Double) As Double
+
+        'Dim RiskScore As Double
+        Dim Score As Double = 0
+        Dim SVR As Double
+
+        'RiskScore = -RiskIPH / IPH
+
+        'Incorporate SVR Component
+        If SVRString IsNot "-" Then
+            SVR = CDbl(SVRString)
+        End If
+
+        Score = -RiskIPH / IPH
+
+        Return Score
 
     End Function
 

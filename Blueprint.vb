@@ -2829,6 +2829,11 @@ SkipProcessing:
         Return TotalRawCost
     End Function
 
+    ' Returns the total cost of the blueprint using raw materials
+    Public Function GetTotalRiskRawCost() As Double
+        Return TotalRiskRawCost
+    End Function
+
     ' Returns the total cost of the blueprint using components
     Public Function GetTotalComponentCost() As Double
         Return TotalComponentCost
@@ -2837,6 +2842,11 @@ SkipProcessing:
     ' Returns the total profit for the blueprint using raw materials
     Public Function GetTotalRawProfit() As Double
         Return TotalRawProfit
+    End Function
+
+    ' Returns the total profit for the blueprint using raw materials
+    Public Function GetTotalRiskRawProfit() As Double
+        Return TotalRiskRawProfit
     End Function
 
     ' Returns the total profit for the blueprint using components
