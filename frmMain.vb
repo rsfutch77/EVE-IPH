@@ -14749,7 +14749,6 @@ CheckTechs:
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
 
-                                InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourComponents)
                                 InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
                                 InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
                                 InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
@@ -14822,7 +14821,6 @@ CheckTechs:
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
 
-                            InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
                             InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
                             InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
                             InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
@@ -14912,7 +14910,6 @@ CheckTechs:
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
 
-                                InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
                                 InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
                                 InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
                                 InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
@@ -15028,7 +15025,6 @@ CheckTechs:
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
 
-                            InsertItem.Score = CalculateScore(ManufacturingBlueprint.GetItemID, InsertItem.IPH, InsertItem.PriceTrend, InsertItem.Volatility, InsertItem.SVR, ManufacturingBlueprint.GetTotalRiskIskperHourRaw)
                             InsertItem.RiskPrice = ManufacturingBlueprint.GetTotalRiskRawCost
                             InsertItem.RiskProfit = ManufacturingBlueprint.GetTotalRiskRawProfit
                             InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
@@ -15047,6 +15043,9 @@ CheckTechs:
                     Call IncrementToolStripProgressBar(pnlProgressBar)
 
                 Next
+
+                'Once the blue prints have all been processed, calculate the score for each blueprint
+                CalculateScore(ManufacturingList)
 
                 ' Done processing the blueprints
                 pnlProgressBar.Value = 0
@@ -16916,23 +16915,242 @@ ExitCalc:
     End Function
 
     ' Calculates Easy-IPH Score (TM)
-    Private Function CalculateScore(ItemID As Long, IPH As Double, Trend As Double, Volatility As Double, SVRString As String, RiskIPH As Double) As Double
+    Private Sub CalculateScore(ByRef ManufacturingList As List(Of ManufacturingItem))
 
-        'Dim RiskScore As Double
         Dim Score As Double = 0
+        Dim FirstQuartile As Double
+        Dim ThirdQuartile As Double
+        Dim IQR As Double
         Dim SVR As Double
 
-        'RiskScore = -RiskIPH / IPH
-
-        'Incorporate SVR Component
-        If SVRString IsNot "-" Then
-            SVR = CDbl(SVRString)
+        'If there are less than 5 items in the list it may be hard to find outliers, use the simple score calculator
+        If ManufacturingList.Count < 5 Then
+            Dim ScoreNormal(ManufacturingList.Count) As Double
+            For i = 0 To ManufacturingList.Count - 1
+                If ManufacturingList(i).SVR IsNot "-" Then
+                    SVR = CDbl(ManufacturingList(i).SVR)
+                Else
+                    SVR = 0
+                End If
+                ScoreNormal(i) = (ManufacturingList(i).IPH + ManufacturingList(i).RiskIPH) * SVR * ManufacturingList(i).PriceTrend * ManufacturingList(i).Volatility
+            Next
+            'Normalize the score
+            For i = 0 To ManufacturingList.Count - 1
+                ManufacturingList(i).Score = ScoreNormal(i) / ScoreNormal.Max()
+            Next
+            Return
         End If
 
-        Score = -RiskIPH / IPH
+        '-----------------------------
+        'Setup Normal values for the full score
+        '-----------------------------
 
-        Return Score
+        '-IPH-------------------------
+        'Eliminate negative IPH before IQR
+        Dim IPHExcludingNegatives(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            If ManufacturingList(i).IPH > 0 Then
+                IPHExcludingNegatives(i) = ManufacturingList(i).IPH
+            Else
+                IPHExcludingNegatives(i) = 0
+            End If
+        Next
+        'Eliminate outliers via IQR
+        Dim IPHIqr(ManufacturingList.Count) As Double
+        Array.Copy(IPHExcludingNegatives, 0, IPHIqr, 0, ManufacturingList.Count)
+        Array.Sort(IPHIqr)
+        FirstQuartile = Percentile(RemoveZeros(IPHIqr), 25.0)
+        ThirdQuartile = Percentile(RemoveZeros(IPHIqr), 75.0)
+        IQR = ThirdQuartile - FirstQuartile
+        For i = 0 To ManufacturingList.Count - 1
+            If IPHExcludingNegatives(i) > 0 Then
+                If IPHExcludingNegatives(i) > ThirdQuartile + 1.5 * IQR Then
+                    IPHExcludingNegatives(i) = ThirdQuartile + 1.5 * IQR
+                ElseIf IPHExcludingNegatives(i) < FirstQuartile - 1.5 * IQR Then
+                    IPHExcludingNegatives(i) = FirstQuartile - 1.5 * IQR
+                End If
+            End If
+        Next
+        'Normalize the IPH without the outliers
+        Dim IPHNormal(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            IPHNormal(i) = IPHExcludingNegatives(i) / IPHExcludingNegatives.Max()
+        Next
 
+        '-SVR-------------------------
+        'Convert text SVR to double
+        Dim SVRDouble(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            If ManufacturingList(i).SVR IsNot "-" Then
+                SVRDouble(i) = CDbl(ManufacturingList(i).SVR)
+            Else
+                SVRDouble(i) = 0
+            End If
+        Next
+        'Eliminate outliers via IQR
+        Dim SVRIqr(ManufacturingList.Count) As Double
+        Array.Copy(SVRDouble, 0, SVRIqr, 0, ManufacturingList.Count)
+        Array.Sort(SVRIqr)
+        FirstQuartile = Percentile(RemoveZeros(SVRIqr), 25.0)
+        ThirdQuartile = Percentile(RemoveZeros(SVRIqr), 75.0)
+        IQR = ThirdQuartile - FirstQuartile
+        For i = 0 To ManufacturingList.Count - 1
+            If SVRDouble(i) > 0 Then
+                If SVRDouble(i) > ThirdQuartile + 1.5 * IQR Then
+                    SVRDouble(i) = ThirdQuartile + 1.5 * IQR
+                ElseIf SVRDouble(i) < FirstQuartile - 1.5 * IQR Then
+                    SVRDouble(i) = FirstQuartile - 1.5 * IQR
+                End If
+            End If
+        Next
+        'Normalize the without the outliers
+        Dim SVRNormal(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            SVRNormal(i) = SVRDouble(i) / SVRDouble.Max()
+        Next
+
+        '-Price Trend-----------------
+        Dim PriceTrendDouble(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            PriceTrendDouble(i) = ManufacturingList(i).PriceTrend
+        Next
+        'Eliminate outliers via IQR
+        Dim PriceTrendIqr(ManufacturingList.Count) As Double
+        Array.Copy(PriceTrendDouble, 0, PriceTrendIqr, 0, ManufacturingList.Count)
+        Array.Sort(PriceTrendIqr)
+        FirstQuartile = Percentile(RemoveZeros(PriceTrendIqr), 25.0)
+        ThirdQuartile = Percentile(RemoveZeros(PriceTrendIqr), 75.0)
+        IQR = ThirdQuartile - FirstQuartile
+        For i = 0 To ManufacturingList.Count - 1
+            If PriceTrendDouble(i) > 0 Then
+                If PriceTrendDouble(i) > ThirdQuartile + 1.5 * IQR Then
+                    PriceTrendDouble(i) = ThirdQuartile + 1.5 * IQR
+                ElseIf PriceTrendDouble(i) < FirstQuartile - 1.5 * IQR Then
+                    PriceTrendDouble(i) = FirstQuartile - 1.5 * IQR
+                End If
+            End If
+        Next
+        'Normalize the without the outliers
+        Dim PriceTrendNormal(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            If PriceTrendDouble(i) < 0 Then
+                PriceTrendNormal(i) = -PriceTrendDouble(i) / PriceTrendDouble.Min()
+            Else
+                PriceTrendNormal(i) = PriceTrendDouble(i) / PriceTrendDouble.Max()
+            End If
+        Next
+
+        '-Volatility------------------
+        Dim VolatilityDouble(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            VolatilityDouble(i) = ManufacturingList(i).Volatility
+        Next
+        'Eliminate outliers via IQR
+        Dim VolatilityIqr(ManufacturingList.Count) As Double
+        Array.Copy(VolatilityDouble, 0, VolatilityIqr, 0, ManufacturingList.Count)
+        Array.Sort(VolatilityIqr)
+        FirstQuartile = Percentile(RemoveZeros(VolatilityIqr), 25.0)
+        ThirdQuartile = Percentile(RemoveZeros(VolatilityIqr), 75.0)
+        IQR = ThirdQuartile - FirstQuartile
+        For i = 0 To ManufacturingList.Count - 1
+            If SVRDouble(i) > 0 Then
+                If VolatilityDouble(i) > ThirdQuartile + 1.5 * IQR Then
+                    VolatilityDouble(i) = ThirdQuartile + 1.5 * IQR
+                ElseIf VolatilityDouble(i) < FirstQuartile - 1.5 * IQR Then
+                    VolatilityDouble(i) = FirstQuartile - 1.5 * IQR
+                End If
+            End If
+        Next
+        'Normalize the without the outliers
+        Dim VolatilityNormal(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            VolatilityNormal(i) = VolatilityDouble(i) / VolatilityDouble.Max()
+        Next
+
+        '-Risk------------------------
+        Dim RiskDouble(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            If ManufacturingList(i).IPH > 0 Then
+                RiskDouble(i) = ManufacturingList(i).IPH - ManufacturingList(i).RiskIPH
+            Else
+                RiskDouble(i) = 0
+            End If
+        Next
+        'Eliminate outliers via IQR
+        Dim RiskIqr(ManufacturingList.Count) As Double
+        Array.Copy(RiskDouble, 0, RiskIqr, 0, ManufacturingList.Count)
+        Array.Sort(RiskIqr)
+        FirstQuartile = Percentile(RemoveZeros(RiskIqr), 25.0)
+        ThirdQuartile = Percentile(RemoveZeros(RiskIqr), 75.0)
+        IQR = ThirdQuartile - FirstQuartile
+        For i = 0 To ManufacturingList.Count - 1
+            If RiskDouble(i) > 0 Then
+                If RiskDouble(i) > ThirdQuartile + 1.5 * IQR Then
+                    RiskDouble(i) = ThirdQuartile + 1.5 * IQR
+                ElseIf RiskDouble(i) < FirstQuartile - 1.5 * IQR Then
+                    RiskDouble(i) = FirstQuartile - 1.5 * IQR
+                End If
+            End If
+        Next
+        'Normalize the without the outliers
+        Dim RiskNormal(ManufacturingList.Count) As Double
+        For i = 0 To ManufacturingList.Count - 1
+            RiskNormal(i) = RiskDouble(i) / RiskDouble.Max()
+        Next
+
+        '-----------------------------
+        'Calculate Score
+        '-----------------------------
+        For i = 0 To ManufacturingList.Count - 1
+            If ManufacturingList(i).SVR IsNot "-" Then
+                SVR = CDbl(ManufacturingList(i).SVR)
+            Else
+                SVR = 0
+            End If
+            'Give a score of zero to anything that is missing market history or won't result in any profit
+            If ManufacturingList(i).IPH > 0 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
+                'SVR and trend are not as important as volatility and risk
+                ManufacturingList(i).Score = IPHNormal(i) * 1.25 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
+            Else
+                ManufacturingList(i).Score = -2.0
+            End If
+        Next
+
+    End Sub
+
+    'Generate a new array without any zeros
+    Private Function RemoveZeros(ByVal Data As Double()) As Double()
+        Dim targetIndex As Integer = 0
+
+        For sourceIndex As Integer = 0 To Data.Length - 1
+            If Data(sourceIndex) <> 0 Then
+                Data(Math.Min(System.Threading.Interlocked.Increment(targetIndex), targetIndex - 1)) = Data(sourceIndex)
+            End If
+        Next
+
+        Dim newArray As Double() = New Double(targetIndex - 1) {}
+        Array.Copy(Data, 0, newArray, 0, targetIndex)
+        Return newArray
+    End Function
+
+    'Find the Percentile of a sorted array
+    Private Function Percentile(ByVal sortedData As Double(), ByVal p As Double) As Double
+        If p >= 100.0R Then Return sortedData(sortedData.Length - 1)
+        Dim position As Double = (sortedData.Length + 1) * p / 100.0
+        Dim leftNumber As Double = 0.0R, rightNumber As Double = 0.0R
+        Dim n As Double = p / 100.0R * (sortedData.Length - 1) + 1.0R
+
+        If position >= 1 Then
+            leftNumber = sortedData(CInt(Math.Floor(n)) - 1)
+            rightNumber = sortedData(CInt(Math.Floor(n)))
+        Else
+            leftNumber = sortedData(0)
+            rightNumber = sortedData(1)
+        End If
+
+        If Equals(leftNumber, rightNumber) Then Return leftNumber
+        Dim part As Double = n - Math.Floor(n)
+        Return leftNumber + part * (rightNumber - leftNumber)
     End Function
 
     'Calulate mean
