@@ -6886,7 +6886,7 @@ ExitForm:
                     End If
                 End If
 
-                End If
+            End If
         End If
 
         Call UpdateBlueprintHistoryButtons()
@@ -7090,11 +7090,11 @@ ExitForm:
             End If
             ' Get the values before setting so they update at the same time on the form
             lblBPBPSVR.Text = TempBPSVR
-                lblBPRawSVR.Text = TempRawSVR
-            End If
+            lblBPRawSVR.Text = TempRawSVR
+        End If
 
-            ' Set the ME and TE values if they changed
-            txtBPME.Text = CStr(SelectedBlueprint.GetME)
+        ' Set the ME and TE values if they changed
+        txtBPME.Text = CStr(SelectedBlueprint.GetME)
         txtBPTE.Text = CStr(SelectedBlueprint.GetTE)
 
     End Sub
