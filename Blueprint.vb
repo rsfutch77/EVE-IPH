@@ -955,6 +955,7 @@ Public Class Blueprint
                 End If
 
                 readerRiskBP.Close()
+                readerRiskBP = Nothing
 
                 ' Save the base costs - before applying ME - if value is null (no price record) then set to 0
                 BaseJobCost += CurrentMaterial.GetQuantity * If(IsDBNull(readerBP.GetValue(9)), 0, readerBP.GetDouble(9))
@@ -2157,6 +2158,7 @@ SkipProcessing:
 
             End If
             readerRiskBP.Close()
+            readerRiskBP = Nothing
             SingleInventionMats.InsertMaterial(InventionMat)
         End While
 
@@ -2281,12 +2283,13 @@ SkipProcessing:
                                         readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0, "", "")
                 End If
                 SingleCopyMats.InsertMaterial(CopyMat)
+
+                readerRiskBP.Close()
+                readerRiskBP = Nothing
             End While
 
             readerBP.Close()
             readerBP = Nothing
-            readerRiskBP.Close()
-            readerRiskBP = Nothing
             DBCommand = Nothing
 
             If Not IsNothing(SingleCopyMats.GetMaterialList) Then
