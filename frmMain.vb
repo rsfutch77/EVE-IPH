@@ -14671,8 +14671,8 @@ CheckTechs:
                         InsertItem.CanInvent = ManufacturingBlueprint.UserCanInventRE
                         InsertItem.CanRE = ManufacturingBlueprint.UserCanInventRE
                         ' Trend data
-                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
-                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
+                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, 15)
+                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, 15)
                         InsertItem.ItemMarketPrice = ManufacturingBlueprint.GetItemMarketPrice
 
                         ' Add all the volume, items on hand, etc here since they won't change
