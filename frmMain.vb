@@ -17110,7 +17110,7 @@ ExitCalc:
             'Give a score of zero to anything that is missing market history or won't result in any profit
             If ManufacturingList(i).IPH > 0 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
                 'SVR and trend are not as important as volatility and risk
-                ManufacturingList(i).Score = IPHNormal(i) * 1.25 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
+                ManufacturingList(i).Score = IPHNormal(i) * 1.5 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
             Else
                 ManufacturingList(i).Score = -2.0
             End If
