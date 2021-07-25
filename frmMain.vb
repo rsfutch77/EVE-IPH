@@ -9958,8 +9958,37 @@ ExitSub:
                     ' Modify the price depending on modifier
                     SelectedPrice = readerPrices.GetDouble(0) * (1 + SentItems(i).PriceModifier)
 
-                    ' Now Update the ITEM_PRICES table, set price and price type
-                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(SelectedPrice) & ", PRICE_TYPE = '" & PriceType & "' WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
+                    'If this is a manufactured product, predict the future price that we will sell at, for raw materials, we use the current price above
+                    If SentItems(i).Manufacture Then
+                        'Using The Forge as the default region identify the near and long trends
+                        Dim LongTrend As Double = CalculatePriceTrend(SentItems(i).TypeID, TheForgeTypeID, 90)
+                        Dim NearTrend As Double = CalculatePriceTrend(SentItems(i).TypeID, TheForgeTypeID, 15)
+                        'Now calculate how much that trend would affect the price if we sold next week
+                        LongTrend = LongTrend / (90 / 7)
+                        NearTrend = NearTrend / (15 / 7)
+                        'Modify the price based on the trend. The long term trend is more likely overall, but the near trend may be more indicative of the price next week, the weight for each is equal
+                        'Limit any trends over 25% per week since it could be a spike
+                        Dim TrendModifier = (LongTrend + NearTrend) / 2
+                        If TrendModifier > 0.25 Then
+                            TrendModifier = 0.25
+                        ElseIf TrendModifier < -0.25 Then
+                            TrendModifier = -0.25
+                        End If
+                        SelectedPrice = SelectedPrice * (1 + TrendModifier)
+
+                        'Now eliminate spikes to avoid market manipulation
+                        'If the price we came up with was way above the 3month average, just use that
+                        Dim average = CalculatePriceAverage(SentItems(i).TypeID, TheForgeTypeID, 90)
+                        If average > 0 Then
+                            If SelectedPrice > 3 * average Then
+                                SelectedPrice = average
+                            End If
+                        End If
+
+                    End If
+
+                        ' Now Update the ITEM_PRICES table, set price and price type
+                        SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(SelectedPrice) & ", PRICE_TYPE = '" & PriceType & "' WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                 End If
@@ -16862,6 +16891,42 @@ ExitCalc:
         'y = 50,098.90x - 1,518,343.83
         Dim trend As Double = (TodaysTrendLinePrice - y_intercept) / TodaysTrendLinePrice
         Return trend
+
+    End Function
+
+    ' Calculates the slope of the trend line for the market history for the sent type id for the last x days sent
+    Private Function CalculatePriceAverage(ByVal TypeID As Long, ByVal RegionID As Long, DaysfromToday As Integer) As Double
+        Dim SQL As String
+        Dim rsMarketHistory As SQLiteDataReader
+        Dim counter As Integer = 0
+
+        Dim y_sum As Double = 0
+
+        ' Average price is the Y values, dates (or just days) is the x value
+
+        ' Now get all the prices for the time period
+        SQL = "SELECT PRICE_HISTORY_DATE, AVG_PRICE FROM MARKET_HISTORY WHERE TYPE_ID = " & CStr(TypeID) & " AND REGION_ID = " & CStr(RegionID) & " "
+        SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) >= " & " DateTime('" & Format(DateAdd(DateInterval.Day, -(DaysfromToday + 1), Date.UtcNow.Date), SQLiteDateFormat) & "') "
+        SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) < " & " DateTime('" & Format(Date.UtcNow.Date, SQLiteDateFormat) & "') "
+        SQL = SQL & "ORDER BY PRICE_HISTORY_DATE ASC"
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        rsMarketHistory = DBCommand.ExecuteReader
+
+        While rsMarketHistory.Read
+            Dim TempPoint As EVEIPHPricePoint
+            counter += 1
+            TempPoint.Y_Price = rsMarketHistory.GetDouble(1)
+            y_sum += TempPoint.Y_Price
+        End While
+
+        ' Set the n_value from the loop
+        If counter <= 1 Then
+            ' If it's 0 or 1, then we can't do a slope calculation 
+            Return 0
+        End If
+
+        Dim average As Double = y_sum / counter
+        Return average
 
     End Function
 
