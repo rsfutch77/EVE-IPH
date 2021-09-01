@@ -685,6 +685,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon07_02.ico" />
+    <Content Include="Resources\Splash.png" />
     <None Include="Resources\PayPalButton.png" />
     <None Include="PayPalDonate.jpg" />
     <None Include="XImage.png" />
