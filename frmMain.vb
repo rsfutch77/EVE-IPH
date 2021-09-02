@@ -7577,6 +7577,7 @@ ExitForm:
         gbManufacturedItems.Enabled = Not Value
         gbRegions.Enabled = Not Value
         gbTradeHubSystems.Enabled = Not Value
+        gbPriceOptions.Enabled = Not Value
         txtPriceItemFilter.Enabled = Not Value
         lblItemFilter.Enabled = Not Value
         btnClearItemFilter.Enabled = Not Value
@@ -7730,7 +7731,6 @@ ExitForm:
 
         If chkPriceManufacturedPrices.Checked = False And chkPriceRawMaterialPrices.Checked = False Then
             lstPricesView.Items.Clear()
-        Else
         End If
 
         If PriceToggleButtonHit = False And Not FirstLoad Then
@@ -7745,7 +7745,6 @@ ExitForm:
 
         If chkPriceManufacturedPrices.Checked = False And chkPriceRawMaterialPrices.Checked = False Then
             lstPricesView.Items.Clear()
-        Else
         End If
 
         If PriceToggleButtonHit = False And Not FirstLoad Then
@@ -7753,8 +7752,6 @@ ExitForm:
         End If
 
     End Sub
-
-
 
     ' EVE Central Link
     Private Sub llblEVEMarketerContribute_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
@@ -7982,13 +7979,18 @@ ExitForm:
         Call UpdateStructurePriceButtons()
     End Sub
 
-    Private Sub rbtnPriceSourceCCPData_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub rbtnPriceSourceCCPData_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnPriceSourceCCPData.CheckedChanged
         Call UpdateStructurePriceButtons()
     End Sub
 
     Private Sub UpdateStructurePriceButtons()
-        btnAddStructureIDs.Visible = True
-        btnViewSavedStructures.Visible = True
+        If rbtnPriceSourceCCPData.Checked Then
+            btnAddStructureIDs.Visible = True
+            btnViewSavedStructures.Visible = True
+        Else
+            btnAddStructureIDs.Visible = False
+            btnViewSavedStructures.Visible = False
+        End If
     End Sub
 
     Private Sub chkPricesT1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkPricesT1.Click
@@ -8337,6 +8339,12 @@ ExitForm:
 
         Call ListViewColumnSorter(e.Column, CType(lstPricesView, ListView), UpdatePricesColumnClicked, UpdatePricesColumnSortType)
 
+    End Sub
+
+    Private Sub rbtnPriceSettingPriceProfile_CheckedChanged(sender As System.Object, e As System.EventArgs)
+        ' set in init, and use this to toggle
+        pnlPriceProfiles.Visible = False
+        pnlSinglePriceLocationSelect.Visible = True
     End Sub
 
     Private Sub txtRawMaterialsDefaultsPriceMod_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtRawMaterialsDefaultsPriceMod.KeyPress
@@ -8922,11 +8930,17 @@ ExitForm:
             chkImplants.Checked = .Implants
             chkCelestials.Checked = .Celestials
             chkDeployables.Checked = .Deployables
+            If .UseESIData Then
+                rbtnPriceSourceCCPData.Checked = True
+            End If
             If .UsePriceProfile Then
                 pnlPriceProfiles.Visible = True
                 pnlSinglePriceLocationSelect.Visible = False
-                ' Disable other buttons and lists
             Else
+                rbtnPriceSettingSingleSelect.Checked = True
+
+                pnlPriceProfiles.Visible = False
+                pnlSinglePriceLocationSelect.Visible = True
             End If
 
             ' Set the defaults for the default price profiles
@@ -9164,6 +9178,9 @@ ExitForm:
             Exit Sub
         End If
 
+        TempSettings.ItemsCombo = "0.0%"
+        TempSettings.RawMatsCombo = "0.0%"
+
         TempSettings.RawPriceModifier = 0
         TempSettings.ItemsPriceModifier = 0
 
@@ -9243,11 +9260,15 @@ ExitForm:
             .Implants = chkImplants.Checked
             .Deployables = chkDeployables.Checked
             .Celestials = chkCelestials.Checked
-            .UseESIData = True
+            If rbtnPriceSourceCCPData.Checked Then
+                .UseESIData = True
+            Else
+                .UseESIData = False
+            End If
             .UsePriceProfile = False
 
-            ' Price profile defaults
-            .PPRawPriceType = cmbRawMaterialsDefaultsPriceType.Text
+                ' Price profile defaults
+                .PPRawPriceType = cmbRawMaterialsDefaultsPriceType.Text
             .PPRawRegion = cmbRawMaterialsDefaultsRegion.Text
             .PPRawSystem = cmbRawMaterialsDefaultsSystem.Text
             .PPRawPriceMod = CDbl(txtRawMaterialsDefaultsPriceMod.Text.Replace("%", "")) / 100
@@ -9381,7 +9402,7 @@ ExitForm:
             GoTo ExitSub
         End If
 
-        If RegionSelectedCount > 1 Then
+        If rbtnPriceSourceCCPData.Checked And RegionSelectedCount > 1 Then
             MsgBox("You cannot choose more than one region when downloading CCP Data", MsgBoxStyle.Exclamation, Me.Name)
             GoTo ExitSub
         End If
@@ -9398,7 +9419,8 @@ ExitForm:
         Application.DoEvents()
 
         ' Find the checked region - single select
-        If RegionChecked Then
+        If rbtnPriceSettingSingleSelect.Checked Then
+            If RegionChecked Then
                 For i = 1 To (RegionCheckBoxes.Length - 1)
                     If RegionCheckBoxes(i).Checked Then
                         Select Case i
@@ -9454,9 +9476,10 @@ ExitForm:
                 readerSystems = Nothing
                 DBCommand = Nothing
             End If
+        End If
 
-            ' Build the list of types we want to update and include the type, region/system
-            For i = 0 To lstPricesView.Items.Count - 1
+        ' Build the list of types we want to update and include the type, region/system
+        For i = 0 To lstPricesView.Items.Count - 1
 
             ' Only include items that are in the market (Market ID not null in Inventory Types)
             If lstPricesView.Items(i).SubItems(5).Text <> "" Then
@@ -9469,15 +9492,40 @@ ExitForm:
                     TempItem.Manufacture = CBool(lstPricesView.Items(i).SubItems(4).Text)
                     TempItem.RegionID = ""
 
-
-                    TempItem.RegionID = SearchRegion
-                    TempItem.SystemID = SearchSystem
-                    TempItem.StructureID = SearchStructureID
-                    'Start with the maximum IPH (normal Buy Orders for Raw and Sell Orders for Manufactured)
-                    If TempItem.Manufacture Then
-                        TempItem.PriceType = "Percentile Sell"
+                    If rbtnPriceSettingSingleSelect.Checked Then
+                        TempItem.RegionID = SearchRegion
+                        TempItem.SystemID = SearchSystem
+                        TempItem.StructureID = SearchStructureID
+                        'Start with the maximum IPH (normal Buy Orders for Raw and Sell Orders for Manufactured)
+                        If TempItem.Manufacture Then
+                            TempItem.PriceType = "Percentile Sell"
+                            TempItem.PriceModifier = 0
+                        Else
+                            TempItem.PriceType = "Percentile Buy"
+                            TempItem.PriceModifier = 0
+                        End If
                     Else
-                        TempItem.PriceType = "Percentile Buy"
+                        ' Using price profiles, so look up all the data per group name
+                        Dim rsPP As SQLiteDataReader
+                        SQL = "SELECT PRICE_TYPE, regionID, SOLAR_SYSTEM_NAME, PRICE_MODIFIER FROM PRICE_PROFILES, REGIONS "
+                        SQL = SQL & "WHERE REGIONS.regionName = PRICE_PROFILES.REGION_NAME "
+                        SQL = SQL & "AND (ID = " & CStr(SelectedCharacter.ID) & " OR ID = 0) AND GROUP_NAME = '" & TempItem.GroupName & "' ORDER BY ID DESC"
+
+                        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                        rsPP = DBCommand.ExecuteReader
+
+                        If rsPP.Read Then
+                            TempItem.PriceType = rsPP.GetString(0)
+                            If rsPP.GetString(2) = AllSystems Then
+                                ' Can only do one region for price profile
+                                TempItem.RegionID = CStr(rsPP.GetInt64(1))
+                                TempItem.SystemID = ""
+                            Else
+                                ' Look up the system name
+                                TempItem.SystemID = CStr(GetSolarSystemID(rsPP.GetString(2)))
+                            End If
+                            TempItem.PriceModifier = rsPP.GetDouble(3)
+                        End If
                     End If
 
                     ' Add the item to the list if not there and it's not a blueprint (we don't want to query blueprints since it will return bpo price and we are using this for bpc
@@ -9532,8 +9580,9 @@ ExitSub:
         Dim Items As New List(Of TypeIDRegion)
 
         ' Use CCP Data
-        ' Loop through each item and set it's pair for query
-        For i = 0 To SentItems.Count - 1
+        If rbtnPriceSourceCCPData.Checked Then
+            ' Loop through each item and set it's pair for query
+            For i = 0 To SentItems.Count - 1
                 Dim Temp As New TypeIDRegion
                 Temp.TypeIDs.Add(CStr(SentItems(i).TypeID))
 
@@ -9584,28 +9633,36 @@ ExitSub:
             pnlStatus.Text = ""
             Application.DoEvents()
 
-        ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
-        If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
-            pnlStatus.Text = "Downloading Public Structure Prices..."
+            ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
+            If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
+                pnlStatus.Text = "Downloading Public Structure Prices..."
 
-            ' First, make sure we have structures in the table to query
-            Call ESIData.UpdatePublicStructureswithMarkets()
+                ' First, make sure we have structures in the table to query
+                Call ESIData.UpdatePublicStructureswithMarkets()
 
-            If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, pnlProgressBar) Then
-                ' Update Failed, don't reload everything
-                Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
+                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, pnlProgressBar) Then
+                    ' Update Failed, don't reload everything
+                    Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
+                    pnlStatus.Text = ""
+                    Exit Sub
+                End If
+
+                If CancelThreading Then
+                    ' They had a ton of errors
+                    Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                    CancelThreading = False
+                    Exit Sub
+                End If
+
                 pnlStatus.Text = ""
+            End If
+        Else
+            ' Update the EVE Marketer cache
+            If Not UpdatePricesCache(SentItems) Then
+                ' Update Failed, don't reload everything
                 Exit Sub
             End If
 
-            If CancelThreading Then
-                ' They had a ton of errors
-                Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
-                CancelThreading = False
-                Exit Sub
-            End If
-
-            pnlStatus.Text = ""
         End If
 
         ' Working

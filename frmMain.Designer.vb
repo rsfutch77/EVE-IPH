@@ -661,6 +661,11 @@ Partial Class frmMain
         Me.btnSavePricestoFile = New System.Windows.Forms.Button()
         Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.txtPriceItemFilter = New System.Windows.Forms.TextBox()
+        Me.gbPriceOptions = New System.Windows.Forms.GroupBox()
+        Me.gbPriceTypes = New System.Windows.Forms.GroupBox()
+        Me.rbtnPriceSettingSingleSelect = New System.Windows.Forms.RadioButton()
+        Me.gbDataSource = New System.Windows.Forms.GroupBox()
+        Me.rbtnPriceSourceCCPData = New System.Windows.Forms.RadioButton()
         Me.btnSaveUpdatePrices = New System.Windows.Forms.Button()
         Me.btnCancelUpdate = New System.Windows.Forms.Button()
         Me.btnClearItemFilter = New System.Windows.Forms.Button()
@@ -1071,6 +1076,9 @@ Partial Class frmMain
         Me.gbCalcBPSelect.SuspendLayout
         Me.gbCalcRelics.SuspendLayout
         Me.tabUpdatePrices.SuspendLayout
+        Me.gbPriceOptions.SuspendLayout
+        Me.gbPriceTypes.SuspendLayout
+        Me.gbDataSource.SuspendLayout
         Me.gbManufacturedItems.SuspendLayout
         Me.gbPriceTools.SuspendLayout
         Me.gbComponents.SuspendLayout
@@ -1673,7 +1681,7 @@ Partial Class frmMain
         'txtListEdit
         '
         Me.txtListEdit.Location = New System.Drawing.Point(1290, 5)
-        Me.txtListEdit.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtListEdit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtListEdit.Name = "txtListEdit"
         Me.txtListEdit.Size = New System.Drawing.Size(59, 22)
         Me.txtListEdit.TabIndex = 59
@@ -1748,7 +1756,7 @@ Partial Class frmMain
         Me.cmbEdit.ItemHeight = 16
         Me.cmbEdit.Items.AddRange(New Object() {"Yes", "No"})
         Me.cmbEdit.Location = New System.Drawing.Point(1188, 5)
-        Me.cmbEdit.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbEdit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbEdit.Name = "cmbEdit"
         Me.cmbEdit.Size = New System.Drawing.Size(59, 24)
         Me.cmbEdit.TabIndex = 62
@@ -1761,9 +1769,9 @@ Partial Class frmMain
         Me.tabPI.Controls.Add(Me.gbPIPlanets)
         Me.tabPI.Controls.Add(Me.btnPIReset)
         Me.tabPI.Location = New System.Drawing.Point(4, 26)
-        Me.tabPI.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabPI.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPI.Name = "tabPI"
-        Me.tabPI.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabPI.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPI.Size = New System.Drawing.Size(1423, 771)
         Me.tabPI.TabIndex = 6
         Me.tabPI.Text = "Planetary Interaction"
@@ -1772,7 +1780,7 @@ Partial Class frmMain
         'btnPISaveSettings
         '
         Me.btnPISaveSettings.Location = New System.Drawing.Point(394, 59)
-        Me.btnPISaveSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPISaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnPISaveSettings.Name = "btnPISaveSettings"
         Me.btnPISaveSettings.Size = New System.Drawing.Size(115, 29)
         Me.btnPISaveSettings.TabIndex = 74
@@ -1790,9 +1798,9 @@ Partial Class frmMain
         Me.gbPIPlanets.Controls.Add(Me.chkPIStorm)
         Me.gbPIPlanets.Controls.Add(Me.chkPITemperate)
         Me.gbPIPlanets.Location = New System.Drawing.Point(11, 11)
-        Me.gbPIPlanets.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbPIPlanets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPIPlanets.Name = "gbPIPlanets"
-        Me.gbPIPlanets.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbPIPlanets.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPIPlanets.Size = New System.Drawing.Size(374, 84)
         Me.gbPIPlanets.TabIndex = 41
         Me.gbPIPlanets.TabStop = False
@@ -1802,7 +1810,7 @@ Partial Class frmMain
         '
         Me.chkPILava.AutoSize = True
         Me.chkPILava.Location = New System.Drawing.Point(270, 24)
-        Me.chkPILava.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPILava.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPILava.Name = "chkPILava"
         Me.chkPILava.Size = New System.Drawing.Size(61, 21)
         Me.chkPILava.TabIndex = 25
@@ -1813,7 +1821,7 @@ Partial Class frmMain
         '
         Me.chkPIPlasma.AutoSize = True
         Me.chkPIPlasma.Location = New System.Drawing.Point(104, 52)
-        Me.chkPIPlasma.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIPlasma.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIPlasma.Name = "chkPIPlasma"
         Me.chkPIPlasma.Size = New System.Drawing.Size(76, 21)
         Me.chkPIPlasma.TabIndex = 27
@@ -1824,7 +1832,7 @@ Partial Class frmMain
         '
         Me.chkPIIce.AutoSize = True
         Me.chkPIIce.Location = New System.Drawing.Point(191, 24)
-        Me.chkPIIce.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIIce.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIIce.Name = "chkPIIce"
         Me.chkPIIce.Size = New System.Drawing.Size(48, 21)
         Me.chkPIIce.TabIndex = 23
@@ -1835,7 +1843,7 @@ Partial Class frmMain
         '
         Me.chkPIGas.AutoSize = True
         Me.chkPIGas.Location = New System.Drawing.Point(104, 24)
-        Me.chkPIGas.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIGas.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIGas.Name = "chkPIGas"
         Me.chkPIGas.Size = New System.Drawing.Size(56, 21)
         Me.chkPIGas.TabIndex = 24
@@ -1846,7 +1854,7 @@ Partial Class frmMain
         '
         Me.chkPIOcean.AutoSize = True
         Me.chkPIOcean.Location = New System.Drawing.Point(19, 52)
-        Me.chkPIOcean.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIOcean.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIOcean.Name = "chkPIOcean"
         Me.chkPIOcean.Size = New System.Drawing.Size(72, 21)
         Me.chkPIOcean.TabIndex = 26
@@ -1857,7 +1865,7 @@ Partial Class frmMain
         '
         Me.chkPIBarren.AutoSize = True
         Me.chkPIBarren.Location = New System.Drawing.Point(19, 24)
-        Me.chkPIBarren.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIBarren.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIBarren.Name = "chkPIBarren"
         Me.chkPIBarren.Size = New System.Drawing.Size(73, 21)
         Me.chkPIBarren.TabIndex = 22
@@ -1868,7 +1876,7 @@ Partial Class frmMain
         '
         Me.chkPIStorm.AutoSize = True
         Me.chkPIStorm.Location = New System.Drawing.Point(191, 52)
-        Me.chkPIStorm.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPIStorm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPIStorm.Name = "chkPIStorm"
         Me.chkPIStorm.Size = New System.Drawing.Size(67, 21)
         Me.chkPIStorm.TabIndex = 28
@@ -1879,7 +1887,7 @@ Partial Class frmMain
         '
         Me.chkPITemperate.AutoSize = True
         Me.chkPITemperate.Location = New System.Drawing.Point(270, 52)
-        Me.chkPITemperate.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPITemperate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPITemperate.Name = "chkPITemperate"
         Me.chkPITemperate.Size = New System.Drawing.Size(99, 21)
         Me.chkPITemperate.TabIndex = 29
@@ -1889,7 +1897,7 @@ Partial Class frmMain
         'btnPIReset
         '
         Me.btnPIReset.Location = New System.Drawing.Point(394, 18)
-        Me.btnPIReset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPIReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnPIReset.Name = "btnPIReset"
         Me.btnPIReset.Size = New System.Drawing.Size(115, 31)
         Me.btnPIReset.TabIndex = 73
@@ -1915,7 +1923,7 @@ Partial Class frmMain
         Me.tabMining.Controls.Add(Me.gbMineMain)
         Me.tabMining.Controls.Add(Me.lstMineGrid)
         Me.tabMining.Location = New System.Drawing.Point(4, 26)
-        Me.tabMining.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabMining.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabMining.Name = "tabMining"
         Me.tabMining.Size = New System.Drawing.Size(1423, 771)
         Me.tabMining.TabIndex = 5
@@ -1927,9 +1935,9 @@ Partial Class frmMain
         Me.gbMineNumberMiners.Controls.Add(Me.txtMineNumberMiners)
         Me.gbMineNumberMiners.Controls.Add(Me.lblMineNumberMiners)
         Me.gbMineNumberMiners.Location = New System.Drawing.Point(725, 195)
-        Me.gbMineNumberMiners.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineNumberMiners.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineNumberMiners.Name = "gbMineNumberMiners"
-        Me.gbMineNumberMiners.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineNumberMiners.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineNumberMiners.Size = New System.Drawing.Size(156, 55)
         Me.gbMineNumberMiners.TabIndex = 110
         Me.gbMineNumberMiners.TabStop = False
@@ -1938,7 +1946,7 @@ Partial Class frmMain
         'txtMineNumberMiners
         '
         Me.txtMineNumberMiners.Location = New System.Drawing.Point(115, 21)
-        Me.txtMineNumberMiners.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineNumberMiners.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineNumberMiners.MaxLength = 5
         Me.txtMineNumberMiners.Name = "txtMineNumberMiners"
         Me.txtMineNumberMiners.Size = New System.Drawing.Size(33, 23)
@@ -1961,9 +1969,9 @@ Partial Class frmMain
         Me.gbMineOreProcessingType.Controls.Add(Me.chkMineRefinedOre)
         Me.gbMineOreProcessingType.Controls.Add(Me.chkMineCompressedOre)
         Me.gbMineOreProcessingType.Location = New System.Drawing.Point(725, 250)
-        Me.gbMineOreProcessingType.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineOreProcessingType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineOreProcessingType.Name = "gbMineOreProcessingType"
-        Me.gbMineOreProcessingType.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineOreProcessingType.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineOreProcessingType.Size = New System.Drawing.Size(156, 91)
         Me.gbMineOreProcessingType.TabIndex = 118
         Me.gbMineOreProcessingType.TabStop = False
@@ -1974,7 +1982,7 @@ Partial Class frmMain
         Me.chkMineUnrefinedOre.AutoSize = True
         Me.chkMineUnrefinedOre.BackColor = System.Drawing.Color.Transparent
         Me.chkMineUnrefinedOre.Location = New System.Drawing.Point(16, 44)
-        Me.chkMineUnrefinedOre.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineUnrefinedOre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineUnrefinedOre.Name = "chkMineUnrefinedOre"
         Me.chkMineUnrefinedOre.Size = New System.Drawing.Size(120, 21)
         Me.chkMineUnrefinedOre.TabIndex = 118
@@ -1986,7 +1994,7 @@ Partial Class frmMain
         Me.chkMineRefinedOre.AutoSize = True
         Me.chkMineRefinedOre.BackColor = System.Drawing.Color.Transparent
         Me.chkMineRefinedOre.Location = New System.Drawing.Point(16, 22)
-        Me.chkMineRefinedOre.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineRefinedOre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineRefinedOre.Name = "chkMineRefinedOre"
         Me.chkMineRefinedOre.Size = New System.Drawing.Size(107, 21)
         Me.chkMineRefinedOre.TabIndex = 19
@@ -1998,7 +2006,7 @@ Partial Class frmMain
         Me.chkMineCompressedOre.AutoSize = True
         Me.chkMineCompressedOre.BackColor = System.Drawing.Color.Transparent
         Me.chkMineCompressedOre.Location = New System.Drawing.Point(16, 65)
-        Me.chkMineCompressedOre.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineCompressedOre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineCompressedOre.Name = "chkMineCompressedOre"
         Me.chkMineCompressedOre.Size = New System.Drawing.Size(137, 21)
         Me.chkMineCompressedOre.TabIndex = 117
@@ -2008,7 +2016,7 @@ Partial Class frmMain
         'btnMineSaveAllSettings
         '
         Me.btnMineSaveAllSettings.Location = New System.Drawing.Point(725, 126)
-        Me.btnMineSaveAllSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnMineSaveAllSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnMineSaveAllSettings.Name = "btnMineSaveAllSettings"
         Me.btnMineSaveAllSettings.Size = New System.Drawing.Size(156, 45)
         Me.btnMineSaveAllSettings.TabIndex = 3
@@ -2021,9 +2029,9 @@ Partial Class frmMain
         Me.gbMineTaxBroker.Controls.Add(Me.chkMineIncludeBrokerFees)
         Me.gbMineTaxBroker.Controls.Add(Me.chkMineIncludeTaxes)
         Me.gbMineTaxBroker.Location = New System.Drawing.Point(1321, 319)
-        Me.gbMineTaxBroker.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineTaxBroker.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineTaxBroker.Name = "gbMineTaxBroker"
-        Me.gbMineTaxBroker.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineTaxBroker.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineTaxBroker.Size = New System.Drawing.Size(90, 86)
         Me.gbMineTaxBroker.TabIndex = 7
         Me.gbMineTaxBroker.TabStop = False
@@ -2032,7 +2040,7 @@ Partial Class frmMain
         'txtMineBrokerFeeRate
         '
         Me.txtMineBrokerFeeRate.Location = New System.Drawing.Point(8, 56)
-        Me.txtMineBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineBrokerFeeRate.Name = "txtMineBrokerFeeRate"
         Me.txtMineBrokerFeeRate.Size = New System.Drawing.Size(74, 23)
         Me.txtMineBrokerFeeRate.TabIndex = 8
@@ -2045,7 +2053,7 @@ Partial Class frmMain
         Me.chkMineIncludeBrokerFees.Checked = True
         Me.chkMineIncludeBrokerFees.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkMineIncludeBrokerFees.Location = New System.Drawing.Point(8, 36)
-        Me.chkMineIncludeBrokerFees.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeBrokerFees.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeBrokerFees.Name = "chkMineIncludeBrokerFees"
         Me.chkMineIncludeBrokerFees.Size = New System.Drawing.Size(61, 21)
         Me.chkMineIncludeBrokerFees.TabIndex = 0
@@ -2059,7 +2067,7 @@ Partial Class frmMain
         Me.chkMineIncludeTaxes.Checked = True
         Me.chkMineIncludeTaxes.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkMineIncludeTaxes.Location = New System.Drawing.Point(8, 18)
-        Me.chkMineIncludeTaxes.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeTaxes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeTaxes.Name = "chkMineIncludeTaxes"
         Me.chkMineIncludeTaxes.Size = New System.Drawing.Size(68, 21)
         Me.chkMineIncludeTaxes.TabIndex = 1
@@ -2073,9 +2081,9 @@ Partial Class frmMain
         Me.gbMineStripStats.Controls.Add(Me.lblMineRange1)
         Me.gbMineStripStats.Controls.Add(Me.lblMineCycleTime)
         Me.gbMineStripStats.Location = New System.Drawing.Point(889, 319)
-        Me.gbMineStripStats.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineStripStats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineStripStats.Name = "gbMineStripStats"
-        Me.gbMineStripStats.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineStripStats.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineStripStats.Size = New System.Drawing.Size(175, 86)
         Me.gbMineStripStats.TabIndex = 5
         Me.gbMineStripStats.TabStop = False
@@ -2128,9 +2136,9 @@ Partial Class frmMain
         Me.gbMineMiningDroneM3.Controls.Add(Me.lblMineMiningDroneM3)
         Me.gbMineMiningDroneM3.Controls.Add(Me.txtMineMiningDroneM3)
         Me.gbMineMiningDroneM3.Location = New System.Drawing.Point(510, 138)
-        Me.gbMineMiningDroneM3.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineMiningDroneM3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineMiningDroneM3.Name = "gbMineMiningDroneM3"
-        Me.gbMineMiningDroneM3.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineMiningDroneM3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineMiningDroneM3.Size = New System.Drawing.Size(208, 52)
         Me.gbMineMiningDroneM3.TabIndex = 2
         Me.gbMineMiningDroneM3.TabStop = False
@@ -2147,7 +2155,7 @@ Partial Class frmMain
         'txtMineMiningDroneM3
         '
         Me.txtMineMiningDroneM3.Location = New System.Drawing.Point(105, 18)
-        Me.txtMineMiningDroneM3.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineMiningDroneM3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineMiningDroneM3.MaxLength = 6
         Me.txtMineMiningDroneM3.Name = "txtMineMiningDroneM3"
         Me.txtMineMiningDroneM3.Size = New System.Drawing.Size(96, 23)
@@ -2159,7 +2167,7 @@ Partial Class frmMain
         Me.chkMineUseFleetBooster.AutoSize = True
         Me.chkMineUseFleetBooster.BackColor = System.Drawing.Color.Transparent
         Me.chkMineUseFleetBooster.Location = New System.Drawing.Point(18, 194)
-        Me.chkMineUseFleetBooster.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineUseFleetBooster.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineUseFleetBooster.Name = "chkMineUseFleetBooster"
         Me.chkMineUseFleetBooster.Size = New System.Drawing.Size(147, 21)
         Me.chkMineUseFleetBooster.TabIndex = 0
@@ -2176,9 +2184,9 @@ Partial Class frmMain
         Me.gbMineJumpCosts.Controls.Add(Me.lblMineTotalJumpM3)
         Me.gbMineJumpCosts.Controls.Add(Me.txtMineTotalJumpM3)
         Me.gbMineJumpCosts.Location = New System.Drawing.Point(510, 10)
-        Me.gbMineJumpCosts.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineJumpCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineJumpCosts.Name = "gbMineJumpCosts"
-        Me.gbMineJumpCosts.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineJumpCosts.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineJumpCosts.Size = New System.Drawing.Size(208, 126)
         Me.gbMineJumpCosts.TabIndex = 1
         Me.gbMineJumpCosts.TabStop = False
@@ -2188,7 +2196,7 @@ Partial Class frmMain
         '
         Me.rbtnMineJumpMinerals.AutoSize = True
         Me.rbtnMineJumpMinerals.Location = New System.Drawing.Point(125, 98)
-        Me.rbtnMineJumpMinerals.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineJumpMinerals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineJumpMinerals.Name = "rbtnMineJumpMinerals"
         Me.rbtnMineJumpMinerals.Size = New System.Drawing.Size(82, 21)
         Me.rbtnMineJumpMinerals.TabIndex = 4
@@ -2200,7 +2208,7 @@ Partial Class frmMain
         '
         Me.rbtnMineJumpCompress.AutoSize = True
         Me.rbtnMineJumpCompress.Location = New System.Drawing.Point(12, 98)
-        Me.rbtnMineJumpCompress.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineJumpCompress.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineJumpCompress.Name = "rbtnMineJumpCompress"
         Me.rbtnMineJumpCompress.Size = New System.Drawing.Size(120, 21)
         Me.rbtnMineJumpCompress.TabIndex = 3
@@ -2212,7 +2220,7 @@ Partial Class frmMain
         '
         Me.chkMineIncludeJumpCosts.AutoSize = True
         Me.chkMineIncludeJumpCosts.Location = New System.Drawing.Point(12, 19)
-        Me.chkMineIncludeJumpCosts.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeJumpCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeJumpCosts.Name = "chkMineIncludeJumpCosts"
         Me.chkMineIncludeJumpCosts.Size = New System.Drawing.Size(183, 21)
         Me.chkMineIncludeJumpCosts.TabIndex = 0
@@ -2232,7 +2240,7 @@ Partial Class frmMain
         'txtMineTotalJumpFuel
         '
         Me.txtMineTotalJumpFuel.Location = New System.Drawing.Point(6, 65)
-        Me.txtMineTotalJumpFuel.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineTotalJumpFuel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineTotalJumpFuel.Name = "txtMineTotalJumpFuel"
         Me.txtMineTotalJumpFuel.Size = New System.Drawing.Size(95, 23)
         Me.txtMineTotalJumpFuel.TabIndex = 1
@@ -2251,7 +2259,7 @@ Partial Class frmMain
         'txtMineTotalJumpM3
         '
         Me.txtMineTotalJumpM3.Location = New System.Drawing.Point(106, 65)
-        Me.txtMineTotalJumpM3.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineTotalJumpM3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineTotalJumpM3.Name = "txtMineTotalJumpM3"
         Me.txtMineTotalJumpM3.Size = New System.Drawing.Size(95, 23)
         Me.txtMineTotalJumpM3.TabIndex = 2
@@ -2260,7 +2268,7 @@ Partial Class frmMain
         'btnMineReset
         '
         Me.btnMineReset.Location = New System.Drawing.Point(725, 71)
-        Me.btnMineReset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnMineReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnMineReset.Name = "btnMineReset"
         Me.btnMineReset.Size = New System.Drawing.Size(156, 45)
         Me.btnMineReset.TabIndex = 2
@@ -2278,9 +2286,9 @@ Partial Class frmMain
         Me.gbMineHauling.Controls.Add(Me.txtMineRTSec)
         Me.gbMineHauling.Controls.Add(Me.lblMineRoundTripTime)
         Me.gbMineHauling.Location = New System.Drawing.Point(1070, 319)
-        Me.gbMineHauling.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineHauling.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineHauling.Name = "gbMineHauling"
-        Me.gbMineHauling.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineHauling.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineHauling.Size = New System.Drawing.Size(244, 86)
         Me.gbMineHauling.TabIndex = 6
         Me.gbMineHauling.TabStop = False
@@ -2289,7 +2297,7 @@ Partial Class frmMain
         'txtMineHaulerM3
         '
         Me.txtMineHaulerM3.Location = New System.Drawing.Point(31, 50)
-        Me.txtMineHaulerM3.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineHaulerM3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineHaulerM3.Name = "txtMineHaulerM3"
         Me.txtMineHaulerM3.Size = New System.Drawing.Size(80, 23)
         Me.txtMineHaulerM3.TabIndex = 1
@@ -2319,7 +2327,7 @@ Partial Class frmMain
         '
         Me.chkMineUseHauler.AutoSize = True
         Me.chkMineUseHauler.Location = New System.Drawing.Point(8, 26)
-        Me.chkMineUseHauler.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineUseHauler.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineUseHauler.Name = "chkMineUseHauler"
         Me.chkMineUseHauler.Size = New System.Drawing.Size(101, 21)
         Me.chkMineUseHauler.TabIndex = 0
@@ -2339,7 +2347,7 @@ Partial Class frmMain
         'txtMineRTMin
         '
         Me.txtMineRTMin.Location = New System.Drawing.Point(119, 50)
-        Me.txtMineRTMin.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineRTMin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineRTMin.Name = "txtMineRTMin"
         Me.txtMineRTMin.Size = New System.Drawing.Size(53, 23)
         Me.txtMineRTMin.TabIndex = 2
@@ -2348,7 +2356,7 @@ Partial Class frmMain
         'txtMineRTSec
         '
         Me.txtMineRTSec.Location = New System.Drawing.Point(179, 50)
-        Me.txtMineRTSec.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineRTSec.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineRTSec.Name = "txtMineRTSec"
         Me.txtMineRTSec.Size = New System.Drawing.Size(53, 23)
         Me.txtMineRTSec.TabIndex = 3
@@ -2368,7 +2376,7 @@ Partial Class frmMain
         'btnMineRefresh
         '
         Me.btnMineRefresh.Location = New System.Drawing.Point(725, 16)
-        Me.btnMineRefresh.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnMineRefresh.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnMineRefresh.Name = "btnMineRefresh"
         Me.btnMineRefresh.Size = New System.Drawing.Size(156, 45)
         Me.btnMineRefresh.TabIndex = 1
@@ -2396,9 +2404,9 @@ Partial Class frmMain
         Me.gbMineBooster.Controls.Add(Me.lblMineMiningForeman)
         Me.gbMineBooster.Controls.Add(Me.lblMineBoosterShipSkill)
         Me.gbMineBooster.Location = New System.Drawing.Point(8, 195)
-        Me.gbMineBooster.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineBooster.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineBooster.Name = "gbMineBooster"
-        Me.gbMineBooster.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineBooster.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineBooster.Size = New System.Drawing.Size(710, 146)
         Me.gbMineBooster.TabIndex = 3
         Me.gbMineBooster.TabStop = False
@@ -2417,7 +2425,7 @@ Partial Class frmMain
         'pictMineLaserOptmize
         '
         Me.pictMineLaserOptmize.Location = New System.Drawing.Point(660, 80)
-        Me.pictMineLaserOptmize.Margin = New System.Windows.Forms.Padding(4)
+        Me.pictMineLaserOptmize.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictMineLaserOptmize.Name = "pictMineLaserOptmize"
         Me.pictMineLaserOptmize.Size = New System.Drawing.Size(40, 40)
         Me.pictMineLaserOptmize.TabIndex = 139
@@ -2426,7 +2434,7 @@ Partial Class frmMain
         'pictMineRangeLink
         '
         Me.pictMineRangeLink.Location = New System.Drawing.Point(660, 30)
-        Me.pictMineRangeLink.Margin = New System.Windows.Forms.Padding(4)
+        Me.pictMineRangeLink.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictMineRangeLink.Name = "pictMineRangeLink"
         Me.pictMineRangeLink.Size = New System.Drawing.Size(40, 40)
         Me.pictMineRangeLink.TabIndex = 138
@@ -2437,7 +2445,7 @@ Partial Class frmMain
         Me.pictMineFleetBoostShip.BackColor = System.Drawing.Color.White
         Me.pictMineFleetBoostShip.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictMineFleetBoostShip.Location = New System.Drawing.Point(212, 21)
-        Me.pictMineFleetBoostShip.Margin = New System.Windows.Forms.Padding(4)
+        Me.pictMineFleetBoostShip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictMineFleetBoostShip.Name = "pictMineFleetBoostShip"
         Me.pictMineFleetBoostShip.Size = New System.Drawing.Size(84, 85)
         Me.pictMineFleetBoostShip.TabIndex = 137
@@ -2446,7 +2454,7 @@ Partial Class frmMain
         'chkMineForemanLaserRangeBoost
         '
         Me.chkMineForemanLaserRangeBoost.Location = New System.Drawing.Point(462, 22)
-        Me.chkMineForemanLaserRangeBoost.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineForemanLaserRangeBoost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineForemanLaserRangeBoost.Name = "chkMineForemanLaserRangeBoost"
         Me.chkMineForemanLaserRangeBoost.Size = New System.Drawing.Size(200, 56)
         Me.chkMineForemanLaserRangeBoost.TabIndex = 9
@@ -2460,7 +2468,7 @@ Partial Class frmMain
         Me.cmbMineIndustReconfig.FormattingEnabled = True
         Me.cmbMineIndustReconfig.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineIndustReconfig.Location = New System.Drawing.Point(408, 109)
-        Me.cmbMineIndustReconfig.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineIndustReconfig.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineIndustReconfig.Name = "cmbMineIndustReconfig"
         Me.cmbMineIndustReconfig.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineIndustReconfig.TabIndex = 8
@@ -2480,7 +2488,7 @@ Partial Class frmMain
         '
         Me.chkMineRorqDeployedMode.AutoSize = True
         Me.chkMineRorqDeployedMode.Location = New System.Drawing.Point(22, 109)
-        Me.chkMineRorqDeployedMode.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineRorqDeployedMode.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineRorqDeployedMode.Name = "chkMineRorqDeployedMode"
         Me.chkMineRorqDeployedMode.Size = New System.Drawing.Size(173, 21)
         Me.chkMineRorqDeployedMode.TabIndex = 4
@@ -2494,7 +2502,7 @@ Partial Class frmMain
         Me.cmbMineBoosterShipSkill.FormattingEnabled = True
         Me.cmbMineBoosterShipSkill.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineBoosterShipSkill.Location = New System.Drawing.Point(96, 51)
-        Me.cmbMineBoosterShipSkill.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineBoosterShipSkill.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineBoosterShipSkill.Name = "cmbMineBoosterShipSkill"
         Me.cmbMineBoosterShipSkill.Size = New System.Drawing.Size(56, 25)
         Me.cmbMineBoosterShipSkill.TabIndex = 2
@@ -2503,7 +2511,7 @@ Partial Class frmMain
         '
         Me.chkMineForemanMindlink.AutoSize = True
         Me.chkMineForemanMindlink.Location = New System.Drawing.Point(22, 86)
-        Me.chkMineForemanMindlink.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineForemanMindlink.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineForemanMindlink.Name = "chkMineForemanMindlink"
         Me.chkMineForemanMindlink.Size = New System.Drawing.Size(186, 21)
         Me.chkMineForemanMindlink.TabIndex = 3
@@ -2516,7 +2524,7 @@ Partial Class frmMain
         Me.cmbMineBoosterShip.FormattingEnabled = True
         Me.cmbMineBoosterShip.Items.AddRange(New Object() {"Orca", "Rorqual", "Battlecruiser", "Other"})
         Me.cmbMineBoosterShip.Location = New System.Drawing.Point(96, 21)
-        Me.cmbMineBoosterShip.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineBoosterShip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineBoosterShip.Name = "cmbMineBoosterShip"
         Me.cmbMineBoosterShip.Size = New System.Drawing.Size(105, 25)
         Me.cmbMineBoosterShip.TabIndex = 1
@@ -2527,7 +2535,7 @@ Partial Class frmMain
         Me.cmbMineMiningDirector.FormattingEnabled = True
         Me.cmbMineMiningDirector.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineMiningDirector.Location = New System.Drawing.Point(408, 51)
-        Me.cmbMineMiningDirector.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineMiningDirector.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineMiningDirector.Name = "cmbMineMiningDirector"
         Me.cmbMineMiningDirector.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineMiningDirector.TabIndex = 6
@@ -2535,7 +2543,7 @@ Partial Class frmMain
         'chkMineForemanLaserOpBoost
         '
         Me.chkMineForemanLaserOpBoost.Location = New System.Drawing.Point(462, 75)
-        Me.chkMineForemanLaserOpBoost.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineForemanLaserOpBoost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineForemanLaserOpBoost.Name = "chkMineForemanLaserOpBoost"
         Me.chkMineForemanLaserOpBoost.Size = New System.Drawing.Size(200, 50)
         Me.chkMineForemanLaserOpBoost.TabIndex = 10
@@ -2559,7 +2567,7 @@ Partial Class frmMain
         Me.cmbMineMiningForeman.FormattingEnabled = True
         Me.cmbMineMiningForeman.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineMiningForeman.Location = New System.Drawing.Point(408, 22)
-        Me.cmbMineMiningForeman.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineMiningForeman.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineMiningForeman.Name = "cmbMineMiningForeman"
         Me.cmbMineMiningForeman.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineMiningForeman.TabIndex = 5
@@ -2600,9 +2608,9 @@ Partial Class frmMain
         Me.gbMineRefining.Controls.Add(Me.gbMineStationYield)
         Me.gbMineRefining.Controls.Add(Me.gbMineBaseRefineSkills)
         Me.gbMineRefining.Location = New System.Drawing.Point(889, 401)
-        Me.gbMineRefining.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineRefining.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineRefining.Name = "gbMineRefining"
-        Me.gbMineRefining.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineRefining.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineRefining.Size = New System.Drawing.Size(521, 359)
         Me.gbMineRefining.TabIndex = 8
         Me.gbMineRefining.TabStop = False
@@ -2676,9 +2684,9 @@ Partial Class frmMain
         Me.gbMineProcessingSkills.Controls.Add(Me.cmbOreProcessing10)
         Me.gbMineProcessingSkills.Controls.Add(Me.lblOreProcessing10)
         Me.gbMineProcessingSkills.Location = New System.Drawing.Point(10, 80)
-        Me.gbMineProcessingSkills.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineProcessingSkills.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineProcessingSkills.Name = "gbMineProcessingSkills"
-        Me.gbMineProcessingSkills.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineProcessingSkills.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineProcessingSkills.Size = New System.Drawing.Size(499, 271)
         Me.gbMineProcessingSkills.TabIndex = 2
         Me.gbMineProcessingSkills.TabStop = False
@@ -2689,7 +2697,7 @@ Partial Class frmMain
         Me.cmbOreProcessing22.FormattingEnabled = True
         Me.cmbOreProcessing22.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing22.Location = New System.Drawing.Point(188, 214)
-        Me.cmbOreProcessing22.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing22.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing22.Name = "cmbOreProcessing22"
         Me.cmbOreProcessing22.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing22.TabIndex = 128
@@ -2707,7 +2715,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing22.AutoSize = True
         Me.chkOreProcessing22.Location = New System.Drawing.Point(10, 218)
-        Me.chkOreProcessing22.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing22.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing22.Name = "chkOreProcessing22"
         Me.chkOreProcessing22.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing22.TabIndex = 127
@@ -2727,7 +2735,7 @@ Partial Class frmMain
         Me.cmbOreProcessing21.FormattingEnabled = True
         Me.cmbOreProcessing21.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing21.Location = New System.Drawing.Point(188, 186)
-        Me.cmbOreProcessing21.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing21.Name = "cmbOreProcessing21"
         Me.cmbOreProcessing21.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing21.TabIndex = 126
@@ -2737,7 +2745,7 @@ Partial Class frmMain
         Me.cmbOreProcessing19.FormattingEnabled = True
         Me.cmbOreProcessing19.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing19.Location = New System.Drawing.Point(188, 241)
-        Me.cmbOreProcessing19.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing19.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing19.Name = "cmbOreProcessing19"
         Me.cmbOreProcessing19.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing19.TabIndex = 122
@@ -2747,7 +2755,7 @@ Partial Class frmMain
         Me.cmbOreProcessing20.FormattingEnabled = True
         Me.cmbOreProcessing20.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing20.Location = New System.Drawing.Point(444, 214)
-        Me.cmbOreProcessing20.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing20.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing20.Name = "cmbOreProcessing20"
         Me.cmbOreProcessing20.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing20.TabIndex = 124
@@ -2757,7 +2765,7 @@ Partial Class frmMain
         Me.cmbOreProcessing18.FormattingEnabled = True
         Me.cmbOreProcessing18.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing18.Location = New System.Drawing.Point(444, 186)
-        Me.cmbOreProcessing18.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing18.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing18.Name = "cmbOreProcessing18"
         Me.cmbOreProcessing18.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing18.TabIndex = 120
@@ -2766,7 +2774,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing20.AutoSize = True
         Me.chkOreProcessing20.Location = New System.Drawing.Point(266, 218)
-        Me.chkOreProcessing20.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing20.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing20.Name = "chkOreProcessing20"
         Me.chkOreProcessing20.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing20.TabIndex = 123
@@ -2776,7 +2784,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing7.AutoSize = True
         Me.chkOreProcessing7.Location = New System.Drawing.Point(174, 134)
-        Me.chkOreProcessing7.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing7.Name = "chkOreProcessing7"
         Me.chkOreProcessing7.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing7.TabIndex = 26
@@ -2787,7 +2795,7 @@ Partial Class frmMain
         Me.cmbOreProcessing3.FormattingEnabled = True
         Me.cmbOreProcessing3.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing3.Location = New System.Drawing.Point(280, 48)
-        Me.cmbOreProcessing3.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing3.Name = "cmbOreProcessing3"
         Me.cmbOreProcessing3.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing3.TabIndex = 11
@@ -2796,7 +2804,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing8.AutoSize = True
         Me.chkOreProcessing8.Location = New System.Drawing.Point(338, 134)
-        Me.chkOreProcessing8.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing8.Name = "chkOreProcessing8"
         Me.chkOreProcessing8.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing8.TabIndex = 30
@@ -2806,7 +2814,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing19.AutoSize = True
         Me.chkOreProcessing19.Location = New System.Drawing.Point(10, 245)
-        Me.chkOreProcessing19.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing19.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing19.Name = "chkOreProcessing19"
         Me.chkOreProcessing19.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing19.TabIndex = 121
@@ -2817,7 +2825,7 @@ Partial Class frmMain
         Me.cmbOreProcessing2.FormattingEnabled = True
         Me.cmbOreProcessing2.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing2.Location = New System.Drawing.Point(444, 20)
-        Me.cmbOreProcessing2.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing2.Name = "cmbOreProcessing2"
         Me.cmbOreProcessing2.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing2.TabIndex = 7
@@ -2826,7 +2834,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing5.AutoSize = True
         Me.chkOreProcessing5.Location = New System.Drawing.Point(174, 106)
-        Me.chkOreProcessing5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing5.Name = "chkOreProcessing5"
         Me.chkOreProcessing5.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing5.TabIndex = 18
@@ -2845,7 +2853,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing21.AutoSize = True
         Me.chkOreProcessing21.Location = New System.Drawing.Point(10, 190)
-        Me.chkOreProcessing21.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing21.Name = "chkOreProcessing21"
         Me.chkOreProcessing21.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing21.TabIndex = 125
@@ -2856,7 +2864,7 @@ Partial Class frmMain
         Me.cmbOreProcessing1.FormattingEnabled = True
         Me.cmbOreProcessing1.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing1.Location = New System.Drawing.Point(116, 20)
-        Me.cmbOreProcessing1.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing1.Name = "cmbOreProcessing1"
         Me.cmbOreProcessing1.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing1.TabIndex = 3
@@ -2884,7 +2892,7 @@ Partial Class frmMain
         Me.cmbOreProcessing16.FormattingEnabled = True
         Me.cmbOreProcessing16.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing16.Location = New System.Drawing.Point(116, 158)
-        Me.cmbOreProcessing16.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing16.Name = "cmbOreProcessing16"
         Me.cmbOreProcessing16.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing16.TabIndex = 33
@@ -2894,7 +2902,7 @@ Partial Class frmMain
         Me.cmbOreProcessing4.FormattingEnabled = True
         Me.cmbOreProcessing4.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing4.Location = New System.Drawing.Point(116, 75)
-        Me.cmbOreProcessing4.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing4.Name = "cmbOreProcessing4"
         Me.cmbOreProcessing4.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing4.TabIndex = 15
@@ -2912,7 +2920,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing4.AutoSize = True
         Me.chkOreProcessing4.Location = New System.Drawing.Point(10, 79)
-        Me.chkOreProcessing4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing4.Name = "chkOreProcessing4"
         Me.chkOreProcessing4.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing4.TabIndex = 14
@@ -2932,7 +2940,7 @@ Partial Class frmMain
         Me.cmbOreProcessing15.FormattingEnabled = True
         Me.cmbOreProcessing15.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing15.Location = New System.Drawing.Point(116, 130)
-        Me.cmbOreProcessing15.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing15.Name = "cmbOreProcessing15"
         Me.cmbOreProcessing15.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing15.TabIndex = 29
@@ -2941,7 +2949,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing18.AutoSize = True
         Me.chkOreProcessing18.Location = New System.Drawing.Point(266, 190)
-        Me.chkOreProcessing18.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing18.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing18.Name = "chkOreProcessing18"
         Me.chkOreProcessing18.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing18.TabIndex = 119
@@ -2952,7 +2960,7 @@ Partial Class frmMain
         Me.cmbOreProcessing5.FormattingEnabled = True
         Me.cmbOreProcessing5.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing5.Location = New System.Drawing.Point(280, 102)
-        Me.cmbOreProcessing5.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing5.Name = "cmbOreProcessing5"
         Me.cmbOreProcessing5.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing5.TabIndex = 19
@@ -2961,7 +2969,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing3.AutoSize = True
         Me.chkOreProcessing3.Location = New System.Drawing.Point(174, 51)
-        Me.chkOreProcessing3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing3.Name = "chkOreProcessing3"
         Me.chkOreProcessing3.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing3.TabIndex = 10
@@ -2981,7 +2989,7 @@ Partial Class frmMain
         Me.cmbOreProcessing17.FormattingEnabled = True
         Me.cmbOreProcessing17.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing17.Location = New System.Drawing.Point(280, 158)
-        Me.cmbOreProcessing17.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing17.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing17.Name = "cmbOreProcessing17"
         Me.cmbOreProcessing17.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing17.TabIndex = 35
@@ -2991,7 +2999,7 @@ Partial Class frmMain
         Me.cmbOreProcessing14.FormattingEnabled = True
         Me.cmbOreProcessing14.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing14.Location = New System.Drawing.Point(444, 102)
-        Me.cmbOreProcessing14.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing14.Name = "cmbOreProcessing14"
         Me.cmbOreProcessing14.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing14.TabIndex = 25
@@ -3001,7 +3009,7 @@ Partial Class frmMain
         Me.cmbOreProcessing13.FormattingEnabled = True
         Me.cmbOreProcessing13.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing13.Location = New System.Drawing.Point(116, 102)
-        Me.cmbOreProcessing13.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing13.Name = "cmbOreProcessing13"
         Me.cmbOreProcessing13.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing13.TabIndex = 21
@@ -3010,7 +3018,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing17.AutoSize = True
         Me.chkOreProcessing17.Location = New System.Drawing.Point(174, 161)
-        Me.chkOreProcessing17.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing17.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing17.Name = "chkOreProcessing17"
         Me.chkOreProcessing17.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing17.TabIndex = 34
@@ -3021,7 +3029,7 @@ Partial Class frmMain
         Me.cmbOreProcessing7.FormattingEnabled = True
         Me.cmbOreProcessing7.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing7.Location = New System.Drawing.Point(280, 130)
-        Me.cmbOreProcessing7.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing7.Name = "cmbOreProcessing7"
         Me.cmbOreProcessing7.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing7.TabIndex = 27
@@ -3040,7 +3048,7 @@ Partial Class frmMain
         Me.cmbOreProcessing12.FormattingEnabled = True
         Me.cmbOreProcessing12.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing12.Location = New System.Drawing.Point(444, 75)
-        Me.cmbOreProcessing12.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing12.Name = "cmbOreProcessing12"
         Me.cmbOreProcessing12.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing12.TabIndex = 17
@@ -3050,7 +3058,7 @@ Partial Class frmMain
         Me.cmbOreProcessing8.FormattingEnabled = True
         Me.cmbOreProcessing8.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing8.Location = New System.Drawing.Point(444, 130)
-        Me.cmbOreProcessing8.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing8.Name = "cmbOreProcessing8"
         Me.cmbOreProcessing8.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing8.TabIndex = 31
@@ -3059,7 +3067,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing16.AutoSize = True
         Me.chkOreProcessing16.Location = New System.Drawing.Point(10, 161)
-        Me.chkOreProcessing16.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing16.Name = "chkOreProcessing16"
         Me.chkOreProcessing16.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing16.TabIndex = 32
@@ -3069,7 +3077,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing2.AutoSize = True
         Me.chkOreProcessing2.Location = New System.Drawing.Point(338, 24)
-        Me.chkOreProcessing2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing2.Name = "chkOreProcessing2"
         Me.chkOreProcessing2.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing2.TabIndex = 6
@@ -3097,7 +3105,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing15.AutoSize = True
         Me.chkOreProcessing15.Location = New System.Drawing.Point(10, 134)
-        Me.chkOreProcessing15.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing15.Name = "chkOreProcessing15"
         Me.chkOreProcessing15.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing15.TabIndex = 28
@@ -3107,7 +3115,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing6.AutoSize = True
         Me.chkOreProcessing6.Location = New System.Drawing.Point(174, 79)
-        Me.chkOreProcessing6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing6.Name = "chkOreProcessing6"
         Me.chkOreProcessing6.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing6.TabIndex = 22
@@ -3118,7 +3126,7 @@ Partial Class frmMain
         Me.cmbOreProcessing6.FormattingEnabled = True
         Me.cmbOreProcessing6.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing6.Location = New System.Drawing.Point(280, 75)
-        Me.cmbOreProcessing6.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing6.Name = "cmbOreProcessing6"
         Me.cmbOreProcessing6.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing6.TabIndex = 23
@@ -3127,7 +3135,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing14.AutoSize = True
         Me.chkOreProcessing14.Location = New System.Drawing.Point(338, 106)
-        Me.chkOreProcessing14.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing14.Name = "chkOreProcessing14"
         Me.chkOreProcessing14.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing14.TabIndex = 24
@@ -3164,7 +3172,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing13.AutoSize = True
         Me.chkOreProcessing13.Location = New System.Drawing.Point(10, 106)
-        Me.chkOreProcessing13.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing13.Name = "chkOreProcessing13"
         Me.chkOreProcessing13.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing13.TabIndex = 20
@@ -3174,7 +3182,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing1.AutoSize = True
         Me.chkOreProcessing1.Location = New System.Drawing.Point(10, 24)
-        Me.chkOreProcessing1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing1.Name = "chkOreProcessing1"
         Me.chkOreProcessing1.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing1.TabIndex = 2
@@ -3184,7 +3192,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing12.AutoSize = True
         Me.chkOreProcessing12.Location = New System.Drawing.Point(338, 79)
-        Me.chkOreProcessing12.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing12.Name = "chkOreProcessing12"
         Me.chkOreProcessing12.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing12.TabIndex = 16
@@ -3194,7 +3202,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing11.AutoSize = True
         Me.chkOreProcessing11.Location = New System.Drawing.Point(338, 51)
-        Me.chkOreProcessing11.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing11.Name = "chkOreProcessing11"
         Me.chkOreProcessing11.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing11.TabIndex = 12
@@ -3250,7 +3258,7 @@ Partial Class frmMain
         Me.cmbOreProcessing9.FormattingEnabled = True
         Me.cmbOreProcessing9.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing9.Location = New System.Drawing.Point(280, 20)
-        Me.cmbOreProcessing9.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing9.Name = "cmbOreProcessing9"
         Me.cmbOreProcessing9.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing9.TabIndex = 5
@@ -3260,7 +3268,7 @@ Partial Class frmMain
         Me.cmbOreProcessing11.FormattingEnabled = True
         Me.cmbOreProcessing11.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing11.Location = New System.Drawing.Point(444, 48)
-        Me.cmbOreProcessing11.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing11.Name = "cmbOreProcessing11"
         Me.cmbOreProcessing11.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing11.TabIndex = 13
@@ -3269,7 +3277,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing9.AutoSize = True
         Me.chkOreProcessing9.Location = New System.Drawing.Point(174, 24)
-        Me.chkOreProcessing9.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing9.Name = "chkOreProcessing9"
         Me.chkOreProcessing9.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing9.TabIndex = 4
@@ -3297,7 +3305,7 @@ Partial Class frmMain
         '
         Me.chkOreProcessing10.AutoSize = True
         Me.chkOreProcessing10.Location = New System.Drawing.Point(10, 51)
-        Me.chkOreProcessing10.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkOreProcessing10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkOreProcessing10.Name = "chkOreProcessing10"
         Me.chkOreProcessing10.Size = New System.Drawing.Size(18, 17)
         Me.chkOreProcessing10.TabIndex = 8
@@ -3308,7 +3316,7 @@ Partial Class frmMain
         Me.cmbOreProcessing10.FormattingEnabled = True
         Me.cmbOreProcessing10.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbOreProcessing10.Location = New System.Drawing.Point(116, 48)
-        Me.cmbOreProcessing10.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbOreProcessing10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOreProcessing10.Name = "cmbOreProcessing10"
         Me.cmbOreProcessing10.Size = New System.Drawing.Size(44, 25)
         Me.cmbOreProcessing10.TabIndex = 9
@@ -3331,9 +3339,9 @@ Partial Class frmMain
         Me.gbMineStationYield.Controls.Add(Me.lblMineStationStanding)
         Me.gbMineStationYield.Controls.Add(Me.txtMineRefineStanding)
         Me.gbMineStationYield.Location = New System.Drawing.Point(301, 9)
-        Me.gbMineStationYield.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineStationYield.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineStationYield.Name = "gbMineStationYield"
-        Me.gbMineStationYield.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineStationYield.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineStationYield.Size = New System.Drawing.Size(208, 69)
         Me.gbMineStationYield.TabIndex = 1
         Me.gbMineStationYield.TabStop = False
@@ -3342,7 +3350,7 @@ Partial Class frmMain
         'txtMineReprocessingTax
         '
         Me.txtMineReprocessingTax.Location = New System.Drawing.Point(75, 36)
-        Me.txtMineReprocessingTax.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineReprocessingTax.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineReprocessingTax.MaxLength = 6
         Me.txtMineReprocessingTax.Name = "txtMineReprocessingTax"
         Me.txtMineReprocessingTax.Size = New System.Drawing.Size(54, 23)
@@ -3352,7 +3360,7 @@ Partial Class frmMain
         'txtMineStationEff
         '
         Me.txtMineStationEff.Location = New System.Drawing.Point(141, 36)
-        Me.txtMineStationEff.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineStationEff.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineStationEff.MaxLength = 6
         Me.txtMineStationEff.Name = "txtMineStationEff"
         Me.txtMineStationEff.Size = New System.Drawing.Size(54, 23)
@@ -3392,7 +3400,7 @@ Partial Class frmMain
         'txtMineRefineStanding
         '
         Me.txtMineRefineStanding.Location = New System.Drawing.Point(9, 36)
-        Me.txtMineRefineStanding.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtMineRefineStanding.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtMineRefineStanding.MaxLength = 5
         Me.txtMineRefineStanding.Name = "txtMineRefineStanding"
         Me.txtMineRefineStanding.Size = New System.Drawing.Size(54, 23)
@@ -3407,9 +3415,9 @@ Partial Class frmMain
         Me.gbMineBaseRefineSkills.Controls.Add(Me.cmbMineRefineryEff)
         Me.gbMineBaseRefineSkills.Controls.Add(Me.lblMineRefineryEfficiency)
         Me.gbMineBaseRefineSkills.Location = New System.Drawing.Point(10, 9)
-        Me.gbMineBaseRefineSkills.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineBaseRefineSkills.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineBaseRefineSkills.Name = "gbMineBaseRefineSkills"
-        Me.gbMineBaseRefineSkills.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineBaseRefineSkills.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineBaseRefineSkills.Size = New System.Drawing.Size(284, 69)
         Me.gbMineBaseRefineSkills.TabIndex = 0
         Me.gbMineBaseRefineSkills.TabStop = False
@@ -3420,7 +3428,7 @@ Partial Class frmMain
         Me.cmbMineRefining.FormattingEnabled = True
         Me.cmbMineRefining.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineRefining.Location = New System.Drawing.Point(95, 25)
-        Me.cmbMineRefining.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineRefining.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineRefining.Name = "cmbMineRefining"
         Me.cmbMineRefining.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineRefining.TabIndex = 0
@@ -3441,7 +3449,7 @@ Partial Class frmMain
         Me.cmbMineRefineryEff.FormattingEnabled = True
         Me.cmbMineRefineryEff.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineRefineryEff.Location = New System.Drawing.Point(231, 25)
-        Me.cmbMineRefineryEff.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineRefineryEff.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineRefineryEff.Name = "cmbMineRefineryEff"
         Me.cmbMineRefineryEff.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineRefineryEff.TabIndex = 1
@@ -3461,9 +3469,9 @@ Partial Class frmMain
         Me.gbMineShipSetup.Controls.Add(Me.gbMineShipEquipment)
         Me.gbMineShipSetup.Controls.Add(Me.gbMineSkills)
         Me.gbMineShipSetup.Location = New System.Drawing.Point(889, 10)
-        Me.gbMineShipSetup.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineShipSetup.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineShipSetup.Name = "gbMineShipSetup"
-        Me.gbMineShipSetup.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineShipSetup.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineShipSetup.Size = New System.Drawing.Size(522, 306)
         Me.gbMineShipSetup.TabIndex = 4
         Me.gbMineShipSetup.TabStop = False
@@ -3479,9 +3487,9 @@ Partial Class frmMain
         Me.gbMineSelectShip.Controls.Add(Me.lblMineBaseShipSkill)
         Me.gbMineSelectShip.Controls.Add(Me.lblMineExhumers)
         Me.gbMineSelectShip.Location = New System.Drawing.Point(8, 22)
-        Me.gbMineSelectShip.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineSelectShip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineSelectShip.Name = "gbMineSelectShip"
-        Me.gbMineSelectShip.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineSelectShip.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineSelectShip.Size = New System.Drawing.Size(139, 218)
         Me.gbMineSelectShip.TabIndex = 0
         Me.gbMineSelectShip.TabStop = False
@@ -3492,7 +3500,7 @@ Partial Class frmMain
         Me.pictMineSelectedShip.BackColor = System.Drawing.Color.White
         Me.pictMineSelectedShip.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictMineSelectedShip.Location = New System.Drawing.Point(26, 119)
-        Me.pictMineSelectedShip.Margin = New System.Windows.Forms.Padding(4)
+        Me.pictMineSelectedShip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictMineSelectedShip.Name = "pictMineSelectedShip"
         Me.pictMineSelectedShip.Size = New System.Drawing.Size(84, 85)
         Me.pictMineSelectedShip.TabIndex = 138
@@ -3514,7 +3522,7 @@ Partial Class frmMain
         Me.cmbMineBaseShipSkill.FormattingEnabled = True
         Me.cmbMineBaseShipSkill.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
         Me.cmbMineBaseShipSkill.Location = New System.Drawing.Point(8, 88)
-        Me.cmbMineBaseShipSkill.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineBaseShipSkill.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineBaseShipSkill.Name = "cmbMineBaseShipSkill"
         Me.cmbMineBaseShipSkill.Size = New System.Drawing.Size(59, 25)
         Me.cmbMineBaseShipSkill.TabIndex = 1
@@ -3525,7 +3533,7 @@ Partial Class frmMain
         Me.cmbMineExhumers.FormattingEnabled = True
         Me.cmbMineExhumers.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineExhumers.Location = New System.Drawing.Point(71, 88)
-        Me.cmbMineExhumers.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineExhumers.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineExhumers.Name = "cmbMineExhumers"
         Me.cmbMineExhumers.Size = New System.Drawing.Size(59, 25)
         Me.cmbMineExhumers.TabIndex = 2
@@ -3535,7 +3543,7 @@ Partial Class frmMain
         Me.cmbMineShipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMineShipType.FormattingEnabled = True
         Me.cmbMineShipType.Location = New System.Drawing.Point(8, 38)
-        Me.cmbMineShipType.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineShipType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineShipType.Name = "cmbMineShipType"
         Me.cmbMineShipType.Size = New System.Drawing.Size(123, 25)
         Me.cmbMineShipType.TabIndex = 0
@@ -3576,9 +3584,9 @@ Partial Class frmMain
         Me.gbMineShipEquipment.Controls.Add(Me.lblMineNumMiningUpgrades)
         Me.gbMineShipEquipment.Controls.Add(Me.lblMineMinerTurret)
         Me.gbMineShipEquipment.Location = New System.Drawing.Point(152, 22)
-        Me.gbMineShipEquipment.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineShipEquipment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineShipEquipment.Name = "gbMineShipEquipment"
-        Me.gbMineShipEquipment.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineShipEquipment.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineShipEquipment.Size = New System.Drawing.Size(362, 218)
         Me.gbMineShipEquipment.TabIndex = 1
         Me.gbMineShipEquipment.TabStop = False
@@ -3590,9 +3598,9 @@ Partial Class frmMain
         Me.gbMiningRigs.Controls.Add(Me.rbtnMineIceRig)
         Me.gbMiningRigs.Controls.Add(Me.rbtnMineMercoxitRig)
         Me.gbMiningRigs.Location = New System.Drawing.Point(8, 159)
-        Me.gbMiningRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMiningRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMiningRigs.Name = "gbMiningRigs"
-        Me.gbMiningRigs.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMiningRigs.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMiningRigs.Size = New System.Drawing.Size(349, 48)
         Me.gbMiningRigs.TabIndex = 136
         Me.gbMiningRigs.TabStop = False
@@ -3602,7 +3610,7 @@ Partial Class frmMain
         '
         Me.rbtnMineNoRigs.AutoSize = True
         Me.rbtnMineNoRigs.Location = New System.Drawing.Point(14, 19)
-        Me.rbtnMineNoRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineNoRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineNoRigs.Name = "rbtnMineNoRigs"
         Me.rbtnMineNoRigs.Size = New System.Drawing.Size(63, 21)
         Me.rbtnMineNoRigs.TabIndex = 1
@@ -3614,7 +3622,7 @@ Partial Class frmMain
         '
         Me.rbtnMineIceRig.AutoSize = True
         Me.rbtnMineIceRig.Location = New System.Drawing.Point(106, 19)
-        Me.rbtnMineIceRig.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineIceRig.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineIceRig.Name = "rbtnMineIceRig"
         Me.rbtnMineIceRig.Size = New System.Drawing.Size(119, 21)
         Me.rbtnMineIceRig.TabIndex = 2
@@ -3626,7 +3634,7 @@ Partial Class frmMain
         '
         Me.rbtnMineMercoxitRig.AutoSize = True
         Me.rbtnMineMercoxitRig.Location = New System.Drawing.Point(252, 19)
-        Me.rbtnMineMercoxitRig.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineMercoxitRig.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineMercoxitRig.Name = "rbtnMineMercoxitRig"
         Me.rbtnMineMercoxitRig.Size = New System.Drawing.Size(81, 21)
         Me.rbtnMineMercoxitRig.TabIndex = 3
@@ -3639,7 +3647,7 @@ Partial Class frmMain
         Me.cmbMineMiningLaser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMineMiningLaser.FormattingEnabled = True
         Me.cmbMineMiningLaser.Location = New System.Drawing.Point(84, 21)
-        Me.cmbMineMiningLaser.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineMiningLaser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineMiningLaser.Name = "cmbMineMiningLaser"
         Me.cmbMineMiningLaser.Size = New System.Drawing.Size(272, 25)
         Me.cmbMineMiningLaser.TabIndex = 0
@@ -3659,9 +3667,9 @@ Partial Class frmMain
         Me.gbMineCrystals.Controls.Add(Me.rbtnMineT1Crystals)
         Me.gbMineCrystals.Controls.Add(Me.rbtnMineT2Crystals)
         Me.gbMineCrystals.Location = New System.Drawing.Point(256, 46)
-        Me.gbMineCrystals.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineCrystals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineCrystals.Name = "gbMineCrystals"
-        Me.gbMineCrystals.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineCrystals.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineCrystals.Size = New System.Drawing.Size(100, 68)
         Me.gbMineCrystals.TabIndex = 4
         Me.gbMineCrystals.TabStop = False
@@ -3670,7 +3678,7 @@ Partial Class frmMain
         '
         Me.rbtnMineT1Crystals.AutoSize = True
         Me.rbtnMineT1Crystals.Location = New System.Drawing.Point(6, 14)
-        Me.rbtnMineT1Crystals.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineT1Crystals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineT1Crystals.Name = "rbtnMineT1Crystals"
         Me.rbtnMineT1Crystals.Size = New System.Drawing.Size(100, 21)
         Me.rbtnMineT1Crystals.TabIndex = 0
@@ -3682,7 +3690,7 @@ Partial Class frmMain
         '
         Me.rbtnMineT2Crystals.AutoSize = True
         Me.rbtnMineT2Crystals.Location = New System.Drawing.Point(6, 38)
-        Me.rbtnMineT2Crystals.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnMineT2Crystals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnMineT2Crystals.Name = "rbtnMineT2Crystals"
         Me.rbtnMineT2Crystals.Size = New System.Drawing.Size(100, 21)
         Me.rbtnMineT2Crystals.TabIndex = 1
@@ -3696,7 +3704,7 @@ Partial Class frmMain
         Me.cmbMineNumMiningUpgrades.FormattingEnabled = True
         Me.cmbMineNumMiningUpgrades.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineNumMiningUpgrades.Location = New System.Drawing.Point(208, 86)
-        Me.cmbMineNumMiningUpgrades.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineNumMiningUpgrades.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineNumMiningUpgrades.Name = "cmbMineNumMiningUpgrades"
         Me.cmbMineNumMiningUpgrades.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineNumMiningUpgrades.TabIndex = 3
@@ -3707,7 +3715,7 @@ Partial Class frmMain
         Me.cmbMineNumLasers.FormattingEnabled = True
         Me.cmbMineNumLasers.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineNumLasers.Location = New System.Drawing.Point(69, 86)
-        Me.cmbMineNumLasers.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineNumLasers.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineNumLasers.Name = "cmbMineNumLasers"
         Me.cmbMineNumLasers.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineNumLasers.TabIndex = 2
@@ -3718,7 +3726,7 @@ Partial Class frmMain
         Me.cmbMineMiningUpgrade.FormattingEnabled = True
         Me.cmbMineMiningUpgrade.Items.AddRange(New Object() {"None", "5% (T1)", "8% (M1)", "9% (T2)", "9% (M6)", "10% (M6)"})
         Me.cmbMineMiningUpgrade.Location = New System.Drawing.Point(115, 55)
-        Me.cmbMineMiningUpgrade.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineMiningUpgrade.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineMiningUpgrade.Name = "cmbMineMiningUpgrade"
         Me.cmbMineMiningUpgrade.Size = New System.Drawing.Size(136, 25)
         Me.cmbMineMiningUpgrade.TabIndex = 1
@@ -3728,7 +3736,7 @@ Partial Class frmMain
         Me.cmbMineImplant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMineImplant.FormattingEnabled = True
         Me.cmbMineImplant.Location = New System.Drawing.Point(56, 126)
-        Me.cmbMineImplant.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineImplant.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineImplant.Name = "cmbMineImplant"
         Me.cmbMineImplant.Size = New System.Drawing.Size(149, 25)
         Me.cmbMineImplant.TabIndex = 5
@@ -3736,7 +3744,7 @@ Partial Class frmMain
         'chkMineMichiImplant
         '
         Me.chkMineMichiImplant.Location = New System.Drawing.Point(215, 118)
-        Me.chkMineMichiImplant.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineMichiImplant.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineMichiImplant.Name = "chkMineMichiImplant"
         Me.chkMineMichiImplant.Size = New System.Drawing.Size(155, 42)
         Me.chkMineMichiImplant.TabIndex = 6
@@ -3793,9 +3801,9 @@ Partial Class frmMain
         Me.gbMineSkills.Controls.Add(Me.cmbMineAstrogeology)
         Me.gbMineSkills.Controls.Add(Me.lblMineDeepCore)
         Me.gbMineSkills.Location = New System.Drawing.Point(8, 244)
-        Me.gbMineSkills.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineSkills.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineSkills.Name = "gbMineSkills"
-        Me.gbMineSkills.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineSkills.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineSkills.Size = New System.Drawing.Size(508, 51)
         Me.gbMineSkills.TabIndex = 2
         Me.gbMineSkills.TabStop = False
@@ -3807,7 +3815,7 @@ Partial Class frmMain
         Me.cmbMineGasIceHarvesting.FormattingEnabled = True
         Me.cmbMineGasIceHarvesting.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineGasIceHarvesting.Location = New System.Drawing.Point(176, 16)
-        Me.cmbMineGasIceHarvesting.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineGasIceHarvesting.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineGasIceHarvesting.Name = "cmbMineGasIceHarvesting"
         Me.cmbMineGasIceHarvesting.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineGasIceHarvesting.TabIndex = 1
@@ -3828,7 +3836,7 @@ Partial Class frmMain
         Me.cmbMineDeepCore.FormattingEnabled = True
         Me.cmbMineDeepCore.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineDeepCore.Location = New System.Drawing.Point(445, 16)
-        Me.cmbMineDeepCore.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineDeepCore.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineDeepCore.Name = "cmbMineDeepCore"
         Me.cmbMineDeepCore.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineDeepCore.TabIndex = 3
@@ -3849,7 +3857,7 @@ Partial Class frmMain
         Me.cmbMineSkill.FormattingEnabled = True
         Me.cmbMineSkill.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineSkill.Location = New System.Drawing.Point(60, 16)
-        Me.cmbMineSkill.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineSkill.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineSkill.Name = "cmbMineSkill"
         Me.cmbMineSkill.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineSkill.TabIndex = 0
@@ -3870,7 +3878,7 @@ Partial Class frmMain
         Me.cmbMineAstrogeology.FormattingEnabled = True
         Me.cmbMineAstrogeology.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbMineAstrogeology.Location = New System.Drawing.Point(319, 16)
-        Me.cmbMineAstrogeology.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineAstrogeology.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineAstrogeology.Name = "cmbMineAstrogeology"
         Me.cmbMineAstrogeology.Size = New System.Drawing.Size(44, 25)
         Me.cmbMineAstrogeology.TabIndex = 2
@@ -3891,9 +3899,9 @@ Partial Class frmMain
         Me.gbMineMain.Controls.Add(Me.cmbMineOreType)
         Me.gbMineMain.Controls.Add(Me.gbMineOreLocSov)
         Me.gbMineMain.Location = New System.Drawing.Point(8, 10)
-        Me.gbMineMain.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineMain.Name = "gbMineMain"
-        Me.gbMineMain.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineMain.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineMain.Size = New System.Drawing.Size(495, 180)
         Me.gbMineMain.TabIndex = 0
         Me.gbMineMain.TabStop = False
@@ -3906,9 +3914,9 @@ Partial Class frmMain
         Me.gbMineIncludeOres.Controls.Add(Me.chkMineIncludeLowSec)
         Me.gbMineIncludeOres.Controls.Add(Me.chkMineIncludeHighYieldOre)
         Me.gbMineIncludeOres.Location = New System.Drawing.Point(11, 45)
-        Me.gbMineIncludeOres.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineIncludeOres.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineIncludeOres.Name = "gbMineIncludeOres"
-        Me.gbMineIncludeOres.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineIncludeOres.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineIncludeOres.Size = New System.Drawing.Size(142, 129)
         Me.gbMineIncludeOres.TabIndex = 4
         Me.gbMineIncludeOres.TabStop = False
@@ -3918,7 +3926,7 @@ Partial Class frmMain
         '
         Me.chkMineIncludeHighSec.AutoSize = True
         Me.chkMineIncludeHighSec.Location = New System.Drawing.Point(11, 22)
-        Me.chkMineIncludeHighSec.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeHighSec.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeHighSec.Name = "chkMineIncludeHighSec"
         Me.chkMineIncludeHighSec.Size = New System.Drawing.Size(122, 21)
         Me.chkMineIncludeHighSec.TabIndex = 0
@@ -3929,7 +3937,7 @@ Partial Class frmMain
         '
         Me.chkMineIncludeNullSec.AutoSize = True
         Me.chkMineIncludeNullSec.Location = New System.Drawing.Point(11, 65)
-        Me.chkMineIncludeNullSec.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeNullSec.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeNullSec.Name = "chkMineIncludeNullSec"
         Me.chkMineIncludeNullSec.Size = New System.Drawing.Size(117, 21)
         Me.chkMineIncludeNullSec.TabIndex = 2
@@ -3940,7 +3948,7 @@ Partial Class frmMain
         '
         Me.chkMineIncludeLowSec.AutoSize = True
         Me.chkMineIncludeLowSec.Location = New System.Drawing.Point(11, 44)
-        Me.chkMineIncludeLowSec.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeLowSec.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeLowSec.Name = "chkMineIncludeLowSec"
         Me.chkMineIncludeLowSec.Size = New System.Drawing.Size(118, 21)
         Me.chkMineIncludeLowSec.TabIndex = 1
@@ -3951,7 +3959,7 @@ Partial Class frmMain
         '
         Me.chkMineIncludeHighYieldOre.AutoSize = True
         Me.chkMineIncludeHighYieldOre.Location = New System.Drawing.Point(11, 92)
-        Me.chkMineIncludeHighYieldOre.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineIncludeHighYieldOre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineIncludeHighYieldOre.Name = "chkMineIncludeHighYieldOre"
         Me.chkMineIncludeHighYieldOre.Size = New System.Drawing.Size(129, 21)
         Me.chkMineIncludeHighYieldOre.TabIndex = 3
@@ -3973,7 +3981,7 @@ Partial Class frmMain
         Me.cmbMineOreType.FormattingEnabled = True
         Me.cmbMineOreType.Items.AddRange(New Object() {"Ore", "Ice", "Gas"})
         Me.cmbMineOreType.Location = New System.Drawing.Point(99, 15)
-        Me.cmbMineOreType.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbMineOreType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbMineOreType.Name = "cmbMineOreType"
         Me.cmbMineOreType.Size = New System.Drawing.Size(54, 25)
         Me.cmbMineOreType.TabIndex = 0
@@ -3989,9 +3997,9 @@ Partial Class frmMain
         Me.gbMineOreLocSov.Controls.Add(Me.chkMineGallente)
         Me.gbMineOreLocSov.Controls.Add(Me.chkMineAmarr)
         Me.gbMineOreLocSov.Location = New System.Drawing.Point(161, 12)
-        Me.gbMineOreLocSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineOreLocSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineOreLocSov.Name = "gbMineOreLocSov"
-        Me.gbMineOreLocSov.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineOreLocSov.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineOreLocSov.Size = New System.Drawing.Size(321, 161)
         Me.gbMineOreLocSov.TabIndex = 5
         Me.gbMineOreLocSov.TabStop = False
@@ -4001,7 +4009,7 @@ Partial Class frmMain
         '
         Me.chkMineMoonMining.AutoSize = True
         Me.chkMineMoonMining.Location = New System.Drawing.Point(160, 15)
-        Me.chkMineMoonMining.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineMoonMining.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineMoonMining.Name = "chkMineMoonMining"
         Me.chkMineMoonMining.Size = New System.Drawing.Size(110, 21)
         Me.chkMineMoonMining.TabIndex = 6
@@ -4012,7 +4020,7 @@ Partial Class frmMain
         '
         Me.chkMineTriglavian.AutoSize = True
         Me.chkMineTriglavian.Location = New System.Drawing.Point(160, 86)
-        Me.chkMineTriglavian.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineTriglavian.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineTriglavian.Name = "chkMineTriglavian"
         Me.chkMineTriglavian.Size = New System.Drawing.Size(136, 21)
         Me.chkMineTriglavian.TabIndex = 6
@@ -4023,7 +4031,7 @@ Partial Class frmMain
         '
         Me.chkMineWH.AutoSize = True
         Me.chkMineWH.Location = New System.Drawing.Point(14, 86)
-        Me.chkMineWH.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineWH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineWH.Name = "chkMineWH"
         Me.chkMineWH.Size = New System.Drawing.Size(138, 21)
         Me.chkMineWH.TabIndex = 4
@@ -4039,9 +4047,9 @@ Partial Class frmMain
         Me.gbMineWHSpace.Controls.Add(Me.chkMineC5)
         Me.gbMineWHSpace.Controls.Add(Me.chkMineC3)
         Me.gbMineWHSpace.Location = New System.Drawing.Point(8, 109)
-        Me.gbMineWHSpace.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbMineWHSpace.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineWHSpace.Name = "gbMineWHSpace"
-        Me.gbMineWHSpace.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbMineWHSpace.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbMineWHSpace.Size = New System.Drawing.Size(306, 46)
         Me.gbMineWHSpace.TabIndex = 5
         Me.gbMineWHSpace.TabStop = False
@@ -4050,7 +4058,7 @@ Partial Class frmMain
         '
         Me.chkMineC6.AutoSize = True
         Me.chkMineC6.Location = New System.Drawing.Point(250, 16)
-        Me.chkMineC6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC6.Name = "chkMineC6"
         Me.chkMineC6.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC6.TabIndex = 10
@@ -4061,7 +4069,7 @@ Partial Class frmMain
         '
         Me.chkMineC2.AutoSize = True
         Me.chkMineC2.Location = New System.Drawing.Point(55, 16)
-        Me.chkMineC2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC2.Name = "chkMineC2"
         Me.chkMineC2.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC2.TabIndex = 6
@@ -4072,7 +4080,7 @@ Partial Class frmMain
         '
         Me.chkMineC4.AutoSize = True
         Me.chkMineC4.Location = New System.Drawing.Point(152, 16)
-        Me.chkMineC4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC4.Name = "chkMineC4"
         Me.chkMineC4.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC4.TabIndex = 8
@@ -4083,7 +4091,7 @@ Partial Class frmMain
         '
         Me.chkMineC1.AutoSize = True
         Me.chkMineC1.Location = New System.Drawing.Point(6, 16)
-        Me.chkMineC1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC1.Name = "chkMineC1"
         Me.chkMineC1.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC1.TabIndex = 5
@@ -4094,7 +4102,7 @@ Partial Class frmMain
         '
         Me.chkMineC5.AutoSize = True
         Me.chkMineC5.Location = New System.Drawing.Point(201, 16)
-        Me.chkMineC5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC5.Name = "chkMineC5"
         Me.chkMineC5.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC5.TabIndex = 9
@@ -4105,7 +4113,7 @@ Partial Class frmMain
         '
         Me.chkMineC3.AutoSize = True
         Me.chkMineC3.Location = New System.Drawing.Point(104, 16)
-        Me.chkMineC3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineC3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineC3.Name = "chkMineC3"
         Me.chkMineC3.Size = New System.Drawing.Size(47, 21)
         Me.chkMineC3.TabIndex = 7
@@ -4116,7 +4124,7 @@ Partial Class frmMain
         '
         Me.chkMineCaldari.AutoSize = True
         Me.chkMineCaldari.Location = New System.Drawing.Point(160, 39)
-        Me.chkMineCaldari.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineCaldari.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineCaldari.Name = "chkMineCaldari"
         Me.chkMineCaldari.Size = New System.Drawing.Size(118, 21)
         Me.chkMineCaldari.TabIndex = 1
@@ -4127,7 +4135,7 @@ Partial Class frmMain
         '
         Me.chkMineMinmatar.AutoSize = True
         Me.chkMineMinmatar.Location = New System.Drawing.Point(160, 62)
-        Me.chkMineMinmatar.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineMinmatar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineMinmatar.Name = "chkMineMinmatar"
         Me.chkMineMinmatar.Size = New System.Drawing.Size(132, 21)
         Me.chkMineMinmatar.TabIndex = 3
@@ -4138,7 +4146,7 @@ Partial Class frmMain
         '
         Me.chkMineGallente.AutoSize = True
         Me.chkMineGallente.Location = New System.Drawing.Point(14, 62)
-        Me.chkMineGallente.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineGallente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineGallente.Name = "chkMineGallente"
         Me.chkMineGallente.Size = New System.Drawing.Size(127, 21)
         Me.chkMineGallente.TabIndex = 2
@@ -4149,7 +4157,7 @@ Partial Class frmMain
         '
         Me.chkMineAmarr.AutoSize = True
         Me.chkMineAmarr.Location = New System.Drawing.Point(14, 39)
-        Me.chkMineAmarr.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMineAmarr.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMineAmarr.Name = "chkMineAmarr"
         Me.chkMineAmarr.Size = New System.Drawing.Size(112, 21)
         Me.chkMineAmarr.TabIndex = 0
@@ -4162,7 +4170,7 @@ Partial Class frmMain
         Me.lstMineGrid.GridLines = True
         Me.lstMineGrid.HideSelection = False
         Me.lstMineGrid.Location = New System.Drawing.Point(6, 345)
-        Me.lstMineGrid.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstMineGrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstMineGrid.MultiSelect = False
         Me.lstMineGrid.Name = "lstMineGrid"
         Me.lstMineGrid.Size = New System.Drawing.Size(874, 414)
@@ -4175,7 +4183,7 @@ Partial Class frmMain
         Me.tabDatacores.Controls.Add(Me.lstDC)
         Me.tabDatacores.Controls.Add(Me.gbDCOptions)
         Me.tabDatacores.Location = New System.Drawing.Point(4, 26)
-        Me.tabDatacores.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabDatacores.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabDatacores.Name = "tabDatacores"
         Me.tabDatacores.Size = New System.Drawing.Size(1423, 771)
         Me.tabDatacores.TabIndex = 3
@@ -4189,7 +4197,7 @@ Partial Class frmMain
         Me.lstDC.GridLines = True
         Me.lstDC.HideSelection = False
         Me.lstDC.Location = New System.Drawing.Point(6, 10)
-        Me.lstDC.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstDC.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstDC.Name = "lstDC"
         Me.lstDC.Size = New System.Drawing.Size(1404, 352)
         Me.lstDC.TabIndex = 10
@@ -4213,9 +4221,9 @@ Partial Class frmMain
         Me.gbDCOptions.Controls.Add(Me.gbDCCorpsGallente)
         Me.gbDCOptions.Controls.Add(Me.btnDCRefresh)
         Me.gbDCOptions.Location = New System.Drawing.Point(6, 358)
-        Me.gbDCOptions.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCOptions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCOptions.Name = "gbDCOptions"
-        Me.gbDCOptions.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCOptions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCOptions.Size = New System.Drawing.Size(1405, 404)
         Me.gbDCOptions.TabIndex = 9
         Me.gbDCOptions.TabStop = False
@@ -4223,7 +4231,7 @@ Partial Class frmMain
         'btnDCSaveSettings
         '
         Me.btnDCSaveSettings.Location = New System.Drawing.Point(1225, 220)
-        Me.btnDCSaveSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDCSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDCSaveSettings.Name = "btnDCSaveSettings"
         Me.btnDCSaveSettings.Size = New System.Drawing.Size(172, 38)
         Me.btnDCSaveSettings.TabIndex = 71
@@ -4241,9 +4249,9 @@ Partial Class frmMain
         Me.gbDCAgentLocSov.Controls.Add(Me.chkDCAmmatarSov)
         Me.gbDCAgentLocSov.Controls.Add(Me.chkDCCaldariSov)
         Me.gbDCAgentLocSov.Location = New System.Drawing.Point(932, 301)
-        Me.gbDCAgentLocSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCAgentLocSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCAgentLocSov.Name = "gbDCAgentLocSov"
-        Me.gbDCAgentLocSov.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCAgentLocSov.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCAgentLocSov.Size = New System.Drawing.Size(465, 95)
         Me.gbDCAgentLocSov.TabIndex = 63
         Me.gbDCAgentLocSov.TabStop = False
@@ -4253,7 +4261,7 @@ Partial Class frmMain
         '
         Me.chkDCThukkerSov.AutoSize = True
         Me.chkDCThukkerSov.Location = New System.Drawing.Point(340, 45)
-        Me.chkDCThukkerSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCThukkerSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCThukkerSov.Name = "chkDCThukkerSov"
         Me.chkDCThukkerSov.Size = New System.Drawing.Size(119, 21)
         Me.chkDCThukkerSov.TabIndex = 34
@@ -4264,7 +4272,7 @@ Partial Class frmMain
         '
         Me.chkDCKhanidSov.AutoSize = True
         Me.chkDCKhanidSov.Location = New System.Drawing.Point(159, 45)
-        Me.chkDCKhanidSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCKhanidSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCKhanidSov.Name = "chkDCKhanidSov"
         Me.chkDCKhanidSov.Size = New System.Drawing.Size(133, 21)
         Me.chkDCKhanidSov.TabIndex = 31
@@ -4275,7 +4283,7 @@ Partial Class frmMain
         '
         Me.chkDCMinmatarSov.AutoSize = True
         Me.chkDCMinmatarSov.Location = New System.Drawing.Point(159, 66)
-        Me.chkDCMinmatarSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCMinmatarSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCMinmatarSov.Name = "chkDCMinmatarSov"
         Me.chkDCMinmatarSov.Size = New System.Drawing.Size(147, 21)
         Me.chkDCMinmatarSov.TabIndex = 32
@@ -4286,7 +4294,7 @@ Partial Class frmMain
         '
         Me.chkDCSyndicateSov.AutoSize = True
         Me.chkDCSyndicateSov.Location = New System.Drawing.Point(340, 24)
-        Me.chkDCSyndicateSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCSyndicateSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCSyndicateSov.Name = "chkDCSyndicateSov"
         Me.chkDCSyndicateSov.Size = New System.Drawing.Size(121, 21)
         Me.chkDCSyndicateSov.TabIndex = 33
@@ -4297,7 +4305,7 @@ Partial Class frmMain
         '
         Me.chkDCGallenteSov.AutoSize = True
         Me.chkDCGallenteSov.Location = New System.Drawing.Point(159, 24)
-        Me.chkDCGallenteSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCGallenteSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCGallenteSov.Name = "chkDCGallenteSov"
         Me.chkDCGallenteSov.Size = New System.Drawing.Size(155, 21)
         Me.chkDCGallenteSov.TabIndex = 30
@@ -4308,7 +4316,7 @@ Partial Class frmMain
         '
         Me.chkDCAmarrSov.AutoSize = True
         Me.chkDCAmarrSov.Location = New System.Drawing.Point(15, 24)
-        Me.chkDCAmarrSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCAmarrSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCAmarrSov.Name = "chkDCAmarrSov"
         Me.chkDCAmarrSov.Size = New System.Drawing.Size(116, 21)
         Me.chkDCAmarrSov.TabIndex = 27
@@ -4319,7 +4327,7 @@ Partial Class frmMain
         '
         Me.chkDCAmmatarSov.AutoSize = True
         Me.chkDCAmmatarSov.Location = New System.Drawing.Point(15, 45)
-        Me.chkDCAmmatarSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCAmmatarSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCAmmatarSov.Name = "chkDCAmmatarSov"
         Me.chkDCAmmatarSov.Size = New System.Drawing.Size(145, 21)
         Me.chkDCAmmatarSov.TabIndex = 28
@@ -4330,7 +4338,7 @@ Partial Class frmMain
         '
         Me.chkDCCaldariSov.AutoSize = True
         Me.chkDCCaldariSov.Location = New System.Drawing.Point(15, 66)
-        Me.chkDCCaldariSov.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCaldariSov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCaldariSov.Name = "chkDCCaldariSov"
         Me.chkDCCaldariSov.Size = New System.Drawing.Size(111, 21)
         Me.chkDCCaldariSov.TabIndex = 29
@@ -4344,9 +4352,9 @@ Partial Class frmMain
         Me.gbDCTotalIPH.Controls.Add(Me.txtDCTotalSelectedIPH)
         Me.gbDCTotalIPH.Controls.Add(Me.txtDCTotalOptIPH)
         Me.gbDCTotalIPH.Location = New System.Drawing.Point(1222, 14)
-        Me.gbDCTotalIPH.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCTotalIPH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCTotalIPH.Name = "gbDCTotalIPH"
-        Me.gbDCTotalIPH.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCTotalIPH.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCTotalIPH.Size = New System.Drawing.Size(175, 126)
         Me.gbDCTotalIPH.TabIndex = 70
         Me.gbDCTotalIPH.TabStop = False
@@ -4373,7 +4381,7 @@ Partial Class frmMain
         'txtDCTotalSelectedIPH
         '
         Me.txtDCTotalSelectedIPH.Location = New System.Drawing.Point(6, 41)
-        Me.txtDCTotalSelectedIPH.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCTotalSelectedIPH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCTotalSelectedIPH.Name = "txtDCTotalSelectedIPH"
         Me.txtDCTotalSelectedIPH.Size = New System.Drawing.Size(160, 23)
         Me.txtDCTotalSelectedIPH.TabIndex = 41
@@ -4382,7 +4390,7 @@ Partial Class frmMain
         'txtDCTotalOptIPH
         '
         Me.txtDCTotalOptIPH.Location = New System.Drawing.Point(6, 89)
-        Me.txtDCTotalOptIPH.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCTotalOptIPH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCTotalOptIPH.Name = "txtDCTotalOptIPH"
         Me.txtDCTotalOptIPH.Size = New System.Drawing.Size(160, 23)
         Me.txtDCTotalOptIPH.TabIndex = 40
@@ -4394,9 +4402,9 @@ Partial Class frmMain
         Me.gbDCPrices.Controls.Add(Me.rbtnDCRegionPrices)
         Me.gbDCPrices.Controls.Add(Me.rbtnDCUpdatedPrices)
         Me.gbDCPrices.Location = New System.Drawing.Point(8, 346)
-        Me.gbDCPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCPrices.Name = "gbDCPrices"
-        Me.gbDCPrices.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCPrices.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCPrices.Size = New System.Drawing.Size(632, 50)
         Me.gbDCPrices.TabIndex = 7
         Me.gbDCPrices.TabStop = False
@@ -4406,7 +4414,7 @@ Partial Class frmMain
         '
         Me.rbtnDCSystemPrices.AutoSize = True
         Me.rbtnDCSystemPrices.Location = New System.Drawing.Point(391, 20)
-        Me.rbtnDCSystemPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnDCSystemPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnDCSystemPrices.Name = "rbtnDCSystemPrices"
         Me.rbtnDCSystemPrices.Size = New System.Drawing.Size(116, 21)
         Me.rbtnDCSystemPrices.TabIndex = 2
@@ -4418,7 +4426,7 @@ Partial Class frmMain
         '
         Me.rbtnDCRegionPrices.AutoSize = True
         Me.rbtnDCRegionPrices.Location = New System.Drawing.Point(205, 20)
-        Me.rbtnDCRegionPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnDCRegionPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnDCRegionPrices.Name = "rbtnDCRegionPrices"
         Me.rbtnDCRegionPrices.Size = New System.Drawing.Size(115, 21)
         Me.rbtnDCRegionPrices.TabIndex = 1
@@ -4430,7 +4438,7 @@ Partial Class frmMain
         '
         Me.rbtnDCUpdatedPrices.AutoSize = True
         Me.rbtnDCUpdatedPrices.Location = New System.Drawing.Point(9, 20)
-        Me.rbtnDCUpdatedPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnDCUpdatedPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnDCUpdatedPrices.Name = "rbtnDCUpdatedPrices"
         Me.rbtnDCUpdatedPrices.Size = New System.Drawing.Size(126, 21)
         Me.rbtnDCUpdatedPrices.TabIndex = 0
@@ -4446,9 +4454,9 @@ Partial Class frmMain
         Me.gbDCAgentTypes.Controls.Add(Me.chkDCHighSecAgents)
         Me.gbDCAgentTypes.Controls.Add(Me.chkDCIncludeAllAgents)
         Me.gbDCAgentTypes.Location = New System.Drawing.Point(648, 268)
-        Me.gbDCAgentTypes.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCAgentTypes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCAgentTypes.Name = "gbDCAgentTypes"
-        Me.gbDCAgentTypes.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCAgentTypes.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCAgentTypes.Size = New System.Drawing.Size(278, 130)
         Me.gbDCAgentTypes.TabIndex = 69
         Me.gbDCAgentTypes.TabStop = False
@@ -4458,7 +4466,7 @@ Partial Class frmMain
         '
         Me.cmbDCRegions.FormattingEnabled = True
         Me.cmbDCRegions.Location = New System.Drawing.Point(81, 88)
-        Me.cmbDCRegions.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCRegions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCRegions.Name = "cmbDCRegions"
         Me.cmbDCRegions.Size = New System.Drawing.Size(179, 25)
         Me.cmbDCRegions.TabIndex = 6
@@ -4477,7 +4485,7 @@ Partial Class frmMain
         '
         Me.chkDCLowSecAgents.AutoSize = True
         Me.chkDCLowSecAgents.Location = New System.Drawing.Point(121, 26)
-        Me.chkDCLowSecAgents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCLowSecAgents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCLowSecAgents.Name = "chkDCLowSecAgents"
         Me.chkDCLowSecAgents.Size = New System.Drawing.Size(111, 21)
         Me.chkDCLowSecAgents.TabIndex = 1
@@ -4488,7 +4496,7 @@ Partial Class frmMain
         '
         Me.chkDCHighSecAgents.AutoSize = True
         Me.chkDCHighSecAgents.Location = New System.Drawing.Point(15, 26)
-        Me.chkDCHighSecAgents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCHighSecAgents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCHighSecAgents.Name = "chkDCHighSecAgents"
         Me.chkDCHighSecAgents.Size = New System.Drawing.Size(87, 21)
         Me.chkDCHighSecAgents.TabIndex = 0
@@ -4499,7 +4507,7 @@ Partial Class frmMain
         '
         Me.chkDCIncludeAllAgents.AutoSize = True
         Me.chkDCIncludeAllAgents.Location = New System.Drawing.Point(15, 55)
-        Me.chkDCIncludeAllAgents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCIncludeAllAgents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCIncludeAllAgents.Name = "chkDCIncludeAllAgents"
         Me.chkDCIncludeAllAgents.Size = New System.Drawing.Size(228, 21)
         Me.chkDCIncludeAllAgents.TabIndex = 0
@@ -4515,9 +4523,9 @@ Partial Class frmMain
         Me.gbDCBaseSkills.Controls.Add(Me.lblDCConnections)
         Me.gbDCBaseSkills.Controls.Add(Me.cmbDCNegotiation)
         Me.gbDCBaseSkills.Location = New System.Drawing.Point(8, 295)
-        Me.gbDCBaseSkills.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCBaseSkills.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCBaseSkills.Name = "gbDCBaseSkills"
-        Me.gbDCBaseSkills.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCBaseSkills.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCBaseSkills.Size = New System.Drawing.Size(632, 50)
         Me.gbDCBaseSkills.TabIndex = 9
         Me.gbDCBaseSkills.TabStop = False
@@ -4529,7 +4537,7 @@ Partial Class frmMain
         Me.cmbDCResearchMgmt.FormattingEnabled = True
         Me.cmbDCResearchMgmt.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCResearchMgmt.Location = New System.Drawing.Point(495, 16)
-        Me.cmbDCResearchMgmt.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCResearchMgmt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCResearchMgmt.Name = "cmbDCResearchMgmt"
         Me.cmbDCResearchMgmt.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCResearchMgmt.TabIndex = 60
@@ -4560,7 +4568,7 @@ Partial Class frmMain
         Me.cmbDCConnections.FormattingEnabled = True
         Me.cmbDCConnections.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCConnections.Location = New System.Drawing.Point(272, 16)
-        Me.cmbDCConnections.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCConnections.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCConnections.Name = "cmbDCConnections"
         Me.cmbDCConnections.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCConnections.TabIndex = 55
@@ -4581,7 +4589,7 @@ Partial Class frmMain
         Me.cmbDCNegotiation.FormattingEnabled = True
         Me.cmbDCNegotiation.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCNegotiation.Location = New System.Drawing.Point(95, 16)
-        Me.cmbDCNegotiation.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCNegotiation.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCNegotiation.Name = "cmbDCNegotiation"
         Me.cmbDCNegotiation.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCNegotiation.TabIndex = 56
@@ -4641,9 +4649,9 @@ Partial Class frmMain
         Me.gbDCDatacores.Controls.Add(Me.lblDatacore9)
         Me.gbDCDatacores.Controls.Add(Me.gbDCCodes)
         Me.gbDCDatacores.Location = New System.Drawing.Point(8, 14)
-        Me.gbDCDatacores.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCDatacores.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCDatacores.Name = "gbDCDatacores"
-        Me.gbDCDatacores.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCDatacores.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCDatacores.Size = New System.Drawing.Size(632, 280)
         Me.gbDCDatacores.TabIndex = 3
         Me.gbDCDatacores.TabStop = False
@@ -4655,7 +4663,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel17.FormattingEnabled = True
         Me.cmbDCSkillLevel17.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel17.Location = New System.Drawing.Point(581, 209)
-        Me.cmbDCSkillLevel17.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel17.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel17.Name = "cmbDCSkillLevel17"
         Me.cmbDCSkillLevel17.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel17.TabIndex = 55
@@ -4666,7 +4674,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel16.FormattingEnabled = True
         Me.cmbDCSkillLevel16.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel16.Location = New System.Drawing.Point(581, 181)
-        Me.cmbDCSkillLevel16.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel16.Name = "cmbDCSkillLevel16"
         Me.cmbDCSkillLevel16.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel16.TabIndex = 54
@@ -4677,7 +4685,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel15.FormattingEnabled = True
         Me.cmbDCSkillLevel15.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel15.Location = New System.Drawing.Point(581, 152)
-        Me.cmbDCSkillLevel15.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel15.Name = "cmbDCSkillLevel15"
         Me.cmbDCSkillLevel15.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel15.TabIndex = 53
@@ -4688,7 +4696,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel14.FormattingEnabled = True
         Me.cmbDCSkillLevel14.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel14.Location = New System.Drawing.Point(581, 125)
-        Me.cmbDCSkillLevel14.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel14.Name = "cmbDCSkillLevel14"
         Me.cmbDCSkillLevel14.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel14.TabIndex = 52
@@ -4699,7 +4707,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel13.FormattingEnabled = True
         Me.cmbDCSkillLevel13.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel13.Location = New System.Drawing.Point(581, 98)
-        Me.cmbDCSkillLevel13.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel13.Name = "cmbDCSkillLevel13"
         Me.cmbDCSkillLevel13.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel13.TabIndex = 51
@@ -4710,7 +4718,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel12.FormattingEnabled = True
         Me.cmbDCSkillLevel12.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel12.Location = New System.Drawing.Point(581, 69)
-        Me.cmbDCSkillLevel12.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel12.Name = "cmbDCSkillLevel12"
         Me.cmbDCSkillLevel12.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel12.TabIndex = 50
@@ -4721,7 +4729,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel11.FormattingEnabled = True
         Me.cmbDCSkillLevel11.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel11.Location = New System.Drawing.Point(581, 41)
-        Me.cmbDCSkillLevel11.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel11.Name = "cmbDCSkillLevel11"
         Me.cmbDCSkillLevel11.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel11.TabIndex = 49
@@ -4732,7 +4740,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel10.FormattingEnabled = True
         Me.cmbDCSkillLevel10.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel10.Location = New System.Drawing.Point(272, 239)
-        Me.cmbDCSkillLevel10.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel10.Name = "cmbDCSkillLevel10"
         Me.cmbDCSkillLevel10.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel10.TabIndex = 48
@@ -4743,7 +4751,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel9.FormattingEnabled = True
         Me.cmbDCSkillLevel9.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel9.Location = New System.Drawing.Point(581, 14)
-        Me.cmbDCSkillLevel9.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel9.Name = "cmbDCSkillLevel9"
         Me.cmbDCSkillLevel9.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel9.TabIndex = 47
@@ -4754,7 +4762,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel8.FormattingEnabled = True
         Me.cmbDCSkillLevel8.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel8.Location = New System.Drawing.Point(272, 211)
-        Me.cmbDCSkillLevel8.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel8.Name = "cmbDCSkillLevel8"
         Me.cmbDCSkillLevel8.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel8.TabIndex = 46
@@ -4765,7 +4773,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel7.FormattingEnabled = True
         Me.cmbDCSkillLevel7.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel7.Location = New System.Drawing.Point(272, 184)
-        Me.cmbDCSkillLevel7.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel7.Name = "cmbDCSkillLevel7"
         Me.cmbDCSkillLevel7.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel7.TabIndex = 45
@@ -4776,7 +4784,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel6.FormattingEnabled = True
         Me.cmbDCSkillLevel6.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel6.Location = New System.Drawing.Point(272, 155)
-        Me.cmbDCSkillLevel6.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel6.Name = "cmbDCSkillLevel6"
         Me.cmbDCSkillLevel6.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel6.TabIndex = 44
@@ -4787,7 +4795,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel5.FormattingEnabled = True
         Me.cmbDCSkillLevel5.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel5.Location = New System.Drawing.Point(272, 128)
-        Me.cmbDCSkillLevel5.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel5.Name = "cmbDCSkillLevel5"
         Me.cmbDCSkillLevel5.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel5.TabIndex = 43
@@ -4798,7 +4806,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel4.FormattingEnabled = True
         Me.cmbDCSkillLevel4.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel4.Location = New System.Drawing.Point(272, 100)
-        Me.cmbDCSkillLevel4.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel4.Name = "cmbDCSkillLevel4"
         Me.cmbDCSkillLevel4.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel4.TabIndex = 42
@@ -4809,7 +4817,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel3.FormattingEnabled = True
         Me.cmbDCSkillLevel3.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel3.Location = New System.Drawing.Point(272, 71)
-        Me.cmbDCSkillLevel3.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel3.Name = "cmbDCSkillLevel3"
         Me.cmbDCSkillLevel3.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel3.TabIndex = 41
@@ -4820,7 +4828,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel2.FormattingEnabled = True
         Me.cmbDCSkillLevel2.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel2.Location = New System.Drawing.Point(272, 44)
-        Me.cmbDCSkillLevel2.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel2.Name = "cmbDCSkillLevel2"
         Me.cmbDCSkillLevel2.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel2.TabIndex = 40
@@ -4831,7 +4839,7 @@ Partial Class frmMain
         Me.cmbDCSkillLevel1.FormattingEnabled = True
         Me.cmbDCSkillLevel1.Items.AddRange(New Object() {"0", "1", "2", "3", "4", "5"})
         Me.cmbDCSkillLevel1.Location = New System.Drawing.Point(272, 16)
-        Me.cmbDCSkillLevel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbDCSkillLevel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbDCSkillLevel1.Name = "cmbDCSkillLevel1"
         Me.cmbDCSkillLevel1.Size = New System.Drawing.Size(44, 25)
         Me.cmbDCSkillLevel1.TabIndex = 39
@@ -4840,7 +4848,7 @@ Partial Class frmMain
         '
         Me.chkDC17.AutoSize = True
         Me.chkDC17.Location = New System.Drawing.Point(346, 215)
-        Me.chkDC17.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC17.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC17.Name = "chkDC17"
         Me.chkDC17.Size = New System.Drawing.Size(18, 17)
         Me.chkDC17.TabIndex = 38
@@ -4850,7 +4858,7 @@ Partial Class frmMain
         '
         Me.chkDC4.AutoSize = True
         Me.chkDC4.Location = New System.Drawing.Point(9, 104)
-        Me.chkDC4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC4.Name = "chkDC4"
         Me.chkDC4.Size = New System.Drawing.Size(18, 17)
         Me.chkDC4.TabIndex = 30
@@ -4860,7 +4868,7 @@ Partial Class frmMain
         '
         Me.chkDC16.AutoSize = True
         Me.chkDC16.Location = New System.Drawing.Point(346, 188)
-        Me.chkDC16.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC16.Name = "chkDC16"
         Me.chkDC16.Size = New System.Drawing.Size(18, 17)
         Me.chkDC16.TabIndex = 37
@@ -4870,7 +4878,7 @@ Partial Class frmMain
         '
         Me.chkDC3.AutoSize = True
         Me.chkDC3.Location = New System.Drawing.Point(9, 75)
-        Me.chkDC3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC3.Name = "chkDC3"
         Me.chkDC3.Size = New System.Drawing.Size(18, 17)
         Me.chkDC3.TabIndex = 29
@@ -4889,7 +4897,7 @@ Partial Class frmMain
         '
         Me.chkDC15.AutoSize = True
         Me.chkDC15.Location = New System.Drawing.Point(346, 159)
-        Me.chkDC15.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC15.Name = "chkDC15"
         Me.chkDC15.Size = New System.Drawing.Size(18, 17)
         Me.chkDC15.TabIndex = 36
@@ -4899,7 +4907,7 @@ Partial Class frmMain
         '
         Me.chkDC2.AutoSize = True
         Me.chkDC2.Location = New System.Drawing.Point(9, 48)
-        Me.chkDC2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC2.Name = "chkDC2"
         Me.chkDC2.Size = New System.Drawing.Size(18, 17)
         Me.chkDC2.TabIndex = 28
@@ -4909,7 +4917,7 @@ Partial Class frmMain
         '
         Me.chkDC14.AutoSize = True
         Me.chkDC14.Location = New System.Drawing.Point(346, 131)
-        Me.chkDC14.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC14.Name = "chkDC14"
         Me.chkDC14.Size = New System.Drawing.Size(18, 17)
         Me.chkDC14.TabIndex = 35
@@ -4919,7 +4927,7 @@ Partial Class frmMain
         '
         Me.chkDC1.AutoSize = True
         Me.chkDC1.Location = New System.Drawing.Point(9, 20)
-        Me.chkDC1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC1.Name = "chkDC1"
         Me.chkDC1.Size = New System.Drawing.Size(18, 17)
         Me.chkDC1.TabIndex = 27
@@ -4929,7 +4937,7 @@ Partial Class frmMain
         '
         Me.chkDC13.AutoSize = True
         Me.chkDC13.Location = New System.Drawing.Point(346, 104)
-        Me.chkDC13.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC13.Name = "chkDC13"
         Me.chkDC13.Size = New System.Drawing.Size(18, 17)
         Me.chkDC13.TabIndex = 34
@@ -4939,7 +4947,7 @@ Partial Class frmMain
         '
         Me.chkDC12.AutoSize = True
         Me.chkDC12.Location = New System.Drawing.Point(346, 75)
-        Me.chkDC12.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC12.Name = "chkDC12"
         Me.chkDC12.Size = New System.Drawing.Size(18, 17)
         Me.chkDC12.TabIndex = 33
@@ -4949,7 +4957,7 @@ Partial Class frmMain
         '
         Me.chkDC11.AutoSize = True
         Me.chkDC11.Location = New System.Drawing.Point(346, 48)
-        Me.chkDC11.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC11.Name = "chkDC11"
         Me.chkDC11.Size = New System.Drawing.Size(18, 17)
         Me.chkDC11.TabIndex = 32
@@ -4959,7 +4967,7 @@ Partial Class frmMain
         '
         Me.chkDC10.AutoSize = True
         Me.chkDC10.Location = New System.Drawing.Point(9, 242)
-        Me.chkDC10.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC10.Name = "chkDC10"
         Me.chkDC10.Size = New System.Drawing.Size(18, 17)
         Me.chkDC10.TabIndex = 31
@@ -4996,7 +5004,7 @@ Partial Class frmMain
         '
         Me.chkDC9.AutoSize = True
         Me.chkDC9.Location = New System.Drawing.Point(346, 20)
-        Me.chkDC9.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC9.Name = "chkDC9"
         Me.chkDC9.Size = New System.Drawing.Size(18, 17)
         Me.chkDC9.TabIndex = 30
@@ -5024,7 +5032,7 @@ Partial Class frmMain
         '
         Me.chkDC8.AutoSize = True
         Me.chkDC8.Location = New System.Drawing.Point(9, 215)
-        Me.chkDC8.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC8.Name = "chkDC8"
         Me.chkDC8.Size = New System.Drawing.Size(18, 17)
         Me.chkDC8.TabIndex = 29
@@ -5052,7 +5060,7 @@ Partial Class frmMain
         '
         Me.chkDC7.AutoSize = True
         Me.chkDC7.Location = New System.Drawing.Point(9, 188)
-        Me.chkDC7.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC7.Name = "chkDC7"
         Me.chkDC7.Size = New System.Drawing.Size(18, 17)
         Me.chkDC7.TabIndex = 28
@@ -5062,7 +5070,7 @@ Partial Class frmMain
         '
         Me.chkDC6.AutoSize = True
         Me.chkDC6.Location = New System.Drawing.Point(9, 159)
-        Me.chkDC6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC6.Name = "chkDC6"
         Me.chkDC6.Size = New System.Drawing.Size(18, 17)
         Me.chkDC6.TabIndex = 27
@@ -5081,7 +5089,7 @@ Partial Class frmMain
         '
         Me.chkDC5.AutoSize = True
         Me.chkDC5.Location = New System.Drawing.Point(9, 131)
-        Me.chkDC5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDC5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDC5.Name = "chkDC5"
         Me.chkDC5.Size = New System.Drawing.Size(18, 17)
         Me.chkDC5.TabIndex = 26
@@ -5168,9 +5176,9 @@ Partial Class frmMain
         Me.gbDCCodes.Controls.Add(Me.lblDCBlueText)
         Me.gbDCCodes.Controls.Add(Me.lblDCGreenBackColor)
         Me.gbDCCodes.Location = New System.Drawing.Point(346, 234)
-        Me.gbDCCodes.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCCodes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCodes.Name = "gbDCCodes"
-        Me.gbDCCodes.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCCodes.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCodes.Size = New System.Drawing.Size(280, 38)
         Me.gbDCCodes.TabIndex = 56
         Me.gbDCCodes.TabStop = False
@@ -5263,9 +5271,9 @@ Partial Class frmMain
         Me.gbDCCorpMinmatar.Controls.Add(Me.txtDCStanding12)
         Me.gbDCCorpMinmatar.Controls.Add(Me.lblDCStanding4)
         Me.gbDCCorpMinmatar.Location = New System.Drawing.Point(932, 149)
-        Me.gbDCCorpMinmatar.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpMinmatar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpMinmatar.Name = "gbDCCorpMinmatar"
-        Me.gbDCCorpMinmatar.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpMinmatar.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpMinmatar.Size = New System.Drawing.Size(285, 152)
         Me.gbDCCorpMinmatar.TabIndex = 64
         Me.gbDCCorpMinmatar.TabStop = False
@@ -5284,7 +5292,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp13.AutoSize = True
         Me.chkDCCorp13.Location = New System.Drawing.Point(15, 125)
-        Me.chkDCCorp13.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp13.Name = "chkDCCorp13"
         Me.chkDCCorp13.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp13.TabIndex = 47
@@ -5293,7 +5301,7 @@ Partial Class frmMain
         'txtDCStanding13
         '
         Me.txtDCStanding13.Location = New System.Drawing.Point(220, 121)
-        Me.txtDCStanding13.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding13.Name = "txtDCStanding13"
         Me.txtDCStanding13.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding13.TabIndex = 48
@@ -5342,7 +5350,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp10.AutoSize = True
         Me.chkDCCorp10.Location = New System.Drawing.Point(15, 42)
-        Me.chkDCCorp10.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp10.Name = "chkDCCorp10"
         Me.chkDCCorp10.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp10.TabIndex = 27
@@ -5352,7 +5360,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp11.AutoSize = True
         Me.chkDCCorp11.Location = New System.Drawing.Point(15, 70)
-        Me.chkDCCorp11.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp11.Name = "chkDCCorp11"
         Me.chkDCCorp11.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp11.TabIndex = 28
@@ -5362,7 +5370,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp12.AutoSize = True
         Me.chkDCCorp12.Location = New System.Drawing.Point(15, 98)
-        Me.chkDCCorp12.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp12.Name = "chkDCCorp12"
         Me.chkDCCorp12.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp12.TabIndex = 29
@@ -5371,7 +5379,7 @@ Partial Class frmMain
         'txtDCStanding10
         '
         Me.txtDCStanding10.Location = New System.Drawing.Point(220, 39)
-        Me.txtDCStanding10.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding10.Name = "txtDCStanding10"
         Me.txtDCStanding10.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding10.TabIndex = 39
@@ -5380,7 +5388,7 @@ Partial Class frmMain
         'txtDCStanding11
         '
         Me.txtDCStanding11.Location = New System.Drawing.Point(220, 66)
-        Me.txtDCStanding11.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding11.Name = "txtDCStanding11"
         Me.txtDCStanding11.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding11.TabIndex = 40
@@ -5389,7 +5397,7 @@ Partial Class frmMain
         'txtDCStanding12
         '
         Me.txtDCStanding12.Location = New System.Drawing.Point(220, 94)
-        Me.txtDCStanding12.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding12.Name = "txtDCStanding12"
         Me.txtDCStanding12.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding12.TabIndex = 41
@@ -5409,7 +5417,7 @@ Partial Class frmMain
         'btnDCExporttoClip
         '
         Me.btnDCExporttoClip.Location = New System.Drawing.Point(1225, 258)
-        Me.btnDCExporttoClip.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDCExporttoClip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDCExporttoClip.Name = "btnDCExporttoClip"
         Me.btnDCExporttoClip.Size = New System.Drawing.Size(172, 44)
         Me.btnDCExporttoClip.TabIndex = 68
@@ -5430,9 +5438,9 @@ Partial Class frmMain
         Me.gbDCCorpAmarr.Controls.Add(Me.txtDCStanding3)
         Me.gbDCCorpAmarr.Controls.Add(Me.lblDCStanding1)
         Me.gbDCCorpAmarr.Location = New System.Drawing.Point(648, 15)
-        Me.gbDCCorpAmarr.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpAmarr.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpAmarr.Name = "gbDCCorpAmarr"
-        Me.gbDCCorpAmarr.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpAmarr.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpAmarr.Size = New System.Drawing.Size(278, 125)
         Me.gbDCCorpAmarr.TabIndex = 63
         Me.gbDCCorpAmarr.TabStop = False
@@ -5481,7 +5489,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp1.AutoSize = True
         Me.chkDCCorp1.Location = New System.Drawing.Point(15, 41)
-        Me.chkDCCorp1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp1.Name = "chkDCCorp1"
         Me.chkDCCorp1.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp1.TabIndex = 27
@@ -5491,7 +5499,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp2.AutoSize = True
         Me.chkDCCorp2.Location = New System.Drawing.Point(15, 69)
-        Me.chkDCCorp2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp2.Name = "chkDCCorp2"
         Me.chkDCCorp2.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp2.TabIndex = 28
@@ -5501,7 +5509,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp3.AutoSize = True
         Me.chkDCCorp3.Location = New System.Drawing.Point(15, 96)
-        Me.chkDCCorp3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp3.Name = "chkDCCorp3"
         Me.chkDCCorp3.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp3.TabIndex = 29
@@ -5510,7 +5518,7 @@ Partial Class frmMain
         'txtDCStanding1
         '
         Me.txtDCStanding1.Location = New System.Drawing.Point(218, 38)
-        Me.txtDCStanding1.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding1.Name = "txtDCStanding1"
         Me.txtDCStanding1.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding1.TabIndex = 39
@@ -5519,7 +5527,7 @@ Partial Class frmMain
         'txtDCStanding2
         '
         Me.txtDCStanding2.Location = New System.Drawing.Point(218, 65)
-        Me.txtDCStanding2.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding2.Name = "txtDCStanding2"
         Me.txtDCStanding2.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding2.TabIndex = 40
@@ -5528,7 +5536,7 @@ Partial Class frmMain
         'txtDCStanding3
         '
         Me.txtDCStanding3.Location = New System.Drawing.Point(218, 92)
-        Me.txtDCStanding3.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding3.Name = "txtDCStanding3"
         Me.txtDCStanding3.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding3.TabIndex = 41
@@ -5548,7 +5556,7 @@ Partial Class frmMain
         'btnDCReset
         '
         Me.btnDCReset.Location = New System.Drawing.Point(1225, 182)
-        Me.btnDCReset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDCReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDCReset.Name = "btnDCReset"
         Me.btnDCReset.Size = New System.Drawing.Size(172, 38)
         Me.btnDCReset.TabIndex = 67
@@ -5569,9 +5577,9 @@ Partial Class frmMain
         Me.gbDCCorpsCaldari.Controls.Add(Me.txtDCStanding6)
         Me.gbDCCorpsCaldari.Controls.Add(Me.lblDCStanding2)
         Me.gbDCCorpsCaldari.Location = New System.Drawing.Point(648, 142)
-        Me.gbDCCorpsCaldari.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpsCaldari.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpsCaldari.Name = "gbDCCorpsCaldari"
-        Me.gbDCCorpsCaldari.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpsCaldari.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpsCaldari.Size = New System.Drawing.Size(278, 125)
         Me.gbDCCorpsCaldari.TabIndex = 62
         Me.gbDCCorpsCaldari.TabStop = False
@@ -5620,7 +5628,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp4.AutoSize = True
         Me.chkDCCorp4.Location = New System.Drawing.Point(12, 41)
-        Me.chkDCCorp4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp4.Name = "chkDCCorp4"
         Me.chkDCCorp4.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp4.TabIndex = 27
@@ -5630,7 +5638,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp5.AutoSize = True
         Me.chkDCCorp5.Location = New System.Drawing.Point(12, 69)
-        Me.chkDCCorp5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp5.Name = "chkDCCorp5"
         Me.chkDCCorp5.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp5.TabIndex = 28
@@ -5640,7 +5648,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp6.AutoSize = True
         Me.chkDCCorp6.Location = New System.Drawing.Point(12, 96)
-        Me.chkDCCorp6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp6.Name = "chkDCCorp6"
         Me.chkDCCorp6.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp6.TabIndex = 29
@@ -5649,7 +5657,7 @@ Partial Class frmMain
         'txtDCStanding4
         '
         Me.txtDCStanding4.Location = New System.Drawing.Point(218, 40)
-        Me.txtDCStanding4.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding4.Name = "txtDCStanding4"
         Me.txtDCStanding4.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding4.TabIndex = 39
@@ -5658,7 +5666,7 @@ Partial Class frmMain
         'txtDCStanding5
         '
         Me.txtDCStanding5.Location = New System.Drawing.Point(218, 68)
-        Me.txtDCStanding5.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding5.Name = "txtDCStanding5"
         Me.txtDCStanding5.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding5.TabIndex = 40
@@ -5667,7 +5675,7 @@ Partial Class frmMain
         'txtDCStanding6
         '
         Me.txtDCStanding6.Location = New System.Drawing.Point(218, 95)
-        Me.txtDCStanding6.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding6.Name = "txtDCStanding6"
         Me.txtDCStanding6.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding6.TabIndex = 41
@@ -5698,9 +5706,9 @@ Partial Class frmMain
         Me.gbDCCorpsGallente.Controls.Add(Me.txtDCStanding9)
         Me.gbDCCorpsGallente.Controls.Add(Me.lblDCStanding3)
         Me.gbDCCorpsGallente.Location = New System.Drawing.Point(932, 15)
-        Me.gbDCCorpsGallente.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpsGallente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpsGallente.Name = "gbDCCorpsGallente"
-        Me.gbDCCorpsGallente.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbDCCorpsGallente.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbDCCorpsGallente.Size = New System.Drawing.Size(282, 125)
         Me.gbDCCorpsGallente.TabIndex = 61
         Me.gbDCCorpsGallente.TabStop = False
@@ -5749,7 +5757,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp7.AutoSize = True
         Me.chkDCCorp7.Location = New System.Drawing.Point(15, 42)
-        Me.chkDCCorp7.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp7.Name = "chkDCCorp7"
         Me.chkDCCorp7.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp7.TabIndex = 27
@@ -5759,7 +5767,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp8.AutoSize = True
         Me.chkDCCorp8.Location = New System.Drawing.Point(15, 70)
-        Me.chkDCCorp8.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp8.Name = "chkDCCorp8"
         Me.chkDCCorp8.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp8.TabIndex = 28
@@ -5769,7 +5777,7 @@ Partial Class frmMain
         '
         Me.chkDCCorp9.AutoSize = True
         Me.chkDCCorp9.Location = New System.Drawing.Point(15, 98)
-        Me.chkDCCorp9.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDCCorp9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDCCorp9.Name = "chkDCCorp9"
         Me.chkDCCorp9.Size = New System.Drawing.Size(18, 17)
         Me.chkDCCorp9.TabIndex = 29
@@ -5778,7 +5786,7 @@ Partial Class frmMain
         'txtDCStanding7
         '
         Me.txtDCStanding7.Location = New System.Drawing.Point(222, 39)
-        Me.txtDCStanding7.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding7.Name = "txtDCStanding7"
         Me.txtDCStanding7.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding7.TabIndex = 39
@@ -5787,7 +5795,7 @@ Partial Class frmMain
         'txtDCStanding8
         '
         Me.txtDCStanding8.Location = New System.Drawing.Point(222, 66)
-        Me.txtDCStanding8.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding8.Name = "txtDCStanding8"
         Me.txtDCStanding8.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding8.TabIndex = 40
@@ -5796,7 +5804,7 @@ Partial Class frmMain
         'txtDCStanding9
         '
         Me.txtDCStanding9.Location = New System.Drawing.Point(222, 94)
-        Me.txtDCStanding9.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtDCStanding9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDCStanding9.Name = "txtDCStanding9"
         Me.txtDCStanding9.Size = New System.Drawing.Size(43, 23)
         Me.txtDCStanding9.TabIndex = 41
@@ -5816,7 +5824,7 @@ Partial Class frmMain
         'btnDCRefresh
         '
         Me.btnDCRefresh.Location = New System.Drawing.Point(1225, 145)
-        Me.btnDCRefresh.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDCRefresh.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDCRefresh.Name = "btnDCRefresh"
         Me.btnDCRefresh.Size = New System.Drawing.Size(172, 38)
         Me.btnDCRefresh.TabIndex = 66
@@ -5828,7 +5836,7 @@ Partial Class frmMain
         Me.tabManufacturing.Controls.Add(Me.lstManufacturing)
         Me.tabManufacturing.Controls.Add(Me.gbCalcBPSelectOptions)
         Me.tabManufacturing.Location = New System.Drawing.Point(4, 26)
-        Me.tabManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabManufacturing.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabManufacturing.Name = "tabManufacturing"
         Me.tabManufacturing.Size = New System.Drawing.Size(1423, 771)
         Me.tabManufacturing.TabIndex = 2
@@ -5843,7 +5851,7 @@ Partial Class frmMain
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
         Me.lstManufacturing.Location = New System.Drawing.Point(10, 9)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstManufacturing.Name = "lstManufacturing"
         Me.lstManufacturing.OwnerDraw = True
         Me.lstManufacturing.Size = New System.Drawing.Size(1400, 374)
@@ -5882,9 +5890,9 @@ Partial Class frmMain
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcBPSelect)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcRelics)
         Me.gbCalcBPSelectOptions.Location = New System.Drawing.Point(10, 385)
-        Me.gbCalcBPSelectOptions.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPSelectOptions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPSelectOptions.Name = "gbCalcBPSelectOptions"
-        Me.gbCalcBPSelectOptions.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPSelectOptions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPSelectOptions.Size = New System.Drawing.Size(1401, 375)
         Me.gbCalcBPSelectOptions.TabIndex = 0
         Me.gbCalcBPSelectOptions.TabStop = False
@@ -5896,9 +5904,9 @@ Partial Class frmMain
         Me.gbCalcIgnoreinCalcs.Controls.Add(Me.chkCalcIgnoreT1Item)
         Me.gbCalcIgnoreinCalcs.Controls.Add(Me.chkCalcIgnoreInvention)
         Me.gbCalcIgnoreinCalcs.Location = New System.Drawing.Point(1074, 249)
-        Me.gbCalcIgnoreinCalcs.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIgnoreinCalcs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIgnoreinCalcs.Name = "gbCalcIgnoreinCalcs"
-        Me.gbCalcIgnoreinCalcs.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIgnoreinCalcs.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIgnoreinCalcs.Size = New System.Drawing.Size(195, 70)
         Me.gbCalcIgnoreinCalcs.TabIndex = 19
         Me.gbCalcIgnoreinCalcs.TabStop = False
@@ -5909,7 +5917,7 @@ Partial Class frmMain
         Me.chkCalcIgnoreMinerals.AutoSize = True
         Me.chkCalcIgnoreMinerals.CheckAlign = System.Drawing.ContentAlignment.BottomLeft
         Me.chkCalcIgnoreMinerals.Location = New System.Drawing.Point(108, 20)
-        Me.chkCalcIgnoreMinerals.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIgnoreMinerals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIgnoreMinerals.Name = "chkCalcIgnoreMinerals"
         Me.chkCalcIgnoreMinerals.Size = New System.Drawing.Size(83, 21)
         Me.chkCalcIgnoreMinerals.TabIndex = 1
@@ -5920,7 +5928,7 @@ Partial Class frmMain
         '
         Me.chkCalcIgnoreT1Item.AutoSize = True
         Me.chkCalcIgnoreT1Item.Location = New System.Drawing.Point(11, 42)
-        Me.chkCalcIgnoreT1Item.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIgnoreT1Item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIgnoreT1Item.Name = "chkCalcIgnoreT1Item"
         Me.chkCalcIgnoreT1Item.Size = New System.Drawing.Size(113, 21)
         Me.chkCalcIgnoreT1Item.TabIndex = 2
@@ -5931,7 +5939,7 @@ Partial Class frmMain
         '
         Me.chkCalcIgnoreInvention.AutoSize = True
         Me.chkCalcIgnoreInvention.Location = New System.Drawing.Point(11, 20)
-        Me.chkCalcIgnoreInvention.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIgnoreInvention.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIgnoreInvention.Name = "chkCalcIgnoreInvention"
         Me.chkCalcIgnoreInvention.Size = New System.Drawing.Size(87, 21)
         Me.chkCalcIgnoreInvention.TabIndex = 0
@@ -5944,9 +5952,9 @@ Partial Class frmMain
         Me.gbIncludeTaxesFees.Controls.Add(Me.chkCalcFees)
         Me.gbIncludeTaxesFees.Controls.Add(Me.chkCalcTaxes)
         Me.gbIncludeTaxesFees.Location = New System.Drawing.Point(1074, 319)
-        Me.gbIncludeTaxesFees.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbIncludeTaxesFees.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbIncludeTaxesFees.Name = "gbIncludeTaxesFees"
-        Me.gbIncludeTaxesFees.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbIncludeTaxesFees.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbIncludeTaxesFees.Size = New System.Drawing.Size(195, 49)
         Me.gbIncludeTaxesFees.TabIndex = 17
         Me.gbIncludeTaxesFees.TabStop = False
@@ -5955,7 +5963,7 @@ Partial Class frmMain
         'txtCalcBrokerFeeRate
         '
         Me.txtCalcBrokerFeeRate.Location = New System.Drawing.Point(142, 18)
-        Me.txtCalcBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcBrokerFeeRate.Name = "txtCalcBrokerFeeRate"
         Me.txtCalcBrokerFeeRate.Size = New System.Drawing.Size(45, 23)
         Me.txtCalcBrokerFeeRate.TabIndex = 62
@@ -5967,7 +5975,7 @@ Partial Class frmMain
         '
         Me.chkCalcFees.AutoSize = True
         Me.chkCalcFees.Location = New System.Drawing.Point(81, 21)
-        Me.chkCalcFees.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcFees.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcFees.Name = "chkCalcFees"
         Me.chkCalcFees.Size = New System.Drawing.Size(61, 21)
         Me.chkCalcFees.TabIndex = 1
@@ -5979,7 +5987,7 @@ Partial Class frmMain
         '
         Me.chkCalcTaxes.AutoSize = True
         Me.chkCalcTaxes.Location = New System.Drawing.Point(11, 21)
-        Me.chkCalcTaxes.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcTaxes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcTaxes.Name = "chkCalcTaxes"
         Me.chkCalcTaxes.Size = New System.Drawing.Size(68, 21)
         Me.chkCalcTaxes.TabIndex = 0
@@ -5993,9 +6001,9 @@ Partial Class frmMain
         Me.gbCalcSellExessItems.Controls.Add(Me.rbtnCalcRawT2MatType)
         Me.gbCalcSellExessItems.Controls.Add(Me.chkCalcSellExessItems)
         Me.gbCalcSellExessItems.Location = New System.Drawing.Point(1276, 246)
-        Me.gbCalcSellExessItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcSellExessItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcSellExessItems.Name = "gbCalcSellExessItems"
-        Me.gbCalcSellExessItems.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcSellExessItems.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcSellExessItems.Size = New System.Drawing.Size(118, 121)
         Me.gbCalcSellExessItems.TabIndex = 29
         Me.gbCalcSellExessItems.TabStop = False
@@ -6006,7 +6014,7 @@ Partial Class frmMain
         Me.rbtnCalcAdvT2MatType.AutoSize = True
         Me.rbtnCalcAdvT2MatType.BackColor = System.Drawing.Color.Transparent
         Me.rbtnCalcAdvT2MatType.Location = New System.Drawing.Point(9, 21)
-        Me.rbtnCalcAdvT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcAdvT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcAdvT2MatType.Name = "rbtnCalcAdvT2MatType"
         Me.rbtnCalcAdvT2MatType.Size = New System.Drawing.Size(92, 21)
         Me.rbtnCalcAdvT2MatType.TabIndex = 76
@@ -6019,7 +6027,7 @@ Partial Class frmMain
         Me.rbtnCalcProcT2MatType.AutoSize = True
         Me.rbtnCalcProcT2MatType.BackColor = System.Drawing.Color.Transparent
         Me.rbtnCalcProcT2MatType.Location = New System.Drawing.Point(9, 41)
-        Me.rbtnCalcProcT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcProcT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcProcT2MatType.Name = "rbtnCalcProcT2MatType"
         Me.rbtnCalcProcT2MatType.Size = New System.Drawing.Size(96, 21)
         Me.rbtnCalcProcT2MatType.TabIndex = 77
@@ -6032,7 +6040,7 @@ Partial Class frmMain
         Me.rbtnCalcRawT2MatType.AutoSize = True
         Me.rbtnCalcRawT2MatType.BackColor = System.Drawing.Color.Transparent
         Me.rbtnCalcRawT2MatType.Location = New System.Drawing.Point(9, 61)
-        Me.rbtnCalcRawT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcRawT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcRawT2MatType.Name = "rbtnCalcRawT2MatType"
         Me.rbtnCalcRawT2MatType.Size = New System.Drawing.Size(56, 21)
         Me.rbtnCalcRawT2MatType.TabIndex = 78
@@ -6043,7 +6051,7 @@ Partial Class frmMain
         'chkCalcSellExessItems
         '
         Me.chkCalcSellExessItems.Location = New System.Drawing.Point(9, 81)
-        Me.chkCalcSellExessItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcSellExessItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcSellExessItems.Name = "chkCalcSellExessItems"
         Me.chkCalcSellExessItems.Size = New System.Drawing.Size(104, 40)
         Me.chkCalcSellExessItems.TabIndex = 1
@@ -6054,7 +6062,7 @@ Partial Class frmMain
         '
         Me.chkCalcNPCBPOs.AutoSize = True
         Me.chkCalcNPCBPOs.Location = New System.Drawing.Point(554, 16)
-        Me.chkCalcNPCBPOs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcNPCBPOs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcNPCBPOs.Name = "chkCalcNPCBPOs"
         Me.chkCalcNPCBPOs.Size = New System.Drawing.Size(98, 21)
         Me.chkCalcNPCBPOs.TabIndex = 15
@@ -6065,7 +6073,7 @@ Partial Class frmMain
         '
         Me.btnCalcShowAssets.Image = CType(resources.GetObject("btnCalcShowAssets.Image"), System.Drawing.Image)
         Me.btnCalcShowAssets.Location = New System.Drawing.Point(274, 256)
-        Me.btnCalcShowAssets.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcShowAssets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcShowAssets.Name = "btnCalcShowAssets"
         Me.btnCalcShowAssets.Size = New System.Drawing.Size(60, 60)
         Me.btnCalcShowAssets.TabIndex = 28
@@ -6077,9 +6085,9 @@ Partial Class frmMain
         Me.gbCalcIncludeItems.Controls.Add(Me.chkCalcCanBuild)
         Me.gbCalcIncludeItems.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.gbCalcIncludeItems.Location = New System.Drawing.Point(511, 184)
-        Me.gbCalcIncludeItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIncludeItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIncludeItems.Name = "gbCalcIncludeItems"
-        Me.gbCalcIncludeItems.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIncludeItems.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIncludeItems.Size = New System.Drawing.Size(166, 52)
         Me.gbCalcIncludeItems.TabIndex = 12
         Me.gbCalcIncludeItems.TabStop = False
@@ -6089,7 +6097,7 @@ Partial Class frmMain
         '
         Me.chkCalcCanInvent.AutoSize = True
         Me.chkCalcCanInvent.Location = New System.Drawing.Point(82, 24)
-        Me.chkCalcCanInvent.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcCanInvent.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcCanInvent.Name = "chkCalcCanInvent"
         Me.chkCalcCanInvent.Size = New System.Drawing.Size(68, 21)
         Me.chkCalcCanInvent.TabIndex = 1
@@ -6100,7 +6108,7 @@ Partial Class frmMain
         '
         Me.chkCalcCanBuild.AutoSize = True
         Me.chkCalcCanBuild.Location = New System.Drawing.Point(11, 24)
-        Me.chkCalcCanBuild.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcCanBuild.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcCanBuild.Name = "chkCalcCanBuild"
         Me.chkCalcCanBuild.Size = New System.Drawing.Size(61, 21)
         Me.chkCalcCanBuild.TabIndex = 0
@@ -6129,9 +6137,9 @@ Partial Class frmMain
         Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcSVRIncludeNull)
         Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcIPHThreshold)
         Me.gbCalcMarketFilters.Location = New System.Drawing.Point(511, 235)
-        Me.gbCalcMarketFilters.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcMarketFilters.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcMarketFilters.Name = "gbCalcMarketFilters"
-        Me.gbCalcMarketFilters.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcMarketFilters.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcMarketFilters.Size = New System.Drawing.Size(559, 132)
         Me.gbCalcMarketFilters.TabIndex = 27
         Me.gbCalcMarketFilters.TabStop = False
@@ -6141,7 +6149,7 @@ Partial Class frmMain
         '
         Me.txtCalcProfitThreshold.Enabled = False
         Me.txtCalcProfitThreshold.Location = New System.Drawing.Point(416, 99)
-        Me.txtCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcProfitThreshold.Name = "txtCalcProfitThreshold"
         Me.txtCalcProfitThreshold.Size = New System.Drawing.Size(134, 23)
         Me.txtCalcProfitThreshold.TabIndex = 62
@@ -6154,7 +6162,7 @@ Partial Class frmMain
         Me.tpMaxBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tpMaxBuildTimeFilter.Enabled = False
         Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(410, 49)
-        Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
+        Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.tpMaxBuildTimeFilter.Name = "tpMaxBuildTimeFilter"
         Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 27)
         Me.tpMaxBuildTimeFilter.TabIndex = 70
@@ -6162,7 +6170,7 @@ Partial Class frmMain
         'txtCalcSVRThreshold
         '
         Me.txtCalcSVRThreshold.Location = New System.Drawing.Point(81, 50)
-        Me.txtCalcSVRThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcSVRThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcSVRThreshold.MaxLength = 10
         Me.txtCalcSVRThreshold.Name = "txtCalcSVRThreshold"
         Me.txtCalcSVRThreshold.Size = New System.Drawing.Size(74, 23)
@@ -6174,7 +6182,7 @@ Partial Class frmMain
         Me.tpMinBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tpMinBuildTimeFilter.Enabled = False
         Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(410, 18)
-        Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
+        Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.tpMinBuildTimeFilter.Name = "tpMinBuildTimeFilter"
         Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 27)
         Me.tpMinBuildTimeFilter.TabIndex = 69
@@ -6183,7 +6191,7 @@ Partial Class frmMain
         '
         Me.chkCalcMaxBuildTimeFilter.AutoSize = True
         Me.chkCalcMaxBuildTimeFilter.Location = New System.Drawing.Point(284, 52)
-        Me.chkCalcMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcMaxBuildTimeFilter.Name = "chkCalcMaxBuildTimeFilter"
         Me.chkCalcMaxBuildTimeFilter.Size = New System.Drawing.Size(129, 21)
         Me.chkCalcMaxBuildTimeFilter.TabIndex = 71
@@ -6194,7 +6202,7 @@ Partial Class frmMain
         '
         Me.chkCalcMinBuildTimeFilter.AutoSize = True
         Me.chkCalcMinBuildTimeFilter.Location = New System.Drawing.Point(284, 21)
-        Me.chkCalcMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcMinBuildTimeFilter.Name = "chkCalcMinBuildTimeFilter"
         Me.chkCalcMinBuildTimeFilter.Size = New System.Drawing.Size(126, 21)
         Me.chkCalcMinBuildTimeFilter.TabIndex = 70
@@ -6206,7 +6214,7 @@ Partial Class frmMain
         Me.cmbCalcPriceTrend.FormattingEnabled = True
         Me.cmbCalcPriceTrend.Items.AddRange(New Object() {"All", "Up", "Down"})
         Me.cmbCalcPriceTrend.Location = New System.Drawing.Point(94, 98)
-        Me.cmbCalcPriceTrend.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbCalcPriceTrend.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbCalcPriceTrend.MaxLength = 3
         Me.cmbCalcPriceTrend.Name = "cmbCalcPriceTrend"
         Me.cmbCalcPriceTrend.Size = New System.Drawing.Size(59, 25)
@@ -6217,7 +6225,7 @@ Partial Class frmMain
         Me.cmbCalcAvgPriceDuration.FormattingEnabled = True
         Me.cmbCalcAvgPriceDuration.Items.AddRange(New Object() {"7", "15", "30", "60", "90"})
         Me.cmbCalcAvgPriceDuration.Location = New System.Drawing.Point(205, 49)
-        Me.cmbCalcAvgPriceDuration.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbCalcAvgPriceDuration.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbCalcAvgPriceDuration.MaxLength = 3
         Me.cmbCalcAvgPriceDuration.Name = "cmbCalcAvgPriceDuration"
         Me.cmbCalcAvgPriceDuration.Size = New System.Drawing.Size(50, 25)
@@ -6238,7 +6246,7 @@ Partial Class frmMain
         '
         Me.txtCalcVolumeThreshold.Enabled = False
         Me.txtCalcVolumeThreshold.Location = New System.Drawing.Point(299, 99)
-        Me.txtCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcVolumeThreshold.Name = "txtCalcVolumeThreshold"
         Me.txtCalcVolumeThreshold.Size = New System.Drawing.Size(112, 23)
         Me.txtCalcVolumeThreshold.TabIndex = 63
@@ -6250,7 +6258,7 @@ Partial Class frmMain
         '
         Me.cmbCalcHistoryRegion.FormattingEnabled = True
         Me.cmbCalcHistoryRegion.Location = New System.Drawing.Point(70, 19)
-        Me.cmbCalcHistoryRegion.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbCalcHistoryRegion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbCalcHistoryRegion.Name = "cmbCalcHistoryRegion"
         Me.cmbCalcHistoryRegion.Size = New System.Drawing.Size(185, 25)
         Me.cmbCalcHistoryRegion.TabIndex = 5
@@ -6288,7 +6296,7 @@ Partial Class frmMain
         '
         Me.txtCalcIPHThreshold.Enabled = False
         Me.txtCalcIPHThreshold.Location = New System.Drawing.Point(181, 99)
-        Me.txtCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcIPHThreshold.Name = "txtCalcIPHThreshold"
         Me.txtCalcIPHThreshold.Size = New System.Drawing.Size(112, 23)
         Me.txtCalcIPHThreshold.TabIndex = 72
@@ -6300,7 +6308,7 @@ Partial Class frmMain
         '
         Me.chkCalcProfitThreshold.AutoSize = True
         Me.chkCalcProfitThreshold.Location = New System.Drawing.Point(416, 79)
-        Me.chkCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcProfitThreshold.Name = "chkCalcProfitThreshold"
         Me.chkCalcProfitThreshold.Size = New System.Drawing.Size(135, 21)
         Me.chkCalcProfitThreshold.TabIndex = 76
@@ -6312,7 +6320,7 @@ Partial Class frmMain
         '
         Me.chkCalcVolumeThreshold.AutoSize = True
         Me.chkCalcVolumeThreshold.Location = New System.Drawing.Point(299, 79)
-        Me.chkCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcVolumeThreshold.Name = "chkCalcVolumeThreshold"
         Me.chkCalcVolumeThreshold.Size = New System.Drawing.Size(126, 21)
         Me.chkCalcVolumeThreshold.TabIndex = 77
@@ -6323,7 +6331,7 @@ Partial Class frmMain
         '
         Me.chkCalcSVRIncludeNull.AutoSize = True
         Me.chkCalcSVRIncludeNull.Location = New System.Drawing.Point(11, 79)
-        Me.chkCalcSVRIncludeNull.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcSVRIncludeNull.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcSVRIncludeNull.Name = "chkCalcSVRIncludeNull"
         Me.chkCalcSVRIncludeNull.Size = New System.Drawing.Size(169, 21)
         Me.chkCalcSVRIncludeNull.TabIndex = 6
@@ -6334,7 +6342,7 @@ Partial Class frmMain
         '
         Me.chkCalcIPHThreshold.AutoSize = True
         Me.chkCalcIPHThreshold.Location = New System.Drawing.Point(181, 79)
-        Me.chkCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIPHThreshold.Name = "chkCalcIPHThreshold"
         Me.chkCalcIPHThreshold.Size = New System.Drawing.Size(124, 21)
         Me.chkCalcIPHThreshold.TabIndex = 75
@@ -6344,7 +6352,7 @@ Partial Class frmMain
         'btnCalcCalculate
         '
         Me.btnCalcCalculate.Location = New System.Drawing.Point(1274, 61)
-        Me.btnCalcCalculate.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcCalculate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcCalculate.Name = "btnCalcCalculate"
         Me.btnCalcCalculate.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcCalculate.TabIndex = 21
@@ -6354,7 +6362,7 @@ Partial Class frmMain
         'btnCalcSelectColumns
         '
         Me.btnCalcSelectColumns.Location = New System.Drawing.Point(1274, 134)
-        Me.btnCalcSelectColumns.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcSelectColumns.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcSelectColumns.Name = "btnCalcSelectColumns"
         Me.btnCalcSelectColumns.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcSelectColumns.TabIndex = 23
@@ -6368,9 +6376,9 @@ Partial Class frmMain
         Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcMedium)
         Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcSmall)
         Me.gbCalcSizeLimit.Location = New System.Drawing.Point(8, 101)
-        Me.gbCalcSizeLimit.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcSizeLimit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcSizeLimit.Name = "gbCalcSizeLimit"
-        Me.gbCalcSizeLimit.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcSizeLimit.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcSizeLimit.Size = New System.Drawing.Size(185, 48)
         Me.gbCalcSizeLimit.TabIndex = 3
         Me.gbCalcSizeLimit.TabStop = False
@@ -6380,7 +6388,7 @@ Partial Class frmMain
         '
         Me.chkCalcXL.AutoSize = True
         Me.chkCalcXL.Location = New System.Drawing.Point(136, 21)
-        Me.chkCalcXL.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcXL.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcXL.Name = "chkCalcXL"
         Me.chkCalcXL.Size = New System.Drawing.Size(47, 21)
         Me.chkCalcXL.TabIndex = 3
@@ -6391,7 +6399,7 @@ Partial Class frmMain
         '
         Me.chkCalcLarge.AutoSize = True
         Me.chkCalcLarge.Location = New System.Drawing.Point(96, 21)
-        Me.chkCalcLarge.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcLarge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcLarge.Name = "chkCalcLarge"
         Me.chkCalcLarge.Size = New System.Drawing.Size(38, 21)
         Me.chkCalcLarge.TabIndex = 2
@@ -6402,7 +6410,7 @@ Partial Class frmMain
         '
         Me.chkCalcMedium.AutoSize = True
         Me.chkCalcMedium.Location = New System.Drawing.Point(52, 21)
-        Me.chkCalcMedium.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcMedium.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcMedium.Name = "chkCalcMedium"
         Me.chkCalcMedium.Size = New System.Drawing.Size(41, 21)
         Me.chkCalcMedium.TabIndex = 1
@@ -6413,7 +6421,7 @@ Partial Class frmMain
         '
         Me.chkCalcSmall.AutoSize = True
         Me.chkCalcSmall.Location = New System.Drawing.Point(11, 21)
-        Me.chkCalcSmall.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcSmall.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcSmall.Name = "chkCalcSmall"
         Me.chkCalcSmall.Size = New System.Drawing.Size(39, 21)
         Me.chkCalcSmall.TabIndex = 0
@@ -6433,9 +6441,9 @@ Partial Class frmMain
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcProdLines)
         Me.gbCalcProdLines.Location = New System.Drawing.Point(1074, 19)
-        Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcProdLines.Name = "gbCalcProdLines"
-        Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcProdLines.Size = New System.Drawing.Size(195, 90)
         Me.gbCalcProdLines.TabIndex = 15
         Me.gbCalcProdLines.TabStop = False
@@ -6445,7 +6453,7 @@ Partial Class frmMain
         '
         Me.chkCalcAutoCalcT2NumBPs.AutoSize = True
         Me.chkCalcAutoCalcT2NumBPs.Location = New System.Drawing.Point(15, 65)
-        Me.chkCalcAutoCalcT2NumBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcAutoCalcT2NumBPs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcAutoCalcT2NumBPs.Name = "chkCalcAutoCalcT2NumBPs"
         Me.chkCalcAutoCalcT2NumBPs.Size = New System.Drawing.Size(173, 21)
         Me.chkCalcAutoCalcT2NumBPs.TabIndex = 8
@@ -6465,7 +6473,7 @@ Partial Class frmMain
         'txtCalcNumBPs
         '
         Me.txtCalcNumBPs.Location = New System.Drawing.Point(56, 35)
-        Me.txtCalcNumBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcNumBPs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcNumBPs.MaxLength = 3
         Me.txtCalcNumBPs.Name = "txtCalcNumBPs"
         Me.txtCalcNumBPs.Size = New System.Drawing.Size(39, 23)
@@ -6475,7 +6483,7 @@ Partial Class frmMain
         'txtCalcRuns
         '
         Me.txtCalcRuns.Location = New System.Drawing.Point(11, 35)
-        Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcRuns.MaxLength = 4
         Me.txtCalcRuns.Name = "txtCalcRuns"
         Me.txtCalcRuns.Size = New System.Drawing.Size(39, 23)
@@ -6485,7 +6493,7 @@ Partial Class frmMain
         'txtCalcLabLines
         '
         Me.txtCalcLabLines.Location = New System.Drawing.Point(144, 35)
-        Me.txtCalcLabLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcLabLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcLabLines.MaxLength = 3
         Me.txtCalcLabLines.Name = "txtCalcLabLines"
         Me.txtCalcLabLines.Size = New System.Drawing.Size(39, 23)
@@ -6525,7 +6533,7 @@ Partial Class frmMain
         'txtCalcProdLines
         '
         Me.txtCalcProdLines.Location = New System.Drawing.Point(100, 35)
-        Me.txtCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcProdLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcProdLines.MaxLength = 3
         Me.txtCalcProdLines.Name = "txtCalcProdLines"
         Me.txtCalcProdLines.Size = New System.Drawing.Size(39, 23)
@@ -6540,9 +6548,9 @@ Partial Class frmMain
         Me.gbCalcCompareType.Controls.Add(Me.rbtnCalcCompareComponents)
         Me.gbCalcCompareType.Controls.Add(Me.rbtnCalcCompareAll)
         Me.gbCalcCompareType.Location = New System.Drawing.Point(1074, 111)
-        Me.gbCalcCompareType.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcCompareType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcCompareType.Name = "gbCalcCompareType"
-        Me.gbCalcCompareType.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcCompareType.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcCompareType.Size = New System.Drawing.Size(195, 138)
         Me.gbCalcCompareType.TabIndex = 16
         Me.gbCalcCompareType.TabStop = False
@@ -6552,7 +6560,7 @@ Partial Class frmMain
         '
         Me.chkCalcPPU.AutoSize = True
         Me.chkCalcPPU.Location = New System.Drawing.Point(11, 110)
-        Me.chkCalcPPU.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcPPU.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcPPU.Name = "chkCalcPPU"
         Me.chkCalcPPU.Size = New System.Drawing.Size(178, 21)
         Me.chkCalcPPU.TabIndex = 9
@@ -6563,7 +6571,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcCompareBuildBuy.AutoSize = True
         Me.rbtnCalcCompareBuildBuy.Location = New System.Drawing.Point(11, 40)
-        Me.rbtnCalcCompareBuildBuy.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcCompareBuildBuy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcCompareBuildBuy.Name = "rbtnCalcCompareBuildBuy"
         Me.rbtnCalcCompareBuildBuy.Size = New System.Drawing.Size(149, 21)
         Me.rbtnCalcCompareBuildBuy.TabIndex = 1
@@ -6574,7 +6582,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcCompareRawMats.AutoSize = True
         Me.rbtnCalcCompareRawMats.Location = New System.Drawing.Point(11, 61)
-        Me.rbtnCalcCompareRawMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcCompareRawMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcCompareRawMats.Name = "rbtnCalcCompareRawMats"
         Me.rbtnCalcCompareRawMats.Size = New System.Drawing.Size(178, 21)
         Me.rbtnCalcCompareRawMats.TabIndex = 2
@@ -6585,7 +6593,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcCompareComponents.AutoSize = True
         Me.rbtnCalcCompareComponents.Location = New System.Drawing.Point(11, 82)
-        Me.rbtnCalcCompareComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcCompareComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcCompareComponents.Name = "rbtnCalcCompareComponents"
         Me.rbtnCalcCompareComponents.Size = New System.Drawing.Size(169, 21)
         Me.rbtnCalcCompareComponents.TabIndex = 3
@@ -6596,7 +6604,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcCompareAll.AutoSize = True
         Me.rbtnCalcCompareAll.Location = New System.Drawing.Point(11, 19)
-        Me.rbtnCalcCompareAll.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcCompareAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcCompareAll.Name = "rbtnCalcCompareAll"
         Me.rbtnCalcCompareAll.Size = New System.Drawing.Size(105, 21)
         Me.rbtnCalcCompareAll.TabIndex = 0
@@ -6613,9 +6621,9 @@ Partial Class frmMain
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode2)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode1)
         Me.gbCalcTextColors.Location = New System.Drawing.Point(8, 145)
-        Me.gbCalcTextColors.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcTextColors.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcTextColors.Name = "gbCalcTextColors"
-        Me.gbCalcTextColors.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcTextColors.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcTextColors.Size = New System.Drawing.Size(185, 38)
         Me.gbCalcTextColors.TabIndex = 5
         Me.gbCalcTextColors.TabStop = False
@@ -6720,9 +6728,9 @@ Partial Class frmMain
         Me.gbCalcInvention.Controls.Add(Me.chkCalcDecryptor1)
         Me.gbCalcInvention.Controls.Add(Me.lblCalcDecryptorUse)
         Me.gbCalcInvention.Location = New System.Drawing.Point(8, 184)
-        Me.gbCalcInvention.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcInvention.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcInvention.Name = "gbCalcInvention"
-        Me.gbCalcInvention.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcInvention.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcInvention.Size = New System.Drawing.Size(500, 65)
         Me.gbCalcInvention.TabIndex = 6
         Me.gbCalcInvention.TabStop = False
@@ -6732,7 +6740,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptorforT3.AutoSize = True
         Me.chkCalcDecryptorforT3.Location = New System.Drawing.Point(442, 38)
-        Me.chkCalcDecryptorforT3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptorforT3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptorforT3.Name = "chkCalcDecryptorforT3"
         Me.chkCalcDecryptorforT3.Size = New System.Drawing.Size(47, 21)
         Me.chkCalcDecryptorforT3.TabIndex = 12
@@ -6743,7 +6751,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptorforT2.AutoSize = True
         Me.chkCalcDecryptorforT2.Location = New System.Drawing.Point(442, 18)
-        Me.chkCalcDecryptorforT2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptorforT2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptorforT2.Name = "chkCalcDecryptorforT2"
         Me.chkCalcDecryptorforT2.Size = New System.Drawing.Size(47, 21)
         Me.chkCalcDecryptorforT2.TabIndex = 11
@@ -6754,7 +6762,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor0.AutoSize = True
         Me.chkCalcDecryptor0.Location = New System.Drawing.Point(11, 38)
-        Me.chkCalcDecryptor0.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor0.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor0.Name = "chkCalcDecryptor0"
         Me.chkCalcDecryptor0.Size = New System.Drawing.Size(78, 21)
         Me.chkCalcDecryptor0.TabIndex = 1
@@ -6766,7 +6774,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor9.AutoSize = True
         Me.chkCalcDecryptor9.Location = New System.Drawing.Point(334, 38)
-        Me.chkCalcDecryptor9.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor9.Name = "chkCalcDecryptor9"
         Me.chkCalcDecryptor9.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor9.TabIndex = 9
@@ -6777,7 +6785,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor8.AutoSize = True
         Me.chkCalcDecryptor8.Location = New System.Drawing.Point(264, 36)
-        Me.chkCalcDecryptor8.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor8.Name = "chkCalcDecryptor8"
         Me.chkCalcDecryptor8.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor8.TabIndex = 7
@@ -6788,7 +6796,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor7.AutoSize = True
         Me.chkCalcDecryptor7.Location = New System.Drawing.Point(194, 38)
-        Me.chkCalcDecryptor7.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor7.Name = "chkCalcDecryptor7"
         Me.chkCalcDecryptor7.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor7.TabIndex = 5
@@ -6799,7 +6807,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor6.AutoSize = True
         Me.chkCalcDecryptor6.Location = New System.Drawing.Point(124, 38)
-        Me.chkCalcDecryptor6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor6.Name = "chkCalcDecryptor6"
         Me.chkCalcDecryptor6.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor6.TabIndex = 3
@@ -6810,7 +6818,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor5.AutoSize = True
         Me.chkCalcDecryptor5.Location = New System.Drawing.Point(334, 18)
-        Me.chkCalcDecryptor5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor5.Name = "chkCalcDecryptor5"
         Me.chkCalcDecryptor5.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor5.TabIndex = 8
@@ -6821,7 +6829,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor4.AutoSize = True
         Me.chkCalcDecryptor4.Location = New System.Drawing.Point(264, 16)
-        Me.chkCalcDecryptor4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor4.Name = "chkCalcDecryptor4"
         Me.chkCalcDecryptor4.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor4.TabIndex = 6
@@ -6832,7 +6840,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor3.AutoSize = True
         Me.chkCalcDecryptor3.Location = New System.Drawing.Point(194, 18)
-        Me.chkCalcDecryptor3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor3.Name = "chkCalcDecryptor3"
         Me.chkCalcDecryptor3.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor3.TabIndex = 4
@@ -6843,7 +6851,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor2.AutoSize = True
         Me.chkCalcDecryptor2.Location = New System.Drawing.Point(124, 18)
-        Me.chkCalcDecryptor2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor2.Name = "chkCalcDecryptor2"
         Me.chkCalcDecryptor2.Size = New System.Drawing.Size(56, 21)
         Me.chkCalcDecryptor2.TabIndex = 2
@@ -6854,7 +6862,7 @@ Partial Class frmMain
         '
         Me.chkCalcDecryptor1.AutoSize = True
         Me.chkCalcDecryptor1.Location = New System.Drawing.Point(11, 18)
-        Me.chkCalcDecryptor1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDecryptor1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDecryptor1.Name = "chkCalcDecryptor1"
         Me.chkCalcDecryptor1.Size = New System.Drawing.Size(64, 21)
         Me.chkCalcDecryptor1.TabIndex = 0
@@ -6880,9 +6888,9 @@ Partial Class frmMain
         Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceCaldari)
         Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceAmarr)
         Me.gbCalcBPRace.Location = New System.Drawing.Point(199, 101)
-        Me.gbCalcBPRace.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPRace.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPRace.Name = "gbCalcBPRace"
-        Me.gbCalcBPRace.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPRace.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPRace.Size = New System.Drawing.Size(240, 81)
         Me.gbCalcBPRace.TabIndex = 4
         Me.gbCalcBPRace.TabStop = False
@@ -6892,7 +6900,7 @@ Partial Class frmMain
         '
         Me.chkCalcRaceOther.AutoSize = True
         Me.chkCalcRaceOther.Location = New System.Drawing.Point(170, 50)
-        Me.chkCalcRaceOther.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRaceOther.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRaceOther.Name = "chkCalcRaceOther"
         Me.chkCalcRaceOther.Size = New System.Drawing.Size(66, 21)
         Me.chkCalcRaceOther.TabIndex = 5
@@ -6903,7 +6911,7 @@ Partial Class frmMain
         '
         Me.chkCalcRacePirate.AutoSize = True
         Me.chkCalcRacePirate.Location = New System.Drawing.Point(170, 21)
-        Me.chkCalcRacePirate.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRacePirate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRacePirate.Name = "chkCalcRacePirate"
         Me.chkCalcRacePirate.Size = New System.Drawing.Size(67, 21)
         Me.chkCalcRacePirate.TabIndex = 2
@@ -6914,7 +6922,7 @@ Partial Class frmMain
         '
         Me.chkCalcRaceMinmatar.AutoSize = True
         Me.chkCalcRaceMinmatar.Location = New System.Drawing.Point(86, 50)
-        Me.chkCalcRaceMinmatar.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRaceMinmatar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRaceMinmatar.Name = "chkCalcRaceMinmatar"
         Me.chkCalcRaceMinmatar.Size = New System.Drawing.Size(88, 21)
         Me.chkCalcRaceMinmatar.TabIndex = 4
@@ -6925,7 +6933,7 @@ Partial Class frmMain
         '
         Me.chkCalcRaceGallente.AutoSize = True
         Me.chkCalcRaceGallente.Location = New System.Drawing.Point(8, 50)
-        Me.chkCalcRaceGallente.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRaceGallente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRaceGallente.Name = "chkCalcRaceGallente"
         Me.chkCalcRaceGallente.Size = New System.Drawing.Size(83, 21)
         Me.chkCalcRaceGallente.TabIndex = 3
@@ -6936,7 +6944,7 @@ Partial Class frmMain
         '
         Me.chkCalcRaceCaldari.AutoSize = True
         Me.chkCalcRaceCaldari.Location = New System.Drawing.Point(86, 21)
-        Me.chkCalcRaceCaldari.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRaceCaldari.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRaceCaldari.Name = "chkCalcRaceCaldari"
         Me.chkCalcRaceCaldari.Size = New System.Drawing.Size(74, 21)
         Me.chkCalcRaceCaldari.TabIndex = 1
@@ -6947,7 +6955,7 @@ Partial Class frmMain
         '
         Me.chkCalcRaceAmarr.AutoSize = True
         Me.chkCalcRaceAmarr.Location = New System.Drawing.Point(8, 21)
-        Me.chkCalcRaceAmarr.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRaceAmarr.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRaceAmarr.Name = "chkCalcRaceAmarr"
         Me.chkCalcRaceAmarr.Size = New System.Drawing.Size(68, 21)
         Me.chkCalcRaceAmarr.TabIndex = 0
@@ -6961,9 +6969,9 @@ Partial Class frmMain
         Me.gbTempMEPE.Controls.Add(Me.txtCalcTempME)
         Me.gbTempMEPE.Controls.Add(Me.lblTempME)
         Me.gbTempMEPE.Location = New System.Drawing.Point(341, 318)
-        Me.gbTempMEPE.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbTempMEPE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbTempMEPE.Name = "gbTempMEPE"
-        Me.gbTempMEPE.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbTempMEPE.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbTempMEPE.Size = New System.Drawing.Size(166, 50)
         Me.gbTempMEPE.TabIndex = 11
         Me.gbTempMEPE.TabStop = False
@@ -6972,7 +6980,7 @@ Partial Class frmMain
         'txtCalcTempTE
         '
         Me.txtCalcTempTE.Location = New System.Drawing.Point(121, 16)
-        Me.txtCalcTempTE.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcTempTE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcTempTE.Name = "txtCalcTempTE"
         Me.txtCalcTempTE.Size = New System.Drawing.Size(35, 23)
         Me.txtCalcTempTE.TabIndex = 3
@@ -6990,7 +6998,7 @@ Partial Class frmMain
         'txtCalcTempME
         '
         Me.txtCalcTempME.Location = New System.Drawing.Point(46, 16)
-        Me.txtCalcTempME.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcTempME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcTempME.Name = "txtCalcTempME"
         Me.txtCalcTempME.Size = New System.Drawing.Size(35, 23)
         Me.txtCalcTempME.TabIndex = 1
@@ -7023,7 +7031,7 @@ Partial Class frmMain
         Me.tabCalcFacilities.HotTrack = True
         Me.tabCalcFacilities.ItemSize = New System.Drawing.Size(49, 20)
         Me.tabCalcFacilities.Location = New System.Drawing.Point(682, 16)
-        Me.tabCalcFacilities.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilities.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilities.Multiline = True
         Me.tabCalcFacilities.Name = "tabCalcFacilities"
         Me.tabCalcFacilities.Padding = New System.Drawing.Point(0, 0)
@@ -7039,7 +7047,7 @@ Partial Class frmMain
         Me.tabCalcFacilityBase.Location = New System.Drawing.Point(4, 44)
         Me.tabCalcFacilityBase.Margin = New System.Windows.Forms.Padding(0)
         Me.tabCalcFacilityBase.Name = "tabCalcFacilityBase"
-        Me.tabCalcFacilityBase.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityBase.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityBase.Size = New System.Drawing.Size(380, 172)
         Me.tabCalcFacilityBase.TabIndex = 1
         Me.tabCalcFacilityBase.Text = "Base"
@@ -7048,7 +7056,7 @@ Partial Class frmMain
         'CalcBaseFacility
         '
         Me.CalcBaseFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
         Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcBaseFacility.TabIndex = 0
@@ -7056,10 +7064,10 @@ Partial Class frmMain
         'tabCalcFacilityComponents
         '
         Me.tabCalcFacilityComponents.Controls.Add(Me.CalcComponentsFacility)
-        Me.tabCalcFacilityComponents.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityComponents.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityComponents.Name = "tabCalcFacilityComponents"
-        Me.tabCalcFacilityComponents.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityComponents.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityComponents.TabIndex = 10
         Me.tabCalcFacilityComponents.Text = "Components"
         Me.tabCalcFacilityComponents.UseVisualStyleBackColor = True
@@ -7067,7 +7075,7 @@ Partial Class frmMain
         'CalcComponentsFacility
         '
         Me.CalcComponentsFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcComponentsFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcComponentsFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcComponentsFacility.Name = "CalcComponentsFacility"
         Me.CalcComponentsFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcComponentsFacility.TabIndex = 1
@@ -7075,10 +7083,10 @@ Partial Class frmMain
         'tabCalcFacilityCopy
         '
         Me.tabCalcFacilityCopy.Controls.Add(Me.CalcCopyFacility)
-        Me.tabCalcFacilityCopy.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityCopy.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityCopy.Name = "tabCalcFacilityCopy"
-        Me.tabCalcFacilityCopy.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityCopy.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityCopy.TabIndex = 3
         Me.tabCalcFacilityCopy.Text = "Copy"
         Me.tabCalcFacilityCopy.UseVisualStyleBackColor = True
@@ -7086,7 +7094,7 @@ Partial Class frmMain
         'CalcCopyFacility
         '
         Me.CalcCopyFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcCopyFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcCopyFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcCopyFacility.Name = "CalcCopyFacility"
         Me.CalcCopyFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcCopyFacility.TabIndex = 1
@@ -7094,10 +7102,10 @@ Partial Class frmMain
         'tabCalcFacilityT2Invention
         '
         Me.tabCalcFacilityT2Invention.Controls.Add(Me.CalcInventionFacility)
-        Me.tabCalcFacilityT2Invention.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityT2Invention.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityT2Invention.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityT2Invention.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityT2Invention.Name = "tabCalcFacilityT2Invention"
-        Me.tabCalcFacilityT2Invention.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityT2Invention.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityT2Invention.TabIndex = 2
         Me.tabCalcFacilityT2Invention.Text = "T2 Inv"
         Me.tabCalcFacilityT2Invention.UseVisualStyleBackColor = True
@@ -7105,7 +7113,7 @@ Partial Class frmMain
         'CalcInventionFacility
         '
         Me.CalcInventionFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcInventionFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcInventionFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcInventionFacility.Name = "CalcInventionFacility"
         Me.CalcInventionFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcInventionFacility.TabIndex = 1
@@ -7113,10 +7121,10 @@ Partial Class frmMain
         'tabCalcFacilityT3Invention
         '
         Me.tabCalcFacilityT3Invention.Controls.Add(Me.CalcT3InventionFacility)
-        Me.tabCalcFacilityT3Invention.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityT3Invention.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityT3Invention.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityT3Invention.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityT3Invention.Name = "tabCalcFacilityT3Invention"
-        Me.tabCalcFacilityT3Invention.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityT3Invention.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityT3Invention.TabIndex = 11
         Me.tabCalcFacilityT3Invention.Text = "T3 Inv"
         Me.tabCalcFacilityT3Invention.UseVisualStyleBackColor = True
@@ -7124,7 +7132,7 @@ Partial Class frmMain
         'CalcT3InventionFacility
         '
         Me.CalcT3InventionFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcT3InventionFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcT3InventionFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcT3InventionFacility.Name = "CalcT3InventionFacility"
         Me.CalcT3InventionFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcT3InventionFacility.TabIndex = 1
@@ -7132,10 +7140,10 @@ Partial Class frmMain
         'tabCalcFacilitySupers
         '
         Me.tabCalcFacilitySupers.Controls.Add(Me.CalcSupersFacility)
-        Me.tabCalcFacilitySupers.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilitySupers.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilitySupers.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilitySupers.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilitySupers.Name = "tabCalcFacilitySupers"
-        Me.tabCalcFacilitySupers.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilitySupers.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilitySupers.TabIndex = 6
         Me.tabCalcFacilitySupers.Text = "Supers"
         Me.tabCalcFacilitySupers.UseVisualStyleBackColor = True
@@ -7143,7 +7151,7 @@ Partial Class frmMain
         'CalcSupersFacility
         '
         Me.CalcSupersFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcSupersFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcSupersFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcSupersFacility.Name = "CalcSupersFacility"
         Me.CalcSupersFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcSupersFacility.TabIndex = 1
@@ -7151,10 +7159,10 @@ Partial Class frmMain
         'tabCalcFacilityCapitals
         '
         Me.tabCalcFacilityCapitals.Controls.Add(Me.CalcCapitalsFacility)
-        Me.tabCalcFacilityCapitals.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityCapitals.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityCapitals.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityCapitals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityCapitals.Name = "tabCalcFacilityCapitals"
-        Me.tabCalcFacilityCapitals.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityCapitals.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityCapitals.TabIndex = 5
         Me.tabCalcFacilityCapitals.Text = "Capitals"
         Me.tabCalcFacilityCapitals.UseVisualStyleBackColor = True
@@ -7162,7 +7170,7 @@ Partial Class frmMain
         'CalcCapitalsFacility
         '
         Me.CalcCapitalsFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcCapitalsFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcCapitalsFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcCapitalsFacility.Name = "CalcCapitalsFacility"
         Me.CalcCapitalsFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcCapitalsFacility.TabIndex = 1
@@ -7170,10 +7178,10 @@ Partial Class frmMain
         'tabCalcFacilityT3Ships
         '
         Me.tabCalcFacilityT3Ships.Controls.Add(Me.CalcT3ShipsFacility)
-        Me.tabCalcFacilityT3Ships.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityT3Ships.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityT3Ships.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityT3Ships.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityT3Ships.Name = "tabCalcFacilityT3Ships"
-        Me.tabCalcFacilityT3Ships.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityT3Ships.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityT3Ships.TabIndex = 9
         Me.tabCalcFacilityT3Ships.Text = "T3 Ships"
         Me.tabCalcFacilityT3Ships.UseVisualStyleBackColor = True
@@ -7181,7 +7189,7 @@ Partial Class frmMain
         'CalcT3ShipsFacility
         '
         Me.CalcT3ShipsFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcT3ShipsFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcT3ShipsFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcT3ShipsFacility.Name = "CalcT3ShipsFacility"
         Me.CalcT3ShipsFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcT3ShipsFacility.TabIndex = 1
@@ -7189,10 +7197,10 @@ Partial Class frmMain
         'tabCalcFacilitySubsystems
         '
         Me.tabCalcFacilitySubsystems.Controls.Add(Me.CalcSubsystemsFacility)
-        Me.tabCalcFacilitySubsystems.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilitySubsystems.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilitySubsystems.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilitySubsystems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilitySubsystems.Name = "tabCalcFacilitySubsystems"
-        Me.tabCalcFacilitySubsystems.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilitySubsystems.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilitySubsystems.TabIndex = 8
         Me.tabCalcFacilitySubsystems.Text = "Subsystems"
         Me.tabCalcFacilitySubsystems.UseVisualStyleBackColor = True
@@ -7200,7 +7208,7 @@ Partial Class frmMain
         'CalcSubsystemsFacility
         '
         Me.CalcSubsystemsFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcSubsystemsFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcSubsystemsFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcSubsystemsFacility.Name = "CalcSubsystemsFacility"
         Me.CalcSubsystemsFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcSubsystemsFacility.TabIndex = 1
@@ -7208,10 +7216,10 @@ Partial Class frmMain
         'tabCalcFacilityBoosters
         '
         Me.tabCalcFacilityBoosters.Controls.Add(Me.CalcBoostersFacility)
-        Me.tabCalcFacilityBoosters.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityBoosters.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityBoosters.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityBoosters.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityBoosters.Name = "tabCalcFacilityBoosters"
-        Me.tabCalcFacilityBoosters.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityBoosters.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityBoosters.TabIndex = 7
         Me.tabCalcFacilityBoosters.Text = "Boosters"
         Me.tabCalcFacilityBoosters.UseVisualStyleBackColor = True
@@ -7219,7 +7227,7 @@ Partial Class frmMain
         'CalcBoostersFacility
         '
         Me.CalcBoostersFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcBoostersFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBoostersFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcBoostersFacility.Name = "CalcBoostersFacility"
         Me.CalcBoostersFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcBoostersFacility.TabIndex = 1
@@ -7227,10 +7235,10 @@ Partial Class frmMain
         'tabCalcFacilityReactions
         '
         Me.tabCalcFacilityReactions.Controls.Add(Me.CalcReactionsFacility)
-        Me.tabCalcFacilityReactions.Location = New System.Drawing.Point(4, 44)
-        Me.tabCalcFacilityReactions.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityReactions.Location = New System.Drawing.Point(4, 64)
+        Me.tabCalcFacilityReactions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCalcFacilityReactions.Name = "tabCalcFacilityReactions"
-        Me.tabCalcFacilityReactions.Size = New System.Drawing.Size(380, 172)
+        Me.tabCalcFacilityReactions.Size = New System.Drawing.Size(380, 152)
         Me.tabCalcFacilityReactions.TabIndex = 4
         Me.tabCalcFacilityReactions.Text = "Reactions"
         Me.tabCalcFacilityReactions.UseVisualStyleBackColor = True
@@ -7238,7 +7246,7 @@ Partial Class frmMain
         'CalcReactionsFacility
         '
         Me.CalcReactionsFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcReactionsFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcReactionsFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CalcReactionsFacility.Name = "CalcReactionsFacility"
         Me.CalcReactionsFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcReactionsFacility.TabIndex = 1
@@ -7247,9 +7255,9 @@ Partial Class frmMain
         '
         Me.gbCalcFilter.Controls.Add(Me.cmbCalcBPTypeFilter)
         Me.gbCalcFilter.Location = New System.Drawing.Point(8, 251)
-        Me.gbCalcFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcFilter.Name = "gbCalcFilter"
-        Me.gbCalcFilter.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcFilter.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcFilter.Size = New System.Drawing.Size(262, 61)
         Me.gbCalcFilter.TabIndex = 8
         Me.gbCalcFilter.TabStop = False
@@ -7259,7 +7267,7 @@ Partial Class frmMain
         '
         Me.cmbCalcBPTypeFilter.FormattingEnabled = True
         Me.cmbCalcBPTypeFilter.Location = New System.Drawing.Point(11, 22)
-        Me.cmbCalcBPTypeFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbCalcBPTypeFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbCalcBPTypeFilter.Name = "cmbCalcBPTypeFilter"
         Me.cmbCalcBPTypeFilter.Size = New System.Drawing.Size(243, 25)
         Me.cmbCalcBPTypeFilter.TabIndex = 0
@@ -7274,9 +7282,9 @@ Partial Class frmMain
         Me.gbCalcBPTech.Controls.Add(Me.chkCalcT2)
         Me.gbCalcBPTech.Controls.Add(Me.chkCalcT1)
         Me.gbCalcBPTech.Location = New System.Drawing.Point(261, 19)
-        Me.gbCalcBPTech.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPTech.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPTech.Name = "gbCalcBPTech"
-        Me.gbCalcBPTech.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPTech.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPTech.Size = New System.Drawing.Size(178, 81)
         Me.gbCalcBPTech.TabIndex = 2
         Me.gbCalcBPTech.TabStop = False
@@ -7286,7 +7294,7 @@ Partial Class frmMain
         '
         Me.chkCalcPirateFaction.AutoSize = True
         Me.chkCalcPirateFaction.Location = New System.Drawing.Point(95, 56)
-        Me.chkCalcPirateFaction.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcPirateFaction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcPirateFaction.Name = "chkCalcPirateFaction"
         Me.chkCalcPirateFaction.Size = New System.Drawing.Size(67, 21)
         Me.chkCalcPirateFaction.TabIndex = 5
@@ -7298,7 +7306,7 @@ Partial Class frmMain
         '
         Me.chkCalcStoryline.AutoSize = True
         Me.chkCalcStoryline.Location = New System.Drawing.Point(95, 16)
-        Me.chkCalcStoryline.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcStoryline.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcStoryline.Name = "chkCalcStoryline"
         Me.chkCalcStoryline.Size = New System.Drawing.Size(85, 21)
         Me.chkCalcStoryline.TabIndex = 3
@@ -7309,7 +7317,7 @@ Partial Class frmMain
         '
         Me.chkCalcNavyFaction.AutoSize = True
         Me.chkCalcNavyFaction.Location = New System.Drawing.Point(95, 36)
-        Me.chkCalcNavyFaction.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcNavyFaction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcNavyFaction.Name = "chkCalcNavyFaction"
         Me.chkCalcNavyFaction.Size = New System.Drawing.Size(62, 21)
         Me.chkCalcNavyFaction.TabIndex = 4
@@ -7321,7 +7329,7 @@ Partial Class frmMain
         '
         Me.chkCalcT3.AutoSize = True
         Me.chkCalcT3.Location = New System.Drawing.Point(18, 58)
-        Me.chkCalcT3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcT3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcT3.Name = "chkCalcT3"
         Me.chkCalcT3.Size = New System.Drawing.Size(74, 21)
         Me.chkCalcT3.TabIndex = 2
@@ -7332,7 +7340,7 @@ Partial Class frmMain
         '
         Me.chkCalcT2.AutoSize = True
         Me.chkCalcT2.Location = New System.Drawing.Point(18, 36)
-        Me.chkCalcT2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcT2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcT2.Name = "chkCalcT2"
         Me.chkCalcT2.Size = New System.Drawing.Size(74, 21)
         Me.chkCalcT2.TabIndex = 1
@@ -7343,7 +7351,7 @@ Partial Class frmMain
         '
         Me.chkCalcT1.AutoSize = True
         Me.chkCalcT1.Location = New System.Drawing.Point(18, 18)
-        Me.chkCalcT1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcT1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcT1.Name = "chkCalcT1"
         Me.chkCalcT1.Size = New System.Drawing.Size(74, 21)
         Me.chkCalcT1.TabIndex = 0
@@ -7355,9 +7363,9 @@ Partial Class frmMain
         Me.gbCalcIncludeOwned.Controls.Add(Me.chkCalcIncludeT3Owned)
         Me.gbCalcIncludeOwned.Controls.Add(Me.chkCalcIncludeT2Owned)
         Me.gbCalcIncludeOwned.Location = New System.Drawing.Point(131, 19)
-        Me.gbCalcIncludeOwned.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIncludeOwned.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIncludeOwned.Name = "gbCalcIncludeOwned"
-        Me.gbCalcIncludeOwned.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcIncludeOwned.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcIncludeOwned.Size = New System.Drawing.Size(125, 81)
         Me.gbCalcIncludeOwned.TabIndex = 1
         Me.gbCalcIncludeOwned.TabStop = False
@@ -7367,7 +7375,7 @@ Partial Class frmMain
         '
         Me.chkCalcIncludeT3Owned.AutoSize = True
         Me.chkCalcIncludeT3Owned.Location = New System.Drawing.Point(10, 55)
-        Me.chkCalcIncludeT3Owned.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIncludeT3Owned.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIncludeT3Owned.Name = "chkCalcIncludeT3Owned"
         Me.chkCalcIncludeT3Owned.Size = New System.Drawing.Size(105, 21)
         Me.chkCalcIncludeT3Owned.TabIndex = 1
@@ -7378,7 +7386,7 @@ Partial Class frmMain
         '
         Me.chkCalcIncludeT2Owned.AutoSize = True
         Me.chkCalcIncludeT2Owned.Location = New System.Drawing.Point(10, 26)
-        Me.chkCalcIncludeT2Owned.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcIncludeT2Owned.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcIncludeT2Owned.Name = "chkCalcIncludeT2Owned"
         Me.chkCalcIncludeT2Owned.Size = New System.Drawing.Size(105, 21)
         Me.chkCalcIncludeT2Owned.TabIndex = 0
@@ -7388,7 +7396,7 @@ Partial Class frmMain
         'btnCalcSaveSettings
         '
         Me.btnCalcSaveSettings.Location = New System.Drawing.Point(1274, 170)
-        Me.btnCalcSaveSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcSaveSettings.Name = "btnCalcSaveSettings"
         Me.btnCalcSaveSettings.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcSaveSettings.TabIndex = 24
@@ -7398,7 +7406,7 @@ Partial Class frmMain
         'btnCalcExportList
         '
         Me.btnCalcExportList.Location = New System.Drawing.Point(1274, 206)
-        Me.btnCalcExportList.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcExportList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcExportList.Name = "btnCalcExportList"
         Me.btnCalcExportList.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcExportList.TabIndex = 25
@@ -7408,7 +7416,7 @@ Partial Class frmMain
         'btnCalcPreview
         '
         Me.btnCalcPreview.Location = New System.Drawing.Point(1274, 25)
-        Me.btnCalcPreview.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcPreview.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcPreview.Name = "btnCalcPreview"
         Me.btnCalcPreview.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcPreview.TabIndex = 20
@@ -7418,7 +7426,7 @@ Partial Class frmMain
         'btnCalcReset
         '
         Me.btnCalcReset.Location = New System.Drawing.Point(1274, 98)
-        Me.btnCalcReset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcReset.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcReset.Name = "btnCalcReset"
         Me.btnCalcReset.Size = New System.Drawing.Size(120, 36)
         Me.btnCalcReset.TabIndex = 22
@@ -7430,9 +7438,9 @@ Partial Class frmMain
         Me.gbCalcTextFilter.Controls.Add(Me.btnCalcResetTextSearch)
         Me.gbCalcTextFilter.Controls.Add(Me.txtCalcItemFilter)
         Me.gbCalcTextFilter.Location = New System.Drawing.Point(8, 314)
-        Me.gbCalcTextFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcTextFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcTextFilter.Name = "gbCalcTextFilter"
-        Me.gbCalcTextFilter.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcTextFilter.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcTextFilter.Size = New System.Drawing.Size(326, 54)
         Me.gbCalcTextFilter.TabIndex = 9
         Me.gbCalcTextFilter.TabStop = False
@@ -7441,7 +7449,7 @@ Partial Class frmMain
         'btnCalcResetTextSearch
         '
         Me.btnCalcResetTextSearch.Location = New System.Drawing.Point(270, 19)
-        Me.btnCalcResetTextSearch.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcResetTextSearch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCalcResetTextSearch.Name = "btnCalcResetTextSearch"
         Me.btnCalcResetTextSearch.Size = New System.Drawing.Size(49, 26)
         Me.btnCalcResetTextSearch.TabIndex = 1
@@ -7451,7 +7459,7 @@ Partial Class frmMain
         'txtCalcItemFilter
         '
         Me.txtCalcItemFilter.Location = New System.Drawing.Point(11, 20)
-        Me.txtCalcItemFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcItemFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCalcItemFilter.Name = "txtCalcItemFilter"
         Me.txtCalcItemFilter.Size = New System.Drawing.Size(250, 23)
         Me.txtCalcItemFilter.TabIndex = 0
@@ -7474,9 +7482,9 @@ Partial Class frmMain
         Me.gbCalcBPType.Controls.Add(Me.chkCalcShips)
         Me.gbCalcBPType.Controls.Add(Me.chkCalcStructureModules)
         Me.gbCalcBPType.Location = New System.Drawing.Point(444, 19)
-        Me.gbCalcBPType.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPType.Name = "gbCalcBPType"
-        Me.gbCalcBPType.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPType.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPType.Size = New System.Drawing.Size(232, 165)
         Me.gbCalcBPType.TabIndex = 5
         Me.gbCalcBPType.TabStop = False
@@ -7486,7 +7494,7 @@ Partial Class frmMain
         '
         Me.chkCalcReactions.AutoSize = True
         Me.chkCalcReactions.Location = New System.Drawing.Point(144, 139)
-        Me.chkCalcReactions.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcReactions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcReactions.Name = "chkCalcReactions"
         Me.chkCalcReactions.Size = New System.Drawing.Size(93, 21)
         Me.chkCalcReactions.TabIndex = 14
@@ -7497,7 +7505,7 @@ Partial Class frmMain
         '
         Me.chkCalcCelestials.AutoSize = True
         Me.chkCalcCelestials.Location = New System.Drawing.Point(144, 119)
-        Me.chkCalcCelestials.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcCelestials.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcCelestials.Name = "chkCalcCelestials"
         Me.chkCalcCelestials.Size = New System.Drawing.Size(90, 21)
         Me.chkCalcCelestials.TabIndex = 10
@@ -7508,7 +7516,7 @@ Partial Class frmMain
         '
         Me.chkCalcMisc.AutoSize = True
         Me.chkCalcMisc.Location = New System.Drawing.Point(168, 59)
-        Me.chkCalcMisc.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcMisc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcMisc.Name = "chkCalcMisc"
         Me.chkCalcMisc.Size = New System.Drawing.Size(62, 21)
         Me.chkCalcMisc.TabIndex = 12
@@ -7519,7 +7527,7 @@ Partial Class frmMain
         '
         Me.chkCalcSubsystems.AutoSize = True
         Me.chkCalcSubsystems.Location = New System.Drawing.Point(110, 79)
-        Me.chkCalcSubsystems.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcSubsystems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcSubsystems.Name = "chkCalcSubsystems"
         Me.chkCalcSubsystems.Size = New System.Drawing.Size(106, 21)
         Me.chkCalcSubsystems.TabIndex = 7
@@ -7530,7 +7538,7 @@ Partial Class frmMain
         '
         Me.chkCalcDeployables.AutoSize = True
         Me.chkCalcDeployables.Location = New System.Drawing.Point(11, 79)
-        Me.chkCalcDeployables.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDeployables.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDeployables.Name = "chkCalcDeployables"
         Me.chkCalcDeployables.Size = New System.Drawing.Size(108, 21)
         Me.chkCalcDeployables.TabIndex = 6
@@ -7541,7 +7549,7 @@ Partial Class frmMain
         '
         Me.chkCalcStructures.AutoSize = True
         Me.chkCalcStructures.Location = New System.Drawing.Point(11, 99)
-        Me.chkCalcStructures.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcStructures.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcStructures.Name = "chkCalcStructures"
         Me.chkCalcStructures.Size = New System.Drawing.Size(95, 21)
         Me.chkCalcStructures.TabIndex = 8
@@ -7552,7 +7560,7 @@ Partial Class frmMain
         '
         Me.chkCalcStructureRigs.AutoSize = True
         Me.chkCalcStructureRigs.Location = New System.Drawing.Point(11, 119)
-        Me.chkCalcStructureRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcStructureRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcStructureRigs.Name = "chkCalcStructureRigs"
         Me.chkCalcStructureRigs.Size = New System.Drawing.Size(120, 21)
         Me.chkCalcStructureRigs.TabIndex = 11
@@ -7563,7 +7571,7 @@ Partial Class frmMain
         '
         Me.chkCalcBoosters.AutoSize = True
         Me.chkCalcBoosters.Location = New System.Drawing.Point(110, 99)
-        Me.chkCalcBoosters.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcBoosters.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcBoosters.Name = "chkCalcBoosters"
         Me.chkCalcBoosters.Size = New System.Drawing.Size(86, 21)
         Me.chkCalcBoosters.TabIndex = 9
@@ -7574,7 +7582,7 @@ Partial Class frmMain
         '
         Me.chkCalcRigs.AutoSize = True
         Me.chkCalcRigs.Location = New System.Drawing.Point(110, 59)
-        Me.chkCalcRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRigs.Name = "chkCalcRigs"
         Me.chkCalcRigs.Size = New System.Drawing.Size(58, 21)
         Me.chkCalcRigs.TabIndex = 5
@@ -7585,7 +7593,7 @@ Partial Class frmMain
         '
         Me.chkCalcComponents.AutoSize = True
         Me.chkCalcComponents.Location = New System.Drawing.Point(11, 59)
-        Me.chkCalcComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcComponents.Name = "chkCalcComponents"
         Me.chkCalcComponents.Size = New System.Drawing.Size(109, 21)
         Me.chkCalcComponents.TabIndex = 4
@@ -7596,7 +7604,7 @@ Partial Class frmMain
         '
         Me.chkCalcAmmo.AutoSize = True
         Me.chkCalcAmmo.Location = New System.Drawing.Point(110, 39)
-        Me.chkCalcAmmo.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcAmmo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcAmmo.Name = "chkCalcAmmo"
         Me.chkCalcAmmo.Size = New System.Drawing.Size(126, 21)
         Me.chkCalcAmmo.TabIndex = 3
@@ -7607,7 +7615,7 @@ Partial Class frmMain
         '
         Me.chkCalcDrones.AutoSize = True
         Me.chkCalcDrones.Location = New System.Drawing.Point(11, 39)
-        Me.chkCalcDrones.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcDrones.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcDrones.Name = "chkCalcDrones"
         Me.chkCalcDrones.Size = New System.Drawing.Size(76, 21)
         Me.chkCalcDrones.TabIndex = 2
@@ -7618,7 +7626,7 @@ Partial Class frmMain
         '
         Me.chkCalcModules.AutoSize = True
         Me.chkCalcModules.Location = New System.Drawing.Point(110, 19)
-        Me.chkCalcModules.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcModules.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcModules.Name = "chkCalcModules"
         Me.chkCalcModules.Size = New System.Drawing.Size(83, 21)
         Me.chkCalcModules.TabIndex = 1
@@ -7629,7 +7637,7 @@ Partial Class frmMain
         '
         Me.chkCalcShips.AutoSize = True
         Me.chkCalcShips.Location = New System.Drawing.Point(11, 19)
-        Me.chkCalcShips.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcShips.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcShips.Name = "chkCalcShips"
         Me.chkCalcShips.Size = New System.Drawing.Size(65, 21)
         Me.chkCalcShips.TabIndex = 0
@@ -7640,7 +7648,7 @@ Partial Class frmMain
         '
         Me.chkCalcStructureModules.AutoSize = True
         Me.chkCalcStructureModules.Location = New System.Drawing.Point(11, 139)
-        Me.chkCalcStructureModules.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcStructureModules.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcStructureModules.Name = "chkCalcStructureModules"
         Me.chkCalcStructureModules.Size = New System.Drawing.Size(145, 21)
         Me.chkCalcStructureModules.TabIndex = 13
@@ -7653,9 +7661,9 @@ Partial Class frmMain
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcAllBPs)
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPOwned)
         Me.gbCalcBPSelect.Location = New System.Drawing.Point(8, 19)
-        Me.gbCalcBPSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPSelect.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPSelect.Name = "gbCalcBPSelect"
-        Me.gbCalcBPSelect.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcBPSelect.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcBPSelect.Size = New System.Drawing.Size(119, 81)
         Me.gbCalcBPSelect.TabIndex = 0
         Me.gbCalcBPSelect.TabStop = False
@@ -7665,7 +7673,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcBPFavorites.AutoSize = True
         Me.rbtnCalcBPFavorites.Location = New System.Drawing.Point(10, 55)
-        Me.rbtnCalcBPFavorites.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcBPFavorites.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcBPFavorites.Name = "rbtnCalcBPFavorites"
         Me.rbtnCalcBPFavorites.Size = New System.Drawing.Size(87, 21)
         Me.rbtnCalcBPFavorites.TabIndex = 2
@@ -7676,7 +7684,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcAllBPs.AutoSize = True
         Me.rbtnCalcAllBPs.Location = New System.Drawing.Point(10, 18)
-        Me.rbtnCalcAllBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcAllBPs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcAllBPs.Name = "rbtnCalcAllBPs"
         Me.rbtnCalcAllBPs.Size = New System.Drawing.Size(111, 21)
         Me.rbtnCalcAllBPs.TabIndex = 0
@@ -7687,7 +7695,7 @@ Partial Class frmMain
         '
         Me.rbtnCalcBPOwned.AutoSize = True
         Me.rbtnCalcBPOwned.Location = New System.Drawing.Point(10, 36)
-        Me.rbtnCalcBPOwned.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnCalcBPOwned.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnCalcBPOwned.Name = "rbtnCalcBPOwned"
         Me.rbtnCalcBPOwned.Size = New System.Drawing.Size(102, 21)
         Me.rbtnCalcBPOwned.TabIndex = 1
@@ -7700,9 +7708,9 @@ Partial Class frmMain
         Me.gbCalcRelics.Controls.Add(Me.chkCalcRERelic3)
         Me.gbCalcRelics.Controls.Add(Me.chkCalcRERelic1)
         Me.gbCalcRelics.Location = New System.Drawing.Point(341, 251)
-        Me.gbCalcRelics.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcRelics.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcRelics.Name = "gbCalcRelics"
-        Me.gbCalcRelics.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcRelics.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbCalcRelics.Size = New System.Drawing.Size(166, 65)
         Me.gbCalcRelics.TabIndex = 7
         Me.gbCalcRelics.TabStop = False
@@ -7711,7 +7719,7 @@ Partial Class frmMain
         'chkCalcRERelic2
         '
         Me.chkCalcRERelic2.Location = New System.Drawing.Point(11, 38)
-        Me.chkCalcRERelic2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRERelic2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRERelic2.Name = "chkCalcRERelic2"
         Me.chkCalcRERelic2.Size = New System.Drawing.Size(119, 21)
         Me.chkCalcRERelic2.TabIndex = 1
@@ -7722,7 +7730,7 @@ Partial Class frmMain
         '
         Me.chkCalcRERelic3.AutoSize = True
         Me.chkCalcRERelic3.Location = New System.Drawing.Point(98, 18)
-        Me.chkCalcRERelic3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRERelic3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRERelic3.Name = "chkCalcRERelic3"
         Me.chkCalcRERelic3.Size = New System.Drawing.Size(64, 21)
         Me.chkCalcRERelic3.TabIndex = 2
@@ -7733,7 +7741,7 @@ Partial Class frmMain
         '
         Me.chkCalcRERelic1.AutoSize = True
         Me.chkCalcRERelic1.Location = New System.Drawing.Point(11, 18)
-        Me.chkCalcRERelic1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcRERelic1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCalcRERelic1.Name = "chkCalcRERelic1"
         Me.chkCalcRERelic1.Size = New System.Drawing.Size(86, 21)
         Me.chkCalcRERelic1.TabIndex = 0
@@ -7746,6 +7754,7 @@ Partial Class frmMain
         Me.tabUpdatePrices.Controls.Add(Me.btnSavePricestoFile)
         Me.tabUpdatePrices.Controls.Add(Me.lstPricesView)
         Me.tabUpdatePrices.Controls.Add(Me.txtPriceItemFilter)
+        Me.tabUpdatePrices.Controls.Add(Me.gbPriceOptions)
         Me.tabUpdatePrices.Controls.Add(Me.btnSaveUpdatePrices)
         Me.tabUpdatePrices.Controls.Add(Me.btnCancelUpdate)
         Me.tabUpdatePrices.Controls.Add(Me.btnClearItemFilter)
@@ -7757,9 +7766,9 @@ Partial Class frmMain
         Me.tabUpdatePrices.Controls.Add(Me.pnlPriceProfiles)
         Me.tabUpdatePrices.Controls.Add(Me.pnlSinglePriceLocationSelect)
         Me.tabUpdatePrices.Location = New System.Drawing.Point(4, 26)
-        Me.tabUpdatePrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabUpdatePrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabUpdatePrices.Name = "tabUpdatePrices"
-        Me.tabUpdatePrices.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabUpdatePrices.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabUpdatePrices.Size = New System.Drawing.Size(1423, 771)
         Me.tabUpdatePrices.TabIndex = 1
         Me.tabUpdatePrices.Text = "Update Prices"
@@ -7768,7 +7777,7 @@ Partial Class frmMain
         'btnLoadPricesfromFile
         '
         Me.btnLoadPricesfromFile.Location = New System.Drawing.Point(735, 722)
-        Me.btnLoadPricesfromFile.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnLoadPricesfromFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnLoadPricesfromFile.Name = "btnLoadPricesfromFile"
         Me.btnLoadPricesfromFile.Size = New System.Drawing.Size(100, 40)
         Me.btnLoadPricesfromFile.TabIndex = 42
@@ -7778,7 +7787,7 @@ Partial Class frmMain
         'btnSavePricestoFile
         '
         Me.btnSavePricestoFile.Location = New System.Drawing.Point(628, 722)
-        Me.btnSavePricestoFile.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSavePricestoFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSavePricestoFile.Name = "btnSavePricestoFile"
         Me.btnSavePricestoFile.Size = New System.Drawing.Size(100, 40)
         Me.btnSavePricestoFile.TabIndex = 41
@@ -7791,7 +7800,7 @@ Partial Class frmMain
         Me.lstPricesView.GridLines = True
         Me.lstPricesView.HideSelection = False
         Me.lstPricesView.Location = New System.Drawing.Point(10, 12)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstPricesView.MultiSelect = False
         Me.lstPricesView.Name = "lstPricesView"
         Me.lstPricesView.Size = New System.Drawing.Size(824, 400)
@@ -7802,15 +7811,77 @@ Partial Class frmMain
         'txtPriceItemFilter
         '
         Me.txtPriceItemFilter.Location = New System.Drawing.Point(100, 730)
-        Me.txtPriceItemFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtPriceItemFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtPriceItemFilter.Name = "txtPriceItemFilter"
         Me.txtPriceItemFilter.Size = New System.Drawing.Size(416, 23)
         Me.txtPriceItemFilter.TabIndex = 3
         '
+        'gbPriceOptions
+        '
+        Me.gbPriceOptions.Controls.Add(Me.gbPriceTypes)
+        Me.gbPriceOptions.Controls.Add(Me.gbDataSource)
+        Me.gbPriceOptions.Location = New System.Drawing.Point(842, 602)
+        Me.gbPriceOptions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbPriceOptions.Name = "gbPriceOptions"
+        Me.gbPriceOptions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbPriceOptions.Size = New System.Drawing.Size(571, 116)
+        Me.gbPriceOptions.TabIndex = 10
+        Me.gbPriceOptions.TabStop = False
+        '
+        'gbPriceTypes
+        '
+        Me.gbPriceTypes.Controls.Add(Me.rbtnPriceSettingSingleSelect)
+        Me.gbPriceTypes.Location = New System.Drawing.Point(339, 61)
+        Me.gbPriceTypes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbPriceTypes.Name = "gbPriceTypes"
+        Me.gbPriceTypes.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbPriceTypes.Size = New System.Drawing.Size(225, 48)
+        Me.gbPriceTypes.TabIndex = 19
+        Me.gbPriceTypes.TabStop = False
+        Me.gbPriceTypes.Text = "Price Settings:"
+        '
+        'rbtnPriceSettingSingleSelect
+        '
+        Me.rbtnPriceSettingSingleSelect.AutoSize = True
+        Me.rbtnPriceSettingSingleSelect.Checked = True
+        Me.rbtnPriceSettingSingleSelect.Location = New System.Drawing.Point(11, 19)
+        Me.rbtnPriceSettingSingleSelect.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rbtnPriceSettingSingleSelect.Name = "rbtnPriceSettingSingleSelect"
+        Me.rbtnPriceSettingSingleSelect.Size = New System.Drawing.Size(111, 21)
+        Me.rbtnPriceSettingSingleSelect.TabIndex = 7
+        Me.rbtnPriceSettingSingleSelect.TabStop = True
+        Me.rbtnPriceSettingSingleSelect.Text = "Single Select"
+        Me.rbtnPriceSettingSingleSelect.UseVisualStyleBackColor = True
+        '
+        'gbDataSource
+        '
+        Me.gbDataSource.Controls.Add(Me.rbtnPriceSourceCCPData)
+        Me.gbDataSource.Location = New System.Drawing.Point(339, 9)
+        Me.gbDataSource.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbDataSource.Name = "gbDataSource"
+        Me.gbDataSource.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbDataSource.Size = New System.Drawing.Size(225, 51)
+        Me.gbDataSource.TabIndex = 18
+        Me.gbDataSource.TabStop = False
+        Me.gbDataSource.Text = "Data Source:"
+        '
+        'rbtnPriceSourceCCPData
+        '
+        Me.rbtnPriceSourceCCPData.AutoSize = True
+        Me.rbtnPriceSourceCCPData.Checked = True
+        Me.rbtnPriceSourceCCPData.Location = New System.Drawing.Point(124, 22)
+        Me.rbtnPriceSourceCCPData.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rbtnPriceSourceCCPData.Name = "rbtnPriceSourceCCPData"
+        Me.rbtnPriceSourceCCPData.Size = New System.Drawing.Size(90, 21)
+        Me.rbtnPriceSourceCCPData.TabIndex = 6
+        Me.rbtnPriceSourceCCPData.TabStop = True
+        Me.rbtnPriceSourceCCPData.Text = "CCP Data"
+        Me.rbtnPriceSourceCCPData.UseVisualStyleBackColor = True
+        '
         'btnSaveUpdatePrices
         '
         Me.btnSaveUpdatePrices.Location = New System.Drawing.Point(1129, 722)
-        Me.btnSaveUpdatePrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSaveUpdatePrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSaveUpdatePrices.Name = "btnSaveUpdatePrices"
         Me.btnSaveUpdatePrices.Size = New System.Drawing.Size(141, 40)
         Me.btnSaveUpdatePrices.TabIndex = 14
@@ -7820,7 +7891,7 @@ Partial Class frmMain
         'btnCancelUpdate
         '
         Me.btnCancelUpdate.Location = New System.Drawing.Point(1271, 722)
-        Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCancelUpdate.Name = "btnCancelUpdate"
         Me.btnCancelUpdate.Size = New System.Drawing.Size(141, 40)
         Me.btnCancelUpdate.TabIndex = 13
@@ -7830,7 +7901,7 @@ Partial Class frmMain
         'btnClearItemFilter
         '
         Me.btnClearItemFilter.Location = New System.Drawing.Point(525, 730)
-        Me.btnClearItemFilter.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnClearItemFilter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnClearItemFilter.Name = "btnClearItemFilter"
         Me.btnClearItemFilter.Size = New System.Drawing.Size(74, 26)
         Me.btnClearItemFilter.TabIndex = 4
@@ -7840,7 +7911,7 @@ Partial Class frmMain
         'btnDownloadPrices
         '
         Me.btnDownloadPrices.Location = New System.Drawing.Point(986, 722)
-        Me.btnDownloadPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnDownloadPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDownloadPrices.Name = "btnDownloadPrices"
         Me.btnDownloadPrices.Size = New System.Drawing.Size(141, 40)
         Me.btnDownloadPrices.TabIndex = 12
@@ -7864,9 +7935,9 @@ Partial Class frmMain
         Me.gbManufacturedItems.Controls.Add(Me.gbComponents)
         Me.gbManufacturedItems.Controls.Add(Me.gbItems)
         Me.gbManufacturedItems.Location = New System.Drawing.Point(336, 421)
-        Me.gbManufacturedItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbManufacturedItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbManufacturedItems.Name = "gbManufacturedItems"
-        Me.gbManufacturedItems.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbManufacturedItems.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbManufacturedItems.Size = New System.Drawing.Size(499, 298)
         Me.gbManufacturedItems.TabIndex = 2
         Me.gbManufacturedItems.TabStop = False
@@ -7876,7 +7947,7 @@ Partial Class frmMain
         Me.chkPriceManufacturedPrices.AutoSize = True
         Me.chkPriceManufacturedPrices.BackColor = System.Drawing.Color.White
         Me.chkPriceManufacturedPrices.Location = New System.Drawing.Point(8, 1)
-        Me.chkPriceManufacturedPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPriceManufacturedPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPriceManufacturedPrices.Name = "chkPriceManufacturedPrices"
         Me.chkPriceManufacturedPrices.Size = New System.Drawing.Size(154, 21)
         Me.chkPriceManufacturedPrices.TabIndex = 0
@@ -7890,9 +7961,9 @@ Partial Class frmMain
         Me.gbPriceTools.Controls.Add(Me.chkFuelBlocks)
         Me.gbPriceTools.Controls.Add(Me.chkTools)
         Me.gbPriceTools.Location = New System.Drawing.Point(350, 181)
-        Me.gbPriceTools.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbPriceTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPriceTools.Name = "gbPriceTools"
-        Me.gbPriceTools.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbPriceTools.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPriceTools.Size = New System.Drawing.Size(141, 110)
         Me.gbPriceTools.TabIndex = 3
         Me.gbPriceTools.TabStop = False
@@ -7902,7 +7973,7 @@ Partial Class frmMain
         '
         Me.chkImplants.AutoSize = True
         Me.chkImplants.Location = New System.Drawing.Point(8, 61)
-        Me.chkImplants.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkImplants.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkImplants.Name = "chkImplants"
         Me.chkImplants.Size = New System.Drawing.Size(82, 21)
         Me.chkImplants.TabIndex = 4
@@ -7913,7 +7984,7 @@ Partial Class frmMain
         '
         Me.chkUpdatePricesNoPrice.AutoSize = True
         Me.chkUpdatePricesNoPrice.Location = New System.Drawing.Point(8, 82)
-        Me.chkUpdatePricesNoPrice.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkUpdatePricesNoPrice.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkUpdatePricesNoPrice.Name = "chkUpdatePricesNoPrice"
         Me.chkUpdatePricesNoPrice.Size = New System.Drawing.Size(134, 21)
         Me.chkUpdatePricesNoPrice.TabIndex = 6
@@ -7924,7 +7995,7 @@ Partial Class frmMain
         '
         Me.chkFuelBlocks.AutoSize = True
         Me.chkFuelBlocks.Location = New System.Drawing.Point(8, 40)
-        Me.chkFuelBlocks.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkFuelBlocks.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkFuelBlocks.Name = "chkFuelBlocks"
         Me.chkFuelBlocks.Size = New System.Drawing.Size(102, 21)
         Me.chkFuelBlocks.TabIndex = 3
@@ -7935,7 +8006,7 @@ Partial Class frmMain
         '
         Me.chkTools.AutoSize = True
         Me.chkTools.Location = New System.Drawing.Point(8, 19)
-        Me.chkTools.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkTools.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkTools.Name = "chkTools"
         Me.chkTools.Size = New System.Drawing.Size(65, 21)
         Me.chkTools.TabIndex = 1
@@ -7950,9 +8021,9 @@ Partial Class frmMain
         Me.gbComponents.Controls.Add(Me.chkCapitalComponents)
         Me.gbComponents.Controls.Add(Me.chkCapT2Components)
         Me.gbComponents.Location = New System.Drawing.Point(6, 181)
-        Me.gbComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbComponents.Name = "gbComponents"
-        Me.gbComponents.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbComponents.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbComponents.Size = New System.Drawing.Size(336, 110)
         Me.gbComponents.TabIndex = 2
         Me.gbComponents.TabStop = False
@@ -7961,7 +8032,7 @@ Partial Class frmMain
         'chkStructureComponents
         '
         Me.chkStructureComponents.Location = New System.Drawing.Point(214, 61)
-        Me.chkStructureComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkStructureComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkStructureComponents.Name = "chkStructureComponents"
         Me.chkStructureComponents.Size = New System.Drawing.Size(115, 42)
         Me.chkStructureComponents.TabIndex = 17
@@ -7972,7 +8043,7 @@ Partial Class frmMain
         '
         Me.chkHybrid.AutoSize = True
         Me.chkHybrid.Location = New System.Drawing.Point(11, 82)
-        Me.chkHybrid.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkHybrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkHybrid.Name = "chkHybrid"
         Me.chkHybrid.Size = New System.Drawing.Size(190, 21)
         Me.chkHybrid.TabIndex = 5
@@ -7983,7 +8054,7 @@ Partial Class frmMain
         '
         Me.chkComponents.AutoSize = True
         Me.chkComponents.Location = New System.Drawing.Point(11, 61)
-        Me.chkComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkComponents.Name = "chkComponents"
         Me.chkComponents.Size = New System.Drawing.Size(192, 21)
         Me.chkComponents.TabIndex = 4
@@ -7994,7 +8065,7 @@ Partial Class frmMain
         '
         Me.chkCapitalComponents.AutoSize = True
         Me.chkCapitalComponents.Location = New System.Drawing.Point(11, 40)
-        Me.chkCapitalComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCapitalComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCapitalComponents.Name = "chkCapitalComponents"
         Me.chkCapitalComponents.Size = New System.Drawing.Size(239, 21)
         Me.chkCapitalComponents.TabIndex = 3
@@ -8005,7 +8076,7 @@ Partial Class frmMain
         '
         Me.chkCapT2Components.AutoSize = True
         Me.chkCapT2Components.Location = New System.Drawing.Point(11, 19)
-        Me.chkCapT2Components.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCapT2Components.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCapT2Components.Name = "chkCapT2Components"
         Me.chkCapT2Components.Size = New System.Drawing.Size(271, 21)
         Me.chkCapT2Components.TabIndex = 2
@@ -8030,9 +8101,9 @@ Partial Class frmMain
         Me.gbItems.Controls.Add(Me.chkRigs)
         Me.gbItems.Controls.Add(Me.chkDrones)
         Me.gbItems.Location = New System.Drawing.Point(6, 20)
-        Me.gbItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbItems.Name = "gbItems"
-        Me.gbItems.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbItems.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbItems.Size = New System.Drawing.Size(485, 160)
         Me.gbItems.TabIndex = 1
         Me.gbItems.TabStop = False
@@ -8042,7 +8113,7 @@ Partial Class frmMain
         '
         Me.chkStructureModules.AutoSize = True
         Me.chkStructureModules.Location = New System.Drawing.Point(11, 136)
-        Me.chkStructureModules.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkStructureModules.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkStructureModules.Name = "chkStructureModules"
         Me.chkStructureModules.Size = New System.Drawing.Size(145, 21)
         Me.chkStructureModules.TabIndex = 16
@@ -8053,7 +8124,7 @@ Partial Class frmMain
         '
         Me.chkCelestials.AutoSize = True
         Me.chkCelestials.Location = New System.Drawing.Point(245, 115)
-        Me.chkCelestials.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCelestials.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCelestials.Name = "chkCelestials"
         Me.chkCelestials.Size = New System.Drawing.Size(90, 21)
         Me.chkCelestials.TabIndex = 13
@@ -8064,7 +8135,7 @@ Partial Class frmMain
         '
         Me.chkDeployables.AutoSize = True
         Me.chkDeployables.Location = New System.Drawing.Point(118, 94)
-        Me.chkDeployables.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDeployables.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDeployables.Name = "chkDeployables"
         Me.chkDeployables.Size = New System.Drawing.Size(108, 21)
         Me.chkDeployables.TabIndex = 9
@@ -8075,7 +8146,7 @@ Partial Class frmMain
         '
         Me.cmbPriceChargeTypes.FormattingEnabled = True
         Me.cmbPriceChargeTypes.Location = New System.Drawing.Point(89, 42)
-        Me.cmbPriceChargeTypes.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbPriceChargeTypes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPriceChargeTypes.Name = "cmbPriceChargeTypes"
         Me.cmbPriceChargeTypes.Size = New System.Drawing.Size(263, 25)
         Me.cmbPriceChargeTypes.TabIndex = 5
@@ -8085,7 +8156,7 @@ Partial Class frmMain
         '
         Me.chkStructures.AutoSize = True
         Me.chkStructures.Location = New System.Drawing.Point(11, 115)
-        Me.chkStructures.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkStructures.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkStructures.Name = "chkStructures"
         Me.chkStructures.Size = New System.Drawing.Size(95, 21)
         Me.chkStructures.TabIndex = 12
@@ -8096,7 +8167,7 @@ Partial Class frmMain
         '
         Me.chkStructureRigs.AutoSize = True
         Me.chkStructureRigs.Location = New System.Drawing.Point(118, 115)
-        Me.chkStructureRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkStructureRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkStructureRigs.Name = "chkStructureRigs"
         Me.chkStructureRigs.Size = New System.Drawing.Size(120, 21)
         Me.chkStructureRigs.TabIndex = 14
@@ -8107,7 +8178,7 @@ Partial Class frmMain
         '
         Me.chkCharges.AutoSize = True
         Me.chkCharges.Location = New System.Drawing.Point(11, 45)
-        Me.chkCharges.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCharges.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkCharges.Name = "chkCharges"
         Me.chkCharges.Size = New System.Drawing.Size(83, 21)
         Me.chkCharges.TabIndex = 4
@@ -8118,7 +8189,7 @@ Partial Class frmMain
         '
         Me.chkBoosters.AutoSize = True
         Me.chkBoosters.Location = New System.Drawing.Point(245, 94)
-        Me.chkBoosters.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBoosters.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBoosters.Name = "chkBoosters"
         Me.chkBoosters.Size = New System.Drawing.Size(86, 21)
         Me.chkBoosters.TabIndex = 11
@@ -8129,7 +8200,7 @@ Partial Class frmMain
         '
         Me.cmbPriceShipTypes.FormattingEnabled = True
         Me.cmbPriceShipTypes.Location = New System.Drawing.Point(89, 15)
-        Me.cmbPriceShipTypes.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbPriceShipTypes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPriceShipTypes.Name = "cmbPriceShipTypes"
         Me.cmbPriceShipTypes.Size = New System.Drawing.Size(263, 25)
         Me.cmbPriceShipTypes.TabIndex = 3
@@ -8144,9 +8215,9 @@ Partial Class frmMain
         Me.gbPricesTech.Controls.Add(Me.chkPricesT2)
         Me.gbPricesTech.Controls.Add(Me.chkPricesT1)
         Me.gbPricesTech.Location = New System.Drawing.Point(360, 9)
-        Me.gbPricesTech.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbPricesTech.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPricesTech.Name = "gbPricesTech"
-        Me.gbPricesTech.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbPricesTech.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbPricesTech.Size = New System.Drawing.Size(118, 142)
         Me.gbPricesTech.TabIndex = 15
         Me.gbPricesTech.TabStop = False
@@ -8156,7 +8227,7 @@ Partial Class frmMain
         Me.chkPricesT4.AutoSize = True
         Me.chkPricesT4.Enabled = False
         Me.chkPricesT4.Location = New System.Drawing.Point(8, 75)
-        Me.chkPricesT4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT4.Name = "chkPricesT4"
         Me.chkPricesT4.Size = New System.Drawing.Size(85, 21)
         Me.chkPricesT4.TabIndex = 3
@@ -8169,7 +8240,7 @@ Partial Class frmMain
         Me.chkPricesT6.AutoSize = True
         Me.chkPricesT6.Enabled = False
         Me.chkPricesT6.Location = New System.Drawing.Point(8, 118)
-        Me.chkPricesT6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT6.Name = "chkPricesT6"
         Me.chkPricesT6.Size = New System.Drawing.Size(117, 21)
         Me.chkPricesT6.TabIndex = 9
@@ -8182,7 +8253,7 @@ Partial Class frmMain
         Me.chkPricesT5.AutoSize = True
         Me.chkPricesT5.Enabled = False
         Me.chkPricesT5.Location = New System.Drawing.Point(8, 96)
-        Me.chkPricesT5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT5.Name = "chkPricesT5"
         Me.chkPricesT5.Size = New System.Drawing.Size(112, 21)
         Me.chkPricesT5.TabIndex = 8
@@ -8195,7 +8266,7 @@ Partial Class frmMain
         Me.chkPricesT3.AutoSize = True
         Me.chkPricesT3.Enabled = False
         Me.chkPricesT3.Location = New System.Drawing.Point(8, 54)
-        Me.chkPricesT3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT3.Name = "chkPricesT3"
         Me.chkPricesT3.Size = New System.Drawing.Size(74, 21)
         Me.chkPricesT3.TabIndex = 2
@@ -8207,7 +8278,7 @@ Partial Class frmMain
         Me.chkPricesT2.AutoSize = True
         Me.chkPricesT2.Enabled = False
         Me.chkPricesT2.Location = New System.Drawing.Point(8, 32)
-        Me.chkPricesT2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT2.Name = "chkPricesT2"
         Me.chkPricesT2.Size = New System.Drawing.Size(74, 21)
         Me.chkPricesT2.TabIndex = 1
@@ -8219,7 +8290,7 @@ Partial Class frmMain
         Me.chkPricesT1.AutoSize = True
         Me.chkPricesT1.Enabled = False
         Me.chkPricesT1.Location = New System.Drawing.Point(8, 11)
-        Me.chkPricesT1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPricesT1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPricesT1.Name = "chkPricesT1"
         Me.chkPricesT1.Size = New System.Drawing.Size(74, 21)
         Me.chkPricesT1.TabIndex = 0
@@ -8230,7 +8301,7 @@ Partial Class frmMain
         '
         Me.chkSubsystems.AutoSize = True
         Me.chkSubsystems.Location = New System.Drawing.Point(11, 94)
-        Me.chkSubsystems.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSubsystems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSubsystems.Name = "chkSubsystems"
         Me.chkSubsystems.Size = New System.Drawing.Size(106, 21)
         Me.chkSubsystems.TabIndex = 10
@@ -8241,7 +8312,7 @@ Partial Class frmMain
         '
         Me.chkShips.AutoSize = True
         Me.chkShips.Location = New System.Drawing.Point(11, 18)
-        Me.chkShips.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkShips.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkShips.Name = "chkShips"
         Me.chkShips.Size = New System.Drawing.Size(65, 21)
         Me.chkShips.TabIndex = 2
@@ -8252,7 +8323,7 @@ Partial Class frmMain
         '
         Me.chkModules.AutoSize = True
         Me.chkModules.Location = New System.Drawing.Point(11, 72)
-        Me.chkModules.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkModules.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkModules.Name = "chkModules"
         Me.chkModules.Size = New System.Drawing.Size(83, 21)
         Me.chkModules.TabIndex = 6
@@ -8263,7 +8334,7 @@ Partial Class frmMain
         '
         Me.chkRigs.AutoSize = True
         Me.chkRigs.Location = New System.Drawing.Point(245, 72)
-        Me.chkRigs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRigs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRigs.Name = "chkRigs"
         Me.chkRigs.Size = New System.Drawing.Size(58, 21)
         Me.chkRigs.TabIndex = 8
@@ -8274,7 +8345,7 @@ Partial Class frmMain
         '
         Me.chkDrones.AutoSize = True
         Me.chkDrones.Location = New System.Drawing.Point(118, 72)
-        Me.chkDrones.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDrones.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDrones.Name = "chkDrones"
         Me.chkDrones.Size = New System.Drawing.Size(76, 21)
         Me.chkDrones.TabIndex = 7
@@ -8305,9 +8376,9 @@ Partial Class frmMain
         Me.gbRawMaterials.Controls.Add(Me.chkIceProducts)
         Me.gbRawMaterials.Controls.Add(Me.chkMinerals)
         Me.gbRawMaterials.Location = New System.Drawing.Point(10, 421)
-        Me.gbRawMaterials.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbRawMaterials.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRawMaterials.Name = "gbRawMaterials"
-        Me.gbRawMaterials.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbRawMaterials.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRawMaterials.Size = New System.Drawing.Size(321, 298)
         Me.gbRawMaterials.TabIndex = 1
         Me.gbRawMaterials.TabStop = False
@@ -8316,7 +8387,7 @@ Partial Class frmMain
         '
         Me.chkAbyssalMaterials.AutoSize = True
         Me.chkAbyssalMaterials.Location = New System.Drawing.Point(191, 230)
-        Me.chkAbyssalMaterials.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAbyssalMaterials.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkAbyssalMaterials.Name = "chkAbyssalMaterials"
         Me.chkAbyssalMaterials.Size = New System.Drawing.Size(140, 21)
         Me.chkAbyssalMaterials.TabIndex = 20
@@ -8328,7 +8399,7 @@ Partial Class frmMain
         '
         Me.chkBPCs.AutoSize = True
         Me.chkBPCs.Location = New System.Drawing.Point(166, 114)
-        Me.chkBPCs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPCs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPCs.Name = "chkBPCs"
         Me.chkBPCs.Size = New System.Drawing.Size(133, 21)
         Me.chkBPCs.TabIndex = 19
@@ -8339,7 +8410,7 @@ Partial Class frmMain
         '
         Me.chkMisc.AutoSize = True
         Me.chkMisc.Location = New System.Drawing.Point(232, 135)
-        Me.chkMisc.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMisc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMisc.Name = "chkMisc"
         Me.chkMisc.Size = New System.Drawing.Size(62, 21)
         Me.chkMisc.TabIndex = 12
@@ -8350,7 +8421,7 @@ Partial Class frmMain
         '
         Me.chkAsteroids.AutoSize = True
         Me.chkAsteroids.Location = New System.Drawing.Point(10, 135)
-        Me.chkAsteroids.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAsteroids.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkAsteroids.Name = "chkAsteroids"
         Me.chkAsteroids.Size = New System.Drawing.Size(89, 21)
         Me.chkAsteroids.TabIndex = 6
@@ -8362,7 +8433,7 @@ Partial Class frmMain
         Me.chkPriceRawMaterialPrices.AutoSize = True
         Me.chkPriceRawMaterialPrices.BackColor = System.Drawing.Color.White
         Me.chkPriceRawMaterialPrices.Location = New System.Drawing.Point(8, 1)
-        Me.chkPriceRawMaterialPrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPriceRawMaterialPrices.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPriceRawMaterialPrices.Name = "chkPriceRawMaterialPrices"
         Me.chkPriceRawMaterialPrices.Size = New System.Drawing.Size(118, 21)
         Me.chkPriceRawMaterialPrices.TabIndex = 0
@@ -8373,7 +8444,7 @@ Partial Class frmMain
         '
         Me.chkPlanetary.AutoSize = True
         Me.chkPlanetary.Location = New System.Drawing.Point(10, 114)
-        Me.chkPlanetary.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPlanetary.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPlanetary.Name = "chkPlanetary"
         Me.chkPlanetary.Size = New System.Drawing.Size(90, 21)
         Me.chkPlanetary.TabIndex = 5
@@ -8384,7 +8455,7 @@ Partial Class frmMain
         '
         Me.chkBoosterMats.AutoSize = True
         Me.chkBoosterMats.Location = New System.Drawing.Point(10, 272)
-        Me.chkBoosterMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBoosterMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBoosterMats.Name = "chkBoosterMats"
         Me.chkBoosterMats.Size = New System.Drawing.Size(140, 21)
         Me.chkBoosterMats.TabIndex = 18
@@ -8395,7 +8466,7 @@ Partial Class frmMain
         '
         Me.chkDroneComponents.AutoSize = True
         Me.chkDroneComponents.Location = New System.Drawing.Point(10, 251)
-        Me.chkDroneComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDroneComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDroneComponents.Name = "chkDroneComponents"
         Me.chkDroneComponents.Size = New System.Drawing.Size(198, 21)
         Me.chkDroneComponents.TabIndex = 17
@@ -8406,7 +8477,7 @@ Partial Class frmMain
         '
         Me.chkMatsandCompounds.AutoSize = True
         Me.chkMatsandCompounds.Location = New System.Drawing.Point(10, 230)
-        Me.chkMatsandCompounds.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMatsandCompounds.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMatsandCompounds.Name = "chkMatsandCompounds"
         Me.chkMatsandCompounds.Size = New System.Drawing.Size(179, 21)
         Me.chkMatsandCompounds.TabIndex = 16
@@ -8417,7 +8488,7 @@ Partial Class frmMain
         '
         Me.chkAdvancedMats.AutoSize = True
         Me.chkAdvancedMats.Location = New System.Drawing.Point(10, 202)
-        Me.chkAdvancedMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAdvancedMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkAdvancedMats.Name = "chkAdvancedMats"
         Me.chkAdvancedMats.Size = New System.Drawing.Size(193, 21)
         Me.chkAdvancedMats.TabIndex = 15
@@ -8428,7 +8499,7 @@ Partial Class frmMain
         '
         Me.chkProcessedMats.AutoSize = True
         Me.chkProcessedMats.Location = New System.Drawing.Point(10, 181)
-        Me.chkProcessedMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkProcessedMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkProcessedMats.Name = "chkProcessedMats"
         Me.chkProcessedMats.Size = New System.Drawing.Size(197, 21)
         Me.chkProcessedMats.TabIndex = 14
@@ -8439,7 +8510,7 @@ Partial Class frmMain
         '
         Me.chkRawMats.AutoSize = True
         Me.chkRawMats.Location = New System.Drawing.Point(10, 160)
-        Me.chkRawMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRawMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRawMats.Name = "chkRawMats"
         Me.chkRawMats.Size = New System.Drawing.Size(157, 21)
         Me.chkRawMats.TabIndex = 13
@@ -8450,7 +8521,7 @@ Partial Class frmMain
         '
         Me.chkGas.AutoSize = True
         Me.chkGas.Location = New System.Drawing.Point(166, 135)
-        Me.chkGas.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkGas.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkGas.Name = "chkGas"
         Me.chkGas.Size = New System.Drawing.Size(56, 21)
         Me.chkGas.TabIndex = 11
@@ -8461,7 +8532,7 @@ Partial Class frmMain
         '
         Me.chkPolymers.AutoSize = True
         Me.chkPolymers.Location = New System.Drawing.Point(166, 92)
-        Me.chkPolymers.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkPolymers.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkPolymers.Name = "chkPolymers"
         Me.chkPolymers.Size = New System.Drawing.Size(133, 21)
         Me.chkPolymers.TabIndex = 10
@@ -8472,7 +8543,7 @@ Partial Class frmMain
         '
         Me.chkAncientRelics.AutoSize = True
         Me.chkAncientRelics.Location = New System.Drawing.Point(166, 71)
-        Me.chkAncientRelics.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAncientRelics.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkAncientRelics.Name = "chkAncientRelics"
         Me.chkAncientRelics.Size = New System.Drawing.Size(119, 21)
         Me.chkAncientRelics.TabIndex = 9
@@ -8483,7 +8554,7 @@ Partial Class frmMain
         '
         Me.chkAncientSalvage.AutoSize = True
         Me.chkAncientSalvage.Location = New System.Drawing.Point(166, 50)
-        Me.chkAncientSalvage.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkAncientSalvage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkAncientSalvage.Name = "chkAncientSalvage"
         Me.chkAncientSalvage.Size = New System.Drawing.Size(132, 21)
         Me.chkAncientSalvage.TabIndex = 8
@@ -8494,7 +8565,7 @@ Partial Class frmMain
         '
         Me.chkSalvage.AutoSize = True
         Me.chkSalvage.Location = New System.Drawing.Point(166, 29)
-        Me.chkSalvage.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSalvage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSalvage.Name = "chkSalvage"
         Me.chkSalvage.Size = New System.Drawing.Size(81, 21)
         Me.chkSalvage.TabIndex = 7
@@ -8505,7 +8576,7 @@ Partial Class frmMain
         '
         Me.chkDecryptors.AutoSize = True
         Me.chkDecryptors.Location = New System.Drawing.Point(10, 92)
-        Me.chkDecryptors.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDecryptors.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDecryptors.Name = "chkDecryptors"
         Me.chkDecryptors.Size = New System.Drawing.Size(99, 21)
         Me.chkDecryptors.TabIndex = 4
@@ -8516,7 +8587,7 @@ Partial Class frmMain
         '
         Me.chkDatacores.AutoSize = True
         Me.chkDatacores.Location = New System.Drawing.Point(10, 71)
-        Me.chkDatacores.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDatacores.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkDatacores.Name = "chkDatacores"
         Me.chkDatacores.Size = New System.Drawing.Size(95, 21)
         Me.chkDatacores.TabIndex = 2
@@ -8527,7 +8598,7 @@ Partial Class frmMain
         '
         Me.chkIceProducts.AutoSize = True
         Me.chkIceProducts.Location = New System.Drawing.Point(10, 50)
-        Me.chkIceProducts.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkIceProducts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkIceProducts.Name = "chkIceProducts"
         Me.chkIceProducts.Size = New System.Drawing.Size(108, 21)
         Me.chkIceProducts.TabIndex = 1
@@ -8538,7 +8609,7 @@ Partial Class frmMain
         '
         Me.chkMinerals.AutoSize = True
         Me.chkMinerals.Location = New System.Drawing.Point(10, 29)
-        Me.chkMinerals.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkMinerals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkMinerals.Name = "chkMinerals"
         Me.chkMinerals.Size = New System.Drawing.Size(83, 21)
         Me.chkMinerals.TabIndex = 0
@@ -8548,7 +8619,7 @@ Partial Class frmMain
         'btnOpenMarketBrowser
         '
         Me.btnOpenMarketBrowser.Location = New System.Drawing.Point(468, 722)
-        Me.btnOpenMarketBrowser.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnOpenMarketBrowser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnOpenMarketBrowser.Name = "btnOpenMarketBrowser"
         Me.btnOpenMarketBrowser.Size = New System.Drawing.Size(152, 40)
         Me.btnOpenMarketBrowser.TabIndex = 43
@@ -8560,7 +8631,7 @@ Partial Class frmMain
         '
         Me.pnlPriceProfiles.Controls.Add(Me.tabPriceProfile)
         Me.pnlPriceProfiles.Location = New System.Drawing.Point(839, 4)
-        Me.pnlPriceProfiles.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlPriceProfiles.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pnlPriceProfiles.Name = "pnlPriceProfiles"
         Me.pnlPriceProfiles.Size = New System.Drawing.Size(579, 604)
         Me.pnlPriceProfiles.TabIndex = 16
@@ -8570,7 +8641,7 @@ Partial Class frmMain
         Me.tabPriceProfile.Controls.Add(Me.tabPriceProfileRaw)
         Me.tabPriceProfile.Controls.Add(Me.tabPriceProfileManufactured)
         Me.tabPriceProfile.Location = New System.Drawing.Point(4, 8)
-        Me.tabPriceProfile.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabPriceProfile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPriceProfile.Name = "tabPriceProfile"
         Me.tabPriceProfile.SelectedIndex = 0
         Me.tabPriceProfile.Size = New System.Drawing.Size(571, 589)
@@ -8581,9 +8652,9 @@ Partial Class frmMain
         Me.tabPriceProfileRaw.Controls.Add(Me.gbRawMaterialsDefaults)
         Me.tabPriceProfileRaw.Controls.Add(Me.lstRawPriceProfile)
         Me.tabPriceProfileRaw.Location = New System.Drawing.Point(4, 26)
-        Me.tabPriceProfileRaw.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabPriceProfileRaw.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPriceProfileRaw.Name = "tabPriceProfileRaw"
-        Me.tabPriceProfileRaw.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabPriceProfileRaw.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPriceProfileRaw.Size = New System.Drawing.Size(563, 559)
         Me.tabPriceProfileRaw.TabIndex = 0
         Me.tabPriceProfileRaw.Text = "Raw Materials"
@@ -8600,10 +8671,10 @@ Partial Class frmMain
         Me.gbRawMaterialsDefaults.Controls.Add(Me.lblRawMaterialsDefaultsRegion)
         Me.gbRawMaterialsDefaults.Controls.Add(Me.txtRawMaterialsDefaultsPriceMod)
         Me.gbRawMaterialsDefaults.Controls.Add(Me.lblRawMaterialsDefaultsPriceMod)
-        Me.gbRawMaterialsDefaults.Location = New System.Drawing.Point(11, 429)
-        Me.gbRawMaterialsDefaults.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbRawMaterialsDefaults.Location = New System.Drawing.Point(10, 428)
+        Me.gbRawMaterialsDefaults.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRawMaterialsDefaults.Name = "gbRawMaterialsDefaults"
-        Me.gbRawMaterialsDefaults.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbRawMaterialsDefaults.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRawMaterialsDefaults.Size = New System.Drawing.Size(539, 115)
         Me.gbRawMaterialsDefaults.TabIndex = 53
         Me.gbRawMaterialsDefaults.TabStop = False
@@ -8612,7 +8683,7 @@ Partial Class frmMain
         'btnRawMaterialsDefaults
         '
         Me.btnRawMaterialsDefaults.Location = New System.Drawing.Point(222, 74)
-        Me.btnRawMaterialsDefaults.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnRawMaterialsDefaults.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRawMaterialsDefaults.Name = "btnRawMaterialsDefaults"
         Me.btnRawMaterialsDefaults.Size = New System.Drawing.Size(94, 31)
         Me.btnRawMaterialsDefaults.TabIndex = 4
@@ -8625,7 +8696,7 @@ Partial Class frmMain
         Me.cmbRawMaterialsDefaultsPriceType.FormattingEnabled = True
         Me.cmbRawMaterialsDefaultsPriceType.Items.AddRange(New Object() {"Min Sell", "Max Sell", "Avg Sell", "Median Sell", "Percentile Sell", "Min Buy", "Max Buy", "Avg Buy", "Median Buy", "Percentile Buy", "Split Price"})
         Me.cmbRawMaterialsDefaultsPriceType.Location = New System.Drawing.Point(12, 39)
-        Me.cmbRawMaterialsDefaultsPriceType.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbRawMaterialsDefaultsPriceType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbRawMaterialsDefaultsPriceType.Name = "cmbRawMaterialsDefaultsPriceType"
         Me.cmbRawMaterialsDefaultsPriceType.Size = New System.Drawing.Size(163, 25)
         Me.cmbRawMaterialsDefaultsPriceType.TabIndex = 0
@@ -8654,7 +8725,7 @@ Partial Class frmMain
         '
         Me.cmbRawMaterialsDefaultsSystem.FormattingEnabled = True
         Me.cmbRawMaterialsDefaultsSystem.Location = New System.Drawing.Point(360, 39)
-        Me.cmbRawMaterialsDefaultsSystem.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbRawMaterialsDefaultsSystem.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbRawMaterialsDefaultsSystem.Name = "cmbRawMaterialsDefaultsSystem"
         Me.cmbRawMaterialsDefaultsSystem.Size = New System.Drawing.Size(168, 25)
         Me.cmbRawMaterialsDefaultsSystem.TabIndex = 2
@@ -8664,7 +8735,7 @@ Partial Class frmMain
         '
         Me.cmbRawMaterialsDefaultsRegion.FormattingEnabled = True
         Me.cmbRawMaterialsDefaultsRegion.Location = New System.Drawing.Point(184, 39)
-        Me.cmbRawMaterialsDefaultsRegion.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbRawMaterialsDefaultsRegion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbRawMaterialsDefaultsRegion.Name = "cmbRawMaterialsDefaultsRegion"
         Me.cmbRawMaterialsDefaultsRegion.Size = New System.Drawing.Size(168, 25)
         Me.cmbRawMaterialsDefaultsRegion.TabIndex = 1
@@ -8683,7 +8754,7 @@ Partial Class frmMain
         'txtRawMaterialsDefaultsPriceMod
         '
         Me.txtRawMaterialsDefaultsPriceMod.Location = New System.Drawing.Point(119, 76)
-        Me.txtRawMaterialsDefaultsPriceMod.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtRawMaterialsDefaultsPriceMod.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtRawMaterialsDefaultsPriceMod.Name = "txtRawMaterialsDefaultsPriceMod"
         Me.txtRawMaterialsDefaultsPriceMod.Size = New System.Drawing.Size(56, 23)
         Me.txtRawMaterialsDefaultsPriceMod.TabIndex = 3
@@ -8706,7 +8777,7 @@ Partial Class frmMain
         Me.lstRawPriceProfile.GridLines = True
         Me.lstRawPriceProfile.HideSelection = False
         Me.lstRawPriceProfile.Location = New System.Drawing.Point(4, 4)
-        Me.lstRawPriceProfile.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstRawPriceProfile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstRawPriceProfile.MultiSelect = False
         Me.lstRawPriceProfile.Name = "lstRawPriceProfile"
         Me.lstRawPriceProfile.Size = New System.Drawing.Size(553, 416)
@@ -8719,9 +8790,9 @@ Partial Class frmMain
         Me.tabPriceProfileManufactured.Controls.Add(Me.ItemsDefaults)
         Me.tabPriceProfileManufactured.Controls.Add(Me.lstManufacturedPriceProfile)
         Me.tabPriceProfileManufactured.Location = New System.Drawing.Point(4, 26)
-        Me.tabPriceProfileManufactured.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabPriceProfileManufactured.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPriceProfileManufactured.Name = "tabPriceProfileManufactured"
-        Me.tabPriceProfileManufactured.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabPriceProfileManufactured.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabPriceProfileManufactured.Size = New System.Drawing.Size(563, 559)
         Me.tabPriceProfileManufactured.TabIndex = 1
         Me.tabPriceProfileManufactured.Text = "Manufactured Items"
@@ -8739,9 +8810,9 @@ Partial Class frmMain
         Me.ItemsDefaults.Controls.Add(Me.txtItemsDefaultsPriceMod)
         Me.ItemsDefaults.Controls.Add(Me.lblItemsDefaultsPriceMod)
         Me.ItemsDefaults.Location = New System.Drawing.Point(11, 429)
-        Me.ItemsDefaults.Margin = New System.Windows.Forms.Padding(4)
+        Me.ItemsDefaults.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ItemsDefaults.Name = "ItemsDefaults"
-        Me.ItemsDefaults.Padding = New System.Windows.Forms.Padding(4)
+        Me.ItemsDefaults.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ItemsDefaults.Size = New System.Drawing.Size(539, 115)
         Me.ItemsDefaults.TabIndex = 54
         Me.ItemsDefaults.TabStop = False
@@ -8750,7 +8821,7 @@ Partial Class frmMain
         'btnItemsDefaults
         '
         Me.btnItemsDefaults.Location = New System.Drawing.Point(222, 74)
-        Me.btnItemsDefaults.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnItemsDefaults.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnItemsDefaults.Name = "btnItemsDefaults"
         Me.btnItemsDefaults.Size = New System.Drawing.Size(94, 31)
         Me.btnItemsDefaults.TabIndex = 4
@@ -8763,7 +8834,7 @@ Partial Class frmMain
         Me.cmbItemsDefaultsPriceType.FormattingEnabled = True
         Me.cmbItemsDefaultsPriceType.Items.AddRange(New Object() {"Min Sell", "Max Sell", "Avg Sell", "Median Sell", "Percentile Sell", "Min Buy", "Max Buy", "Avg Buy", "Median Buy", "Percentile Buy", "Min Buy & Sell", "Max Buy & Sell", "Avg Buy & Sell", "Median Buy & Sell", "Percentile Buy & Sell"})
         Me.cmbItemsDefaultsPriceType.Location = New System.Drawing.Point(12, 39)
-        Me.cmbItemsDefaultsPriceType.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbItemsDefaultsPriceType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbItemsDefaultsPriceType.Name = "cmbItemsDefaultsPriceType"
         Me.cmbItemsDefaultsPriceType.Size = New System.Drawing.Size(163, 25)
         Me.cmbItemsDefaultsPriceType.TabIndex = 0
@@ -8792,7 +8863,7 @@ Partial Class frmMain
         '
         Me.cmbItemsDefaultsSystem.FormattingEnabled = True
         Me.cmbItemsDefaultsSystem.Location = New System.Drawing.Point(360, 39)
-        Me.cmbItemsDefaultsSystem.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbItemsDefaultsSystem.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbItemsDefaultsSystem.Name = "cmbItemsDefaultsSystem"
         Me.cmbItemsDefaultsSystem.Size = New System.Drawing.Size(168, 25)
         Me.cmbItemsDefaultsSystem.TabIndex = 2
@@ -8802,7 +8873,7 @@ Partial Class frmMain
         '
         Me.cmbItemsDefaultsRegion.FormattingEnabled = True
         Me.cmbItemsDefaultsRegion.Location = New System.Drawing.Point(184, 39)
-        Me.cmbItemsDefaultsRegion.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbItemsDefaultsRegion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbItemsDefaultsRegion.Name = "cmbItemsDefaultsRegion"
         Me.cmbItemsDefaultsRegion.Size = New System.Drawing.Size(168, 25)
         Me.cmbItemsDefaultsRegion.TabIndex = 1
@@ -8821,7 +8892,7 @@ Partial Class frmMain
         'txtItemsDefaultsPriceMod
         '
         Me.txtItemsDefaultsPriceMod.Location = New System.Drawing.Point(119, 76)
-        Me.txtItemsDefaultsPriceMod.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtItemsDefaultsPriceMod.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtItemsDefaultsPriceMod.Name = "txtItemsDefaultsPriceMod"
         Me.txtItemsDefaultsPriceMod.Size = New System.Drawing.Size(56, 23)
         Me.txtItemsDefaultsPriceMod.TabIndex = 3
@@ -8844,7 +8915,7 @@ Partial Class frmMain
         Me.lstManufacturedPriceProfile.GridLines = True
         Me.lstManufacturedPriceProfile.HideSelection = False
         Me.lstManufacturedPriceProfile.Location = New System.Drawing.Point(4, 4)
-        Me.lstManufacturedPriceProfile.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturedPriceProfile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstManufacturedPriceProfile.MultiSelect = False
         Me.lstManufacturedPriceProfile.Name = "lstManufacturedPriceProfile"
         Me.lstManufacturedPriceProfile.Size = New System.Drawing.Size(553, 416)
@@ -8857,7 +8928,7 @@ Partial Class frmMain
         Me.pnlSinglePriceLocationSelect.Controls.Add(Me.gbTradeHubSystems)
         Me.pnlSinglePriceLocationSelect.Controls.Add(Me.gbRegions)
         Me.pnlSinglePriceLocationSelect.Location = New System.Drawing.Point(839, 4)
-        Me.pnlSinglePriceLocationSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlSinglePriceLocationSelect.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pnlSinglePriceLocationSelect.Name = "pnlSinglePriceLocationSelect"
         Me.pnlSinglePriceLocationSelect.Size = New System.Drawing.Size(579, 604)
         Me.pnlSinglePriceLocationSelect.TabIndex = 15
@@ -8872,9 +8943,9 @@ Partial Class frmMain
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems3)
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems1)
         Me.gbTradeHubSystems.Location = New System.Drawing.Point(5, 541)
-        Me.gbTradeHubSystems.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbTradeHubSystems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbTradeHubSystems.Name = "gbTradeHubSystems"
-        Me.gbTradeHubSystems.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbTradeHubSystems.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbTradeHubSystems.Size = New System.Drawing.Size(569, 56)
         Me.gbTradeHubSystems.TabIndex = 8
         Me.gbTradeHubSystems.TabStop = False
@@ -8886,7 +8957,7 @@ Partial Class frmMain
         Me.cmbPriceSystems.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbPriceSystems.FormattingEnabled = True
         Me.cmbPriceSystems.Location = New System.Drawing.Point(366, 20)
-        Me.cmbPriceSystems.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbPriceSystems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPriceSystems.Name = "cmbPriceSystems"
         Me.cmbPriceSystems.Size = New System.Drawing.Size(194, 25)
         Me.cmbPriceSystems.TabIndex = 5
@@ -8896,7 +8967,7 @@ Partial Class frmMain
         '
         Me.chkSystems2.AutoSize = True
         Me.chkSystems2.Location = New System.Drawing.Point(78, 24)
-        Me.chkSystems2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSystems2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSystems2.Name = "chkSystems2"
         Me.chkSystems2.Size = New System.Drawing.Size(68, 21)
         Me.chkSystems2.TabIndex = 1
@@ -8907,7 +8978,7 @@ Partial Class frmMain
         '
         Me.chkSystems4.AutoSize = True
         Me.chkSystems4.Location = New System.Drawing.Point(235, 24)
-        Me.chkSystems4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSystems4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSystems4.Name = "chkSystems4"
         Me.chkSystems4.Size = New System.Drawing.Size(63, 21)
         Me.chkSystems4.TabIndex = 3
@@ -8918,7 +8989,7 @@ Partial Class frmMain
         '
         Me.chkSystems5.AutoSize = True
         Me.chkSystems5.Location = New System.Drawing.Point(306, 24)
-        Me.chkSystems5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSystems5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSystems5.Name = "chkSystems5"
         Me.chkSystems5.Size = New System.Drawing.Size(55, 21)
         Me.chkSystems5.TabIndex = 4
@@ -8929,7 +9000,7 @@ Partial Class frmMain
         '
         Me.chkSystems3.AutoSize = True
         Me.chkSystems3.Location = New System.Drawing.Point(151, 24)
-        Me.chkSystems3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSystems3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSystems3.Name = "chkSystems3"
         Me.chkSystems3.Size = New System.Drawing.Size(76, 21)
         Me.chkSystems3.TabIndex = 2
@@ -8940,7 +9011,7 @@ Partial Class frmMain
         '
         Me.chkSystems1.AutoSize = True
         Me.chkSystems1.Location = New System.Drawing.Point(18, 24)
-        Me.chkSystems1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkSystems1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkSystems1.Name = "chkSystems1"
         Me.chkSystems1.Size = New System.Drawing.Size(52, 21)
         Me.chkSystems1.TabIndex = 0
@@ -9019,9 +9090,9 @@ Partial Class frmMain
         Me.gbRegions.Controls.Add(Me.chkRegion45)
         Me.gbRegions.Controls.Add(Me.chkRegion67)
         Me.gbRegions.Location = New System.Drawing.Point(5, 6)
-        Me.gbRegions.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbRegions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRegions.Name = "gbRegions"
-        Me.gbRegions.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbRegions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbRegions.Size = New System.Drawing.Size(569, 530)
         Me.gbRegions.TabIndex = 7
         Me.gbRegions.TabStop = False
@@ -9030,7 +9101,7 @@ Partial Class frmMain
         'btnViewSavedStructures
         '
         Me.btnViewSavedStructures.Location = New System.Drawing.Point(439, 491)
-        Me.btnViewSavedStructures.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnViewSavedStructures.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnViewSavedStructures.Name = "btnViewSavedStructures"
         Me.btnViewSavedStructures.Size = New System.Drawing.Size(125, 31)
         Me.btnViewSavedStructures.TabIndex = 122
@@ -9040,7 +9111,7 @@ Partial Class frmMain
         'btnAddStructureIDs
         '
         Me.btnAddStructureIDs.Location = New System.Drawing.Point(311, 491)
-        Me.btnAddStructureIDs.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnAddStructureIDs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAddStructureIDs.Name = "btnAddStructureIDs"
         Me.btnAddStructureIDs.Size = New System.Drawing.Size(125, 31)
         Me.btnAddStructureIDs.TabIndex = 71
@@ -9051,7 +9122,7 @@ Partial Class frmMain
         '
         Me.chkRegion46.AutoSize = True
         Me.chkRegion46.Location = New System.Drawing.Point(204, 501)
-        Me.chkRegion46.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion46.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion46.Name = "chkRegion46"
         Me.chkRegion46.Size = New System.Drawing.Size(101, 21)
         Me.chkRegion46.TabIndex = 49
@@ -9062,7 +9133,7 @@ Partial Class frmMain
         '
         Me.chkRegion47.AutoSize = True
         Me.chkRegion47.Location = New System.Drawing.Point(388, 34)
-        Me.chkRegion47.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion47.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion47.Name = "chkRegion47"
         Me.chkRegion47.Size = New System.Drawing.Size(95, 21)
         Me.chkRegion47.TabIndex = 50
@@ -9073,7 +9144,7 @@ Partial Class frmMain
         '
         Me.chkRegion48.AutoSize = True
         Me.chkRegion48.Location = New System.Drawing.Point(388, 55)
-        Me.chkRegion48.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion48.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion48.Name = "chkRegion48"
         Me.chkRegion48.Size = New System.Drawing.Size(88, 21)
         Me.chkRegion48.TabIndex = 51
@@ -9084,7 +9155,7 @@ Partial Class frmMain
         '
         Me.chkRegion49.AutoSize = True
         Me.chkRegion49.Location = New System.Drawing.Point(388, 76)
-        Me.chkRegion49.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion49.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion49.Name = "chkRegion49"
         Me.chkRegion49.Size = New System.Drawing.Size(119, 21)
         Me.chkRegion49.TabIndex = 52
@@ -9095,7 +9166,7 @@ Partial Class frmMain
         '
         Me.chkRegion50.AutoSize = True
         Me.chkRegion50.Location = New System.Drawing.Point(388, 98)
-        Me.chkRegion50.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion50.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion50.Name = "chkRegion50"
         Me.chkRegion50.Size = New System.Drawing.Size(164, 21)
         Me.chkRegion50.TabIndex = 53
@@ -9106,7 +9177,7 @@ Partial Class frmMain
         '
         Me.chkRegion51.AutoSize = True
         Me.chkRegion51.Location = New System.Drawing.Point(388, 119)
-        Me.chkRegion51.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion51.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion51.Name = "chkRegion51"
         Me.chkRegion51.Size = New System.Drawing.Size(81, 21)
         Me.chkRegion51.TabIndex = 54
@@ -9117,7 +9188,7 @@ Partial Class frmMain
         '
         Me.chkRegion52.AutoSize = True
         Me.chkRegion52.Location = New System.Drawing.Point(388, 140)
-        Me.chkRegion52.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion52.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion52.Name = "chkRegion52"
         Me.chkRegion52.Size = New System.Drawing.Size(62, 21)
         Me.chkRegion52.TabIndex = 55
@@ -9128,7 +9199,7 @@ Partial Class frmMain
         '
         Me.chkRegion53.AutoSize = True
         Me.chkRegion53.Location = New System.Drawing.Point(388, 161)
-        Me.chkRegion53.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion53.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion53.Name = "chkRegion53"
         Me.chkRegion53.Size = New System.Drawing.Size(92, 21)
         Me.chkRegion53.TabIndex = 56
@@ -9139,7 +9210,7 @@ Partial Class frmMain
         '
         Me.chkRegion54.AutoSize = True
         Me.chkRegion54.Location = New System.Drawing.Point(388, 182)
-        Me.chkRegion54.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion54.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion54.Name = "chkRegion54"
         Me.chkRegion54.Size = New System.Drawing.Size(114, 21)
         Me.chkRegion54.TabIndex = 57
@@ -9150,7 +9221,7 @@ Partial Class frmMain
         '
         Me.chkRegion55.AutoSize = True
         Me.chkRegion55.Location = New System.Drawing.Point(388, 204)
-        Me.chkRegion55.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion55.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion55.Name = "chkRegion55"
         Me.chkRegion55.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion55.TabIndex = 58
@@ -9161,7 +9232,7 @@ Partial Class frmMain
         '
         Me.chkRegion56.AutoSize = True
         Me.chkRegion56.Location = New System.Drawing.Point(388, 225)
-        Me.chkRegion56.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion56.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion56.Name = "chkRegion56"
         Me.chkRegion56.Size = New System.Drawing.Size(85, 21)
         Me.chkRegion56.TabIndex = 59
@@ -9172,7 +9243,7 @@ Partial Class frmMain
         '
         Me.chkRegion57.AutoSize = True
         Me.chkRegion57.Location = New System.Drawing.Point(388, 246)
-        Me.chkRegion57.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion57.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion57.Name = "chkRegion57"
         Me.chkRegion57.Size = New System.Drawing.Size(137, 21)
         Me.chkRegion57.TabIndex = 60
@@ -9183,7 +9254,7 @@ Partial Class frmMain
         '
         Me.chkRegion58.AutoSize = True
         Me.chkRegion58.Location = New System.Drawing.Point(388, 268)
-        Me.chkRegion58.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion58.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion58.Name = "chkRegion58"
         Me.chkRegion58.Size = New System.Drawing.Size(102, 21)
         Me.chkRegion58.TabIndex = 61
@@ -9194,7 +9265,7 @@ Partial Class frmMain
         '
         Me.chkRegion59.AutoSize = True
         Me.chkRegion59.Location = New System.Drawing.Point(388, 289)
-        Me.chkRegion59.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion59.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion59.Name = "chkRegion59"
         Me.chkRegion59.Size = New System.Drawing.Size(132, 21)
         Me.chkRegion59.TabIndex = 62
@@ -9205,7 +9276,7 @@ Partial Class frmMain
         '
         Me.chkRegion60.AutoSize = True
         Me.chkRegion60.Location = New System.Drawing.Point(388, 310)
-        Me.chkRegion60.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion60.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion60.Name = "chkRegion60"
         Me.chkRegion60.Size = New System.Drawing.Size(171, 21)
         Me.chkRegion60.TabIndex = 63
@@ -9216,7 +9287,7 @@ Partial Class frmMain
         '
         Me.chkRegion61.AutoSize = True
         Me.chkRegion61.Location = New System.Drawing.Point(388, 331)
-        Me.chkRegion61.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion61.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion61.Name = "chkRegion61"
         Me.chkRegion61.Size = New System.Drawing.Size(92, 21)
         Me.chkRegion61.TabIndex = 64
@@ -9227,7 +9298,7 @@ Partial Class frmMain
         '
         Me.chkRegion62.AutoSize = True
         Me.chkRegion62.Location = New System.Drawing.Point(388, 352)
-        Me.chkRegion62.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion62.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion62.Name = "chkRegion62"
         Me.chkRegion62.Size = New System.Drawing.Size(75, 21)
         Me.chkRegion62.TabIndex = 65
@@ -9238,7 +9309,7 @@ Partial Class frmMain
         '
         Me.chkRegion63.AutoSize = True
         Me.chkRegion63.Location = New System.Drawing.Point(388, 374)
-        Me.chkRegion63.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion63.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion63.Name = "chkRegion63"
         Me.chkRegion63.Size = New System.Drawing.Size(80, 21)
         Me.chkRegion63.TabIndex = 66
@@ -9249,7 +9320,7 @@ Partial Class frmMain
         '
         Me.chkRegion64.AutoSize = True
         Me.chkRegion64.Location = New System.Drawing.Point(388, 395)
-        Me.chkRegion64.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion64.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion64.Name = "chkRegion64"
         Me.chkRegion64.Size = New System.Drawing.Size(137, 21)
         Me.chkRegion64.TabIndex = 67
@@ -9260,7 +9331,7 @@ Partial Class frmMain
         '
         Me.chkRegion65.AutoSize = True
         Me.chkRegion65.Location = New System.Drawing.Point(388, 416)
-        Me.chkRegion65.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion65.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion65.Name = "chkRegion65"
         Me.chkRegion65.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion65.TabIndex = 68
@@ -9271,7 +9342,7 @@ Partial Class frmMain
         '
         Me.chkRegion66.AutoSize = True
         Me.chkRegion66.Location = New System.Drawing.Point(388, 438)
-        Me.chkRegion66.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion66.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion66.Name = "chkRegion66"
         Me.chkRegion66.Size = New System.Drawing.Size(118, 21)
         Me.chkRegion66.TabIndex = 69
@@ -9282,7 +9353,7 @@ Partial Class frmMain
         '
         Me.chkRegion23.AutoSize = True
         Me.chkRegion23.Location = New System.Drawing.Point(18, 501)
-        Me.chkRegion23.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion23.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion23.Name = "chkRegion23"
         Me.chkRegion23.Size = New System.Drawing.Size(91, 21)
         Me.chkRegion23.TabIndex = 26
@@ -9293,7 +9364,7 @@ Partial Class frmMain
         '
         Me.chkRegion24.AutoSize = True
         Me.chkRegion24.Location = New System.Drawing.Point(204, 34)
-        Me.chkRegion24.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion24.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion24.Name = "chkRegion24"
         Me.chkRegion24.Size = New System.Drawing.Size(82, 21)
         Me.chkRegion24.TabIndex = 27
@@ -9304,7 +9375,7 @@ Partial Class frmMain
         '
         Me.chkRegion25.AutoSize = True
         Me.chkRegion25.Location = New System.Drawing.Point(204, 55)
-        Me.chkRegion25.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion25.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion25.Name = "chkRegion25"
         Me.chkRegion25.Size = New System.Drawing.Size(131, 21)
         Me.chkRegion25.TabIndex = 28
@@ -9315,7 +9386,7 @@ Partial Class frmMain
         '
         Me.chkRegion26.AutoSize = True
         Me.chkRegion26.Location = New System.Drawing.Point(204, 76)
-        Me.chkRegion26.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion26.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion26.Name = "chkRegion26"
         Me.chkRegion26.Size = New System.Drawing.Size(134, 21)
         Me.chkRegion26.TabIndex = 29
@@ -9326,7 +9397,7 @@ Partial Class frmMain
         '
         Me.chkRegion27.AutoSize = True
         Me.chkRegion27.Location = New System.Drawing.Point(204, 98)
-        Me.chkRegion27.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion27.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion27.Name = "chkRegion27"
         Me.chkRegion27.Size = New System.Drawing.Size(94, 21)
         Me.chkRegion27.TabIndex = 30
@@ -9337,7 +9408,7 @@ Partial Class frmMain
         '
         Me.chkRegion28.AutoSize = True
         Me.chkRegion28.Location = New System.Drawing.Point(204, 119)
-        Me.chkRegion28.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion28.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion28.Name = "chkRegion28"
         Me.chkRegion28.Size = New System.Drawing.Size(74, 21)
         Me.chkRegion28.TabIndex = 31
@@ -9348,7 +9419,7 @@ Partial Class frmMain
         '
         Me.chkRegion29.AutoSize = True
         Me.chkRegion29.Location = New System.Drawing.Point(204, 140)
-        Me.chkRegion29.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion29.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion29.Name = "chkRegion29"
         Me.chkRegion29.Size = New System.Drawing.Size(92, 21)
         Me.chkRegion29.TabIndex = 32
@@ -9359,7 +9430,7 @@ Partial Class frmMain
         '
         Me.chkRegion30.AutoSize = True
         Me.chkRegion30.Location = New System.Drawing.Point(204, 161)
-        Me.chkRegion30.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion30.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion30.Name = "chkRegion30"
         Me.chkRegion30.Size = New System.Drawing.Size(77, 21)
         Me.chkRegion30.TabIndex = 33
@@ -9370,7 +9441,7 @@ Partial Class frmMain
         '
         Me.chkRegion31.AutoSize = True
         Me.chkRegion31.Location = New System.Drawing.Point(204, 182)
-        Me.chkRegion31.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion31.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion31.Name = "chkRegion31"
         Me.chkRegion31.Size = New System.Drawing.Size(68, 21)
         Me.chkRegion31.TabIndex = 34
@@ -9381,7 +9452,7 @@ Partial Class frmMain
         '
         Me.chkRegion32.AutoSize = True
         Me.chkRegion32.Location = New System.Drawing.Point(204, 204)
-        Me.chkRegion32.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion32.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion32.Name = "chkRegion32"
         Me.chkRegion32.Size = New System.Drawing.Size(74, 21)
         Me.chkRegion32.TabIndex = 35
@@ -9392,7 +9463,7 @@ Partial Class frmMain
         '
         Me.chkRegion33.AutoSize = True
         Me.chkRegion33.Location = New System.Drawing.Point(204, 225)
-        Me.chkRegion33.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion33.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion33.Name = "chkRegion33"
         Me.chkRegion33.Size = New System.Drawing.Size(86, 21)
         Me.chkRegion33.TabIndex = 36
@@ -9403,7 +9474,7 @@ Partial Class frmMain
         '
         Me.chkRegion34.AutoSize = True
         Me.chkRegion34.Location = New System.Drawing.Point(204, 246)
-        Me.chkRegion34.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion34.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion34.Name = "chkRegion34"
         Me.chkRegion34.Size = New System.Drawing.Size(86, 21)
         Me.chkRegion34.TabIndex = 37
@@ -9414,7 +9485,7 @@ Partial Class frmMain
         '
         Me.chkRegion35.AutoSize = True
         Me.chkRegion35.Location = New System.Drawing.Point(204, 268)
-        Me.chkRegion35.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion35.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion35.Name = "chkRegion35"
         Me.chkRegion35.Size = New System.Drawing.Size(78, 21)
         Me.chkRegion35.TabIndex = 38
@@ -9425,7 +9496,7 @@ Partial Class frmMain
         '
         Me.chkRegion36.AutoSize = True
         Me.chkRegion36.Location = New System.Drawing.Point(204, 289)
-        Me.chkRegion36.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion36.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion36.Name = "chkRegion36"
         Me.chkRegion36.Size = New System.Drawing.Size(134, 21)
         Me.chkRegion36.TabIndex = 39
@@ -9436,7 +9507,7 @@ Partial Class frmMain
         '
         Me.chkRegion37.AutoSize = True
         Me.chkRegion37.Location = New System.Drawing.Point(204, 310)
-        Me.chkRegion37.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion37.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion37.Name = "chkRegion37"
         Me.chkRegion37.Size = New System.Drawing.Size(118, 21)
         Me.chkRegion37.TabIndex = 40
@@ -9447,7 +9518,7 @@ Partial Class frmMain
         '
         Me.chkRegion38.AutoSize = True
         Me.chkRegion38.Location = New System.Drawing.Point(204, 331)
-        Me.chkRegion38.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion38.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion38.Name = "chkRegion38"
         Me.chkRegion38.Size = New System.Drawing.Size(64, 21)
         Me.chkRegion38.TabIndex = 41
@@ -9458,7 +9529,7 @@ Partial Class frmMain
         '
         Me.chkRegion39.AutoSize = True
         Me.chkRegion39.Location = New System.Drawing.Point(204, 352)
-        Me.chkRegion39.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion39.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion39.Name = "chkRegion39"
         Me.chkRegion39.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion39.TabIndex = 42
@@ -9469,7 +9540,7 @@ Partial Class frmMain
         '
         Me.chkRegion40.AutoSize = True
         Me.chkRegion40.Location = New System.Drawing.Point(204, 374)
-        Me.chkRegion40.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion40.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion40.Name = "chkRegion40"
         Me.chkRegion40.Size = New System.Drawing.Size(125, 21)
         Me.chkRegion40.TabIndex = 43
@@ -9480,7 +9551,7 @@ Partial Class frmMain
         '
         Me.chkRegion41.AutoSize = True
         Me.chkRegion41.Location = New System.Drawing.Point(204, 395)
-        Me.chkRegion41.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion41.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion41.Name = "chkRegion41"
         Me.chkRegion41.Size = New System.Drawing.Size(99, 21)
         Me.chkRegion41.TabIndex = 44
@@ -9491,7 +9562,7 @@ Partial Class frmMain
         '
         Me.chkRegion42.AutoSize = True
         Me.chkRegion42.Location = New System.Drawing.Point(204, 416)
-        Me.chkRegion42.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion42.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion42.Name = "chkRegion42"
         Me.chkRegion42.Size = New System.Drawing.Size(116, 21)
         Me.chkRegion42.TabIndex = 45
@@ -9502,7 +9573,7 @@ Partial Class frmMain
         '
         Me.chkRegion43.AutoSize = True
         Me.chkRegion43.Location = New System.Drawing.Point(204, 438)
-        Me.chkRegion43.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion43.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion43.Name = "chkRegion43"
         Me.chkRegion43.Size = New System.Drawing.Size(109, 21)
         Me.chkRegion43.TabIndex = 46
@@ -9513,7 +9584,7 @@ Partial Class frmMain
         '
         Me.chkRegion44.AutoSize = True
         Me.chkRegion44.Location = New System.Drawing.Point(204, 459)
-        Me.chkRegion44.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion44.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion44.Name = "chkRegion44"
         Me.chkRegion44.Size = New System.Drawing.Size(117, 21)
         Me.chkRegion44.TabIndex = 47
@@ -9524,7 +9595,7 @@ Partial Class frmMain
         '
         Me.chkRegion12.AutoSize = True
         Me.chkRegion12.Location = New System.Drawing.Point(18, 268)
-        Me.chkRegion12.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion12.Name = "chkRegion12"
         Me.chkRegion12.Size = New System.Drawing.Size(74, 21)
         Me.chkRegion12.TabIndex = 15
@@ -9535,7 +9606,7 @@ Partial Class frmMain
         '
         Me.chkRegion13.AutoSize = True
         Me.chkRegion13.Location = New System.Drawing.Point(18, 289)
-        Me.chkRegion13.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion13.Name = "chkRegion13"
         Me.chkRegion13.Size = New System.Drawing.Size(76, 21)
         Me.chkRegion13.TabIndex = 16
@@ -9546,7 +9617,7 @@ Partial Class frmMain
         '
         Me.chkRegion14.AutoSize = True
         Me.chkRegion14.Location = New System.Drawing.Point(18, 310)
-        Me.chkRegion14.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion14.Name = "chkRegion14"
         Me.chkRegion14.Size = New System.Drawing.Size(74, 21)
         Me.chkRegion14.TabIndex = 17
@@ -9557,7 +9628,7 @@ Partial Class frmMain
         '
         Me.chkRegion15.AutoSize = True
         Me.chkRegion15.Location = New System.Drawing.Point(18, 331)
-        Me.chkRegion15.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion15.Name = "chkRegion15"
         Me.chkRegion15.Size = New System.Drawing.Size(130, 21)
         Me.chkRegion15.TabIndex = 18
@@ -9568,7 +9639,7 @@ Partial Class frmMain
         '
         Me.chkRegion16.AutoSize = True
         Me.chkRegion16.Location = New System.Drawing.Point(18, 352)
-        Me.chkRegion16.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion16.Name = "chkRegion16"
         Me.chkRegion16.Size = New System.Drawing.Size(82, 21)
         Me.chkRegion16.TabIndex = 19
@@ -9579,7 +9650,7 @@ Partial Class frmMain
         '
         Me.chkRegion17.AutoSize = True
         Me.chkRegion17.Location = New System.Drawing.Point(18, 374)
-        Me.chkRegion17.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion17.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion17.Name = "chkRegion17"
         Me.chkRegion17.Size = New System.Drawing.Size(84, 21)
         Me.chkRegion17.TabIndex = 20
@@ -9590,7 +9661,7 @@ Partial Class frmMain
         '
         Me.chkRegion18.AutoSize = True
         Me.chkRegion18.Location = New System.Drawing.Point(18, 395)
-        Me.chkRegion18.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion18.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion18.Name = "chkRegion18"
         Me.chkRegion18.Size = New System.Drawing.Size(131, 21)
         Me.chkRegion18.TabIndex = 21
@@ -9601,7 +9672,7 @@ Partial Class frmMain
         '
         Me.chkRegion19.AutoSize = True
         Me.chkRegion19.Location = New System.Drawing.Point(18, 416)
-        Me.chkRegion19.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion19.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion19.Name = "chkRegion19"
         Me.chkRegion19.Size = New System.Drawing.Size(102, 21)
         Me.chkRegion19.TabIndex = 22
@@ -9612,7 +9683,7 @@ Partial Class frmMain
         '
         Me.chkRegion20.AutoSize = True
         Me.chkRegion20.Location = New System.Drawing.Point(18, 438)
-        Me.chkRegion20.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion20.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion20.Name = "chkRegion20"
         Me.chkRegion20.Size = New System.Drawing.Size(62, 21)
         Me.chkRegion20.TabIndex = 23
@@ -9623,7 +9694,7 @@ Partial Class frmMain
         '
         Me.chkRegion21.AutoSize = True
         Me.chkRegion21.Location = New System.Drawing.Point(18, 459)
-        Me.chkRegion21.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion21.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion21.Name = "chkRegion21"
         Me.chkRegion21.Size = New System.Drawing.Size(102, 21)
         Me.chkRegion21.TabIndex = 24
@@ -9634,7 +9705,7 @@ Partial Class frmMain
         '
         Me.chkRegion22.AutoSize = True
         Me.chkRegion22.Location = New System.Drawing.Point(18, 480)
-        Me.chkRegion22.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion22.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion22.Name = "chkRegion22"
         Me.chkRegion22.Size = New System.Drawing.Size(85, 21)
         Me.chkRegion22.TabIndex = 25
@@ -9645,7 +9716,7 @@ Partial Class frmMain
         '
         Me.chkRegion11.AutoSize = True
         Me.chkRegion11.Location = New System.Drawing.Point(18, 246)
-        Me.chkRegion11.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion11.Name = "chkRegion11"
         Me.chkRegion11.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion11.TabIndex = 14
@@ -9656,7 +9727,7 @@ Partial Class frmMain
         '
         Me.chkRegion10.AutoSize = True
         Me.chkRegion10.Location = New System.Drawing.Point(18, 225)
-        Me.chkRegion10.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion10.Name = "chkRegion10"
         Me.chkRegion10.Size = New System.Drawing.Size(77, 21)
         Me.chkRegion10.TabIndex = 13
@@ -9667,7 +9738,7 @@ Partial Class frmMain
         '
         Me.chkRegion9.AutoSize = True
         Me.chkRegion9.Location = New System.Drawing.Point(18, 204)
-        Me.chkRegion9.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion9.Name = "chkRegion9"
         Me.chkRegion9.Size = New System.Drawing.Size(67, 21)
         Me.chkRegion9.TabIndex = 12
@@ -9678,7 +9749,7 @@ Partial Class frmMain
         '
         Me.chkRegion8.AutoSize = True
         Me.chkRegion8.Location = New System.Drawing.Point(18, 182)
-        Me.chkRegion8.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion8.Name = "chkRegion8"
         Me.chkRegion8.Size = New System.Drawing.Size(107, 21)
         Me.chkRegion8.TabIndex = 11
@@ -9689,7 +9760,7 @@ Partial Class frmMain
         '
         Me.chkRegion7.AutoSize = True
         Me.chkRegion7.Location = New System.Drawing.Point(18, 161)
-        Me.chkRegion7.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion7.Name = "chkRegion7"
         Me.chkRegion7.Size = New System.Drawing.Size(99, 21)
         Me.chkRegion7.TabIndex = 10
@@ -9700,7 +9771,7 @@ Partial Class frmMain
         '
         Me.chkRegion6.AutoSize = True
         Me.chkRegion6.Location = New System.Drawing.Point(18, 140)
-        Me.chkRegion6.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion6.Name = "chkRegion6"
         Me.chkRegion6.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion6.TabIndex = 9
@@ -9711,7 +9782,7 @@ Partial Class frmMain
         '
         Me.chkRegion5.AutoSize = True
         Me.chkRegion5.Location = New System.Drawing.Point(18, 119)
-        Me.chkRegion5.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion5.Name = "chkRegion5"
         Me.chkRegion5.Size = New System.Drawing.Size(70, 21)
         Me.chkRegion5.TabIndex = 8
@@ -9722,7 +9793,7 @@ Partial Class frmMain
         '
         Me.chkRegion4.AutoSize = True
         Me.chkRegion4.Location = New System.Drawing.Point(18, 98)
-        Me.chkRegion4.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion4.Name = "chkRegion4"
         Me.chkRegion4.Size = New System.Drawing.Size(75, 21)
         Me.chkRegion4.TabIndex = 7
@@ -9733,7 +9804,7 @@ Partial Class frmMain
         '
         Me.chkRegion3.AutoSize = True
         Me.chkRegion3.Location = New System.Drawing.Point(18, 76)
-        Me.chkRegion3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion3.Name = "chkRegion3"
         Me.chkRegion3.Size = New System.Drawing.Size(96, 21)
         Me.chkRegion3.TabIndex = 6
@@ -9744,7 +9815,7 @@ Partial Class frmMain
         '
         Me.chkRegion2.AutoSize = True
         Me.chkRegion2.Location = New System.Drawing.Point(18, 55)
-        Me.chkRegion2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion2.Name = "chkRegion2"
         Me.chkRegion2.Size = New System.Drawing.Size(66, 21)
         Me.chkRegion2.TabIndex = 5
@@ -9755,7 +9826,7 @@ Partial Class frmMain
         '
         Me.chkRegion1.AutoSize = True
         Me.chkRegion1.Location = New System.Drawing.Point(18, 34)
-        Me.chkRegion1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion1.Name = "chkRegion1"
         Me.chkRegion1.Size = New System.Drawing.Size(77, 21)
         Me.chkRegion1.TabIndex = 4
@@ -9766,7 +9837,7 @@ Partial Class frmMain
         '
         Me.chkRegion45.AutoSize = True
         Me.chkRegion45.Location = New System.Drawing.Point(204, 480)
-        Me.chkRegion45.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion45.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion45.Name = "chkRegion45"
         Me.chkRegion45.Size = New System.Drawing.Size(68, 21)
         Me.chkRegion45.TabIndex = 48
@@ -9777,7 +9848,7 @@ Partial Class frmMain
         '
         Me.chkRegion67.AutoSize = True
         Me.chkRegion67.Location = New System.Drawing.Point(388, 459)
-        Me.chkRegion67.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkRegion67.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkRegion67.Name = "chkRegion67"
         Me.chkRegion67.Size = New System.Drawing.Size(117, 21)
         Me.chkRegion67.TabIndex = 70
@@ -9819,9 +9890,9 @@ Partial Class frmMain
         Me.tabBlueprints.Controls.Add(Me.lstBPRawMats)
         Me.tabBlueprints.Controls.Add(Me.lstBPBuiltComponents)
         Me.tabBlueprints.Location = New System.Drawing.Point(4, 26)
-        Me.tabBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabBlueprints.Name = "tabBlueprints"
-        Me.tabBlueprints.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabBlueprints.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabBlueprints.Size = New System.Drawing.Size(1423, 771)
         Me.tabBlueprints.TabIndex = 0
         Me.tabBlueprints.Text = "Blueprints"
@@ -9831,7 +9902,7 @@ Partial Class frmMain
         '
         Me.btnBPBuiltComponents.AutoSize = True
         Me.btnBPBuiltComponents.Location = New System.Drawing.Point(105, 735)
-        Me.btnBPBuiltComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPBuiltComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPBuiltComponents.Name = "btnBPBuiltComponents"
         Me.btnBPBuiltComponents.Size = New System.Drawing.Size(160, 34)
         Me.btnBPBuiltComponents.TabIndex = 79
@@ -9842,7 +9913,7 @@ Partial Class frmMain
         '
         Me.btnBPComponents.AutoSize = True
         Me.btnBPComponents.Location = New System.Drawing.Point(8, 735)
-        Me.btnBPComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPComponents.Name = "btnBPComponents"
         Me.btnBPComponents.Size = New System.Drawing.Size(121, 34)
         Me.btnBPComponents.TabIndex = 78
@@ -9854,7 +9925,7 @@ Partial Class frmMain
         Me.rbtnBPRawT2MatType.AutoSize = True
         Me.rbtnBPRawT2MatType.BackColor = System.Drawing.Color.WhiteSmoke
         Me.rbtnBPRawT2MatType.Location = New System.Drawing.Point(835, 295)
-        Me.rbtnBPRawT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPRawT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPRawT2MatType.Name = "rbtnBPRawT2MatType"
         Me.rbtnBPRawT2MatType.Size = New System.Drawing.Size(56, 21)
         Me.rbtnBPRawT2MatType.TabIndex = 75
@@ -9867,7 +9938,7 @@ Partial Class frmMain
         Me.rbtnBPProcT2MatType.AutoSize = True
         Me.rbtnBPProcT2MatType.BackColor = System.Drawing.Color.WhiteSmoke
         Me.rbtnBPProcT2MatType.Location = New System.Drawing.Point(742, 295)
-        Me.rbtnBPProcT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPProcT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPProcT2MatType.Name = "rbtnBPProcT2MatType"
         Me.rbtnBPProcT2MatType.Size = New System.Drawing.Size(96, 21)
         Me.rbtnBPProcT2MatType.TabIndex = 74
@@ -9880,7 +9951,7 @@ Partial Class frmMain
         Me.rbtnBPAdvT2MatType.AutoSize = True
         Me.rbtnBPAdvT2MatType.BackColor = System.Drawing.Color.WhiteSmoke
         Me.rbtnBPAdvT2MatType.Location = New System.Drawing.Point(652, 295)
-        Me.rbtnBPAdvT2MatType.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPAdvT2MatType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPAdvT2MatType.Name = "rbtnBPAdvT2MatType"
         Me.rbtnBPAdvT2MatType.Size = New System.Drawing.Size(92, 21)
         Me.rbtnBPAdvT2MatType.TabIndex = 19
@@ -9904,7 +9975,7 @@ Partial Class frmMain
         Me.lstBPList.FormattingEnabled = True
         Me.lstBPList.ItemHeight = 17
         Me.lstBPList.Location = New System.Drawing.Point(5, 59)
-        Me.lstBPList.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstBPList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstBPList.Name = "lstBPList"
         Me.lstBPList.Size = New System.Drawing.Size(402, 157)
         Me.lstBPList.TabIndex = 64
@@ -9932,9 +10003,9 @@ Partial Class frmMain
         Me.gbBPBlueprintType.Controls.Add(Me.rbtnBPShipBlueprints)
         Me.gbBPBlueprintType.Controls.Add(Me.rbtnBPDeployableBlueprints)
         Me.gbBPBlueprintType.Location = New System.Drawing.Point(5, 64)
-        Me.gbBPBlueprintType.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPBlueprintType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPBlueprintType.Name = "gbBPBlueprintType"
-        Me.gbBPBlueprintType.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPBlueprintType.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPBlueprintType.Size = New System.Drawing.Size(368, 156)
         Me.gbBPBlueprintType.TabIndex = 71
         Me.gbBPBlueprintType.TabStop = False
@@ -9944,7 +10015,7 @@ Partial Class frmMain
         '
         Me.chkBPNPCBPOs.AutoSize = True
         Me.chkBPNPCBPOs.Location = New System.Drawing.Point(260, 129)
-        Me.chkBPNPCBPOs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPNPCBPOs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPNPCBPOs.Name = "chkBPNPCBPOs"
         Me.chkBPNPCBPOs.Size = New System.Drawing.Size(98, 21)
         Me.chkBPNPCBPOs.TabIndex = 6
@@ -9956,7 +10027,7 @@ Partial Class frmMain
         '
         Me.rbtnBPReactionsBlueprints.AutoSize = True
         Me.rbtnBPReactionsBlueprints.Location = New System.Drawing.Point(11, 128)
-        Me.rbtnBPReactionsBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPReactionsBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPReactionsBlueprints.Name = "rbtnBPReactionsBlueprints"
         Me.rbtnBPReactionsBlueprints.Size = New System.Drawing.Size(92, 21)
         Me.rbtnBPReactionsBlueprints.TabIndex = 66
@@ -9968,7 +10039,7 @@ Partial Class frmMain
         '
         Me.rbtnBPStructureModulesBlueprints.AutoSize = True
         Me.rbtnBPStructureModulesBlueprints.Location = New System.Drawing.Point(121, 128)
-        Me.rbtnBPStructureModulesBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPStructureModulesBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPStructureModulesBlueprints.Name = "rbtnBPStructureModulesBlueprints"
         Me.rbtnBPStructureModulesBlueprints.Size = New System.Drawing.Size(144, 21)
         Me.rbtnBPStructureModulesBlueprints.TabIndex = 65
@@ -9980,7 +10051,7 @@ Partial Class frmMain
         '
         Me.rbtnBPCelestialsBlueprints.AutoSize = True
         Me.rbtnBPCelestialsBlueprints.Location = New System.Drawing.Point(260, 106)
-        Me.rbtnBPCelestialsBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPCelestialsBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPCelestialsBlueprints.Name = "rbtnBPCelestialsBlueprints"
         Me.rbtnBPCelestialsBlueprints.Size = New System.Drawing.Size(89, 21)
         Me.rbtnBPCelestialsBlueprints.TabIndex = 14
@@ -9992,7 +10063,7 @@ Partial Class frmMain
         '
         Me.rbtnBPMiscBlueprints.AutoSize = True
         Me.rbtnBPMiscBlueprints.Location = New System.Drawing.Point(186, 64)
-        Me.rbtnBPMiscBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPMiscBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPMiscBlueprints.Name = "rbtnBPMiscBlueprints"
         Me.rbtnBPMiscBlueprints.Size = New System.Drawing.Size(61, 21)
         Me.rbtnBPMiscBlueprints.TabIndex = 15
@@ -10004,7 +10075,7 @@ Partial Class frmMain
         '
         Me.rbtnBPStructureBlueprints.AutoSize = True
         Me.rbtnBPStructureBlueprints.Location = New System.Drawing.Point(11, 106)
-        Me.rbtnBPStructureBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPStructureBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPStructureBlueprints.Name = "rbtnBPStructureBlueprints"
         Me.rbtnBPStructureBlueprints.Size = New System.Drawing.Size(94, 21)
         Me.rbtnBPStructureBlueprints.TabIndex = 12
@@ -10016,7 +10087,7 @@ Partial Class frmMain
         '
         Me.rbtnBPFavoriteBlueprints.AutoSize = True
         Me.rbtnBPFavoriteBlueprints.Location = New System.Drawing.Point(260, 21)
-        Me.rbtnBPFavoriteBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPFavoriteBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPFavoriteBlueprints.Name = "rbtnBPFavoriteBlueprints"
         Me.rbtnBPFavoriteBlueprints.Size = New System.Drawing.Size(87, 21)
         Me.rbtnBPFavoriteBlueprints.TabIndex = 2
@@ -10028,7 +10099,7 @@ Partial Class frmMain
         '
         Me.rbtnBPStructureRigsBlueprints.AutoSize = True
         Me.rbtnBPStructureRigsBlueprints.Location = New System.Drawing.Point(121, 106)
-        Me.rbtnBPStructureRigsBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPStructureRigsBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPStructureRigsBlueprints.Name = "rbtnBPStructureRigsBlueprints"
         Me.rbtnBPStructureRigsBlueprints.Size = New System.Drawing.Size(119, 21)
         Me.rbtnBPStructureRigsBlueprints.TabIndex = 13
@@ -10040,7 +10111,7 @@ Partial Class frmMain
         '
         Me.rbtnBPOwnedBlueprints.AutoSize = True
         Me.rbtnBPOwnedBlueprints.Location = New System.Drawing.Point(121, 21)
-        Me.rbtnBPOwnedBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPOwnedBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPOwnedBlueprints.Name = "rbtnBPOwnedBlueprints"
         Me.rbtnBPOwnedBlueprints.Size = New System.Drawing.Size(73, 21)
         Me.rbtnBPOwnedBlueprints.TabIndex = 1
@@ -10052,7 +10123,7 @@ Partial Class frmMain
         '
         Me.rbtnBPRigBlueprints.AutoSize = True
         Me.rbtnBPRigBlueprints.Location = New System.Drawing.Point(121, 64)
-        Me.rbtnBPRigBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPRigBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPRigBlueprints.Name = "rbtnBPRigBlueprints"
         Me.rbtnBPRigBlueprints.Size = New System.Drawing.Size(57, 21)
         Me.rbtnBPRigBlueprints.TabIndex = 7
@@ -10064,7 +10135,7 @@ Partial Class frmMain
         '
         Me.rbtnBPBoosterBlueprints.AutoSize = True
         Me.rbtnBPBoosterBlueprints.Location = New System.Drawing.Point(260, 85)
-        Me.rbtnBPBoosterBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPBoosterBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPBoosterBlueprints.Name = "rbtnBPBoosterBlueprints"
         Me.rbtnBPBoosterBlueprints.Size = New System.Drawing.Size(85, 21)
         Me.rbtnBPBoosterBlueprints.TabIndex = 11
@@ -10076,7 +10147,7 @@ Partial Class frmMain
         '
         Me.rbtnBPSubsystemBlueprints.AutoSize = True
         Me.rbtnBPSubsystemBlueprints.Location = New System.Drawing.Point(260, 64)
-        Me.rbtnBPSubsystemBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPSubsystemBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPSubsystemBlueprints.Name = "rbtnBPSubsystemBlueprints"
         Me.rbtnBPSubsystemBlueprints.Size = New System.Drawing.Size(105, 21)
         Me.rbtnBPSubsystemBlueprints.TabIndex = 8
@@ -10088,7 +10159,7 @@ Partial Class frmMain
         '
         Me.rbtnBPModuleBlueprints.AutoSize = True
         Me.rbtnBPModuleBlueprints.Location = New System.Drawing.Point(260, 42)
-        Me.rbtnBPModuleBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPModuleBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPModuleBlueprints.Name = "rbtnBPModuleBlueprints"
         Me.rbtnBPModuleBlueprints.Size = New System.Drawing.Size(82, 21)
         Me.rbtnBPModuleBlueprints.TabIndex = 4
@@ -10100,7 +10171,7 @@ Partial Class frmMain
         '
         Me.rbtnBPAmmoChargeBlueprints.AutoSize = True
         Me.rbtnBPAmmoChargeBlueprints.Location = New System.Drawing.Point(121, 42)
-        Me.rbtnBPAmmoChargeBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPAmmoChargeBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPAmmoChargeBlueprints.Name = "rbtnBPAmmoChargeBlueprints"
         Me.rbtnBPAmmoChargeBlueprints.Size = New System.Drawing.Size(125, 21)
         Me.rbtnBPAmmoChargeBlueprints.TabIndex = 5
@@ -10112,7 +10183,7 @@ Partial Class frmMain
         '
         Me.rbtnBPDroneBlueprints.AutoSize = True
         Me.rbtnBPDroneBlueprints.Location = New System.Drawing.Point(11, 64)
-        Me.rbtnBPDroneBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPDroneBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPDroneBlueprints.Name = "rbtnBPDroneBlueprints"
         Me.rbtnBPDroneBlueprints.Size = New System.Drawing.Size(75, 21)
         Me.rbtnBPDroneBlueprints.TabIndex = 6
@@ -10124,7 +10195,7 @@ Partial Class frmMain
         '
         Me.rbtnBPComponentBlueprints.AutoSize = True
         Me.rbtnBPComponentBlueprints.Location = New System.Drawing.Point(121, 85)
-        Me.rbtnBPComponentBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPComponentBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPComponentBlueprints.Name = "rbtnBPComponentBlueprints"
         Me.rbtnBPComponentBlueprints.Size = New System.Drawing.Size(108, 21)
         Me.rbtnBPComponentBlueprints.TabIndex = 10
@@ -10136,7 +10207,7 @@ Partial Class frmMain
         '
         Me.rbtnBPAllBlueprints.AutoSize = True
         Me.rbtnBPAllBlueprints.Location = New System.Drawing.Point(11, 21)
-        Me.rbtnBPAllBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPAllBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPAllBlueprints.Name = "rbtnBPAllBlueprints"
         Me.rbtnBPAllBlueprints.Size = New System.Drawing.Size(44, 21)
         Me.rbtnBPAllBlueprints.TabIndex = 0
@@ -10148,7 +10219,7 @@ Partial Class frmMain
         '
         Me.rbtnBPShipBlueprints.AutoSize = True
         Me.rbtnBPShipBlueprints.Location = New System.Drawing.Point(11, 42)
-        Me.rbtnBPShipBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPShipBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPShipBlueprints.Name = "rbtnBPShipBlueprints"
         Me.rbtnBPShipBlueprints.Size = New System.Drawing.Size(64, 21)
         Me.rbtnBPShipBlueprints.TabIndex = 3
@@ -10160,7 +10231,7 @@ Partial Class frmMain
         '
         Me.rbtnBPDeployableBlueprints.AutoSize = True
         Me.rbtnBPDeployableBlueprints.Location = New System.Drawing.Point(11, 85)
-        Me.rbtnBPDeployableBlueprints.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPDeployableBlueprints.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPDeployableBlueprints.Name = "rbtnBPDeployableBlueprints"
         Me.rbtnBPDeployableBlueprints.Size = New System.Drawing.Size(100, 21)
         Me.rbtnBPDeployableBlueprints.TabIndex = 9
@@ -10177,9 +10248,9 @@ Partial Class frmMain
         Me.gbBPBlueprintTech.Controls.Add(Me.chkBPT2)
         Me.gbBPBlueprintTech.Controls.Add(Me.chkBPT1)
         Me.gbBPBlueprintTech.Location = New System.Drawing.Point(376, 132)
-        Me.gbBPBlueprintTech.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPBlueprintTech.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPBlueprintTech.Name = "gbBPBlueprintTech"
-        Me.gbBPBlueprintTech.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPBlueprintTech.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPBlueprintTech.Size = New System.Drawing.Size(109, 158)
         Me.gbBPBlueprintTech.TabIndex = 73
         Me.gbBPBlueprintTech.TabStop = False
@@ -10189,7 +10260,7 @@ Partial Class frmMain
         '
         Me.chkBPPirateFaction.AutoSize = True
         Me.chkBPPirateFaction.Location = New System.Drawing.Point(10, 131)
-        Me.chkBPPirateFaction.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPPirateFaction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPPirateFaction.Name = "chkBPPirateFaction"
         Me.chkBPPirateFaction.Size = New System.Drawing.Size(67, 21)
         Me.chkBPPirateFaction.TabIndex = 5
@@ -10201,7 +10272,7 @@ Partial Class frmMain
         '
         Me.chkBPStoryline.AutoSize = True
         Me.chkBPStoryline.Location = New System.Drawing.Point(10, 86)
-        Me.chkBPStoryline.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPStoryline.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPStoryline.Name = "chkBPStoryline"
         Me.chkBPStoryline.Size = New System.Drawing.Size(85, 21)
         Me.chkBPStoryline.TabIndex = 3
@@ -10212,7 +10283,7 @@ Partial Class frmMain
         '
         Me.chkBPNavyFaction.AutoSize = True
         Me.chkBPNavyFaction.Location = New System.Drawing.Point(10, 109)
-        Me.chkBPNavyFaction.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPNavyFaction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPNavyFaction.Name = "chkBPNavyFaction"
         Me.chkBPNavyFaction.Size = New System.Drawing.Size(62, 21)
         Me.chkBPNavyFaction.TabIndex = 4
@@ -10224,7 +10295,7 @@ Partial Class frmMain
         '
         Me.chkBPT3.AutoSize = True
         Me.chkBPT3.Location = New System.Drawing.Point(10, 64)
-        Me.chkBPT3.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPT3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPT3.Name = "chkBPT3"
         Me.chkBPT3.Size = New System.Drawing.Size(74, 21)
         Me.chkBPT3.TabIndex = 2
@@ -10235,7 +10306,7 @@ Partial Class frmMain
         '
         Me.chkBPT2.AutoSize = True
         Me.chkBPT2.Location = New System.Drawing.Point(10, 41)
-        Me.chkBPT2.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPT2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPT2.Name = "chkBPT2"
         Me.chkBPT2.Size = New System.Drawing.Size(74, 21)
         Me.chkBPT2.TabIndex = 1
@@ -10246,7 +10317,7 @@ Partial Class frmMain
         '
         Me.chkBPT1.AutoSize = True
         Me.chkBPT1.Location = New System.Drawing.Point(10, 19)
-        Me.chkBPT1.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPT1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPT1.Name = "chkBPT1"
         Me.chkBPT1.Size = New System.Drawing.Size(74, 21)
         Me.chkBPT1.TabIndex = 0
@@ -10260,9 +10331,9 @@ Partial Class frmMain
         Me.gbFilters.Controls.Add(Me.chkBPMedium)
         Me.gbFilters.Controls.Add(Me.chkBPSmall)
         Me.gbFilters.Location = New System.Drawing.Point(376, 64)
-        Me.gbFilters.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbFilters.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbFilters.Name = "gbFilters"
-        Me.gbFilters.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbFilters.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbFilters.Size = New System.Drawing.Size(109, 69)
         Me.gbFilters.TabIndex = 72
         Me.gbFilters.TabStop = False
@@ -10272,7 +10343,7 @@ Partial Class frmMain
         '
         Me.chkBPXL.AutoSize = True
         Me.chkBPXL.Location = New System.Drawing.Point(54, 41)
-        Me.chkBPXL.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPXL.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPXL.Name = "chkBPXL"
         Me.chkBPXL.Size = New System.Drawing.Size(47, 21)
         Me.chkBPXL.TabIndex = 4
@@ -10283,7 +10354,7 @@ Partial Class frmMain
         '
         Me.chkBPLarge.AutoSize = True
         Me.chkBPLarge.Location = New System.Drawing.Point(10, 41)
-        Me.chkBPLarge.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPLarge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPLarge.Name = "chkBPLarge"
         Me.chkBPLarge.Size = New System.Drawing.Size(38, 21)
         Me.chkBPLarge.TabIndex = 3
@@ -10294,7 +10365,7 @@ Partial Class frmMain
         '
         Me.chkBPMedium.AutoSize = True
         Me.chkBPMedium.Location = New System.Drawing.Point(54, 19)
-        Me.chkBPMedium.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPMedium.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPMedium.Name = "chkBPMedium"
         Me.chkBPMedium.Size = New System.Drawing.Size(41, 21)
         Me.chkBPMedium.TabIndex = 2
@@ -10305,7 +10376,7 @@ Partial Class frmMain
         '
         Me.chkBPSmall.AutoSize = True
         Me.chkBPSmall.Location = New System.Drawing.Point(10, 19)
-        Me.chkBPSmall.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPSmall.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPSmall.Name = "chkBPSmall"
         Me.chkBPSmall.Size = New System.Drawing.Size(39, 21)
         Me.chkBPSmall.TabIndex = 1
@@ -10316,7 +10387,7 @@ Partial Class frmMain
         'cmbBPBlueprintSelection
         '
         Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(5, 34)
-        Me.cmbBPBlueprintSelection.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbBPBlueprintSelection.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbBPBlueprintSelection.Name = "cmbBPBlueprintSelection"
         Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(402, 25)
         Me.cmbBPBlueprintSelection.TabIndex = 70
@@ -10326,7 +10397,7 @@ Partial Class frmMain
         '
         Me.chkBPCompressedOre.AutoSize = True
         Me.chkBPCompressedOre.Location = New System.Drawing.Point(228, 10)
-        Me.chkBPCompressedOre.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPCompressedOre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPCompressedOre.Name = "chkBPCompressedOre"
         Me.chkBPCompressedOre.Size = New System.Drawing.Size(166, 21)
         Me.chkBPCompressedOre.TabIndex = 65
@@ -10337,7 +10408,7 @@ Partial Class frmMain
         'btnBPListView
         '
         Me.btnBPListView.Location = New System.Drawing.Point(415, 18)
-        Me.btnBPListView.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPListView.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPListView.Name = "btnBPListView"
         Me.btnBPListView.Size = New System.Drawing.Size(70, 45)
         Me.btnBPListView.TabIndex = 5
@@ -10352,7 +10423,7 @@ Partial Class frmMain
         Me.btnBPForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnBPForward.Image = CType(resources.GetObject("btnBPForward.Image"), System.Drawing.Image)
         Me.btnBPForward.Location = New System.Drawing.Point(1392, 295)
-        Me.btnBPForward.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPForward.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPForward.Name = "btnBPForward"
         Me.btnBPForward.Size = New System.Drawing.Size(21, 24)
         Me.btnBPForward.TabIndex = 37
@@ -10367,7 +10438,7 @@ Partial Class frmMain
         Me.btnBPBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnBPBack.Image = CType(resources.GetObject("btnBPBack.Image"), System.Drawing.Image)
         Me.btnBPBack.Location = New System.Drawing.Point(1364, 295)
-        Me.btnBPBack.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPBack.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPBack.Name = "btnBPBack"
         Me.btnBPBack.Size = New System.Drawing.Size(21, 24)
         Me.btnBPBack.TabIndex = 36
@@ -10418,9 +10489,9 @@ Partial Class frmMain
         Me.gbBPInventionStats.Controls.Add(Me.lblBPRawSVR1)
         Me.gbBPInventionStats.Controls.Add(Me.chkBPPricePerUnit)
         Me.gbBPInventionStats.Location = New System.Drawing.Point(1066, 10)
-        Me.gbBPInventionStats.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPInventionStats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPInventionStats.Name = "gbBPInventionStats"
-        Me.gbBPInventionStats.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPInventionStats.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPInventionStats.Size = New System.Drawing.Size(348, 280)
         Me.gbBPInventionStats.TabIndex = 17
         Me.gbBPInventionStats.TabStop = False
@@ -10428,7 +10499,7 @@ Partial Class frmMain
         'txtBPBrokerFeeRate
         '
         Me.txtBPBrokerFeeRate.Location = New System.Drawing.Point(281, 96)
-        Me.txtBPBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPBrokerFeeRate.Name = "txtBPBrokerFeeRate"
         Me.txtBPBrokerFeeRate.Size = New System.Drawing.Size(59, 23)
         Me.txtBPBrokerFeeRate.TabIndex = 61
@@ -10439,7 +10510,7 @@ Partial Class frmMain
         'txtBPMarketPriceEdit
         '
         Me.txtBPMarketPriceEdit.Location = New System.Drawing.Point(66, 121)
-        Me.txtBPMarketPriceEdit.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPMarketPriceEdit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPMarketPriceEdit.Name = "txtBPMarketPriceEdit"
         Me.txtBPMarketPriceEdit.Size = New System.Drawing.Size(163, 23)
         Me.txtBPMarketPriceEdit.TabIndex = 60
@@ -10517,7 +10588,7 @@ Partial Class frmMain
         Me.chkBPTaxes.Checked = True
         Me.chkBPTaxes.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBPTaxes.Location = New System.Drawing.Point(8, 99)
-        Me.chkBPTaxes.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPTaxes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPTaxes.Name = "chkBPTaxes"
         Me.chkBPTaxes.Size = New System.Drawing.Size(72, 21)
         Me.chkBPTaxes.TabIndex = 9
@@ -10582,7 +10653,7 @@ Partial Class frmMain
         Me.chkBPBrokerFees.Checked = True
         Me.chkBPBrokerFees.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBPBrokerFees.Location = New System.Drawing.Point(176, 99)
-        Me.chkBPBrokerFees.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPBrokerFees.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPBrokerFees.Name = "chkBPBrokerFees"
         Me.chkBPBrokerFees.Size = New System.Drawing.Size(65, 21)
         Me.chkBPBrokerFees.TabIndex = 11
@@ -10753,7 +10824,7 @@ Partial Class frmMain
         '
         Me.chkBPPricePerUnit.AutoSize = True
         Me.chkBPPricePerUnit.Location = New System.Drawing.Point(281, 55)
-        Me.chkBPPricePerUnit.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPPricePerUnit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPPricePerUnit.Name = "chkBPPricePerUnit"
         Me.chkBPPricePerUnit.Size = New System.Drawing.Size(58, 21)
         Me.chkBPPricePerUnit.TabIndex = 8
@@ -10808,9 +10879,9 @@ Partial Class frmMain
         Me.gbBPMEPEImage.Controls.Add(Me.lblBPNumBPs)
         Me.gbBPMEPEImage.Controls.Add(Me.gbBPIgnoreinCalcs)
         Me.gbBPMEPEImage.Location = New System.Drawing.Point(490, 10)
-        Me.gbBPMEPEImage.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPMEPEImage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPMEPEImage.Name = "gbBPMEPEImage"
-        Me.gbBPMEPEImage.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPMEPEImage.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPMEPEImage.Size = New System.Drawing.Size(569, 280)
         Me.gbBPMEPEImage.TabIndex = 6
         Me.gbBPMEPEImage.TabStop = False
@@ -10820,9 +10891,9 @@ Partial Class frmMain
         Me.gbBPSellExcess.Controls.Add(Me.btnBPListMats)
         Me.gbBPSellExcess.Controls.Add(Me.chkBPSellExcessItems)
         Me.gbBPSellExcess.Location = New System.Drawing.Point(299, 8)
-        Me.gbBPSellExcess.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPSellExcess.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPSellExcess.Name = "gbBPSellExcess"
-        Me.gbBPSellExcess.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPSellExcess.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPSellExcess.Size = New System.Drawing.Size(101, 78)
         Me.gbBPSellExcess.TabIndex = 21
         Me.gbBPSellExcess.TabStop = False
@@ -10830,7 +10901,7 @@ Partial Class frmMain
         'btnBPListMats
         '
         Me.btnBPListMats.Location = New System.Drawing.Point(8, 44)
-        Me.btnBPListMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPListMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPListMats.Name = "btnBPListMats"
         Me.btnBPListMats.Size = New System.Drawing.Size(90, 28)
         Me.btnBPListMats.TabIndex = 24
@@ -10840,7 +10911,7 @@ Partial Class frmMain
         'chkBPSellExcessItems
         '
         Me.chkBPSellExcessItems.Location = New System.Drawing.Point(5, 8)
-        Me.chkBPSellExcessItems.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPSellExcessItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPSellExcessItems.Name = "chkBPSellExcessItems"
         Me.chkBPSellExcessItems.Size = New System.Drawing.Size(104, 40)
         Me.chkBPSellExcessItems.TabIndex = 1
@@ -10850,7 +10921,7 @@ Partial Class frmMain
         'btnBPSaveBP
         '
         Me.btnBPSaveBP.Location = New System.Drawing.Point(8, 192)
-        Me.btnBPSaveBP.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPSaveBP.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPSaveBP.Name = "btnBPSaveBP"
         Me.btnBPSaveBP.Size = New System.Drawing.Size(56, 42)
         Me.btnBPSaveBP.TabIndex = 17
@@ -10867,7 +10938,7 @@ Partial Class frmMain
         Me.tabBPInventionEquip.Font = Global.EVE_Isk_per_Hour.My.MySettings.Default.MyDefault
         Me.tabBPInventionEquip.ItemSize = New System.Drawing.Size(49, 20)
         Me.tabBPInventionEquip.Location = New System.Drawing.Point(176, 85)
-        Me.tabBPInventionEquip.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabBPInventionEquip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabBPInventionEquip.Multiline = True
         Me.tabBPInventionEquip.Name = "tabBPInventionEquip"
         Me.tabBPInventionEquip.Padding = New System.Drawing.Point(0, 0)
@@ -10884,7 +10955,7 @@ Partial Class frmMain
         Me.tabFacility.Location = New System.Drawing.Point(4, 4)
         Me.tabFacility.Margin = New System.Windows.Forms.Padding(0)
         Me.tabFacility.Name = "tabFacility"
-        Me.tabFacility.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabFacility.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabFacility.Size = New System.Drawing.Size(338, 180)
         Me.tabFacility.TabIndex = 1
         Me.tabFacility.Text = "Facility"
@@ -10893,7 +10964,7 @@ Partial Class frmMain
         'BPTabFacility
         '
         Me.BPTabFacility.Location = New System.Drawing.Point(0, 0)
-        Me.BPTabFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.BPTabFacility.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.BPTabFacility.Name = "BPTabFacility"
         Me.BPTabFacility.Size = New System.Drawing.Size(350, 178)
         Me.BPTabFacility.TabIndex = 0
@@ -10916,7 +10987,7 @@ Partial Class frmMain
         Me.tabT3Calcs.Controls.Add(Me.chkBPIncludeT3Costs)
         Me.tabT3Calcs.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tabT3Calcs.Location = New System.Drawing.Point(4, 4)
-        Me.tabT3Calcs.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabT3Calcs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabT3Calcs.Name = "tabT3Calcs"
         Me.tabT3Calcs.Size = New System.Drawing.Size(338, 180)
         Me.tabT3Calcs.TabIndex = 2
@@ -10938,7 +11009,7 @@ Partial Class frmMain
         Me.cmbBPT3Decryptor.FormattingEnabled = True
         Me.cmbBPT3Decryptor.ItemHeight = 17
         Me.cmbBPT3Decryptor.Location = New System.Drawing.Point(89, 135)
-        Me.cmbBPT3Decryptor.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbBPT3Decryptor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbBPT3Decryptor.Name = "cmbBPT3Decryptor"
         Me.cmbBPT3Decryptor.Size = New System.Drawing.Size(256, 25)
         Me.cmbBPT3Decryptor.TabIndex = 54
@@ -10966,7 +11037,7 @@ Partial Class frmMain
         'txtBPRelicLines
         '
         Me.txtBPRelicLines.Location = New System.Drawing.Point(5, 45)
-        Me.txtBPRelicLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPRelicLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPRelicLines.MaxLength = 4
         Me.txtBPRelicLines.Name = "txtBPRelicLines"
         Me.txtBPRelicLines.Size = New System.Drawing.Size(38, 23)
@@ -10998,7 +11069,7 @@ Partial Class frmMain
         Me.cmbBPRelic.ItemHeight = 17
         Me.cmbBPRelic.Items.AddRange(New Object() {"Wrecked", "Malfunctioning", "Intact"})
         Me.cmbBPRelic.Location = New System.Drawing.Point(51, 45)
-        Me.cmbBPRelic.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbBPRelic.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbBPRelic.Name = "cmbBPRelic"
         Me.cmbBPRelic.Size = New System.Drawing.Size(294, 25)
         Me.cmbBPRelic.TabIndex = 43
@@ -11047,7 +11118,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeT3Time.AutoSize = True
         Me.chkBPIncludeT3Time.Location = New System.Drawing.Point(224, 74)
-        Me.chkBPIncludeT3Time.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeT3Time.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeT3Time.Name = "chkBPIncludeT3Time"
         Me.chkBPIncludeT3Time.Size = New System.Drawing.Size(126, 21)
         Me.chkBPIncludeT3Time.TabIndex = 49
@@ -11058,7 +11129,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeT3Costs.AutoSize = True
         Me.chkBPIncludeT3Costs.Location = New System.Drawing.Point(89, 74)
-        Me.chkBPIncludeT3Costs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeT3Costs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeT3Costs.Name = "chkBPIncludeT3Costs"
         Me.chkBPIncludeT3Costs.Size = New System.Drawing.Size(130, 21)
         Me.chkBPIncludeT3Costs.TabIndex = 47
@@ -11087,7 +11158,7 @@ Partial Class frmMain
         Me.tabInventionCalcs.Location = New System.Drawing.Point(4, 4)
         Me.tabInventionCalcs.Margin = New System.Windows.Forms.Padding(0)
         Me.tabInventionCalcs.Name = "tabInventionCalcs"
-        Me.tabInventionCalcs.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabInventionCalcs.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabInventionCalcs.Size = New System.Drawing.Size(338, 180)
         Me.tabInventionCalcs.TabIndex = 0
         Me.tabInventionCalcs.Text = "Invention"
@@ -11127,7 +11198,7 @@ Partial Class frmMain
         'txtBPInventionLines
         '
         Me.txtBPInventionLines.Location = New System.Drawing.Point(5, 45)
-        Me.txtBPInventionLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPInventionLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPInventionLines.MaxLength = 4
         Me.txtBPInventionLines.Name = "txtBPInventionLines"
         Me.txtBPInventionLines.Size = New System.Drawing.Size(38, 23)
@@ -11198,7 +11269,7 @@ Partial Class frmMain
         Me.cmbBPInventionDecryptor.FormattingEnabled = True
         Me.cmbBPInventionDecryptor.ItemHeight = 17
         Me.cmbBPInventionDecryptor.Location = New System.Drawing.Point(51, 45)
-        Me.cmbBPInventionDecryptor.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbBPInventionDecryptor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbBPInventionDecryptor.Name = "cmbBPInventionDecryptor"
         Me.cmbBPInventionDecryptor.Size = New System.Drawing.Size(294, 25)
         Me.cmbBPInventionDecryptor.TabIndex = 26
@@ -11217,7 +11288,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeInventionTime.AutoSize = True
         Me.chkBPIncludeInventionTime.Location = New System.Drawing.Point(224, 74)
-        Me.chkBPIncludeInventionTime.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeInventionTime.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeInventionTime.Name = "chkBPIncludeInventionTime"
         Me.chkBPIncludeInventionTime.Size = New System.Drawing.Size(126, 21)
         Me.chkBPIncludeInventionTime.TabIndex = 31
@@ -11228,7 +11299,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeCopyTime.AutoSize = True
         Me.chkBPIncludeCopyTime.Location = New System.Drawing.Point(224, 119)
-        Me.chkBPIncludeCopyTime.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeCopyTime.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeCopyTime.Name = "chkBPIncludeCopyTime"
         Me.chkBPIncludeCopyTime.Size = New System.Drawing.Size(101, 21)
         Me.chkBPIncludeCopyTime.TabIndex = 35
@@ -11239,7 +11310,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeCopyCosts.AutoSize = True
         Me.chkBPIncludeCopyCosts.Location = New System.Drawing.Point(89, 119)
-        Me.chkBPIncludeCopyCosts.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeCopyCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeCopyCosts.Name = "chkBPIncludeCopyCosts"
         Me.chkBPIncludeCopyCosts.Size = New System.Drawing.Size(105, 21)
         Me.chkBPIncludeCopyCosts.TabIndex = 33
@@ -11250,7 +11321,7 @@ Partial Class frmMain
         '
         Me.chkBPIncludeInventionCosts.AutoSize = True
         Me.chkBPIncludeInventionCosts.Location = New System.Drawing.Point(89, 74)
-        Me.chkBPIncludeInventionCosts.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIncludeInventionCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIncludeInventionCosts.Name = "chkBPIncludeInventionCosts"
         Me.chkBPIncludeInventionCosts.Size = New System.Drawing.Size(130, 21)
         Me.chkBPIncludeInventionCosts.TabIndex = 29
@@ -11260,7 +11331,7 @@ Partial Class frmMain
         'btnBPSaveSettings
         '
         Me.btnBPSaveSettings.Location = New System.Drawing.Point(68, 192)
-        Me.btnBPSaveSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPSaveSettings.Name = "btnBPSaveSettings"
         Me.btnBPSaveSettings.Size = New System.Drawing.Size(102, 42)
         Me.btnBPSaveSettings.TabIndex = 14
@@ -11270,7 +11341,7 @@ Partial Class frmMain
         'txtBPLines
         '
         Me.txtBPLines.Location = New System.Drawing.Point(48, 131)
-        Me.txtBPLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPLines.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPLines.MaxLength = 3
         Me.txtBPLines.Name = "txtBPLines"
         Me.txtBPLines.Size = New System.Drawing.Size(39, 23)
@@ -11281,7 +11352,7 @@ Partial Class frmMain
         Me.pictBP.BackColor = System.Drawing.Color.White
         Me.pictBP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pictBP.Location = New System.Drawing.Point(8, 15)
-        Me.pictBP.Margin = New System.Windows.Forms.Padding(4)
+        Me.pictBP.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictBP.Name = "pictBP"
         Me.pictBP.Size = New System.Drawing.Size(84, 85)
         Me.pictBP.TabIndex = 0
@@ -11293,9 +11364,9 @@ Partial Class frmMain
         Me.gbBPManualSystemCostIndex.Controls.Add(Me.lblBPSystemCostIndexManual)
         Me.gbBPManualSystemCostIndex.Controls.Add(Me.txtBPUpdateCostIndex)
         Me.gbBPManualSystemCostIndex.Location = New System.Drawing.Point(404, 8)
-        Me.gbBPManualSystemCostIndex.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPManualSystemCostIndex.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPManualSystemCostIndex.Name = "gbBPManualSystemCostIndex"
-        Me.gbBPManualSystemCostIndex.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPManualSystemCostIndex.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPManualSystemCostIndex.Size = New System.Drawing.Size(159, 78)
         Me.gbBPManualSystemCostIndex.TabIndex = 23
         Me.gbBPManualSystemCostIndex.TabStop = False
@@ -11305,7 +11376,7 @@ Partial Class frmMain
         '
         Me.btnBPUpdateCostIndex.Enabled = False
         Me.btnBPUpdateCostIndex.Location = New System.Drawing.Point(95, 16)
-        Me.btnBPUpdateCostIndex.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPUpdateCostIndex.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPUpdateCostIndex.Name = "btnBPUpdateCostIndex"
         Me.btnBPUpdateCostIndex.Size = New System.Drawing.Size(62, 56)
         Me.btnBPUpdateCostIndex.TabIndex = 21
@@ -11325,7 +11396,7 @@ Partial Class frmMain
         'txtBPUpdateCostIndex
         '
         Me.txtBPUpdateCostIndex.Location = New System.Drawing.Point(6, 46)
-        Me.txtBPUpdateCostIndex.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPUpdateCostIndex.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPUpdateCostIndex.MaxLength = 7
         Me.txtBPUpdateCostIndex.Name = "txtBPUpdateCostIndex"
         Me.txtBPUpdateCostIndex.Size = New System.Drawing.Size(82, 23)
@@ -11336,7 +11407,7 @@ Partial Class frmMain
         'txtBPNumBPs
         '
         Me.txtBPNumBPs.Location = New System.Drawing.Point(130, 131)
-        Me.txtBPNumBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPNumBPs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPNumBPs.Name = "txtBPNumBPs"
         Me.txtBPNumBPs.Size = New System.Drawing.Size(39, 23)
         Me.txtBPNumBPs.TabIndex = 10
@@ -11344,7 +11415,7 @@ Partial Class frmMain
         'btnBPRefreshBP
         '
         Me.btnBPRefreshBP.Location = New System.Drawing.Point(8, 236)
-        Me.btnBPRefreshBP.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPRefreshBP.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPRefreshBP.Name = "btnBPRefreshBP"
         Me.btnBPRefreshBP.Size = New System.Drawing.Size(162, 38)
         Me.btnBPRefreshBP.TabIndex = 13
@@ -11364,7 +11435,7 @@ Partial Class frmMain
         'txtBPME
         '
         Me.txtBPME.Location = New System.Drawing.Point(95, 75)
-        Me.txtBPME.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPME.MaxLength = 2
         Me.txtBPME.Name = "txtBPME"
         Me.txtBPME.Size = New System.Drawing.Size(35, 23)
@@ -11386,7 +11457,7 @@ Partial Class frmMain
         '
         Me.chkBPBuildBuy.AutoSize = True
         Me.chkBPBuildBuy.Location = New System.Drawing.Point(15, 108)
-        Me.chkBPBuildBuy.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPBuildBuy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPBuildBuy.Name = "chkBPBuildBuy"
         Me.chkBPBuildBuy.Size = New System.Drawing.Size(151, 21)
         Me.chkBPBuildBuy.TabIndex = 6
@@ -11396,7 +11467,7 @@ Partial Class frmMain
         'txtBPRuns
         '
         Me.txtBPRuns.Location = New System.Drawing.Point(95, 31)
-        Me.txtBPRuns.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPRuns.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPRuns.MaxLength = 6
         Me.txtBPRuns.Name = "txtBPRuns"
         Me.txtBPRuns.Size = New System.Drawing.Size(74, 23)
@@ -11406,7 +11477,7 @@ Partial Class frmMain
         'txtBPAddlCosts
         '
         Me.txtBPAddlCosts.Location = New System.Drawing.Point(48, 162)
-        Me.txtBPAddlCosts.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPAddlCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPAddlCosts.MaxLength = 15
         Me.txtBPAddlCosts.Name = "txtBPAddlCosts"
         Me.txtBPAddlCosts.Size = New System.Drawing.Size(122, 23)
@@ -11435,7 +11506,7 @@ Partial Class frmMain
         'txtBPTE
         '
         Me.txtBPTE.Location = New System.Drawing.Point(134, 75)
-        Me.txtBPTE.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtBPTE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBPTE.MaxLength = 2
         Me.txtBPTE.Name = "txtBPTE"
         Me.txtBPTE.Size = New System.Drawing.Size(35, 23)
@@ -11469,9 +11540,9 @@ Partial Class frmMain
         Me.gbBPIgnoreinCalcs.Controls.Add(Me.chkBPIgnoreT1Item)
         Me.gbBPIgnoreinCalcs.Controls.Add(Me.chkBPIgnoreInvention)
         Me.gbBPIgnoreinCalcs.Location = New System.Drawing.Point(178, 8)
-        Me.gbBPIgnoreinCalcs.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPIgnoreinCalcs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPIgnoreinCalcs.Name = "gbBPIgnoreinCalcs"
-        Me.gbBPIgnoreinCalcs.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPIgnoreinCalcs.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPIgnoreinCalcs.Size = New System.Drawing.Size(118, 78)
         Me.gbBPIgnoreinCalcs.TabIndex = 20
         Me.gbBPIgnoreinCalcs.TabStop = False
@@ -11481,7 +11552,7 @@ Partial Class frmMain
         '
         Me.chkBPIgnoreMinerals.AutoSize = True
         Me.chkBPIgnoreMinerals.Location = New System.Drawing.Point(6, 54)
-        Me.chkBPIgnoreMinerals.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIgnoreMinerals.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIgnoreMinerals.Name = "chkBPIgnoreMinerals"
         Me.chkBPIgnoreMinerals.Size = New System.Drawing.Size(83, 21)
         Me.chkBPIgnoreMinerals.TabIndex = 1
@@ -11492,7 +11563,7 @@ Partial Class frmMain
         '
         Me.chkBPIgnoreT1Item.AutoSize = True
         Me.chkBPIgnoreT1Item.Location = New System.Drawing.Point(6, 36)
-        Me.chkBPIgnoreT1Item.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIgnoreT1Item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIgnoreT1Item.Name = "chkBPIgnoreT1Item"
         Me.chkBPIgnoreT1Item.Size = New System.Drawing.Size(77, 21)
         Me.chkBPIgnoreT1Item.TabIndex = 2
@@ -11503,7 +11574,7 @@ Partial Class frmMain
         '
         Me.chkBPIgnoreInvention.AutoSize = True
         Me.chkBPIgnoreInvention.Location = New System.Drawing.Point(6, 19)
-        Me.chkBPIgnoreInvention.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPIgnoreInvention.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPIgnoreInvention.Name = "chkBPIgnoreInvention"
         Me.chkBPIgnoreInvention.Size = New System.Drawing.Size(87, 21)
         Me.chkBPIgnoreInvention.TabIndex = 0
@@ -11520,9 +11591,9 @@ Partial Class frmMain
         Me.gbBPShopandCopy.Controls.Add(Me.btnBPAddBPMatstoShoppingList)
         Me.gbBPShopandCopy.Controls.Add(Me.lblBPSimpleCopy)
         Me.gbBPShopandCopy.Location = New System.Drawing.Point(5, 218)
-        Me.gbBPShopandCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbBPShopandCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPShopandCopy.Name = "gbBPShopandCopy"
-        Me.gbBPShopandCopy.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbBPShopandCopy.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbBPShopandCopy.Size = New System.Drawing.Size(368, 72)
         Me.gbBPShopandCopy.TabIndex = 3
         Me.gbBPShopandCopy.TabStop = False
@@ -11531,7 +11602,7 @@ Partial Class frmMain
         '
         Me.chkBPSimpleCopy.AutoSize = True
         Me.chkBPSimpleCopy.Location = New System.Drawing.Point(222, 46)
-        Me.chkBPSimpleCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkBPSimpleCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkBPSimpleCopy.Name = "chkBPSimpleCopy"
         Me.chkBPSimpleCopy.Size = New System.Drawing.Size(18, 17)
         Me.chkBPSimpleCopy.TabIndex = 6
@@ -11542,7 +11613,7 @@ Partial Class frmMain
         '
         Me.rbtnBPCopyInvREMats.AutoSize = True
         Me.rbtnBPCopyInvREMats.Location = New System.Drawing.Point(254, 48)
-        Me.rbtnBPCopyInvREMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPCopyInvREMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPCopyInvREMats.Name = "rbtnBPCopyInvREMats"
         Me.rbtnBPCopyInvREMats.Size = New System.Drawing.Size(109, 21)
         Me.rbtnBPCopyInvREMats.TabIndex = 4
@@ -11555,7 +11626,7 @@ Partial Class frmMain
         Me.rbtnBPComponentCopy.AutoSize = True
         Me.rbtnBPComponentCopy.Checked = True
         Me.rbtnBPComponentCopy.Location = New System.Drawing.Point(254, 10)
-        Me.rbtnBPComponentCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPComponentCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPComponentCopy.Name = "rbtnBPComponentCopy"
         Me.rbtnBPComponentCopy.Size = New System.Drawing.Size(108, 21)
         Me.rbtnBPComponentCopy.TabIndex = 2
@@ -11567,7 +11638,7 @@ Partial Class frmMain
         '
         Me.rbtnBPRawmatCopy.AutoSize = True
         Me.rbtnBPRawmatCopy.Location = New System.Drawing.Point(254, 29)
-        Me.rbtnBPRawmatCopy.Margin = New System.Windows.Forms.Padding(4)
+        Me.rbtnBPRawmatCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnBPRawmatCopy.Name = "rbtnBPRawmatCopy"
         Me.rbtnBPRawmatCopy.Size = New System.Drawing.Size(117, 21)
         Me.rbtnBPRawmatCopy.TabIndex = 3
@@ -11578,7 +11649,7 @@ Partial Class frmMain
         'btnBPCopyMatstoClip
         '
         Me.btnBPCopyMatstoClip.Location = New System.Drawing.Point(109, 15)
-        Me.btnBPCopyMatstoClip.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPCopyMatstoClip.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPCopyMatstoClip.Name = "btnBPCopyMatstoClip"
         Me.btnBPCopyMatstoClip.Size = New System.Drawing.Size(99, 49)
         Me.btnBPCopyMatstoClip.TabIndex = 1
@@ -11588,7 +11659,7 @@ Partial Class frmMain
         'btnBPAddBPMatstoShoppingList
         '
         Me.btnBPAddBPMatstoShoppingList.Location = New System.Drawing.Point(6, 15)
-        Me.btnBPAddBPMatstoShoppingList.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnBPAddBPMatstoShoppingList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnBPAddBPMatstoShoppingList.Name = "btnBPAddBPMatstoShoppingList"
         Me.btnBPAddBPMatstoShoppingList.Size = New System.Drawing.Size(99, 49)
         Me.btnBPAddBPMatstoShoppingList.TabIndex = 0
@@ -11699,7 +11770,7 @@ Partial Class frmMain
         Me.lstBPComponentMats.GridLines = True
         Me.lstBPComponentMats.HideSelection = False
         Me.lstBPComponentMats.Location = New System.Drawing.Point(5, 322)
-        Me.lstBPComponentMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstBPComponentMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstBPComponentMats.MultiSelect = False
         Me.lstBPComponentMats.Name = "lstBPComponentMats"
         Me.lstBPComponentMats.Size = New System.Drawing.Size(700, 410)
@@ -11714,7 +11785,7 @@ Partial Class frmMain
         Me.lstBPRawMats.GridLines = True
         Me.lstBPRawMats.HideSelection = False
         Me.lstBPRawMats.Location = New System.Drawing.Point(712, 322)
-        Me.lstBPRawMats.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstBPRawMats.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstBPRawMats.MultiSelect = False
         Me.lstBPRawMats.Name = "lstBPRawMats"
         Me.lstBPRawMats.Size = New System.Drawing.Size(700, 410)
@@ -11729,7 +11800,7 @@ Partial Class frmMain
         Me.lstBPBuiltComponents.GridLines = True
         Me.lstBPBuiltComponents.HideSelection = False
         Me.lstBPBuiltComponents.Location = New System.Drawing.Point(5, 322)
-        Me.lstBPBuiltComponents.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstBPBuiltComponents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstBPBuiltComponents.MultiSelect = False
         Me.lstBPBuiltComponents.Name = "lstBPBuiltComponents"
         Me.lstBPBuiltComponents.Size = New System.Drawing.Size(700, 410)
@@ -11750,7 +11821,7 @@ Partial Class frmMain
         Me.tabMain.DataBindings.Add(New System.Windows.Forms.Binding("Font", Global.EVE_Isk_per_Hour.My.MySettings.Default, "MyDefault", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.tabMain.Font = Global.EVE_Isk_per_Hour.My.MySettings.Default.MyDefault
         Me.tabMain.Location = New System.Drawing.Point(2, 32)
-        Me.tabMain.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabMain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabMain.Name = "tabMain"
         Me.tabMain.SelectedIndex = 0
         Me.tabMain.Size = New System.Drawing.Size(1431, 801)
@@ -11771,7 +11842,7 @@ Partial Class frmMain
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.mnuStripMain
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
@@ -11911,6 +11982,11 @@ Partial Class frmMain
         Me.gbCalcRelics.PerformLayout
         Me.tabUpdatePrices.ResumeLayout(False)
         Me.tabUpdatePrices.PerformLayout
+        Me.gbPriceOptions.ResumeLayout(False)
+        Me.gbPriceTypes.ResumeLayout(False)
+        Me.gbPriceTypes.PerformLayout
+        Me.gbDataSource.ResumeLayout(False)
+        Me.gbDataSource.PerformLayout
         Me.gbManufacturedItems.ResumeLayout(False)
         Me.gbManufacturedItems.PerformLayout
         Me.gbPriceTools.ResumeLayout(False)
@@ -12596,6 +12672,11 @@ Partial Class frmMain
     Friend WithEvents btnSavePricestoFile As Button
     Friend WithEvents lstPricesView As MyListView
     Friend WithEvents txtPriceItemFilter As TextBox
+    Friend WithEvents gbPriceOptions As GroupBox
+    Friend WithEvents gbPriceTypes As GroupBox
+    Friend WithEvents rbtnPriceSettingSingleSelect As RadioButton
+    Friend WithEvents gbDataSource As GroupBox
+    Friend WithEvents rbtnPriceSourceCCPData As RadioButton
     Friend WithEvents btnSaveUpdatePrices As Button
     Friend WithEvents btnCancelUpdate As Button
     Friend WithEvents btnClearItemFilter As Button
