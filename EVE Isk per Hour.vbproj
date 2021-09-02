@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>EVE_Isk_per_Hour.My.MyApplication</StartupObject>
     <RootNamespace>EVE_Isk_per_Hour</RootNamespace>
-    <AssemblyName>EVE Isk per Hour</AssemblyName>
+    <AssemblyName>EasyIPH</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -41,7 +41,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\Root Directory\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -55,7 +55,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\Root Directory\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -84,7 +84,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
@@ -95,7 +95,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,7 +108,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Itanium\Debug\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>Itanium</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
@@ -118,7 +118,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Itanium'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Itanium\Release\</OutputPath>
-    <DocumentationFile>EVE Isk per Hour.xml</DocumentationFile>
+    <DocumentationFile>EasyIPH.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>Itanium</PlatformTarget>
