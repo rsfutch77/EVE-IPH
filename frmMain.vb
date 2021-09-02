@@ -633,22 +633,6 @@ Public Class frmMain
 
         ' Tool Tips
         If UserApplicationSettings.ShowToolTips Then
-            ttUpdatePrices.SetToolTip(cmbRawMatsSplitPrices, "Buy = Use Buy orders only" & vbCrLf &
-                                                            "Sell = Use Sell orders only" & vbCrLf &
-                                                            "Buy & Sell = Use All orders" & vbCrLf &
-                                                            "Min = Minimum" & vbCrLf &
-                                                            "Max = Maximum" & vbCrLf &
-                                                            "Avg = Average" & vbCrLf &
-                                                            "Med = Median" & vbCrLf &
-                                                            "Percentile = 5% of the top prices (Buy) or bottom (Sell, All) ")
-            ttUpdatePrices.SetToolTip(cmbItemsSplitPrices, "Buy = Use Buy orders only" & vbCrLf &
-                                                            "Sell = Use Sell orders only" & vbCrLf &
-                                                            "Buy & Sell = Use All orders" & vbCrLf &
-                                                            "Min = Minimum" & vbCrLf &
-                                                            "Max = Maximum" & vbCrLf &
-                                                            "Avg = Average" & vbCrLf &
-                                                            "Med = Median" & vbCrLf &
-                                                            "Percentile = 5% of the top prices (Buy) or bottom (Sell, All) ")
             ttUpdatePrices.SetToolTip(btnAddStructureIDs, "Use to add structures you have access to using with markets for downloading prices from structures.")
         End If
 
@@ -7593,13 +7577,11 @@ ExitForm:
         gbManufacturedItems.Enabled = Not Value
         gbRegions.Enabled = Not Value
         gbTradeHubSystems.Enabled = Not Value
-        gbPriceOptions.Enabled = Not Value
         txtPriceItemFilter.Enabled = Not Value
         lblItemFilter.Enabled = Not Value
         btnClearItemFilter.Enabled = Not Value
         chkPriceRawMaterialPrices.Enabled = Not Value
         chkPriceManufacturedPrices.Enabled = Not Value
-        btnToggleAllPriceItems.Enabled = Not Value
         btnDownloadPrices.Enabled = Not Value
         btnSaveUpdatePrices.Enabled = Not Value
         lstPricesView.Enabled = Not Value
@@ -7628,13 +7610,7 @@ ExitForm:
 
             If chkPriceManufacturedPrices.Checked = False And chkPriceRawMaterialPrices.Checked = False Then
                 lstPricesView.Items.Clear()
-                btnToggleAllPriceItems.Text = "Select All Items"
             Else
-                If chkPriceManufacturedPrices.Checked = True And chkPriceRawMaterialPrices.Checked = True Then
-                    btnToggleAllPriceItems.Text = "Uncheck All Items"
-                Else
-                    btnToggleAllPriceItems.Text = "Select All Items"
-                End If
                 Call UpdatePriceList()
             End If
         End If
@@ -7754,13 +7730,7 @@ ExitForm:
 
         If chkPriceManufacturedPrices.Checked = False And chkPriceRawMaterialPrices.Checked = False Then
             lstPricesView.Items.Clear()
-            btnToggleAllPriceItems.Text = "Select All Items"
         Else
-            If chkPriceManufacturedPrices.Checked = True And chkPriceRawMaterialPrices.Checked = True Then
-                btnToggleAllPriceItems.Text = "Uncheck All Items"
-            Else
-                btnToggleAllPriceItems.Text = "Select All Items"
-            End If
         End If
 
         If PriceToggleButtonHit = False And Not FirstLoad Then
@@ -7775,13 +7745,7 @@ ExitForm:
 
         If chkPriceManufacturedPrices.Checked = False And chkPriceRawMaterialPrices.Checked = False Then
             lstPricesView.Items.Clear()
-            btnToggleAllPriceItems.Text = "Select All Items"
         Else
-            If chkPriceManufacturedPrices.Checked = True And chkPriceRawMaterialPrices.Checked = True Then
-                btnToggleAllPriceItems.Text = "Uncheck All Items"
-            Else
-                btnToggleAllPriceItems.Text = "Select All Items"
-            End If
         End If
 
         If PriceToggleButtonHit = False And Not FirstLoad Then
@@ -7790,30 +7754,7 @@ ExitForm:
 
     End Sub
 
-    ' Toggles all selection checks on the prices tab
-    Private Sub btnToggleAllPriceItems_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnToggleAllPriceItems.Click
 
-        RunUpdatePriceList = False
-        PriceToggleButtonHit = True
-
-        If btnToggleAllPriceItems.Text = "Select All Items" And (chkPriceManufacturedPrices.Checked = False Or chkPriceRawMaterialPrices.Checked = False) Then
-            ' Set the name, then uncheck all
-            btnToggleAllPriceItems.Text = "Uncheck All Items"
-            chkPriceRawMaterialPrices.Checked = True
-            chkPriceManufacturedPrices.Checked = True
-        ElseIf btnToggleAllPriceItems.Text = "Uncheck All Items" And chkPriceManufacturedPrices.Checked = True And chkPriceRawMaterialPrices.Checked = True Then
-            ' Turn off all item checks
-            btnToggleAllPriceItems.Text = "Select All Items"
-            chkPriceRawMaterialPrices.Checked = False
-            chkPriceManufacturedPrices.Checked = False
-        End If
-
-        RunUpdatePriceList = True
-
-        Call UpdateAllPrices()
-        PriceToggleButtonHit = False
-
-    End Sub
 
     ' EVE Central Link
     Private Sub llblEVEMarketerContribute_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
@@ -8037,22 +7978,17 @@ ExitForm:
 
     End Function
 
-    Private Sub rbtnPriceSourceEVEMarketer_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnPriceSourceEVEMarketer.CheckedChanged
+    Private Sub rbtnPriceSourceEVEMarketer_CheckedChanged(sender As Object, e As EventArgs)
         Call UpdateStructurePriceButtons()
     End Sub
 
-    Private Sub rbtnPriceSourceCCPData_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnPriceSourceCCPData.CheckedChanged
+    Private Sub rbtnPriceSourceCCPData_CheckedChanged(sender As Object, e As EventArgs)
         Call UpdateStructurePriceButtons()
     End Sub
 
     Private Sub UpdateStructurePriceButtons()
-        If rbtnPriceSourceCCPData.Checked Then
-            btnAddStructureIDs.Visible = True
-            btnViewSavedStructures.Visible = True
-        Else
-            btnAddStructureIDs.Visible = False
-            btnViewSavedStructures.Visible = False
-        End If
+        btnAddStructureIDs.Visible = True
+        btnViewSavedStructures.Visible = True
     End Sub
 
     Private Sub chkPricesT1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkPricesT1.Click
@@ -8403,59 +8339,6 @@ ExitForm:
 
     End Sub
 
-    Private Sub rbtnPriceSettingPriceProfile_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnPriceSettingPriceProfile.CheckedChanged
-        ' set in init, and use this to toggle
-        If rbtnPriceSettingPriceProfile.Checked Then
-            pnlPriceProfiles.Visible = True
-            pnlSinglePriceLocationSelect.Visible = False
-            ' Disable other buttons and lists
-            cmbRawMatsSplitPrices.Enabled = False
-            lblRawMatsSplitPrices.Enabled = False
-            cmbItemsSplitPrices.Enabled = False
-            lblItemsSplitPrices.Enabled = False
-            lblRawPriceModifier.Enabled = False
-            lblItemsPriceModifier.Enabled = False
-            txtRawPriceModifier.Enabled = False
-            txtItemsPriceModifier.Enabled = False
-        Else
-            pnlPriceProfiles.Visible = False
-            pnlSinglePriceLocationSelect.Visible = True
-            ' Enable other buttons and lists
-            cmbRawMatsSplitPrices.Enabled = True
-            lblRawMatsSplitPrices.Enabled = True
-            cmbItemsSplitPrices.Enabled = True
-            lblItemsSplitPrices.Enabled = True
-            lblRawPriceModifier.Enabled = True
-            lblItemsPriceModifier.Enabled = True
-            txtRawPriceModifier.Enabled = True
-            txtItemsPriceModifier.Enabled = True
-        End If
-    End Sub
-
-    Private Sub txtRawPriceModifier_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtRawPriceModifier.KeyPress
-        e.Handled = CheckPercentCharEntry(e, txtRawPriceModifier)
-    End Sub
-
-    Private Sub txtItemsPriceModifier_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtItemsPriceModifier.KeyPress
-        e.Handled = CheckPercentCharEntry(e, txtItemsPriceModifier)
-    End Sub
-
-    Private Sub txtRawPriceModifier_LostFocus(sender As Object, e As System.EventArgs) Handles txtRawPriceModifier.LostFocus
-        If Trim(txtRawPriceModifier.Text) = "" Then
-            txtRawPriceModifier.Text = "0.0%"
-        Else
-            txtRawPriceModifier.Text = FormatPercent(CDbl(txtRawPriceModifier.Text.Replace("%", "")) / 100, 1)
-        End If
-    End Sub
-
-    Private Sub txtItemsPriceModifier_LostFocus(sender As Object, e As System.EventArgs) Handles txtItemsPriceModifier.LostFocus
-        If Trim(txtItemsPriceModifier.Text) = "" Then
-            txtItemsPriceModifier.Text = "0.0%"
-        Else
-            txtItemsPriceModifier.Text = FormatPercent(CDbl(txtItemsPriceModifier.Text.Replace("%", "")) / 100, 1)
-        End If
-    End Sub
-
     Private Sub txtRawMaterialsDefaultsPriceMod_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtRawMaterialsDefaultsPriceMod.KeyPress
         e.Handled = CheckPercentCharEntry(e, txtRawMaterialsDefaultsPriceMod)
     End Sub
@@ -8547,7 +8430,6 @@ ExitForm:
 
         If Trim(txtItemsDefaultsPriceMod.Text) = "" Then
             MsgBox("Invalid Default Price Modifier", vbExclamation, Application.ProductName)
-            txtItemsPriceModifier.Focus()
             Exit Sub
         End If
 
@@ -9040,42 +8922,11 @@ ExitForm:
             chkImplants.Checked = .Implants
             chkCelestials.Checked = .Celestials
             chkDeployables.Checked = .Deployables
-            cmbItemsSplitPrices.Text = .ItemsCombo
-            cmbRawMatsSplitPrices.Text = .RawMatsCombo
-            txtRawPriceModifier.Text = FormatPercent(.RawPriceModifier, 1)
-            txtItemsPriceModifier.Text = FormatPercent(.ItemsPriceModifier, 1)
-            If .UseESIData Then
-                rbtnPriceSourceCCPData.Checked = True
-            Else
-                rbtnPriceSourceEVEMarketer.Checked = True
-            End If
             If .UsePriceProfile Then
-                rbtnPriceSettingPriceProfile.Checked = True
                 pnlPriceProfiles.Visible = True
                 pnlSinglePriceLocationSelect.Visible = False
                 ' Disable other buttons and lists
-                cmbRawMatsSplitPrices.Enabled = False
-                lblRawMatsSplitPrices.Enabled = False
-                cmbItemsSplitPrices.Enabled = False
-                lblItemsSplitPrices.Enabled = False
-                lblRawPriceModifier.Enabled = False
-                lblItemsPriceModifier.Enabled = False
-                txtRawPriceModifier.Enabled = False
-                txtItemsPriceModifier.Enabled = False
             Else
-                rbtnPriceSettingSingleSelect.Checked = True
-
-                pnlPriceProfiles.Visible = False
-                pnlSinglePriceLocationSelect.Visible = True
-                ' Enable other buttons and lists
-                cmbRawMatsSplitPrices.Enabled = True
-                lblRawMatsSplitPrices.Enabled = True
-                cmbItemsSplitPrices.Enabled = True
-                lblItemsSplitPrices.Enabled = True
-                lblRawPriceModifier.Enabled = True
-                lblItemsPriceModifier.Enabled = True
-                txtRawPriceModifier.Enabled = True
-                txtItemsPriceModifier.Enabled = True
             End If
 
             ' Set the defaults for the default price profiles
@@ -9313,11 +9164,8 @@ ExitForm:
             Exit Sub
         End If
 
-        TempSettings.ItemsCombo = cmbItemsSplitPrices.Text
-        TempSettings.RawMatsCombo = cmbRawMatsSplitPrices.Text
-
-        TempSettings.RawPriceModifier = CDbl(txtRawPriceModifier.Text.Replace("%", "")) / 100
-        TempSettings.ItemsPriceModifier = CDbl(txtItemsPriceModifier.Text.Replace("%", "")) / 100
+        TempSettings.RawPriceModifier = 0
+        TempSettings.ItemsPriceModifier = 0
 
         ' Search for a set system first
         TempSettings.SelectedSystem = "0"
@@ -9395,16 +9243,8 @@ ExitForm:
             .Implants = chkImplants.Checked
             .Deployables = chkDeployables.Checked
             .Celestials = chkCelestials.Checked
-            If rbtnPriceSourceCCPData.Checked Then
-                .UseESIData = True
-            Else
-                .UseESIData = False
-            End If
-            If rbtnPriceSettingPriceProfile.Checked Then
-                .UsePriceProfile = True
-            Else
-                .UsePriceProfile = False
-            End If
+            .UseESIData = True
+            .UsePriceProfile = False
 
             ' Price profile defaults
             .PPRawPriceType = cmbRawMaterialsDefaultsPriceType.Text
@@ -9541,7 +9381,7 @@ ExitForm:
             GoTo ExitSub
         End If
 
-        If rbtnPriceSourceCCPData.Checked And RegionSelectedCount > 1 Then
+        If RegionSelectedCount > 1 Then
             MsgBox("You cannot choose more than one region when downloading CCP Data", MsgBoxStyle.Exclamation, Me.Name)
             GoTo ExitSub
         End If
@@ -9558,8 +9398,7 @@ ExitForm:
         Application.DoEvents()
 
         ' Find the checked region - single select
-        If rbtnPriceSettingSingleSelect.Checked Then
-            If RegionChecked Then
+        If RegionChecked Then
                 For i = 1 To (RegionCheckBoxes.Length - 1)
                     If RegionCheckBoxes(i).Checked Then
                         Select Case i
@@ -9615,10 +9454,9 @@ ExitForm:
                 readerSystems = Nothing
                 DBCommand = Nothing
             End If
-        End If
 
-        ' Build the list of types we want to update and include the type, region/system
-        For i = 0 To lstPricesView.Items.Count - 1
+            ' Build the list of types we want to update and include the type, region/system
+            For i = 0 To lstPricesView.Items.Count - 1
 
             ' Only include items that are in the market (Market ID not null in Inventory Types)
             If lstPricesView.Items(i).SubItems(5).Text <> "" Then
@@ -9631,40 +9469,15 @@ ExitForm:
                     TempItem.Manufacture = CBool(lstPricesView.Items(i).SubItems(4).Text)
                     TempItem.RegionID = ""
 
-                    If rbtnPriceSettingSingleSelect.Checked Then
-                        TempItem.RegionID = SearchRegion
-                        TempItem.SystemID = SearchSystem
-                        TempItem.StructureID = SearchStructureID
-                        'Start with the maximum IPH (normal Buy Orders for Raw and Sell Orders for Manufactured)
-                        If TempItem.Manufacture Then
-                            TempItem.PriceType = "Percentile Sell"
-                            TempItem.PriceModifier = CDbl(txtItemsPriceModifier.Text.Replace("%", "")) / 100
-                        Else
-                            TempItem.PriceType = "Percentile Buy"
-                            TempItem.PriceModifier = CDbl(txtRawPriceModifier.Text.Replace("%", "")) / 100
-                        End If
+
+                    TempItem.RegionID = SearchRegion
+                    TempItem.SystemID = SearchSystem
+                    TempItem.StructureID = SearchStructureID
+                    'Start with the maximum IPH (normal Buy Orders for Raw and Sell Orders for Manufactured)
+                    If TempItem.Manufacture Then
+                        TempItem.PriceType = "Percentile Sell"
                     Else
-                        ' Using price profiles, so look up all the data per group name
-                        Dim rsPP As SQLiteDataReader
-                        SQL = "SELECT PRICE_TYPE, regionID, SOLAR_SYSTEM_NAME, PRICE_MODIFIER FROM PRICE_PROFILES, REGIONS "
-                        SQL = SQL & "WHERE REGIONS.regionName = PRICE_PROFILES.REGION_NAME "
-                        SQL = SQL & "AND (ID = " & CStr(SelectedCharacter.ID) & " OR ID = 0) AND GROUP_NAME = '" & TempItem.GroupName & "' ORDER BY ID DESC"
-
-                        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                        rsPP = DBCommand.ExecuteReader
-
-                        If rsPP.Read Then
-                            TempItem.PriceType = rsPP.GetString(0)
-                            If rsPP.GetString(2) = AllSystems Then
-                                ' Can only do one region for price profile
-                                TempItem.RegionID = CStr(rsPP.GetInt64(1))
-                                TempItem.SystemID = ""
-                            Else
-                                ' Look up the system name
-                                TempItem.SystemID = CStr(GetSolarSystemID(rsPP.GetString(2)))
-                            End If
-                            TempItem.PriceModifier = rsPP.GetDouble(3)
-                        End If
+                        TempItem.PriceType = "Percentile Buy"
                     End If
 
                     ' Add the item to the list if not there and it's not a blueprint (we don't want to query blueprints since it will return bpo price and we are using this for bpc
@@ -9719,9 +9532,8 @@ ExitSub:
         Dim Items As New List(Of TypeIDRegion)
 
         ' Use CCP Data
-        If rbtnPriceSourceCCPData.Checked Then
-            ' Loop through each item and set it's pair for query
-            For i = 0 To SentItems.Count - 1
+        ' Loop through each item and set it's pair for query
+        For i = 0 To SentItems.Count - 1
                 Dim Temp As New TypeIDRegion
                 Temp.TypeIDs.Add(CStr(SentItems(i).TypeID))
 
@@ -9772,36 +9584,28 @@ ExitSub:
             pnlStatus.Text = ""
             Application.DoEvents()
 
-            ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
-            If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
-                pnlStatus.Text = "Downloading Public Structure Prices..."
+        ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
+        If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
+            pnlStatus.Text = "Downloading Public Structure Prices..."
 
-                ' First, make sure we have structures in the table to query
-                Call ESIData.UpdatePublicStructureswithMarkets()
+            ' First, make sure we have structures in the table to query
+            Call ESIData.UpdatePublicStructureswithMarkets()
 
-                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, pnlProgressBar) Then
-                    ' Update Failed, don't reload everything
-                    Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
-                    pnlStatus.Text = ""
-                    Exit Sub
-                End If
-
-                If CancelThreading Then
-                    ' They had a ton of errors
-                    Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
-                    CancelThreading = False
-                    Exit Sub
-                End If
-
-                pnlStatus.Text = ""
-            End If
-        Else
-            ' Update the EVE Marketer cache
-            If Not UpdatePricesCache(SentItems) Then
+            If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, pnlProgressBar) Then
                 ' Update Failed, don't reload everything
+                Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
+                pnlStatus.Text = ""
                 Exit Sub
             End If
 
+            If CancelThreading Then
+                ' They had a ton of errors
+                Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                CancelThreading = False
+                Exit Sub
+            End If
+
+            pnlStatus.Text = ""
         End If
 
         ' Working
@@ -9857,93 +9661,81 @@ ExitSub:
                 RegionList = SentItems(i).SystemID
             End If
 
-            If rbtnPriceSourceEVEMarketer.Checked Then
-                ' Load the data based on the option selected - regionlist contains a list of regions or the system we wanted to update
-                Dim SQLPricetype As String = ""
-                If PriceType <> "splitPrice" Then
-                    SQLPricetype = PriceType
-                Else
-                    SQLPricetype = "((buyMax + sellMin) / 2)"
-                End If
-                SQL = "SELECT " & SQLPricetype & " FROM ITEM_PRICES_CACHE WHERE TYPEID = " & CStr(SentItems(i).TypeID) & " AND RegionOrSystem = '" & RegionList & "' ORDER BY DateTime(UPDATEDATE) DESC"
+            Dim LimittoBuy As Boolean = False
+            Dim LimittoSell As Boolean = False
+            Dim SystemID As String = ""
 
+            RegionID = ""
+
+            If SentItems(i).SystemID <> "" Then
+                SystemID = RegionList
             Else
-                Dim LimittoBuy As Boolean = False
-                Dim LimittoSell As Boolean = False
-                Dim SystemID As String = ""
+                RegionID = RegionList
+            End If
 
-                RegionID = ""
+            ' Get the data from ESI so we need to do some calcuations depending on the type they want
+            SQL = "SELECT "
+            RiskSQL = "SELECT "
+            Select Case PriceType
+                Case "buyAvg"
+                    SQL = SQL & "AVG(PRICE)"
+                    LimittoBuy = True
+                Case "buyMax"
+                    SQL = SQL & "MAX(PRICE)"
+                    LimittoBuy = True
+                Case "buyMedian"
+                    SQL = SQL & CalcMedian(SentItems(i).TypeID, RegionID, SystemID, True)
+                Case "buyMin"
+                    SQL = SQL & "MIN(PRICE)"
+                    LimittoBuy = True
+                Case "buyPercentile"
+                    SQL = SQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, True)
+                Case "sellAvg"
+                    SQL = SQL & "AVG(PRICE)"
+                    LimittoSell = True
+                Case "sellMax"
+                    SQL = SQL & "MAX(PRICE)"
+                    LimittoSell = True
+                Case "sellMedian"
+                    SQL = SQL & CalcMedian(SentItems(i).TypeID, RegionID, SystemID, False)
+                Case "sellMin"
+                    SQL = SQL & "MIN(PRICE)"
+                    LimittoSell = True
+                Case "sellPercentile"
+                    SQL = SQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, False)
+                Case "splitPrice"
+                    SQL = SQL & CalcSplit(SentItems(i).TypeID, RegionID, SystemID)
+            End Select
 
-                If SentItems(i).SystemID <> "" Then
-                    SystemID = RegionList
-                Else
-                    RegionID = RegionList
-                End If
-
-                ' Get the data from ESI so we need to do some calcuations depending on the type they want
-                SQL = "SELECT "
-                RiskSQL = "SELECT "
-                Select Case PriceType
-                    Case "buyAvg"
-                        SQL = SQL & "AVG(PRICE)"
-                        LimittoBuy = True
-                    Case "buyMax"
-                        SQL = SQL & "MAX(PRICE)"
-                        LimittoBuy = True
-                    Case "buyMedian"
-                        SQL = SQL & CalcMedian(SentItems(i).TypeID, RegionID, SystemID, True)
-                    Case "buyMin"
-                        SQL = SQL & "MIN(PRICE)"
-                        LimittoBuy = True
-                    Case "buyPercentile"
-                        SQL = SQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, True)
-                    Case "sellAvg"
-                        SQL = SQL & "AVG(PRICE)"
-                        LimittoSell = True
-                    Case "sellMax"
-                        SQL = SQL & "MAX(PRICE)"
-                        LimittoSell = True
-                    Case "sellMedian"
-                        SQL = SQL & CalcMedian(SentItems(i).TypeID, RegionID, SystemID, False)
-                    Case "sellMin"
-                        SQL = SQL & "MIN(PRICE)"
-                        LimittoSell = True
-                    Case "sellPercentile"
-                        SQL = SQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, False)
-                    Case "splitPrice"
-                        SQL = SQL & CalcSplit(SentItems(i).TypeID, RegionID, SystemID)
-                End Select
-
-                'Switch to the other price type for the risk price
-                If PriceType = "buyPercentile" Then
-                    RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, False)
-                Else
-                    RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, True)
-                End If
+            'Switch to the other price type for the risk price
+            If PriceType = "buyPercentile" Then
+                RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, False)
+            Else
+                RiskSQL = RiskSQL & CalcPercentile(SentItems(i).TypeID, RegionID, SystemID, True)
+            End If
 
 
-                ' Set the main from using both price locations
-                SQL = SQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
-                RiskSQL = RiskSQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
+            ' Set the main from using both price locations
+            SQL = SQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
+            RiskSQL = RiskSQL & " FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(SentItems(i).TypeID) & " "
 
-                ' If they want a system, then limit all the data to that system id
-                If SentItems(i).SystemID <> "" Then
-                    SQL = SQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
-                    RiskSQL = RiskSQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
-                Else
-                    ' Use the region
-                    SQL = SQL & "AND REGION_ID = " & RegionList & " "
-                    RiskSQL = RiskSQL & "AND REGION_ID = " & RegionList & " "
-                End If
+            ' If they want a system, then limit all the data to that system id
+            If SentItems(i).SystemID <> "" Then
+                SQL = SQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
+                RiskSQL = RiskSQL & "AND SOLAR_SYSTEM_ID = " & RegionList & " "
+            Else
+                ' Use the region
+                SQL = SQL & "AND REGION_ID = " & RegionList & " "
+                RiskSQL = RiskSQL & "AND REGION_ID = " & RegionList & " "
+            End If
 
-                ' See if we limit to buy/sell only
-                If LimittoBuy Then
-                    SQL = SQL & "AND IS_BUY_ORDER <> 0"
-                    RiskSQL = RiskSQL & "AND IS_BUY_ORDER <> 0"
-                ElseIf LimittoSell Then
-                    SQL = SQL & "AND IS_BUY_ORDER = 0"
-                    RiskSQL = RiskSQL & "AND IS_BUY_ORDER = 0"
-                End If
+            ' See if we limit to buy/sell only
+            If LimittoBuy Then
+                SQL = SQL & "AND IS_BUY_ORDER <> 0"
+                RiskSQL = RiskSQL & "AND IS_BUY_ORDER <> 0"
+            ElseIf LimittoSell Then
+                SQL = SQL & "AND IS_BUY_ORDER = 0"
+                RiskSQL = RiskSQL & "AND IS_BUY_ORDER = 0"
             End If
 
             DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
