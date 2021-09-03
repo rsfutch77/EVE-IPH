@@ -670,60 +670,26 @@ Partial Class frmMain
         Me.btnCancelUpdate = New System.Windows.Forms.Button()
         Me.btnDownloadPrices = New System.Windows.Forms.Button()
         Me.gbManufacturedItems = New System.Windows.Forms.GroupBox()
-        Me.chkPriceManufacturedPrices = New System.Windows.Forms.CheckBox()
         Me.gbPriceTools = New System.Windows.Forms.GroupBox()
-        Me.chkImplants = New System.Windows.Forms.CheckBox()
-        Me.chkUpdatePricesNoPrice = New System.Windows.Forms.CheckBox()
         Me.chkFuelBlocks = New System.Windows.Forms.CheckBox()
         Me.chkTools = New System.Windows.Forms.CheckBox()
-        Me.gbComponents = New System.Windows.Forms.GroupBox()
-        Me.chkStructureComponents = New System.Windows.Forms.CheckBox()
-        Me.chkHybrid = New System.Windows.Forms.CheckBox()
-        Me.chkComponents = New System.Windows.Forms.CheckBox()
-        Me.chkCapitalComponents = New System.Windows.Forms.CheckBox()
-        Me.chkCapT2Components = New System.Windows.Forms.CheckBox()
         Me.gbItems = New System.Windows.Forms.GroupBox()
-        Me.chkStructureModules = New System.Windows.Forms.CheckBox()
-        Me.chkCelestials = New System.Windows.Forms.CheckBox()
-        Me.chkDeployables = New System.Windows.Forms.CheckBox()
         Me.cmbPriceChargeTypes = New System.Windows.Forms.ComboBox()
-        Me.chkStructures = New System.Windows.Forms.CheckBox()
-        Me.chkStructureRigs = New System.Windows.Forms.CheckBox()
         Me.chkCharges = New System.Windows.Forms.CheckBox()
-        Me.chkBoosters = New System.Windows.Forms.CheckBox()
         Me.cmbPriceShipTypes = New System.Windows.Forms.ComboBox()
         Me.gbPricesTech = New System.Windows.Forms.GroupBox()
-        Me.chkPricesT4 = New System.Windows.Forms.CheckBox()
-        Me.chkPricesT6 = New System.Windows.Forms.CheckBox()
-        Me.chkPricesT5 = New System.Windows.Forms.CheckBox()
-        Me.chkPricesT3 = New System.Windows.Forms.CheckBox()
-        Me.chkPricesT2 = New System.Windows.Forms.CheckBox()
         Me.chkPricesT1 = New System.Windows.Forms.CheckBox()
-        Me.chkSubsystems = New System.Windows.Forms.CheckBox()
         Me.chkShips = New System.Windows.Forms.CheckBox()
         Me.chkModules = New System.Windows.Forms.CheckBox()
         Me.chkRigs = New System.Windows.Forms.CheckBox()
         Me.chkDrones = New System.Windows.Forms.CheckBox()
         Me.gbRawMaterials = New System.Windows.Forms.GroupBox()
         Me.chkAbyssalMaterials = New System.Windows.Forms.CheckBox()
-        Me.chkBPCs = New System.Windows.Forms.CheckBox()
         Me.chkMisc = New System.Windows.Forms.CheckBox()
         Me.chkAsteroids = New System.Windows.Forms.CheckBox()
-        Me.chkPriceRawMaterialPrices = New System.Windows.Forms.CheckBox()
         Me.chkPlanetary = New System.Windows.Forms.CheckBox()
-        Me.chkBoosterMats = New System.Windows.Forms.CheckBox()
-        Me.chkDroneComponents = New System.Windows.Forms.CheckBox()
         Me.chkMatsandCompounds = New System.Windows.Forms.CheckBox()
-        Me.chkAdvancedMats = New System.Windows.Forms.CheckBox()
-        Me.chkProcessedMats = New System.Windows.Forms.CheckBox()
-        Me.chkRawMats = New System.Windows.Forms.CheckBox()
-        Me.chkGas = New System.Windows.Forms.CheckBox()
-        Me.chkPolymers = New System.Windows.Forms.CheckBox()
-        Me.chkAncientRelics = New System.Windows.Forms.CheckBox()
-        Me.chkAncientSalvage = New System.Windows.Forms.CheckBox()
         Me.chkSalvage = New System.Windows.Forms.CheckBox()
-        Me.chkDecryptors = New System.Windows.Forms.CheckBox()
-        Me.chkDatacores = New System.Windows.Forms.CheckBox()
         Me.chkIceProducts = New System.Windows.Forms.CheckBox()
         Me.chkMinerals = New System.Windows.Forms.CheckBox()
         Me.tabBlueprints = New System.Windows.Forms.TabPage()
@@ -972,7 +938,6 @@ Partial Class frmMain
         Me.gbTradeHubSystems.SuspendLayout
         Me.gbManufacturedItems.SuspendLayout
         Me.gbPriceTools.SuspendLayout
-        Me.gbComponents.SuspendLayout
         Me.gbItems.SuspendLayout
         Me.gbPricesTech.SuspendLayout
         Me.gbRawMaterials.SuspendLayout
@@ -7793,9 +7758,7 @@ Partial Class frmMain
         '
         'gbManufacturedItems
         '
-        Me.gbManufacturedItems.Controls.Add(Me.chkPriceManufacturedPrices)
         Me.gbManufacturedItems.Controls.Add(Me.gbPriceTools)
-        Me.gbManufacturedItems.Controls.Add(Me.gbComponents)
         Me.gbManufacturedItems.Controls.Add(Me.gbItems)
         Me.gbManufacturedItems.Location = New System.Drawing.Point(336, 421)
         Me.gbManufacturedItems.Margin = New System.Windows.Forms.Padding(4)
@@ -7805,22 +7768,8 @@ Partial Class frmMain
         Me.gbManufacturedItems.TabIndex = 2
         Me.gbManufacturedItems.TabStop = False
         '
-        'chkPriceManufacturedPrices
-        '
-        Me.chkPriceManufacturedPrices.AutoSize = True
-        Me.chkPriceManufacturedPrices.BackColor = System.Drawing.Color.White
-        Me.chkPriceManufacturedPrices.Location = New System.Drawing.Point(8, 1)
-        Me.chkPriceManufacturedPrices.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPriceManufacturedPrices.Name = "chkPriceManufacturedPrices"
-        Me.chkPriceManufacturedPrices.Size = New System.Drawing.Size(154, 21)
-        Me.chkPriceManufacturedPrices.TabIndex = 0
-        Me.chkPriceManufacturedPrices.Text = "Manufactured Items"
-        Me.chkPriceManufacturedPrices.UseVisualStyleBackColor = False
-        '
         'gbPriceTools
         '
-        Me.gbPriceTools.Controls.Add(Me.chkImplants)
-        Me.gbPriceTools.Controls.Add(Me.chkUpdatePricesNoPrice)
         Me.gbPriceTools.Controls.Add(Me.chkFuelBlocks)
         Me.gbPriceTools.Controls.Add(Me.chkTools)
         Me.gbPriceTools.Location = New System.Drawing.Point(350, 181)
@@ -7831,28 +7780,6 @@ Partial Class frmMain
         Me.gbPriceTools.TabIndex = 3
         Me.gbPriceTools.TabStop = False
         Me.gbPriceTools.Text = "Misc Items"
-        '
-        'chkImplants
-        '
-        Me.chkImplants.AutoSize = True
-        Me.chkImplants.Location = New System.Drawing.Point(8, 61)
-        Me.chkImplants.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkImplants.Name = "chkImplants"
-        Me.chkImplants.Size = New System.Drawing.Size(82, 21)
-        Me.chkImplants.TabIndex = 4
-        Me.chkImplants.Text = "Implants"
-        Me.chkImplants.UseVisualStyleBackColor = True
-        '
-        'chkUpdatePricesNoPrice
-        '
-        Me.chkUpdatePricesNoPrice.AutoSize = True
-        Me.chkUpdatePricesNoPrice.Location = New System.Drawing.Point(8, 82)
-        Me.chkUpdatePricesNoPrice.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkUpdatePricesNoPrice.Name = "chkUpdatePricesNoPrice"
-        Me.chkUpdatePricesNoPrice.Size = New System.Drawing.Size(134, 21)
-        Me.chkUpdatePricesNoPrice.TabIndex = 6
-        Me.chkUpdatePricesNoPrice.Text = "Items w/No Price"
-        Me.chkUpdatePricesNoPrice.UseVisualStyleBackColor = True
         '
         'chkFuelBlocks
         '
@@ -7876,89 +7803,12 @@ Partial Class frmMain
         Me.chkTools.Text = "Tools"
         Me.chkTools.UseVisualStyleBackColor = True
         '
-        'gbComponents
-        '
-        Me.gbComponents.Controls.Add(Me.chkStructureComponents)
-        Me.gbComponents.Controls.Add(Me.chkHybrid)
-        Me.gbComponents.Controls.Add(Me.chkComponents)
-        Me.gbComponents.Controls.Add(Me.chkCapitalComponents)
-        Me.gbComponents.Controls.Add(Me.chkCapT2Components)
-        Me.gbComponents.Location = New System.Drawing.Point(6, 181)
-        Me.gbComponents.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbComponents.Name = "gbComponents"
-        Me.gbComponents.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbComponents.Size = New System.Drawing.Size(336, 110)
-        Me.gbComponents.TabIndex = 2
-        Me.gbComponents.TabStop = False
-        Me.gbComponents.Text = "Components"
-        '
-        'chkStructureComponents
-        '
-        Me.chkStructureComponents.Location = New System.Drawing.Point(214, 61)
-        Me.chkStructureComponents.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkStructureComponents.Name = "chkStructureComponents"
-        Me.chkStructureComponents.Size = New System.Drawing.Size(115, 42)
-        Me.chkStructureComponents.TabIndex = 17
-        Me.chkStructureComponents.Text = "Structure Components"
-        Me.chkStructureComponents.UseVisualStyleBackColor = True
-        '
-        'chkHybrid
-        '
-        Me.chkHybrid.AutoSize = True
-        Me.chkHybrid.Location = New System.Drawing.Point(11, 82)
-        Me.chkHybrid.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkHybrid.Name = "chkHybrid"
-        Me.chkHybrid.Size = New System.Drawing.Size(190, 21)
-        Me.chkHybrid.TabIndex = 5
-        Me.chkHybrid.Text = "Hybrid Tech Components"
-        Me.chkHybrid.UseVisualStyleBackColor = True
-        '
-        'chkComponents
-        '
-        Me.chkComponents.AutoSize = True
-        Me.chkComponents.Location = New System.Drawing.Point(11, 61)
-        Me.chkComponents.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkComponents.Name = "chkComponents"
-        Me.chkComponents.Size = New System.Drawing.Size(192, 21)
-        Me.chkComponents.TabIndex = 4
-        Me.chkComponents.Text = "Construction Components"
-        Me.chkComponents.UseVisualStyleBackColor = True
-        '
-        'chkCapitalComponents
-        '
-        Me.chkCapitalComponents.AutoSize = True
-        Me.chkCapitalComponents.Location = New System.Drawing.Point(11, 40)
-        Me.chkCapitalComponents.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCapitalComponents.Name = "chkCapitalComponents"
-        Me.chkCapitalComponents.Size = New System.Drawing.Size(239, 21)
-        Me.chkCapitalComponents.TabIndex = 3
-        Me.chkCapitalComponents.Text = "Capital Construction Components"
-        Me.chkCapitalComponents.UseVisualStyleBackColor = True
-        '
-        'chkCapT2Components
-        '
-        Me.chkCapT2Components.AutoSize = True
-        Me.chkCapT2Components.Location = New System.Drawing.Point(11, 19)
-        Me.chkCapT2Components.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCapT2Components.Name = "chkCapT2Components"
-        Me.chkCapT2Components.Size = New System.Drawing.Size(271, 21)
-        Me.chkCapT2Components.TabIndex = 2
-        Me.chkCapT2Components.Text = "Adv. Capital Construction Components"
-        Me.chkCapT2Components.UseVisualStyleBackColor = True
-        '
         'gbItems
         '
-        Me.gbItems.Controls.Add(Me.chkStructureModules)
-        Me.gbItems.Controls.Add(Me.chkCelestials)
-        Me.gbItems.Controls.Add(Me.chkDeployables)
         Me.gbItems.Controls.Add(Me.cmbPriceChargeTypes)
-        Me.gbItems.Controls.Add(Me.chkStructures)
-        Me.gbItems.Controls.Add(Me.chkStructureRigs)
         Me.gbItems.Controls.Add(Me.chkCharges)
-        Me.gbItems.Controls.Add(Me.chkBoosters)
         Me.gbItems.Controls.Add(Me.cmbPriceShipTypes)
         Me.gbItems.Controls.Add(Me.gbPricesTech)
-        Me.gbItems.Controls.Add(Me.chkSubsystems)
         Me.gbItems.Controls.Add(Me.chkShips)
         Me.gbItems.Controls.Add(Me.chkModules)
         Me.gbItems.Controls.Add(Me.chkRigs)
@@ -7972,39 +7822,6 @@ Partial Class frmMain
         Me.gbItems.TabStop = False
         Me.gbItems.Text = "Items"
         '
-        'chkStructureModules
-        '
-        Me.chkStructureModules.AutoSize = True
-        Me.chkStructureModules.Location = New System.Drawing.Point(11, 136)
-        Me.chkStructureModules.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkStructureModules.Name = "chkStructureModules"
-        Me.chkStructureModules.Size = New System.Drawing.Size(145, 21)
-        Me.chkStructureModules.TabIndex = 16
-        Me.chkStructureModules.Text = "Structure Modules"
-        Me.chkStructureModules.UseVisualStyleBackColor = True
-        '
-        'chkCelestials
-        '
-        Me.chkCelestials.AutoSize = True
-        Me.chkCelestials.Location = New System.Drawing.Point(245, 115)
-        Me.chkCelestials.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCelestials.Name = "chkCelestials"
-        Me.chkCelestials.Size = New System.Drawing.Size(90, 21)
-        Me.chkCelestials.TabIndex = 13
-        Me.chkCelestials.Text = "Celestials"
-        Me.chkCelestials.UseVisualStyleBackColor = True
-        '
-        'chkDeployables
-        '
-        Me.chkDeployables.AutoSize = True
-        Me.chkDeployables.Location = New System.Drawing.Point(118, 94)
-        Me.chkDeployables.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDeployables.Name = "chkDeployables"
-        Me.chkDeployables.Size = New System.Drawing.Size(108, 21)
-        Me.chkDeployables.TabIndex = 9
-        Me.chkDeployables.Text = "Deployables"
-        Me.chkDeployables.UseVisualStyleBackColor = True
-        '
         'cmbPriceChargeTypes
         '
         Me.cmbPriceChargeTypes.FormattingEnabled = True
@@ -8014,28 +7831,6 @@ Partial Class frmMain
         Me.cmbPriceChargeTypes.Size = New System.Drawing.Size(263, 25)
         Me.cmbPriceChargeTypes.TabIndex = 5
         Me.cmbPriceChargeTypes.Text = "All Charge Types"
-        '
-        'chkStructures
-        '
-        Me.chkStructures.AutoSize = True
-        Me.chkStructures.Location = New System.Drawing.Point(11, 115)
-        Me.chkStructures.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkStructures.Name = "chkStructures"
-        Me.chkStructures.Size = New System.Drawing.Size(95, 21)
-        Me.chkStructures.TabIndex = 12
-        Me.chkStructures.Text = "Structures"
-        Me.chkStructures.UseVisualStyleBackColor = True
-        '
-        'chkStructureRigs
-        '
-        Me.chkStructureRigs.AutoSize = True
-        Me.chkStructureRigs.Location = New System.Drawing.Point(118, 115)
-        Me.chkStructureRigs.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkStructureRigs.Name = "chkStructureRigs"
-        Me.chkStructureRigs.Size = New System.Drawing.Size(120, 21)
-        Me.chkStructureRigs.TabIndex = 14
-        Me.chkStructureRigs.Text = "Structure Rigs"
-        Me.chkStructureRigs.UseVisualStyleBackColor = True
         '
         'chkCharges
         '
@@ -8047,17 +7842,6 @@ Partial Class frmMain
         Me.chkCharges.TabIndex = 4
         Me.chkCharges.Text = "Charges"
         Me.chkCharges.UseVisualStyleBackColor = True
-        '
-        'chkBoosters
-        '
-        Me.chkBoosters.AutoSize = True
-        Me.chkBoosters.Location = New System.Drawing.Point(245, 94)
-        Me.chkBoosters.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBoosters.Name = "chkBoosters"
-        Me.chkBoosters.Size = New System.Drawing.Size(86, 21)
-        Me.chkBoosters.TabIndex = 11
-        Me.chkBoosters.Text = "Boosters"
-        Me.chkBoosters.UseVisualStyleBackColor = True
         '
         'cmbPriceShipTypes
         '
@@ -8071,11 +7855,6 @@ Partial Class frmMain
         '
         'gbPricesTech
         '
-        Me.gbPricesTech.Controls.Add(Me.chkPricesT4)
-        Me.gbPricesTech.Controls.Add(Me.chkPricesT6)
-        Me.gbPricesTech.Controls.Add(Me.chkPricesT5)
-        Me.gbPricesTech.Controls.Add(Me.chkPricesT3)
-        Me.gbPricesTech.Controls.Add(Me.chkPricesT2)
         Me.gbPricesTech.Controls.Add(Me.chkPricesT1)
         Me.gbPricesTech.Location = New System.Drawing.Point(360, 9)
         Me.gbPricesTech.Margin = New System.Windows.Forms.Padding(4)
@@ -8084,69 +7863,6 @@ Partial Class frmMain
         Me.gbPricesTech.Size = New System.Drawing.Size(118, 142)
         Me.gbPricesTech.TabIndex = 15
         Me.gbPricesTech.TabStop = False
-        '
-        'chkPricesT4
-        '
-        Me.chkPricesT4.AutoSize = True
-        Me.chkPricesT4.Enabled = False
-        Me.chkPricesT4.Location = New System.Drawing.Point(8, 75)
-        Me.chkPricesT4.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPricesT4.Name = "chkPricesT4"
-        Me.chkPricesT4.Size = New System.Drawing.Size(85, 21)
-        Me.chkPricesT4.TabIndex = 3
-        Me.chkPricesT4.Text = "Storyline"
-        Me.chkPricesT4.TextAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.chkPricesT4.UseVisualStyleBackColor = True
-        '
-        'chkPricesT6
-        '
-        Me.chkPricesT6.AutoSize = True
-        Me.chkPricesT6.Enabled = False
-        Me.chkPricesT6.Location = New System.Drawing.Point(8, 118)
-        Me.chkPricesT6.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPricesT6.Name = "chkPricesT6"
-        Me.chkPricesT6.Size = New System.Drawing.Size(117, 21)
-        Me.chkPricesT6.TabIndex = 9
-        Me.chkPricesT6.Text = "Pirate Faction"
-        Me.chkPricesT6.TextAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.chkPricesT6.UseVisualStyleBackColor = True
-        '
-        'chkPricesT5
-        '
-        Me.chkPricesT5.AutoSize = True
-        Me.chkPricesT5.Enabled = False
-        Me.chkPricesT5.Location = New System.Drawing.Point(8, 96)
-        Me.chkPricesT5.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPricesT5.Name = "chkPricesT5"
-        Me.chkPricesT5.Size = New System.Drawing.Size(112, 21)
-        Me.chkPricesT5.TabIndex = 8
-        Me.chkPricesT5.Text = "Navy Faction"
-        Me.chkPricesT5.TextAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.chkPricesT5.UseVisualStyleBackColor = True
-        '
-        'chkPricesT3
-        '
-        Me.chkPricesT3.AutoSize = True
-        Me.chkPricesT3.Enabled = False
-        Me.chkPricesT3.Location = New System.Drawing.Point(8, 54)
-        Me.chkPricesT3.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPricesT3.Name = "chkPricesT3"
-        Me.chkPricesT3.Size = New System.Drawing.Size(74, 21)
-        Me.chkPricesT3.TabIndex = 2
-        Me.chkPricesT3.Text = "Tech 3"
-        Me.chkPricesT3.UseVisualStyleBackColor = True
-        '
-        'chkPricesT2
-        '
-        Me.chkPricesT2.AutoSize = True
-        Me.chkPricesT2.Enabled = False
-        Me.chkPricesT2.Location = New System.Drawing.Point(8, 32)
-        Me.chkPricesT2.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPricesT2.Name = "chkPricesT2"
-        Me.chkPricesT2.Size = New System.Drawing.Size(74, 21)
-        Me.chkPricesT2.TabIndex = 1
-        Me.chkPricesT2.Text = "Tech 2"
-        Me.chkPricesT2.UseVisualStyleBackColor = True
         '
         'chkPricesT1
         '
@@ -8159,17 +7875,6 @@ Partial Class frmMain
         Me.chkPricesT1.TabIndex = 0
         Me.chkPricesT1.Text = "Tech 1"
         Me.chkPricesT1.UseVisualStyleBackColor = True
-        '
-        'chkSubsystems
-        '
-        Me.chkSubsystems.AutoSize = True
-        Me.chkSubsystems.Location = New System.Drawing.Point(11, 94)
-        Me.chkSubsystems.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkSubsystems.Name = "chkSubsystems"
-        Me.chkSubsystems.Size = New System.Drawing.Size(106, 21)
-        Me.chkSubsystems.TabIndex = 10
-        Me.chkSubsystems.Text = "Subsystems"
-        Me.chkSubsystems.UseVisualStyleBackColor = True
         '
         'chkShips
         '
@@ -8218,24 +7923,11 @@ Partial Class frmMain
         'gbRawMaterials
         '
         Me.gbRawMaterials.Controls.Add(Me.chkAbyssalMaterials)
-        Me.gbRawMaterials.Controls.Add(Me.chkBPCs)
         Me.gbRawMaterials.Controls.Add(Me.chkMisc)
         Me.gbRawMaterials.Controls.Add(Me.chkAsteroids)
-        Me.gbRawMaterials.Controls.Add(Me.chkPriceRawMaterialPrices)
         Me.gbRawMaterials.Controls.Add(Me.chkPlanetary)
-        Me.gbRawMaterials.Controls.Add(Me.chkBoosterMats)
-        Me.gbRawMaterials.Controls.Add(Me.chkDroneComponents)
         Me.gbRawMaterials.Controls.Add(Me.chkMatsandCompounds)
-        Me.gbRawMaterials.Controls.Add(Me.chkAdvancedMats)
-        Me.gbRawMaterials.Controls.Add(Me.chkProcessedMats)
-        Me.gbRawMaterials.Controls.Add(Me.chkRawMats)
-        Me.gbRawMaterials.Controls.Add(Me.chkGas)
-        Me.gbRawMaterials.Controls.Add(Me.chkPolymers)
-        Me.gbRawMaterials.Controls.Add(Me.chkAncientRelics)
-        Me.gbRawMaterials.Controls.Add(Me.chkAncientSalvage)
         Me.gbRawMaterials.Controls.Add(Me.chkSalvage)
-        Me.gbRawMaterials.Controls.Add(Me.chkDecryptors)
-        Me.gbRawMaterials.Controls.Add(Me.chkDatacores)
         Me.gbRawMaterials.Controls.Add(Me.chkIceProducts)
         Me.gbRawMaterials.Controls.Add(Me.chkMinerals)
         Me.gbRawMaterials.Location = New System.Drawing.Point(10, 421)
@@ -8257,17 +7949,6 @@ Partial Class frmMain
         Me.chkAbyssalMaterials.Text = "Abyssal Materials"
         Me.chkAbyssalMaterials.UseVisualStyleBackColor = True
         Me.chkAbyssalMaterials.Visible = False
-        '
-        'chkBPCs
-        '
-        Me.chkBPCs.AutoSize = True
-        Me.chkBPCs.Location = New System.Drawing.Point(166, 114)
-        Me.chkBPCs.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBPCs.Name = "chkBPCs"
-        Me.chkBPCs.Size = New System.Drawing.Size(133, 21)
-        Me.chkBPCs.TabIndex = 19
-        Me.chkBPCs.Text = "Blueprint Copies"
-        Me.chkBPCs.UseVisualStyleBackColor = True
         '
         'chkMisc
         '
@@ -8291,18 +7972,6 @@ Partial Class frmMain
         Me.chkAsteroids.Text = "Asteroids"
         Me.chkAsteroids.UseVisualStyleBackColor = True
         '
-        'chkPriceRawMaterialPrices
-        '
-        Me.chkPriceRawMaterialPrices.AutoSize = True
-        Me.chkPriceRawMaterialPrices.BackColor = System.Drawing.Color.White
-        Me.chkPriceRawMaterialPrices.Location = New System.Drawing.Point(8, 1)
-        Me.chkPriceRawMaterialPrices.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPriceRawMaterialPrices.Name = "chkPriceRawMaterialPrices"
-        Me.chkPriceRawMaterialPrices.Size = New System.Drawing.Size(118, 21)
-        Me.chkPriceRawMaterialPrices.TabIndex = 0
-        Me.chkPriceRawMaterialPrices.Text = "Raw Materials"
-        Me.chkPriceRawMaterialPrices.UseVisualStyleBackColor = False
-        '
         'chkPlanetary
         '
         Me.chkPlanetary.AutoSize = True
@@ -8313,28 +7982,6 @@ Partial Class frmMain
         Me.chkPlanetary.TabIndex = 5
         Me.chkPlanetary.Text = "Planetary"
         Me.chkPlanetary.UseVisualStyleBackColor = True
-        '
-        'chkBoosterMats
-        '
-        Me.chkBoosterMats.AutoSize = True
-        Me.chkBoosterMats.Location = New System.Drawing.Point(10, 272)
-        Me.chkBoosterMats.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBoosterMats.Name = "chkBoosterMats"
-        Me.chkBoosterMats.Size = New System.Drawing.Size(140, 21)
-        Me.chkBoosterMats.TabIndex = 18
-        Me.chkBoosterMats.Text = "Booster Materials"
-        Me.chkBoosterMats.UseVisualStyleBackColor = True
-        '
-        'chkDroneComponents
-        '
-        Me.chkDroneComponents.AutoSize = True
-        Me.chkDroneComponents.Location = New System.Drawing.Point(10, 251)
-        Me.chkDroneComponents.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDroneComponents.Name = "chkDroneComponents"
-        Me.chkDroneComponents.Size = New System.Drawing.Size(198, 21)
-        Me.chkDroneComponents.TabIndex = 17
-        Me.chkDroneComponents.Text = "Rogue Drone Components"
-        Me.chkDroneComponents.UseVisualStyleBackColor = True
         '
         'chkMatsandCompounds
         '
@@ -8347,83 +7994,6 @@ Partial Class frmMain
         Me.chkMatsandCompounds.Text = "Materials && Compounds"
         Me.chkMatsandCompounds.UseVisualStyleBackColor = True
         '
-        'chkAdvancedMats
-        '
-        Me.chkAdvancedMats.AutoSize = True
-        Me.chkAdvancedMats.Location = New System.Drawing.Point(10, 202)
-        Me.chkAdvancedMats.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAdvancedMats.Name = "chkAdvancedMats"
-        Me.chkAdvancedMats.Size = New System.Drawing.Size(193, 21)
-        Me.chkAdvancedMats.TabIndex = 15
-        Me.chkAdvancedMats.Text = "Advanced Moon Materials"
-        Me.chkAdvancedMats.UseVisualStyleBackColor = True
-        '
-        'chkProcessedMats
-        '
-        Me.chkProcessedMats.AutoSize = True
-        Me.chkProcessedMats.Location = New System.Drawing.Point(10, 181)
-        Me.chkProcessedMats.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkProcessedMats.Name = "chkProcessedMats"
-        Me.chkProcessedMats.Size = New System.Drawing.Size(197, 21)
-        Me.chkProcessedMats.TabIndex = 14
-        Me.chkProcessedMats.Text = "Processed Moon Materials"
-        Me.chkProcessedMats.UseVisualStyleBackColor = True
-        '
-        'chkRawMats
-        '
-        Me.chkRawMats.AutoSize = True
-        Me.chkRawMats.Location = New System.Drawing.Point(10, 160)
-        Me.chkRawMats.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRawMats.Name = "chkRawMats"
-        Me.chkRawMats.Size = New System.Drawing.Size(157, 21)
-        Me.chkRawMats.TabIndex = 13
-        Me.chkRawMats.Text = "Raw Moon Materials"
-        Me.chkRawMats.UseVisualStyleBackColor = True
-        '
-        'chkGas
-        '
-        Me.chkGas.AutoSize = True
-        Me.chkGas.Location = New System.Drawing.Point(166, 135)
-        Me.chkGas.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkGas.Name = "chkGas"
-        Me.chkGas.Size = New System.Drawing.Size(56, 21)
-        Me.chkGas.TabIndex = 11
-        Me.chkGas.Text = "Gas"
-        Me.chkGas.UseVisualStyleBackColor = True
-        '
-        'chkPolymers
-        '
-        Me.chkPolymers.AutoSize = True
-        Me.chkPolymers.Location = New System.Drawing.Point(166, 92)
-        Me.chkPolymers.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkPolymers.Name = "chkPolymers"
-        Me.chkPolymers.Size = New System.Drawing.Size(133, 21)
-        Me.chkPolymers.TabIndex = 10
-        Me.chkPolymers.Text = "Hybrid Polymers"
-        Me.chkPolymers.UseVisualStyleBackColor = True
-        '
-        'chkAncientRelics
-        '
-        Me.chkAncientRelics.AutoSize = True
-        Me.chkAncientRelics.Location = New System.Drawing.Point(166, 71)
-        Me.chkAncientRelics.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAncientRelics.Name = "chkAncientRelics"
-        Me.chkAncientRelics.Size = New System.Drawing.Size(119, 21)
-        Me.chkAncientRelics.TabIndex = 9
-        Me.chkAncientRelics.Text = "Ancient Relics"
-        Me.chkAncientRelics.UseVisualStyleBackColor = True
-        '
-        'chkAncientSalvage
-        '
-        Me.chkAncientSalvage.AutoSize = True
-        Me.chkAncientSalvage.Location = New System.Drawing.Point(166, 50)
-        Me.chkAncientSalvage.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAncientSalvage.Name = "chkAncientSalvage"
-        Me.chkAncientSalvage.Size = New System.Drawing.Size(132, 21)
-        Me.chkAncientSalvage.TabIndex = 8
-        Me.chkAncientSalvage.Text = "Ancient Salvage"
-        Me.chkAncientSalvage.UseVisualStyleBackColor = True
-        '
         'chkSalvage
         '
         Me.chkSalvage.AutoSize = True
@@ -8434,28 +8004,6 @@ Partial Class frmMain
         Me.chkSalvage.TabIndex = 7
         Me.chkSalvage.Text = "Salvage"
         Me.chkSalvage.UseVisualStyleBackColor = True
-        '
-        'chkDecryptors
-        '
-        Me.chkDecryptors.AutoSize = True
-        Me.chkDecryptors.Location = New System.Drawing.Point(10, 92)
-        Me.chkDecryptors.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDecryptors.Name = "chkDecryptors"
-        Me.chkDecryptors.Size = New System.Drawing.Size(99, 21)
-        Me.chkDecryptors.TabIndex = 4
-        Me.chkDecryptors.Text = "Decryptors"
-        Me.chkDecryptors.UseVisualStyleBackColor = True
-        '
-        'chkDatacores
-        '
-        Me.chkDatacores.AutoSize = True
-        Me.chkDatacores.Location = New System.Drawing.Point(10, 71)
-        Me.chkDatacores.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDatacores.Name = "chkDatacores"
-        Me.chkDatacores.Size = New System.Drawing.Size(95, 21)
-        Me.chkDatacores.TabIndex = 2
-        Me.chkDatacores.Text = "Datacores"
-        Me.chkDatacores.UseVisualStyleBackColor = True
         '
         'chkIceProducts
         '
@@ -10609,11 +10157,8 @@ Partial Class frmMain
         Me.gbTradeHubSystems.ResumeLayout(False)
         Me.gbTradeHubSystems.PerformLayout
         Me.gbManufacturedItems.ResumeLayout(False)
-        Me.gbManufacturedItems.PerformLayout
         Me.gbPriceTools.ResumeLayout(False)
         Me.gbPriceTools.PerformLayout
-        Me.gbComponents.ResumeLayout(False)
-        Me.gbComponents.PerformLayout
         Me.gbItems.ResumeLayout(False)
         Me.gbItems.PerformLayout
         Me.gbPricesTech.ResumeLayout(False)
@@ -11283,60 +10828,26 @@ Partial Class frmMain
     Friend WithEvents btnCancelUpdate As Button
     Friend WithEvents btnDownloadPrices As Button
     Friend WithEvents gbManufacturedItems As GroupBox
-    Friend WithEvents chkPriceManufacturedPrices As CheckBox
     Friend WithEvents gbPriceTools As GroupBox
-    Friend WithEvents chkImplants As CheckBox
-    Friend WithEvents chkUpdatePricesNoPrice As CheckBox
     Friend WithEvents chkFuelBlocks As CheckBox
     Friend WithEvents chkTools As CheckBox
-    Friend WithEvents gbComponents As GroupBox
-    Friend WithEvents chkStructureComponents As CheckBox
-    Friend WithEvents chkHybrid As CheckBox
-    Friend WithEvents chkComponents As CheckBox
-    Friend WithEvents chkCapitalComponents As CheckBox
-    Friend WithEvents chkCapT2Components As CheckBox
     Friend WithEvents gbItems As GroupBox
-    Friend WithEvents chkStructureModules As CheckBox
-    Friend WithEvents chkCelestials As CheckBox
-    Friend WithEvents chkDeployables As CheckBox
     Friend WithEvents cmbPriceChargeTypes As ComboBox
-    Friend WithEvents chkStructures As CheckBox
-    Friend WithEvents chkStructureRigs As CheckBox
     Friend WithEvents chkCharges As CheckBox
-    Friend WithEvents chkBoosters As CheckBox
     Friend WithEvents cmbPriceShipTypes As ComboBox
     Friend WithEvents gbPricesTech As GroupBox
-    Friend WithEvents chkPricesT4 As CheckBox
-    Friend WithEvents chkPricesT6 As CheckBox
-    Friend WithEvents chkPricesT5 As CheckBox
-    Friend WithEvents chkPricesT3 As CheckBox
-    Friend WithEvents chkPricesT2 As CheckBox
     Friend WithEvents chkPricesT1 As CheckBox
-    Friend WithEvents chkSubsystems As CheckBox
     Friend WithEvents chkShips As CheckBox
     Friend WithEvents chkModules As CheckBox
     Friend WithEvents chkRigs As CheckBox
     Friend WithEvents chkDrones As CheckBox
     Friend WithEvents gbRawMaterials As GroupBox
     Friend WithEvents chkAbyssalMaterials As CheckBox
-    Friend WithEvents chkBPCs As CheckBox
     Friend WithEvents chkMisc As CheckBox
     Friend WithEvents chkAsteroids As CheckBox
-    Friend WithEvents chkPriceRawMaterialPrices As CheckBox
     Friend WithEvents chkPlanetary As CheckBox
-    Friend WithEvents chkBoosterMats As CheckBox
-    Friend WithEvents chkDroneComponents As CheckBox
     Friend WithEvents chkMatsandCompounds As CheckBox
-    Friend WithEvents chkAdvancedMats As CheckBox
-    Friend WithEvents chkProcessedMats As CheckBox
-    Friend WithEvents chkRawMats As CheckBox
-    Friend WithEvents chkGas As CheckBox
-    Friend WithEvents chkPolymers As CheckBox
-    Friend WithEvents chkAncientRelics As CheckBox
-    Friend WithEvents chkAncientSalvage As CheckBox
     Friend WithEvents chkSalvage As CheckBox
-    Friend WithEvents chkDecryptors As CheckBox
-    Friend WithEvents chkDatacores As CheckBox
     Friend WithEvents chkIceProducts As CheckBox
     Friend WithEvents chkMinerals As CheckBox
     Friend WithEvents gbTradeHubSystems As GroupBox
