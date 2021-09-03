@@ -8442,14 +8442,6 @@ ExitForm:
         Dim SystemChecked As Boolean = False
         Dim SearchSystem As String = ""
 
-        ' Make sure they have at least one region checked first
-        For i = 1 To RegionCheckBoxes.Length - 1
-            If RegionCheckBoxes(i).Checked = True Then
-                RegionChecked = True
-                Exit For
-            End If
-        Next i
-
         ' Check systems too
         For i = 1 To SystemCheckBoxes.Length - 1
             If SystemCheckBoxes(i).Checked = True Then
