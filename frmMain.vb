@@ -16297,6 +16297,10 @@ ExitCalc:
     'Find the Percentile of a sorted array
     Private Function Percentile(ByVal sortedData As Double(), ByVal p As Double) As Double
         If p >= 100.0R Then Return sortedData(sortedData.Length - 1)
+        ' If the list is empty, return nothing
+        If sortedData.Length = 0 Then Return 0
+        ' If the list only has one item, return it
+        If sortedData.Length = 1 Then Return sortedData(sortedData.Length - 1)
         Dim position As Double = (sortedData.Length + 1) * p / 100.0
         Dim leftNumber As Double = 0.0R, rightNumber As Double = 0.0R
         Dim n As Double = p / 100.0R * (sortedData.Length - 1) + 1.0R
