@@ -1270,11 +1270,6 @@ InvalidDate:
             Call frmMain.RefreshBP(True)
         End If
 
-        ' Refresh the Mining Tab
-        If frmMain.lstMineGrid.Items.Count > 0 Then
-            Call frmMain.LoadMiningGrid()
-        End If
-
         ' Refresh the prices in manual update for minerals
         Call frmManualPriceUpdate.LoadMineralPrices()
 
