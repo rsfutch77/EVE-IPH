@@ -633,23 +633,12 @@ Public Class frmMain
         '****************************************
         '**** Manufacturing Tab Initializations ****
         '****************************************
-        CalcRelicCheckboxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkCalcRERelic"), CheckBox())
-        CalcDecryptorCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkCalcDecryptor"), CheckBox())
 
         ' Add the columns based on settings
         Call RefreshManufacturingTabColumns()
 
         If UserApplicationSettings.ShowToolTips Then
             ' Decryptor Tool tips
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor2, "Augmentation - (PM: 0.6, Runs: +9, ME: -2, TE: +1)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor3, "Optimized Augmentation - (PM: 0.9, Runs: +7, ME +2 TE: 0)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor4, "Symmetry - (PM: 1.0, Runs: +2, ME: +1, TE: +4)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor5, "Process - (PM: 1.1, Runs: 0, ME: +3, TE: +3)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor6, "Accelerant - (PM: 1.2, Runs: +1, ME: +2, TE: +5)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor7, "Parity - (PM: 1.5, Runs: +3, ME: +1, TE: -1)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor8, "Attainment - (PM: 1.8, Runs: +4, ME: -1, TE: +2)")
-            ttUpdatePrices.SetToolTip(chkCalcDecryptor9, "Optimized Attainment - (PM: 1.9, Runs: +2, ME: +1, TE: -1)")
-
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Will assume Number of BPs is same as Number of Production lines for Calculations")
             ttUpdatePrices.SetToolTip(chkCalcTaxes, "Sales Taxes to set up a sell order at an NPC Station for the Item")
             ttUpdatePrices.SetToolTip(chkCalcFees, "Broker's Fees to set up a sell order at an NPC Station for the Item")
@@ -772,27 +761,7 @@ Public Class frmMain
 
             ' Load up the Manufacturing tab facilities
             Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
-            Call CalcInventionFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Invention, Me)
-            Call CalcT3InventionFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3Invention, Me)
-            Call CalcCopyFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Copying, Me)
-            Call CalcSupersFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.SuperManufacturing, Me)
-            Call CalcCapitalsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.CapitalManufacturing, Me)
-            Call CalcSubsystemsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.SubsystemManufacturing, Me)
-            Call CalcReactionsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Reactions, Me)
-            Call CalcBoostersFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.BoosterManufacturing, Me)
 
-            ' Two facilities with check options - load the one they save
-            If UserManufacturingTabSettings.CheckCapitalComponentsFacility Then
-                Call CalcComponentsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.CapitalComponentManufacturing, Me)
-            Else
-                Call CalcComponentsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.ComponentManufacturing, Me)
-            End If
-
-            If UserManufacturingTabSettings.CheckT3DestroyerFacility Then
-                Call CalcT3ShipsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3DestroyerManufacturing, Me)
-            Else
-                Call CalcT3ShipsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3CruiserManufacturing, Me)
-            End If
         Else ' Multi-save
             ' Need to see what facility to reload
             Dim SavedPT As ProductionType
@@ -810,32 +779,8 @@ Public Class frmMain
                 SavedPT = BPTabFacility.GetSelectedFacility.FacilityProductionType
 
                 Select Case FacilityType
-                    Case ProductionType.BoosterManufacturing
-                        Call CalcBoostersFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.BoosterManufacturing, Me)
-                    Case ProductionType.CapitalComponentManufacturing
-                        Call CalcComponentsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.CapitalComponentManufacturing, Me)
-                    Case ProductionType.CapitalManufacturing
-                        Call CalcCapitalsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.CapitalManufacturing, Me)
-                    Case ProductionType.ComponentManufacturing
-                        Call CalcComponentsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.ComponentManufacturing, Me)
-                    Case ProductionType.Copying
-                        Call CalcCopyFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Copying, Me)
-                    Case ProductionType.Invention
-                        Call CalcInventionFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Invention, Me)
                     Case ProductionType.Manufacturing
                         Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
-                    Case ProductionType.Reactions
-                        Call CalcReactionsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Reactions, Me)
-                    Case ProductionType.SubsystemManufacturing
-                        Call CalcSubsystemsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.SubsystemManufacturing, Me)
-                    Case ProductionType.SuperManufacturing
-                        Call CalcSupersFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.SuperManufacturing, Me)
-                    Case ProductionType.T3CruiserManufacturing
-                        Call CalcT3ShipsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3CruiserManufacturing, Me)
-                    Case ProductionType.T3DestroyerManufacturing
-                        Call CalcT3ShipsFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3DestroyerManufacturing, Me)
-                    Case ProductionType.T3Invention
-                        Call CalcT3InventionFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.T3Invention, Me)
                 End Select
             End If
         End If
@@ -2279,30 +2224,10 @@ Public Class frmMain
                 With SelectedCharacter
                     Call BPTabFacility.ResetSelectedCharacterID(.ID)
 
-                    Call CalcInventionFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcT3InventionFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcCopyFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcSupersFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcCapitalsFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcSubsystemsFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcReactionsFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcBoostersFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcComponentsFacility.ResetSelectedCharacterID(.ID)
-                    Call CalcT3ShipsFacility.ResetSelectedCharacterID(.ID)
                 End With
             Else
                 Call BPTabFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
 
-                Call CalcInventionFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcT3InventionFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcCopyFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcSupersFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcCapitalsFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcSubsystemsFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcReactionsFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcBoostersFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcComponentsFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
-                Call CalcT3ShipsFacility.ResetSelectedCharacterID(CommonSavedFacilitiesID)
             End If
 
             ' Finally, refresh the bptab facility
@@ -9725,89 +9650,6 @@ ExitPRocessing:
         e.Handled = True
     End Sub
 
-    Private Sub CheckRelicCalcChecks()
-        Dim i As Integer
-
-        If chkCalcT3.Checked Then
-            If Not FirstLoad Then
-                For i = 1 To CalcRelicCheckboxes.Count - 1
-                    If CalcRelicCheckboxes(i).Checked Then
-                        Exit Sub
-                    End If
-                Next
-
-                ' One wasn't checked, display message and check wrecked
-                MsgBox("Must select at least one relic type", vbExclamation, Application.ProductName)
-                chkCalcRERelic1.Checked = True
-            End If
-        End If
-
-    End Sub
-
-    Private Sub CheckDecryptorChecks()
-        Dim i As Integer
-
-        ' Only check decryptor checks if they have T2 bp's checked
-        If chkCalcT2.Checked Then
-            If Not FirstLoad Then
-                For i = 1 To CalcDecryptorCheckBoxes.Count - 1
-                    If CalcDecryptorCheckBoxes(i).Checked Then
-                        GoTo CheckTechs
-                    End If
-                Next
-
-                ' One wasn't checked, display message and check wrecked
-                MsgBox("Must select at least one decryptor type", vbExclamation, Application.ProductName)
-                chkCalcDecryptor1.Checked = True
-            End If
-        End If
-
-CheckTechs:
-
-        If chkCalcDecryptorforT2.Enabled And chkCalcDecryptorforT3.Enabled Then
-            ' If both enabled, one needs to be checked
-            If chkCalcDecryptorforT2.Checked = False And chkCalcDecryptorforT3.Checked = False Then
-                MsgBox("Must select Decryptor if using Tech 2 and 3", vbExclamation, Application.ProductName)
-                chkCalcDecryptorforT2.Checked = True
-            End If
-        ElseIf chkCalcDecryptorforT2.Enabled Then
-            If chkCalcDecryptorforT2.Checked = False Then
-                MsgBox("Must select Decryptor if using Tech 2", vbExclamation, Application.ProductName)
-                chkCalcDecryptorforT2.Checked = True
-            End If
-        ElseIf chkCalcDecryptorforT3.Enabled Then
-            If chkCalcDecryptorforT3.Checked = False Then
-                MsgBox("Must select Decryptor if using Tech 3", vbExclamation, Application.ProductName)
-                chkCalcDecryptorforT3.Checked = True
-            End If
-        End If
-
-    End Sub
-
-    Private Sub rbtnCalcRawT2MatType_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnCalcRawT2MatType.CheckedChanged
-        If rbtnCalcRawT2MatType.Checked Then
-            UserManufacturingTabSettings.BuildT2T3Materials = BuildMatType.RawMaterials
-            Call ResetRefresh()
-            Call ProcessT2MatSelection()
-        End If
-    End Sub
-
-    Private Sub rbtnCalcProcT2MatType_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnCalcProcT2MatType.CheckedChanged
-        If rbtnCalcProcT2MatType.Checked Then
-            UserManufacturingTabSettings.BuildT2T3Materials = BuildMatType.ProcessedMaterials
-            Call ResetRefresh()
-            Call ProcessT2MatSelection()
-        End If
-    End Sub
-
-    Private Sub rbtnCalcAdvT2MatType_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnCalcAdvT2MatType.CheckedChanged
-        If rbtnCalcAdvT2MatType.Checked Then
-            UserManufacturingTabSettings.BuildT2T3Materials = BuildMatType.AdvMaterials
-            Call ResetRefresh()
-            Call ProcessT2MatSelection()
-        End If
-    End Sub
-
     Private Sub txtCalcProdLines_DoubleClick(sender As Object, e As System.EventArgs) Handles txtCalcProdLines.DoubleClick
         ' Enter the max lines we have
         txtCalcProdLines.Text = CStr(SelectedCharacter.MaximumProductionLines)
@@ -9938,7 +9780,7 @@ CheckTechs:
         txtCalcBrokerFeeRate.Text = GetFormattedPercentEntry(txtCalcBrokerFeeRate)
     End Sub
 
-    Private Sub chkCalcSellExessItems_CheckedChanged(sender As Object, e As EventArgs) Handles chkCalcSellExessItems.CheckedChanged
+    Private Sub chkCalcSellExessItems_CheckedChanged(sender As Object, e As EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -9958,15 +9800,15 @@ CheckTechs:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcIgnoreInvention_CheckedChanged_1(sender As System.Object, e As System.EventArgs) Handles chkCalcIgnoreInvention.CheckedChanged
+    Private Sub chkCalcIgnoreInvention_CheckedChanged_1(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcIgnoreMinerals_CheckedChanged_1(sender As System.Object, e As System.EventArgs) Handles chkCalcIgnoreMinerals.CheckedChanged
+    Private Sub chkCalcIgnoreMinerals_CheckedChanged_1(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcIgnoreT1Item_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcIgnoreT1Item.CheckedChanged
+    Private Sub chkCalcIgnoreT1Item_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -10066,22 +9908,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcRERelic1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRERelic1.CheckedChanged
-        Call CheckRelicCalcChecks()
-        Call ResetRefresh()
-    End Sub
-
     Private Sub chkCalcUseMaxBPCRunsNoRunsDecryptor_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcRERelic2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRERelic2.CheckedChanged
-        Call CheckRelicCalcChecks()
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcRERelic3_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRERelic3.CheckedChanged
-        Call CheckRelicCalcChecks()
         Call ResetRefresh()
     End Sub
 
@@ -10141,77 +9968,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcT2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcT2.CheckedChanged
-        If Not FirstManufacturingGridLoad Then
-            EnableDisableT2T3Options()
-        End If
-    End Sub
-
-    Private Sub chkCalcT3_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcT3.CheckedChanged
-        If Not FirstManufacturingGridLoad Then
-            Call EnableDisableT2T3Options()
-        End If
-    End Sub
-
-    ' Enables and disables the checks on the screen when T2 or T3 is selected
-    Private Sub EnableDisableT2T3Options()
-
-        FirstLoadCalcBPTypes = True
-        cmbCalcBPTypeFilter.Text = "All Types"
-        Call ResetRefresh()
-
-        ' If checked, show the options, disable if not
-        If chkCalcT2.Checked = True Then
-            chkCalcCanInvent.Enabled = True
-            chkCalcCanInvent.Enabled = True
-            chkCalcIncludeT2Owned.Enabled = True
-            chkCalcDecryptorforT2.Enabled = True
-        Else
-            chkCalcCanInvent.Enabled = False
-            chkCalcCanInvent.Enabled = False
-            chkCalcIncludeT2Owned.Enabled = False
-            chkCalcDecryptorforT2.Enabled = False
-        End If
-
-        ' If T3 checked, enable T3 options, else disable
-        If chkCalcT3.Checked = True Then
-            gbCalcRelics.Enabled = True
-            chkCalcIncludeT3Owned.Enabled = True
-            chkCalcDecryptorforT3.Enabled = True
-        Else
-            gbCalcRelics.Enabled = False
-            chkCalcIncludeT3Owned.Enabled = False
-            chkCalcDecryptorforT3.Enabled = False
-        End If
-
-        If chkCalcT3.Checked = False And chkCalcT2.Checked = False Then
-            gbCalcInvention.Enabled = False
-        Else
-            gbCalcInvention.Enabled = True
-        End If
-
-        ' Auto check if only one option enabled
-        If chkCalcDecryptorforT2.Enabled And chkCalcT2.Checked And chkCalcDecryptorforT3.Enabled = False Then
-            ' Auto check this
-            chkCalcDecryptorforT2.Checked = True
-        ElseIf chkCalcDecryptorforT3.Enabled And chkCalcT3.Checked And chkCalcDecryptorforT2.Enabled = False Then
-            ' Auto check this
-            chkCalcDecryptorforT3.Checked = True
-        End If
-
-    End Sub
-
-    Private Sub chkCalcT2_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkCalcT2.Click
-        Call CheckDecryptorChecks()
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcT3_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkCalcT3.Click
-        Call CheckRelicCalcChecks()
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcStoryline_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcStoryline.CheckedChanged
+    Private Sub chkCalcStoryline_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10219,7 +9976,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcNavyFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcNavyFaction.CheckedChanged
+    Private Sub chkCalcNavyFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10227,7 +9984,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcPirateFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcPirateFaction.CheckedChanged
+    Private Sub chkCalcPirateFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10283,7 +10040,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcComponents.CheckedChanged
+    Private Sub chkCalcComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10291,7 +10048,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcStationParts_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcStructureRigs.CheckedChanged
+    Private Sub chkCalcStationParts_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10299,7 +10056,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcSubsystems_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcSubsystems.CheckedChanged
+    Private Sub chkCalcSubsystems_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10307,7 +10064,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcStructures_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcStructures.CheckedChanged
+    Private Sub chkCalcStructures_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10315,7 +10072,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcBoosters_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcBoosters.CheckedChanged
+    Private Sub chkCalcBoosters_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10331,7 +10088,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcCelestials_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcCelestials.CheckedChanged
+    Private Sub chkCalcCelestials_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10339,7 +10096,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcReactions_CheckedChanged(sender As Object, e As EventArgs) Handles chkCalcReactions.CheckedChanged
+    Private Sub chkCalcReactions_CheckedChanged(sender As Object, e As EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10347,7 +10104,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcStructureModules_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcStructureModules.CheckedChanged
+    Private Sub chkCalcStructureModules_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10355,7 +10112,7 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcDeployables_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcDeployables.CheckedChanged
+    Private Sub chkCalcDeployables_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -10367,7 +10124,6 @@ CheckTechs:
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
-            gbCalcIncludeOwned.Enabled = True
             Call ResetRefresh()
         End If
     End Sub
@@ -10376,7 +10132,6 @@ CheckTechs:
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
-            gbCalcIncludeOwned.Enabled = False
             Call ResetRefresh()
         End If
     End Sub
@@ -10385,7 +10140,6 @@ CheckTechs:
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
-            gbCalcIncludeOwned.Enabled = True
             Call ResetRefresh()
         End If
     End Sub
@@ -10420,126 +10174,18 @@ CheckTechs:
         End If
     End Sub
 
-    Private Sub chkCalcDecryptor0_Click(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptor0.Click
-        ' Change the name based on the check state
-        If chkCalcDecryptor0.CheckState = CheckState.Unchecked Then
-            chkCalcDecryptor0.Text = "Optimal"
-        ElseIf chkCalcDecryptor0.CheckState = CheckState.Checked Then
-            chkCalcDecryptor0.Text = "Optimal IPH"
-        ElseIf chkCalcDecryptor0.CheckState = CheckState.Indeterminate Then
-            chkCalcDecryptor0.Text = "Optimal Profit"
-        End If
+    Private Sub chkCalcDecryptor0_Click(sender As System.Object, e As System.EventArgs)
 
         If Not FirstLoad Then
-            ' For this one, it's optimal so disable all the others if checked
-            If chkCalcDecryptor0.Checked Then
-                chkCalcDecryptor1.Enabled = False
-                chkCalcDecryptor2.Enabled = False
-                chkCalcDecryptor3.Enabled = False
-                chkCalcDecryptor4.Enabled = False
-                chkCalcDecryptor5.Enabled = False
-                chkCalcDecryptor6.Enabled = False
-                chkCalcDecryptor7.Enabled = False
-                chkCalcDecryptor8.Enabled = False
-                chkCalcDecryptor9.Enabled = False
-            Else
-                chkCalcDecryptor1.Enabled = True
-                chkCalcDecryptor2.Enabled = True
-                chkCalcDecryptor3.Enabled = True
-                chkCalcDecryptor4.Enabled = True
-                chkCalcDecryptor5.Enabled = True
-                chkCalcDecryptor6.Enabled = True
-                chkCalcDecryptor7.Enabled = True
-                chkCalcDecryptor8.Enabled = True
-                chkCalcDecryptor9.Enabled = True
-            End If
-            Call CheckDecryptorChecks()
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcDecryptor1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor1.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor2.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor3_CheckedChanged_1(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptor3.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor4_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor4.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor5_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor5.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor6_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor6.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor7_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptor7.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDecryptor8.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptor9_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptor9.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptorforT2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptorforT2.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcDecryptorforT3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcDecryptorforT3.CheckedChanged
-        If Not FirstLoad Then
-            Call CheckDecryptorChecks()
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcIncludeT2Owned_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcIncludeT2Owned.CheckedChanged
+    Private Sub chkCalcIncludeT2Owned_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcIncludeT3Owned_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcIncludeT3Owned.CheckedChanged
+    Private Sub chkCalcIncludeT3Owned_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -11907,37 +11553,21 @@ CheckTechs:
             ' Blueprints
             chkCalcNPCBPOs.Checked = .CheckBPTypeNPCBPOs
             chkCalcAmmo.Checked = .CheckBPTypeAmmoCharges
-            chkCalcBoosters.Checked = .CheckBPTypeBoosters
-            chkCalcComponents.Checked = .CheckBPTypeComponents
             chkCalcDrones.Checked = .CheckBPTypeDrones
             chkCalcModules.Checked = .CheckBPTypeModules
             chkCalcRigs.Checked = .CheckBPTypeRigs
             chkCalcShips.Checked = .CheckBPTypeShips
-            chkCalcSubsystems.Checked = .CheckBPTypeSubsystems
-            chkCalcStructures.Checked = .CheckBPTypeStructures
             chkCalcMisc.Checked = .CheckBPTypeMisc
-            chkCalcDeployables.Checked = .CheckBPTypeDeployables
-            chkCalcCelestials.Checked = .CheckBPTypeCelestials
-            chkCalcReactions.Checked = .CheckBPTypeReactions
-            chkCalcStructureModules.Checked = .CheckBPTypeStructureModules
-            chkCalcStructureRigs.Checked = .CheckBPTypeStationParts
 
             ' Tech
             chkCalcT1.Checked = .CheckTech1
-            chkCalcT2.Checked = .CheckTech2
-            chkCalcT3.Checked = .CheckTech3
-            chkCalcStoryline.Checked = .CheckTechStoryline
-            chkCalcPirateFaction.Checked = .CheckTechPirate
-            chkCalcNavyFaction.Checked = .CheckTechNavy
 
             ' Blueprint load types
             Select Case .BlueprintType
                 Case rbtnCalcAllBPs.Text
                     rbtnCalcAllBPs.Checked = True
-                    gbCalcIncludeOwned.Enabled = False
                 Case rbtnCalcBPOwned.Text
                     rbtnCalcBPOwned.Checked = True
-                    gbCalcIncludeOwned.Enabled = True
             End Select
 
             cmbCalcBPTypeFilter.Text = .ItemTypeFilter
@@ -11959,67 +11589,6 @@ CheckTechs:
             End Select
 
             txtCalcBrokerFeeRate.Text = FormatPercent(.CalcBrokerFeeRate, 1)
-
-            chkCalcSellExessItems.Checked = .CheckSellExcessItems
-
-            Select Case .BuildT2T3Materials
-                Case BuildMatType.AdvMaterials
-                    rbtnCalcAdvT2MatType.Checked = True
-                Case BuildMatType.ProcessedMaterials
-                    rbtnCalcProcT2MatType.Checked = True
-                Case BuildMatType.RawMaterials
-                    rbtnCalcRawT2MatType.Checked = True
-            End Select
-
-            ' Check wrecked Relics, do not check meta levels or decryptors (NONE)
-            chkCalcDecryptor0.CheckState = CType(.CheckDecryptorOptimal, CheckState)
-            chkCalcDecryptor1.Checked = .CheckDecryptorNone ' No decryptor
-            chkCalcDecryptor2.Checked = .CheckDecryptor06
-            chkCalcDecryptor3.Checked = .CheckDecryptor09
-            chkCalcDecryptor4.Checked = .CheckDecryptor10
-            chkCalcDecryptor5.Checked = .CheckDecryptor11
-            chkCalcDecryptor6.Checked = .CheckDecryptor12
-            chkCalcDecryptor7.Checked = .CheckDecryptor15
-            chkCalcDecryptor8.Checked = .CheckDecryptor18
-            chkCalcDecryptor9.Checked = .CheckDecryptor19
-
-            ' Change the name based on the check state
-            If chkCalcDecryptor0.CheckState = CheckState.Unchecked Then
-                chkCalcDecryptor0.Text = "Optimal"
-            ElseIf chkCalcDecryptor0.CheckState = CheckState.Checked Then
-                chkCalcDecryptor0.Text = "Optimal IPH"
-            ElseIf chkCalcDecryptor0.CheckState = CheckState.Indeterminate Then
-                chkCalcDecryptor0.Text = "Optimal Profit"
-            End If
-
-            If chkCalcDecryptor0.CheckState <> CheckState.Unchecked Then
-                chkCalcDecryptor1.Enabled = False
-                chkCalcDecryptor2.Enabled = False
-                chkCalcDecryptor3.Enabled = False
-                chkCalcDecryptor4.Enabled = False
-                chkCalcDecryptor5.Enabled = False
-                chkCalcDecryptor6.Enabled = False
-                chkCalcDecryptor7.Enabled = False
-                chkCalcDecryptor8.Enabled = False
-                chkCalcDecryptor9.Enabled = False
-            Else
-                chkCalcDecryptor1.Enabled = True
-                chkCalcDecryptor2.Enabled = True
-                chkCalcDecryptor3.Enabled = True
-                chkCalcDecryptor4.Enabled = True
-                chkCalcDecryptor5.Enabled = True
-                chkCalcDecryptor6.Enabled = True
-                chkCalcDecryptor7.Enabled = True
-                chkCalcDecryptor8.Enabled = True
-                chkCalcDecryptor9.Enabled = True
-            End If
-
-            chkCalcDecryptorforT2.Checked = .CheckDecryptorUseforT2
-            chkCalcDecryptorforT3.Checked = .CheckDecryptorUseforT3
-
-            chkCalcRERelic3.Checked = .CheckRelicIntact
-            chkCalcRERelic2.Checked = .CheckRelicMalfunction
-            chkCalcRERelic1.Checked = .CheckRelicWrecked
 
             chkCalcRaceAmarr.Checked = .CheckRaceAmarr
             chkCalcRaceCaldari.Checked = .CheckRaceCaldari
@@ -12050,9 +11619,6 @@ CheckTechs:
             ' Other defaults
             txtCalcTempME.Text = CStr(UserApplicationSettings.DefaultBPME)
             txtCalcTempTE.Text = CStr(UserApplicationSettings.DefaultBPTE)
-
-            chkCalcIncludeT2Owned.Checked = .CheckIncludeT2Owned
-            chkCalcIncludeT3Owned.Checked = .CheckIncludeT3Owned
 
             chkCalcSVRIncludeNull.Checked = .CheckSVRIncludeNull
 
@@ -12124,7 +11690,6 @@ CheckTechs:
         End With
 
         Call ResetRefresh()
-        Call EnableDisableT2T3Options()
 
     End Sub
 
@@ -12188,39 +11753,13 @@ CheckTechs:
         With TempSettings
             .CheckBPTypeNPCBPOs = chkCalcNPCBPOs.Checked
             .CheckBPTypeAmmoCharges = chkCalcAmmo.Checked
-            .CheckBPTypeBoosters = chkCalcBoosters.Checked
-            .CheckBPTypeComponents = chkCalcComponents.Checked
             .CheckBPTypeDrones = chkCalcDrones.Checked
             .CheckBPTypeModules = chkCalcModules.Checked
             .CheckBPTypeRigs = chkCalcRigs.Checked
             .CheckBPTypeShips = chkCalcShips.Checked
-            .CheckBPTypeSubsystems = chkCalcSubsystems.Checked
-            .CheckBPTypeStructures = chkCalcStructures.Checked
             .CheckBPTypeMisc = chkCalcMisc.Checked
-            .CheckBPTypeDeployables = chkCalcDeployables.Checked
-            .CheckBPTypeCelestials = chkCalcCelestials.Checked
-            .CheckBPTypeReactions = chkCalcReactions.Checked
-            .CheckBPTypeStructureModules = chkCalcStructureModules.Checked
-            .CheckBPTypeStationParts = chkCalcStructureRigs.Checked
 
             .CheckTech1 = chkCalcT1.Checked
-            .CheckTech2 = chkCalcT2.Checked
-            .CheckTech3 = chkCalcT3.Checked
-            .CheckTechStoryline = chkCalcStoryline.Checked
-            .CheckTechPirate = chkCalcPirateFaction.Checked
-            .CheckTechNavy = chkCalcNavyFaction.Checked
-
-            If CalcComponentsFacility.GetCurrentFacilityProductionType = ProductionType.CapitalComponentManufacturing Then
-                .CheckCapitalComponentsFacility = True
-            Else
-                .CheckCapitalComponentsFacility = False
-            End If
-
-            If CalcT3ShipsFacility.GetCurrentFacilityProductionType = ProductionType.T3DestroyerManufacturing Then
-                .CheckT3DestroyerFacility = True
-            Else
-                .CheckT3DestroyerFacility = False
-            End If
 
             .CheckAutoCalcNumBPs = chkCalcAutoCalcT2NumBPs.Checked
 
@@ -12243,26 +11782,6 @@ CheckTechs:
                 .CheckIncludeBrokersFees = 0
             End If
             .CalcBrokerFeeRate = FormatManualPercentEntry(txtCalcBrokerFeeRate.Text)
-
-            .CheckSellExcessItems = chkCalcSellExessItems.Checked
-
-            .CheckDecryptorOptimal = CInt(chkCalcDecryptor0.CheckState)
-            .CheckDecryptorNone = chkCalcDecryptor1.Checked
-            .CheckDecryptor06 = chkCalcDecryptor2.Checked
-            .CheckDecryptor09 = chkCalcDecryptor3.Checked
-            .CheckDecryptor10 = chkCalcDecryptor4.Checked
-            .CheckDecryptor11 = chkCalcDecryptor5.Checked
-            .CheckDecryptor12 = chkCalcDecryptor6.Checked
-            .CheckDecryptor15 = chkCalcDecryptor7.Checked
-            .CheckDecryptor18 = chkCalcDecryptor8.Checked
-            .CheckDecryptor19 = chkCalcDecryptor9.Checked
-
-            .CheckDecryptorUseforT2 = chkCalcDecryptorforT2.Checked
-            .CheckDecryptorUseforT3 = chkCalcDecryptorforT3.Checked
-
-            .CheckRelicIntact = chkCalcRERelic3.Checked
-            .CheckRelicMalfunction = chkCalcRERelic2.Checked
-            .CheckRelicWrecked = chkCalcRERelic1.Checked
 
             .CheckRaceAmarr = chkCalcRaceAmarr.Checked
             .CheckRaceCaldari = chkCalcRaceCaldari.Checked
@@ -12309,9 +11828,6 @@ CheckTechs:
             .CheckLarge = chkCalcLarge.Checked
             .CheckXL = chkCalcXL.Checked
 
-            .CheckIncludeT2Owned = chkCalcIncludeT2Owned.Checked
-            .CheckIncludeT3Owned = chkCalcIncludeT3Owned.Checked
-
             .CheckSVRIncludeNull = chkCalcSVRIncludeNull.Checked
             .ProductionLines = CInt(txtCalcProdLines.Text)
             .LaboratoryLines = CInt(txtCalcLabLines.Text)
@@ -12333,14 +11849,7 @@ CheckTechs:
             .VolumeThresholdCheck = chkCalcVolumeThreshold.Checked
             .VolumeThreshold = CDbl(txtCalcVolumeThreshold.Text)
 
-            ' How they want to build T2/T3 items
-            If rbtnCalcAdvT2MatType.Checked Then
-                .BuildT2T3Materials = BuildMatType.AdvMaterials
-            ElseIf rbtnCalcProcT2MatType.Checked Then
-                .BuildT2T3Materials = BuildMatType.ProcessedMaterials
-            ElseIf rbtnCalcRawT2MatType.Checked Then
-                .BuildT2T3Materials = BuildMatType.RawMaterials
-            End If
+            .BuildT2T3Materials = BuildMatType.RawMaterials
 
             Select Case chkCalcProfitThreshold.CheckState
                 Case CheckState.Checked
@@ -12566,42 +12075,6 @@ CheckTechs:
         ' Make sure they have a facility loaded - if not, load the default for the type
         If Not CalcBaseFacility.GetFacility(ProductionType.Manufacturing).FullyLoaded Then
             CalcBaseFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.Manufacturing)
-        End If
-        If Not CalcComponentsFacility.GetFacility(ProductionType.ComponentManufacturing).FullyLoaded Then
-            CalcComponentsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.ComponentManufacturing)
-        End If
-        If Not CalcComponentsFacility.GetFacility(ProductionType.CapitalComponentManufacturing).FullyLoaded Then
-            CalcComponentsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.CapitalComponentManufacturing)
-        End If
-        If Not CalcInventionFacility.GetFacility(ProductionType.Invention).FullyLoaded Then
-            CalcInventionFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.Invention)
-        End If
-        If Not CalcCopyFacility.GetFacility(ProductionType.Copying).FullyLoaded Then
-            CalcCopyFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.Copying)
-        End If
-        If Not CalcT3InventionFacility.GetFacility(ProductionType.T3Invention).FullyLoaded Then
-            CalcT3InventionFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.T3Invention)
-        End If
-        If Not CalcSupersFacility.GetFacility(ProductionType.SuperManufacturing).FullyLoaded Then
-            CalcSupersFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.SuperManufacturing)
-        End If
-        If Not CalcCapitalsFacility.GetFacility(ProductionType.CapitalManufacturing).FullyLoaded Then
-            CalcCapitalsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.CapitalManufacturing)
-        End If
-        If Not CalcT3ShipsFacility.GetFacility(ProductionType.T3CruiserManufacturing).FullyLoaded Then
-            CalcT3ShipsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.T3CruiserManufacturing)
-        End If
-        If Not CalcT3ShipsFacility.GetFacility(ProductionType.T3DestroyerManufacturing).FullyLoaded Then
-            CalcT3ShipsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.T3DestroyerManufacturing)
-        End If
-        If Not CalcSubsystemsFacility.GetFacility(ProductionType.SubsystemManufacturing).FullyLoaded Then
-            CalcSubsystemsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.SubsystemManufacturing)
-        End If
-        If Not CalcBoostersFacility.GetFacility(ProductionType.BoosterManufacturing).FullyLoaded Then
-            CalcBoostersFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.BoosterManufacturing)
-        End If
-        If Not CalcReactionsFacility.GetFacility(ProductionType.Reactions).FullyLoaded Then
-            CalcReactionsFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.Reactions)
         End If
 
         If Not SavedRefreshValue Then
@@ -12867,36 +12340,13 @@ CheckTechs:
                     Select Case BuildType
                         Case ProductionType.Manufacturing
                             InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(BuildType)
-                        Case ProductionType.ComponentManufacturing, ProductionType.CapitalComponentManufacturing
-                            InsertItem.ManufacturingFacility = CalcComponentsFacility.GetFacility(BuildType)
-                        Case ProductionType.BoosterManufacturing
-                            InsertItem.ManufacturingFacility = CalcBoostersFacility.GetFacility(BuildType)
-                        Case ProductionType.CapitalManufacturing
-                            InsertItem.ManufacturingFacility = CalcCapitalsFacility.GetFacility(BuildType)
-                        Case ProductionType.Reactions
-                            InsertItem.ManufacturingFacility = CalcReactionsFacility.GetFacility(BuildType)
-                        Case ProductionType.SubsystemManufacturing
-                            InsertItem.ManufacturingFacility = CalcSubsystemsFacility.GetFacility(BuildType)
-                        Case ProductionType.SuperManufacturing
-                            InsertItem.ManufacturingFacility = CalcSupersFacility.GetFacility(BuildType)
-                        Case ProductionType.T3CruiserManufacturing, ProductionType.T3DestroyerManufacturing
-                            InsertItem.ManufacturingFacility = CalcT3ShipsFacility.GetFacility(BuildType)
                     End Select
                 End If
 
                 If BuildType = ProductionType.Reactions Then
                     'Need to use the manufacturing facility instead of component facility since they are more likely to make fuel blocks for reactions there
                     InsertItem.ComponentManufacturingFacility = CalcBaseFacility.GetFacility(ProductionType.Manufacturing)
-                ElseIf ((InsertItem.ItemCategoryID = ItemIDs.ComponentCategoryID Or InsertItem.ItemGroupID = ItemIDs.AdvCapitalComponentGroupID) And Not InsertItem.ItemGroupID = ItemIDs.CapitalComponentGroupID) Then
-                    ' Use the reaction facility as the 'component facility' if it's T2 component item, since they will do reactions
-                    InsertItem.ComponentManufacturingFacility = CalcReactionsFacility.GetFacility(ProductionType.Reactions)
-                Else
-                    InsertItem.ComponentManufacturingFacility = CalcComponentsFacility.GetFacility(ProductionType.ComponentManufacturing)
                 End If
-
-                InsertItem.CapComponentManufacturingFacility = CalcComponentsFacility.GetFacility(ProductionType.CapitalComponentManufacturing)
-                InsertItem.CopyFacility = CalcCopyFacility.GetFacility(ProductionType.Copying)
-                InsertItem.ReactionFacility = CalcReactionsFacility.GetFacility(ProductionType.Reactions)
 
                 ' Now determine how many copies of the base item we need with different data changed
                 ' If T1, just select compare types (raw and components)
@@ -12917,15 +12367,13 @@ CheckTechs:
                     ' Now add additional records for each decryptor
                     For j = 1 To CalcDecryptorCheckBoxes.Count - 1
                         ' If it's checked or if optimal is checked, add the decryptor
-                        If CalcDecryptorCheckBoxes(j).Checked Or chkCalcDecryptor0.Checked Then
+                        If CalcDecryptorCheckBoxes(j).Checked Then
 
                             ' These are all invented BPCs, BPC and BPOs are added separately below
                             InsertItem.BlueprintType = BPType.InventedBPC
 
                             ' If they are not using for T2 or T3 then only add No Decyrptor and exit for
-                            If CalcDecryptorCheckBoxes(j).Text <> None _
-                                And ((InsertItem.TechLevel = "T2" And chkCalcDecryptorforT2.Enabled And chkCalcDecryptorforT2.Checked) _
-                                Or (InsertItem.TechLevel = "T3" And chkCalcDecryptorforT3.Enabled And chkCalcDecryptorforT3.Checked)) Then
+                            If CalcDecryptorCheckBoxes(j).Text <> None Then
 
                                 ' Select a decryptor
                                 DecryptorUsed = InventionDecryptors.GetDecryptor(CDbl(CalcDecryptorCheckBoxes(j).Text.Substring(0, 3)))
@@ -12944,44 +12392,15 @@ CheckTechs:
                                 InsertItem.BPTE = BaseT2T3TE
                             End If
 
-                            ' Facilities
-                            If InsertItem.TechLevel = "T2" Then
-                                InsertItem.InventionFacility = CalcInventionFacility.GetFacility(ProductionType.Invention)
-                                InsertItem.CopyFacility = CalcCopyFacility.GetFacility(ProductionType.Copying)
-                                InsertItem.InventionFacility.FWUpgradeLevel = CalcComponentsFacility.GetFacility(ProductionType.Invention).FWUpgradeLevel
-                            ElseIf InsertItem.TechLevel = "T3" Then
-                                InsertItem.InventionFacility = CalcT3InventionFacility.GetFacility(ProductionType.T3Invention)
-                                InsertItem.InventionFacility.FWUpgradeLevel = CalcComponentsFacility.GetFacility(ProductionType.T3Invention).FWUpgradeLevel
-                                InsertItem.CopyFacility = NoFacility
-                            End If
-
-                            InsertItem.CopyFacility.FWUpgradeLevel = CalcComponentsFacility.GetFacility(ProductionType.Copying).FWUpgradeLevel
-
-                            Dim BaseInputs As String = InsertItem.Inputs
-
                             ' Relics
                             If InsertItem.TechLevel = "T3" Then
-                                ' Loop through each relic check box and process for each decryptor
-                                For k = 1 To CalcRelicCheckboxes.Count - 1
-                                    If CalcRelicCheckboxes(k).Checked Then
-                                        InsertItem.Relic = CalcRelicCheckboxes(k).Text
-                                        ' Add to the inputs
-                                        InsertItem.Inputs = BaseInputs & " - " & InsertItem.Relic
-                                        ' Set the owned flag before inserting
-                                        CheckOwnedBP = SetItemOwnedFlag(InsertItem, OriginalDecryptorUsed, OriginalRelicUsed, OrigME, OrigTE, OriginalBPOwnedFlag)
-                                        If rbtnCalcAllBPs.Checked Or (chkCalcIncludeT3Owned.Checked) Or
-                                            (rbtnCalcBPOwned.Checked And CheckOwnedBP) Then
-                                            ' Insert the item 
-                                            Call InsertItemCalcType(BaseItems, InsertItem, ProcessAllMultiUsePOSArrays, MultiUsePOSArrays, ListRowFormats)
-                                        End If
-                                    End If
-                                Next
+                                ' Skip T3 items
                             Else
                                 ' No relic for T2
                                 InsertItem.Relic = ""
                                 ' Set the owned flag before inserting
                                 CheckOwnedBP = SetItemOwnedFlag(InsertItem, OriginalDecryptorUsed, OriginalRelicUsed, OrigME, OrigTE, OriginalBPOwnedFlag)
-                                If rbtnCalcAllBPs.Checked Or (chkCalcIncludeT2Owned.Checked And UserInventedBPs.Contains(InsertItem.BPID)) Or
+                                If rbtnCalcAllBPs.Checked Or (UserInventedBPs.Contains(InsertItem.BPID)) Or
                                     (rbtnCalcBPOwned.Checked And CheckOwnedBP) Or rbtnCalcBPFavorites.Checked Then
                                     ' Insert the item 
                                     Call InsertItemCalcType(BaseItems, InsertItem, ProcessAllMultiUsePOSArrays, MultiUsePOSArrays, ListRowFormats)
@@ -12989,8 +12408,7 @@ CheckTechs:
                             End If
 
                             ' If they don't want to include decryptors, then exit loop after adding none
-                            If (InsertItem.TechLevel = "T2" And (chkCalcDecryptorforT2.Enabled = False Or chkCalcDecryptorforT2.Checked = False)) _
-                                    Or (InsertItem.TechLevel = "T3" And (chkCalcDecryptorforT3.Enabled = False Or chkCalcDecryptorforT3.Checked = False)) Then
+                            If InsertItem.TechLevel = "T2" Then
                                 Exit For
                             End If
                         End If
@@ -13069,11 +12487,7 @@ CheckTechs:
                 gbCalcCompareType.Enabled = False
                 gbCalcMarketFilters.Enabled = False
                 gbCalcFilter.Enabled = False
-                gbCalcIgnoreinCalcs.Enabled = False
-                gbCalcIncludeOwned.Enabled = False
-                gbCalcInvention.Enabled = False
                 gbCalcProdLines.Enabled = False
-                gbCalcRelics.Enabled = False
                 gbCalcTextColors.Enabled = False
                 gbCalcTextFilter.Enabled = False
                 lstManufacturing.Enabled = False
@@ -13163,10 +12577,10 @@ CheckTechs:
                                                            NumberofBlueprints, CInt(txtCalcProdLines.Text), SelectedCharacter,
                                                            UserApplicationSettings, rbtnCalcCompareBuildBuy.Checked, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                            InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility, InsertItem.ReactionFacility,
-                                                           chkCalcSellExessItems.Checked, UserManufacturingTabSettings.BuildT2T3Materials, True)
+                                                           False, UserManufacturingTabSettings.BuildT2T3Materials, True)
 
                     ' Set the T2 and T3 inputs if necessary
-                    If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) And chkCalcIgnoreInvention.Checked = False Then
+                    If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) Then
 
                         ' Strip off the relic if in here for the decryptor
                         If InsertItem.Inputs.Contains("-") Then
@@ -13188,7 +12602,7 @@ CheckTechs:
                     End If
 
                     ' Build the blueprint(s)
-                    Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(chkCalcFees, txtCalcBrokerFeeRate), False, chkCalcIgnoreMinerals.Checked, chkCalcIgnoreT1Item.Checked)
+                    Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(chkCalcFees, txtCalcBrokerFeeRate), False, False, False)
 
                     ' If checked, Add the values to the array only if we can Build, Invent, or RE it
                     AddItem = True
@@ -13296,9 +12710,6 @@ CheckTechs:
                                 ' Insert Components Item
                                 Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
 
-                                ' Insert the item for decryptor compare
-                                Call InsertDecryptorforOptimalCompare(ManufacturingBlueprint, InsertItem.CalcType, InsertItem.ListID, OptimalDecryptorItems)
-
                             End If
 
                             ' *** Raw Mats - always add
@@ -13368,18 +12779,15 @@ CheckTechs:
                             ' Insert Raw Mats item
                             Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
 
-                            ' Insert the item for decryptor compare
-                            Call InsertDecryptorforOptimalCompare(ManufacturingBlueprint, InsertItem.CalcType, InsertItem.ListID, OptimalDecryptorItems)
-
                             ' *** For Build/Buy we need to construct a new BP and add that
                             ' Construct the BP
                             ManufacturingBlueprint = New Blueprint(InsertItem.BPID, CInt(txtCalcRuns.Text), InsertItem.BPME, InsertItem.BPTE,
                                                         NumberofBlueprints, CInt(txtCalcProdLines.Text), SelectedCharacter,
                                                         UserApplicationSettings, True, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                         InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility,
-                                                        InsertItem.ReactionFacility, chkCalcSellExessItems.Checked, UserManufacturingTabSettings.BuildT2T3Materials, True)
+                                                        InsertItem.ReactionFacility, False, UserManufacturingTabSettings.BuildT2T3Materials, True)
 
-                            If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) And chkCalcIgnoreInvention.Checked = False Then
+                            If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) Then
                                 ' Construct the T2/T3 BP
                                 ManufacturingBlueprint.InventBlueprint(CInt(txtCalcLabLines.Text), SelectedDecryptor, InsertItem.InventionFacility,
                                                                        InsertItem.CopyFacility, GetInventItemTypeID(InsertItem.BPID, InsertItem.Relic))
@@ -13387,7 +12795,7 @@ CheckTechs:
                             End If
 
                             ' Get the list of materials
-                            Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(chkCalcFees, txtCalcBrokerFeeRate), False, chkCalcIgnoreMinerals.Checked, chkCalcIgnoreT1Item.Checked)
+                            Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(chkCalcFees, txtCalcBrokerFeeRate), False, False, False)
 
                             ' Build/Buy (add only if it has components we build)
                             If ManufacturingBlueprint.HasComponents Then
@@ -13456,9 +12864,6 @@ CheckTechs:
 
                                 ' Insert Build/Buy item
                                 Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
-
-                                ' Insert the item for decryptor compare
-                                Call InsertDecryptorforOptimalCompare(ManufacturingBlueprint, InsertItem.CalcType, InsertItem.ListID, OptimalDecryptorItems)
 
                             End If
                         Else
@@ -13571,9 +12976,6 @@ CheckTechs:
 
                             ' Insert the chosen item
                             Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
-
-                            ' Insert the item for decryptor compare
-                            Call InsertDecryptorforOptimalCompare(ManufacturingBlueprint, InsertItem.CalcType, InsertItem.ListID, OptimalDecryptorItems)
 
                         End If
 
@@ -13949,11 +13351,7 @@ ExitCalc:
         gbCalcBPTech.Enabled = True
         gbCalcCompareType.Enabled = True
         gbCalcFilter.Enabled = True
-        gbCalcIgnoreinCalcs.Enabled = True
-        gbCalcIncludeOwned.Enabled = True
-        gbCalcInvention.Enabled = True
         gbCalcProdLines.Enabled = True
-        gbCalcRelics.Enabled = True
         gbCalcTextColors.Enabled = True
         gbCalcTextFilter.Enabled = True
         lstManufacturing.Enabled = True
@@ -14541,7 +13939,6 @@ ExitCalc:
         Dim ComboType As String = ""
         Dim ItemTypeNumbers As String = ""
         Dim T2Selected As Boolean = False ' Whether the user wants to look at T2 blueprints or not - this is used in loading only T2 bps that we can invent
-        Dim readerT1s As SQLiteDataReader
         Dim TempRace As String = ""
         Dim RaceClause As String = ""
         Dim SizesClause As String = ""
@@ -14565,40 +13962,12 @@ ExitCalc:
         If chkCalcShips.Checked Then
             ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Ship' OR "
         End If
-        If chkCalcSubsystems.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Subsystem' OR "
-        End If
-        If chkCalcBoosters.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Implant' OR "
-        End If
-        If chkCalcComponents.Checked Then
-            ItemTypes = ItemTypes & "(X.ITEM_GROUP LIKE '%Components%' AND X.ITEM_GROUP <> 'Station Components') OR "
-        End If
         If chkCalcRigs.Checked Then
             ItemTypes = ItemTypes & "(X.BLUEPRINT_GROUP = 'Rig Blueprint' OR (X.ITEM_CATEGORY = 'Structure Module' AND X.ITEM_GROUP LIKE '%Rig%')) OR "
-        End If
-        If chkCalcStructureRigs.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Structure Rigs' OR "
-        End If
-        If chkCalcCelestials.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY IN ('Celestial', 'Orbitals', 'Sovereignty Structures', 'Station', 'Accessories') OR "
-        End If
-        If chkCalcStructureModules.Checked Then
-            ItemTypes = ItemTypes & "(X.ITEM_CATEGORY = 'Structure Module' AND X.ITEM_GROUP NOT LIKE '%Rig%') OR "
-        End If
-        If chkCalcReactions.Checked Then
-            ItemTypes = ItemTypes & "(X.BLUEPRINT_GROUP LIKE '%Reaction Formulas') OR "
         End If
         If chkCalcMisc.Checked Then
             ItemTypes = ItemTypes & "X.ITEM_GROUP IN ('Tool','Data Interfaces','Cyberimplant','Fuel Block') OR "
         End If
-        If chkCalcDeployables.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Deployable' OR "
-        End If
-        If chkCalcStructures.Checked Then
-            ItemTypes = ItemTypes & "(X.ITEM_CATEGORY IN ('Starbase','Structure') OR X.ITEM_GROUP = 'Station Components')  OR "
-        End If
-
         ' Take off last OR
         If ItemTypes <> "" Then
             ItemTypes = ItemTypes.Substring(0, ItemTypes.Count - 4)
@@ -14618,83 +13987,6 @@ ExitCalc:
             ' Only a Subsystem so T3
             If chkCalcT1.Checked Then
                 ItemTypeNumbers = ItemTypeNumbers & "1,"
-            End If
-        End If
-
-        If chkCalcT2.Enabled Then
-            If chkCalcT2.Checked Then
-                ' If we have T2 blueprints and they selected to only have T2 they have T1 blueprints for to invent
-                ' then build this list and add a special SQL item type entry for T2's
-                If rbtnCalcAllBPs.Checked Or chkCalcIncludeT2Owned.Checked Then
-                    InventedBPs = New List(Of Long)
-                    ' Select all the T2 bps that we can invent from our owned bps and save them
-                    SQL = "SELECT productTypeID FROM INDUSTRY_ACTIVITY_PRODUCTS "
-                    SQL = SQL & "WHERE activityID = 8 AND blueprintTypeID IN "
-                    SQL = SQL & "(SELECT BP_ID FROM " & USER_BLUEPRINTS & " WHERE "
-                    If rbtnCalcBPFavorites.Checked Then
-                        SQL = SQL & " X.FAVORITE = 1 AND "
-                    Else
-                        SQL = SQL & " X.OWNED <> 0 AND "
-                    End If
-                    SQL = SQL & "X.ITEM_TYPE = 1) GROUP BY productTypeID"
-
-                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                    DBCommand.Parameters.AddWithValue("@USERBP_USERID", GetBPUserID(SelectedCharacter.ID)) ' need to search for corp ID too
-                    DBCommand.Parameters.AddWithValue("@USERBP_CORPID", CStr(SelectedCharacter.CharacterCorporation.CorporationID))
-                    readerT1s = DBCommand.ExecuteReader()
-
-                    While readerT1s.Read
-                        ' Build list for where clause
-                        T2Query = T2Query & CStr(readerT1s.GetValue(0)) & ","
-                        ' Save the T2 BPID for later lookup to display
-                        InventedBPs.Add(CLng(readerT1s.GetValue(0)))
-                    End While
-
-                    readerT1s.Close()
-                    readerT1s = Nothing
-                    DBCommand = Nothing
-
-                    ' Set the list of T2 BPC's we want and allow for User ID 0 (not owned but invented) or the User ID (OWNED)
-                    If InventedBPs.Count <> 0 And T2Query <> "" Then
-                        T2Query = " OR (X.ITEM_TYPE = 2 AND X.BP_ID IN (" & T2Query.Substring(0, T2Query.Length - 1) & ")) "
-                    End If
-                Else
-                    T2Query = ""
-                End If
-
-                ItemTypeNumbers = ItemTypeNumbers & "2,"
-
-            End If
-        End If
-
-        If chkCalcT3.Enabled Then
-            If chkCalcT3.Checked Then
-                If rbtnCalcAllBPs.Checked Or chkCalcIncludeT3Owned.Checked Then
-                    T3Query = " OR (X.ITEM_TYPE = 14) "
-                Else
-                    T3Query = ""
-                End If
-
-                ItemTypeNumbers = ItemTypeNumbers & "14,"
-
-            End If
-        End If
-
-        If chkCalcStoryline.Enabled Then
-            If chkCalcStoryline.Checked Then
-                ItemTypeNumbers = ItemTypeNumbers & "3,"
-            End If
-        End If
-
-        If chkCalcPirateFaction.Enabled Then
-            If chkCalcPirateFaction.Checked Then
-                ItemTypeNumbers = ItemTypeNumbers & "15,"
-            End If
-        End If
-
-        If chkCalcNavyFaction.Enabled Then
-            If chkCalcNavyFaction.Checked Then
-                ItemTypeNumbers = ItemTypeNumbers & "16,"
             End If
         End If
 
@@ -14912,11 +14204,11 @@ ExitCalc:
                 CurrentRowFormat.ForeColor = Brushes.DarkRed
             End If
 
-            If Not SentItem.CanInvent And SentItem.TechLevel = "T2" And SentItem.BlueprintType = BPType.InventedBPC And Not chkCalcIgnoreInvention.Checked Then
+            If Not SentItem.CanInvent And SentItem.TechLevel = "T2" And SentItem.BlueprintType = BPType.InventedBPC Then
                 CurrentRowFormat.ForeColor = Brushes.DarkOrange
             End If
 
-            If Not SentItem.CanRE And SentItem.TechLevel = "T3" And SentItem.BlueprintType = BPType.InventedBPC And Not chkCalcIgnoreInvention.Checked Then
+            If Not SentItem.CanRE And SentItem.TechLevel = "T3" And SentItem.BlueprintType = BPType.InventedBPC Then
                 CurrentRowFormat.ForeColor = Brushes.DarkGreen
             End If
 
@@ -14925,45 +14217,6 @@ ExitCalc:
 
         End If
 
-    End Sub
-
-    ' Checks if the BP is T2 or T3 and we want to save it for determining the optimal calc for decryptors
-    Private Sub InsertDecryptorforOptimalCompare(ByRef BP As Blueprint, ByRef CalcType As String, ByRef LocationID As Integer, ByRef OptimalList As List(Of OptimalDecryptorItem))
-        If chkCalcDecryptor0.Checked Then
-            Dim TempItem As New OptimalDecryptorItem
-            Dim CompareIPH As Boolean
-
-            If chkCalcDecryptor0.Text.Contains("Profit") Then
-                CompareIPH = False
-            Else
-                CompareIPH = True
-            End If
-
-            ' Insert the record if it has a decryptor and T2/T3
-            If (BP.GetTechLevel = BPTechLevel.T2 And chkCalcDecryptorforT2.Checked) Or
-               (BP.GetTechLevel = BPTechLevel.T3 And chkCalcDecryptorforT3.Checked) Then
-                TempItem.CalcType = CalcType
-                TempItem.ItemTypeID = BP.GetItemID
-                TempItem.ListLocationID = LocationID
-
-                If CompareIPH Then
-                    If CalcType <> "Components" Then
-                        TempItem.CompareValue = BP.GetTotalIskperHourRaw
-                    Else
-                        TempItem.CompareValue = BP.GetTotalIskperHourComponents
-                    End If
-                Else ' Profit
-                    If CalcType <> "Components" Then
-                        TempItem.CompareValue = BP.GetTotalRawProfit
-                    Else
-                        TempItem.CompareValue = BP.GetTotalComponentProfit
-                    End If
-                End If
-            End If
-
-            OptimalList.Add(TempItem)
-
-        End If
     End Sub
 
     ' Reads optimal decryptor list and removes only but the most optimal decryptor from the item list
@@ -15054,17 +14307,9 @@ ExitCalc:
                 End If
 
                 Dim T2T3Type As BuildMatType
-                If rbtnCalcAdvT2MatType.Checked Then
-                    T2T3Type = BuildMatType.AdvMaterials
-                ElseIf rbtnCalcProcT2MatType.Checked Then
-                    T2T3Type = BuildMatType.ProcessedMaterials
-                ElseIf rbtnCalcRawT2MatType.Checked Then
-                    T2T3Type = BuildMatType.RawMaterials
-                Else
-                    T2T3Type = Nothing
-                End If
+                T2T3Type = Nothing
 
-                Call LoadBPfromEvent(.BPID, .CalcType, .Inputs, SentFromLocation.ManufacturingTab,
+                    Call LoadBPfromEvent(.BPID, .CalcType, .Inputs, SentFromLocation.ManufacturingTab,
                                      .ManufacturingFacility, .ComponentManufacturingFacility, .CapComponentManufacturingFacility,
                                      .InventionFacility, .CopyFacility,
                                      chkCalcTaxes.Checked, GetBrokerFeeData(chkCalcFees, txtCalcBrokerFeeRate),
