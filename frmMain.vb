@@ -276,7 +276,7 @@ Public Class frmMain
 #Region "Initialization Code"
 
     ' Set default window theme so tabs in invention window display correctly on all systems
-    Public Declare Unicode Function SetWindowTheme Lib "uxtheme.dll" (ByVal hWnd As IntPtr, _
+    Public Declare Unicode Function SetWindowTheme Lib "uxtheme.dll" (ByVal hWnd As IntPtr,
         ByVal pszSubAppName As String, ByVal pszSubIdList As String) As Integer
 
     Public Sub New()
@@ -1255,10 +1255,6 @@ Public Class frmMain
         ' Reset to bp tab
         tabMain.SelectTab(0)
 
-        ' Add a mouse down handler for the blueprint tab to enable forward and back loading of bps from mouse
-        AddHandler tabBlueprints.MouseDown, AddressOf MouseDownHandling
-        MouseDownSetting(tabBlueprints)
-
         ' Done loading
         Call SetProgress("")
 
@@ -1472,8 +1468,6 @@ Public Class frmMain
         End If
         UpdatingCheck = False
 
-        ' Show the BP tab 
-        tabMain.SelectedTab = tabBlueprints
         readerBP.Close()
 
         ' Finally, load the blueprint with data in the row selected like it was just selected
