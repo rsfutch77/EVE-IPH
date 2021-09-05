@@ -233,12 +233,6 @@
     <Compile Include="frmSupportSplash.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmUpwellStructureFitting.designer.vb">
-      <DependentUpon>frmUpwellStructureFitting.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmUpwellStructureFitting.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmViewSavedStructures.Designer.vb">
       <DependentUpon>frmViewSavedStructures.vb</DependentUpon>
     </Compile>
@@ -257,12 +251,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="OreMineral.vb" />
-    <Compile Include="frmBlueprintList.Designer.vb">
-      <DependentUpon>frmBlueprintList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmBlueprintList.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="MyDomainUpDown.Designer.vb">
       <DependentUpon>MyDomainUpDown.vb</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -306,12 +294,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EVEBlueprints.vb" />
-    <Compile Include="frmRefinery.Designer.vb">
-      <DependentUpon>frmRefinery.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmRefinery.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmInventionMats.Designer.vb">
       <DependentUpon>frmInventionMats.vb</DependentUpon>
     </Compile>
@@ -413,12 +395,6 @@
     <Compile Include="frmPatchNotes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmResearchAgents.Designer.vb">
-      <DependentUpon>frmResearchAgents.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmResearchAgents.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSelectIndustryJobColumns.Designer.vb">
       <DependentUpon>frmSelectIndustryJobColumns.vb</DependentUpon>
     </Compile>
@@ -515,9 +491,6 @@
     <EmbeddedResource Include="frmAppRegistrationNotice.resx">
       <DependentUpon>frmAppRegistrationNotice.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBlueprintList.resx">
-      <DependentUpon>frmBlueprintList.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmBonusPopout.resx">
       <DependentUpon>frmBonusPopout.vb</DependentUpon>
     </EmbeddedResource>
@@ -539,9 +512,6 @@
     <EmbeddedResource Include="frmSupportSplash.resx">
       <DependentUpon>frmSupportSplash.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmUpwellStructureFitting.resx">
-      <DependentUpon>frmUpwellStructureFitting.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmMarketHistoryViewer.resx">
       <DependentUpon>frmMarketHistoryViewer.vb</DependentUpon>
     </EmbeddedResource>
@@ -558,10 +528,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectManufacturingTabColumns.resx">
       <DependentUpon>frmSelectManufacturingTabColumns.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRefinery.resx">
-      <DependentUpon>frmRefinery.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInventionMats.resx">
       <DependentUpon>frmInventionMats.vb</DependentUpon>
@@ -630,9 +596,6 @@
     <EmbeddedResource Include="frmPatchNotes.resx">
       <DependentUpon>frmPatchNotes.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmResearchAgents.resx">
-      <DependentUpon>frmResearchAgents.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectIndustryJobColumns.resx">
       <DependentUpon>frmSelectIndustryJobColumns.vb</DependentUpon>

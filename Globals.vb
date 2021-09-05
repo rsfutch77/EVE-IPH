@@ -404,17 +404,9 @@ Public Module Public_Variables
     End Function
 
     ' Get Broker Fee data
-    Public Function GetBrokerFeeData(ByVal BrokerCheck As CheckBox, SpecialRateBox As TextBox) As BrokerFeeInfo
+    Public Function GetBrokerFeeData() As BrokerFeeInfo
         Dim TempBF As BrokerFeeInfo
-        If BrokerCheck.CheckState = CheckState.Indeterminate Then
-            ' Get the special fee
-            TempBF.FixedRate = FormatManualPercentEntry(SpecialRateBox.Text)
-            TempBF.IncludeFee = BrokerFeeType.SpecialFee
-        ElseIf BrokerCheck.CheckState = CheckState.Checked Then
-            TempBF.IncludeFee = BrokerFeeType.Fee
-        Else
-            TempBF.IncludeFee = BrokerFeeType.NoFee
-        End If
+        TempBF.IncludeFee = BrokerFeeType.Fee
 
         Return TempBF
 
@@ -1264,11 +1256,6 @@ InvalidDate:
 
         ' Reset manufacturing calc button
         Call frmMain.ResetRefresh()
-
-        ' Refresh the BP Tab if there is a blueprint selected
-        If Not IsNothing(SelectedBlueprint) Then
-            Call frmMain.RefreshBP(True)
-        End If
 
         ' Refresh the prices in manual update for minerals
         Call frmManualPriceUpdate.LoadMineralPrices()

@@ -788,11 +788,6 @@ Public Class ManufacturingFacility
         End If
         Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
 
-        ' Refresh the blueprint if it's the bp tab
-        If RefreshBP Then
-            Call UpdateBlueprint()
-        End If
-
     End Sub
 
     ' Loads the facility activity combo - checks group and category ID's if it has components to set component activities
@@ -1447,7 +1442,6 @@ Public Class ManufacturingFacility
                 SelectedFacility.FullyLoaded = True
                 ' Facility is loaded, so save it to default and dynamic variable
                 Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
-                Call UpdateBlueprint()
             Else
                 Call SetFacilityBonusBoxes(False)
                 SelectedFacility.FullyLoaded = False
@@ -1539,41 +1533,6 @@ Public Class ManufacturingFacility
                 ' Load all the array types up into the combo for a POS
                 SQL = "SELECT DISTINCT ARRAY_NAME AS FACILITY_NAME, ARRAY_TYPE_ID FROM ASSEMBLY_ARRAYS "
                 SQL = SQL & "WHERE " & GetBPGroupCategoryIDSQL(FacilityActivity, SelectedBPCategoryID, SelectedBPGroupID)
-
-            Case FacilityTypes.UpwellStructure
-                ' Load all the upwell structures based on the production type
-                SQL = "SELECT typeName as FACILITY_NAME, typeID FROM INVENTORY_TYPES, INVENTORY_GROUPS "
-                SQL &= "WHERE INVENTORY_GROUPS.categoryID = 65 "
-                SQL &= "AND INVENTORY_TYPES.groupID = INVENTORY_GROUPS.groupid "
-                SQL &= "AND INVENTORY_TYPES.published = 1 "
-                SQL &= "AND (typeID IN (SELECT value AS UPWELL_STRUCTURE_ID "
-                SQL &= "FROM TYPE_ATTRIBUTES, ATTRIBUTE_TYPES "
-                SQL &= "WHERE ATTRIBUTE_TYPES.attributeID = TYPE_ATTRIBUTES.attributeID "
-                SQL &= "AND attributeName Like 'canFitShipType%' "
-                SQL &= "AND TYPE_ATTRIBUTES.typeID = {0}) "
-                SQL &= "OR INVENTORY_TYPES.groupID In (Select value As UPWELL_STRUCTURE_ID "
-                SQL &= "FROM TYPE_ATTRIBUTES, ATTRIBUTE_TYPES "
-                SQL &= "WHERE ATTRIBUTE_TYPES.attributeID = TYPE_ATTRIBUTES.attributeID "
-                SQL &= "AND attributeName LIKE 'canFitShipGroup%' "
-                SQL &= "AND TYPE_ATTRIBUTES.typeID = {0})) "
-
-                ' Check for production types so that we don't show facilities that can't use services for that type (i.e. capital building)
-                Select Case SelectedProductionType
-                    Case ProductionType.BoosterManufacturing
-                        SQL = String.Format(SQL, CInt(Services.StandupBiochemicalReactor))
-                    Case ProductionType.CapitalManufacturing
-                        SQL = String.Format(SQL, CInt(Services.StandupCapitalShipyard))
-                    Case ProductionType.SuperManufacturing
-                        SQL = String.Format(SQL, CInt(Services.StandupSupercapitalShipyard))
-                    Case ProductionType.Copying
-                        SQL = String.Format(SQL, CInt(Services.StandupResearchLab))
-                    Case ProductionType.Invention, ProductionType.T3Invention
-                        SQL = String.Format(SQL, CInt(Services.StandupInventionLab))
-                    Case ProductionType.Reactions
-                        SQL = String.Format(SQL, CInt(Services.StandupCompositeReactor))
-                    Case Else ' All others get manufacturing
-                        SQL = String.Format(SQL, CInt(Services.StandupManufacturingPlant))
-                End Select
 
         End Select
 
@@ -1699,7 +1658,6 @@ Public Class ManufacturingFacility
                                           GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
 
             PreviousEquipment = cmbFacilityorArray.Text
-            Call UpdateBlueprint()
         End If
 
         Call SetResetRefresh()
@@ -2189,9 +2147,6 @@ Public Class ManufacturingFacility
 
         ' Enable the FW settings 
         Call SetFWUpgradeControls(SelectedFacility.SolarSystemName)
-        If SelectedLocation = ProgramLocation.BlueprintTab Then
-            Call CostIndexUpdateText()
-        End If
 
         ' Loaded up, let them save it
         btnFacilitySave.Visible = True
@@ -2419,11 +2374,6 @@ Public Class ManufacturingFacility
             ' Facility is loaded, so save it to default and dynamic variable
             Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
 
-            ' See if we update the price labels on the BP tab
-            If Not IsNothing(SelectedBlueprint) And SelectedLocation = ProgramLocation.BlueprintTab Then
-                Call frmMain.RefreshBP()
-            End If
-
             lblFacilityUsage.Text = FormatNumber(GetSelectedFacility.FacilityUsage, 2)
 
         End If
@@ -2464,29 +2414,6 @@ Public Class ManufacturingFacility
                 ' Same as what was set so set to true
                 Call SetDefaultVisuals(True)
             End If
-        End If
-
-        Call SetResetRefresh()
-
-    End Sub
-
-    Private Sub btnFacilityFitting_Click(sender As Object, e As EventArgs) Handles btnFacilityFitting.Click
-        Dim StructureViewer As New frmUpwellStructureFitting(cmbFacilityorArray.Text, SelectedCharacterID,
-                                                   SelectedProductionType, SelectedView, SelectedFacility.SolarSystemName)
-        Call StructureViewer.ShowDialog()
-
-        ' After showing, select the name of the citadel chosen and then dispose
-        cmbFacilityorArray.Text = StructureViewer.UpwellStructureName
-
-        Call StructureViewer.Dispose()
-
-        ' Reload the facility each time we return - use initialize and just load the one we changed
-        If SelectedFacility.IsDefault Then
-            ' If they saved fittings for the default, reset the default values
-            Call InitializeFacilities(SelectedView, SelectedProductionType, True)
-        Else
-            ' If it's not the default, just load the facility so we get the changes from the fitting
-            Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
         End If
 
         Call SetResetRefresh()
@@ -2544,9 +2471,6 @@ Public Class ManufacturingFacility
             Call SetFacility(SelectedFacility, SelectedFacility.FacilityProductionType, True, True)
 
         End If
-
-        ' Update the blueprint if we can after a save
-        Call UpdateBlueprint()
 
     End Sub
 
@@ -3138,29 +3062,6 @@ Public Class ManufacturingFacility
         End If
     End Sub
 
-    ' Updates the cost index text box on the bp tab
-    Private Sub CostIndexUpdateText()
-
-        If SelectedLocation = ProgramLocation.BlueprintTab And Not FirstLoad Then
-            Dim System As String = cmbFacilitySystem.Text
-            Dim Start As Integer = InStr(System, "(")
-            If System.Contains("(") Then
-                frmMain.txtBPUpdateCostIndex.Text = FormatPercent(System.Substring(Start, InStr(System, ")") - (Start + 1)), 2)
-            End If
-        End If
-
-    End Sub
-
-    ' Updates the blueprint on the bp tab if it's that facility
-    Private Sub UpdateBlueprint()
-        ' Load the bp on bp tab
-        If Not IsNothing(SelectedBlueprint) And SelectedLocation = ProgramLocation.BlueprintTab Then
-            With SelectedBlueprint
-                Call frmMain.UpdateBPGrids(.GetTypeID, .GetTechLevel, False, .GetItemGroupID, .GetItemCategoryID, SentFromLocation.BlueprintTab)
-            End With
-        End If
-    End Sub
-
     Private Sub SetResetRefresh()
         If SelectedLocation = ProgramLocation.ManufacturingTab And Not FirstLoad Then
             Call frmMain.ResetRefresh()
@@ -3292,7 +3193,6 @@ Public Class ManufacturingFacility
 
             ' If this changed, we need to update the usage
             If Not IsNothing(SelectedBlueprint) And SelectedLocation = ProgramLocation.BlueprintTab Then
-                Call frmMain.RefreshBP()
                 Call UpdateUsage("")
             End If
         End If
@@ -3582,7 +3482,6 @@ Public Class ManufacturingFacility
     Private Sub txtFacilityManualME_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualME.KeyDown
         If e.KeyCode = Keys.Enter Then
             Call SetManualTextBoxValue(BoxType._ME)
-            Call UpdateBlueprint()
         ElseIf e.KeyCode = Keys.Delete Then
             btnFacilitySave.Enabled = True
         End If
@@ -3594,7 +3493,6 @@ Public Class ManufacturingFacility
 
     Private Sub txtFacilityManualME_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualME.LostFocus
         Call SetManualTextBoxValue(BoxType._ME)
-        Call UpdateBlueprint()
     End Sub
 
     Private Sub txtFacilityManualTE_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualTE.KeyPress
@@ -3605,7 +3503,6 @@ Public Class ManufacturingFacility
     Private Sub txtFacilityManualTE_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualTE.KeyDown
         If e.KeyCode = Keys.Enter Then
             Call SetManualTextBoxValue(BoxType._TE)
-            Call UpdateBlueprint()
         ElseIf e.KeyCode = Keys.Delete Then
             btnFacilitySave.Enabled = True
         End If
@@ -3617,7 +3514,6 @@ Public Class ManufacturingFacility
 
     Private Sub txtFacilityManualTE_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTE.LostFocus
         Call SetManualTextBoxValue(BoxType._TE)
-        Call UpdateBlueprint()
     End Sub
 
     Private Sub txtFacilityManualCost_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualCost.KeyPress
@@ -3628,7 +3524,6 @@ Public Class ManufacturingFacility
     Private Sub txtFacilityManualCost_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualCost.KeyDown
         If e.KeyCode = Keys.Enter Then
             Call SetManualTextBoxValue(BoxType._Cost)
-            Call UpdateBlueprint()
         ElseIf e.KeyCode = Keys.Delete Then
             btnFacilitySave.Enabled = True
         End If
@@ -3640,7 +3535,6 @@ Public Class ManufacturingFacility
 
     Private Sub txtFacilityManualCost_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualCost.LostFocus
         Call SetManualTextBoxValue(BoxType._Cost)
-        Call UpdateBlueprint()
     End Sub
 
     Private Sub txtFacilityManualTax_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualTax.KeyPress
@@ -3651,7 +3545,6 @@ Public Class ManufacturingFacility
     Private Sub txtFacilityManualTax_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualTax.KeyDown
         If e.KeyCode = Keys.Enter Then
             Call SetManualTextBoxValue(BoxType._Tax)
-            Call UpdateBlueprint()
         ElseIf e.KeyCode = Keys.Delete Then
             btnFacilitySave.Enabled = True
         End If
@@ -3663,7 +3556,6 @@ Public Class ManufacturingFacility
 
     Private Sub txtFacilityManualTax_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTax.LostFocus
         Call SetManualTextBoxValue(BoxType._Tax)
-        Call UpdateBlueprint()
     End Sub
 
     Private Function FormatManualEntry(Entry As String) As Double
