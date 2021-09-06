@@ -146,14 +146,31 @@ Partial Class frmMain
         Me.chkSystems5 = New System.Windows.Forms.CheckBox()
         Me.chkSystems3 = New System.Windows.Forms.CheckBox()
         Me.chkSystems1 = New System.Windows.Forms.CheckBox()
+        Me.btnSaveUpdatePrices = New System.Windows.Forms.Button()
+        Me.gbCalcProdLines = New System.Windows.Forms.GroupBox()
+        Me.chkCalcAutoCalcT2NumBPs = New System.Windows.Forms.CheckBox()
+        Me.lblCalcBPs = New System.Windows.Forms.Label()
+        Me.txtCalcNumBPs = New System.Windows.Forms.TextBox()
+        Me.txtCalcRuns = New System.Windows.Forms.TextBox()
+        Me.txtCalcLabLines = New System.Windows.Forms.TextBox()
+        Me.lblCalcRuns = New System.Windows.Forms.Label()
+        Me.lblCalcLabLines1 = New System.Windows.Forms.Label()
+        Me.lblCalcProdLines1 = New System.Windows.Forms.Label()
+        Me.txtCalcProdLines = New System.Windows.Forms.TextBox()
         Me.gbCalcIncludeItems = New System.Windows.Forms.GroupBox()
         Me.chkCalcCanBuild = New System.Windows.Forms.CheckBox()
+        Me.btnCancelUpdate = New System.Windows.Forms.Button()
         Me.lstBPList = New System.Windows.Forms.ListBox()
         Me.pictBP = New System.Windows.Forms.PictureBox()
         Me.gbCalcBPSelect = New System.Windows.Forms.GroupBox()
         Me.rbtnCalcBPFavorites = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcAllBPs = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcBPOwned = New System.Windows.Forms.RadioButton()
+        Me.btnCalcSaveSettings = New System.Windows.Forms.Button()
+        Me.btnCalcReset = New System.Windows.Forms.Button()
+        Me.tabCalcFacilities = New System.Windows.Forms.TabControl()
+        Me.tabCalcFacilityBase = New System.Windows.Forms.TabPage()
+        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
         Me.lblCalcText = New System.Windows.Forms.Label()
@@ -193,50 +210,20 @@ Partial Class frmMain
         Me.chkCalcSVRIncludeNull = New System.Windows.Forms.CheckBox()
         Me.chkCalcIPHThreshold = New System.Windows.Forms.CheckBox()
         Me.btnCalcSelectColumns = New System.Windows.Forms.Button()
-        Me.gbCalcSizeLimit = New System.Windows.Forms.GroupBox()
-        Me.chkCalcXL = New System.Windows.Forms.CheckBox()
-        Me.chkCalcLarge = New System.Windows.Forms.CheckBox()
-        Me.chkCalcMedium = New System.Windows.Forms.CheckBox()
-        Me.chkCalcSmall = New System.Windows.Forms.CheckBox()
-        Me.gbCalcProdLines = New System.Windows.Forms.GroupBox()
-        Me.chkCalcAutoCalcT2NumBPs = New System.Windows.Forms.CheckBox()
-        Me.lblCalcBPs = New System.Windows.Forms.Label()
-        Me.txtCalcNumBPs = New System.Windows.Forms.TextBox()
-        Me.txtCalcRuns = New System.Windows.Forms.TextBox()
-        Me.txtCalcLabLines = New System.Windows.Forms.TextBox()
-        Me.lblCalcRuns = New System.Windows.Forms.Label()
-        Me.lblCalcLabLines1 = New System.Windows.Forms.Label()
-        Me.lblCalcProdLines1 = New System.Windows.Forms.Label()
-        Me.txtCalcProdLines = New System.Windows.Forms.TextBox()
         Me.gbCalcCompareType = New System.Windows.Forms.GroupBox()
         Me.chkCalcPPU = New System.Windows.Forms.CheckBox()
         Me.rbtnCalcCompareBuildBuy = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcCompareRawMats = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcCompareComponents = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcCompareAll = New System.Windows.Forms.RadioButton()
-        Me.gbCalcBPRace = New System.Windows.Forms.GroupBox()
-        Me.chkCalcRaceOther = New System.Windows.Forms.CheckBox()
-        Me.chkCalcRacePirate = New System.Windows.Forms.CheckBox()
-        Me.chkCalcRaceMinmatar = New System.Windows.Forms.CheckBox()
-        Me.chkCalcRaceGallente = New System.Windows.Forms.CheckBox()
-        Me.chkCalcRaceCaldari = New System.Windows.Forms.CheckBox()
-        Me.chkCalcRaceAmarr = New System.Windows.Forms.CheckBox()
         Me.gbTempMEPE = New System.Windows.Forms.GroupBox()
         Me.txtCalcTempTE = New System.Windows.Forms.TextBox()
         Me.lblTempPE = New System.Windows.Forms.Label()
         Me.txtCalcTempME = New System.Windows.Forms.TextBox()
         Me.lblTempME = New System.Windows.Forms.Label()
-        Me.tabCalcFacilities = New System.Windows.Forms.TabControl()
-        Me.tabCalcFacilityBase = New System.Windows.Forms.TabPage()
-        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.gbCalcFilter = New System.Windows.Forms.GroupBox()
         Me.cmbCalcBPTypeFilter = New System.Windows.Forms.ComboBox()
-        Me.gbCalcBPTech = New System.Windows.Forms.GroupBox()
-        Me.chkCalcT1 = New System.Windows.Forms.CheckBox()
-        Me.btnCalcSaveSettings = New System.Windows.Forms.Button()
         Me.btnCalcExportList = New System.Windows.Forms.Button()
-        Me.btnCalcPreview = New System.Windows.Forms.Button()
-        Me.btnCalcReset = New System.Windows.Forms.Button()
         Me.gbCalcTextFilter = New System.Windows.Forms.GroupBox()
         Me.btnCalcResetTextSearch = New System.Windows.Forms.Button()
         Me.txtCalcItemFilter = New System.Windows.Forms.TextBox()
@@ -249,10 +236,7 @@ Partial Class frmMain
         Me.chkCalcShips = New System.Windows.Forms.CheckBox()
         Me.rbtnPriceSettingSingleSelect = New System.Windows.Forms.RadioButton()
         Me.rbtnPriceSourceCCPData = New System.Windows.Forms.RadioButton()
-        Me.btnSaveUpdatePrices = New System.Windows.Forms.Button()
-        Me.btnCancelUpdate = New System.Windows.Forms.Button()
         Me.gbManufacturedItems = New System.Windows.Forms.GroupBox()
-        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.gbRawMaterials = New System.Windows.Forms.GroupBox()
         Me.chkAbyssalMaterials = New System.Windows.Forms.CheckBox()
         Me.chkMisc = New System.Windows.Forms.CheckBox()
@@ -275,6 +259,7 @@ Partial Class frmMain
         Me.chkModules = New System.Windows.Forms.CheckBox()
         Me.chkRigs = New System.Windows.Forms.CheckBox()
         Me.chkDrones = New System.Windows.Forms.CheckBox()
+        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
@@ -285,22 +270,19 @@ Partial Class frmMain
         Me.gbPIPlanets.SuspendLayout()
         Me.tabManufacturing.SuspendLayout()
         Me.gbTradeHubSystems.SuspendLayout()
+        Me.gbCalcProdLines.SuspendLayout()
         Me.gbCalcIncludeItems.SuspendLayout()
         CType(Me.pictBP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbCalcBPSelect.SuspendLayout()
+        Me.tabCalcFacilities.SuspendLayout()
+        Me.tabCalcFacilityBase.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
         Me.gbCalcBPSelectOptions.SuspendLayout()
         Me.gbIncludeTaxesFees.SuspendLayout()
         Me.gbCalcMarketFilters.SuspendLayout()
-        Me.gbCalcSizeLimit.SuspendLayout()
-        Me.gbCalcProdLines.SuspendLayout()
         Me.gbCalcCompareType.SuspendLayout()
-        Me.gbCalcBPRace.SuspendLayout()
         Me.gbTempMEPE.SuspendLayout()
-        Me.tabCalcFacilities.SuspendLayout()
-        Me.tabCalcFacilityBase.SuspendLayout()
         Me.gbCalcFilter.SuspendLayout()
-        Me.gbCalcBPTech.SuspendLayout()
         Me.gbCalcTextFilter.SuspendLayout()
         Me.gbCalcBPType.SuspendLayout()
         Me.gbManufacturedItems.SuspendLayout()
@@ -317,7 +299,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFile, Me.mnuEdit, Me.mnuUpdateData, Me.ViewToolStripMenuItem, Me.mnuSettings, Me.mnuAbout})
         Me.mnuStripMain.Location = New System.Drawing.Point(0, 0)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(2352, 28)
+        Me.mnuStripMain.Size = New System.Drawing.Size(2346, 28)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -1049,16 +1031,21 @@ Partial Class frmMain
         Me.tabManufacturing.Controls.Add(Me.btnDownloadPrices)
         Me.tabManufacturing.Controls.Add(Me.btnCalcShowAssets)
         Me.tabManufacturing.Controls.Add(Me.gbTradeHubSystems)
+        Me.tabManufacturing.Controls.Add(Me.btnSaveUpdatePrices)
+        Me.tabManufacturing.Controls.Add(Me.gbCalcProdLines)
         Me.tabManufacturing.Controls.Add(Me.gbCalcIncludeItems)
+        Me.tabManufacturing.Controls.Add(Me.btnCancelUpdate)
         Me.tabManufacturing.Controls.Add(Me.lstBPList)
         Me.tabManufacturing.Controls.Add(Me.pnlMain)
         Me.tabManufacturing.Controls.Add(Me.pictBP)
         Me.tabManufacturing.Controls.Add(Me.gbCalcBPSelect)
+        Me.tabManufacturing.Controls.Add(Me.btnCalcSaveSettings)
+        Me.tabManufacturing.Controls.Add(Me.btnCalcReset)
         Me.tabManufacturing.Controls.Add(Me.tabCalcFacilities)
         Me.tabManufacturing.Controls.Add(Me.gbCalcTextColors)
         Me.tabManufacturing.Controls.Add(Me.lblBPCanMakeBPAll)
-        Me.tabManufacturing.Controls.Add(Me.cmbBPBlueprintSelection)
         Me.tabManufacturing.Controls.Add(Me.lblBPCanMakeBP)
+        Me.tabManufacturing.Controls.Add(Me.cmbBPBlueprintSelection)
         Me.tabManufacturing.Location = New System.Drawing.Point(4, 26)
         Me.tabManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.tabManufacturing.Name = "tabManufacturing"
@@ -1120,7 +1107,7 @@ Partial Class frmMain
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems5)
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems3)
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems1)
-        Me.gbTradeHubSystems.Location = New System.Drawing.Point(502, 384)
+        Me.gbTradeHubSystems.Location = New System.Drawing.Point(834, 271)
         Me.gbTradeHubSystems.Margin = New System.Windows.Forms.Padding(4)
         Me.gbTradeHubSystems.Name = "gbTradeHubSystems"
         Me.gbTradeHubSystems.Padding = New System.Windows.Forms.Padding(4)
@@ -1184,11 +1171,132 @@ Partial Class frmMain
         Me.chkSystems1.Text = "Jita"
         Me.chkSystems1.UseVisualStyleBackColor = True
         '
+        'btnSaveUpdatePrices
+        '
+        Me.btnSaveUpdatePrices.Location = New System.Drawing.Point(659, 272)
+        Me.btnSaveUpdatePrices.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnSaveUpdatePrices.Name = "btnSaveUpdatePrices"
+        Me.btnSaveUpdatePrices.Size = New System.Drawing.Size(141, 40)
+        Me.btnSaveUpdatePrices.TabIndex = 14
+        Me.btnSaveUpdatePrices.Text = "Save Settings"
+        Me.btnSaveUpdatePrices.UseVisualStyleBackColor = True
+        '
+        'gbCalcProdLines
+        '
+        Me.gbCalcProdLines.Controls.Add(Me.chkCalcAutoCalcT2NumBPs)
+        Me.gbCalcProdLines.Controls.Add(Me.lblCalcBPs)
+        Me.gbCalcProdLines.Controls.Add(Me.txtCalcNumBPs)
+        Me.gbCalcProdLines.Controls.Add(Me.txtCalcRuns)
+        Me.gbCalcProdLines.Controls.Add(Me.txtCalcLabLines)
+        Me.gbCalcProdLines.Controls.Add(Me.lblCalcRuns)
+        Me.gbCalcProdLines.Controls.Add(Me.lblCalcLabLines1)
+        Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
+        Me.gbCalcProdLines.Controls.Add(Me.txtCalcProdLines)
+        Me.gbCalcProdLines.Location = New System.Drawing.Point(251, 582)
+        Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.gbCalcProdLines.Name = "gbCalcProdLines"
+        Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4)
+        Me.gbCalcProdLines.Size = New System.Drawing.Size(195, 90)
+        Me.gbCalcProdLines.TabIndex = 15
+        Me.gbCalcProdLines.TabStop = False
+        Me.gbCalcProdLines.Text = "Runs / Lines:"
+        '
+        'chkCalcAutoCalcT2NumBPs
+        '
+        Me.chkCalcAutoCalcT2NumBPs.AutoSize = True
+        Me.chkCalcAutoCalcT2NumBPs.Location = New System.Drawing.Point(15, 65)
+        Me.chkCalcAutoCalcT2NumBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkCalcAutoCalcT2NumBPs.Name = "chkCalcAutoCalcT2NumBPs"
+        Me.chkCalcAutoCalcT2NumBPs.Size = New System.Drawing.Size(173, 21)
+        Me.chkCalcAutoCalcT2NumBPs.TabIndex = 8
+        Me.chkCalcAutoCalcT2NumBPs.Text = "Auto Calc T2 Num BPs"
+        Me.chkCalcAutoCalcT2NumBPs.UseVisualStyleBackColor = True
+        '
+        'lblCalcBPs
+        '
+        Me.lblCalcBPs.AutoSize = True
+        Me.lblCalcBPs.Location = New System.Drawing.Point(55, 16)
+        Me.lblCalcBPs.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCalcBPs.Name = "lblCalcBPs"
+        Me.lblCalcBPs.Size = New System.Drawing.Size(37, 17)
+        Me.lblCalcBPs.TabIndex = 2
+        Me.lblCalcBPs.Text = "BPs:"
+        '
+        'txtCalcNumBPs
+        '
+        Me.txtCalcNumBPs.Location = New System.Drawing.Point(56, 35)
+        Me.txtCalcNumBPs.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcNumBPs.MaxLength = 3
+        Me.txtCalcNumBPs.Name = "txtCalcNumBPs"
+        Me.txtCalcNumBPs.Size = New System.Drawing.Size(39, 23)
+        Me.txtCalcNumBPs.TabIndex = 3
+        Me.txtCalcNumBPs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtCalcRuns
+        '
+        Me.txtCalcRuns.Location = New System.Drawing.Point(11, 35)
+        Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcRuns.MaxLength = 4
+        Me.txtCalcRuns.Name = "txtCalcRuns"
+        Me.txtCalcRuns.Size = New System.Drawing.Size(39, 23)
+        Me.txtCalcRuns.TabIndex = 1
+        Me.txtCalcRuns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtCalcLabLines
+        '
+        Me.txtCalcLabLines.Location = New System.Drawing.Point(144, 35)
+        Me.txtCalcLabLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcLabLines.MaxLength = 3
+        Me.txtCalcLabLines.Name = "txtCalcLabLines"
+        Me.txtCalcLabLines.Size = New System.Drawing.Size(39, 23)
+        Me.txtCalcLabLines.TabIndex = 7
+        Me.txtCalcLabLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblCalcRuns
+        '
+        Me.lblCalcRuns.AutoSize = True
+        Me.lblCalcRuns.Location = New System.Drawing.Point(10, 16)
+        Me.lblCalcRuns.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCalcRuns.Name = "lblCalcRuns"
+        Me.lblCalcRuns.Size = New System.Drawing.Size(45, 17)
+        Me.lblCalcRuns.TabIndex = 0
+        Me.lblCalcRuns.Text = "Runs:"
+        '
+        'lblCalcLabLines1
+        '
+        Me.lblCalcLabLines1.AutoSize = True
+        Me.lblCalcLabLines1.Location = New System.Drawing.Point(141, 16)
+        Me.lblCalcLabLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCalcLabLines1.Name = "lblCalcLabLines1"
+        Me.lblCalcLabLines1.Size = New System.Drawing.Size(43, 17)
+        Me.lblCalcLabLines1.TabIndex = 6
+        Me.lblCalcLabLines1.Text = "Labs:"
+        '
+        'lblCalcProdLines1
+        '
+        Me.lblCalcProdLines1.AutoSize = True
+        Me.lblCalcProdLines1.Location = New System.Drawing.Point(99, 16)
+        Me.lblCalcProdLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCalcProdLines1.Name = "lblCalcProdLines1"
+        Me.lblCalcProdLines1.Size = New System.Drawing.Size(42, 17)
+        Me.lblCalcProdLines1.TabIndex = 4
+        Me.lblCalcProdLines1.Text = "Prod:"
+        '
+        'txtCalcProdLines
+        '
+        Me.txtCalcProdLines.Location = New System.Drawing.Point(100, 35)
+        Me.txtCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtCalcProdLines.MaxLength = 3
+        Me.txtCalcProdLines.Name = "txtCalcProdLines"
+        Me.txtCalcProdLines.Size = New System.Drawing.Size(39, 23)
+        Me.txtCalcProdLines.TabIndex = 5
+        Me.txtCalcProdLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'gbCalcIncludeItems
         '
         Me.gbCalcIncludeItems.Controls.Add(Me.chkCalcCanBuild)
         Me.gbCalcIncludeItems.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.gbCalcIncludeItems.Location = New System.Drawing.Point(508, 465)
+        Me.gbCalcIncludeItems.Location = New System.Drawing.Point(508, 374)
         Me.gbCalcIncludeItems.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcIncludeItems.Name = "gbCalcIncludeItems"
         Me.gbCalcIncludeItems.Padding = New System.Windows.Forms.Padding(4)
@@ -1207,6 +1315,16 @@ Partial Class frmMain
         Me.chkCalcCanBuild.TabIndex = 0
         Me.chkCalcCanBuild.Text = "Build"
         Me.chkCalcCanBuild.UseVisualStyleBackColor = True
+        '
+        'btnCancelUpdate
+        '
+        Me.btnCancelUpdate.Location = New System.Drawing.Point(1226, 284)
+        Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCancelUpdate.Name = "btnCancelUpdate"
+        Me.btnCancelUpdate.Size = New System.Drawing.Size(141, 40)
+        Me.btnCancelUpdate.TabIndex = 13
+        Me.btnCancelUpdate.Text = "Cancel Update"
+        Me.btnCancelUpdate.UseVisualStyleBackColor = True
         '
         'lstBPList
         '
@@ -1235,7 +1353,7 @@ Partial Class frmMain
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPFavorites)
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcAllBPs)
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPOwned)
-        Me.gbCalcBPSelect.Location = New System.Drawing.Point(18, 427)
+        Me.gbCalcBPSelect.Location = New System.Drawing.Point(688, 374)
         Me.gbCalcBPSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcBPSelect.Name = "gbCalcBPSelect"
         Me.gbCalcBPSelect.Padding = New System.Windows.Forms.Padding(4)
@@ -1276,6 +1394,64 @@ Partial Class frmMain
         Me.rbtnCalcBPOwned.TabIndex = 1
         Me.rbtnCalcBPOwned.Text = "Owned BPs"
         Me.rbtnCalcBPOwned.UseVisualStyleBackColor = True
+        '
+        'btnCalcSaveSettings
+        '
+        Me.btnCalcSaveSettings.Location = New System.Drawing.Point(636, 320)
+        Me.btnCalcSaveSettings.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcSaveSettings.Name = "btnCalcSaveSettings"
+        Me.btnCalcSaveSettings.Size = New System.Drawing.Size(120, 36)
+        Me.btnCalcSaveSettings.TabIndex = 24
+        Me.btnCalcSaveSettings.Text = "Save Settings"
+        Me.btnCalcSaveSettings.UseVisualStyleBackColor = True
+        '
+        'btnCalcReset
+        '
+        Me.btnCalcReset.Location = New System.Drawing.Point(892, 331)
+        Me.btnCalcReset.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnCalcReset.Name = "btnCalcReset"
+        Me.btnCalcReset.Size = New System.Drawing.Size(120, 36)
+        Me.btnCalcReset.TabIndex = 22
+        Me.btnCalcReset.Text = "Reset"
+        Me.btnCalcReset.UseVisualStyleBackColor = True
+        '
+        'tabCalcFacilities
+        '
+        Me.tabCalcFacilities.Controls.Add(Me.tabCalcFacilityBase)
+        Me.tabCalcFacilities.DataBindings.Add(New System.Windows.Forms.Binding("Font", Global.EVE_Isk_per_Hour.My.MySettings.Default, "MyDefault", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.tabCalcFacilities.Font = Global.EVE_Isk_per_Hour.My.MySettings.Default.MyDefault
+        Me.tabCalcFacilities.HotTrack = True
+        Me.tabCalcFacilities.ItemSize = New System.Drawing.Size(49, 20)
+        Me.tabCalcFacilities.Location = New System.Drawing.Point(937, 482)
+        Me.tabCalcFacilities.Margin = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilities.Multiline = True
+        Me.tabCalcFacilities.Name = "tabCalcFacilities"
+        Me.tabCalcFacilities.Padding = New System.Drawing.Point(0, 0)
+        Me.tabCalcFacilities.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.tabCalcFacilities.SelectedIndex = 0
+        Me.tabCalcFacilities.Size = New System.Drawing.Size(388, 220)
+        Me.tabCalcFacilities.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
+        Me.tabCalcFacilities.TabIndex = 13
+        '
+        'tabCalcFacilityBase
+        '
+        Me.tabCalcFacilityBase.Controls.Add(Me.CalcBaseFacility)
+        Me.tabCalcFacilityBase.Location = New System.Drawing.Point(4, 24)
+        Me.tabCalcFacilityBase.Margin = New System.Windows.Forms.Padding(0)
+        Me.tabCalcFacilityBase.Name = "tabCalcFacilityBase"
+        Me.tabCalcFacilityBase.Padding = New System.Windows.Forms.Padding(4)
+        Me.tabCalcFacilityBase.Size = New System.Drawing.Size(380, 192)
+        Me.tabCalcFacilityBase.TabIndex = 1
+        Me.tabCalcFacilityBase.Text = "Base"
+        Me.tabCalcFacilityBase.UseVisualStyleBackColor = True
+        '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(0, 0)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
+        Me.CalcBaseFacility.TabIndex = 0
         '
         'gbCalcTextColors
         '
@@ -1397,6 +1573,7 @@ Partial Class frmMain
         Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(402, 25)
         Me.cmbBPBlueprintSelection.TabIndex = 70
         Me.cmbBPBlueprintSelection.Text = "Select Blueprint or Reaction"
+        Me.cmbBPBlueprintSelection.Visible = False
         '
         'lblBPCanMakeBP
         '
@@ -1417,17 +1594,10 @@ Partial Class frmMain
         Me.gbCalcBPSelectOptions.Controls.Add(Me.chkCalcNPCBPOs)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcMarketFilters)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcSelectColumns)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcSizeLimit)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcProdLines)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcCompareType)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcBPRace)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbTempMEPE)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcFilter)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcBPTech)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcSaveSettings)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcExportList)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcPreview)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcReset)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcTextFilter)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcBPType)
         Me.gbCalcBPSelectOptions.Location = New System.Drawing.Point(16, 837)
@@ -1757,185 +1927,6 @@ Partial Class frmMain
         Me.btnCalcSelectColumns.Text = "Select Columns"
         Me.btnCalcSelectColumns.UseVisualStyleBackColor = True
         '
-        'gbCalcSizeLimit
-        '
-        Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcXL)
-        Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcLarge)
-        Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcMedium)
-        Me.gbCalcSizeLimit.Controls.Add(Me.chkCalcSmall)
-        Me.gbCalcSizeLimit.Location = New System.Drawing.Point(8, 101)
-        Me.gbCalcSizeLimit.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcSizeLimit.Name = "gbCalcSizeLimit"
-        Me.gbCalcSizeLimit.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcSizeLimit.Size = New System.Drawing.Size(185, 48)
-        Me.gbCalcSizeLimit.TabIndex = 3
-        Me.gbCalcSizeLimit.TabStop = False
-        Me.gbCalcSizeLimit.Text = "Size Limit"
-        '
-        'chkCalcXL
-        '
-        Me.chkCalcXL.AutoSize = True
-        Me.chkCalcXL.Checked = True
-        Me.chkCalcXL.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcXL.Location = New System.Drawing.Point(136, 21)
-        Me.chkCalcXL.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcXL.Name = "chkCalcXL"
-        Me.chkCalcXL.Size = New System.Drawing.Size(47, 21)
-        Me.chkCalcXL.TabIndex = 3
-        Me.chkCalcXL.Text = "XL"
-        Me.chkCalcXL.UseVisualStyleBackColor = True
-        '
-        'chkCalcLarge
-        '
-        Me.chkCalcLarge.AutoSize = True
-        Me.chkCalcLarge.Checked = True
-        Me.chkCalcLarge.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcLarge.Location = New System.Drawing.Point(96, 21)
-        Me.chkCalcLarge.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcLarge.Name = "chkCalcLarge"
-        Me.chkCalcLarge.Size = New System.Drawing.Size(38, 21)
-        Me.chkCalcLarge.TabIndex = 2
-        Me.chkCalcLarge.Text = "L"
-        Me.chkCalcLarge.UseVisualStyleBackColor = True
-        '
-        'chkCalcMedium
-        '
-        Me.chkCalcMedium.AutoSize = True
-        Me.chkCalcMedium.Checked = True
-        Me.chkCalcMedium.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcMedium.Location = New System.Drawing.Point(52, 21)
-        Me.chkCalcMedium.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcMedium.Name = "chkCalcMedium"
-        Me.chkCalcMedium.Size = New System.Drawing.Size(41, 21)
-        Me.chkCalcMedium.TabIndex = 1
-        Me.chkCalcMedium.Text = "M"
-        Me.chkCalcMedium.UseVisualStyleBackColor = True
-        '
-        'chkCalcSmall
-        '
-        Me.chkCalcSmall.AutoSize = True
-        Me.chkCalcSmall.Checked = True
-        Me.chkCalcSmall.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcSmall.Location = New System.Drawing.Point(11, 21)
-        Me.chkCalcSmall.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcSmall.Name = "chkCalcSmall"
-        Me.chkCalcSmall.Size = New System.Drawing.Size(39, 21)
-        Me.chkCalcSmall.TabIndex = 0
-        Me.chkCalcSmall.Text = "S"
-        Me.chkCalcSmall.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkCalcSmall.UseVisualStyleBackColor = True
-        '
-        'gbCalcProdLines
-        '
-        Me.gbCalcProdLines.Controls.Add(Me.chkCalcAutoCalcT2NumBPs)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcBPs)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcNumBPs)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcRuns)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcLabLines)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcRuns)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcLabLines1)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcProdLines)
-        Me.gbCalcProdLines.Location = New System.Drawing.Point(1074, 19)
-        Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcProdLines.Name = "gbCalcProdLines"
-        Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcProdLines.Size = New System.Drawing.Size(195, 90)
-        Me.gbCalcProdLines.TabIndex = 15
-        Me.gbCalcProdLines.TabStop = False
-        Me.gbCalcProdLines.Text = "Runs / Lines:"
-        '
-        'chkCalcAutoCalcT2NumBPs
-        '
-        Me.chkCalcAutoCalcT2NumBPs.AutoSize = True
-        Me.chkCalcAutoCalcT2NumBPs.Location = New System.Drawing.Point(15, 65)
-        Me.chkCalcAutoCalcT2NumBPs.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcAutoCalcT2NumBPs.Name = "chkCalcAutoCalcT2NumBPs"
-        Me.chkCalcAutoCalcT2NumBPs.Size = New System.Drawing.Size(173, 21)
-        Me.chkCalcAutoCalcT2NumBPs.TabIndex = 8
-        Me.chkCalcAutoCalcT2NumBPs.Text = "Auto Calc T2 Num BPs"
-        Me.chkCalcAutoCalcT2NumBPs.UseVisualStyleBackColor = True
-        '
-        'lblCalcBPs
-        '
-        Me.lblCalcBPs.AutoSize = True
-        Me.lblCalcBPs.Location = New System.Drawing.Point(55, 16)
-        Me.lblCalcBPs.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcBPs.Name = "lblCalcBPs"
-        Me.lblCalcBPs.Size = New System.Drawing.Size(37, 17)
-        Me.lblCalcBPs.TabIndex = 2
-        Me.lblCalcBPs.Text = "BPs:"
-        '
-        'txtCalcNumBPs
-        '
-        Me.txtCalcNumBPs.Location = New System.Drawing.Point(56, 35)
-        Me.txtCalcNumBPs.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcNumBPs.MaxLength = 3
-        Me.txtCalcNumBPs.Name = "txtCalcNumBPs"
-        Me.txtCalcNumBPs.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcNumBPs.TabIndex = 3
-        Me.txtCalcNumBPs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtCalcRuns
-        '
-        Me.txtCalcRuns.Location = New System.Drawing.Point(11, 35)
-        Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcRuns.MaxLength = 4
-        Me.txtCalcRuns.Name = "txtCalcRuns"
-        Me.txtCalcRuns.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcRuns.TabIndex = 1
-        Me.txtCalcRuns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtCalcLabLines
-        '
-        Me.txtCalcLabLines.Location = New System.Drawing.Point(144, 35)
-        Me.txtCalcLabLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcLabLines.MaxLength = 3
-        Me.txtCalcLabLines.Name = "txtCalcLabLines"
-        Me.txtCalcLabLines.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcLabLines.TabIndex = 7
-        Me.txtCalcLabLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'lblCalcRuns
-        '
-        Me.lblCalcRuns.AutoSize = True
-        Me.lblCalcRuns.Location = New System.Drawing.Point(10, 16)
-        Me.lblCalcRuns.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcRuns.Name = "lblCalcRuns"
-        Me.lblCalcRuns.Size = New System.Drawing.Size(45, 17)
-        Me.lblCalcRuns.TabIndex = 0
-        Me.lblCalcRuns.Text = "Runs:"
-        '
-        'lblCalcLabLines1
-        '
-        Me.lblCalcLabLines1.AutoSize = True
-        Me.lblCalcLabLines1.Location = New System.Drawing.Point(141, 16)
-        Me.lblCalcLabLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcLabLines1.Name = "lblCalcLabLines1"
-        Me.lblCalcLabLines1.Size = New System.Drawing.Size(43, 17)
-        Me.lblCalcLabLines1.TabIndex = 6
-        Me.lblCalcLabLines1.Text = "Labs:"
-        '
-        'lblCalcProdLines1
-        '
-        Me.lblCalcProdLines1.AutoSize = True
-        Me.lblCalcProdLines1.Location = New System.Drawing.Point(99, 16)
-        Me.lblCalcProdLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcProdLines1.Name = "lblCalcProdLines1"
-        Me.lblCalcProdLines1.Size = New System.Drawing.Size(42, 17)
-        Me.lblCalcProdLines1.TabIndex = 4
-        Me.lblCalcProdLines1.Text = "Prod:"
-        '
-        'txtCalcProdLines
-        '
-        Me.txtCalcProdLines.Location = New System.Drawing.Point(100, 35)
-        Me.txtCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcProdLines.MaxLength = 3
-        Me.txtCalcProdLines.Name = "txtCalcProdLines"
-        Me.txtCalcProdLines.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcProdLines.TabIndex = 5
-        Me.txtCalcProdLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'gbCalcCompareType
         '
         Me.gbCalcCompareType.Controls.Add(Me.chkCalcPPU)
@@ -2007,101 +1998,6 @@ Partial Class frmMain
         Me.rbtnCalcCompareAll.Text = "Compare All"
         Me.rbtnCalcCompareAll.UseVisualStyleBackColor = True
         '
-        'gbCalcBPRace
-        '
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceOther)
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRacePirate)
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceMinmatar)
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceGallente)
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceCaldari)
-        Me.gbCalcBPRace.Controls.Add(Me.chkCalcRaceAmarr)
-        Me.gbCalcBPRace.Location = New System.Drawing.Point(199, 101)
-        Me.gbCalcBPRace.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcBPRace.Name = "gbCalcBPRace"
-        Me.gbCalcBPRace.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcBPRace.Size = New System.Drawing.Size(240, 81)
-        Me.gbCalcBPRace.TabIndex = 4
-        Me.gbCalcBPRace.TabStop = False
-        Me.gbCalcBPRace.Text = "BP Race"
-        '
-        'chkCalcRaceOther
-        '
-        Me.chkCalcRaceOther.AutoSize = True
-        Me.chkCalcRaceOther.Checked = True
-        Me.chkCalcRaceOther.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRaceOther.Location = New System.Drawing.Point(170, 50)
-        Me.chkCalcRaceOther.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRaceOther.Name = "chkCalcRaceOther"
-        Me.chkCalcRaceOther.Size = New System.Drawing.Size(66, 21)
-        Me.chkCalcRaceOther.TabIndex = 5
-        Me.chkCalcRaceOther.Text = "Other"
-        Me.chkCalcRaceOther.UseVisualStyleBackColor = True
-        '
-        'chkCalcRacePirate
-        '
-        Me.chkCalcRacePirate.AutoSize = True
-        Me.chkCalcRacePirate.Checked = True
-        Me.chkCalcRacePirate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRacePirate.Location = New System.Drawing.Point(170, 21)
-        Me.chkCalcRacePirate.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRacePirate.Name = "chkCalcRacePirate"
-        Me.chkCalcRacePirate.Size = New System.Drawing.Size(67, 21)
-        Me.chkCalcRacePirate.TabIndex = 2
-        Me.chkCalcRacePirate.Text = "Pirate"
-        Me.chkCalcRacePirate.UseVisualStyleBackColor = True
-        '
-        'chkCalcRaceMinmatar
-        '
-        Me.chkCalcRaceMinmatar.AutoSize = True
-        Me.chkCalcRaceMinmatar.Checked = True
-        Me.chkCalcRaceMinmatar.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRaceMinmatar.Location = New System.Drawing.Point(86, 50)
-        Me.chkCalcRaceMinmatar.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRaceMinmatar.Name = "chkCalcRaceMinmatar"
-        Me.chkCalcRaceMinmatar.Size = New System.Drawing.Size(88, 21)
-        Me.chkCalcRaceMinmatar.TabIndex = 4
-        Me.chkCalcRaceMinmatar.Text = "Minmatar"
-        Me.chkCalcRaceMinmatar.UseVisualStyleBackColor = True
-        '
-        'chkCalcRaceGallente
-        '
-        Me.chkCalcRaceGallente.AutoSize = True
-        Me.chkCalcRaceGallente.Checked = True
-        Me.chkCalcRaceGallente.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRaceGallente.Location = New System.Drawing.Point(8, 50)
-        Me.chkCalcRaceGallente.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRaceGallente.Name = "chkCalcRaceGallente"
-        Me.chkCalcRaceGallente.Size = New System.Drawing.Size(83, 21)
-        Me.chkCalcRaceGallente.TabIndex = 3
-        Me.chkCalcRaceGallente.Text = "Gallente"
-        Me.chkCalcRaceGallente.UseVisualStyleBackColor = True
-        '
-        'chkCalcRaceCaldari
-        '
-        Me.chkCalcRaceCaldari.AutoSize = True
-        Me.chkCalcRaceCaldari.Checked = True
-        Me.chkCalcRaceCaldari.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRaceCaldari.Location = New System.Drawing.Point(86, 21)
-        Me.chkCalcRaceCaldari.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRaceCaldari.Name = "chkCalcRaceCaldari"
-        Me.chkCalcRaceCaldari.Size = New System.Drawing.Size(74, 21)
-        Me.chkCalcRaceCaldari.TabIndex = 1
-        Me.chkCalcRaceCaldari.Text = "Caldari"
-        Me.chkCalcRaceCaldari.UseVisualStyleBackColor = True
-        '
-        'chkCalcRaceAmarr
-        '
-        Me.chkCalcRaceAmarr.AutoSize = True
-        Me.chkCalcRaceAmarr.Checked = True
-        Me.chkCalcRaceAmarr.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcRaceAmarr.Location = New System.Drawing.Point(8, 21)
-        Me.chkCalcRaceAmarr.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcRaceAmarr.Name = "chkCalcRaceAmarr"
-        Me.chkCalcRaceAmarr.Size = New System.Drawing.Size(68, 21)
-        Me.chkCalcRaceAmarr.TabIndex = 0
-        Me.chkCalcRaceAmarr.Text = "Amarr"
-        Me.chkCalcRaceAmarr.UseVisualStyleBackColor = True
-        '
         'gbTempMEPE
         '
         Me.gbTempMEPE.Controls.Add(Me.txtCalcTempTE)
@@ -2153,44 +2049,6 @@ Partial Class frmMain
         Me.lblTempME.TabIndex = 0
         Me.lblTempME.Text = "ME:"
         '
-        'tabCalcFacilities
-        '
-        Me.tabCalcFacilities.Controls.Add(Me.tabCalcFacilityBase)
-        Me.tabCalcFacilities.DataBindings.Add(New System.Windows.Forms.Binding("Font", Global.EVE_Isk_per_Hour.My.MySettings.Default, "MyDefault", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.tabCalcFacilities.Font = Global.EVE_Isk_per_Hour.My.MySettings.Default.MyDefault
-        Me.tabCalcFacilities.HotTrack = True
-        Me.tabCalcFacilities.ItemSize = New System.Drawing.Size(49, 20)
-        Me.tabCalcFacilities.Location = New System.Drawing.Point(937, 482)
-        Me.tabCalcFacilities.Margin = New System.Windows.Forms.Padding(4)
-        Me.tabCalcFacilities.Multiline = True
-        Me.tabCalcFacilities.Name = "tabCalcFacilities"
-        Me.tabCalcFacilities.Padding = New System.Drawing.Point(0, 0)
-        Me.tabCalcFacilities.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.tabCalcFacilities.SelectedIndex = 0
-        Me.tabCalcFacilities.Size = New System.Drawing.Size(388, 220)
-        Me.tabCalcFacilities.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
-        Me.tabCalcFacilities.TabIndex = 13
-        '
-        'tabCalcFacilityBase
-        '
-        Me.tabCalcFacilityBase.Controls.Add(Me.CalcBaseFacility)
-        Me.tabCalcFacilityBase.Location = New System.Drawing.Point(4, 24)
-        Me.tabCalcFacilityBase.Margin = New System.Windows.Forms.Padding(0)
-        Me.tabCalcFacilityBase.Name = "tabCalcFacilityBase"
-        Me.tabCalcFacilityBase.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabCalcFacilityBase.Size = New System.Drawing.Size(380, 192)
-        Me.tabCalcFacilityBase.TabIndex = 1
-        Me.tabCalcFacilityBase.Text = "Base"
-        Me.tabCalcFacilityBase.UseVisualStyleBackColor = True
-        '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(0, 0)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
-        Me.CalcBaseFacility.TabIndex = 0
-        '
         'gbCalcFilter
         '
         Me.gbCalcFilter.Controls.Add(Me.cmbCalcBPTypeFilter)
@@ -2213,41 +2071,6 @@ Partial Class frmMain
         Me.cmbCalcBPTypeFilter.TabIndex = 0
         Me.cmbCalcBPTypeFilter.Text = "All Types"
         '
-        'gbCalcBPTech
-        '
-        Me.gbCalcBPTech.Controls.Add(Me.chkCalcT1)
-        Me.gbCalcBPTech.Location = New System.Drawing.Point(261, 19)
-        Me.gbCalcBPTech.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcBPTech.Name = "gbCalcBPTech"
-        Me.gbCalcBPTech.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcBPTech.Size = New System.Drawing.Size(178, 81)
-        Me.gbCalcBPTech.TabIndex = 2
-        Me.gbCalcBPTech.TabStop = False
-        Me.gbCalcBPTech.Text = "Tech"
-        '
-        'chkCalcT1
-        '
-        Me.chkCalcT1.AutoSize = True
-        Me.chkCalcT1.Checked = True
-        Me.chkCalcT1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcT1.Location = New System.Drawing.Point(18, 18)
-        Me.chkCalcT1.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcT1.Name = "chkCalcT1"
-        Me.chkCalcT1.Size = New System.Drawing.Size(74, 21)
-        Me.chkCalcT1.TabIndex = 0
-        Me.chkCalcT1.Text = "Tech 1"
-        Me.chkCalcT1.UseVisualStyleBackColor = True
-        '
-        'btnCalcSaveSettings
-        '
-        Me.btnCalcSaveSettings.Location = New System.Drawing.Point(1274, 170)
-        Me.btnCalcSaveSettings.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCalcSaveSettings.Name = "btnCalcSaveSettings"
-        Me.btnCalcSaveSettings.Size = New System.Drawing.Size(120, 36)
-        Me.btnCalcSaveSettings.TabIndex = 24
-        Me.btnCalcSaveSettings.Text = "Save Settings"
-        Me.btnCalcSaveSettings.UseVisualStyleBackColor = True
-        '
         'btnCalcExportList
         '
         Me.btnCalcExportList.Location = New System.Drawing.Point(1274, 206)
@@ -2257,26 +2080,6 @@ Partial Class frmMain
         Me.btnCalcExportList.TabIndex = 25
         Me.btnCalcExportList.Text = "Export Table"
         Me.btnCalcExportList.UseVisualStyleBackColor = True
-        '
-        'btnCalcPreview
-        '
-        Me.btnCalcPreview.Location = New System.Drawing.Point(1274, 25)
-        Me.btnCalcPreview.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCalcPreview.Name = "btnCalcPreview"
-        Me.btnCalcPreview.Size = New System.Drawing.Size(120, 36)
-        Me.btnCalcPreview.TabIndex = 20
-        Me.btnCalcPreview.Text = "Preview Item List"
-        Me.btnCalcPreview.UseVisualStyleBackColor = True
-        '
-        'btnCalcReset
-        '
-        Me.btnCalcReset.Location = New System.Drawing.Point(1274, 98)
-        Me.btnCalcReset.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCalcReset.Name = "btnCalcReset"
-        Me.btnCalcReset.Size = New System.Drawing.Size(120, 36)
-        Me.btnCalcReset.TabIndex = 22
-        Me.btnCalcReset.Text = "Reset"
-        Me.btnCalcReset.UseVisualStyleBackColor = True
         '
         'gbCalcTextFilter
         '
@@ -2430,57 +2233,20 @@ Partial Class frmMain
         Me.rbtnPriceSourceCCPData.Text = "CCP Data"
         Me.rbtnPriceSourceCCPData.UseVisualStyleBackColor = True
         '
-        'btnSaveUpdatePrices
-        '
-        Me.btnSaveUpdatePrices.Location = New System.Drawing.Point(34, 189)
-        Me.btnSaveUpdatePrices.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSaveUpdatePrices.Name = "btnSaveUpdatePrices"
-        Me.btnSaveUpdatePrices.Size = New System.Drawing.Size(141, 40)
-        Me.btnSaveUpdatePrices.TabIndex = 14
-        Me.btnSaveUpdatePrices.Text = "Save Settings"
-        Me.btnSaveUpdatePrices.UseVisualStyleBackColor = True
-        '
-        'btnCancelUpdate
-        '
-        Me.btnCancelUpdate.Location = New System.Drawing.Point(30, 250)
-        Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCancelUpdate.Name = "btnCancelUpdate"
-        Me.btnCancelUpdate.Size = New System.Drawing.Size(141, 40)
-        Me.btnCancelUpdate.TabIndex = 13
-        Me.btnCancelUpdate.Text = "Cancel Update"
-        Me.btnCancelUpdate.UseVisualStyleBackColor = True
-        '
         'gbManufacturedItems
         '
-        Me.gbManufacturedItems.Controls.Add(Me.lstPricesView)
         Me.gbManufacturedItems.Controls.Add(Me.gbRawMaterials)
         Me.gbManufacturedItems.Controls.Add(Me.rbtnPriceSourceCCPData)
         Me.gbManufacturedItems.Controls.Add(Me.rbtnPriceSettingSingleSelect)
         Me.gbManufacturedItems.Controls.Add(Me.gbPriceTools)
         Me.gbManufacturedItems.Controls.Add(Me.gbItems)
-        Me.gbManufacturedItems.Controls.Add(Me.btnSaveUpdatePrices)
-        Me.gbManufacturedItems.Controls.Add(Me.btnCancelUpdate)
-        Me.gbManufacturedItems.Location = New System.Drawing.Point(1447, 856)
+        Me.gbManufacturedItems.Location = New System.Drawing.Point(1441, 669)
         Me.gbManufacturedItems.Margin = New System.Windows.Forms.Padding(4)
         Me.gbManufacturedItems.Name = "gbManufacturedItems"
         Me.gbManufacturedItems.Padding = New System.Windows.Forms.Padding(4)
         Me.gbManufacturedItems.Size = New System.Drawing.Size(905, 663)
         Me.gbManufacturedItems.TabIndex = 2
         Me.gbManufacturedItems.TabStop = False
-        '
-        'lstPricesView
-        '
-        Me.lstPricesView.FullRowSelect = True
-        Me.lstPricesView.GridLines = True
-        Me.lstPricesView.HideSelection = False
-        Me.lstPricesView.Location = New System.Drawing.Point(30, 336)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstPricesView.MultiSelect = False
-        Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(441, 280)
-        Me.lstPricesView.TabIndex = 0
-        Me.lstPricesView.UseCompatibleStateImageBehavior = False
-        Me.lstPricesView.View = System.Windows.Forms.View.Details
         '
         'gbRawMaterials
         '
@@ -2492,7 +2258,7 @@ Partial Class frmMain
         Me.gbRawMaterials.Controls.Add(Me.chkSalvage)
         Me.gbRawMaterials.Controls.Add(Me.chkIceProducts)
         Me.gbRawMaterials.Controls.Add(Me.chkMinerals)
-        Me.gbRawMaterials.Location = New System.Drawing.Point(534, 308)
+        Me.gbRawMaterials.Location = New System.Drawing.Point(53, 302)
         Me.gbRawMaterials.Margin = New System.Windows.Forms.Padding(4)
         Me.gbRawMaterials.Name = "gbRawMaterials"
         Me.gbRawMaterials.Padding = New System.Windows.Forms.Padding(4)
@@ -2741,6 +2507,20 @@ Partial Class frmMain
         Me.chkDrones.Text = "Drones"
         Me.chkDrones.UseVisualStyleBackColor = True
         '
+        'lstPricesView
+        '
+        Me.lstPricesView.FullRowSelect = True
+        Me.lstPricesView.GridLines = True
+        Me.lstPricesView.HideSelection = False
+        Me.lstPricesView.Location = New System.Drawing.Point(1458, 377)
+        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstPricesView.MultiSelect = False
+        Me.lstPricesView.Name = "lstPricesView"
+        Me.lstPricesView.Size = New System.Drawing.Size(441, 280)
+        Me.lstPricesView.TabIndex = 0
+        Me.lstPricesView.UseCompatibleStateImageBehavior = False
+        Me.lstPricesView.View = System.Windows.Forms.View.Details
+        '
         'tabMain
         '
         Me.tabMain.Controls.Add(Me.tabManufacturing)
@@ -2785,6 +2565,7 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1505, 1053)
+        Me.Controls.Add(Me.lstPricesView)
         Me.Controls.Add(Me.gbManufacturedItems)
         Me.Controls.Add(Me.gbCalcBPSelectOptions)
         Me.Controls.Add(Me.cmbEdit)
@@ -2812,11 +2593,15 @@ Partial Class frmMain
         Me.tabManufacturing.PerformLayout()
         Me.gbTradeHubSystems.ResumeLayout(False)
         Me.gbTradeHubSystems.PerformLayout()
+        Me.gbCalcProdLines.ResumeLayout(False)
+        Me.gbCalcProdLines.PerformLayout()
         Me.gbCalcIncludeItems.ResumeLayout(False)
         Me.gbCalcIncludeItems.PerformLayout()
         CType(Me.pictBP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbCalcBPSelect.ResumeLayout(False)
         Me.gbCalcBPSelect.PerformLayout()
+        Me.tabCalcFacilities.ResumeLayout(False)
+        Me.tabCalcFacilityBase.ResumeLayout(False)
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.gbCalcTextColors.PerformLayout()
         Me.gbCalcBPSelectOptions.ResumeLayout(False)
@@ -2825,21 +2610,11 @@ Partial Class frmMain
         Me.gbIncludeTaxesFees.PerformLayout()
         Me.gbCalcMarketFilters.ResumeLayout(False)
         Me.gbCalcMarketFilters.PerformLayout()
-        Me.gbCalcSizeLimit.ResumeLayout(False)
-        Me.gbCalcSizeLimit.PerformLayout()
-        Me.gbCalcProdLines.ResumeLayout(False)
-        Me.gbCalcProdLines.PerformLayout()
         Me.gbCalcCompareType.ResumeLayout(False)
         Me.gbCalcCompareType.PerformLayout()
-        Me.gbCalcBPRace.ResumeLayout(False)
-        Me.gbCalcBPRace.PerformLayout()
         Me.gbTempMEPE.ResumeLayout(False)
         Me.gbTempMEPE.PerformLayout()
-        Me.tabCalcFacilities.ResumeLayout(False)
-        Me.tabCalcFacilityBase.ResumeLayout(False)
         Me.gbCalcFilter.ResumeLayout(False)
-        Me.gbCalcBPTech.ResumeLayout(False)
-        Me.gbCalcBPTech.PerformLayout()
         Me.gbCalcTextFilter.ResumeLayout(False)
         Me.gbCalcTextFilter.PerformLayout()
         Me.gbCalcBPType.ResumeLayout(False)
@@ -3004,11 +2779,6 @@ Partial Class frmMain
     Friend WithEvents chkCalcIPHThreshold As CheckBox
     Friend WithEvents btnCalcCalculate As Button
     Friend WithEvents btnCalcSelectColumns As Button
-    Friend WithEvents gbCalcSizeLimit As GroupBox
-    Friend WithEvents chkCalcXL As CheckBox
-    Friend WithEvents chkCalcLarge As CheckBox
-    Friend WithEvents chkCalcMedium As CheckBox
-    Friend WithEvents chkCalcSmall As CheckBox
     Friend WithEvents gbCalcProdLines As GroupBox
     Friend WithEvents chkCalcAutoCalcT2NumBPs As CheckBox
     Friend WithEvents lblCalcBPs As Label
@@ -3033,13 +2803,6 @@ Partial Class frmMain
     Friend WithEvents lblCalcColorCode5 As Label
     Friend WithEvents lblCalcColorCode2 As Label
     Friend WithEvents lblCalcColorCode1 As Label
-    Friend WithEvents gbCalcBPRace As GroupBox
-    Friend WithEvents chkCalcRaceOther As CheckBox
-    Friend WithEvents chkCalcRacePirate As CheckBox
-    Friend WithEvents chkCalcRaceMinmatar As CheckBox
-    Friend WithEvents chkCalcRaceGallente As CheckBox
-    Friend WithEvents chkCalcRaceCaldari As CheckBox
-    Friend WithEvents chkCalcRaceAmarr As CheckBox
     Friend WithEvents gbTempMEPE As GroupBox
     Friend WithEvents txtCalcTempTE As TextBox
     Friend WithEvents lblTempPE As Label
@@ -3050,11 +2813,8 @@ Partial Class frmMain
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
     Friend WithEvents gbCalcFilter As GroupBox
     Friend WithEvents cmbCalcBPTypeFilter As ComboBox
-    Friend WithEvents gbCalcBPTech As GroupBox
-    Friend WithEvents chkCalcT1 As CheckBox
     Friend WithEvents btnCalcSaveSettings As Button
     Friend WithEvents btnCalcExportList As Button
-    Friend WithEvents btnCalcPreview As Button
     Friend WithEvents btnCalcReset As Button
     Friend WithEvents gbCalcTextFilter As GroupBox
     Friend WithEvents btnCalcResetTextSearch As Button

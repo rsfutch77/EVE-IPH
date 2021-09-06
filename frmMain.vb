@@ -6692,17 +6692,12 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub chkCalcT1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcT1.CheckedChanged
+    Private Sub chkCalcT1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
 
-            ' Disable NPC BPOs
-            If chkCalcT1.Checked = False Then
-                chkCalcNPCBPOs.Enabled = False
-            Else
-                chkCalcNPCBPOs.Enabled = True
-            End If
+            chkCalcNPCBPOs.Enabled = True
 
             Call ResetRefresh()
         End If
@@ -6929,27 +6924,27 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRaceAmarr_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRaceAmarr.CheckedChanged
+    Private Sub chkCalcRaceAmarr_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRaceCaldari_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRaceCaldari.CheckedChanged
+    Private Sub chkCalcRaceCaldari_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRaceGallente_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRaceGallente.CheckedChanged
+    Private Sub chkCalcRaceGallente_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRaceMinmatar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRaceMinmatar.CheckedChanged
+    Private Sub chkCalcRaceMinmatar_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRacePirate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRacePirate.CheckedChanged
+    Private Sub chkCalcRacePirate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcRaceOther_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRaceOther.CheckedChanged
+    Private Sub chkCalcRaceOther_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6972,7 +6967,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcSmall_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcSmall.CheckedChanged
+    Private Sub chkCalcSmall_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -6980,7 +6975,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub chkCalcMedium_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcMedium.CheckedChanged
+    Private Sub chkCalcMedium_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -6988,7 +6983,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub chkCalcLarge_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcLarge.CheckedChanged
+    Private Sub chkCalcLarge_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -6996,7 +6991,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub chkCalcXL_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcXL.CheckedChanged
+    Private Sub chkCalcXL_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             cmbCalcBPTypeFilter.Text = "All Types"
@@ -8299,9 +8294,6 @@ ExitPRocessing:
             chkCalcShips.Checked = .CheckBPTypeShips
             chkCalcMisc.Checked = .CheckBPTypeMisc
 
-            ' Tech
-            chkCalcT1.Checked = .CheckTech1
-
             ' Blueprint load types
             Select Case .BlueprintType
                 Case rbtnCalcAllBPs.Text
@@ -8329,18 +8321,6 @@ ExitPRocessing:
             End Select
 
             txtCalcBrokerFeeRate.Text = FormatPercent(.CalcBrokerFeeRate, 1)
-
-            chkCalcRaceAmarr.Checked = .CheckRaceAmarr
-            chkCalcRaceCaldari.Checked = .CheckRaceCaldari
-            chkCalcRaceMinmatar.Checked = .CheckRaceMinmatar
-            chkCalcRaceGallente.Checked = .CheckRaceGallente
-            chkCalcRacePirate.Checked = .CheckRacePirate
-            chkCalcRaceOther.Checked = .CheckRaceOther
-
-            chkCalcSmall.Checked = .CheckSmall
-            chkCalcMedium.Checked = .CheckMedium
-            chkCalcLarge.Checked = .CheckLarge
-            chkCalcXL.Checked = .CheckXL
 
             chkCalcCanBuild.Checked = .CheckOnlyBuild
             chkCalcCanInvent.Checked = .CheckOnlyInvent
@@ -8498,7 +8478,7 @@ ExitPRocessing:
             .CheckBPTypeShips = chkCalcShips.Checked
             .CheckBPTypeMisc = chkCalcMisc.Checked
 
-            .CheckTech1 = chkCalcT1.Checked
+            .CheckTech1 = True
 
             .CheckAutoCalcNumBPs = chkCalcAutoCalcT2NumBPs.Checked
 
@@ -8522,12 +8502,12 @@ ExitPRocessing:
             End If
             .CalcBrokerFeeRate = FormatManualPercentEntry(txtCalcBrokerFeeRate.Text)
 
-            .CheckRaceAmarr = chkCalcRaceAmarr.Checked
-            .CheckRaceCaldari = chkCalcRaceCaldari.Checked
-            .CheckRaceMinmatar = chkCalcRaceMinmatar.Checked
-            .CheckRaceGallente = chkCalcRaceGallente.Checked
-            .CheckRacePirate = chkCalcRacePirate.Checked
-            .CheckRaceOther = chkCalcRaceOther.Checked
+            .CheckRaceAmarr = True
+            .CheckRaceCaldari = True
+            .CheckRaceMinmatar = True
+            .CheckRaceGallente = True
+            .CheckRacePirate = True
+            .CheckRaceOther = True
 
             .CalcPPU = chkCalcPPU.Checked
             .CheckSellExcessItems = False
@@ -8562,10 +8542,10 @@ ExitPRocessing:
                 .PriceCompare = rbtnCalcCompareRawMats.Text
             End If
 
-            .CheckSmall = chkCalcSmall.Checked
-            .CheckMedium = chkCalcMedium.Checked
-            .CheckLarge = chkCalcLarge.Checked
-            .CheckXL = chkCalcXL.Checked
+            .CheckSmall = True
+            .CheckMedium = True
+            .CheckLarge = True
+            .CheckXL = True
 
             .CheckSVRIncludeNull = chkCalcSVRIncludeNull.Checked
             .ProductionLines = CInt(txtCalcProdLines.Text)
@@ -9211,18 +9191,14 @@ ExitPRocessing:
                 ListRowFormats = New List(Of RowFormat)
 
                 ' Disable all the controls individulally so we can use cancel button
-                btnCalcPreview.Enabled = False
                 btnCalcReset.Enabled = False
                 btnCalcSelectColumns.Enabled = False
                 btnCalcSaveSettings.Enabled = False
                 btnCalcExportList.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcIncludeItems.Enabled = False
-                gbCalcBPRace.Enabled = False
                 gbCalcBPType.Enabled = False
                 chkCalcNPCBPOs.Enabled = False
-                gbCalcSizeLimit.Enabled = False
-                gbCalcBPTech.Enabled = False
                 gbCalcCompareType.Enabled = False
                 gbCalcMarketFilters.Enabled = False
                 gbCalcFilter.Enabled = False
@@ -10075,7 +10051,6 @@ ExitCalc:
         lstManufacturing.EndUpdate()
 
         ' Enable all the controls
-        btnCalcPreview.Enabled = True
         btnCalcReset.Enabled = True
         btnCalcSelectColumns.Enabled = True
         btnCalcSaveSettings.Enabled = True
@@ -10083,11 +10058,8 @@ ExitCalc:
         gbCalcMarketFilters.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcIncludeItems.Enabled = True
-        gbCalcBPRace.Enabled = True
         gbCalcBPType.Enabled = True
         chkCalcNPCBPOs.Enabled = True
-        gbCalcSizeLimit.Enabled = True
-        gbCalcBPTech.Enabled = True
         gbCalcCompareType.Enabled = True
         gbCalcFilter.Enabled = True
         gbCalcProdLines.Enabled = True
@@ -10629,7 +10601,7 @@ ExitCalc:
     End Function
 
     ' Refresh the list with blueprints before we calculate the data so the user knows what they are calculating
-    Private Sub btnManufactureRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcPreview.Click
+    Private Sub btnManufactureRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call DisplayManufacturingResults(False)
     End Sub
 
@@ -10721,13 +10693,7 @@ ExitCalc:
         ' 15 is Pirate Faction
         ' 16 is Navy Faction
 
-        ' Check Tech version
-        If chkCalcT1.Enabled Then
-            ' Only a Subsystem so T3
-            If chkCalcT1.Checked Then
-                ItemTypeNumbers = ItemTypeNumbers & "1,"
-            End If
-        End If
+        ItemTypeNumbers = ItemTypeNumbers & "1,"
 
         ' Add Item Type
         If ItemTypeNumbers <> "" Then
@@ -10743,24 +10709,12 @@ ExitCalc:
         End If
 
         ' Determine what race we are looking at
-        If chkCalcRaceAmarr.Checked Then
-            TempRace = TempRace & "4,"
-        End If
-        If chkCalcRaceCaldari.Checked Then
-            TempRace = TempRace & "1,"
-        End If
-        If chkCalcRaceMinmatar.Checked Then
-            TempRace = TempRace & "2,"
-        End If
-        If chkCalcRaceGallente.Checked Then
-            TempRace = TempRace & "8,"
-        End If
-        If chkCalcRacePirate.Checked Then
-            TempRace = TempRace & "15,"
-        End If
-        If chkCalcRaceOther.Checked Then
-            TempRace = TempRace & "0,"
-        End If
+        TempRace = TempRace & "4,"
+        TempRace = TempRace & "1,"
+        TempRace = TempRace & "2,"
+        TempRace = TempRace & "8,"
+        TempRace = TempRace & "15,"
+        TempRace = TempRace & "0,"
 
         If TempRace <> "" Then
             TempRace = "(" & TempRace.Substring(0, Len(TempRace) - 1) & ")"
@@ -10784,21 +10738,10 @@ ExitCalc:
         SizesClause = ""
 
         ' Finally add the sizes
-        If chkCalcSmall.Checked Then ' Light
-            SizesClause = SizesClause & "'S',"
-        End If
-
-        If chkCalcMedium.Checked Then ' Medium
-            SizesClause = SizesClause & "'M',"
-        End If
-
-        If chkCalcLarge.Checked Then ' Heavy
-            SizesClause = SizesClause & "'L',"
-        End If
-
-        If chkCalcXL.Checked Then ' Fighters
-            SizesClause = SizesClause & "'XL',"
-        End If
+        SizesClause = SizesClause & "'S',"
+        SizesClause = SizesClause & "'M',"
+        SizesClause = SizesClause & "'L',"
+        SizesClause = SizesClause & "'XL',"
 
         If SizesClause <> "" Then
             SizesClause = " AND SIZE_GROUP IN (" & SizesClause.Substring(0, Len(SizesClause) - 1) & ") "
@@ -11027,13 +10970,20 @@ ExitCalc:
     End Sub
 
     ' On double click of the item, it will open up the bp window with the item 
-    Private Sub lstManufacturing_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstManufacturing.DoubleClick
+    Private Sub lstManufacturing_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstManufacturing.Click
         Dim FoundItem As New ManufacturingItem
         Dim CompareType As String
 
         ' Find the item clicked in the list of items then just send those values over
         ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(0).SubItems(0).Text)
         FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+        SelectedBlueprint = FoundItem.Blueprint
+
+        UpdateBPPriceLabels()
+
+        lblBPCanMakeBP.Visible = True
+        lblBPCanMakeBPAll.Visible = True
 
         ' Set the build facility we are sending to the proper facility type for this item. 
         If FoundItem IsNot Nothing Then
