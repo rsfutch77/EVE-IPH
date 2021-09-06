@@ -14,7 +14,6 @@ Public Class frmMain
     Private m_ControlsCollection As ControlsCollection
     Private RegionCheckBoxes() As CheckBox
     Private SystemCheckBoxes() As CheckBox
-    Private TechCheckBoxes() As CheckBox
     ' For saving the price type that was used in the download
     Private GroupPricesList As New List(Of GroupPriceType)
     Private GroupPriceTypetoFind As New GroupPriceType
@@ -53,7 +52,6 @@ Public Class frmMain
 
     Private DCIPH_COLUMN As Integer ' The number of the DC IPH column for totalling up the price
 
-    Private TechChecked As Boolean
     Private IgnoreRefresh As Boolean = False
     Private RunUpdatePriceList As Boolean = True ' If we want to run the price list update
     Private RefreshList As Boolean = True
@@ -513,9 +511,6 @@ Public Class frmMain
         '**** Blueprints Tab Initializations ****
         '****************************************
 
-        ' We haven't checked any tech levels yet
-        TechChecked = False
-
         Call InitBPTab()
 
         ' Base Decryptor
@@ -544,7 +539,6 @@ Public Class frmMain
         ' Create the controls collection class
         m_ControlsCollection = New ControlsCollection(Me)
         ' Get Region check boxes (note index starts at 1)
-        TechCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkPricesT"), CheckBox())
         SystemCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkSystems"), CheckBox())
 
         ' Columns of Update Prices Listview (width = 639) + 21 for scroll = 660
@@ -3922,8 +3916,6 @@ Tabs:
     ' Disables the forms and controls on update prices
     Private Sub DisableUpdatePricesTab(Value As Boolean)
         ' Disable tab
-        gbRawMaterials.Enabled = Not Value
-        gbManufacturedItems.Enabled = Not Value
         gbTradeHubSystems.Enabled = Not Value
         btnDownloadPrices.Enabled = Not Value
         lstPricesView.Enabled = Not Value
@@ -3979,94 +3971,19 @@ Tabs:
         Dim Pirate As Boolean = False
 
         Dim ItemsSelected As Boolean = False
-        Dim i As Integer
         Dim TechChecks As Boolean = False
 
-        ' For check all 
-        If Not RunUpdatePriceList And UpdateAllTechChecks Then
-            UpdateAllTechChecks = False
-            ' Check all and leave
-            For i = 1 To TechCheckBoxes.Length - 1
-                TechCheckBoxes(i).Enabled = True
-                ' Check this one and leave
-                TechCheckBoxes(i).Checked = True
-            Next i
-            Exit Sub
-        End If
-
         ' Check each item checked and set the check boxes accordingly
-        If chkShips.Checked Then
-            T1 = True
-            T2 = True
-            T3 = True
-            Navy = True
-            Pirate = True
-            ItemsSelected = True
-        End If
-
-        If chkModules.Checked Then
-            T1 = True
-            T2 = True
-            Navy = True
-            Storyline = True
-            ItemsSelected = True
-        End If
-
-        If chkDrones.Checked Then
-            T1 = True
-            T2 = True
-            ItemsSelected = True
-        End If
-
-        If chkRigs.Checked Then
-            T1 = True
-            T2 = True
-            ItemsSelected = True
-        End If
-
-        If chkCharges.Checked Then
-            T1 = True
-            T2 = True
-            ItemsSelected = True
-        End If
-
-        ' If none are checked, then uncheck and un-enable all
-        If ItemsSelected Then
-
-            ' Enable the Checks
-            If T1 Then
-                chkPricesT1.Enabled = True
-            Else
-                chkPricesT1.Enabled = False
-            End If
-
-            ' Make sure we have at le=t one checked
-            For i = 1 To TechCheckBoxes.Length - 1
-                If TechCheckBoxes(i).Enabled Then
-                    If TechCheckBoxes(i).Checked Then
-                        TechChecks = True
-                        ' Found one enabled and checked, so leave for
-                        Exit For
-                    End If
-                End If
-            Next i
-
-            If Not TechChecks Then
-                ' Need to check at le=t one
-                For i = 1 To TechCheckBoxes.Length - 1
-                    If TechCheckBoxes(i).Enabled Then
-                        ' Check this one and leave
-                        TechCheckBoxes(i).Checked = True
-                    End If
-                Next i
-            End If
-
-        Else
-            chkPricesT1.Enabled = False
-        End If
+        T1 = True
+        T2 = True
+        T3 = True
+        Pirate = True
+        ItemsSelected = True
+        Navy = True
+        Storyline = True
 
         ' Save status of the Tech check boxes
-        PriceCheckT1Enabled = chkPricesT1.Enabled
+        PriceCheckT1Enabled = True
 
     End Sub
 
@@ -4081,14 +3998,14 @@ Tabs:
         End If
     End Sub
 
-    Private Sub cmbPriceShipTypes_DropDown(sender As Object, e As System.EventArgs) Handles cmbPriceShipTypes.DropDown
+    Private Sub cmbPriceShipTypes_DropDown(sender As Object, e As System.EventArgs)
         If FirstPriceShipTypesComboLoad Then
             Call LoadPriceShipTypes()
             FirstPriceShipTypesComboLoad = False
         End If
     End Sub
 
-    Private Sub cmbPriceChargeTypes_DropDown(sender As Object, e As System.EventArgs) Handles cmbPriceChargeTypes.DropDown
+    Private Sub cmbPriceChargeTypes_DropDown(sender As Object, e As System.EventArgs)
         If FirstPriceChargeTypesComboLoad Then
             Call LoadPriceChargeTypes()
             FirstPriceChargeTypesComboLoad = False
@@ -4114,7 +4031,7 @@ Tabs:
 
     End Function
 
-    Sub chkPricesT1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkPricesT1.Click
+    Sub chkPricesT1_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         If RefreshList Then
             Call UpdatePriceList()
         End If
@@ -4150,11 +4067,11 @@ Tabs:
         End If
     End Sub
 
-    Private Sub chkMinerals_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkMinerals.CheckedChanged
+    Private Sub chkMinerals_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkIceProducts_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkIceProducts.CheckedChanged
+    Private Sub chkIceProducts_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4170,7 +4087,7 @@ Tabs:
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkAbyssalMaterials_CheckedChanged(sender As Object, e As EventArgs) Handles chkAbyssalMaterials.CheckedChanged
+    Private Sub chkAbyssalMaterials_CheckedChanged(sender As Object, e As EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4178,11 +4095,11 @@ Tabs:
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkMisc_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkMisc.CheckedChanged
+    Private Sub chkMisc_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkSalvage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkSalvage.CheckedChanged
+    Private Sub chkSalvage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4202,11 +4119,11 @@ Tabs:
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkPlanetary_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkPlanetary.CheckedChanged
+    Private Sub chkPlanetary_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkAsteroids_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkAsteroids.CheckedChanged
+    Private Sub chkAsteroids_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4218,7 +4135,7 @@ Tabs:
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkMatsandCompounds_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkMatsandCompounds.CheckedChanged
+    Private Sub chkMatsandCompounds_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4253,11 +4170,11 @@ Tabs:
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkTools_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkTools.CheckedChanged
+    Private Sub chkTools_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
-    Private Sub chkFuelBlocks_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkFuelBlocks.CheckedChanged
+    Private Sub chkFuelBlocks_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call UpdatePriceList()
     End Sub
 
@@ -4292,20 +4209,14 @@ Tabs:
         RefreshList = True
     End Sub
 
-    Private Sub chkRigs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkRigs.CheckedChanged
+    Private Sub chkRigs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RefreshList = False
         Call UpdateTechChecks()
         Call UpdatePriceList()
         RefreshList = True
     End Sub
 
-    Private Sub chkShips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShips.CheckedChanged
-
-        If chkShips.Checked = True Then
-            cmbPriceShipTypes.Enabled = True
-        ElseIf chkShips.Checked = False Then
-            cmbPriceShipTypes.Enabled = False
-        End If
+    Private Sub chkShips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         RefreshList = False
         Call UpdateTechChecks()
@@ -4314,27 +4225,21 @@ Tabs:
 
     End Sub
 
-    Private Sub chkModules_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkModules.CheckedChanged
+    Private Sub chkModules_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RefreshList = False
         Call UpdateTechChecks()
         Call UpdatePriceList()
         RefreshList = True
     End Sub
 
-    Private Sub chkDrones_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDrones.CheckedChanged
+    Private Sub chkDrones_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RefreshList = False
         Call UpdateTechChecks()
         Call UpdatePriceList()
         RefreshList = True
     End Sub
 
-    Private Sub chkCharges_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCharges.CheckedChanged
-
-        If chkCharges.Checked = True Then
-            cmbPriceChargeTypes.Enabled = True
-        ElseIf chkCharges.Checked = False Then
-            cmbPriceChargeTypes.Enabled = False
-        End If
+    Private Sub chkCharges_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         RefreshList = False
         Call UpdateTechChecks()
@@ -4391,13 +4296,13 @@ Tabs:
         End If
     End Sub
 
-    Private Sub cmbPriceShipTypes_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbPriceShipTypes.SelectedIndexChanged
+    Private Sub cmbPriceShipTypes_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstPriceShipTypesComboLoad Then
             Call UpdatePriceList()
         End If
     End Sub
 
-    Private Sub cmbPriceChargeTypes_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbPriceChargeTypes.SelectedIndexChanged
+    Private Sub cmbPriceChargeTypes_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstPriceChargeTypesComboLoad Then
             Call UpdatePriceList()
         End If
@@ -4463,23 +4368,7 @@ Tabs:
 
         With UserUpdatePricesTabSettings
             RunUpdatePriceList = False ' If the settings trigger an update, we don't want to update the prices
-            chkMinerals.Checked = .Minerals
-            chkIceProducts.Checked = .IceProducts
-            chkAbyssalMaterials.Checked = .AbyssalMaterials
-            chkMisc.Checked = .Misc
-            chkSalvage.Checked = .Salvage
-            chkPlanetary.Checked = .Planetary
-            chkMatsandCompounds.Checked = .MatsandCompounds
-            chkAsteroids.Checked = .Asteroids
             RunUpdatePriceList = False ' If the settings trigger an update, we don't want to update the prices
-            chkShips.Checked = .Ships
-            chkModules.Checked = .Modules
-            chkDrones.Checked = .Drones
-            chkRigs.Checked = .Rigs
-            chkCharges.Checked = .Charges
-            chkTools.Checked = .Tools
-            chkFuelBlocks.Checked = .FuelBlocks
-            chkPricesT1.Checked = .T1
 
             ' First load the regions combo, then set the default region
             DefaultPreviousRawRegion = .PPRawRegion
@@ -4708,22 +4597,22 @@ Tabs:
         ' Raw items
         ' Manufactured Items
         With TempSettings
-            .Minerals = chkMinerals.Checked
-            .IceProducts = chkIceProducts.Checked
-            .AbyssalMaterials = chkAbyssalMaterials.Checked
-            .Misc = chkMisc.Checked
-            .Salvage = chkSalvage.Checked
-            .Planetary = chkPlanetary.Checked
-            .MatsandCompounds = chkMatsandCompounds.Checked
-            .Asteroids = chkAsteroids.Checked
-            .Ships = chkShips.Checked
-            .Modules = chkModules.Checked
-            .Drones = chkDrones.Checked
-            .Rigs = chkRigs.Checked
-            .Charges = chkCharges.Checked
-            .Tools = chkTools.Checked
-            .FuelBlocks = chkFuelBlocks.Checked
-            .T1 = chkPricesT1.Checked
+            .Minerals = True
+            .IceProducts = True
+            .AbyssalMaterials = True
+            .Misc = True
+            .Salvage = True
+            .Planetary = True
+            .MatsandCompounds = True
+            .Asteroids = True
+            .Ships = True
+            .Modules = True
+            .Drones = True
+            .Rigs = True
+            .Charges = True
+            .Tools = True
+            .FuelBlocks = True
+            .T1 = True
             .UseESIData = True
             .UsePriceProfile = False
 
@@ -5739,7 +5628,6 @@ ExitSub:
         Dim readerMats As SQLiteDataReader
         Dim SQL As String
         Dim TechSQL As String = ""
-        Dim TechChecked As Boolean = False
         Dim lstViewRow As ListViewItem
         Dim ItemChecked As Boolean = False
 
@@ -5759,104 +5647,43 @@ ExitSub:
         SQL = SQL & " WHERE ITEM_PRICES.ITEM_ID = INVENTORY_TYPES.typeID AND ("
 
         ' Raw materials - non-manufacturable
-        If chkMinerals.Checked Then
-            SQL = SQL & "ITEM_GROUP = 'Mineral' OR "
-            ItemChecked = True
-        End If
-        If chkIceProducts.Checked Then
-            SQL = SQL & "ITEM_GROUP = 'Ice Product' OR "
-            ItemChecked = True
-        End If
-        If chkPlanetary.Checked Then
-            SQL = SQL & "(ITEM_CATEGORY LIKE 'Planetary%' OR ITEM_NAME IN ('Oxygen','Water')) OR "
-            ItemChecked = True
-        End If
+        SQL = SQL & "ITEM_GROUP = 'Mineral' OR "
+        SQL = SQL & "ITEM_GROUP = 'Ice Product' OR "
+        SQL = SQL & "(ITEM_CATEGORY LIKE 'Planetary%' OR ITEM_NAME IN ('Oxygen','Water')) OR "
+        ItemChecked = True
         'If chkAbyssalMaterials.Checked Then
         '    SQL = SQL & "ITEM_GROUP LIKE 'Abyssal%' OR "
         '    ItemChecked = True
         'End If
-        If chkMisc.Checked Then ' Commodities = Shattered Villard Wheel
-            SQL = SQL & "(ITEM_GROUP IN ('General','Livestock','Abyssal Materials','Radioactive','Biohazard','Commodities','Empire Insignia Drops','Criminal Tags','Miscellaneous','Unknown Components','Lease') AND ITEM_NAME NOT IN ('Oxygen','Water', 'Elite Drone AI')) OR "
-            ItemChecked = True
-        End If
-        If chkSalvage.Checked Then
-            SQL = SQL & "ITEM_GROUP = 'Salvaged Materials' OR "
-            ItemChecked = True
-        End If
-        If chkMatsandCompounds.Checked Then
-            SQL = SQL & "ITEM_GROUP IN ('Materials and Compounds', 'Artifacts and Prototypes', 'Named Components') OR "
-            ItemChecked = True
-        End If
-        If chkAsteroids.Checked Then
-            SQL = SQL & "ITEM_CATEGORY = 'Asteroid' OR "
-            ItemChecked = True
+        ' Commodities = Shattered Villard Wheel
+        SQL = SQL & "(ITEM_GROUP IN ('General','Livestock','Abyssal Materials','Radioactive','Biohazard','Commodities','Empire Insignia Drops','Criminal Tags','Miscellaneous','Unknown Components','Lease') AND ITEM_NAME NOT IN ('Oxygen','Water', 'Elite Drone AI')) OR "
+        SQL = SQL & "ITEM_GROUP = 'Salvaged Materials' OR "
+        SQL = SQL & "ITEM_GROUP IN ('Materials and Compounds', 'Artifacts and Prototypes', 'Named Components') OR "
+        SQL = SQL & "ITEM_CATEGORY = 'Asteroid' OR "
+        SQL = SQL & "ITEM_GROUP = 'Tool' OR "
+        SQL = SQL & "ITEM_GROUP = 'Fuel Block' OR "
+
+        ItemChecked = True
+
+        If PriceCheckT1Enabled Then
+            ' Add to SQL query for tech level
+            TechSQL = TechSQL & "ITEM_TYPE = 1 OR "
         End If
 
-        ' Other Manufacturables
-        If chkTools.Checked Then
-            SQL = SQL & "ITEM_GROUP = 'Tool' OR "
-            ItemChecked = True
-        End If
-        If chkFuelBlocks.Checked Then
-            SQL = SQL & "ITEM_GROUP = 'Fuel Block' OR "
-            ItemChecked = True
+        ' Format TechSQL - Add on Meta codes - 21,22,23,24 are T3
+        If TechSQL <> "" Then
+            TechSQL = "(" & TechSQL.Substring(0, TechSQL.Length - 3) & "OR ITEM_TYPE IN (21,22,23,24)) "
         End If
 
-        ' Manufactured Items
-        If chkShips.Checked Or chkModules.Checked Or chkDrones.Checked Or chkRigs.Checked Or chkCharges.Checked Then
+        ' Build Tech 1,2,3 Manufactured Items
+        SQL = SQL & "(ITEM_CATEGORY = 'Charge' AND " & TechSQL
+        SQL = SQL & ") OR "
+        SQL = SQL & "(ITEM_CATEGORY IN ('Drone', 'Fighter') AND " & TechSQL & ") OR "
+        SQL = SQL & "(ITEM_CATEGORY = 'Module' AND ITEM_GROUP NOT LIKE 'Rig%' AND " & TechSQL & ") OR "
+        SQL = SQL & "(ITEM_CATEGORY = 'Ship' AND " & TechSQL
+        SQL = SQL & ") OR "
+        SQL = SQL & "((ITEM_CATEGORY = 'Module' AND ITEM_GROUP LIKE 'Rig%' AND " & TechSQL & ") OR (ITEM_CATEGORY = 'Structure Module' AND ITEM_GROUP LIKE '%Rig%')) OR "
 
-            ' Make sure we have at least one tech checked that is enabled
-            TechChecked = CheckTechChecks()
-
-            If Not TechChecked And Not ItemChecked Then
-                ' There isn't an item checked before this and these items all require tech, so exit
-                ItemChecked = False
-            Else
-                ItemChecked = True
-            End If
-
-            ' If they choose a tech level, then build this part of the SQL query
-            If TechChecked Then
-                If PriceCheckT1Enabled Then
-                    If chkPricesT1.Checked Then
-                        ' Add to SQL query for tech level
-                        TechSQL = TechSQL & "ITEM_TYPE = 1 OR "
-                    End If
-                End If
-
-                ' Format TechSQL - Add on Meta codes - 21,22,23,24 are T3
-                If TechSQL <> "" Then
-                    TechSQL = "(" & TechSQL.Substring(0, TechSQL.Length - 3) & "OR ITEM_TYPE IN (21,22,23,24)) "
-                End If
-
-                ' Build Tech 1,2,3 Manufactured Items
-                If chkCharges.Checked Then
-                    SQL = SQL & "(ITEM_CATEGORY = 'Charge' AND " & TechSQL
-                    If cmbPriceChargeTypes.Text <> "All Charge Types" Then
-                        SQL = SQL & " AND ITEM_GROUP = '" & cmbPriceChargeTypes.Text & "'"
-                    End If
-                    SQL = SQL & ") OR "
-                End If
-                If chkDrones.Checked Then
-                    SQL = SQL & "(ITEM_CATEGORY IN ('Drone', 'Fighter') AND " & TechSQL & ") OR "
-                End If
-                If chkModules.Checked Then ' Not rigs but Modules
-                    SQL = SQL & "(ITEM_CATEGORY = 'Module' AND ITEM_GROUP NOT LIKE 'Rig%' AND " & TechSQL & ") OR "
-                End If
-                If chkShips.Checked Then
-                    SQL = SQL & "(ITEM_CATEGORY = 'Ship' AND " & TechSQL
-                    If cmbPriceShipTypes.Text <> "All Ship Types" Then
-                        SQL = SQL & " AND ITEM_GROUP = '" & cmbPriceShipTypes.Text & "'"
-                    End If
-                    SQL = SQL & ") OR "
-                End If
-                If chkRigs.Checked Then ' Rigs
-                    SQL = SQL & "((ITEM_CATEGORY = 'Module' AND ITEM_GROUP LIKE 'Rig%' AND " & TechSQL & ") OR (ITEM_CATEGORY = 'Structure Module' AND ITEM_GROUP LIKE '%Rig%')) OR "
-                End If
-            Else
-                ' No tech level chosen, so just continue with other options and skip these that require a tech selection
-            End If
-        End If
 
         ' Leave function if no items checked
         If Not ItemChecked Then
@@ -5922,49 +5749,6 @@ ExitSub:
 
     End Sub
 
-    ' Makes sure a tech is enabled and checked for items that require tech based on saved values, not current due to disabling form
-    Private Function CheckTechChecks() As Boolean
-
-        If PriceCheckT1Enabled Then
-            If TechCheckBoxes(1).Checked Then
-                Return True
-            End If
-        End If
-
-        If PriceCheckT2Enabled Then
-            If TechCheckBoxes(2).Checked Then
-                Return True
-            End If
-        End If
-
-        If PriceCheckT3Enabled Then
-            If TechCheckBoxes(3).Checked Then
-                Return True
-            End If
-        End If
-
-        If PriceCheckT4Enabled Then
-            If TechCheckBoxes(4).Checked Then
-                Return True
-            End If
-        End If
-
-        If PriceCheckT5Enabled Then
-            If TechCheckBoxes(5).Checked Then
-                Return True
-            End If
-        End If
-
-        If PriceCheckT6Enabled Then
-            If TechCheckBoxes(6).Checked Then
-                Return True
-            End If
-        End If
-
-        Return False
-
-    End Function
-
     ' Loads the solar systems into the combo for system prices
     Private Sub LoadPriceSolarSystems()
         Dim SQL As String
@@ -5999,17 +5783,9 @@ ExitSub:
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         readerShipType = DBCommand.ExecuteReader
 
-        cmbPriceShipTypes.Items.Add("All Ship Types")
-
-        While readerShipType.Read
-            cmbPriceShipTypes.Items.Add(readerShipType.GetString(0))
-        End While
-
         readerShipType.Close()
         readerShipType = Nothing
         DBCommand = Nothing
-
-        cmbPriceShipTypes.Text = "All Ship Types"
 
     End Sub
 
@@ -6028,17 +5804,9 @@ ExitSub:
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         readerChargeType = DBCommand.ExecuteReader
 
-        cmbPriceChargeTypes.Items.Add("All Charge Types")
-
-        While readerChargeType.Read
-            cmbPriceChargeTypes.Items.Add(readerChargeType.GetString(0))
-        End While
-
         readerChargeType.Close()
         readerChargeType = Nothing
         DBCommand = Nothing
-
-        cmbPriceChargeTypes.Text = "All Charge Types"
 
     End Sub
 
