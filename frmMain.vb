@@ -4480,8 +4480,6 @@ Tabs:
             chkTools.Checked = .Tools
             chkFuelBlocks.Checked = .FuelBlocks
             chkPricesT1.Checked = .T1
-            rbtnPriceSourceCCPData.Checked = True
-            rbtnPriceSettingSingleSelect.Checked = True
 
             ' First load the regions combo, then set the default region
             DefaultPreviousRawRegion = .PPRawRegion
@@ -4726,11 +4724,7 @@ Tabs:
             .Tools = chkTools.Checked
             .FuelBlocks = chkFuelBlocks.Checked
             .T1 = chkPricesT1.Checked
-            If rbtnPriceSourceCCPData.Checked Then
-                .UseESIData = True
-            Else
-                .UseESIData = False
-            End If
+            .UseESIData = True
             .UsePriceProfile = False
 
         End With
@@ -4837,7 +4831,7 @@ Tabs:
             GoTo ExitSub
         End If
 
-        If rbtnPriceSourceCCPData.Checked And RegionSelectedCount > 1 Then
+        If RegionSelectedCount > 1 Then
             MsgBox("You cannot choose more than one region when downloading CCP Data", MsgBoxStyle.Exclamation, Me.Name)
             GoTo ExitSub
         End If
@@ -4854,7 +4848,7 @@ Tabs:
         Application.DoEvents()
 
         ' Find the checked region - single select
-        If rbtnPriceSettingSingleSelect.Checked Then
+        If True Then ' Always use single select
             If RegionChecked Then
                 For i = 1 To (RegionCheckBoxes.Length - 1)
                     If RegionCheckBoxes(i).Checked Then
@@ -4927,7 +4921,7 @@ Tabs:
                     TempItem.Manufacture = CBool(lstPricesView.Items(i).SubItems(4).Text)
                     TempItem.RegionID = ""
 
-                    If rbtnPriceSettingSingleSelect.Checked Then
+                    If True Then 'Always use single select
                         TempItem.RegionID = SearchRegion
                         TempItem.SystemID = SearchSystem
                         TempItem.StructureID = SearchStructureID
@@ -5015,7 +5009,7 @@ ExitSub:
         Dim Items As New List(Of TypeIDRegion)
 
         ' Use CCP Data
-        If rbtnPriceSourceCCPData.Checked Then
+        If True Then 'Always use CCP Data
             ' Loop through each item and set it's pair for query
             For i = 0 To SentItems.Count - 1
                 Dim Temp As New TypeIDRegion
@@ -9062,7 +9056,6 @@ ExitPRocessing:
 
                 ' Disable all the controls individulally so we can use cancel button
                 btnCalcSelectColumns.Enabled = False
-                btnCalcExportList.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcIncludeItems.Enabled = False
                 gbCalcCompareType.Enabled = False
@@ -9916,7 +9909,6 @@ ExitCalc:
 
         ' Enable all the controls
         btnCalcSelectColumns.Enabled = True
-        btnCalcExportList.Enabled = True
         gbCalcMarketFilters.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcIncludeItems.Enabled = True
@@ -10267,7 +10259,7 @@ ExitCalc:
     End Sub
 
     ' Exports the list to clipboard
-    Private Sub btnCalcExportList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcExportList.Click
+    Private Sub btnCalcExportList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim MyStream As StreamWriter
         Dim FileName As String
         Dim OutputText As String

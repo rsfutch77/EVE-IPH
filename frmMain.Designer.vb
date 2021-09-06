@@ -207,9 +207,6 @@ Partial Class frmMain
         Me.rbtnCalcCompareRawMats = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcCompareComponents = New System.Windows.Forms.RadioButton()
         Me.rbtnCalcCompareAll = New System.Windows.Forms.RadioButton()
-        Me.btnCalcExportList = New System.Windows.Forms.Button()
-        Me.rbtnPriceSettingSingleSelect = New System.Windows.Forms.RadioButton()
-        Me.rbtnPriceSourceCCPData = New System.Windows.Forms.RadioButton()
         Me.gbManufacturedItems = New System.Windows.Forms.GroupBox()
         Me.gbRawMaterials = New System.Windows.Forms.GroupBox()
         Me.chkAbyssalMaterials = New System.Windows.Forms.CheckBox()
@@ -1002,6 +999,7 @@ Partial Class frmMain
         'tabManufacturing
         '
         Me.tabManufacturing.Controls.Add(Me.txtCalcBrokerFeeRate)
+        Me.tabManufacturing.Controls.Add(Me.btnCalcSelectColumns)
         Me.tabManufacturing.Controls.Add(Me.lstManufacturing)
         Me.tabManufacturing.Controls.Add(Me.btnCalcCalculate)
         Me.tabManufacturing.Controls.Add(Me.btnDownloadPrices)
@@ -1547,9 +1545,7 @@ Partial Class frmMain
         'gbCalcBPSelectOptions
         '
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcMarketFilters)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcSelectColumns)
         Me.gbCalcBPSelectOptions.Controls.Add(Me.gbCalcCompareType)
-        Me.gbCalcBPSelectOptions.Controls.Add(Me.btnCalcExportList)
         Me.gbCalcBPSelectOptions.Location = New System.Drawing.Point(39, 867)
         Me.gbCalcBPSelectOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcBPSelectOptions.Name = "gbCalcBPSelectOptions"
@@ -1777,7 +1773,7 @@ Partial Class frmMain
         '
         'btnCalcSelectColumns
         '
-        Me.btnCalcSelectColumns.Location = New System.Drawing.Point(1274, 134)
+        Me.btnCalcSelectColumns.Location = New System.Drawing.Point(647, 662)
         Me.btnCalcSelectColumns.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCalcSelectColumns.Name = "btnCalcSelectColumns"
         Me.btnCalcSelectColumns.Size = New System.Drawing.Size(120, 36)
@@ -1856,47 +1852,9 @@ Partial Class frmMain
         Me.rbtnCalcCompareAll.Text = "Compare All"
         Me.rbtnCalcCompareAll.UseVisualStyleBackColor = True
         '
-        'btnCalcExportList
-        '
-        Me.btnCalcExportList.Location = New System.Drawing.Point(1274, 206)
-        Me.btnCalcExportList.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCalcExportList.Name = "btnCalcExportList"
-        Me.btnCalcExportList.Size = New System.Drawing.Size(120, 36)
-        Me.btnCalcExportList.TabIndex = 25
-        Me.btnCalcExportList.Text = "Export Table"
-        Me.btnCalcExportList.UseVisualStyleBackColor = True
-        '
-        'rbtnPriceSettingSingleSelect
-        '
-        Me.rbtnPriceSettingSingleSelect.AutoSize = True
-        Me.rbtnPriceSettingSingleSelect.Checked = True
-        Me.rbtnPriceSettingSingleSelect.Location = New System.Drawing.Point(227, 189)
-        Me.rbtnPriceSettingSingleSelect.Margin = New System.Windows.Forms.Padding(4)
-        Me.rbtnPriceSettingSingleSelect.Name = "rbtnPriceSettingSingleSelect"
-        Me.rbtnPriceSettingSingleSelect.Size = New System.Drawing.Size(111, 21)
-        Me.rbtnPriceSettingSingleSelect.TabIndex = 7
-        Me.rbtnPriceSettingSingleSelect.TabStop = True
-        Me.rbtnPriceSettingSingleSelect.Text = "Single Select"
-        Me.rbtnPriceSettingSingleSelect.UseVisualStyleBackColor = True
-        '
-        'rbtnPriceSourceCCPData
-        '
-        Me.rbtnPriceSourceCCPData.AutoSize = True
-        Me.rbtnPriceSourceCCPData.Checked = True
-        Me.rbtnPriceSourceCCPData.Location = New System.Drawing.Point(236, 250)
-        Me.rbtnPriceSourceCCPData.Margin = New System.Windows.Forms.Padding(4)
-        Me.rbtnPriceSourceCCPData.Name = "rbtnPriceSourceCCPData"
-        Me.rbtnPriceSourceCCPData.Size = New System.Drawing.Size(90, 21)
-        Me.rbtnPriceSourceCCPData.TabIndex = 6
-        Me.rbtnPriceSourceCCPData.TabStop = True
-        Me.rbtnPriceSourceCCPData.Text = "CCP Data"
-        Me.rbtnPriceSourceCCPData.UseVisualStyleBackColor = True
-        '
         'gbManufacturedItems
         '
         Me.gbManufacturedItems.Controls.Add(Me.gbRawMaterials)
-        Me.gbManufacturedItems.Controls.Add(Me.rbtnPriceSourceCCPData)
-        Me.gbManufacturedItems.Controls.Add(Me.rbtnPriceSettingSingleSelect)
         Me.gbManufacturedItems.Controls.Add(Me.gbPriceTools)
         Me.gbManufacturedItems.Controls.Add(Me.gbItems)
         Me.gbManufacturedItems.Location = New System.Drawing.Point(1441, 1159)
@@ -2328,7 +2286,6 @@ Partial Class frmMain
         Me.gbCalcCompareType.ResumeLayout(False)
         Me.gbCalcCompareType.PerformLayout()
         Me.gbManufacturedItems.ResumeLayout(False)
-        Me.gbManufacturedItems.PerformLayout()
         Me.gbRawMaterials.ResumeLayout(False)
         Me.gbRawMaterials.PerformLayout()
         Me.gbPriceTools.ResumeLayout(False)
@@ -2513,13 +2470,10 @@ Partial Class frmMain
     Friend WithEvents tabCalcFacilities As TabControl
     Friend WithEvents tabCalcFacilityBase As TabPage
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
-    Friend WithEvents btnCalcExportList As Button
     Friend WithEvents gbCalcBPSelect As GroupBox
     Friend WithEvents rbtnCalcBPFavorites As RadioButton
     Friend WithEvents rbtnCalcAllBPs As RadioButton
     Friend WithEvents rbtnCalcBPOwned As RadioButton
-    Friend WithEvents rbtnPriceSettingSingleSelect As RadioButton
-    Friend WithEvents rbtnPriceSourceCCPData As RadioButton
     Friend WithEvents gbTradeHubSystems As GroupBox
     Friend WithEvents chkSystems2 As CheckBox
     Friend WithEvents chkSystems4 As CheckBox
