@@ -536,7 +536,6 @@ Public Class frmMain
         ' Tool Tips
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblBPCanMakeBP, "Double-Click here to see required skills to make this BP")
-            ttBP.SetToolTip(lblBPCanMakeBPAll, "Double-Click here to see required skills to make all the items for this BP")
         End If
 
         '*******************************************
@@ -594,9 +593,6 @@ Public Class frmMain
         If UserApplicationSettings.ShowToolTips Then
             ' Decryptor Tool tips
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Will assume Number of BPs is same as Number of Production lines for Calculations")
-            ttUpdatePrices.SetToolTip(chkCalcTaxes, "Sales Taxes to set up a sell order at an NPC Station for the Item")
-            ttUpdatePrices.SetToolTip(chkCalcFees, "Broker's Fees to set up a sell order at an NPC Station for the Item")
-
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Enter the number of Manufacturing Lines you have to build items per day for calculations. Calculations will assume the same number of BPs used." & vbCrLf & "Calculations for components will also use this value. Double-Click to enter max runs for this character.")
             ttUpdatePrices.SetToolTip(txtCalcLabLines, "Enter the number of Laboratory Lines you have to invent per day for calculations. Double-Click to enter max runs for this character.")
 
@@ -2895,22 +2891,6 @@ Tabs:
         End If
     End Sub
 
-    Private Sub lblBPCanMakeBPAll_DoubleClick(sender As Object, e As System.EventArgs) Handles lblBPCanMakeBPAll.DoubleClick
-        ' Don't allow popup if buying all
-        If lblBPCanMakeBPAll.Text = "Buying all Materials" Then
-            Exit Sub
-        End If
-
-        ' Only update the make all label if we have something to make, else use the bp data
-        If SelectedBlueprint.HasComponents Then
-            Dim f1 As New frmReqSkills(SkillType.BPComponentSkills)
-            f1.Show()
-        Else
-            Dim f1 As New frmReqSkills(SkillType.BPReqSkills)
-            f1.Show()
-        End If
-    End Sub
-
     Private Sub lblBPInventStatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f1 As New frmReqSkills(SkillType.InventionReqSkills)
         f1.Show()
@@ -3441,7 +3421,6 @@ Tabs:
 
             ' Don't show labels to make
             lblBPCanMakeBP.Visible = False
-            lblBPCanMakeBPAll.Visible = False
 
             SetTaxFeeChecks = False
 
@@ -3640,32 +3619,6 @@ Tabs:
         Else
             lblBPCanMakeBP.Text = "Cannot make this Item"
             lblBPCanMakeBP.ForeColor = Color.Red
-        End If
-
-        ' Only update the make all lable if we have something to make, else use the bp data
-        If SelectedBlueprint.HasComponents Then
-            If SelectedBlueprint.UserCanBuildAllComponents Then
-                lblBPCanMakeBPAll.Text = "Can make All Components for this Item"
-                lblBPCanMakeBPAll.ForeColor = Color.Black
-            Else
-                lblBPCanMakeBPAll.Text = "Cannot make All Components for this Item"
-                lblBPCanMakeBPAll.ForeColor = Color.Red
-            End If
-
-            ' Has components, but if we are buying everything (no skills/build buy) - then state that instead, else show BP stuff
-            If SelectedBlueprint.GetReqComponentSkills.NumSkills = 0 Then
-                lblBPCanMakeBPAll.Text = "Buying all Materials"
-                lblBPCanMakeBPAll.ForeColor = Color.Black
-            End If
-        Else
-            If SelectedBlueprint.UserCanBuildBlueprint Then
-                lblBPCanMakeBPAll.Text = "Can make this Item"
-                lblBPCanMakeBPAll.ForeColor = Color.Black
-            Else
-                lblBPCanMakeBPAll.Text = "Cannot make this Item"
-                lblBPCanMakeBPAll.ForeColor = Color.Red
-            End If
-
         End If
 
         ' SVR Values
@@ -3973,7 +3926,6 @@ Tabs:
         gbManufacturedItems.Enabled = Not Value
         gbTradeHubSystems.Enabled = Not Value
         btnDownloadPrices.Enabled = Not Value
-        btnSaveUpdatePrices.Enabled = Not Value
         lstPricesView.Enabled = Not Value
     End Sub
 
@@ -4694,7 +4646,7 @@ Tabs:
     End Sub
 
     ' Save the settings
-    Private Sub btnSaveUpdatePrices_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveUpdatePrices.Click
+    Private Sub SaveUpdatePrices()
         Dim i As Integer
         Dim TempSettings As UpdatePriceTabSettings = Nothing
         Dim TempRegions As New List(Of String)
@@ -4797,7 +4749,6 @@ Tabs:
         ' Save the data to the local variable
         UserUpdatePricesTabSettings = TempSettings
 
-        MsgBox("Update Prices Settings Saved", vbInformation, Application.ProductName)
         btnDownloadPrices.Focus()
         Application.UseWaitCursor = False
 
@@ -4852,6 +4803,9 @@ Tabs:
 
         RegionChecked = False
         SystemChecked = False
+
+        'Save Settings
+        SaveUpdatePrices()
 
         ' Progress Bar Init
         pnlProgressBar.Value = 0
@@ -6480,20 +6434,12 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcTaxes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcTaxes.CheckedChanged
+    Private Sub chkCalcTaxes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcFees_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcFees.CheckedChanged
+    Private Sub chkCalcFees_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcFees_Click(sender As Object, e As EventArgs) Handles chkCalcFees.Click
-        If chkCalcFees.Checked And chkCalcFees.CheckState = CheckState.Indeterminate Then ' Show rate box
-            txtCalcBrokerFeeRate.Visible = True
-        Else
-            txtCalcBrokerFeeRate.Visible = False
-        End If
     End Sub
 
     Private Sub txtCalcBrokerFeeRate_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCalcBrokerFeeRate.KeyDown
@@ -6612,7 +6558,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcCanInvent_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcCanInvent.CheckedChanged
+    Private Sub chkCalcCanInvent_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6640,10 +6586,9 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcItemFilter_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcItemFilter.TextChanged
+    Private Sub txtCalcItemFilter_TextChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6652,42 +6597,33 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub btnCalcReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcReset.Click
+    Private Sub btnCalcReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         FirstManufacturingGridLoad = True ' Reset
         Call InitManufacturingTab()
         ' Load the calc types because it won't get loaded if firstmanufacturinggridload = true
         Call LoadCalcBPTypes()
     End Sub
 
-    Private Sub cmbCalcBPTypeFilter_DropDown(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbCalcBPTypeFilter.DropDown
+    Private Sub cmbCalcBPTypeFilter_DropDown(ByVal sender As Object, ByVal e As System.EventArgs)
         If FirstLoadCalcBPTypes Then
             Call LoadCalcBPTypes()
             FirstLoadCalcBPTypes = False
         End If
     End Sub
 
-    Private Sub cmbCalcBPTypeFilter_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbCalcBPTypeFilter.GotFocus
-        Call cmbCalcBPTypeFilter.SelectAll()
-    End Sub
-
-    Private Sub cmbCalcBPTypeFilter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles cmbCalcBPTypeFilter.KeyPress
+    Private Sub cmbCalcBPTypeFilter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only let them select a bp by clicking
         Dim i As Integer
         i = 0
     End Sub
 
-    Private Sub cmbCalcBPTypeFilter_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmbCalcBPTypeFilter.SelectedValueChanged
+    Private Sub cmbCalcBPTypeFilter_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcBPTypeFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmbCalcBPTypeFilter.Click
-        Call cmbCalcBPTypeFilter.SelectAll()
     End Sub
 
     Private Sub chkCalcOnlyOwnedBPOInvent_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6695,9 +6631,6 @@ ExitPRocessing:
     Private Sub chkCalcT1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
-
-            chkCalcNPCBPOs.Enabled = True
 
             Call ResetRefresh()
         End If
@@ -6706,7 +6639,6 @@ ExitPRocessing:
     Private Sub chkCalcStoryline_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6714,7 +6646,6 @@ ExitPRocessing:
     Private Sub chkCalcNavyFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6722,55 +6653,48 @@ ExitPRocessing:
     Private Sub chkCalcPirateFaction_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcNPCBPOs_CheckedChanged(sender As Object, e As EventArgs) Handles chkCalcNPCBPOs.CheckedChanged
+    Private Sub chkCalcNPCBPOs_CheckedChanged(sender As Object, e As EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcShips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcShips.CheckedChanged
+    Private Sub chkCalcShips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcModules_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcModules.CheckedChanged
+    Private Sub chkCalcModules_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcDrones_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcDrones.CheckedChanged
+    Private Sub chkCalcDrones_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcAmmo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcAmmo.CheckedChanged
+    Private Sub chkCalcAmmo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcRigs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcRigs.CheckedChanged
+    Private Sub chkCalcRigs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6778,7 +6702,6 @@ ExitPRocessing:
     Private Sub chkCalcComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6786,7 +6709,6 @@ ExitPRocessing:
     Private Sub chkCalcStationParts_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6794,7 +6716,6 @@ ExitPRocessing:
     Private Sub chkCalcSubsystems_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6802,7 +6723,6 @@ ExitPRocessing:
     Private Sub chkCalcStructures_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6810,15 +6730,13 @@ ExitPRocessing:
     Private Sub chkCalcBoosters_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub chkCalcMisc_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcMisc.CheckedChanged
+    Private Sub chkCalcMisc_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6826,7 +6744,6 @@ ExitPRocessing:
     Private Sub chkCalcCelestials_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6834,7 +6751,6 @@ ExitPRocessing:
     Private Sub chkCalcReactions_CheckedChanged(sender As Object, e As EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6842,7 +6758,6 @@ ExitPRocessing:
     Private Sub chkCalcStructureModules_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6850,7 +6765,6 @@ ExitPRocessing:
     Private Sub chkCalcDeployables_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6858,7 +6772,6 @@ ExitPRocessing:
     Private Sub rbtnCalcBPOwned_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcBPOwned.CheckedChanged
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6866,7 +6779,6 @@ ExitPRocessing:
     Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcAllBPs.CheckedChanged
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6874,12 +6786,11 @@ ExitPRocessing:
     Private Sub rbtnCalcBPFavorites_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnCalcBPFavorites.CheckedChanged
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub txtCalcItemFilter_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCalcItemFilter.KeyDown
+    Private Sub txtCalcItemFilter_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         'Call ProcessCutCopyPasteSelect(txtCalcItemFilter, e)
         If e.KeyCode = Keys.Enter Then
             Call ResetRefresh()
@@ -6887,12 +6798,9 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub btnCalcResetTextSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcResetTextSearch.Click
-        txtCalcItemFilter.Text = ""
-        txtCalcItemFilter.Focus()
+    Private Sub btnCalcResetTextSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6970,7 +6878,6 @@ ExitPRocessing:
     Private Sub chkCalcSmall_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6978,7 +6885,6 @@ ExitPRocessing:
     Private Sub chkCalcMedium_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6986,7 +6892,6 @@ ExitPRocessing:
     Private Sub chkCalcLarge_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -6994,7 +6899,6 @@ ExitPRocessing:
     Private Sub chkCalcXL_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
-            cmbCalcBPTypeFilter.Text = "All Types"
             Call ResetRefresh()
         End If
     End Sub
@@ -8285,14 +8189,6 @@ ExitPRocessing:
         lstManufacturing.Items.Clear()
 
         With UserManufacturingTabSettings
-            ' Blueprints
-            chkCalcNPCBPOs.Checked = .CheckBPTypeNPCBPOs
-            chkCalcAmmo.Checked = .CheckBPTypeAmmoCharges
-            chkCalcDrones.Checked = .CheckBPTypeDrones
-            chkCalcModules.Checked = .CheckBPTypeModules
-            chkCalcRigs.Checked = .CheckBPTypeRigs
-            chkCalcShips.Checked = .CheckBPTypeShips
-            chkCalcMisc.Checked = .CheckBPTypeMisc
 
             ' Blueprint load types
             Select Case .BlueprintType
@@ -8302,28 +8198,11 @@ ExitPRocessing:
                     rbtnCalcBPOwned.Checked = True
             End Select
 
-            cmbCalcBPTypeFilter.Text = .ItemTypeFilter
-            txtCalcItemFilter.Text = .TextItemFilter
-
             chkCalcAutoCalcT2NumBPs.Checked = .CheckAutoCalcNumBPs
 
             FirstManufacturingGridLoad = False ' Change this now so it will load the grids for all on reset
 
-            chkCalcTaxes.Checked = .CheckIncludeTaxes
-            Select Case .CheckIncludeBrokersFees
-                Case 2
-                    chkCalcFees.CheckState = CheckState.Indeterminate
-                    txtCalcBrokerFeeRate.Visible = True
-                Case 1
-                    chkCalcFees.CheckState = CheckState.Checked
-                Case 0
-                    chkCalcFees.CheckState = CheckState.Unchecked
-            End Select
-
-            txtCalcBrokerFeeRate.Text = FormatPercent(.CalcBrokerFeeRate, 1)
-
             chkCalcCanBuild.Checked = .CheckOnlyBuild
-            chkCalcCanInvent.Checked = .CheckOnlyInvent
 
             Select Case .PriceCompare
                 Case rbtnCalcCompareAll.Text
@@ -8413,7 +8292,7 @@ ExitPRocessing:
     End Sub
 
     ' Saves all the settings on the screen
-    Private Sub btnCalcSaveSettings_Click(sender As System.Object, e As System.EventArgs) Handles btnCalcSaveSettings.Click
+    Private Sub btnCalcSaveSettings()
         Dim TempSettings As ManufacturingTabSettings = Nothing
         Dim Settings As New ProgramSettings
 
@@ -8470,13 +8349,13 @@ ExitPRocessing:
         AllSettings.SaveManufacturingTabColumnSettings(UserManufacturingTabColumnSettings)
 
         With TempSettings
-            .CheckBPTypeNPCBPOs = chkCalcNPCBPOs.Checked
-            .CheckBPTypeAmmoCharges = chkCalcAmmo.Checked
-            .CheckBPTypeDrones = chkCalcDrones.Checked
-            .CheckBPTypeModules = chkCalcModules.Checked
-            .CheckBPTypeRigs = chkCalcRigs.Checked
-            .CheckBPTypeShips = chkCalcShips.Checked
-            .CheckBPTypeMisc = chkCalcMisc.Checked
+            .CheckBPTypeNPCBPOs = True
+            .CheckBPTypeAmmoCharges = True
+            .CheckBPTypeDrones = True
+            .CheckBPTypeModules = True
+            .CheckBPTypeRigs = True
+            .CheckBPTypeShips = True
+            .CheckBPTypeMisc = True
 
             .CheckTech1 = True
 
@@ -8489,17 +8368,11 @@ ExitPRocessing:
                 .BlueprintType = rbtnCalcBPOwned.Text
             End If
 
-            .ItemTypeFilter = cmbCalcBPTypeFilter.Text
-            .TextItemFilter = txtCalcItemFilter.Text
+            .ItemTypeFilter = "All Types"
+            .TextItemFilter = ""
 
-            .CheckIncludeTaxes = chkCalcTaxes.Checked
-            If chkCalcFees.CheckState = CheckState.Indeterminate Then
-                .CheckIncludeBrokersFees = 2
-            ElseIf chkCalcFees.CheckState = CheckState.Checked Then
-                .CheckIncludeBrokersFees = 1
-            Else
-                .CheckIncludeBrokersFees = 0
-            End If
+            .CheckIncludeTaxes = True
+            .CheckIncludeBrokersFees = 1
             .CalcBrokerFeeRate = FormatManualPercentEntry(txtCalcBrokerFeeRate.Text)
 
             .CheckRaceAmarr = True
@@ -8554,7 +8427,6 @@ ExitPRocessing:
             .BPRuns = CInt(txtCalcNumBPs.Text)
 
             .CheckOnlyBuild = chkCalcCanBuild.Checked
-            .CheckOnlyInvent = chkCalcCanInvent.Checked
 
             .PriceTrend = cmbCalcPriceTrend.Text
 
@@ -8603,8 +8475,6 @@ ExitPRocessing:
 
         ' Save the data to the local variable
         UserManufacturingTabSettings = TempSettings
-
-        MsgBox("Settings Saved", vbInformation, Application.ProductName)
 
     End Sub
 
@@ -9191,20 +9061,14 @@ ExitPRocessing:
                 ListRowFormats = New List(Of RowFormat)
 
                 ' Disable all the controls individulally so we can use cancel button
-                btnCalcReset.Enabled = False
                 btnCalcSelectColumns.Enabled = False
-                btnCalcSaveSettings.Enabled = False
                 btnCalcExportList.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcIncludeItems.Enabled = False
-                gbCalcBPType.Enabled = False
-                chkCalcNPCBPOs.Enabled = False
                 gbCalcCompareType.Enabled = False
                 gbCalcMarketFilters.Enabled = False
-                gbCalcFilter.Enabled = False
                 gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
-                gbCalcTextFilter.Enabled = False
                 lstManufacturing.Enabled = False
                 tabCalcFacilities.Enabled = False
 
@@ -9317,7 +9181,7 @@ ExitPRocessing:
                     End If
 
                     ' Build the blueprint(s)
-                    Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(), False, False, False)
+                    Call ManufacturingBlueprint.BuildItems(True, GetBrokerFeeData(), False, False, False)
 
                     ' If checked, Add the values to the array only if we can Build, Invent, or RE it
                     AddItem = True
@@ -9328,7 +9192,7 @@ ExitPRocessing:
                     End If
 
                     ' User can Invent
-                    If chkCalcCanInvent.Checked And chkCalcCanInvent.Enabled And Not ManufacturingBlueprint.UserCanInventRE And (ManufacturingBlueprint.GetTechLevel = 2 Or ManufacturingBlueprint.GetTechLevel = 3) Then
+                    If Not ManufacturingBlueprint.UserCanInventRE And (ManufacturingBlueprint.GetTechLevel = 2 Or ManufacturingBlueprint.GetTechLevel = 3) Then
                         AddItem = False
                     End If
 
@@ -9510,7 +9374,7 @@ ExitPRocessing:
                             End If
 
                             ' Get the list of materials
-                            Call ManufacturingBlueprint.BuildItems(chkCalcTaxes.Checked, GetBrokerFeeData(), False, False, False)
+                            Call ManufacturingBlueprint.BuildItems(True, GetBrokerFeeData(), False, False, False)
 
                             ' Build/Buy (add only if it has components we build)
                             If ManufacturingBlueprint.HasComponents Then
@@ -10051,20 +9915,14 @@ ExitCalc:
         lstManufacturing.EndUpdate()
 
         ' Enable all the controls
-        btnCalcReset.Enabled = True
         btnCalcSelectColumns.Enabled = True
-        btnCalcSaveSettings.Enabled = True
         btnCalcExportList.Enabled = True
         gbCalcMarketFilters.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcIncludeItems.Enabled = True
-        gbCalcBPType.Enabled = True
-        chkCalcNPCBPOs.Enabled = True
         gbCalcCompareType.Enabled = True
-        gbCalcFilter.Enabled = True
         gbCalcProdLines.Enabled = True
         gbCalcTextColors.Enabled = True
-        gbCalcTextFilter.Enabled = True
         lstManufacturing.Enabled = True
         tabCalcFacilities.Enabled = True
 
@@ -10312,15 +10170,12 @@ ExitCalc:
         Dim readerTypes As SQLiteDataReader
         Dim InventedBPs As New List(Of Long)
 
-        cmbCalcBPTypeFilter.Text = UserManufacturingTabSettings.ItemTypeFilter
         SQL = "SELECT ITEM_GROUP FROM " & USER_BLUEPRINTS
 
         WhereClause = BuildManufactureWhereClause(True, InventedBPs)
 
         If WhereClause = "" Then
             ' They didn't select anything, just clear and exit
-            cmbCalcBPTypeFilter.Items.Clear()
-            cmbCalcBPTypeFilter.Text = "All Types"
             Exit Sub
         End If
 
@@ -10335,14 +10190,6 @@ ExitCalc:
         DBCommand.Parameters.AddWithValue("@USERBP_USERID", GetBPUserID(SelectedCharacter.ID)) ' need to search for corp ID too
         DBCommand.Parameters.AddWithValue("@USERBP_CORPID", CStr(SelectedCharacter.CharacterCorporation.CorporationID))
         readerTypes = DBCommand.ExecuteReader
-
-        cmbCalcBPTypeFilter.Items.Clear()
-
-        cmbCalcBPTypeFilter.Items.Add("All Types")
-
-        While readerTypes.Read
-            cmbCalcBPTypeFilter.Items.Add(readerTypes.GetString(0))
-        End While
 
     End Sub
 
@@ -10607,6 +10454,9 @@ ExitCalc:
 
     ' Reads through the manufacturing blueprint list and calculates the isk per hour for all that are selected, then sorts them and displays
     Private Sub btnCalculate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcCalculate.Click
+
+        btnCalcSaveSettings()
+
         If btnCalcCalculate.Text = "Cancel" Then
             CancelManufacturingTabCalc = True
         Else
@@ -10660,25 +10510,13 @@ ExitCalc:
         Dim T3Query As String = ""
         Dim RelicRuns As String = ""
 
-        ' Items
-        If chkCalcAmmo.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Charge' OR "
-        End If
-        If chkCalcDrones.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY IN ('Drone', 'Fighter') OR "
-        End If
-        If chkCalcModules.Checked Then
-            ItemTypes = ItemTypes & "(X.ITEM_CATEGORY = 'Module' AND X.ITEM_GROUP NOT LIKE 'Rig%') OR "
-        End If
-        If chkCalcShips.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Ship' OR "
-        End If
-        If chkCalcRigs.Checked Then
-            ItemTypes = ItemTypes & "(X.BLUEPRINT_GROUP = 'Rig Blueprint' OR (X.ITEM_CATEGORY = 'Structure Module' AND X.ITEM_GROUP LIKE '%Rig%')) OR "
-        End If
-        If chkCalcMisc.Checked Then
-            ItemTypes = ItemTypes & "X.ITEM_GROUP IN ('Tool','Data Interfaces','Cyberimplant','Fuel Block') OR "
-        End If
+        ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Charge' OR "
+        ItemTypes = ItemTypes & "X.ITEM_CATEGORY IN ('Drone', 'Fighter') OR "
+        ItemTypes = ItemTypes & "(X.ITEM_CATEGORY = 'Module' AND X.ITEM_GROUP NOT LIKE 'Rig%') OR "
+        ItemTypes = ItemTypes & "X.ITEM_CATEGORY = 'Ship' OR "
+        ItemTypes = ItemTypes & "(X.BLUEPRINT_GROUP = 'Rig Blueprint' OR (X.ITEM_CATEGORY = 'Structure Module' AND X.ITEM_GROUP LIKE '%Rig%')) OR "
+        ItemTypes = ItemTypes & "X.ITEM_GROUP IN ('Tool','Data Interfaces','Cyberimplant','Fuel Block') OR "
+
         ' Take off last OR
         If ItemTypes <> "" Then
             ItemTypes = ItemTypes.Substring(0, ItemTypes.Count - 4)
@@ -10727,12 +10565,6 @@ ExitCalc:
         ' If they select a type of item, set that
         If LoadingList Then
             ComboType = ""
-        Else ' We are doing a main query so limit
-            If Trim(cmbCalcBPTypeFilter.Text) <> "All Types" And Trim(cmbCalcBPTypeFilter.Text) <> "Select Type" And Trim(cmbCalcBPTypeFilter.Text) <> "" Then
-                ComboType = "AND X.ITEM_GROUP ='" & Trim(cmbCalcBPTypeFilter.Text) & "' "
-            Else
-                ComboType = ""
-            End If
         End If
 
         SizesClause = ""
@@ -10747,9 +10579,7 @@ ExitCalc:
             SizesClause = " AND SIZE_GROUP IN (" & SizesClause.Substring(0, Len(SizesClause) - 1) & ") "
         End If
 
-        If chkCalcNPCBPOs.Checked And chkCalcNPCBPOs.Enabled Then
-            NPCBPOsClause = " AND NPC_BPO = 1 AND ITEM_TYPE = 1 " ' only include T1 BPOs
-        End If
+        NPCBPOsClause = " AND NPC_BPO = 1 AND ITEM_TYPE = 1 " ' only include T1 BPOs
 
         ' Flag for favorites 
         If rbtnCalcBPFavorites.Checked Then
@@ -10760,11 +10590,6 @@ ExitCalc:
 
         ' Add all the items to the where clause
         WhereClause = WhereClause & RaceClause & " AND (" & ItemTypes & ") AND (((" & ItemTypeNumbers & ") " & T2Query & T3Query & "))" & SizesClause & ComboType & NPCBPOsClause & " "
-
-        ' Finally add on text if they added it
-        If Trim(txtCalcItemFilter.Text) <> "" Then
-            WhereClause = WhereClause & "AND " & GetSearchText(txtCalcItemFilter.Text, "X.ITEM_NAME", "X.ITEM_GROUP")
-        End If
 
         ' Only bps not ignored - no option for this yet
         WhereClause = WhereClause & " AND IGNORE = 0 "
@@ -10983,7 +10808,6 @@ ExitCalc:
         UpdateBPPriceLabels()
 
         lblBPCanMakeBP.Visible = True
-        lblBPCanMakeBPAll.Visible = True
 
         ' Set the build facility we are sending to the proper facility type for this item. 
         If FoundItem IsNot Nothing Then
@@ -11001,7 +10825,7 @@ ExitCalc:
                 Call LoadBPfromEvent(.BPID, .CalcType, .Inputs, SentFromLocation.ManufacturingTab,
                                      .ManufacturingFacility, .ComponentManufacturingFacility, .CapComponentManufacturingFacility,
                                      .InventionFacility, .CopyFacility,
-                                     chkCalcTaxes.Checked, GetBrokerFeeData(),
+                                     True, GetBrokerFeeData(),
                                      CStr(.BPME), CStr(.BPTE), txtCalcRuns.Text, txtCalcProdLines.Text, txtCalcLabLines.Text,
                                      txtCalcNumBPs.Text, FormatNumber(.AddlCosts, 2), chkCalcPPU.Checked, CompareType, T2T3Type)
             End With
