@@ -141,7 +141,6 @@ Partial Class frmMain
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.btnCalcCalculate = New System.Windows.Forms.Button()
         Me.btnDownloadPrices = New System.Windows.Forms.Button()
-        Me.btnCalcShowAssets = New System.Windows.Forms.Button()
         Me.gbTempMEPE = New System.Windows.Forms.GroupBox()
         Me.txtCalcTempTE = New System.Windows.Forms.TextBox()
         Me.lblTempPE = New System.Windows.Forms.Label()
@@ -185,30 +184,20 @@ Partial Class frmMain
         Me.lblBPCanMakeBP = New System.Windows.Forms.Label()
         Me.lstBPList = New System.Windows.Forms.ListBox()
         Me.cmbBPBlueprintSelection = New System.Windows.Forms.ComboBox()
-        Me.gbCalcMarketFilters = New System.Windows.Forms.GroupBox()
-        Me.txtCalcProfitThreshold = New System.Windows.Forms.TextBox()
         Me.tpMaxBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
-        Me.txtCalcSVRThreshold = New System.Windows.Forms.TextBox()
         Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.chkCalcMaxBuildTimeFilter = New System.Windows.Forms.CheckBox()
         Me.chkCalcMinBuildTimeFilter = New System.Windows.Forms.CheckBox()
-        Me.cmbCalcPriceTrend = New System.Windows.Forms.ComboBox()
-        Me.cmbCalcAvgPriceDuration = New System.Windows.Forms.ComboBox()
-        Me.lblCalcPriceTrend = New System.Windows.Forms.Label()
-        Me.txtCalcVolumeThreshold = New System.Windows.Forms.TextBox()
         Me.cmbCalcHistoryRegion = New System.Windows.Forms.ComboBox()
         Me.lblCalcHistoryRegion = New System.Windows.Forms.Label()
-        Me.lblCalcSVRThreshold = New System.Windows.Forms.Label()
-        Me.lblCalcAvgPrice = New System.Windows.Forms.Label()
-        Me.txtCalcIPHThreshold = New System.Windows.Forms.TextBox()
-        Me.chkCalcProfitThreshold = New System.Windows.Forms.CheckBox()
-        Me.chkCalcVolumeThreshold = New System.Windows.Forms.CheckBox()
-        Me.chkCalcSVRIncludeNull = New System.Windows.Forms.CheckBox()
-        Me.chkCalcIPHThreshold = New System.Windows.Forms.CheckBox()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
         Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.mnuStripMain.SuspendLayout()
         Me.pnlMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
@@ -224,7 +213,6 @@ Partial Class frmMain
         Me.tabCalcFacilities.SuspendLayout()
         Me.tabCalcFacilityBase.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
-        Me.gbCalcMarketFilters.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -960,13 +948,22 @@ Partial Class frmMain
         '
         'tabManufacturing
         '
-        Me.tabManufacturing.Controls.Add(Me.gbCalcMarketFilters)
+        Me.tabManufacturing.Controls.Add(Me.Label4)
+        Me.tabManufacturing.Controls.Add(Me.Label3)
+        Me.tabManufacturing.Controls.Add(Me.Label2)
+        Me.tabManufacturing.Controls.Add(Me.chkCalcAutoCalcT2NumBPs)
+        Me.tabManufacturing.Controls.Add(Me.Label1)
+        Me.tabManufacturing.Controls.Add(Me.tpMaxBuildTimeFilter)
+        Me.tabManufacturing.Controls.Add(Me.chkCalcMaxBuildTimeFilter)
+        Me.tabManufacturing.Controls.Add(Me.tpMinBuildTimeFilter)
         Me.tabManufacturing.Controls.Add(Me.txtCalcBrokerFeeRate)
         Me.tabManufacturing.Controls.Add(Me.btnCalcSelectColumns)
+        Me.tabManufacturing.Controls.Add(Me.chkCalcMinBuildTimeFilter)
         Me.tabManufacturing.Controls.Add(Me.lstManufacturing)
+        Me.tabManufacturing.Controls.Add(Me.cmbCalcHistoryRegion)
         Me.tabManufacturing.Controls.Add(Me.btnCalcCalculate)
+        Me.tabManufacturing.Controls.Add(Me.lblCalcHistoryRegion)
         Me.tabManufacturing.Controls.Add(Me.btnDownloadPrices)
-        Me.tabManufacturing.Controls.Add(Me.btnCalcShowAssets)
         Me.tabManufacturing.Controls.Add(Me.gbTempMEPE)
         Me.tabManufacturing.Controls.Add(Me.gbTradeHubSystems)
         Me.tabManufacturing.Controls.Add(Me.gbCalcProdLines)
@@ -987,7 +984,7 @@ Partial Class frmMain
         '
         'txtCalcBrokerFeeRate
         '
-        Me.txtCalcBrokerFeeRate.Location = New System.Drawing.Point(577, 665)
+        Me.txtCalcBrokerFeeRate.Location = New System.Drawing.Point(970, 658)
         Me.txtCalcBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCalcBrokerFeeRate.Name = "txtCalcBrokerFeeRate"
         Me.txtCalcBrokerFeeRate.Size = New System.Drawing.Size(45, 23)
@@ -998,7 +995,7 @@ Partial Class frmMain
         '
         'btnCalcSelectColumns
         '
-        Me.btnCalcSelectColumns.Location = New System.Drawing.Point(647, 662)
+        Me.btnCalcSelectColumns.Location = New System.Drawing.Point(1129, 652)
         Me.btnCalcSelectColumns.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCalcSelectColumns.Name = "btnCalcSelectColumns"
         Me.btnCalcSelectColumns.Size = New System.Drawing.Size(120, 36)
@@ -1042,30 +1039,20 @@ Partial Class frmMain
         Me.btnDownloadPrices.Text = "Download Prices"
         Me.btnDownloadPrices.UseVisualStyleBackColor = True
         '
-        'btnCalcShowAssets
-        '
-        Me.btnCalcShowAssets.Image = CType(resources.GetObject("btnCalcShowAssets.Image"), System.Drawing.Image)
-        Me.btnCalcShowAssets.Location = New System.Drawing.Point(177, 443)
-        Me.btnCalcShowAssets.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCalcShowAssets.Name = "btnCalcShowAssets"
-        Me.btnCalcShowAssets.Size = New System.Drawing.Size(60, 60)
-        Me.btnCalcShowAssets.TabIndex = 28
-        Me.btnCalcShowAssets.UseVisualStyleBackColor = True
-        '
         'gbTempMEPE
         '
         Me.gbTempMEPE.Controls.Add(Me.txtCalcTempTE)
         Me.gbTempMEPE.Controls.Add(Me.lblTempPE)
         Me.gbTempMEPE.Controls.Add(Me.txtCalcTempME)
         Me.gbTempMEPE.Controls.Add(Me.lblTempME)
-        Me.gbTempMEPE.Location = New System.Drawing.Point(290, 525)
+        Me.gbTempMEPE.Location = New System.Drawing.Point(985, 140)
         Me.gbTempMEPE.Margin = New System.Windows.Forms.Padding(4)
         Me.gbTempMEPE.Name = "gbTempMEPE"
         Me.gbTempMEPE.Padding = New System.Windows.Forms.Padding(4)
         Me.gbTempMEPE.Size = New System.Drawing.Size(166, 50)
         Me.gbTempMEPE.TabIndex = 11
         Me.gbTempMEPE.TabStop = False
-        Me.gbTempMEPE.Text = "Unowned BPs:"
+        Me.gbTempMEPE.Text = "default to 5/10"
         '
         'txtCalcTempTE
         '
@@ -1110,7 +1097,7 @@ Partial Class frmMain
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems5)
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems3)
         Me.gbTradeHubSystems.Controls.Add(Me.chkSystems1)
-        Me.gbTradeHubSystems.Location = New System.Drawing.Point(834, 271)
+        Me.gbTradeHubSystems.Location = New System.Drawing.Point(485, 191)
         Me.gbTradeHubSystems.Margin = New System.Windows.Forms.Padding(4)
         Me.gbTradeHubSystems.Name = "gbTradeHubSystems"
         Me.gbTradeHubSystems.Padding = New System.Windows.Forms.Padding(4)
@@ -1176,7 +1163,6 @@ Partial Class frmMain
         '
         'gbCalcProdLines
         '
-        Me.gbCalcProdLines.Controls.Add(Me.chkCalcAutoCalcT2NumBPs)
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcBPs)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcNumBPs)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcRuns)
@@ -1185,19 +1171,19 @@ Partial Class frmMain
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcLabLines1)
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcProdLines)
-        Me.gbCalcProdLines.Location = New System.Drawing.Point(251, 582)
+        Me.gbCalcProdLines.Location = New System.Drawing.Point(985, 319)
         Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcProdLines.Name = "gbCalcProdLines"
         Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcProdLines.Size = New System.Drawing.Size(195, 90)
+        Me.gbCalcProdLines.Size = New System.Drawing.Size(295, 90)
         Me.gbCalcProdLines.TabIndex = 15
         Me.gbCalcProdLines.TabStop = False
-        Me.gbCalcProdLines.Text = "Runs / Lines:"
+        Me.gbCalcProdLines.Text = "use to auto calculate available lines?"
         '
         'chkCalcAutoCalcT2NumBPs
         '
         Me.chkCalcAutoCalcT2NumBPs.AutoSize = True
-        Me.chkCalcAutoCalcT2NumBPs.Location = New System.Drawing.Point(15, 65)
+        Me.chkCalcAutoCalcT2NumBPs.Location = New System.Drawing.Point(41, 732)
         Me.chkCalcAutoCalcT2NumBPs.Margin = New System.Windows.Forms.Padding(4)
         Me.chkCalcAutoCalcT2NumBPs.Name = "chkCalcAutoCalcT2NumBPs"
         Me.chkCalcAutoCalcT2NumBPs.Size = New System.Drawing.Size(173, 21)
@@ -1311,7 +1297,7 @@ Partial Class frmMain
         '
         'btnCancelUpdate
         '
-        Me.btnCancelUpdate.Location = New System.Drawing.Point(1226, 284)
+        Me.btnCancelUpdate.Location = New System.Drawing.Point(661, 271)
         Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCancelUpdate.Name = "btnCancelUpdate"
         Me.btnCancelUpdate.Size = New System.Drawing.Size(141, 40)
@@ -1323,7 +1309,7 @@ Partial Class frmMain
         '
         Me.pictBP.BackColor = System.Drawing.Color.White
         Me.pictBP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pictBP.Location = New System.Drawing.Point(513, 165)
+        Me.pictBP.Location = New System.Drawing.Point(476, 35)
         Me.pictBP.Margin = New System.Windows.Forms.Padding(4)
         Me.pictBP.Name = "pictBP"
         Me.pictBP.Size = New System.Drawing.Size(84, 85)
@@ -1335,7 +1321,7 @@ Partial Class frmMain
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPFavorites)
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcAllBPs)
         Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPOwned)
-        Me.gbCalcBPSelect.Location = New System.Drawing.Point(688, 374)
+        Me.gbCalcBPSelect.Location = New System.Drawing.Point(524, 443)
         Me.gbCalcBPSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcBPSelect.Name = "gbCalcBPSelect"
         Me.gbCalcBPSelect.Padding = New System.Windows.Forms.Padding(4)
@@ -1384,7 +1370,7 @@ Partial Class frmMain
         Me.tabCalcFacilities.Font = Global.EVE_Isk_per_Hour.My.MySettings.Default.MyDefault
         Me.tabCalcFacilities.HotTrack = True
         Me.tabCalcFacilities.ItemSize = New System.Drawing.Size(49, 20)
-        Me.tabCalcFacilities.Location = New System.Drawing.Point(937, 482)
+        Me.tabCalcFacilities.Location = New System.Drawing.Point(29, 461)
         Me.tabCalcFacilities.Margin = New System.Windows.Forms.Padding(4)
         Me.tabCalcFacilities.Multiline = True
         Me.tabCalcFacilities.Name = "tabCalcFacilities"
@@ -1424,7 +1410,7 @@ Partial Class frmMain
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode5)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode2)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode1)
-        Me.gbCalcTextColors.Location = New System.Drawing.Point(29, 537)
+        Me.gbCalcTextColors.Location = New System.Drawing.Point(29, 396)
         Me.gbCalcTextColors.Margin = New System.Windows.Forms.Padding(4)
         Me.gbCalcTextColors.Name = "gbCalcTextColors"
         Me.gbCalcTextColors.Padding = New System.Windows.Forms.Padding(4)
@@ -1520,7 +1506,7 @@ Partial Class frmMain
         '
         Me.lblBPCanMakeBP.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblBPCanMakeBP.ForeColor = System.Drawing.Color.Red
-        Me.lblBPCanMakeBP.Location = New System.Drawing.Point(612, 165)
+        Me.lblBPCanMakeBP.Location = New System.Drawing.Point(453, 124)
         Me.lblBPCanMakeBP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBPCanMakeBP.Name = "lblBPCanMakeBP"
         Me.lblBPCanMakeBP.Size = New System.Drawing.Size(144, 26)
@@ -1549,82 +1535,30 @@ Partial Class frmMain
         Me.cmbBPBlueprintSelection.Text = "Select Blueprint or Reaction"
         Me.cmbBPBlueprintSelection.Visible = False
         '
-        'gbCalcMarketFilters
-        '
-        Me.gbCalcMarketFilters.Controls.Add(Me.txtCalcProfitThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.tpMaxBuildTimeFilter)
-        Me.gbCalcMarketFilters.Controls.Add(Me.txtCalcSVRThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.tpMinBuildTimeFilter)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcMaxBuildTimeFilter)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcMinBuildTimeFilter)
-        Me.gbCalcMarketFilters.Controls.Add(Me.cmbCalcPriceTrend)
-        Me.gbCalcMarketFilters.Controls.Add(Me.cmbCalcAvgPriceDuration)
-        Me.gbCalcMarketFilters.Controls.Add(Me.lblCalcPriceTrend)
-        Me.gbCalcMarketFilters.Controls.Add(Me.txtCalcVolumeThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.cmbCalcHistoryRegion)
-        Me.gbCalcMarketFilters.Controls.Add(Me.lblCalcHistoryRegion)
-        Me.gbCalcMarketFilters.Controls.Add(Me.lblCalcSVRThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.lblCalcAvgPrice)
-        Me.gbCalcMarketFilters.Controls.Add(Me.txtCalcIPHThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcProfitThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcVolumeThreshold)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcSVRIncludeNull)
-        Me.gbCalcMarketFilters.Controls.Add(Me.chkCalcIPHThreshold)
-        Me.gbCalcMarketFilters.Location = New System.Drawing.Point(808, 82)
-        Me.gbCalcMarketFilters.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcMarketFilters.Name = "gbCalcMarketFilters"
-        Me.gbCalcMarketFilters.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcMarketFilters.Size = New System.Drawing.Size(559, 146)
-        Me.gbCalcMarketFilters.TabIndex = 27
-        Me.gbCalcMarketFilters.TabStop = False
-        Me.gbCalcMarketFilters.Text = "Market Filters:"
-        '
-        'txtCalcProfitThreshold
-        '
-        Me.txtCalcProfitThreshold.Enabled = False
-        Me.txtCalcProfitThreshold.Location = New System.Drawing.Point(416, 99)
-        Me.txtCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcProfitThreshold.Name = "txtCalcProfitThreshold"
-        Me.txtCalcProfitThreshold.Size = New System.Drawing.Size(134, 23)
-        Me.txtCalcProfitThreshold.TabIndex = 62
-        Me.txtCalcProfitThreshold.TabStop = False
-        Me.txtCalcProfitThreshold.Text = "0.00"
-        Me.txtCalcProfitThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'tpMaxBuildTimeFilter
         '
         Me.tpMaxBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tpMaxBuildTimeFilter.Enabled = False
-        Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(410, 49)
+        Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(1024, 73)
         Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
         Me.tpMaxBuildTimeFilter.Name = "tpMaxBuildTimeFilter"
-        Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 27)
+        Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
         Me.tpMaxBuildTimeFilter.TabIndex = 70
-        '
-        'txtCalcSVRThreshold
-        '
-        Me.txtCalcSVRThreshold.Location = New System.Drawing.Point(81, 50)
-        Me.txtCalcSVRThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcSVRThreshold.MaxLength = 10
-        Me.txtCalcSVRThreshold.Name = "txtCalcSVRThreshold"
-        Me.txtCalcSVRThreshold.Size = New System.Drawing.Size(74, 23)
-        Me.txtCalcSVRThreshold.TabIndex = 1
-        Me.txtCalcSVRThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'tpMinBuildTimeFilter
         '
         Me.tpMinBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tpMinBuildTimeFilter.Enabled = False
-        Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(410, 18)
+        Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(1024, 35)
         Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
         Me.tpMinBuildTimeFilter.Name = "tpMinBuildTimeFilter"
-        Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 27)
+        Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
         Me.tpMinBuildTimeFilter.TabIndex = 69
         '
         'chkCalcMaxBuildTimeFilter
         '
         Me.chkCalcMaxBuildTimeFilter.AutoSize = True
-        Me.chkCalcMaxBuildTimeFilter.Location = New System.Drawing.Point(284, 52)
+        Me.chkCalcMaxBuildTimeFilter.Location = New System.Drawing.Point(889, 64)
         Me.chkCalcMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
         Me.chkCalcMaxBuildTimeFilter.Name = "chkCalcMaxBuildTimeFilter"
         Me.chkCalcMaxBuildTimeFilter.Size = New System.Drawing.Size(129, 21)
@@ -1635,7 +1569,7 @@ Partial Class frmMain
         'chkCalcMinBuildTimeFilter
         '
         Me.chkCalcMinBuildTimeFilter.AutoSize = True
-        Me.chkCalcMinBuildTimeFilter.Location = New System.Drawing.Point(284, 21)
+        Me.chkCalcMinBuildTimeFilter.Location = New System.Drawing.Point(889, 35)
         Me.chkCalcMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
         Me.chkCalcMinBuildTimeFilter.Name = "chkCalcMinBuildTimeFilter"
         Me.chkCalcMinBuildTimeFilter.Size = New System.Drawing.Size(126, 21)
@@ -1643,55 +1577,10 @@ Partial Class frmMain
         Me.chkCalcMinBuildTimeFilter.Text = "Min Build Time:"
         Me.chkCalcMinBuildTimeFilter.UseVisualStyleBackColor = True
         '
-        'cmbCalcPriceTrend
-        '
-        Me.cmbCalcPriceTrend.FormattingEnabled = True
-        Me.cmbCalcPriceTrend.Items.AddRange(New Object() {"All", "Up", "Down"})
-        Me.cmbCalcPriceTrend.Location = New System.Drawing.Point(94, 98)
-        Me.cmbCalcPriceTrend.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbCalcPriceTrend.MaxLength = 3
-        Me.cmbCalcPriceTrend.Name = "cmbCalcPriceTrend"
-        Me.cmbCalcPriceTrend.Size = New System.Drawing.Size(59, 25)
-        Me.cmbCalcPriceTrend.TabIndex = 7
-        '
-        'cmbCalcAvgPriceDuration
-        '
-        Me.cmbCalcAvgPriceDuration.FormattingEnabled = True
-        Me.cmbCalcAvgPriceDuration.Items.AddRange(New Object() {"7", "15", "30", "60", "90"})
-        Me.cmbCalcAvgPriceDuration.Location = New System.Drawing.Point(205, 49)
-        Me.cmbCalcAvgPriceDuration.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbCalcAvgPriceDuration.MaxLength = 3
-        Me.cmbCalcAvgPriceDuration.Name = "cmbCalcAvgPriceDuration"
-        Me.cmbCalcAvgPriceDuration.Size = New System.Drawing.Size(50, 25)
-        Me.cmbCalcAvgPriceDuration.TabIndex = 3
-        '
-        'lblCalcPriceTrend
-        '
-        Me.lblCalcPriceTrend.AutoSize = True
-        Me.lblCalcPriceTrend.Location = New System.Drawing.Point(8, 102)
-        Me.lblCalcPriceTrend.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcPriceTrend.Name = "lblCalcPriceTrend"
-        Me.lblCalcPriceTrend.Size = New System.Drawing.Size(86, 17)
-        Me.lblCalcPriceTrend.TabIndex = 6
-        Me.lblCalcPriceTrend.Text = "Price Trend:"
-        Me.lblCalcPriceTrend.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'txtCalcVolumeThreshold
-        '
-        Me.txtCalcVolumeThreshold.Enabled = False
-        Me.txtCalcVolumeThreshold.Location = New System.Drawing.Point(299, 99)
-        Me.txtCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcVolumeThreshold.Name = "txtCalcVolumeThreshold"
-        Me.txtCalcVolumeThreshold.Size = New System.Drawing.Size(112, 23)
-        Me.txtCalcVolumeThreshold.TabIndex = 63
-        Me.txtCalcVolumeThreshold.TabStop = False
-        Me.txtCalcVolumeThreshold.Text = "0.00"
-        Me.txtCalcVolumeThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'cmbCalcHistoryRegion
         '
         Me.cmbCalcHistoryRegion.FormattingEnabled = True
-        Me.cmbCalcHistoryRegion.Location = New System.Drawing.Point(70, 19)
+        Me.cmbCalcHistoryRegion.Location = New System.Drawing.Point(1048, 251)
         Me.cmbCalcHistoryRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbCalcHistoryRegion.Name = "cmbCalcHistoryRegion"
         Me.cmbCalcHistoryRegion.Size = New System.Drawing.Size(185, 25)
@@ -1700,90 +1589,12 @@ Partial Class frmMain
         'lblCalcHistoryRegion
         '
         Me.lblCalcHistoryRegion.AutoSize = True
-        Me.lblCalcHistoryRegion.Location = New System.Drawing.Point(8, 22)
+        Me.lblCalcHistoryRegion.Location = New System.Drawing.Point(957, 230)
         Me.lblCalcHistoryRegion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblCalcHistoryRegion.Name = "lblCalcHistoryRegion"
-        Me.lblCalcHistoryRegion.Size = New System.Drawing.Size(57, 17)
+        Me.lblCalcHistoryRegion.Size = New System.Drawing.Size(363, 17)
         Me.lblCalcHistoryRegion.TabIndex = 4
-        Me.lblCalcHistoryRegion.Text = "Region:"
-        '
-        'lblCalcSVRThreshold
-        '
-        Me.lblCalcSVRThreshold.Location = New System.Drawing.Point(8, 44)
-        Me.lblCalcSVRThreshold.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcSVRThreshold.Name = "lblCalcSVRThreshold"
-        Me.lblCalcSVRThreshold.Size = New System.Drawing.Size(81, 34)
-        Me.lblCalcSVRThreshold.TabIndex = 0
-        Me.lblCalcSVRThreshold.Text = "SVR Threshold:"
-        '
-        'lblCalcAvgPrice
-        '
-        Me.lblCalcAvgPrice.Location = New System.Drawing.Point(164, 44)
-        Me.lblCalcAvgPrice.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcAvgPrice.Name = "lblCalcAvgPrice"
-        Me.lblCalcAvgPrice.Size = New System.Drawing.Size(51, 34)
-        Me.lblCalcAvgPrice.TabIndex = 2
-        Me.lblCalcAvgPrice.Text = "Avg Days:"
-        Me.lblCalcAvgPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'txtCalcIPHThreshold
-        '
-        Me.txtCalcIPHThreshold.Enabled = False
-        Me.txtCalcIPHThreshold.Location = New System.Drawing.Point(181, 99)
-        Me.txtCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcIPHThreshold.Name = "txtCalcIPHThreshold"
-        Me.txtCalcIPHThreshold.Size = New System.Drawing.Size(112, 23)
-        Me.txtCalcIPHThreshold.TabIndex = 72
-        Me.txtCalcIPHThreshold.TabStop = False
-        Me.txtCalcIPHThreshold.Text = "0.00"
-        Me.txtCalcIPHThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'chkCalcProfitThreshold
-        '
-        Me.chkCalcProfitThreshold.AutoSize = True
-        Me.chkCalcProfitThreshold.Location = New System.Drawing.Point(416, 79)
-        Me.chkCalcProfitThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcProfitThreshold.Name = "chkCalcProfitThreshold"
-        Me.chkCalcProfitThreshold.Size = New System.Drawing.Size(135, 21)
-        Me.chkCalcProfitThreshold.TabIndex = 76
-        Me.chkCalcProfitThreshold.Text = "Profit Threshold:"
-        Me.chkCalcProfitThreshold.ThreeState = True
-        Me.chkCalcProfitThreshold.UseVisualStyleBackColor = True
-        '
-        'chkCalcVolumeThreshold
-        '
-        Me.chkCalcVolumeThreshold.AutoSize = True
-        Me.chkCalcVolumeThreshold.Location = New System.Drawing.Point(299, 79)
-        Me.chkCalcVolumeThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcVolumeThreshold.Name = "chkCalcVolumeThreshold"
-        Me.chkCalcVolumeThreshold.Size = New System.Drawing.Size(126, 21)
-        Me.chkCalcVolumeThreshold.TabIndex = 77
-        Me.chkCalcVolumeThreshold.Text = "Vol. Threshold:"
-        Me.chkCalcVolumeThreshold.UseVisualStyleBackColor = True
-        '
-        'chkCalcSVRIncludeNull
-        '
-        Me.chkCalcSVRIncludeNull.AutoSize = True
-        Me.chkCalcSVRIncludeNull.Checked = True
-        Me.chkCalcSVRIncludeNull.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCalcSVRIncludeNull.Location = New System.Drawing.Point(11, 79)
-        Me.chkCalcSVRIncludeNull.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcSVRIncludeNull.Name = "chkCalcSVRIncludeNull"
-        Me.chkCalcSVRIncludeNull.Size = New System.Drawing.Size(169, 21)
-        Me.chkCalcSVRIncludeNull.TabIndex = 6
-        Me.chkCalcSVRIncludeNull.Text = "Include Items w/o SVR"
-        Me.chkCalcSVRIncludeNull.UseVisualStyleBackColor = True
-        '
-        'chkCalcIPHThreshold
-        '
-        Me.chkCalcIPHThreshold.AutoSize = True
-        Me.chkCalcIPHThreshold.Location = New System.Drawing.Point(181, 79)
-        Me.chkCalcIPHThreshold.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcIPHThreshold.Name = "chkCalcIPHThreshold"
-        Me.chkCalcIPHThreshold.Size = New System.Drawing.Size(124, 21)
-        Me.chkCalcIPHThreshold.TabIndex = 75
-        Me.chkCalcIPHThreshold.Text = "IPH Threshold:"
-        Me.chkCalcIPHThreshold.UseVisualStyleBackColor = True
+        Me.lblCalcHistoryRegion.Text = "auto populate system dropdown based on hub checkbox"
         '
         'tabMain
         '
@@ -1836,6 +1647,47 @@ Partial Class frmMain
         Me.lstPricesView.UseCompatibleStateImageBehavior = False
         Me.lstPricesView.View = System.Windows.Forms.View.Details
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(850, 13)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(554, 17)
+        Me.Label1.TabIndex = 72
+        Me.Label1.Text = "use build time limits to not build anything more than a week long when counting a" &
+    "ll runs"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(72, 711)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(73, 17)
+        Me.Label2.TabIndex = 73
+        Me.Label2.Text = "delete this"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(915, 628)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(151, 17)
+        Me.Label3.TabIndex = 74
+        Me.Label3.Text = "is this auto populated?"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(1126, 628)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(222, 17)
+        Me.Label4.TabIndex = 75
+        Me.Label4.Text = "set a default here and then delete"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -1885,8 +1737,6 @@ Partial Class frmMain
         Me.tabCalcFacilityBase.ResumeLayout(False)
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.gbCalcTextColors.PerformLayout()
-        Me.gbCalcMarketFilters.ResumeLayout(False)
-        Me.gbCalcMarketFilters.PerformLayout()
         Me.tabMain.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2005,29 +1855,14 @@ Partial Class frmMain
     Friend WithEvents btnPIReset As Button
     Friend WithEvents tabManufacturing As TabPage
     Friend WithEvents lstManufacturing As ManufacturingListView
-    Friend WithEvents btnCalcShowAssets As Button
     Friend WithEvents gbCalcIncludeItems As GroupBox
     Friend WithEvents chkCalcCanBuild As CheckBox
-    Friend WithEvents gbCalcMarketFilters As GroupBox
-    Friend WithEvents txtCalcProfitThreshold As TextBox
     Friend WithEvents tpMaxBuildTimeFilter As TimePicker
-    Friend WithEvents txtCalcSVRThreshold As TextBox
     Friend WithEvents tpMinBuildTimeFilter As TimePicker
     Friend WithEvents chkCalcMaxBuildTimeFilter As CheckBox
     Friend WithEvents chkCalcMinBuildTimeFilter As CheckBox
-    Friend WithEvents cmbCalcPriceTrend As ComboBox
-    Friend WithEvents cmbCalcAvgPriceDuration As ComboBox
-    Friend WithEvents lblCalcPriceTrend As Label
-    Friend WithEvents txtCalcVolumeThreshold As TextBox
     Friend WithEvents cmbCalcHistoryRegion As ComboBox
     Friend WithEvents lblCalcHistoryRegion As Label
-    Friend WithEvents lblCalcSVRThreshold As Label
-    Friend WithEvents lblCalcAvgPrice As Label
-    Friend WithEvents txtCalcIPHThreshold As TextBox
-    Friend WithEvents chkCalcProfitThreshold As CheckBox
-    Friend WithEvents chkCalcVolumeThreshold As CheckBox
-    Friend WithEvents chkCalcSVRIncludeNull As CheckBox
-    Friend WithEvents chkCalcIPHThreshold As CheckBox
     Friend WithEvents btnCalcCalculate As Button
     Friend WithEvents btnCalcSelectColumns As Button
     Friend WithEvents gbCalcProdLines As GroupBox
@@ -2077,4 +1912,8 @@ Partial Class frmMain
     Friend WithEvents txtListEdit As TextBox
     Friend WithEvents cmbEdit As ComboBox
     Friend WithEvents txtCalcBrokerFeeRate As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 End Class

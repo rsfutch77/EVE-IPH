@@ -263,6 +263,8 @@ Public Class frmMain
     Private IgnoreFocus As Boolean
     Private IgnoreMarketFocus As Boolean
 
+    Private Const AveragePriceDays As Integer = 15
+
     ' Column width consts - may change depending on Ore, Ice or Gas so change the widths of the columns based on these and use them to add and move
     Private Const MineOreNameColumnWidth As Integer = 120
     Private Const MineRefineYieldColumnWidth As Integer = 70
@@ -589,8 +591,6 @@ Public Class frmMain
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Will assume Number of BPs is same as Number of Production lines for Calculations")
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Enter the number of Manufacturing Lines you have to build items per day for calculations. Calculations will assume the same number of BPs used." & vbCrLf & "Calculations for components will also use this value. Double-Click to enter max runs for this character.")
             ttUpdatePrices.SetToolTip(txtCalcLabLines, "Enter the number of Laboratory Lines you have to invent per day for calculations. Double-Click to enter max runs for this character.")
-
-            ttUpdatePrices.SetToolTip(txtCalcSVRThreshold, "No results with an SVR lower than the number entered will be returned.")
 
         End If
         FirstLoadCalcBPTypes = True
@@ -6071,7 +6071,7 @@ ExitPRocessing:
 
     End Sub
 
-    Private Sub btnCalcShowAssets_Click(sender As System.Object, e As System.EventArgs) Handles btnCalcShowAssets.Click
+    Private Sub btnCalcShowAssets_Click(sender As System.Object, e As System.EventArgs)
         ' Make sure it's not disposed
         If IsNothing(frmDefaultAssets) Then
             ' Make new form
@@ -6172,7 +6172,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub cmbCalcAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbCalcAvgPriceDuration.KeyPress
+    Private Sub cmbCalcAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -6184,7 +6184,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub cmbCalcAvgPriceDuration_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbCalcAvgPriceDuration.SelectedIndexChanged
+    Private Sub cmbCalcAvgPriceDuration_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6264,7 +6264,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcSVRThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcSVRThreshold.KeyPress
+    Private Sub txtCalcSVRThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers, decimal, negative or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
@@ -6276,11 +6276,11 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcSVRThreshold_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcSVRThreshold.TextChanged
+    Private Sub txtCalcSVRThreshold_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcSVRIncludeNull_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcSVRIncludeNull.CheckedChanged
+    Private Sub chkCalcSVRIncludeNull_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6699,7 +6699,7 @@ ExitPRocessing:
 
     End Sub
 
-    Private Sub txtCalcIPHThreshold_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcIPHThreshold.KeyPress
+    Private Sub txtCalcIPHThreshold_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers, decimal, negative or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
@@ -6711,47 +6711,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcIPHThreshold_LostFocus(sender As Object, e As System.EventArgs) Handles txtCalcIPHThreshold.LostFocus
-        txtCalcIPHThreshold.Text = FormatNumber(txtCalcIPHThreshold.Text, 2)
-    End Sub
-
-    Private Sub txtCalcProfitThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcProfitThreshold.KeyPress
-
-        If chkCalcProfitThreshold.Text.Contains("%") Then
-            ' Only allow numbers, decimal, negative or backspace
-            If e.KeyChar <> ControlChars.Back Then
-                If allowedPercentChars.IndexOf(e.KeyChar) = -1 Then
-                    ' Invalid Character
-                    e.Handled = True
-                Else
-                    ProfitPercentText = txtCalcProfitThreshold.Text
-                    Call ResetRefresh()
-                End If
-            End If
-        Else
-            ' Only allow numbers, decimal, negative or backspace
-            If e.KeyChar <> ControlChars.Back Then
-                If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
-                    ' Invalid Character
-                    e.Handled = True
-                Else
-                    ProfitText = txtCalcProfitThreshold.Text
-                    Call ResetRefresh()
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub txtCalcProfitThreshold_LostFocus(sender As Object, e As System.EventArgs) Handles txtCalcProfitThreshold.LostFocus
-
-        If chkCalcProfitThreshold.Text.Contains("%") Then
-            txtCalcProfitThreshold.Text = FormatPercent(CDbl(txtCalcProfitThreshold.Text.Replace("%", "")) / 100, 1)
-        Else
-            txtCalcProfitThreshold.Text = FormatNumber(txtCalcProfitThreshold.Text, 2)
-        End If
-    End Sub
-
-    Private Sub txtCalcVolumeThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcVolumeThreshold.KeyPress
+    Private Sub txtCalcVolumeThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow postive numbers
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -6763,23 +6723,19 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcVolumeThreshold_LostFocus(sender As Object, e As System.EventArgs) Handles txtCalcVolumeThreshold.LostFocus
-        txtCalcVolumeThreshold.Text = FormatNumber(txtCalcVolumeThreshold.Text, 0)
-    End Sub
-
-    Private Sub cmbCalcPriceTrend_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbCalcPriceTrend.SelectedIndexChanged
+    Private Sub cmbCalcPriceTrend_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcIPHThreshold_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcIPHThreshold.TextChanged
+    Private Sub txtCalcIPHThreshold_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcProfitThreshold_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcProfitThreshold.TextChanged
+    Private Sub txtCalcProfitThreshold_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcVolumeThreshold_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcVolumeThreshold.TextChanged
+    Private Sub txtCalcVolumeThreshold_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6798,53 +6754,6 @@ ExitPRocessing:
             tpMaxBuildTimeFilter.Enabled = True
         Else
             tpMaxBuildTimeFilter.Enabled = False
-        End If
-    End Sub
-
-    Private Sub chkCalcIPHThreshold_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcIPHThreshold.CheckedChanged
-        Call ResetRefresh()
-        If chkCalcIPHThreshold.Checked Then
-            txtCalcIPHThreshold.Enabled = True
-        Else
-            txtCalcIPHThreshold.Enabled = False
-        End If
-    End Sub
-
-    Private Sub chkCalcProfitThreshold_Click(sender As Object, e As EventArgs) Handles chkCalcProfitThreshold.Click
-
-        ' Save the value
-        If chkCalcProfitThreshold.Text.Contains("%") Then
-            ProfitPercentText = txtCalcProfitThreshold.Text
-        Else
-            ProfitText = txtCalcProfitThreshold.Text
-        End If
-
-        ' Change the name based on the check state
-        If chkCalcProfitThreshold.CheckState <> CheckState.Indeterminate Then
-            chkCalcProfitThreshold.Text = "Profit Threshold:"
-            txtCalcProfitThreshold.Text = FormatNumber(ProfitText, 2)
-        ElseIf chkCalcProfitThreshold.CheckState = CheckState.Indeterminate Then
-            chkCalcProfitThreshold.Text = "Profit % Threshold:"
-            txtCalcProfitThreshold.Text = FormatPercent(CDbl(ProfitPercentText.Replace("%", "")) / 100)
-        End If
-
-        If Not FirstLoad Then
-            ' For this one, it's optimal so disable all the others if checked
-            If chkCalcProfitThreshold.CheckState <> CheckState.Unchecked Then
-                txtCalcProfitThreshold.Enabled = True
-            Else
-                txtCalcProfitThreshold.Enabled = False
-            End If
-            Call ResetRefresh()
-        End If
-    End Sub
-
-    Private Sub chkCalcVolumeThreshold_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcVolumeThreshold.CheckedChanged
-        Call ResetRefresh()
-        If chkCalcVolumeThreshold.Checked Then
-            txtCalcVolumeThreshold.Enabled = True
-        Else
-            txtCalcVolumeThreshold.Enabled = False
         End If
     End Sub
 
@@ -7970,11 +7879,7 @@ ExitPRocessing:
             txtCalcTempME.Text = CStr(UserApplicationSettings.DefaultBPME)
             txtCalcTempTE.Text = CStr(UserApplicationSettings.DefaultBPTE)
 
-            chkCalcSVRIncludeNull.Checked = .CheckSVRIncludeNull
-
-            txtCalcSVRThreshold.Text = CStr(UserApplicationSettings.IgnoreSVRThresholdValue)
             cmbCalcHistoryRegion.Text = UserApplicationSettings.SVRAveragePriceRegion
-            cmbCalcAvgPriceDuration.Text = UserApplicationSettings.SVRAveragePriceDuration
 
             txtCalcProdLines.Text = CStr(.ProductionLines)
             txtCalcLabLines.Text = CStr(.LaboratoryLines)
@@ -7987,37 +7892,8 @@ ExitPRocessing:
             tpMaxBuildTimeFilter.Text = .MaxBuildTime
             tpMinBuildTimeFilter.Text = .MinBuildTime
 
-            cmbCalcPriceTrend.Text = .PriceTrend
-
-            ' Thresholds
-            chkCalcIPHThreshold.Checked = .IPHThresholdCheck
-            txtCalcIPHThreshold.Text = FormatNumber(.IPHThreshold, 2)
-            chkCalcVolumeThreshold.Checked = .VolumeThresholdCheck
-            txtCalcVolumeThreshold.Text = FormatNumber(.VolumeThreshold, 2)
-
             ProfitPercentText = "0.0%"
             ProfitText = "0.00"
-
-            Select Case .ProfitThresholdCheck
-                Case CheckState.Checked
-                    chkCalcProfitThreshold.CheckState = CheckState.Checked
-                    txtCalcProfitThreshold.Text = FormatNumber(.ProfitThreshold, 2)
-                    ProfitText = txtCalcProfitThreshold.Text
-                    chkCalcProfitThreshold.Text = "Profit Threshold"
-                    txtCalcProfitThreshold.Enabled = True
-                Case CheckState.Unchecked
-                    chkCalcProfitThreshold.CheckState = CheckState.Unchecked
-                    txtCalcProfitThreshold.Text = FormatNumber(.ProfitThreshold, 2)
-                    ProfitText = txtCalcProfitThreshold.Text
-                    chkCalcProfitThreshold.Text = "Profit Threshold"
-                    txtCalcProfitThreshold.Enabled = False
-                Case CheckState.Indeterminate
-                    chkCalcProfitThreshold.CheckState = CheckState.Indeterminate
-                    txtCalcProfitThreshold.Text = FormatPercent(.ProfitThreshold, 1)
-                    ProfitPercentText = txtCalcProfitThreshold.Text
-                    chkCalcProfitThreshold.Text = "Profit % Threshold"
-                    txtCalcProfitThreshold.Enabled = True
-            End Select
 
             ListIDIterator = 0
 
@@ -8058,14 +7934,6 @@ ExitPRocessing:
             If Not IsNumeric(txtCalcTempTE.Text) Then
                 MsgBox("Invalid Temp TE value", vbExclamation, Application.ProductName)
                 txtCalcTempTE.Focus()
-                Exit Sub
-            End If
-        End If
-
-        If Trim(txtCalcSVRThreshold.Text) <> "" Then
-            If Not IsNumeric(txtCalcSVRThreshold.Text) Then
-                MsgBox("Invalid SVR Threshold value", vbExclamation, Application.ProductName)
-                txtCalcSVRThreshold.Focus()
                 Exit Sub
             End If
         End If
@@ -8161,7 +8029,7 @@ ExitPRocessing:
             .CheckLarge = True
             .CheckXL = True
 
-            .CheckSVRIncludeNull = chkCalcSVRIncludeNull.Checked
+            .CheckSVRIncludeNull = True
             .ProductionLines = CInt(txtCalcProdLines.Text)
             .LaboratoryLines = CInt(txtCalcLabLines.Text)
             .Runs = CInt(txtCalcRuns.Text)
@@ -8169,41 +8037,26 @@ ExitPRocessing:
 
             .CheckOnlyBuild = chkCalcCanBuild.Checked
 
-            .PriceTrend = cmbCalcPriceTrend.Text
+            .PriceTrend = "All"
 
             .MaxBuildTimeCheck = chkCalcMaxBuildTimeFilter.Checked
             .MaxBuildTime = tpMaxBuildTimeFilter.Text
             .MinBuildTimeCheck = chkCalcMinBuildTimeFilter.Checked
             .MinBuildTime = tpMinBuildTimeFilter.Text
 
-            .IPHThresholdCheck = chkCalcIPHThreshold.Checked
-            .IPHThreshold = CDbl(txtCalcIPHThreshold.Text)
-            .VolumeThresholdCheck = chkCalcVolumeThreshold.Checked
-            .VolumeThreshold = CDbl(txtCalcVolumeThreshold.Text)
-
             .BuildT2T3Materials = BuildMatType.RawMaterials
 
-            Select Case chkCalcProfitThreshold.CheckState
-                Case CheckState.Checked
-                    .ProfitThresholdCheck = CheckState.Checked
-                    .ProfitThreshold = CDbl(txtCalcProfitThreshold.Text.Replace("%", ""))
-                Case CheckState.Unchecked
-                    .ProfitThresholdCheck = CheckState.Unchecked
-                    .ProfitThreshold = CDbl(txtCalcProfitThreshold.Text.Replace("%", ""))
-                Case CheckState.Indeterminate
-                    ' Profit percent
-                    .ProfitThresholdCheck = CheckState.Indeterminate
-                    .ProfitThreshold = CpctD(txtCalcProfitThreshold.Text)
-            End Select
+            .ProfitThresholdCheck = CheckState.Unchecked
+            .ProfitThreshold = 0
 
             ' Save these here as well as in settings
             With UserApplicationSettings
                 .DefaultBPME = CInt(txtCalcTempME.Text)
                 .DefaultBPTE = CInt(txtCalcTempTE.Text)
 
-                .IgnoreSVRThresholdValue = CDbl(txtCalcSVRThreshold.Text)
+                .IgnoreSVRThresholdValue = 0
                 .SVRAveragePriceRegion = cmbCalcHistoryRegion.Text
-                .SVRAveragePriceDuration = cmbCalcAvgPriceDuration.Text
+                .SVRAveragePriceDuration = ""
             End With
 
             Call Settings.SaveApplicationSettings(UserApplicationSettings)
@@ -8241,7 +8094,6 @@ ExitPRocessing:
 
         Dim UpdateTypeIDs As New List(Of Long) ' Full list of TypeID's to update SVR data with, these will have Market IDs
         Dim MarketRegionID As Long
-        Dim AveragePriceDays As Integer
 
         Dim BaseItems As New List(Of ManufacturingItem) ' Holds all the items and their decryptors, relics, meta etc for initial list
         Dim ManufacturingList As New List(Of ManufacturingItem) ' List of all the items we manufactured - may be different than the item list
@@ -8300,23 +8152,6 @@ ExitPRocessing:
 
         ' If they entered an ME/TE value make sure it's ok
         If Not CorrectMETE(txtCalcTempME.Text, txtCalcTempTE.Text, txtCalcTempME, txtCalcTempTE) Then
-            Exit Sub
-        End If
-
-        If Trim(cmbCalcAvgPriceDuration.Text) <> "" Then
-            If Not IsNumeric(cmbCalcAvgPriceDuration.Text) Then
-                MsgBox("Invalid SVR Average Days. Please select a valid number of days from the combo selection box.", vbExclamation, Application.ProductName)
-                cmbCalcAvgPriceDuration.Focus()
-                cmbCalcAvgPriceDuration.SelectAll()
-                Exit Sub
-            End If
-        End If
-
-        ' Days can only be between 2 and 365 based on ESI data
-        If CInt(cmbCalcAvgPriceDuration.Text) < 2 Or CInt(cmbCalcAvgPriceDuration.Text) > 365 Then
-            MsgBox("Averge price updates can only be done for greater than 1 or less than 365 days", vbExclamation, Application.ProductName)
-            cmbCalcAvgPriceDuration.Focus()
-            cmbCalcAvgPriceDuration.SelectAll()
             Exit Sub
         End If
 
@@ -8393,11 +8228,7 @@ ExitPRocessing:
             End If
         End If
 
-        If txtCalcSVRThreshold.Text = "" Then
-            SVRThresholdValue = Nothing ' Include everything
-        Else
-            SVRThresholdValue = CDbl(txtCalcSVRThreshold.Text)
-        End If
+        SVRThresholdValue = Nothing ' Include everything
 
         ' Save the refresh value since everytime we load the facility it will change it
         Dim SavedRefreshValue As Boolean = RefreshCalcData
@@ -8839,7 +8670,6 @@ ExitPRocessing:
                     End While
                     readerIDs.Close()
 
-                    AveragePriceDays = CInt(cmbCalcAvgPriceDuration.Text)
                     ' Get the region ID
                     MarketRegionID = GetRegionID(cmbCalcHistoryRegion.Text)
 
@@ -8943,13 +8773,13 @@ ExitPRocessing:
                         InsertItem.CanInvent = ManufacturingBlueprint.UserCanInventRE
                         InsertItem.CanRE = ManufacturingBlueprint.UserCanInventRE
                         ' Trend data
-                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, 15)
-                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, 15)
+                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
+                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
                         InsertItem.ItemMarketPrice = ManufacturingBlueprint.GetItemMarketPrice
 
                         ' Add all the volume, items on hand, etc here since they won't change
-                        InsertItem.TotalItemsSold = CalculateTotalItemsSold(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
-                        InsertItem.TotalOrdersFilled = CalculateTotalOrdersFilled(InsertItem.ItemTypeID, MarketRegionID, CInt(cmbCalcAvgPriceDuration.Text))
+                        InsertItem.TotalItemsSold = CalculateTotalItemsSold(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
+                        InsertItem.TotalOrdersFilled = CalculateTotalOrdersFilled(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
                         InsertItem.AvgItemsperOrder = CDbl(IIf(InsertItem.TotalOrdersFilled = 0, 0, InsertItem.TotalItemsSold / InsertItem.TotalOrdersFilled))
                         Call GetCurrentOrders(InsertItem.ItemTypeID, MarketRegionID, InsertItem.CurrentBuyOrders, InsertItem.CurrentSellOrders)
 
@@ -9021,7 +8851,7 @@ ExitPRocessing:
                                 InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                                 ' Insert Components Item
-                                Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
+                                Call InsertManufacturingItem(InsertItem, SVRThresholdValue, True, ManufacturingList, ListRowFormats)
 
                             End If
 
@@ -9085,7 +8915,7 @@ ExitPRocessing:
                             InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                             ' Insert Raw Mats item
-                            Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
+                            Call InsertManufacturingItem(InsertItem, SVRThresholdValue, True, ManufacturingList, ListRowFormats)
 
                             ' *** For Build/Buy we need to construct a new BP and add that
                             ' Construct the BP
@@ -9166,7 +8996,7 @@ ExitPRocessing:
                                 InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                                 ' Insert Build/Buy item
-                                Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
+                                Call InsertManufacturingItem(InsertItem, SVRThresholdValue, True, ManufacturingList, ListRowFormats)
 
                             End If
                         Else
@@ -9226,7 +9056,7 @@ ExitPRocessing:
                             InsertItem.RiskIPH = ManufacturingBlueprint.GetTotalRiskIskperHourRaw
 
                             ' Insert the chosen item
-                            Call InsertManufacturingItem(InsertItem, SVRThresholdValue, chkCalcSVRIncludeNull.Checked, ManufacturingList, ListRowFormats)
+                            Call InsertManufacturingItem(InsertItem, SVRThresholdValue, True, ManufacturingList, ListRowFormats)
 
                         End If
 
@@ -10282,19 +10112,6 @@ ExitCalc:
             InsertItem = False
         End If
 
-        ' Filter based on price trend first
-        If cmbCalcPriceTrend.Text = "Up" Then
-            ' They want up trends and this is less than zero, so false
-            If SentItem.PriceTrend < 0 Then
-                InsertItem = False
-            End If
-        ElseIf cmbCalcPriceTrend.Text = "Down" Then
-            ' They want down trends and this is greater than zero, so false
-            If SentItem.PriceTrend > 0 Then
-                InsertItem = False
-            End If
-        End If
-
         ' Min Build time
         If chkCalcMinBuildTimeFilter.Checked Then
             ' If greater than max threshold, don't include
@@ -10307,35 +10124,6 @@ ExitCalc:
         If chkCalcMaxBuildTimeFilter.Checked Then
             ' If greater than max threshold, don't include
             If ConvertDHMSTimetoSeconds(SentItem.TotalProductionTime) > ConvertDHMSTimetoSeconds(tpMaxBuildTimeFilter.Text) Then
-                InsertItem = False
-            End If
-        End If
-
-        ' IPH Threshold
-        If chkCalcIPHThreshold.Checked Then
-            ' If less than threshold, don't include
-            If SentItem.IPH < CDbl(txtCalcIPHThreshold.Text) Then
-                InsertItem = False
-            End If
-        End If
-
-        ' Profit Threshold
-        If chkCalcProfitThreshold.CheckState = CheckState.Checked Then
-            ' If less than threshold, don't include
-            If SentItem.Profit < CDbl(txtCalcProfitThreshold.Text) Then
-                InsertItem = False
-            End If
-        ElseIf chkCalcProfitThreshold.CheckState = CheckState.Indeterminate Then
-            ' Profit %
-            If SentItem.ProfitPercent < CpctD(txtCalcProfitThreshold.Text) Then
-                InsertItem = False
-            End If
-        End If
-
-        ' Profit Threshold
-        If chkCalcVolumeThreshold.Checked Then
-            ' If less than threshold, don't include
-            If SentItem.TotalItemsSold < CDbl(txtCalcVolumeThreshold.Text) Then
                 InsertItem = False
             End If
         End If
@@ -11296,7 +11084,7 @@ ExitCalc:
                 End If
 
                 Dim f1 As New frmMarketHistoryViewer(FoundItem.ItemTypeID, FoundItem.ItemName, RegionID, cmbCalcHistoryRegion.Text,
-                                                     CInt(cmbCalcAvgPriceDuration.Text))
+                                                     AveragePriceDays)
                 f1.Show()
 
             Else
