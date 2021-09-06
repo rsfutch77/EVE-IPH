@@ -6260,7 +6260,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub rbtnCalcCompareAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcCompareAll.CheckedChanged
+    Private Sub rbtnCalcCompareAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6284,19 +6284,19 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub rbtnCalcCompareBuildBuy_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcCompareBuildBuy.CheckedChanged
+    Private Sub rbtnCalcCompareBuildBuy_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub rbtnCalcCompareRawMats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcCompareRawMats.CheckedChanged
+    Private Sub rbtnCalcCompareRawMats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub rbtnCalcCompareComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcCompareComponents.CheckedChanged
+    Private Sub rbtnCalcCompareComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcPPU_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcPPU.CheckedChanged
+    Private Sub chkCalcPPU_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7966,17 +7966,6 @@ ExitPRocessing:
 
             chkCalcCanBuild.Checked = .CheckOnlyBuild
 
-            Select Case .PriceCompare
-                Case rbtnCalcCompareAll.Text
-                    rbtnCalcCompareAll.Checked = True
-                Case rbtnCalcCompareBuildBuy.Text
-                    rbtnCalcCompareBuildBuy.Checked = True
-                Case rbtnCalcCompareComponents.Text
-                    rbtnCalcCompareComponents.Checked = True
-                Case rbtnCalcCompareRawMats.Text
-                    rbtnCalcCompareRawMats.Checked = True
-            End Select
-
             ' Other defaults
             txtCalcTempME.Text = CStr(UserApplicationSettings.DefaultBPME)
             txtCalcTempTE.Text = CStr(UserApplicationSettings.DefaultBPTE)
@@ -8029,8 +8018,6 @@ ExitPRocessing:
                     chkCalcProfitThreshold.Text = "Profit % Threshold"
                     txtCalcProfitThreshold.Enabled = True
             End Select
-
-            chkCalcPPU.Checked = .CalcPPU
 
             ListIDIterator = 0
 
@@ -8144,7 +8131,7 @@ ExitPRocessing:
             .CheckRacePirate = True
             .CheckRaceOther = True
 
-            .CalcPPU = chkCalcPPU.Checked
+            .CalcPPU = False
             .CheckSellExcessItems = False
 
             .ColumnSort = ManufacturingColumnClicked
@@ -8167,15 +8154,7 @@ ExitPRocessing:
 
             .ColumnSort = ManufacturingColumnClicked
 
-            If rbtnCalcCompareAll.Checked Then
-                .PriceCompare = rbtnCalcCompareAll.Text
-            ElseIf rbtnCalcCompareBuildBuy.Checked Then
-                .PriceCompare = rbtnCalcCompareBuildBuy.Text
-            ElseIf rbtnCalcCompareComponents.Checked Then
-                .PriceCompare = rbtnCalcCompareComponents.Text
-            ElseIf rbtnCalcCompareRawMats.Checked Then
-                .PriceCompare = rbtnCalcCompareRawMats.Text
-            End If
+            .PriceCompare = "Compare All"
 
             .CheckSmall = True
             .CheckMedium = True
@@ -8826,7 +8805,6 @@ ExitPRocessing:
                 btnCalcSelectColumns.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcIncludeItems.Enabled = False
-                gbCalcCompareType.Enabled = False
                 gbCalcMarketFilters.Enabled = False
                 gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
@@ -8915,7 +8893,7 @@ ExitPRocessing:
                     ' Construct the BP
                     ManufacturingBlueprint = New Blueprint(InsertItem.BPID, CInt(txtCalcRuns.Text), InsertItem.BPME, InsertItem.BPTE,
                                                            NumberofBlueprints, CInt(txtCalcProdLines.Text), SelectedCharacter,
-                                                           UserApplicationSettings, rbtnCalcCompareBuildBuy.Checked, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
+                                                           UserApplicationSettings, False, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                            InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility, InsertItem.ReactionFacility,
                                                            False, UserManufacturingTabSettings.BuildT2T3Materials, True)
 
@@ -8979,7 +8957,7 @@ ExitPRocessing:
                         InsertItem.ItemsinProduction = GetTotalItemsinProduction(InsertItem.ItemTypeID)
 
                         ' Get the output data
-                        If rbtnCalcCompareAll.Checked Then
+                        If True Then
                             ' Need to add a record for each of the three types
 
                             ' *** For components, only add if it has buildable components
@@ -9007,13 +8985,8 @@ ExitPRocessing:
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
 
-                                If chkCalcPPU.Checked Then
-                                    InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                    InsertItem.PortionSize = 1
-                                Else
-                                    InsertItem.DivideUnits = 1
-                                    InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                End If
+                                InsertItem.DivideUnits = 1
+                                InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
 
                                 InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                                 InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits) ' Total production time for components only is always the bp production time
@@ -9075,13 +9048,8 @@ ExitPRocessing:
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
 
-                            If chkCalcPPU.Checked Then
-                                InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                InsertItem.PortionSize = 1
-                            Else
-                                InsertItem.DivideUnits = 1
-                                InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
-                            End If
+                            InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
+                            InsertItem.PortionSize = 1
 
                             InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                             InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
@@ -9161,13 +9129,8 @@ ExitPRocessing:
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
 
-                                If chkCalcPPU.Checked Then
-                                    InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                    InsertItem.PortionSize = 1
-                                Else
-                                    InsertItem.DivideUnits = 1
-                                    InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                End If
+                                InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
+                                InsertItem.PortionSize = 1
 
                                 InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                                 InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
@@ -9208,48 +9171,6 @@ ExitPRocessing:
                             End If
                         Else
 
-                            ' Just look at each one individually
-                            If rbtnCalcCompareComponents.Checked Then
-                                ' Use the Component values
-                                InsertItem.ProfitPercent = ManufacturingBlueprint.GetTotalComponentProfitPercent
-                                InsertItem.Profit = ManufacturingBlueprint.GetTotalComponentProfit
-                                InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourComponents
-                                InsertItem.CalcType = "Components"
-                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetProductionTime, ManufacturingBlueprint.GetTotalUnits)
-                                If InsertItem.SVR = "-" Then
-                                    InsertItem.SVRxIPH = "0.00"
-                                Else
-                                    InsertItem.SVRxIPH = FormatNumber(CType(InsertItem.SVR, Double) * InsertItem.IPH, 2)
-                                End If
-                                InsertItem.TotalCost = ManufacturingBlueprint.GetTotalComponentCost
-                            ElseIf rbtnCalcCompareRawMats.Checked Then
-                                ' Use the Raw values 
-                                InsertItem.ProfitPercent = ManufacturingBlueprint.GetTotalRawProfitPercent
-                                InsertItem.Profit = ManufacturingBlueprint.GetTotalRawProfit
-                                InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourRaw
-                                InsertItem.CalcType = "Raw Materials"
-                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
-                                If InsertItem.SVR = "-" Then
-                                    InsertItem.SVRxIPH = "0.00"
-                                Else
-                                    InsertItem.SVRxIPH = FormatNumber(CType(InsertItem.SVR, Double) * InsertItem.IPH, 2)
-                                End If
-                                InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
-                            ElseIf rbtnCalcCompareBuildBuy.Checked Then
-                                ' Use the Build/Buy best rate values (the blueprint was set to get these values above)
-                                InsertItem.ProfitPercent = ManufacturingBlueprint.GetTotalRawProfitPercent
-                                InsertItem.Profit = ManufacturingBlueprint.GetTotalRawProfit
-                                InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourRaw
-                                InsertItem.CalcType = "Build/Buy"
-                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
-                                If InsertItem.SVR = "-" Then
-                                    InsertItem.SVRxIPH = "0.00"
-                                Else
-                                    InsertItem.SVRxIPH = FormatNumber(CType(InsertItem.SVR, Double) * InsertItem.IPH, 2)
-                                End If
-                                InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
-                            End If
-
                             InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                             InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
                             InsertItem.SingleInventedBPCRunsperBPC = ManufacturingBlueprint.GetSingleInventedBPCRuns
@@ -9261,21 +9182,11 @@ ExitPRocessing:
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
 
-                            If chkCalcPPU.Checked Then
-                                InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
-                                InsertItem.PortionSize = 1
-                            Else
-                                InsertItem.DivideUnits = 1
-                                InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
-                            End If
+                            InsertItem.DivideUnits = 1
+                            InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
 
                             InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
-                            If rbtnCalcCompareComponents.Checked Then
-                                ' Total production time for components only is always the bp production time
-                                InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
-                            Else
-                                InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
-                            End If
+                            InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
 
                             InsertItem.CopyTime = FormatIPHTime(ManufacturingBlueprint.GetCopyTime / InsertItem.DivideUnits)
                             InsertItem.InventionTime = FormatIPHTime(ManufacturingBlueprint.GetInventionTime / InsertItem.DivideUnits)
@@ -9680,7 +9591,6 @@ ExitCalc:
         gbCalcMarketFilters.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcIncludeItems.Enabled = True
-        gbCalcCompareType.Enabled = True
         gbCalcProdLines.Enabled = True
         gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
@@ -9965,15 +9875,7 @@ ExitCalc:
             Application.DoEvents()
         End If
 
-        If rbtnCalcCompareRawMats.Checked Then
-            CalcType = "Raw Mats"
-        ElseIf rbtnCalcCompareComponents.Checked Then
-            CalcType = "Components"
-        ElseIf rbtnCalcCompareBuildBuy.Checked Then
-            CalcType = "Build/Buy"
-        Else ' All
-            CalcType = "All Calcs"
-        End If
+        CalcType = "All Calcs"
 
         If AddMultipleFacilities Then
             For i = 0 To FacilityList.Count - 1
@@ -10115,7 +10017,6 @@ ExitCalc:
         pnlProgressBar.Value = 0
         pnlProgressBar.Visible = False
 
-        gbCalcBPSelectOptions.Enabled = True
         Me.Cursor = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
@@ -10573,11 +10474,7 @@ ExitCalc:
         If FoundItem IsNot Nothing Then
             ' We found it, so load the current bp
             With FoundItem
-                If rbtnCalcCompareAll.Checked Or rbtnCalcCompareComponents.Checked Or rbtnCalcCompareBuildBuy.Checked Then
-                    CompareType = "Components"
-                Else
-                    CompareType = "Raw"
-                End If
+                CompareType = "Components"
 
                 Dim T2T3Type As BuildMatType
                 T2T3Type = Nothing
@@ -10587,7 +10484,7 @@ ExitCalc:
                                      .InventionFacility, .CopyFacility,
                                      True, GetBrokerFeeData(),
                                      CStr(.BPME), CStr(.BPTE), txtCalcRuns.Text, txtCalcProdLines.Text, txtCalcLabLines.Text,
-                                     txtCalcNumBPs.Text, FormatNumber(.AddlCosts, 2), chkCalcPPU.Checked, CompareType, T2T3Type)
+                                     txtCalcNumBPs.Text, FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
             End With
         End If
 
