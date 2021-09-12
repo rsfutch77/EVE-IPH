@@ -1029,7 +1029,7 @@ Public Class frmIndustryBeltFlip
     End Sub
 
     Private Sub txtCycleTime_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtCycleTime.KeyDown
-        Call ProcessCutCopyPasteSelect(txtCycleTime, e)
+
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Tab And Not FirstLoad Then
             Call LoadAllTables()
         End If
@@ -1046,7 +1046,7 @@ Public Class frmIndustryBeltFlip
     End Sub
 
     Private Sub txtm3perCycle_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtm3perCycle.KeyDown
-        Call ProcessCutCopyPasteSelect(txtm3perCycle, e)
+
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Tab And Not FirstLoad Then
             Call LoadAllTables()
         End If
@@ -1073,7 +1073,7 @@ Public Class frmIndustryBeltFlip
     End Sub
 
     Private Sub txtMineRefineStanding_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtMineRefineStanding.KeyDown
-        Call ProcessCutCopyPasteSelect(txtMineRefineStanding, e)
+
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Tab And Not FirstLoad Then
             Call LoadAllTables()
         End If

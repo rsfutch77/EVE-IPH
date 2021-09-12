@@ -2270,7 +2270,7 @@ Tabs:
     End Sub
 
     Private Sub txtBPEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtBPEdit.KeyDown
-        Call ProcessCutCopyPasteSelect(txtBPEdit, e)
+
         If e.KeyCode = Keys.Enter Then
             Call ProcessKeyDownBPEdit(Keys.Enter)
         End If

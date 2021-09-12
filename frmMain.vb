@@ -1059,12 +1059,12 @@ Public Class frmMain
     End Sub
 
     Private Sub LoadSelectedCharacter(ToolStripText As String)
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Call LoadCharacter(ToolStripText)
         ' New character so make sure the facilities reflect that
         Call LoadFacilities()
         mnuCharacter.Text = "Character Loaded: " & ToolStripText
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
     End Sub
 
     ' Predicate for finding the BPBuildBuyItem in full list
@@ -1283,7 +1283,7 @@ Public Class frmMain
     Private Sub lblBPInventionCost_DoubleClick(sender As System.Object, e As System.EventArgs)
         Dim f1 As New frmInventionMats
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         If Not IsNothing(SelectedBlueprint) Then
             If SelectedBlueprint.GetTechLevel = BPTechLevel.T2 Then
@@ -1298,7 +1298,7 @@ Public Class frmMain
                 f1.UserRuns = SelectedBlueprint.GetUserRuns
                 f1.ListType = "Invention"
             End If
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             f1.Show()
         End If
 
@@ -1810,7 +1810,7 @@ Public Class frmMain
     End Sub
 
     ' Checks the ME and TE boxes to make sure they are ok and errors if not
-    Private Function CorrectMETE(ByVal inME As String, ByVal inTE As String, ByRef METextBox As TextBox, ByRef TETextBox As TextBox) As Boolean
+    Private Function CorrectMETE(ByVal inME As String, ByVal inTE As String, ByRef METextBox As MetroFramework.Controls.MetroTextBox, ByRef TETextBox As MetroFramework.Controls.MetroTextBox) As Boolean
 
         If Not IsNumeric(inME) Or Trim(inME) = "" Then
             MsgBox("Invalid ME Value", vbExclamation)
@@ -1876,10 +1876,10 @@ Public Class frmMain
     End Sub
 
     Private Sub mnuCheckforUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCheckforUpdates.Click
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
         Call CheckForUpdates(True, Me.Icon)
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub btnCancelUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelUpdate.Click
@@ -2018,7 +2018,7 @@ Public Class frmMain
 
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
         ' Init all forms
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Call InitBPTab(ResetBPTab)
         Call InitManufacturingTab()
         Call InitUpdatePricesTab()
@@ -2026,7 +2026,7 @@ Public Class frmMain
         ' Update skill override
         Call UpdateSkillPanel()
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
 
     End Sub
 
@@ -2730,18 +2730,6 @@ Tabs:
 
     Private Sub txtListEdit_GotFocus(sender As Object, e As System.EventArgs) Handles txtListEdit.GotFocus
         Call txtListEdit.SelectAll()
-    End Sub
-
-    Private Sub txtListEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtListEdit.KeyDown
-        If Not DataEntered Then ' If data already entered, then they didn't do it through paste
-            DataEntered = ProcessCutCopyPasteSelect(txtListEdit, e)
-        End If
-
-        If e.KeyCode = Keys.Enter Then
-            IgnoreFocus = True
-            Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
-            IgnoreFocus = False
-        End If
     End Sub
 
     Private Sub txtListEdit_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtListEdit.KeyPress
@@ -4722,7 +4710,7 @@ Tabs:
         btnCancelUpdate.Enabled = True
 
         Me.Refresh()
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         pnlStatus.Text = "Initializing Query..."
         Application.DoEvents()
 
@@ -4863,7 +4851,7 @@ ExitSub:
         btnCancelUpdate.Enabled = False
 
         Me.Refresh()
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         pnlProgressBar.Visible = False
         pnlStatus.Text = ""
 
@@ -5628,7 +5616,7 @@ ExitSub:
         End If
 
         ' Working
-        Me.Cursor = Cursors.WaitCursor
+        'Cursor.Current = Cursors.WaitCursor
         pnlStatus.Text = "Refreshing List..."
         Application.DoEvents()
 
@@ -5693,7 +5681,7 @@ ExitSub:
             ' Disable sorting because it will crawl after we update if there are too many records
             lstPricesView.ListViewItemSorter = Nothing
             lstPricesView.BeginUpdate()
-            Me.Cursor = Cursors.WaitCursor
+            'Cursor.Current = Cursors.WaitCursor
 
             ' Fill list
             While readerMats.Read
@@ -5727,13 +5715,14 @@ ExitSub:
                 TempType = SortOrder.Ascending
             End If
             Call ListViewColumnSorter(UpdatePricesColumnClicked, CType(lstPricesView, ListView), UpdatePricesColumnClicked, TempType)
-            Me.Cursor = Cursors.Default
+
+            Cursor.Current = Cursors.Default
             lstPricesView.EndUpdate()
         End If
 
         ' Reset
         txtListEdit.Visible = False
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
         pnlStatus.Text = ""
 
@@ -5851,7 +5840,7 @@ ExitSub:
                     Items = lstPricesView.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
 
@@ -5895,7 +5884,7 @@ ExitSub:
         End If
 
         ' Done processing 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
 
@@ -8228,7 +8217,7 @@ ExitPRocessing:
 
         If Not SavedRefreshValue Then
             Application.UseWaitCursor = True
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
             Application.DoEvents()
 
             ' Only cancel if they hit the cancel button
@@ -8258,7 +8247,7 @@ ExitPRocessing:
                 GoTo ExitCalc
             End If
 
-            'Me.Cursor = Cursors.WaitCursor
+            'Cursor.Current = Cursors.WaitCursor
             pnlProgressBar.Minimum = 0
             pnlProgressBar.Maximum = BPRecordCount
             pnlProgressBar.Value = 0
@@ -9059,7 +9048,7 @@ ExitPRocessing:
                 ' Done processing the blueprints
                 pnlProgressBar.Value = 0
                 pnlProgressBar.Visible = False
-                'Me.Cursor = Cursors.Default
+                Cursor.Current = Cursors.Default
                 pnlStatus.Text = ""
 
                 ' BPs were calcualted so enable it
@@ -9411,7 +9400,8 @@ ExitCalc:
         lstManufacturing.Enabled = True
 
         Application.UseWaitCursor = False
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
+
         Application.DoEvents()
 
         If lstManufacturing.Items.Count = 0 And Not CancelManufacturingTabCalc Then
@@ -9495,7 +9485,7 @@ ExitCalc:
         Dim ItemQuantity As Integer = 0
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         Dim IDString As String = ""
@@ -9782,7 +9772,7 @@ ExitCalc:
                     Items = lstManufacturing.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
                         pnlProgressBar.Minimum = 0
                         pnlProgressBar.Maximum = Items.Count - 1
                         pnlProgressBar.Value = 0
@@ -9831,7 +9821,7 @@ ExitCalc:
         pnlProgressBar.Value = 0
         pnlProgressBar.Visible = False
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
         pnlStatus.Text = ""

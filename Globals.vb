@@ -704,7 +704,7 @@ InvalidDate:
 #End Region
 
     ' Checks entry of percentage chars in keypress
-    Public Function CheckPercentCharEntry(ke As KeyPressEventArgs, box As TextBox) As Boolean
+    Public Function CheckPercentCharEntry(ke As KeyPressEventArgs, box As MetroFramework.Controls.MetroTextBox) As Boolean
         Dim Istr As String = box.Text
 
         ' Only allow numbers or backspace
@@ -741,7 +741,7 @@ InvalidDate:
     End Function
 
     ' Returns the sent text box text as a percent in string format
-    Public Function GetFormattedPercentEntry(RefTextbox As TextBox) As String
+    Public Function GetFormattedPercentEntry(RefTextbox As MetroFramework.Controls.MetroTextBox) As String
         Return FormatPercent(FormatManualPercentEntry(RefTextbox.Text), 1)
     End Function
 
@@ -1225,24 +1225,6 @@ InvalidDate:
         End If
     End Function
 
-    ' Enables Cut, Copy, Paste, and Select all from shortcut key entry for the sent text box
-    Public Function ProcessCutCopyPasteSelect(SentBox As TextBox, e As System.Windows.Forms.KeyEventArgs) As Boolean
-
-        If e.KeyCode = Keys.A AndAlso e.Control = True Then ' Select All
-            SentBox.SelectAll()
-        ElseIf e.KeyCode = Keys.X AndAlso e.Control = True Then ' Cut
-            SentBox.Cut()
-        ElseIf e.KeyCode = Keys.C AndAlso e.Control = True Then ' Copy
-            SentBox.Copy()
-        ElseIf e.KeyCode = Keys.V AndAlso e.Control = True Then ' Paste
-            SentBox.Paste()
-            Return True
-        End If
-
-        Return False
-
-    End Function
-
     ' After a price update in any location that updates prices, we want to refresh all the prices and grids on every tab 
     Public Sub UpdateProgramPrices(Optional ByVal RefreshUpdatePriceList As Boolean = True)
 
@@ -1482,7 +1464,7 @@ InvalidDate:
     End Sub
 
     ' Limits the referenced text box between 0 and 10/20 on text
-    Public Sub VerifyMETEEntry(ByRef METETextBox As TextBox, Type As String)
+    Public Sub VerifyMETEEntry(ByRef METETextBox As MetroFramework.Controls.MetroTextBox, Type As String)
         If Trim(METETextBox.Text) <> "" Then
             If Type = "ME" Then
                 If Not IsNumeric(METETextBox) Then

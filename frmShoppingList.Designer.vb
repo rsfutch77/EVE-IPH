@@ -45,7 +45,7 @@ Partial Class frmShoppingList
         Me.btnUpdateListwithAssets = New System.Windows.Forms.Button()
         Me.btnMineThis = New System.Windows.Forms.Button()
         Me.chkUpdateAssetsWhenUsed = New System.Windows.Forms.CheckBox()
-        Me.txtListEdit = New System.Windows.Forms.TextBox()
+        Me.txtListEdit = New MetroFramework.Controls.MetroTextBox
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnSaveListToFile = New System.Windows.Forms.Button()
@@ -62,7 +62,7 @@ Partial Class frmShoppingList
         Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
-        Me.txtAddlCosts = New System.Windows.Forms.TextBox()
+        Me.txtAddlCosts = New MetroFramework.Controls.MetroTextBox
         Me.chkFees = New System.Windows.Forms.CheckBox()
         Me.lblAddlCosts = New System.Windows.Forms.Label()
         Me.btnSaveSettings = New System.Windows.Forms.Button()
@@ -83,7 +83,7 @@ Partial Class frmShoppingList
         Me.lstItems = New EVE_Isk_per_Hour.MyListView()
         Me.lstBuild = New EVE_Isk_per_Hour.MyListView()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtBrokerFeeRate = New System.Windows.Forms.TextBox()
+        Me.txtBrokerFeeRate = New MetroFramework.Controls.MetroTextBox
         Me.lblFeeRate = New System.Windows.Forms.Label()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
@@ -753,7 +753,7 @@ End Sub
     Friend WithEvents btnUpdateListwithAssets As System.Windows.Forms.Button
     Friend WithEvents btnMineThis As System.Windows.Forms.Button
     Friend WithEvents chkUpdateAssetsWhenUsed As System.Windows.Forms.CheckBox
-    Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
+    Friend WithEvents txtListEdit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents DeleteItemStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeleteItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeleteMaterialStrip As System.Windows.Forms.ContextMenuStrip
@@ -768,7 +768,7 @@ End Sub
     Friend WithEvents DeleteBuildItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveFileDialog As System.Windows.Forms.SaveFileDialog
     Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents txtAddlCosts As System.Windows.Forms.TextBox
+    Friend WithEvents txtAddlCosts As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lstBuy As EVE_Isk_per_Hour.MyListView
     Friend WithEvents lstItems As EVE_Isk_per_Hour.MyListView
     Friend WithEvents lstBuild As EVE_Isk_per_Hour.MyListView
@@ -794,6 +794,6 @@ End Sub
     Friend WithEvents chkRebuildItemsfromList As CheckBox
     Friend WithEvents rbtnExportMulitBuy As RadioButton
     Friend WithEvents Button1 As Button
-    Friend WithEvents txtBrokerFeeRate As TextBox
+    Friend WithEvents txtBrokerFeeRate As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lblFeeRate As Label
 End Class

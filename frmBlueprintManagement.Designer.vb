@@ -54,7 +54,7 @@ Partial Class frmBlueprintManagement
         Me.rbtnShowAllBPtypes = New System.Windows.Forms.RadioButton()
         Me.gbBPTextSearch = New System.Windows.Forms.GroupBox()
         Me.btnResetSearch = New System.Windows.Forms.Button()
-        Me.txtBPSearch = New System.Windows.Forms.TextBox()
+        Me.txtBPSearch = New MetroFramework.Controls.MetroTextBox
         Me.btnBPSearch = New System.Windows.Forms.Button()
         Me.grpScanAssets = New System.Windows.Forms.GroupBox()
         Me.btnClose = New System.Windows.Forms.Button()
@@ -101,13 +101,13 @@ Partial Class frmBlueprintManagement
         Me.chkEnableMETE = New System.Windows.Forms.CheckBox()
         Me.rbtnMarkasUnowned = New System.Windows.Forms.RadioButton()
         Me.btnUpdateSelected = New System.Windows.Forms.Button()
-        Me.txtBPTE = New System.Windows.Forms.TextBox()
+        Me.txtBPTE = New MetroFramework.Controls.MetroTextBox
         Me.btnSelectAll = New System.Windows.Forms.Button()
         Me.rbtnMarkasOwned = New System.Windows.Forms.RadioButton()
         Me.lblBPTE = New System.Windows.Forms.Label()
-        Me.txtBPME = New System.Windows.Forms.TextBox()
+        Me.txtBPME = New MetroFramework.Controls.MetroTextBox
         Me.lblBPME = New System.Windows.Forms.Label()
-        Me.txtBPEdit = New System.Windows.Forms.TextBox()
+        Me.txtBPEdit = New MetroFramework.Controls.MetroTextBox
         Me.ttBPManage = New System.Windows.Forms.ToolTip(Me.components)
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -1121,7 +1121,7 @@ Partial Class frmBlueprintManagement
     End Sub
     Friend WithEvents gbBPFilter As System.Windows.Forms.GroupBox
     Friend WithEvents gbBPTextSearch As System.Windows.Forms.GroupBox
-    Friend WithEvents txtBPSearch As System.Windows.Forms.TextBox
+    Friend WithEvents txtBPSearch As MetroFramework.Controls.MetroTextBox
     Friend WithEvents gbBPSelect As System.Windows.Forms.GroupBox
     Friend WithEvents rbtnAllBPs As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnOwned As System.Windows.Forms.RadioButton
@@ -1150,10 +1150,10 @@ Partial Class frmBlueprintManagement
     Friend WithEvents chkBPT2 As System.Windows.Forms.CheckBox
     Friend WithEvents chkBPT1 As System.Windows.Forms.CheckBox
     Friend WithEvents rbtnMarkasOwned As System.Windows.Forms.RadioButton
-    Friend WithEvents txtBPTE As System.Windows.Forms.TextBox
+    Friend WithEvents txtBPTE As MetroFramework.Controls.MetroTextBox
     Friend WithEvents btnUpdateSelected As System.Windows.Forms.Button
     Friend WithEvents lblBPTE As System.Windows.Forms.Label
-    Friend WithEvents txtBPME As System.Windows.Forms.TextBox
+    Friend WithEvents txtBPME As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lblBPME As System.Windows.Forms.Label
     Friend WithEvents btnSelectAll As System.Windows.Forms.Button
     Friend WithEvents rbtnMarkasUnowned As System.Windows.Forms.RadioButton
@@ -1185,7 +1185,7 @@ Partial Class frmBlueprintManagement
     Friend WithEvents btnBackupBPs As System.Windows.Forms.Button
     Friend WithEvents SaveFileDialog As System.Windows.Forms.SaveFileDialog
     Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents txtBPEdit As System.Windows.Forms.TextBox
+    Friend WithEvents txtBPEdit As MetroFramework.Controls.MetroTextBox
     Friend WithEvents rbtnFavorites As System.Windows.Forms.RadioButton
     Friend WithEvents chkMarkasFavorite As System.Windows.Forms.CheckBox
     Friend WithEvents lstBPs As EVE_Isk_per_Hour.MyListView

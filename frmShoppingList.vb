@@ -1334,7 +1334,7 @@ Public Class frmShoppingList
     End Sub
 
     Private Sub txtAddlCosts_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtAddlCosts.KeyDown
-        Call ProcessCutCopyPasteSelect(txtAddlCosts, e)
+
         If AddlCostsValidEntry() Then
             If e.KeyCode = Keys.Enter Then
                 Call LoadFormStats()
@@ -2130,18 +2130,6 @@ Tabs:
 
     Private Sub txtListEdit_GotFocus(sender As Object, e As System.EventArgs) Handles txtListEdit.GotFocus
         Call txtListEdit.SelectAll()
-    End Sub
-
-    Private Sub txtListEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtListEdit.KeyDown
-        If Not DataEntered Then ' If data already entered, then they didn't do it through paste
-            DataEntered = ProcessCutCopyPasteSelect(txtListEdit, e)
-        End If
-
-        If e.KeyCode = Keys.Enter Then
-            IgnoreFocusChange = True
-            Call ProcessKeyDownUpdateEdit(Keys.Enter, SelectedGrid)
-            IgnoreFocusChange = False
-        End If
     End Sub
 
     Private Sub txtListEdit_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtListEdit.KeyPress

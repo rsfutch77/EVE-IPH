@@ -152,7 +152,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub MineralTextBoxes_KeyDown(SentTextBox As TextBox, ByVal e As System.Windows.Forms.KeyEventArgs)
-        Call ProcessCutCopyPasteSelect(SentTextBox, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateMineralPrices()
         End If
@@ -390,7 +390,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub MoonTextBoxes_KeyDown(SentTextBox As TextBox, ByVal e As System.Windows.Forms.KeyEventArgs)
-        Call ProcessCutCopyPasteSelect(SentTextBox, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateMoonPrices()
         End If
@@ -662,7 +662,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub txtItemSearch_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtItemSearch.KeyDown
-        Call ProcessCutCopyPasteSelect(txtItemSearch, e)
+
         If e.KeyCode = Keys.Enter Then
             Call FillSearchGrid(txtItemSearch.Text)
         End If
@@ -692,7 +692,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub txtItemPriceUpdate_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtItemPriceUpdate.KeyDown
-        Call ProcessCutCopyPasteSelect(txtItemPriceUpdate, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateItemPrices()
         End If

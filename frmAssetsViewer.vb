@@ -1125,7 +1125,7 @@ Public Class frmAssetsViewer
     End Sub
 
     Private Sub txtItemFilter_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtItemFilter.KeyDown
-        Call ProcessCutCopyPasteSelect(txtItemFilter, e)
+
         If e.KeyCode = Keys.Enter Then
             Call RefreshTree()
         End If
