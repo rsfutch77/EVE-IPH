@@ -189,7 +189,7 @@ Public Class frmManageAccounts
         ' Reload accounts
         Call LoadAccountGrid()
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
 
     End Sub
 

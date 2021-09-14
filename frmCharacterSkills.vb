@@ -255,7 +255,7 @@ Public Class frmCharacterSkills
 
         Dim SearchText As String = UCase(Trim(txtSkillNameFilter.Text))
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         ' Reset these every new load
         OverrideSkills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
@@ -320,7 +320,7 @@ Public Class frmCharacterSkills
         Else
             Call SkillTree.CollapseAll()
         End If
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
 
     End Sub
 

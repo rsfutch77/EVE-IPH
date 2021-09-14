@@ -59,11 +59,11 @@ Public Class frmIndustryBeltFlip
     End Sub
 
     Private Sub frmIndustryBeltFlip_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         Call LoadAllTables()
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         FirstLoad = False
 
     End Sub
@@ -283,12 +283,12 @@ Public Class frmIndustryBeltFlip
     Private Sub LoadAllTables()
 
         FirstLoad = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         If Not CheckEnteredData() Then
             FirstLoad = False
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
             Exit Sub
         End If
@@ -318,7 +318,7 @@ Public Class frmIndustryBeltFlip
         Call DisplayBeltMinerals(BeltType.Colossal)
 
         FirstLoad = False
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
     End Sub
@@ -330,7 +330,7 @@ Public Class frmIndustryBeltFlip
         Dim CurrentList As ListView = Nothing
 
         If Not CheckEnteredData() Then
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
             Exit Sub
         End If
@@ -570,11 +570,11 @@ Public Class frmIndustryBeltFlip
                                                         UserApplicationSettings.RefiningImplantValue,
                                                         StationEffiency, StationTax, CDbl(txtMineRefineStanding.Text))
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         If Not CheckEnteredData() Then
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
             Exit Sub
         End If
@@ -771,7 +771,7 @@ Public Class frmIndustryBeltFlip
             CurrentMineralList.Items.Clear()
         End If
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
     End Sub

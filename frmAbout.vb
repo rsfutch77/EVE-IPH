@@ -42,6 +42,6 @@
     End Sub
 
     Private Sub pbPaypal_MouseLeave(sender As Object, e As EventArgs) Handles pbPaypal.MouseLeave
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
     End Sub
 End Class

@@ -542,7 +542,7 @@ Public Class frmSettings
                 Exit Sub
             End If
 
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
             Me.Enabled = False
 
             ' Get the implant values if set
@@ -716,7 +716,7 @@ Public Class frmSettings
 
             btnSave.Text = "OK"
             Me.Enabled = True
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
         Else
             ' Just exit
             Me.Hide()

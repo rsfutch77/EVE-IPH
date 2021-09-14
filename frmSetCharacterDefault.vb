@@ -32,7 +32,7 @@ Public Class frmSetCharacterDefault
             SelectedCharacterName = item.ToString
         Next
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         ' If we get here, just clear out the old default and set the new one
@@ -45,7 +45,7 @@ Public Class frmSetCharacterDefault
         DefaultCharSelected = True
         MsgBox(SelectedCharacterName & " selected as Default Character", vbInformation, Application.ProductName)
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Me.Close()
 
     End Sub

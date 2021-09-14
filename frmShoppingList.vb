@@ -650,7 +650,7 @@ Public Class frmShoppingList
         Dim CurrentItemName As String = ""
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         Dim IDString As String = ""
@@ -829,7 +829,7 @@ Public Class frmShoppingList
             Next
 
             Application.UseWaitCursor = False
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
 
             ' Play notification sound
@@ -1067,7 +1067,7 @@ Public Class frmShoppingList
                     Items = lstBuy.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
 
@@ -1114,7 +1114,7 @@ Public Class frmShoppingList
                     Items = lstBuild.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
 
@@ -1154,7 +1154,7 @@ Public Class frmShoppingList
                     Items = lstItems.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
                         Dim TempName As String = ""
@@ -1215,7 +1215,7 @@ Public Class frmShoppingList
         End If
 
         ' Done processing 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
 

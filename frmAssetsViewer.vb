@@ -370,7 +370,7 @@ Public Class frmAssetsViewer
         If Not ItemsChecked() And Not rbtnAllItems.Checked Then
             MsgBox("You must select an item category to display.", vbExclamation, Application.ProductName)
             tabMain.SelectedTab = tabSearchSettings
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.UseWaitCursor = False
             Exit Sub
         End If
@@ -481,7 +481,7 @@ Public Class frmAssetsViewer
         Dim ItemChecked As Boolean = False
 
         ' Working
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         ' If we want all items, look in inventory types with links to groups/categories
@@ -810,7 +810,7 @@ Public Class frmAssetsViewer
 
         End If
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
         ' If we have no items to return, then return nothing not a blank list
@@ -842,7 +842,7 @@ Public Class frmAssetsViewer
     Private Sub btnScanPersonalBPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScanPersonalAssets.Click
 
         RefreshAssetButton = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         If rbtnAllAssets.Checked = False Then
             rbtnPersonalAssets.Checked = True
         End If
@@ -855,7 +855,7 @@ Public Class frmAssetsViewer
             MsgBox("You have not enabled access to Assets with this key.", vbExclamation, Application.ProductName)
         End If
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
         RefreshAssetButton = False
@@ -866,7 +866,7 @@ Public Class frmAssetsViewer
     Private Sub btnScanCorpBPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScanCorpAssets.Click
 
         RefreshAssetButton = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         If rbtnAllAssets.Checked = False Then
             rbtnCorpAssets.Checked = True
         End If
@@ -879,7 +879,7 @@ Public Class frmAssetsViewer
             MsgBox("You do not have a corporation key installed with access to Assets.", vbExclamation, Application.ProductName)
         End If
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
         RefreshAssetButton = False

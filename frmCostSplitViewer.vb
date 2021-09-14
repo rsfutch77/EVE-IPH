@@ -31,7 +31,7 @@ Public Class frmCostSplitViewer
         Dim TotalCost As Double ' For summing up all the costs
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         Me.Text = CostSplitType
@@ -61,7 +61,7 @@ Public Class frmCostSplitViewer
 
         lstCosts.EndUpdate()
         Application.UseWaitCursor = False
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
     End Sub

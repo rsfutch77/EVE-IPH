@@ -60,11 +60,11 @@ Public Class frmAddCharacter
         If ESIConnection.SetCharacterData() Then
 
             ' Refresh the token data to get new scopes list if they added/removed
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
             If SelectedCharacter.ID <> DummyCharacterID And SelectedCharacter.ID > 0 Then
                 Call SelectedCharacter.RefreshTokenData()
             End If
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
         Else
             ' Didn't load, so show the re-enter info button
