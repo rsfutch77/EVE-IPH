@@ -10650,7 +10650,7 @@ ExitCalc:
         End While
 
         ' Set the n_value from the loop
-        If counter <= 1 Or GraphData.Count <> DaysfromToday Then
+        If counter <= 1 Or GraphData.Count < DaysfromToday Then
             ' If it's 0 or 1, then we can't do a calculation 
             Return 0
         End If
