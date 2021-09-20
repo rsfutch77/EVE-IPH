@@ -8,7 +8,6 @@ Imports MoreLinq.MoreEnumerable
 Imports GoogleAnalyticsClientDotNet
 
 Public Class frmMain
-    Inherits System.Windows.Forms.Form
 
     ' Update Prices Variables
     Private m_ControlsCollection As ControlsCollection
@@ -490,7 +489,6 @@ Public Class frmMain
             Me.Text = Me.Text & " - Developer"
         Else
             ' Hide all the development stuff
-            tabMain.TabPages.Remove(tabPI)
         End If
 
         ' Load all the forms' facilities
@@ -704,10 +702,10 @@ Public Class frmMain
         Else ' Multi-save
             ' They saved a facility on the manufacturing tab, so init all the facilities on the bp tab and reload the current facility
             Select Case FacilityType
-                    Case ProductionType.Manufacturing
-                        Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
-                End Select
-            End If
+                Case ProductionType.Manufacturing
+                    Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
+            End Select
+        End If
 
     End Sub
 
@@ -1163,14 +1161,6 @@ Public Class frmMain
     Private Sub frmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         ' After initializing everything, refresh the tabs so they draw fast on first click
-        Dim temptab As TabPage
-        For Each temptab In tabMain.TabPages
-            tabMain.SelectTab(temptab.Name)
-            tabMain.SelectedTab.Refresh()
-        Next
-
-        ' Reset to bp tab
-        tabMain.SelectTab(0)
 
         ' Done loading
         Call SetProgress("")
@@ -6690,7 +6680,7 @@ ExitPRocessing:
         Call VerifyMETEEntry(txtCalcTempTE, "TE")
     End Sub
 
-    Private Sub chkCalcAutoCalcT2NumBPs_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcAutoCalcT2NumBPs.CheckedChanged
+    Private Sub chkCalcAutoCalcT2NumBPs_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7870,8 +7860,6 @@ ExitPRocessing:
                     rbtnCalcBPOwned.Checked = True
             End Select
 
-            chkCalcAutoCalcT2NumBPs.Checked = .CheckAutoCalcNumBPs
-
             FirstManufacturingGridLoad = False ' Change this now so it will load the grids for all on reset
 
             chkCalcCanBuild.Checked = .CheckOnlyBuild
@@ -7977,7 +7965,7 @@ ExitPRocessing:
 
             .CheckTech1 = True
 
-            .CheckAutoCalcNumBPs = chkCalcAutoCalcT2NumBPs.Checked
+            .CheckAutoCalcNumBPs = False
 
             ' Blueprint load types
             If rbtnCalcAllBPs.Checked Then
@@ -8640,7 +8628,6 @@ ExitPRocessing:
                 gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
-                tabCalcFacilities.Enabled = False
 
                 If Not UserApplicationSettings.DisableSVR Then
 
@@ -8712,7 +8699,7 @@ ExitPRocessing:
 
                     ' Set the number of BPs
                     With InsertItem
-                        If (.TechLevel = "T2" Or .TechLevel = "T3") And chkCalcAutoCalcT2NumBPs.Checked = True And (.BlueprintType = BPType.InventedBPC Or .BlueprintType = BPType.NotOwned) Then
+                        If (.TechLevel = "T2" Or .TechLevel = "T3") And (.BlueprintType = BPType.InventedBPC Or .BlueprintType = BPType.NotOwned) Then
                             ' For T3 or if they have calc checked, we will never have a BPO so determine the number of BPs
                             NumberofBlueprints = GetUsedNumBPs(.BPID, CInt(.TechLevel.Substring(1, 1)), .Runs, .ProductionLines, .NumBPs, .Decryptor.RunMod)
                         Else
@@ -9426,7 +9413,6 @@ ExitCalc:
         gbCalcProdLines.Enabled = True
         gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
-        tabCalcFacilities.Enabled = True
 
         Application.UseWaitCursor = False
         Me.Cursor = Cursors.Default
