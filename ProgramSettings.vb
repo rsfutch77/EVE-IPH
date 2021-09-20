@@ -130,7 +130,7 @@ Public Class ProgramSettings
     ' SVR Stuff
     Public DefaultIgnoreSVRThresholdValue As Double = 0.0
     Public DefaultSVRAveragePriceRegion As String = "The Forge"
-    Public DefaultSVRAveragePriceDuration As String = "7"
+    Public Shared DefaultSVRAveragePriceDuration As String = "15"
     Public DefaultAutoUpdateSVRonBPTab As Boolean = True
 
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False

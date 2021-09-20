@@ -263,8 +263,6 @@ Public Class frmMain
     Private IgnoreFocus As Boolean
     Private IgnoreMarketFocus As Boolean
 
-    Private Const AveragePriceDays As Integer = 15
-
     ' Column width consts - may change depending on Ore, Ice or Gas so change the widths of the columns based on these and use them to add and move
     Private Const MineOreNameColumnWidth As Integer = 120
     Private Const MineRefineYieldColumnWidth As Integer = 70
@@ -895,6 +893,9 @@ Public Class frmMain
         If Not MH.UpdateESIPriceHistory(TypeID, RegionID) Then
             Call MsgBox("Some prices did not update. Please try again.", vbInformation, Application.ProductName)
         End If
+
+        'Update SVRAveragePriceDuration to the defualt
+        UserApplicationSettings.SVRAveragePriceDuration = ProgramSettings.DefaultSVRAveragePriceDuration
 
         Dim ReturnValue As String = GetItemSVR(TypeID(0), RegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration), ProductionTime,
                                                 SelectedBlueprint.GetTotalUnits)
@@ -8636,7 +8637,6 @@ ExitPRocessing:
                 btnCalcSelectColumns.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcIncludeItems.Enabled = False
-                gbCalcMarketFilters.Enabled = False
                 gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
@@ -8765,6 +8765,9 @@ ExitPRocessing:
                         AddItem = False
                     End If
 
+                    'Update SVRAveragePriceDuration to the defualt
+                    UserApplicationSettings.SVRAveragePriceDuration = ProgramSettings.DefaultSVRAveragePriceDuration
+
                     ' Adjust the item with calculations
                     If AddItem Then
                         Application.DoEvents()
@@ -8773,13 +8776,13 @@ ExitPRocessing:
                         InsertItem.CanInvent = ManufacturingBlueprint.UserCanInventRE
                         InsertItem.CanRE = ManufacturingBlueprint.UserCanInventRE
                         ' Trend data
-                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
-                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
+                        InsertItem.PriceTrend = CalculatePriceTrend(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration))
+                        InsertItem.Volatility = CalculateVolatility(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration))
                         InsertItem.ItemMarketPrice = ManufacturingBlueprint.GetItemMarketPrice
 
                         ' Add all the volume, items on hand, etc here since they won't change
-                        InsertItem.TotalItemsSold = CalculateTotalItemsSold(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
-                        InsertItem.TotalOrdersFilled = CalculateTotalOrdersFilled(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays)
+                        InsertItem.TotalItemsSold = CalculateTotalItemsSold(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration))
+                        InsertItem.TotalOrdersFilled = CalculateTotalOrdersFilled(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration))
                         InsertItem.AvgItemsperOrder = CDbl(IIf(InsertItem.TotalOrdersFilled = 0, 0, InsertItem.TotalItemsSold / InsertItem.TotalOrdersFilled))
                         Call GetCurrentOrders(InsertItem.ItemTypeID, MarketRegionID, InsertItem.CurrentBuyOrders, InsertItem.CurrentSellOrders)
 
@@ -8797,7 +8800,7 @@ ExitPRocessing:
                                 InsertItem.Profit = ManufacturingBlueprint.GetTotalComponentProfit
                                 InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourComponents
                                 InsertItem.CalcType = "Components"
-                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetProductionTime, ManufacturingBlueprint.GetTotalUnits)
+                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration), ManufacturingBlueprint.GetProductionTime, ManufacturingBlueprint.GetTotalUnits)
                                 If InsertItem.SVR = "-" Then
                                     InsertItem.SVRxIPH = "0.00"
                                 Else
@@ -8860,7 +8863,7 @@ ExitPRocessing:
                             InsertItem.Profit = ManufacturingBlueprint.GetTotalRawProfit
                             InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourRaw
                             InsertItem.CalcType = "Raw Materials"
-                            InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
+                            InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration), ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
                             If InsertItem.SVR = "-" Then
                                 InsertItem.SVRxIPH = "0.00"
                             Else
@@ -8941,7 +8944,7 @@ ExitPRocessing:
                                 InsertItem.Profit = ManufacturingBlueprint.GetTotalRawProfit
                                 InsertItem.IPH = ManufacturingBlueprint.GetTotalIskperHourRaw
                                 InsertItem.CalcType = "Build/Buy"
-                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, AveragePriceDays, ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
+                                InsertItem.SVR = GetItemSVR(InsertItem.ItemTypeID, MarketRegionID, CInt(UserApplicationSettings.SVRAveragePriceDuration), ManufacturingBlueprint.GetTotalProductionTime, ManufacturingBlueprint.GetTotalUnits)
                                 If InsertItem.SVR = "-" Then
                                     InsertItem.SVRxIPH = "0.00"
                                 Else
@@ -9418,7 +9421,6 @@ ExitCalc:
 
         ' Enable all the controls
         btnCalcSelectColumns.Enabled = True
-        gbCalcMarketFilters.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcIncludeItems.Enabled = True
         gbCalcProdLines.Enabled = True
@@ -11084,7 +11086,7 @@ ExitCalc:
                 End If
 
                 Dim f1 As New frmMarketHistoryViewer(FoundItem.ItemTypeID, FoundItem.ItemName, RegionID, cmbCalcHistoryRegion.Text,
-                                                     AveragePriceDays)
+                                                     CInt(UserApplicationSettings.SVRAveragePriceDuration))
                 f1.Show()
 
             Else
