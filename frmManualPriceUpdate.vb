@@ -63,7 +63,7 @@ Public Class frmManualPriceUpdate
     Public Sub LoadMineralPrices()
         Dim SQL As String
         Dim readerMinerals As SQLiteDataReader
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         SQL = "SELECT ITEM_PRICES.ITEM_NAME, ITEM_PRICES.PRICE "
         SQL = SQL & "FROM ITEM_PRICES "
@@ -82,7 +82,7 @@ Public Class frmManualPriceUpdate
             Application.DoEvents()
         End While
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         txtMineral1.Focus()
 
         readerMinerals.Close()
@@ -100,7 +100,7 @@ Public Class frmManualPriceUpdate
         Dim Prices() As Double
 
         If MineralPricesUpdated Then
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
 
             ReDim Prices(MineralTextBoxes.Count - 1)
 
@@ -109,7 +109,7 @@ Public Class frmManualPriceUpdate
                 If Not IsNumeric(MineralTextBoxes(i).Text) Then
                     MsgBox("Invalid " & MineralLabels(i).Text & " Price", vbExclamation, Me.Text)
                     MineralTextBoxes(i).Focus()
-                    Me.Cursor = Cursors.Default
+                    Cursor.Current = Cursors.Default
                     Exit Sub
                 Else
                     Prices(i) = CDbl(MineralTextBoxes(i).Text)
@@ -123,7 +123,7 @@ Public Class frmManualPriceUpdate
             Next
 
             MsgBox("Prices Updated", vbInformation, Me.Text)
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
         Else
             MsgBox("No Prices were Updated", vbInformation, Me.Text)
         End If
@@ -152,7 +152,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub MineralTextBoxes_KeyDown(SentTextBox As TextBox, ByVal e As System.Windows.Forms.KeyEventArgs)
-        Call ProcessCutCopyPasteSelect(SentTextBox, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateMineralPrices()
         End If
@@ -299,7 +299,7 @@ Public Class frmManualPriceUpdate
         Dim SQL As String
         Dim readerMoon As SQLiteDataReader
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         SQL = "SELECT ITEM_PRICES.ITEM_NAME, ITEM_PRICES.PRICE "
         SQL = SQL & "FROM ITEM_PRICES "
@@ -320,7 +320,7 @@ Public Class frmManualPriceUpdate
             Application.DoEvents()
         End While
 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         txtMoon1.Focus()
 
         readerMoon.Close()
@@ -337,7 +337,7 @@ Public Class frmManualPriceUpdate
         Dim Prices() As Double
 
         If MoonPricesUpdated Then
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
 
             ReDim Prices(MoonTextBoxes.Count - 1)
 
@@ -346,7 +346,7 @@ Public Class frmManualPriceUpdate
                 If Not IsNumeric(MoonTextBoxes(i).Text) Then
                     MsgBox("Invalid " & MoonLabels(i).Text & " Price", vbExclamation, Me.Text)
                     MoonTextBoxes(i).Focus()
-                    Me.Cursor = Cursors.Default
+                    Cursor.Current = Cursors.Default
                     Exit Sub
                 Else
                     Prices(i) = CDbl(MoonTextBoxes(i).Text)
@@ -360,7 +360,7 @@ Public Class frmManualPriceUpdate
             Next
 
             MsgBox("Prices Updated", vbInformation, Me.Text)
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
         Else
             MsgBox("No Prices were Updated", vbInformation, Me.Text)
         End If
@@ -390,7 +390,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub MoonTextBoxes_KeyDown(SentTextBox As TextBox, ByVal e As System.Windows.Forms.KeyEventArgs)
-        Call ProcessCutCopyPasteSelect(SentTextBox, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateMoonPrices()
         End If
@@ -662,7 +662,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub txtItemSearch_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtItemSearch.KeyDown
-        Call ProcessCutCopyPasteSelect(txtItemSearch, e)
+
         If e.KeyCode = Keys.Enter Then
             Call FillSearchGrid(txtItemSearch.Text)
         End If
@@ -692,7 +692,7 @@ Public Class frmManualPriceUpdate
     End Sub
 
     Private Sub txtItemPriceUpdate_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtItemPriceUpdate.KeyDown
-        Call ProcessCutCopyPasteSelect(txtItemPriceUpdate, e)
+
         If e.KeyCode = Keys.Enter Then
             Call UpdateItemPrices()
         End If

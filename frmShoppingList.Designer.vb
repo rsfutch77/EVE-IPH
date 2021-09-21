@@ -45,7 +45,7 @@ Partial Class frmShoppingList
         Me.btnUpdateListwithAssets = New System.Windows.Forms.Button()
         Me.btnMineThis = New System.Windows.Forms.Button()
         Me.chkUpdateAssetsWhenUsed = New System.Windows.Forms.CheckBox()
-        Me.txtListEdit = New System.Windows.Forms.TextBox
+        Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnSaveListToFile = New System.Windows.Forms.Button()
@@ -62,7 +62,7 @@ Partial Class frmShoppingList
         Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
-        Me.txtAddlCosts = New System.Windows.Forms.TextBox
+        Me.txtAddlCosts = New System.Windows.Forms.TextBox()
         Me.chkFees = New System.Windows.Forms.CheckBox()
         Me.lblAddlCosts = New System.Windows.Forms.Label()
         Me.btnSaveSettings = New System.Windows.Forms.Button()

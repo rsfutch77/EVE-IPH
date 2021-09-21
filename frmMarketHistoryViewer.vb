@@ -145,12 +145,12 @@ Public Class frmMarketHistoryViewer
         TypeID.Add(ItemID)
 
         ' Update the prices
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
         If Not MH.UpdateESIPriceHistory(TypeID, RegionID) Then
             Call MsgBox("Some prices did not update. Please try again.", vbInformation, Application.ProductName)
         End If
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
         ' Set up the chart

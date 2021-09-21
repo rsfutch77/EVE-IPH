@@ -32,7 +32,7 @@ Public Class frmUsageViewer
         Dim TotalCost As Double ' For summing up all the costs
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         lstCosts.Clear()
@@ -59,7 +59,7 @@ Public Class frmUsageViewer
 
         lstCosts.EndUpdate()
         Application.UseWaitCursor = False
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
     End Sub

@@ -650,7 +650,7 @@ Public Class frmShoppingList
         Dim CurrentItemName As String = ""
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         Application.DoEvents()
 
         Dim IDString As String = ""
@@ -829,7 +829,7 @@ Public Class frmShoppingList
             Next
 
             Application.UseWaitCursor = False
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.DoEvents()
 
             ' Play notification sound
@@ -1067,7 +1067,7 @@ Public Class frmShoppingList
                     Items = lstBuy.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
 
@@ -1114,7 +1114,7 @@ Public Class frmShoppingList
                     Items = lstBuild.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
 
@@ -1154,7 +1154,7 @@ Public Class frmShoppingList
                     Items = lstItems.Items
 
                     If Items.Count > 0 Then
-                        Me.Cursor = Cursors.WaitCursor
+                        Cursor.Current = Cursors.WaitCursor
 
                         Application.DoEvents()
                         Dim TempName As String = ""
@@ -1215,7 +1215,7 @@ Public Class frmShoppingList
         End If
 
         ' Done processing 
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
 
@@ -1334,7 +1334,7 @@ Public Class frmShoppingList
     End Sub
 
     Private Sub txtAddlCosts_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtAddlCosts.KeyDown
-        Call ProcessCutCopyPasteSelect(txtAddlCosts, e)
+
         If AddlCostsValidEntry() Then
             If e.KeyCode = Keys.Enter Then
                 Call LoadFormStats()
@@ -2130,18 +2130,6 @@ Tabs:
 
     Private Sub txtListEdit_GotFocus(sender As Object, e As System.EventArgs) Handles txtListEdit.GotFocus
         Call txtListEdit.SelectAll()
-    End Sub
-
-    Private Sub txtListEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtListEdit.KeyDown
-        If Not DataEntered Then ' If data already entered, then they didn't do it through paste
-            DataEntered = ProcessCutCopyPasteSelect(txtListEdit, e)
-        End If
-
-        If e.KeyCode = Keys.Enter Then
-            IgnoreFocusChange = True
-            Call ProcessKeyDownUpdateEdit(Keys.Enter, SelectedGrid)
-            IgnoreFocusChange = False
-        End If
     End Sub
 
     Private Sub txtListEdit_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtListEdit.KeyPress

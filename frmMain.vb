@@ -2733,18 +2733,6 @@ Tabs:
         Call txtListEdit.SelectAll()
     End Sub
 
-    Private Sub txtListEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtListEdit.KeyDown
-        If Not DataEntered Then ' If data already entered, then they didn't do it through paste
-            DataEntered = ProcessCutCopyPasteSelect(txtListEdit, e)
-        End If
-
-        If e.KeyCode = Keys.Enter Then
-            IgnoreFocus = True
-            Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
-            IgnoreFocus = False
-        End If
-    End Sub
-
     Private Sub txtListEdit_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtListEdit.KeyPress
         ' Make sure it's the right format for ME or Price update
         ' Only allow numbers or backspace
@@ -10666,7 +10654,7 @@ ExitCalc:
         End While
 
         ' Set the n_value from the loop
-        If counter <= 1 Or GraphData.Count <> DaysfromToday Then
+        If counter <= 1 Or GraphData.Count < DaysfromToday Then
             ' If it's 0 or 1, then we can't do a calculation 
             Return 0
         End If

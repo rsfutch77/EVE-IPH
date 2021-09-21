@@ -101,13 +101,13 @@ Partial Class frmBlueprintManagement
         Me.chkEnableMETE = New System.Windows.Forms.CheckBox()
         Me.rbtnMarkasUnowned = New System.Windows.Forms.RadioButton()
         Me.btnUpdateSelected = New System.Windows.Forms.Button()
-        Me.txtBPTE = New System.Windows.Forms.TextBox
+        Me.txtBPTE = New System.Windows.Forms.TextBox()
         Me.btnSelectAll = New System.Windows.Forms.Button()
         Me.rbtnMarkasOwned = New System.Windows.Forms.RadioButton()
         Me.lblBPTE = New System.Windows.Forms.Label()
-        Me.txtBPME = New System.Windows.Forms.TextBox
+        Me.txtBPME = New System.Windows.Forms.TextBox()
         Me.lblBPME = New System.Windows.Forms.Label()
-        Me.txtBPEdit = New System.Windows.Forms.TextBox
+        Me.txtBPEdit = New System.Windows.Forms.TextBox()
         Me.ttBPManage = New System.Windows.Forms.ToolTip(Me.components)
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()

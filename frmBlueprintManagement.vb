@@ -656,7 +656,7 @@ Public Class frmBlueprintManagement
         readerBP = DBCommand.ExecuteReader
 
         lstBPs.Visible = False
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         ' Disable buttons till done
         gbBPFilter.Enabled = False
@@ -831,7 +831,7 @@ Public Class frmBlueprintManagement
         DBCommand = Nothing
 
         lstBPs.Visible = True
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         gbBPFilter.Enabled = True
         gbUpdateOptions.Enabled = True
         grpScanAssets.Enabled = True
@@ -1303,7 +1303,7 @@ Public Class frmBlueprintManagement
             ' Set the correct ID
             BPUserID = SelectedCharacter.ID
 
-            ElseIf rbtnScannedPersonalBPs.Checked Then
+        ElseIf rbtnScannedPersonalBPs.Checked Then
             ' Include all BP's
             If WhereClause = "" Then
                 WhereClause = "WHERE USER_ID = " & SelectedCharacter.ID & " AND SCANNED <> 0 "
@@ -1392,7 +1392,7 @@ Public Class frmBlueprintManagement
         If SelectedCharacter.BlueprintsAccess Then
             Application.UseWaitCursor = True
             Application.DoEvents()
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
             Call SelectedCharacter.GetBlueprints.LoadBlueprints(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, ScanType.Personal, True)
             MsgBox("Blueprints Loaded", vbInformation, Application.ProductName)
             rbtnScannedPersonalBPs.Checked = True ' Auto load
@@ -1412,11 +1412,11 @@ Public Class frmBlueprintManagement
         If SelectedCharacter.CharacterCorporation.BlueprintsAccess Then
             Application.UseWaitCursor = True
             Application.DoEvents()
-            Me.Cursor = Cursors.WaitCursor
+            Cursor.Current = Cursors.WaitCursor
             Call SelectedCharacter.CharacterCorporation.GetBlueprints.LoadBlueprints(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, ScanType.Corporation, True)
             MsgBox("Blueprints Loaded", vbInformation, Application.ProductName)
             rbtnScannedCorpBPs.Checked = True ' Auto load
-            Me.Cursor = Cursors.Default
+            Cursor.Current = Cursors.Default
             Application.UseWaitCursor = False
             Me.Refresh()
             Application.DoEvents()
@@ -1477,7 +1477,7 @@ your developer scopes.", vbExclamation, Application.ProductName)
             Exit Sub
         End If
 
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         ' Just work with the ones that are checked
         checkedItems = lstBPs.CheckedItems
@@ -1530,7 +1530,7 @@ your developer scopes.", vbExclamation, Application.ProductName)
 
         ' Done
         rbtnMarkasOwned.Checked = True
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
 
         MsgBox("Blueprints Updated", vbInformation, Me.Text)
 
@@ -2270,7 +2270,7 @@ Tabs:
     End Sub
 
     Private Sub txtBPEdit_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtBPEdit.KeyDown
-        Call ProcessCutCopyPasteSelect(txtBPEdit, e)
+
         If e.KeyCode = Keys.Enter Then
             Call ProcessKeyDownBPEdit(Keys.Enter)
         End If

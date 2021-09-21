@@ -173,7 +173,7 @@ Public Class frmIndustryJobsViewer
         End If
 
         Application.UseWaitCursor = True
-        Me.Cursor = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         gbInventionJobs.Enabled = False
         Application.DoEvents()
 
@@ -379,7 +379,7 @@ Public Class frmIndustryJobsViewer
 ExitSub:
         Application.UseWaitCursor = False
         gbInventionJobs.Enabled = True
-        Me.Cursor = Cursors.Default
+        Cursor.Current = Cursors.Default
         Application.DoEvents()
 
     End Sub
@@ -391,7 +391,7 @@ ExitSub:
         Dim rsJobs As SQLiteDataReader
 
         Application.UseWaitCursor = True
-        'Me.Cursor = Cursors.WaitCursor
+        'Cursor.Current = Cursors.WaitCursor
         gbInventionJobs.Enabled = False
         Application.DoEvents()
 
