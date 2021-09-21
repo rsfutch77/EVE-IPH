@@ -37,14 +37,14 @@ Partial Class frmIndustryBeltFlip
         Me.lblBeltTotalIskLevel1Sum = New System.Windows.Forms.Label()
         Me.lblTotalIskLevel1Sum = New System.Windows.Forms.Label()
         Me.gbMineStationYield = New System.Windows.Forms.GroupBox()
-        Me.txtMineStationEff = New System.Windows.Forms.TextBox()
+        Me.txtMineStationEff = New MetroFramework.Controls.MetroTextBox
         Me.cmbRefineStationTax = New System.Windows.Forms.ComboBox()
         Me.lblMineRefineStationTax = New System.Windows.Forms.Label()
         Me.lblMineStationEff = New System.Windows.Forms.Label()
         Me.lblMineStationStanding = New System.Windows.Forms.Label()
         Me.txtMineRefineStanding = New System.Windows.Forms.TextBox()
         Me.gbMineTaxBroker = New System.Windows.Forms.GroupBox()
-        Me.txtBrokerFeeRate = New System.Windows.Forms.TextBox()
+        Me.txtBrokerFeeRate = New MetroFramework.Controls.MetroTextBox
         Me.chkIPHperMiner = New System.Windows.Forms.CheckBox()
         Me.chkCompressOre = New System.Windows.Forms.CheckBox()
         Me.chkIncludeTaxes = New System.Windows.Forms.CheckBox()
@@ -2437,6 +2437,6 @@ Partial Class frmIndustryBeltFlip
     Friend WithEvents cmbRefineStationTax As System.Windows.Forms.ComboBox
     Friend WithEvents rbtn As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents txtBrokerFeeRate As TextBox
-    Friend WithEvents txtMineStationEff As TextBox
+    Friend WithEvents txtBrokerFeeRate As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents txtMineStationEff As MetroFramework.Controls.MetroTextBox
 End Class

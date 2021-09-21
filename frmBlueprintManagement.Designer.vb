@@ -54,7 +54,7 @@ Partial Class frmBlueprintManagement
         Me.rbtnShowAllBPtypes = New System.Windows.Forms.RadioButton()
         Me.gbBPTextSearch = New System.Windows.Forms.GroupBox()
         Me.btnResetSearch = New System.Windows.Forms.Button()
-        Me.txtBPSearch = New System.Windows.Forms.TextBox()
+        Me.txtBPSearch = New MetroFramework.Controls.MetroTextBox
         Me.btnBPSearch = New System.Windows.Forms.Button()
         Me.grpScanAssets = New System.Windows.Forms.GroupBox()
         Me.btnClose = New System.Windows.Forms.Button()
@@ -101,13 +101,13 @@ Partial Class frmBlueprintManagement
         Me.chkEnableMETE = New System.Windows.Forms.CheckBox()
         Me.rbtnMarkasUnowned = New System.Windows.Forms.RadioButton()
         Me.btnUpdateSelected = New System.Windows.Forms.Button()
-        Me.txtBPTE = New System.Windows.Forms.TextBox()
+        Me.txtBPTE = New System.Windows.Forms.TextBox
         Me.btnSelectAll = New System.Windows.Forms.Button()
         Me.rbtnMarkasOwned = New System.Windows.Forms.RadioButton()
         Me.lblBPTE = New System.Windows.Forms.Label()
-        Me.txtBPME = New System.Windows.Forms.TextBox()
+        Me.txtBPME = New System.Windows.Forms.TextBox
         Me.lblBPME = New System.Windows.Forms.Label()
-        Me.txtBPEdit = New System.Windows.Forms.TextBox()
+        Me.txtBPEdit = New System.Windows.Forms.TextBox
         Me.ttBPManage = New System.Windows.Forms.ToolTip(Me.components)
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -1121,7 +1121,7 @@ Partial Class frmBlueprintManagement
     End Sub
     Friend WithEvents gbBPFilter As System.Windows.Forms.GroupBox
     Friend WithEvents gbBPTextSearch As System.Windows.Forms.GroupBox
-    Friend WithEvents txtBPSearch As System.Windows.Forms.TextBox
+    Friend WithEvents txtBPSearch As MetroFramework.Controls.MetroTextBox
     Friend WithEvents gbBPSelect As System.Windows.Forms.GroupBox
     Friend WithEvents rbtnAllBPs As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnOwned As System.Windows.Forms.RadioButton

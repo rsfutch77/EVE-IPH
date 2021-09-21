@@ -704,7 +704,7 @@ InvalidDate:
 #End Region
 
     ' Checks entry of percentage chars in keypress
-    Public Function CheckPercentCharEntry(ke As KeyPressEventArgs, box As TextBox) As Boolean
+    Public Function CheckPercentCharEntry(ke As KeyPressEventArgs, box As System.Windows.Forms.TextBox) As Boolean
         Dim Istr As String = box.Text
 
         ' Only allow numbers or backspace
@@ -741,7 +741,7 @@ InvalidDate:
     End Function
 
     ' Returns the sent text box text as a percent in string format
-    Public Function GetFormattedPercentEntry(RefTextbox As TextBox) As String
+    Public Function GetFormattedPercentEntry(RefTextbox As MetroFramework.Controls.MetroTextBox) As String
         Return FormatPercent(FormatManualPercentEntry(RefTextbox.Text), 1)
     End Function
 

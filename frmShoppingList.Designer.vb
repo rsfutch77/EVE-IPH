@@ -45,7 +45,7 @@ Partial Class frmShoppingList
         Me.btnUpdateListwithAssets = New System.Windows.Forms.Button()
         Me.btnMineThis = New System.Windows.Forms.Button()
         Me.chkUpdateAssetsWhenUsed = New System.Windows.Forms.CheckBox()
-        Me.txtListEdit = New System.Windows.Forms.TextBox()
+        Me.txtListEdit = New System.Windows.Forms.TextBox
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnSaveListToFile = New System.Windows.Forms.Button()
@@ -62,7 +62,7 @@ Partial Class frmShoppingList
         Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
-        Me.txtAddlCosts = New System.Windows.Forms.TextBox()
+        Me.txtAddlCosts = New System.Windows.Forms.TextBox
         Me.chkFees = New System.Windows.Forms.CheckBox()
         Me.lblAddlCosts = New System.Windows.Forms.Label()
         Me.btnSaveSettings = New System.Windows.Forms.Button()
@@ -83,7 +83,7 @@ Partial Class frmShoppingList
         Me.lstItems = New EVE_Isk_per_Hour.MyListView()
         Me.lstBuild = New EVE_Isk_per_Hour.MyListView()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtBrokerFeeRate = New System.Windows.Forms.TextBox()
+        Me.txtBrokerFeeRate = New MetroFramework.Controls.MetroTextBox
         Me.lblFeeRate = New System.Windows.Forms.Label()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
@@ -794,6 +794,6 @@ End Sub
     Friend WithEvents chkRebuildItemsfromList As CheckBox
     Friend WithEvents rbtnExportMulitBuy As RadioButton
     Friend WithEvents Button1 As Button
-    Friend WithEvents txtBrokerFeeRate As TextBox
+    Friend WithEvents txtBrokerFeeRate As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lblFeeRate As Label
 End Class
