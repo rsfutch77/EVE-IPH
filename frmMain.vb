@@ -1280,74 +1280,6 @@ Public Class frmMain
 
     End Sub
 
-    ' Loads the popup with all the material break down and usage for invention
-    Private Sub lblBPInventionCost_DoubleClick(sender As System.Object, e As System.EventArgs)
-        Dim f1 As New frmInventionMats
-
-        Cursor.Current = Cursors.WaitCursor
-
-        If Not IsNothing(SelectedBlueprint) Then
-            If SelectedBlueprint.GetTechLevel = BPTechLevel.T2 Then
-                f1.MatType = "T2 Invention Materials needed for enough successful BPCs for " & CStr(SelectedBlueprint.GetUserRuns)
-                If SelectedBlueprint.GetUserRuns = 1 Then
-                    f1.MatType = f1.MatType & " Run"
-                Else
-                    f1.MatType = f1.MatType & " Runs"
-                End If
-                f1.MaterialList = SelectedBlueprint.GetInventionMaterials
-                f1.TotalInventedRuns = SelectedBlueprint.GetTotalInventedRuns
-                f1.UserRuns = SelectedBlueprint.GetUserRuns
-                f1.ListType = "Invention"
-            End If
-            Cursor.Current = Cursors.Default
-            f1.Show()
-        End If
-
-    End Sub
-
-    ' Loads the popup with all the copy materials and usage for copy jobs
-    Private Sub lblBPCopyCosts_DoubleClick(sender As Object, e As System.EventArgs)
-        Dim f1 As New frmInventionMats
-
-        If Not IsNothing(SelectedBlueprint) Then
-            If SelectedBlueprint.GetTechLevel = BPTechLevel.T2 Then
-                f1.MatType = "T2 Copy Materials needed for enough successful BPCs for " & CStr(SelectedBlueprint.GetUserRuns)
-                If SelectedBlueprint.GetUserRuns = 1 Then
-                    f1.MatType = f1.MatType & " Run"
-                Else
-                    f1.MatType = f1.MatType & " Runs"
-                End If
-                f1.MaterialList = SelectedBlueprint.GetCopyMaterials
-                f1.TotalInventedRuns = SelectedBlueprint.GetInventionJobs
-                f1.ListType = "Copying"
-            End If
-            f1.Show()
-        End If
-
-    End Sub
-
-    ' Loads the popup with all the material break down and usage for T3 invention
-    Private Sub lblBPRECost_DoubleClick(sender As System.Object, e As System.EventArgs)
-        Dim f1 As New frmInventionMats
-
-        If Not IsNothing(SelectedBlueprint) Then
-            If SelectedBlueprint.GetTechLevel = BPTechLevel.T3 Then
-                f1.MatType = "T3 Invention Materials needed for enough successful BPCs for " & CStr(SelectedBlueprint.GetUserRuns)
-                If SelectedBlueprint.GetUserRuns = 1 Then
-                    f1.MatType = f1.MatType & " Run"
-                Else
-                    f1.MatType = f1.MatType & " Runs"
-                End If
-                f1.MaterialList = SelectedBlueprint.GetInventionMaterials
-                f1.TotalInventedRuns = SelectedBlueprint.GetTotalInventedRuns
-                f1.UserRuns = SelectedBlueprint.GetUserRuns
-                f1.ListType = "T3 Invention"
-            End If
-            f1.Show()
-        End If
-
-    End Sub
-
     ' Loads the popup with all the costs for total raw
     Private Sub lblBPRawTotalCost_DoubleClick(sender As Object, e As System.EventArgs)
         Call ShowCostSplitViewer(SelectedBlueprint.GetRawMaterials.GetTotalMaterialsCost, "Raw")
@@ -1479,12 +1411,6 @@ Public Class frmMain
 
     Private Sub mnuViewESIStatus_Click(sender As Object, e As EventArgs) Handles mnuViewESIStatus.Click
         Dim f1 As New frmESIStatus
-
-        f1.Show()
-    End Sub
-
-    Private Sub mnuIndustryUpgradeBelts_Click(sender As System.Object, e As System.EventArgs)
-        Dim f1 As New frmIndustryBeltFlip
 
         f1.Show()
     End Sub
@@ -1868,12 +1794,6 @@ Public Class frmMain
             SelectedCharacter.LoadDefaultCharacter(False, False, True)
             Call LoadCharacterNamesinMenu()
         End If
-    End Sub
-
-    Private Sub mnuItemUpdatePrices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuItemUpdatePrices.Click
-        Dim f1 = New frmManualPriceUpdate
-        f1.ShowDialog()
-        Call ResetRefresh()
     End Sub
 
     Private Sub mnuCheckforUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCheckforUpdates.Click
@@ -3039,13 +2959,6 @@ Tabs:
         If e.ColumnIndex = 0 Or e.ColumnIndex >= 4 Then
             e.Cancel = True
             e.NewWidth = lstPricesView.Columns(e.ColumnIndex).Width
-        End If
-    End Sub
-
-    Private Sub btnBPListMats_Click(sender As Object, e As EventArgs)
-        If Not IsNothing(SelectedBlueprint) Then
-            Dim f1 As New frmMaterialListViewer(SelectedBlueprint.GetExcessMaterials)
-            Call f1.Show()
         End If
     End Sub
 
@@ -6010,13 +5923,6 @@ ExitPRocessing:
         Call UpdatePriceList()
         Application.DoEvents()
 
-    End Sub
-
-    Private Sub btnViewSavedStructures_Click(sender As Object, e As EventArgs)
-        If frmViewStructures.Visible = False Then
-            frmViewStructures = New frmViewSavedStructures
-            frmViewStructures.Show()
-        End If
     End Sub
 
 #End Region
@@ -11042,33 +10948,6 @@ ExitCalc:
 
         End If
 
-    End Sub
-
-    ' Gets the typeID and other data to open up the market history viewer
-    Private Sub ViewMarketHistoryToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMarketHistoryToolStripMenuItem.Click
-        Dim FoundItem As New ManufacturingItem
-        Dim RegionID As Long
-
-        ' Find the item clicked in the list of items by looking up the row number stored in the hidden column
-        If lstManufacturing.Items.Count > 0 And lstManufacturing.SelectedItems.Count > 0 Then
-            ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(0).SubItems(0).Text)
-            FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-            If FoundItem IsNot Nothing Then
-                ' Get the region ID
-                RegionID = GetRegionID(cmbCalcHistoryRegion.Text)
-                If RegionID = 0 Then
-                    RegionID = TheForgeTypeID
-                End If
-
-                Dim f1 As New frmMarketHistoryViewer(FoundItem.ItemTypeID, FoundItem.ItemName, RegionID, cmbCalcHistoryRegion.Text,
-                                                     CInt(UserApplicationSettings.SVRAveragePriceDuration))
-                f1.Show()
-
-            Else
-                MsgBox("Unable to find item data for history", vbInformation, Application.ProductName)
-            End If
-        End If
     End Sub
 
     ' Adds one or multiple items to the shopping list from the manufacturing tab

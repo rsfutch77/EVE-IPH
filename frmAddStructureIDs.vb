@@ -90,11 +90,6 @@
             Call SP.UpdateStructureData(StructureID, SelectedCharacter.CharacterTokenData, True, False, True)
         Next
 
-        ' Refresh the view saved screen if open
-        If frmViewStructures.Visible Then
-            Call frmViewStructures.LoadStructureGrid()
-        End If
-
         If AddedCount = 0 Then
             MsgBox("Could not add selected items. Please check information and try again.", vbInformation, Application.ProductName)
         Else
@@ -294,13 +289,6 @@
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Hide()
-    End Sub
-
-    Private Sub btnViewSavedStructures_Click(sender As Object, e As EventArgs) Handles btnViewSavedStructures.Click
-        If frmViewStructures.Visible = False Then
-            frmViewStructures = New frmViewSavedStructures
-            frmViewStructures.Show()
-        End If
     End Sub
 
 End Class

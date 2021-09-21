@@ -106,7 +106,6 @@ Public Module Public_Variables
     ' Same with assets
     Public frmDefaultAssets As frmAssetsViewer
     Public frmShoppingAssets As frmAssetsViewer
-    Public frmViewStructures As frmViewSavedStructures = New frmViewSavedStructures
 
     ' The only allowed characters for text entry
     Public Const allowedPriceChars As String = "0123456789.,"
@@ -1238,17 +1237,6 @@ InvalidDate:
 
         ' Reset manufacturing calc button
         Call frmMain.ResetRefresh()
-
-        ' Refresh the prices in manual update for minerals
-        Call frmManualPriceUpdate.LoadMineralPrices()
-
-        ' Manual update of moon materials
-        Call frmManualPriceUpdate.LoadMoonPrices()
-
-        ' Refill the search grid on manual updates
-        If Trim(frmManualPriceUpdate.lblLSelectedItem.Text) <> "" Then
-            Call frmManualPriceUpdate.FillSearchGrid(frmManualPriceUpdate.lblSelectedItem.Text)
-        End If
 
     End Sub
 

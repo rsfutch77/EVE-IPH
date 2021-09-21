@@ -224,28 +224,10 @@
     <Compile Include="frmESIStatus.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMaterialListViewer.Designer.vb">
-      <DependentUpon>frmMaterialListViewer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMaterialListViewer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMETE.Designer.vb">
-      <DependentUpon>frmMETE.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMETE.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSupportSplash.Designer.vb">
       <DependentUpon>frmSupportSplash.vb</DependentUpon>
     </Compile>
     <Compile Include="frmSupportSplash.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmViewSavedStructures.Designer.vb">
-      <DependentUpon>frmViewSavedStructures.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmViewSavedStructures.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ManufacturingFacility.Designer.vb">
@@ -272,12 +254,6 @@
     <Compile Include="DoubleTrackBar - No designer.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="frmMarketHistoryViewer.Designer.vb">
-      <DependentUpon>frmMarketHistoryViewer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMarketHistoryViewer.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmReqSkills.Designer.vb">
       <DependentUpon>frmReqSkills.vb</DependentUpon>
     </Compile>
@@ -303,12 +279,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EVEBlueprints.vb" />
-    <Compile Include="frmInventionMats.Designer.vb">
-      <DependentUpon>frmInventionMats.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmInventionMats.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmCopyandPaste.Designer.vb">
       <DependentUpon>frmCopyandPaste.vb</DependentUpon>
     </Compile>
@@ -362,12 +332,6 @@
     <Compile Include="frmError.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmIndustryBeltFlip.Designer.vb">
-      <DependentUpon>frmIndustryBeltFlip.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmIndustryBeltFlip.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmIndustryJobsViewer.Designer.vb">
       <DependentUpon>frmIndustryJobsViewer.vb</DependentUpon>
     </Compile>
@@ -384,18 +348,6 @@
       <DependentUpon>frmManageAccounts.vb</DependentUpon>
     </Compile>
     <Compile Include="frmManageAccounts.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmManualPriceUpdate.Designer.vb">
-      <DependentUpon>frmManualPriceUpdate.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmManualPriceUpdate.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMineMinerals.Designer.vb">
-      <DependentUpon>frmMineMinerals.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMineMinerals.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPatchNotes.Designer.vb">
@@ -512,17 +464,8 @@
     <EmbeddedResource Include="frmESIStatus.resx">
       <DependentUpon>frmESIStatus.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMaterialListViewer.resx">
-      <DependentUpon>frmMaterialListViewer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMETE.resx">
-      <DependentUpon>frmMETE.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmSupportSplash.resx">
       <DependentUpon>frmSupportSplash.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMarketHistoryViewer.resx">
-      <DependentUpon>frmMarketHistoryViewer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReqSkills.resx">
       <DependentUpon>frmReqSkills.vb</DependentUpon>
@@ -537,10 +480,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectManufacturingTabColumns.resx">
       <DependentUpon>frmSelectManufacturingTabColumns.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmInventionMats.resx">
-      <DependentUpon>frmInventionMats.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCopyandPaste.resx">
       <DependentUpon>frmCopyandPaste.vb</DependentUpon>
@@ -574,10 +513,6 @@
       <DependentUpon>frmError.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmIndustryBeltFlip.resx">
-      <DependentUpon>frmIndustryBeltFlip.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmIndustryJobsViewer.resx">
       <DependentUpon>frmIndustryJobsViewer.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -588,14 +523,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmManageAccounts.resx">
       <DependentUpon>frmManageAccounts.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmManualPriceUpdate.resx">
-      <DependentUpon>frmManualPriceUpdate.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMineMinerals.resx">
-      <DependentUpon>frmMineMinerals.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPatchNotes.en-US.resx">
@@ -617,9 +544,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmShoppingList.resx">
       <DependentUpon>frmShoppingList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmViewSavedStructures.resx">
-      <DependentUpon>frmViewSavedStructures.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManufacturingFacility.resx">
       <DependentUpon>ManufacturingFacility.vb</DependentUpon>
