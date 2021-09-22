@@ -6111,30 +6111,6 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcBrokerFeeRate_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCalcBrokerFeeRate.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            txtCalcBrokerFeeRate.Text = GetFormattedPercentEntry(txtCalcBrokerFeeRate)
-        End If
-    End Sub
-
-    Private Sub txtCalcBrokerFeeRate_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCalcBrokerFeeRate.KeyPress
-        ' Only allow numbers, decimal, percent or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedPercentChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
-    Private Sub txtCalcBrokerFeeRate_GotFocus(sender As Object, e As EventArgs) Handles txtCalcBrokerFeeRate.GotFocus
-        Call txtCalcBrokerFeeRate.SelectAll()
-    End Sub
-
-    Private Sub txtCalcBrokerFeeRate_LostFocus(sender As Object, e As EventArgs) Handles txtCalcBrokerFeeRate.LostFocus
-        txtCalcBrokerFeeRate.Text = GetFormattedPercentEntry(txtCalcBrokerFeeRate)
-    End Sub
-
     Private Sub chkCalcSellExessItems_CheckedChanged(sender As Object, e As EventArgs)
         Call ResetRefresh()
     End Sub
@@ -7884,7 +7860,6 @@ ExitPRocessing:
 
             .CheckIncludeTaxes = True
             .CheckIncludeBrokersFees = 1
-            .CalcBrokerFeeRate = FormatManualPercentEntry(txtCalcBrokerFeeRate.Text)
 
             .CheckRaceAmarr = True
             .CheckRaceCaldari = True

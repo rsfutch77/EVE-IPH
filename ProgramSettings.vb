@@ -1993,7 +1993,6 @@ Public Class ProgramSettings
                     .CheckOnlyInvent = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckOnlyInvent", DefaultCheckOnlyInvent))
                     .CheckIncludeTaxes = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckIncludeTaxes", DefaultCheckIncludeTaxes))
                     .CheckIncludeBrokersFees = CInt(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeInteger, ManufacturingSettingsFileName, "CheckIncludeBrokersFees", DefaultIncludeBrokersFees))
-                    .CalcBrokerFeeRate = CDbl(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeDouble, ManufacturingSettingsFileName, "CalcBrokerFeeRate", DefaultCalcBrokerFeeRate))
                     .CheckIncludeUsage = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckIncludeUsage", DefaultCheckIncludeUsage))
                     .CheckRaceAmarr = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckRaceAmarr", DefaultCheckRaceAmarr))
                     .CheckRaceCaldari = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckRaceCaldari", DefaultCheckRaceCaldari))
@@ -2112,7 +2111,6 @@ Public Class ProgramSettings
             .CheckOnlyInvent = DefaultCheckOnlyInvent
             .CheckIncludeTaxes = DefaultCheckIncludeTaxes
             .CheckIncludeBrokersFees = DefaultIncludeBrokersFees
-            .CalcBrokerFeeRate = DefaultCalcBrokerFeeRate
             .CheckIncludeUsage = DefaultCheckIncludeUsage
             .CheckRaceAmarr = DefaultCheckRaceAmarr
             .CheckRaceCaldari = DefaultCheckRaceCaldari
@@ -2172,7 +2170,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingSettings(SentSettings As ManufacturingTabSettings)
-        Dim ManufacturingSettingsList(91) As Setting
+        Dim ManufacturingSettingsList(92) As Setting
 
         Try
             ManufacturingSettingsList(0) = New Setting("BlueprintType", CStr(SentSettings.BlueprintType))
@@ -2262,13 +2260,12 @@ Public Class ProgramSettings
             ManufacturingSettingsList(84) = New Setting("CheckBPTypeReactions", CStr(SentSettings.CheckBPTypeReactions))
             ManufacturingSettingsList(85) = New Setting("CheckBPTypeNPCBPOs", CStr(SentSettings.CheckBPTypeNPCBPOs))
             ManufacturingSettingsList(86) = New Setting("CheckSellExcessItems", CStr(SentSettings.CheckSellExcessItems))
-            ManufacturingSettingsList(87) = New Setting("CalcBrokerFeeRate", CStr(SentSettings.CalcBrokerFeeRate))
-            ManufacturingSettingsList(88) = New Setting("BuildT2T3Materials", CStr(SentSettings.BuildT2T3Materials))
-            ManufacturingSettingsList(89) = New Setting("Volatility", CStr(SentSettings.Volatility))
-            ManufacturingSettingsList(90) = New Setting("Score", CStr(SentSettings.Score))
+            ManufacturingSettingsList(87) = New Setting("BuildT2T3Materials", CStr(SentSettings.BuildT2T3Materials))
+            ManufacturingSettingsList(88) = New Setting("Volatility", CStr(SentSettings.Volatility))
+            ManufacturingSettingsList(89) = New Setting("Score", CStr(SentSettings.Score))
             ManufacturingSettingsList(90) = New Setting("RiskIPH", CStr(SentSettings.RiskIPH))
-            ManufacturingSettingsList(90) = New Setting("RiskProfit", CStr(SentSettings.RiskProfit))
-            ManufacturingSettingsList(91) = New Setting("RiskPrice", CStr(SentSettings.RiskPrice))
+            ManufacturingSettingsList(91) = New Setting("RiskProfit", CStr(SentSettings.RiskProfit))
+            ManufacturingSettingsList(92) = New Setting("RiskPrice", CStr(SentSettings.RiskPrice))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingSettingsFileName, ManufacturingSettingsList, ManufacturingSettingsFileName)
 
@@ -5216,7 +5213,6 @@ Public Structure ManufacturingTabSettings
 
     Dim CheckIncludeTaxes As Boolean
     Dim CheckIncludeBrokersFees As Integer ' Tri check
-    Dim CalcBrokerFeeRate As Double
     Dim CheckIncludeUsage As Boolean
 
     Dim CheckRaceAmarr As Boolean

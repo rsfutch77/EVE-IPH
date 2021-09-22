@@ -127,7 +127,6 @@ Partial Class frmMain
         Me.cmbBPBlueprintSelection = New System.Windows.Forms.ComboBox()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
-        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.lblBPCanMakeBP = New System.Windows.Forms.Label()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
@@ -137,7 +136,6 @@ Partial Class frmMain
         Me.lblCalcColorCode5 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode2 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
-        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.gbCalcBPSelect = New System.Windows.Forms.GroupBox()
         Me.rbtnCalcBPFavorites = New MetroFramework.Controls.MetroRadioButton()
         Me.rbtnCalcAllBPs = New MetroFramework.Controls.MetroRadioButton()
@@ -168,16 +166,16 @@ Partial Class frmMain
         Me.lblTempME = New System.Windows.Forms.Label()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
-        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.chkCalcMinBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
         Me.btnCalcSelectColumns = New MetroFramework.Controls.MetroButton()
-        Me.txtCalcBrokerFeeRate = New MetroFramework.Controls.MetroTextBox()
-        Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.chkCalcMaxBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
-        Me.tpMaxBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
+        Me.tpMaxBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
+        Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
+        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
+        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.mnuStripMain.SuspendLayout()
         Me.pnlMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
@@ -824,20 +822,6 @@ Partial Class frmMain
         Me.cmbEdit.TabStop = False
         Me.cmbEdit.Visible = False
         '
-        'lstPricesView
-        '
-        Me.lstPricesView.FullRowSelect = True
-        Me.lstPricesView.GridLines = True
-        Me.lstPricesView.HideSelection = False
-        Me.lstPricesView.Location = New System.Drawing.Point(713, 101)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstPricesView.MultiSelect = False
-        Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(158, 280)
-        Me.lstPricesView.TabIndex = 0
-        Me.lstPricesView.UseCompatibleStateImageBehavior = False
-        Me.lstPricesView.View = System.Windows.Forms.View.Details
-        '
         'lblBPCanMakeBP
         '
         Me.lblBPCanMakeBP.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -950,15 +934,6 @@ Partial Class frmMain
         Me.lblCalcColorCode1.TabIndex = 0
         Me.lblCalcColorCode1.Text = "T"
         Me.lblCalcColorCode1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(544, 730)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
-        Me.CalcBaseFacility.TabIndex = 0
         '
         'gbCalcBPSelect
         '
@@ -1419,22 +1394,6 @@ Partial Class frmMain
         Me.btnCalcCalculate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCalcCalculate.UseSelectable = True
         '
-        'lstManufacturing
-        '
-        Me.lstManufacturing.AllowColumnReorder = True
-        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
-        Me.lstManufacturing.FullRowSelect = True
-        Me.lstManufacturing.GridLines = True
-        Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Location = New System.Drawing.Point(42, 101)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstManufacturing.Name = "lstManufacturing"
-        Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(435, 374)
-        Me.lstManufacturing.TabIndex = 1
-        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
-        Me.lstManufacturing.View = System.Windows.Forms.View.Details
-        '
         'chkCalcMinBuildTimeFilter
         '
         Me.chkCalcMinBuildTimeFilter.AutoSize = True
@@ -1460,50 +1419,6 @@ Partial Class frmMain
         Me.btnCalcSelectColumns.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCalcSelectColumns.UseSelectable = True
         '
-        'txtCalcBrokerFeeRate
-        '
-        '
-        '
-        '
-        Me.txtCalcBrokerFeeRate.CustomButton.Image = Nothing
-        Me.txtCalcBrokerFeeRate.CustomButton.Location = New System.Drawing.Point(25, 2)
-        Me.txtCalcBrokerFeeRate.CustomButton.Name = ""
-        Me.txtCalcBrokerFeeRate.CustomButton.Size = New System.Drawing.Size(17, 17)
-        Me.txtCalcBrokerFeeRate.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtCalcBrokerFeeRate.CustomButton.TabIndex = 1
-        Me.txtCalcBrokerFeeRate.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtCalcBrokerFeeRate.CustomButton.UseSelectable = True
-        Me.txtCalcBrokerFeeRate.CustomButton.Visible = False
-        Me.txtCalcBrokerFeeRate.Lines = New String(-1) {}
-        Me.txtCalcBrokerFeeRate.Location = New System.Drawing.Point(1017, 560)
-        Me.txtCalcBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcBrokerFeeRate.MaxLength = 32767
-        Me.txtCalcBrokerFeeRate.Name = "txtCalcBrokerFeeRate"
-        Me.txtCalcBrokerFeeRate.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtCalcBrokerFeeRate.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtCalcBrokerFeeRate.SelectedText = ""
-        Me.txtCalcBrokerFeeRate.SelectionLength = 0
-        Me.txtCalcBrokerFeeRate.SelectionStart = 0
-        Me.txtCalcBrokerFeeRate.ShortcutsEnabled = True
-        Me.txtCalcBrokerFeeRate.Size = New System.Drawing.Size(45, 22)
-        Me.txtCalcBrokerFeeRate.TabIndex = 62
-        Me.txtCalcBrokerFeeRate.TabStop = False
-        Me.txtCalcBrokerFeeRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtCalcBrokerFeeRate.UseSelectable = True
-        Me.txtCalcBrokerFeeRate.Visible = False
-        Me.txtCalcBrokerFeeRate.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtCalcBrokerFeeRate.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'tpMinBuildTimeFilter
-        '
-        Me.tpMinBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tpMinBuildTimeFilter.Enabled = False
-        Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(1104, 286)
-        Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
-        Me.tpMinBuildTimeFilter.Name = "tpMinBuildTimeFilter"
-        Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
-        Me.tpMinBuildTimeFilter.TabIndex = 69
-        '
         'chkCalcMaxBuildTimeFilter
         '
         Me.chkCalcMaxBuildTimeFilter.AutoSize = True
@@ -1518,16 +1433,6 @@ Partial Class frmMain
         Me.chkCalcMaxBuildTimeFilter.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.chkCalcMaxBuildTimeFilter.UseSelectable = True
         '
-        'tpMaxBuildTimeFilter
-        '
-        Me.tpMaxBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tpMaxBuildTimeFilter.Enabled = False
-        Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(1104, 324)
-        Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
-        Me.tpMaxBuildTimeFilter.Name = "tpMaxBuildTimeFilter"
-        Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
-        Me.tpMaxBuildTimeFilter.TabIndex = 70
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -1541,18 +1446,6 @@ Partial Class frmMain
         Me.Label1.Text = "use build time limits to not build anything more than a week long when counting a" &
     "ll runs"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(962, 530)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(151, 17)
-        Me.Label3.TabIndex = 74
-        Me.Label3.Text = "is this auto populated?"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -1565,6 +1458,65 @@ Partial Class frmMain
         Me.Label4.TabIndex = 75
         Me.Label4.Text = "set a default here and then delete"
         '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(544, 730)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
+        Me.CalcBaseFacility.TabIndex = 0
+        '
+        'tpMaxBuildTimeFilter
+        '
+        Me.tpMaxBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tpMaxBuildTimeFilter.Enabled = False
+        Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(1104, 324)
+        Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
+        Me.tpMaxBuildTimeFilter.Name = "tpMaxBuildTimeFilter"
+        Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
+        Me.tpMaxBuildTimeFilter.TabIndex = 70
+        '
+        'tpMinBuildTimeFilter
+        '
+        Me.tpMinBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tpMinBuildTimeFilter.Enabled = False
+        Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(1104, 286)
+        Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
+        Me.tpMinBuildTimeFilter.Name = "tpMinBuildTimeFilter"
+        Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
+        Me.tpMinBuildTimeFilter.TabIndex = 69
+        '
+        'lstPricesView
+        '
+        Me.lstPricesView.FullRowSelect = True
+        Me.lstPricesView.GridLines = True
+        Me.lstPricesView.HideSelection = False
+        Me.lstPricesView.Location = New System.Drawing.Point(713, 101)
+        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstPricesView.MultiSelect = False
+        Me.lstPricesView.Name = "lstPricesView"
+        Me.lstPricesView.Size = New System.Drawing.Size(158, 280)
+        Me.lstPricesView.TabIndex = 0
+        Me.lstPricesView.UseCompatibleStateImageBehavior = False
+        Me.lstPricesView.View = System.Windows.Forms.View.Details
+        '
+        'lstManufacturing
+        '
+        Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
+        Me.lstManufacturing.FullRowSelect = True
+        Me.lstManufacturing.GridLines = True
+        Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Location = New System.Drawing.Point(42, 101)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Name = "lstManufacturing"
+        Me.lstManufacturing.OwnerDraw = True
+        Me.lstManufacturing.Size = New System.Drawing.Size(435, 374)
+        Me.lstManufacturing.TabIndex = 1
+        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
+        Me.lstManufacturing.View = System.Windows.Forms.View.Details
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -1575,8 +1527,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.CalcBaseFacility)
         Me.Controls.Add(Me.gbCalcTextColors)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtCalcBrokerFeeRate)
         Me.Controls.Add(Me.cmbEdit)
         Me.Controls.Add(Me.btnCalcSelectColumns)
         Me.Controls.Add(Me.txtListEdit)
@@ -1767,11 +1717,9 @@ Partial Class frmMain
     Friend WithEvents txtCalcTempME As System.Windows.Forms.TextBox
     Friend WithEvents lblTempME As Label
     Friend WithEvents lstManufacturing As ManufacturingListView
-    Friend WithEvents txtCalcBrokerFeeRate As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tpMinBuildTimeFilter As TimePicker
     Friend WithEvents tpMaxBuildTimeFilter As TimePicker
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents btnCancelUpdate As MetroFramework.Controls.MetroButton
     Friend WithEvents chkCalcCanBuild As MetroFramework.Controls.MetroCheckBox
