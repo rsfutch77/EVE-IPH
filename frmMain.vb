@@ -258,6 +258,7 @@ Public Class frmMain
     Private DefaultPreviousRawRegion As String
     Private PPItemsSystemsLoaded As Boolean
     Private DefaultPreviousItemsRegion As String
+    Private calcHistoryRegion As String
 
     Private IgnoreFocus As Boolean
     Private IgnoreMarketFocus As Boolean
@@ -4163,22 +4164,27 @@ Tabs:
 
     Private Sub chkSystems1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems1.CheckedChanged
         Call SyncPriceCheckBoxes(1)
+        Call ResetRefresh()
     End Sub
 
     Private Sub chkSystems2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems2.CheckedChanged
         Call SyncPriceCheckBoxes(2)
+        Call ResetRefresh()
     End Sub
 
     Private Sub chkSystems3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems3.CheckedChanged
         Call SyncPriceCheckBoxes(3)
+        Call ResetRefresh()
     End Sub
 
     Private Sub chkSystems4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems4.CheckedChanged
         Call SyncPriceCheckBoxes(4)
+        Call ResetRefresh()
     End Sub
 
     Private Sub chkSystems5_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems5.CheckedChanged
         Call SyncPriceCheckBoxes(5)
+        Call ResetRefresh()
     End Sub
 
     Private Sub cmbPriceSystems_DropDown(sender As Object, e As System.EventArgs)
@@ -4212,6 +4218,21 @@ Tabs:
                         SystemCheckBoxes(i).Checked = False
                     End If
                 Next
+                'Set the region to match
+                Select Case TriggerIndex
+                    Case 1
+                        calcHistoryRegion = "The Forge"
+                    Case 2
+                        calcHistoryRegion = "Domain"
+                    Case 3
+                        calcHistoryRegion = "Sinq Laison"
+                    Case 4
+                        calcHistoryRegion = "Heimatar"
+                    Case 5
+                        calcHistoryRegion = "Metropolis"
+                    Case Else
+                        calcHistoryRegion = "The Forge"
+                End Select
             End If
         End If
 
@@ -6504,18 +6525,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub cmbCalcHistoryRegion_DropDown(sender As Object, e As System.EventArgs) Handles cmbCalcHistoryRegion.DropDown
-        If Not CalcHistoryRegionLoaded Then
-            Call LoadRegionCombo(cmbCalcHistoryRegion, cmbCalcHistoryRegion.Text)
-            CalcHistoryRegionLoaded = True
-        End If
-    End Sub
-
-    Private Sub cmbCalcSVRRegion_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbCalcHistoryRegion.KeyPress
-        e.Handled = True
-    End Sub
-
-    Private Sub cmbCalcSVRRegion_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbCalcHistoryRegion.SelectedIndexChanged
+    Private Sub cmbCalcSVRRegion_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7763,7 +7773,7 @@ ExitPRocessing:
             txtCalcTempME.Text = CStr(UserApplicationSettings.DefaultBPME)
             txtCalcTempTE.Text = CStr(UserApplicationSettings.DefaultBPTE)
 
-            cmbCalcHistoryRegion.Text = UserApplicationSettings.SVRAveragePriceRegion
+            calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
             txtCalcProdLines.Text = CStr(.ProductionLines)
             txtCalcLabLines.Text = CStr(.LaboratoryLines)
@@ -7939,7 +7949,7 @@ ExitPRocessing:
                 .DefaultBPTE = CInt(txtCalcTempTE.Text)
 
                 .IgnoreSVRThresholdValue = 0
-                .SVRAveragePriceRegion = cmbCalcHistoryRegion.Text
+                .SVRAveragePriceRegion = calcHistoryRegion
                 .SVRAveragePriceDuration = ""
             End With
 
@@ -8553,11 +8563,11 @@ ExitPRocessing:
                     readerIDs.Close()
 
                     ' Get the region ID
-                    MarketRegionID = GetRegionID(cmbCalcHistoryRegion.Text)
+                    MarketRegionID = GetRegionID(calcHistoryRegion)
 
                     If MarketRegionID = 0 Then
                         MarketRegionID = TheForgeTypeID ' The Forge as default
-                        cmbCalcHistoryRegion.Text = "The Forge"
+                        calcHistoryRegion = "The Forge"
                     End If
 
                     ' Update the prices
