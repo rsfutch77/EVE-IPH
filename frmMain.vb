@@ -142,6 +142,8 @@ Public Class frmMain
     ' For T2 BPOs mainly so we can load the stored ME/TE if it changes
     Private OwnedBPME As String
     Private OwnedBPPE As String
+    Private CalcTempME As Integer = 5
+    Private CalcTempTE As Integer = 10
 
     Private UpdatingCheck As Boolean
     Private UpdatingStructureIDText As Boolean
@@ -1737,27 +1739,6 @@ Public Class frmMain
         Call ResetESIIndustrySystemIndicies()
     End Sub
 
-    ' Checks the ME and TE boxes to make sure they are ok and errors if not
-    Private Function CorrectMETE(ByVal inME As String, ByVal inTE As String, ByRef METextBox As System.Windows.Forms.TextBox, ByRef TETextBox As System.Windows.Forms.TextBox) As Boolean
-
-        If Not IsNumeric(inME) Or Trim(inME) = "" Then
-            MsgBox("Invalid ME Value", vbExclamation)
-            METextBox.SelectAll()
-            METextBox.Focus()
-            Return False
-        End If
-
-        If Not IsNumeric(inTE) Or Trim(inTE) = "" Then
-            MsgBox("Invalid TE Value", vbExclamation)
-            TETextBox.SelectAll()
-            TETextBox.Focus()
-            Return False
-        End If
-
-        Return True
-
-    End Function
-
     Private Sub mnuSelectionAddChar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectionAddChar.Click
 
         ' Open up the default select box here
@@ -2687,12 +2668,6 @@ Tabs:
             Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
         End If
         txtListEdit.Visible = False
-    End Sub
-
-    Private Sub txtListEdit_TextChanged(sender As Object, e As System.EventArgs) Handles txtListEdit.TextChanged
-        If MEUpdate Then ' make sure they only enter 0-10 for values
-            Call VerifyMETEEntry(txtListEdit, "ME")
-        End If
     End Sub
 
     ' Sets the variables for price profiles
@@ -6207,7 +6182,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtTempME_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcTempME.KeyPress
+    Private Sub txtTempME_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers, negative or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedMETEChars.IndexOf(e.KeyChar) = -1 Then
@@ -6219,7 +6194,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtTempPE_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcTempTE.KeyPress
+    Private Sub txtTempPE_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedMETEChars.IndexOf(e.KeyChar) = -1 Then
@@ -6551,14 +6526,6 @@ ExitPRocessing:
                 Call RefreshManufacturingTabColumns()
             End If
         End If
-    End Sub
-
-    Private Sub txtCalcTempME_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcTempME.TextChanged
-        Call VerifyMETEEntry(txtCalcTempME, "ME")
-    End Sub
-
-    Private Sub txtCalcTempTE_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcTempTE.TextChanged
-        Call VerifyMETEEntry(txtCalcTempTE, "TE")
     End Sub
 
     Private Sub chkCalcAutoCalcT2NumBPs_CheckedChanged(sender As System.Object, e As System.EventArgs)
@@ -7745,10 +7712,6 @@ ExitPRocessing:
 
             chkCalcCanBuild.Checked = .CheckOnlyBuild
 
-            ' Other defaults
-            txtCalcTempME.Text = CStr(UserApplicationSettings.DefaultBPME)
-            txtCalcTempTE.Text = CStr(UserApplicationSettings.DefaultBPTE)
-
             calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
             txtCalcProdLines.Text = CStr(.ProductionLines)
@@ -7790,23 +7753,6 @@ ExitPRocessing:
     Private Sub btnCalcSaveSettings()
         Dim TempSettings As ManufacturingTabSettings = Nothing
         Dim Settings As New ProgramSettings
-
-        ' If they entered an ME/TE value make sure it's ok
-        If Trim(txtCalcTempME.Text) <> "" Then
-            If Not IsNumeric(txtCalcTempME.Text) Then
-                MsgBox("Invalid Temp ME value", vbExclamation, Application.ProductName)
-                txtCalcTempME.Focus()
-                Exit Sub
-            End If
-        End If
-
-        If Trim(txtCalcTempTE.Text) <> "" Then
-            If Not IsNumeric(txtCalcTempTE.Text) Then
-                MsgBox("Invalid Temp TE value", vbExclamation, Application.ProductName)
-                txtCalcTempTE.Focus()
-                Exit Sub
-            End If
-        End If
 
         If Trim(txtCalcProdLines.Text) <> "" Then
             If Not IsNumeric(txtCalcProdLines.Text) Then
@@ -7920,9 +7866,6 @@ ExitPRocessing:
 
             ' Save these here as well as in settings
             With UserApplicationSettings
-                .DefaultBPME = CInt(txtCalcTempME.Text)
-                .DefaultBPTE = CInt(txtCalcTempTE.Text)
-
                 .IgnoreSVRThresholdValue = 0
                 .SVRAveragePriceRegion = calcHistoryRegion
                 .SVRAveragePriceDuration = ""
@@ -8018,11 +7961,6 @@ ExitPRocessing:
 
         ' Set this now and enable it if they calculate
         AddToShoppingListToolStripMenuItem.Enabled = False
-
-        ' If they entered an ME/TE value make sure it's ok
-        If Not CorrectMETE(txtCalcTempME.Text, txtCalcTempTE.Text, txtCalcTempME, txtCalcTempTE) Then
-            Exit Sub
-        End If
 
         If Trim(txtCalcProdLines.Text) <> "" Then
             If Not IsNumeric(txtCalcProdLines.Text) Then
@@ -8236,7 +8174,7 @@ ExitPRocessing:
                     Case Else
                         If InsertItem.Owned = No Then
                             ' Use the default
-                            InsertItem.BPME = CInt(txtCalcTempME.Text)
+                            InsertItem.BPME = CInt(CalcTempME)
                         Else
                             ' Use what they entered
                             InsertItem.BPME = CInt(readerBPs.GetValue(9))
@@ -8258,7 +8196,7 @@ ExitPRocessing:
                     Case Else
                         If InsertItem.Owned = No Then
                             ' Use the default
-                            InsertItem.BPTE = CInt(txtCalcTempTE.Text)
+                            InsertItem.BPTE = CInt(CalcTempTE)
                         Else
                             ' Use what they entered
                             InsertItem.BPTE = CInt(readerBPs.GetValue(10))

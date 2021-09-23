@@ -159,11 +159,6 @@ Partial Class frmMain
         Me.chkSystems5 = New MetroFramework.Controls.MetroCheckBox()
         Me.chkSystems3 = New MetroFramework.Controls.MetroCheckBox()
         Me.chkSystems1 = New MetroFramework.Controls.MetroCheckBox()
-        Me.gbTempMEPE = New System.Windows.Forms.GroupBox()
-        Me.txtCalcTempTE = New System.Windows.Forms.TextBox()
-        Me.lblTempPE = New System.Windows.Forms.Label()
-        Me.txtCalcTempME = New System.Windows.Forms.TextBox()
-        Me.lblTempME = New System.Windows.Forms.Label()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
         Me.chkCalcMinBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
@@ -185,7 +180,6 @@ Partial Class frmMain
         Me.gbCalcIncludeItems.SuspendLayout()
         Me.gbCalcProdLines.SuspendLayout()
         Me.gbTradeHubSystems.SuspendLayout()
-        Me.gbTempMEPE.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuStripMain
@@ -1315,63 +1309,6 @@ Partial Class frmMain
         Me.chkSystems1.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.chkSystems1.UseSelectable = True
         '
-        'gbTempMEPE
-        '
-        Me.gbTempMEPE.BackColor = System.Drawing.Color.Transparent
-        Me.gbTempMEPE.Controls.Add(Me.txtCalcTempTE)
-        Me.gbTempMEPE.Controls.Add(Me.lblTempPE)
-        Me.gbTempMEPE.Controls.Add(Me.txtCalcTempME)
-        Me.gbTempMEPE.Controls.Add(Me.lblTempME)
-        Me.gbTempMEPE.ForeColor = System.Drawing.Color.White
-        Me.gbTempMEPE.Location = New System.Drawing.Point(1065, 391)
-        Me.gbTempMEPE.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbTempMEPE.Name = "gbTempMEPE"
-        Me.gbTempMEPE.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbTempMEPE.Size = New System.Drawing.Size(166, 50)
-        Me.gbTempMEPE.TabIndex = 11
-        Me.gbTempMEPE.TabStop = False
-        Me.gbTempMEPE.Text = "default to 5/10"
-        '
-        'txtCalcTempTE
-        '
-        Me.txtCalcTempTE.Location = New System.Drawing.Point(121, 16)
-        Me.txtCalcTempTE.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcTempTE.Name = "txtCalcTempTE"
-        Me.txtCalcTempTE.Size = New System.Drawing.Size(35, 22)
-        Me.txtCalcTempTE.TabIndex = 3
-        '
-        'lblTempPE
-        '
-        Me.lblTempPE.AutoSize = True
-        Me.lblTempPE.BackColor = System.Drawing.Color.Transparent
-        Me.lblTempPE.ForeColor = System.Drawing.Color.White
-        Me.lblTempPE.Location = New System.Drawing.Point(88, 21)
-        Me.lblTempPE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTempPE.Name = "lblTempPE"
-        Me.lblTempPE.Size = New System.Drawing.Size(30, 17)
-        Me.lblTempPE.TabIndex = 2
-        Me.lblTempPE.Text = "TE:"
-        '
-        'txtCalcTempME
-        '
-        Me.txtCalcTempME.Location = New System.Drawing.Point(46, 16)
-        Me.txtCalcTempME.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcTempME.Name = "txtCalcTempME"
-        Me.txtCalcTempME.Size = New System.Drawing.Size(35, 22)
-        Me.txtCalcTempME.TabIndex = 1
-        '
-        'lblTempME
-        '
-        Me.lblTempME.AutoSize = True
-        Me.lblTempME.BackColor = System.Drawing.Color.Transparent
-        Me.lblTempME.ForeColor = System.Drawing.Color.White
-        Me.lblTempME.Location = New System.Drawing.Point(16, 21)
-        Me.lblTempME.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTempME.Name = "lblTempME"
-        Me.lblTempME.Size = New System.Drawing.Size(32, 17)
-        Me.lblTempME.TabIndex = 0
-        Me.lblTempME.Text = "ME:"
-        '
         'btnDownloadPrices
         '
         Me.btnDownloadPrices.Location = New System.Drawing.Point(561, 511)
@@ -1540,7 +1477,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.gbCalcBPSelect)
         Me.Controls.Add(Me.chkCalcMaxBuildTimeFilter)
         Me.Controls.Add(Me.lstBPList)
-        Me.Controls.Add(Me.gbTempMEPE)
         Me.Controls.Add(Me.lstPricesView)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.lstManufacturing)
@@ -1575,8 +1511,6 @@ Partial Class frmMain
         Me.gbCalcProdLines.PerformLayout()
         Me.gbTradeHubSystems.ResumeLayout(False)
         Me.gbTradeHubSystems.PerformLayout()
-        Me.gbTempMEPE.ResumeLayout(False)
-        Me.gbTempMEPE.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1711,11 +1645,6 @@ Partial Class frmMain
     Friend WithEvents lblCalcProdLines1 As Label
     Friend WithEvents txtCalcProdLines As MetroFramework.Controls.MetroTextBox
     Friend WithEvents gbTradeHubSystems As GroupBox
-    Friend WithEvents gbTempMEPE As GroupBox
-    Friend WithEvents txtCalcTempTE As System.Windows.Forms.TextBox
-    Friend WithEvents lblTempPE As Label
-    Friend WithEvents txtCalcTempME As System.Windows.Forms.TextBox
-    Friend WithEvents lblTempME As Label
     Friend WithEvents lstManufacturing As ManufacturingListView
     Friend WithEvents tpMinBuildTimeFilter As TimePicker
     Friend WithEvents tpMaxBuildTimeFilter As TimePicker

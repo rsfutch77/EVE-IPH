@@ -1451,33 +1451,6 @@ InvalidDate:
 
     End Sub
 
-    ' Limits the referenced text box between 0 and 10/20 on text
-    Public Sub VerifyMETEEntry(ByRef METETextBox As System.Windows.Forms.TextBox, Type As String)
-        If Trim(METETextBox.Text) <> "" Then
-            If Type = "ME" Then
-                If Not IsNumeric(METETextBox) Then
-                    If CInt(METETextBox.Text) < 0 Then
-                        METETextBox.Text = "0"
-                    ElseIf CInt(METETextBox.Text) > 10 Then
-                        METETextBox.Text = "10"
-                    End If
-                Else
-                    METETextBox.Text = ""
-                End If
-            Else
-                If Not IsNumeric(METETextBox) Then
-                    If CInt(METETextBox.Text) < 0 Then
-                        METETextBox.Text = "0"
-                    ElseIf CInt(METETextBox.Text) > 20 Then
-                        METETextBox.Text = "20"
-                    End If
-                Else
-                    METETextBox.Text = ""
-                End If
-            End If
-        End If
-    End Sub
-
     ' Updates the value in the progressbar for a smooth progress - total hack from this: http://stackoverflow.com/questions/977278/how-can-i-make-the-progress-bar-update-fast-enough/1214147#1214147
     Public Sub IncrementToolStripProgressBar(ByRef PG As ToolStripProgressBar)
         If PG.Value <= PG.Maximum - 1 Then

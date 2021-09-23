@@ -75,14 +75,6 @@ Public Class frmBlueprintManagement
         End If
     End Sub
 
-    Private Sub txtBPME_TextChanged(sender As Object, e As System.EventArgs) Handles txtBPME.TextChanged
-        Call VerifyMETEEntry(txtBPME, "ME")
-    End Sub
-
-    Private Sub txtBPTE_TextChanged(sender As Object, e As System.EventArgs) Handles txtBPTE.TextChanged
-        Call VerifyMETEEntry(txtBPTE, "TE")
-    End Sub
-
     Private Sub btnResetSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnResetSearch.Click
         txtBPSearch.Text = ""
         Call UpdateBlueprintGrid(True)
@@ -2297,14 +2289,6 @@ Tabs:
         End If
         TabPressed = False ' Reset
         txtBPEdit.Visible = False
-    End Sub
-
-    Private Sub txtBPEdit_TextChanged(sender As Object, e As System.EventArgs) Handles txtBPEdit.TextChanged
-        If MEUpdate Then
-            Call VerifyMETEEntry(txtBPEdit, "ME")
-        Else
-            Call VerifyMETEEntry(txtBPEdit, "TE")
-        End If
     End Sub
 
     Private Sub cmbEdit_LostFocus(sender As Object, e As System.EventArgs) Handles cmbEdit.LostFocus, cmbEdit.LostFocus
