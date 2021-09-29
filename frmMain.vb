@@ -10532,13 +10532,16 @@ ExitCalc:
         '-----------------------------
 
         '-IPH-------------------------
-        'Eliminate negative IPH before IQR
+        'Eliminate negative IPH and low IPH before IQR
+        'The 60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
+        'running a small number of low skill, low IPH jobs
         Dim IPHExcludingNegatives(ManufacturingList.Count) As Double
         For i = 0 To ManufacturingList.Count - 1
-            If ManufacturingList(i).IPH > 0 Then
+            If ManufacturingList(i).IPH > 60000 Then
                 IPHExcludingNegatives(i) = ManufacturingList(i).IPH
             Else
                 IPHExcludingNegatives(i) = 0
+                ManufacturingList(i).IPH = 0
             End If
         Next
         'Eliminate outliers via IQR
