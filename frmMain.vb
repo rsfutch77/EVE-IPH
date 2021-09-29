@@ -10696,13 +10696,36 @@ ExitCalc:
             Else
                 SVR = 0
             End If
+
             'Give a score of zero to anything that is missing market history or won't result in any profit
             If ManufacturingList(i).IPH > 0 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
                 'SVR and trend are not as important as volatility and risk
                 ManufacturingList(i).Score = IPHNormal(i) * 1.5 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
+
+                'Bonus points for rigs since they are small and easier for new players to concentrate value in smaller transport ships
+                Dim RiskPrices As SQLiteDataReader
+                Dim RiskSQL As String = ""
+                Dim RiskPrice As String = ""
+                RiskSQL = "SELECT BLUEPRINT_GROUP FROM ALL_BLUEPRINTS WHERE BLUEPRINT_ID = " & CStr(ManufacturingList(i).BPID)
+                DBCommand = New SQLiteCommand(RiskSQL, EVEDB.DBREf)
+                RiskPrices = DBCommand.ExecuteReader
+                If RiskPrices.Read Then
+                    If Not IsDBNull(RiskPrices.GetValue(0)) Then
+                        ' Modify the price depending on modifier
+                        RiskPrice = RiskPrices.GetString(0)
+                    End If
+                    RiskPrices.Close()
+                    RiskPrices = Nothing
+                    DBCommand = Nothing
+                End If
+                If RiskPrice = "Rig Blueprint" Then
+                    ManufacturingList(i).Score = ManufacturingList(i).Score + 0.15
+                End If
+
             Else
                 ManufacturingList(i).Score = -2.0
             End If
+
         Next
 
     End Sub
