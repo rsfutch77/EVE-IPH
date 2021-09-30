@@ -911,8 +911,6 @@ Public Class frmMain
 #End Region
 
     Public Sub LoadCharacterNamesinMenu()
-        ' Default character set, now set the menu name on the panel
-        mnuCharacter.Text = "Character Loaded: " & SelectedCharacter.Name
         ' Also, load all characters we have
         Dim rsCharacters As SQLiteDataReader
         Dim SQL As String = "SELECT CHARACTER_NAME, CASE WHEN GENDER IS NULL THEN 'male' ELSE GENDER END AS GENDER "
@@ -920,136 +918,41 @@ Public Class frmMain
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         rsCharacters = DBCommand.ExecuteReader
 
-        Dim Counter As Integer = 0
+        Dim Counter As Integer = 1
 
-        ' Reset all 
-        tsCharacter1.Text = ""
-        tsCharacter1.Visible = False
-        tsCharacter2.Text = ""
-        tsCharacter2.Visible = False
-        tsCharacter3.Text = ""
-        tsCharacter3.Visible = False
-        tsCharacter4.Text = ""
-        tsCharacter4.Visible = False
-        tsCharacter5.Text = ""
-        tsCharacter5.Visible = False
-        tsCharacter6.Text = ""
-        tsCharacter6.Visible = False
-        tsCharacter7.Text = ""
-        tsCharacter7.Visible = False
-        tsCharacter8.Text = ""
-        tsCharacter8.Visible = False
-        tsCharacter9.Text = ""
-        tsCharacter9.Visible = False
-        tsCharacter10.Text = ""
-        tsCharacter10.Visible = False
-        tsCharacter11.Text = ""
-        tsCharacter11.Visible = False
-        tsCharacter12.Text = ""
-        tsCharacter12.Visible = False
-        tsCharacter13.Text = ""
-        tsCharacter13.Visible = False
-        tsCharacter14.Text = ""
-        tsCharacter14.Visible = False
-        tsCharacter15.Text = ""
-        tsCharacter15.Visible = False
-        tsCharacter16.Text = ""
-        tsCharacter16.Visible = False
-        tsCharacter17.Text = ""
-        tsCharacter17.Visible = False
-        tsCharacter18.Text = ""
-        tsCharacter18.Visible = False
-        tsCharacter19.Text = ""
-        tsCharacter19.Visible = False
-        tsCharacter20.Text = ""
-        tsCharacter20.Visible = False
-
-        While rsCharacters.Read
+        While rsCharacters.Read And Counter < 21
             ' Add all the character names to the list for the number we have - only load 20 characters
-            Select Case Counter
-                Case 0
-                    tsCharacter1.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter1, rsCharacters.GetString(1))
-                    tsCharacter1.Visible = True
-                Case 1
-                    tsCharacter2.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter2, rsCharacters.GetString(1))
-                    tsCharacter2.Visible = True
-                Case 2
-                    tsCharacter3.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter3, rsCharacters.GetString(1))
-                    tsCharacter3.Visible = True
-                Case 3
-                    tsCharacter4.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter4, rsCharacters.GetString(1))
-                    tsCharacter4.Visible = True
-                Case 4
-                    tsCharacter5.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter5, rsCharacters.GetString(1))
-                    tsCharacter5.Visible = True
-                Case 5
-                    tsCharacter6.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter6, rsCharacters.GetString(1))
-                    tsCharacter6.Visible = True
-                Case 6
-                    tsCharacter7.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter7, rsCharacters.GetString(1))
-                    tsCharacter7.Visible = True
-                Case 7
-                    tsCharacter8.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter8, rsCharacters.GetString(1))
-                    tsCharacter8.Visible = True
-                Case 8
-                    tsCharacter9.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter9, rsCharacters.GetString(1))
-                    tsCharacter9.Visible = True
-                Case 9
-                    tsCharacter10.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter10, rsCharacters.GetString(1))
-                    tsCharacter10.Visible = True
-                Case 10
-                    tsCharacter11.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter11, rsCharacters.GetString(1))
-                    tsCharacter11.Visible = True
-                Case 11
-                    tsCharacter12.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter12, rsCharacters.GetString(1))
-                    tsCharacter12.Visible = True
-                Case 12
-                    tsCharacter13.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter13, rsCharacters.GetString(1))
-                    tsCharacter13.Visible = True
-                Case 13
-                    tsCharacter14.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter14, rsCharacters.GetString(1))
-                    tsCharacter14.Visible = True
-                Case 14
-                    tsCharacter15.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter15, rsCharacters.GetString(1))
-                    tsCharacter15.Visible = True
-                Case 15
-                    tsCharacter16.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter16, rsCharacters.GetString(1))
-                    tsCharacter16.Visible = True
-                Case 16
-                    tsCharacter17.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter17, rsCharacters.GetString(1))
-                    tsCharacter17.Visible = True
-                Case 17
-                    tsCharacter18.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter18, rsCharacters.GetString(1))
-                    tsCharacter18.Visible = True
-                Case 18
-                    tsCharacter19.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter19, rsCharacters.GetString(1))
-                    tsCharacter19.Visible = True
-                Case 19
-                    tsCharacter20.Text = rsCharacters.GetString(0)
-                    Call SetCharToolStripImage(tsCharacter20, rsCharacters.GetString(1))
-                    tsCharacter20.Visible = True
-            End Select
+            mnuChar.Items.Add(rsCharacters.GetString(0))
             Counter += 1 ' increment
         End While
+
+        Dim rsCharacter As SQLiteDataReader
+
+        ' See if we have a character ID loaded
+        SQL = "SELECT CHARACTER_NAME FROM ESI_CHARACTER_DATA WHERE IS_DEFAULT <> 0"
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        rsCharacter = DBCommand.ExecuteReader
+        Dim name As String
+
+        If rsCharacter.Read() Then
+            ' Set the base data, character ID and access token data
+            name = rsCharacter.GetString(0)
+            'Set the current name to the default
+            mnuChar.SelectedIndex = mnuChar.FindString(name)
+
+            rsCharacter.Close()
+
+            'Set the default again
+            ' Update them all to 0 first
+            Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET IS_DEFAULT = 0")
+            Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET IS_DEFAULT = " & CStr(DefaultCharacterCode) & " WHERE CHARACTER_NAME = '" & FormatDBString(name) & "'")
+
+
+        Else ' No record in DB
+            rsCharacter.Close()
+        End If
+
+
 
     End Sub
 
@@ -1067,7 +970,6 @@ Public Class frmMain
         Call LoadCharacter(ToolStripText)
         ' New character so make sure the facilities reflect that
         Call LoadFacilities()
-        mnuCharacter.Text = "Character Loaded: " & ToolStripText
         Cursor.Current = Cursors.Default
     End Sub
 
@@ -1081,84 +983,8 @@ Public Class frmMain
     End Function
 
     ' Set all the tool strips for characters since I can't process them if they aren't set at runtime
-    Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter1.Click
-        Call LoadSelectedCharacter(tsCharacter1.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter2.Click
-        Call LoadSelectedCharacter(tsCharacter2.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter3.Click
-        Call LoadSelectedCharacter(tsCharacter3.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem4_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter4.Click
-        Call LoadSelectedCharacter(tsCharacter4.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem5_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter5.Click
-        Call LoadSelectedCharacter(tsCharacter5.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem6_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter6.Click
-        Call LoadSelectedCharacter(tsCharacter6.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem7_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter7.Click
-        Call LoadSelectedCharacter(tsCharacter7.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem8_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter8.Click
-        Call LoadSelectedCharacter(tsCharacter8.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem9_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter9.Click
-        Call LoadSelectedCharacter(tsCharacter9.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem10_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter10.Click
-        Call LoadSelectedCharacter(tsCharacter10.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem11_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter11.Click
-        Call LoadSelectedCharacter(tsCharacter11.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem12_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter12.Click
-        Call LoadSelectedCharacter(tsCharacter12.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem13_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter13.Click
-        Call LoadSelectedCharacter(tsCharacter13.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem14_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter14.Click
-        Call LoadSelectedCharacter(tsCharacter14.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem15_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter15.Click
-        Call LoadSelectedCharacter(tsCharacter15.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem16_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter16.Click
-        Call LoadSelectedCharacter(tsCharacter16.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem17_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter17.Click
-        Call LoadSelectedCharacter(tsCharacter17.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem18_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter18.Click
-        Call LoadSelectedCharacter(tsCharacter18.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem19_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter19.Click
-        Call LoadSelectedCharacter(tsCharacter19.Text)
-    End Sub
-
-    Private Sub ToolStripMenuItem20_Click(sender As System.Object, e As System.EventArgs) Handles tsCharacter20.Click
-        Call LoadSelectedCharacter(tsCharacter20.Text)
+    Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs) Handles mnuChar.SelectedIndexChanged
+        Call LoadSelectedCharacter(mnuChar.Text)
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -1758,7 +1584,7 @@ Public Class frmMain
         Call f1.ShowDialog()
 
         ' Default character set, now set the panel if it changed
-        If SelectedCharacter.Name <> mnuCharacter.Text.Substring(mnuCharacter.Text.IndexOf(":") + 2) Then
+        If SelectedCharacter.Name <> mnuChar.SelectedText Then
             ' If we returned, we got a default character set
             Call ResetTabs()
             Call LoadCharacterNamesinMenu()

@@ -81,28 +81,6 @@ Partial Class frmMain
         Me.mnuCheckforUpdates = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuSelectionAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.pnlMain = New System.Windows.Forms.StatusStrip()
-        Me.mnuCharacter = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.tsCharacter1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter4 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter5 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter6 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter7 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter8 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter9 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter10 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter11 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter12 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter13 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter14 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter15 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter16 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter17 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter18 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter19 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsCharacter20 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ttBP = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
@@ -182,9 +160,8 @@ Partial Class frmMain
         Me.pnlShoppingList = New MetroFramework.Controls.MetroLabel()
         Me.pnlSkills = New MetroFramework.Controls.MetroLabel()
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
-        Me.comboChar = New MetroFramework.Controls.MetroComboBox()
+        Me.mnuChar = New MetroFramework.Controls.MetroComboBox()
         Me.mnuStripMain.SuspendLayout()
-        Me.pnlMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcProdLines.SuspendLayout()
         Me.MetroTabControl.SuspendLayout()
@@ -548,155 +525,6 @@ Partial Class frmMain
         Me.mnuSelectionAbout.Name = "mnuSelectionAbout"
         Me.mnuSelectionAbout.Size = New System.Drawing.Size(213, 26)
         Me.mnuSelectionAbout.Text = "About IPH"
-        '
-        'pnlMain
-        '
-        Me.pnlMain.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.pnlMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCharacter})
-        Me.pnlMain.Location = New System.Drawing.Point(20, 1012)
-        Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Padding = New System.Windows.Forms.Padding(1, 0, 18, 0)
-        Me.pnlMain.Size = New System.Drawing.Size(2061, 24)
-        Me.pnlMain.SizingGrip = False
-        Me.pnlMain.TabIndex = 1
-        Me.pnlMain.Text = "pnlMain"
-        '
-        'mnuCharacter
-        '
-        Me.mnuCharacter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.mnuCharacter.AutoSize = False
-        Me.mnuCharacter.AutoToolTip = False
-        Me.mnuCharacter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuCharacter.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsCharacter1, Me.tsCharacter2, Me.tsCharacter3, Me.tsCharacter4, Me.tsCharacter5, Me.tsCharacter6, Me.tsCharacter7, Me.tsCharacter8, Me.tsCharacter9, Me.tsCharacter10, Me.tsCharacter11, Me.tsCharacter12, Me.tsCharacter13, Me.tsCharacter14, Me.tsCharacter15, Me.tsCharacter16, Me.tsCharacter17, Me.tsCharacter18, Me.tsCharacter19, Me.tsCharacter20})
-        Me.mnuCharacter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.mnuCharacter.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.mnuCharacter.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.mnuCharacter.Name = "mnuCharacter"
-        Me.mnuCharacter.Size = New System.Drawing.Size(250, 22)
-        Me.mnuCharacter.Text = "Character Loaded:"
-        Me.mnuCharacter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.mnuCharacter.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
-        '
-        'tsCharacter1
-        '
-        Me.tsCharacter1.Name = "tsCharacter1"
-        Me.tsCharacter1.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter1.Text = "tsCharacter1"
-        '
-        'tsCharacter2
-        '
-        Me.tsCharacter2.Name = "tsCharacter2"
-        Me.tsCharacter2.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter2.Text = "tsCharacter2"
-        '
-        'tsCharacter3
-        '
-        Me.tsCharacter3.Name = "tsCharacter3"
-        Me.tsCharacter3.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter3.Text = "tsCharacter3"
-        '
-        'tsCharacter4
-        '
-        Me.tsCharacter4.Name = "tsCharacter4"
-        Me.tsCharacter4.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter4.Text = "tsCharacter4"
-        '
-        'tsCharacter5
-        '
-        Me.tsCharacter5.ImageTransparentColor = System.Drawing.Color.White
-        Me.tsCharacter5.Name = "tsCharacter5"
-        Me.tsCharacter5.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter5.Text = "tsCharacter5"
-        '
-        'tsCharacter6
-        '
-        Me.tsCharacter6.Name = "tsCharacter6"
-        Me.tsCharacter6.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter6.Text = "tsCharacter6"
-        '
-        'tsCharacter7
-        '
-        Me.tsCharacter7.Name = "tsCharacter7"
-        Me.tsCharacter7.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter7.Text = "tsCharacter7"
-        '
-        'tsCharacter8
-        '
-        Me.tsCharacter8.Name = "tsCharacter8"
-        Me.tsCharacter8.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter8.Text = "tsCharacter8"
-        '
-        'tsCharacter9
-        '
-        Me.tsCharacter9.Name = "tsCharacter9"
-        Me.tsCharacter9.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter9.Text = "tsCharacter9"
-        '
-        'tsCharacter10
-        '
-        Me.tsCharacter10.Name = "tsCharacter10"
-        Me.tsCharacter10.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter10.Text = "tsCharacter10"
-        '
-        'tsCharacter11
-        '
-        Me.tsCharacter11.Name = "tsCharacter11"
-        Me.tsCharacter11.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter11.Text = "tsCharacter11"
-        '
-        'tsCharacter12
-        '
-        Me.tsCharacter12.Name = "tsCharacter12"
-        Me.tsCharacter12.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter12.Text = "tsCharacter12"
-        '
-        'tsCharacter13
-        '
-        Me.tsCharacter13.Name = "tsCharacter13"
-        Me.tsCharacter13.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter13.Text = "tsCharacter13"
-        '
-        'tsCharacter14
-        '
-        Me.tsCharacter14.Name = "tsCharacter14"
-        Me.tsCharacter14.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter14.Text = "tsCharacter14"
-        '
-        'tsCharacter15
-        '
-        Me.tsCharacter15.Name = "tsCharacter15"
-        Me.tsCharacter15.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter15.Text = "tsCharacter15"
-        '
-        'tsCharacter16
-        '
-        Me.tsCharacter16.Name = "tsCharacter16"
-        Me.tsCharacter16.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter16.Text = "tsCharacter16"
-        '
-        'tsCharacter17
-        '
-        Me.tsCharacter17.Name = "tsCharacter17"
-        Me.tsCharacter17.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter17.Text = "tsCharacter17"
-        '
-        'tsCharacter18
-        '
-        Me.tsCharacter18.Name = "tsCharacter18"
-        Me.tsCharacter18.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter18.Text = "tsCharacter18"
-        '
-        'tsCharacter19
-        '
-        Me.tsCharacter19.Name = "tsCharacter19"
-        Me.tsCharacter19.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter19.Text = "tsCharacter19"
-        '
-        'tsCharacter20
-        '
-        Me.tsCharacter20.Name = "tsCharacter20"
-        Me.tsCharacter20.Size = New System.Drawing.Size(224, 26)
-        Me.tsCharacter20.Text = "tsCharacter20"
         '
         'ttBP
         '
@@ -1591,16 +1419,15 @@ Partial Class frmMain
         Me.pnlStatus.TabIndex = 86
         Me.pnlStatus.Text = "Status"
         '
-        'comboChar
+        'mnuChar
         '
-        Me.comboChar.FormattingEnabled = True
-        Me.comboChar.ItemHeight = 24
-        Me.comboChar.Items.AddRange(New Object() {"char1", "char2", "char3", "char4", "char5", "char6", "char7", "char8", "char9", "char10", "char11", "char12", "char13", "char14", "char15", "char16", "char17", "char18", "char19", "char20"})
-        Me.comboChar.Location = New System.Drawing.Point(1083, 799)
-        Me.comboChar.Name = "comboChar"
-        Me.comboChar.Size = New System.Drawing.Size(276, 30)
-        Me.comboChar.TabIndex = 87
-        Me.comboChar.UseSelectable = True
+        Me.mnuChar.FormattingEnabled = True
+        Me.mnuChar.ItemHeight = 24
+        Me.mnuChar.Location = New System.Drawing.Point(1083, 799)
+        Me.mnuChar.Name = "mnuChar"
+        Me.mnuChar.Size = New System.Drawing.Size(276, 30)
+        Me.mnuChar.TabIndex = 87
+        Me.mnuChar.UseSelectable = True
         '
         'frmMain
         '
@@ -1609,7 +1436,7 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
-        Me.Controls.Add(Me.comboChar)
+        Me.Controls.Add(Me.mnuChar)
         Me.Controls.Add(Me.pnlStatus)
         Me.Controls.Add(Me.pnlSkills)
         Me.Controls.Add(Me.pnlShoppingList)
@@ -1633,7 +1460,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.cmbBPBlueprintSelection)
         Me.Controls.Add(Me.chkCalcMaxBuildTimeFilter)
         Me.Controls.Add(Me.lstBPList)
-        Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.chkCalcMinBuildTimeFilter)
         Me.Controls.Add(Me.btnCalcCalculate)
         Me.Controls.Add(Me.btnCancelUpdate)
@@ -1648,8 +1474,6 @@ Partial Class frmMain
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.mnuStripMain.ResumeLayout(False)
         Me.mnuStripMain.PerformLayout()
-        Me.pnlMain.ResumeLayout(False)
-        Me.pnlMain.PerformLayout()
         Me.ListOptionsMenu.ResumeLayout(False)
         Me.gbCalcProdLines.ResumeLayout(False)
         Me.gbCalcProdLines.PerformLayout()
@@ -1677,7 +1501,6 @@ Partial Class frmMain
     Friend WithEvents mnuSettings As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuAbout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSelectionAbout As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents pnlMain As System.Windows.Forms.StatusStrip
     Friend WithEvents mnuSelectDefaultChar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuItemUpdatePrices As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSelectionAddChar As System.Windows.Forms.ToolStripMenuItem
@@ -1805,28 +1628,7 @@ Partial Class frmMain
     Friend WithEvents MetroTile4 As MetroFramework.Controls.MetroTile
     Friend WithEvents MetroTile5 As MetroFramework.Controls.MetroTile
     Friend WithEvents pnlShoppingList As MetroFramework.Controls.MetroLabel
-    Friend WithEvents mnuCharacter As ToolStripDropDownButton
-    Friend WithEvents tsCharacter1 As ToolStripMenuItem
-    Friend WithEvents tsCharacter2 As ToolStripMenuItem
-    Friend WithEvents tsCharacter3 As ToolStripMenuItem
-    Friend WithEvents tsCharacter4 As ToolStripMenuItem
-    Friend WithEvents tsCharacter5 As ToolStripMenuItem
-    Friend WithEvents tsCharacter6 As ToolStripMenuItem
-    Friend WithEvents tsCharacter7 As ToolStripMenuItem
-    Friend WithEvents tsCharacter8 As ToolStripMenuItem
-    Friend WithEvents tsCharacter9 As ToolStripMenuItem
-    Friend WithEvents tsCharacter10 As ToolStripMenuItem
-    Friend WithEvents tsCharacter11 As ToolStripMenuItem
-    Friend WithEvents tsCharacter12 As ToolStripMenuItem
-    Friend WithEvents tsCharacter13 As ToolStripMenuItem
-    Friend WithEvents tsCharacter14 As ToolStripMenuItem
-    Friend WithEvents tsCharacter15 As ToolStripMenuItem
-    Friend WithEvents tsCharacter16 As ToolStripMenuItem
-    Friend WithEvents tsCharacter17 As ToolStripMenuItem
-    Friend WithEvents tsCharacter18 As ToolStripMenuItem
-    Friend WithEvents tsCharacter19 As ToolStripMenuItem
-    Friend WithEvents tsCharacter20 As ToolStripMenuItem
     Friend WithEvents pnlSkills As MetroFramework.Controls.MetroLabel
     Friend WithEvents pnlStatus As MetroFramework.Controls.MetroLabel
-    Friend WithEvents comboChar As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents mnuChar As MetroFramework.Controls.MetroComboBox
 End Class
