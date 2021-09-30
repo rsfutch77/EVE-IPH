@@ -1068,7 +1068,7 @@ Public Class ESI
     End Function
 
     ' Updates the db with orders from structures for the items and region sent
-    Public Function UpdateStructureMarketOrders(RegionIDs As List(Of String), ByVal Tokendata As SavedTokenData, ByRef refPG As ToolStripProgressBar) As Boolean
+    Public Function UpdateStructureMarketOrders(RegionIDs As List(Of String), ByVal Tokendata As SavedTokenData, ByRef refPG As MetroFramework.Controls.MetroProgressBar) As Boolean
         Dim SQL As String
         Dim rsCheck As SQLiteDataReader
         Dim CacheDate As Date = NoDate
@@ -1192,12 +1192,12 @@ Public Class ESI
     Public Structure StructureDataQueryInfo
         Dim StructureID As Long
         Dim TokenData As SavedTokenData
-        Dim ProgressBarRef As ToolStripProgressBar
+        Dim ProgressBarRef As MetroFramework.Controls.MetroProgressBar
         Dim SupressMessages As Boolean
     End Structure
 
     ' Updates the class referenced toolbar 
-    Private Sub IncrementToolStripProgressBar(inValue As Integer, ByRef PG As ToolStripProgressBar)
+    Private Sub IncrementToolStripProgressBar(inValue As Integer, ByRef PG As MetroFramework.Controls.MetroProgressBar)
 
         If IsNothing(PG) Then
             Exit Sub

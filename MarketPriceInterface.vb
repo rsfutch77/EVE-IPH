@@ -6,11 +6,11 @@ Public Class MarketPriceInterface
     Private TypeIDToFind As Long ' For searching a price list
     Private PriceHistoryUpdateCount As Integer ' For counting price history updates
     Private PriceOrdersUpdateCount As Integer ' for counting price updates
-    Private RefProgressBar As ToolStripProgressBar
+    Private RefProgressBar As MetroFramework.Controls.MetroProgressBar
 
     Private TrackingRecords As Boolean
 
-    Public Sub New(ByRef SentPG As ToolStripProgressBar)
+    Public Sub New(ByRef SentPG As MetroFramework.Controls.MetroProgressBar)
         RefProgressBar = SentPG
         PriceHistoryUpdateCount = 0
         TrackingRecords = False

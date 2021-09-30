@@ -16,11 +16,11 @@ Public Class StructureProcessor
         Dim StructureID As Long
         Dim TokenData As SavedTokenData
         Dim ManualEntry As Boolean
-        Dim RefPG As ToolStripProgressBar
+        Dim RefPG As MetroFramework.Controls.MetroProgressBar
     End Structure
 
     ' Updates the stations table with upwell structure data for the list of IDs sent and returns a set of name/ID pairs using threading
-    Public Sub UpdateStructuresData(StructureIDs As List(Of Long), CharacterTokenData As SavedTokenData, ManualEntry As Boolean, refPG As ToolStripProgressBar)
+    Public Sub UpdateStructuresData(StructureIDs As List(Of Long), CharacterTokenData As SavedTokenData, ManualEntry As Boolean, refPG As MetroFramework.Controls.MetroProgressBar)
 
         Try
             Dim Threads As New ThreadingArray
@@ -241,7 +241,7 @@ Public Class StructureProcessor
     End Function
 
     ' Updates the class referenced toolbar 
-    Private Sub IncrementToolStripProgressBar(inValue As Integer, ByRef PG As ToolStripProgressBar)
+    Private Sub IncrementToolStripProgressBar(inValue As Integer, ByRef PG As MetroFramework.Controls.MetroProgressBar)
 
         If IsNothing(PG) Then
             Exit Sub

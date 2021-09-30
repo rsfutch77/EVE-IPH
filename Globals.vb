@@ -1437,8 +1437,8 @@ InvalidDate:
         Dim SQL As String = ""
         Dim rsData As SQLiteDataReader
 
-        Sql = "SELECT regionName FROM REGIONS WHERE regionName NOT LIKE '%-R%' OR regionName = 'G-R00031' GROUP BY regionName "
-        DBCommand = New SQLiteCommand(Sql, EVEDB.DBREf)
+        SQL = "SELECT regionName FROM REGIONS WHERE regionName NOT LIKE '%-R%' OR regionName = 'G-R00031' GROUP BY regionName "
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         rsData = DBCommand.ExecuteReader
         RegionCombo.BeginUpdate()
         RegionCombo.Items.Clear()
@@ -1452,7 +1452,7 @@ InvalidDate:
     End Sub
 
     ' Updates the value in the progressbar for a smooth progress - total hack from this: http://stackoverflow.com/questions/977278/how-can-i-make-the-progress-bar-update-fast-enough/1214147#1214147
-    Public Sub IncrementToolStripProgressBar(ByRef PG As ToolStripProgressBar)
+    Public Sub IncrementToolStripProgressBar(ByRef PG As MetroFramework.Controls.MetroProgressBar)
         If PG.Value <= PG.Maximum - 1 Then
             PG.Value = PG.Value + 1
             PG.Value = PG.Value - 1
@@ -1630,7 +1630,7 @@ InvalidDate:
                 OutputString = "'" & FormatDBString(CStr(inValue)) & "'"
             End If
         Else
-                OutputString = "NULL"
+            OutputString = "NULL"
         End If
 
         Return OutputString

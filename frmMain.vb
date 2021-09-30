@@ -802,37 +802,37 @@ Public Class frmMain
 #Region "Tool Tip Processing"
 
     ' Manufacturing Tab
-    Private Sub lblCalcColorCode1_MouseEnter(sender As Object, e As System.EventArgs) Handles lblCalcColorCode1.MouseEnter
+    Private Sub lblCalcColorCode1_MouseEnter(sender As Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode1, "Beige Background: Owned Blueprint")
         End If
     End Sub
 
-    Private Sub lblCalcColorCode2_MouseEnter(sender As System.Object, e As System.EventArgs) Handles lblCalcColorCode2.MouseEnter
+    Private Sub lblCalcColorCode2_MouseEnter(sender As System.Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode2, "Light Blue Background: T2 item with Owned T1 Blueprint (for invention)")
         End If
     End Sub
 
-    Private Sub lblCalcColorCode3_MouseEnter(sender As System.Object, e As System.EventArgs) Handles lblCalcColorCode3.MouseEnter
+    Private Sub lblCalcColorCode3_MouseEnter(sender As System.Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode3, "Green Text: Unable to T3 Invent Item")
         End If
     End Sub
 
-    Private Sub lblCalcColorCode4_MouseEnter(sender As System.Object, e As System.EventArgs) Handles lblCalcColorCode4.MouseEnter
+    Private Sub lblCalcColorCode4_MouseEnter(sender As System.Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode4, "Orange Text: Unable to Invent Item")
         End If
     End Sub
 
-    Private Sub lblCalcColorCode5_MouseEnter(sender As System.Object, e As System.EventArgs) Handles lblCalcColorCode5.MouseEnter
+    Private Sub lblCalcColorCode5_MouseEnter(sender As System.Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode5, "Red Text: Unable to Build Item")
         End If
     End Sub
 
-    Private Sub lblCalcColorCode6_MouseEnter(sender As System.Object, e As System.EventArgs) Handles lblCalcColorCode6.MouseEnter
+    Private Sub lblCalcColorCode6_MouseEnter(sender As System.Object, e As System.EventArgs)
         If UserApplicationSettings.ShowToolTips Then
             ttBP.SetToolTip(lblCalcColorCode6, "Green Background: Corp Owned Blueprint")
         End If
@@ -1842,7 +1842,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub pnlShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlShoppingList.Click
+    Private Sub pnlShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ShowShoppingList()
     End Sub
 
@@ -1860,7 +1860,7 @@ Public Class frmMain
         Call OpenCharacterSkills()
     End Sub
 
-    Private Sub pnlSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlSkills.Click
+    Private Sub pnlSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call OpenCharacterSkills()
     End Sub
 
@@ -2707,7 +2707,7 @@ Tabs:
     End Sub
 
     ' Detects Scroll event and hides boxes
-    Private Sub lstPricesView_ProcMsg(ByVal m As System.Windows.Forms.Message) Handles lstPricesView.ProcMsg
+    Private Sub lstPricesView_ProcMsg(ByVal m As System.Windows.Forms.Message)
         txtListEdit.Hide()
         cmbEdit.Hide()
     End Sub
@@ -2931,7 +2931,7 @@ Tabs:
 
     End Sub
 
-    Private Sub lstPricesView_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs) Handles lstPricesView.ColumnWidthChanging
+    Private Sub lstPricesView_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs)
         If e.ColumnIndex = 0 Or e.ColumnIndex >= 4 Then
             e.Cancel = True
             e.NewWidth = lstPricesView.Columns(e.ColumnIndex).Width
@@ -4137,27 +4137,27 @@ Tabs:
         RefreshList = True
     End Sub
 
-    Private Sub chkSystems1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems1.CheckedChanged
+    Private Sub chkSystems1_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call SyncPriceCheckBoxes(1)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkSystems2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems2.CheckedChanged
+    Private Sub chkSystems2_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call SyncPriceCheckBoxes(2)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkSystems3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems3.CheckedChanged
+    Private Sub chkSystems3_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call SyncPriceCheckBoxes(3)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkSystems4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems4.CheckedChanged
+    Private Sub chkSystems4_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call SyncPriceCheckBoxes(4)
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkSystems5_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSystems5.CheckedChanged
+    Private Sub chkSystems5_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call SyncPriceCheckBoxes(5)
         Call ResetRefresh()
     End Sub
@@ -4213,7 +4213,7 @@ Tabs:
 
     End Sub
 
-    Private Sub lstPricesView_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstPricesView.ColumnClick
+    Private Sub lstPricesView_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs)
 
         Call ListViewColumnSorter(e.Column, CType(lstPricesView, ListView), UpdatePricesColumnClicked, UpdatePricesColumnSortType)
 
@@ -4525,7 +4525,7 @@ Tabs:
 
     End Sub
 
-    Private Sub lstPricesView_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lstPricesView.MouseClick
+    Private Sub lstPricesView_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs)
         Call ListClicked(lstPricesView, sender, e)
     End Sub
 
@@ -4579,7 +4579,7 @@ Tabs:
         SaveUpdatePrices()
 
         ' Progress Bar Init
-        pnlProgressBar.Value = 0
+        MetroProgressBar.Value = 0
 
         Dim RegionSelectedCount As Integer = 0
 
@@ -4762,7 +4762,7 @@ ExitSub:
 
         Me.Refresh()
         Cursor.Current = Cursors.Default
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Visible = False
         pnlStatus.Text = ""
 
     End Sub
@@ -4777,7 +4777,7 @@ ExitSub:
         Dim RegionList As String
         Dim SelectedPrice As Double
         Dim RiskPrice As Double
-        Dim MP As New MarketPriceInterface(pnlProgressBar)
+        Dim MP As New MarketPriceInterface(MetroProgressBar)
         Dim ESIData As New ESI
         Dim ItemTypeIDs = New List(Of String)
         Dim RegionID As String = ""
@@ -4846,7 +4846,7 @@ ExitSub:
                 ' First, make sure we have structures in the table to query
                 Call ESIData.UpdatePublicStructureswithMarkets()
 
-                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, pnlProgressBar) Then
+                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
                     ' Update Failed, don't reload everything
                     Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
                     pnlStatus.Text = ""
@@ -4874,10 +4874,10 @@ ExitSub:
         ' Working
         pnlStatus.Text = "Updating Item Prices..."
         RegionList = ""
-        pnlProgressBar.Value = 0
-        pnlProgressBar.Minimum = 0
-        pnlProgressBar.Maximum = SentItems.Count + 1
-        pnlProgressBar.Visible = True
+        MetroProgressBar.Value = 0
+        MetroProgressBar.Minimum = 0
+        MetroProgressBar.Maximum = SentItems.Count + 1
+        MetroProgressBar.Visible = True
 
         Application.DoEvents()
 
@@ -5069,7 +5069,7 @@ ExitSub:
             End If
 
             ' For each record, update the progress bar
-            Call IncrementToolStripProgressBar(pnlProgressBar)
+            Call IncrementToolStripProgressBar(MetroProgressBar)
 
             Application.DoEvents()
         Next
@@ -5077,7 +5077,7 @@ ExitSub:
         Call EVEDB.CommitSQLiteTransaction()
 
         ' Done updating, hide the progress bar
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Visible = False
         pnlStatus.Text = ""
         Application.DoEvents()
 
@@ -5349,14 +5349,14 @@ ExitSub:
         Dim readerPriceCheck As SQLiteDataReader
 
         ' Reset the value of the progress bar
-        pnlProgressBar.Value = 0
+        MetroProgressBar.Value = 0
         If CacheItems.Count <> 0 Then
-            pnlProgressBar.Maximum = CacheItems.Count - 1
+            MetroProgressBar.Maximum = CacheItems.Count - 1
         Else
-            pnlProgressBar.Maximum = 0
+            MetroProgressBar.Maximum = 0
         End If
 
-        pnlProgressBar.Visible = True
+        MetroProgressBar.Visible = True
         CancelUpdatePrices = False
 
         pnlStatus.Text = "Checking Items..."
@@ -5430,17 +5430,17 @@ ExitSub:
             End If
 
             ' For each record, update the progress bar
-            Call IncrementToolStripProgressBar(pnlProgressBar)
+            Call IncrementToolStripProgressBar(MetroProgressBar)
 
             Application.DoEvents()
         Next
 
         ' Don't show until download is done
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Visible = False
         ' Reset the value of the progress bar
-        pnlProgressBar.Value = 0
+        MetroProgressBar.Value = 0
         ' Set the maximum updates for the progress bar
-        pnlProgressBar.Maximum = TotalUpdateItems + 1
+        MetroProgressBar.Maximum = TotalUpdateItems + 1
 
         If QueryEVEMarketer Then
             pnlStatus.Text = "Downloading Item Prices..."
@@ -5458,7 +5458,7 @@ ExitSub:
             End If
 
             ' Show the progress bar now and update status
-            pnlProgressBar.Visible = True
+            MetroProgressBar.Visible = True
             pnlStatus.Text = "Updating Price Cache..."
             Application.DoEvents()
 
@@ -5489,7 +5489,7 @@ ExitSub:
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                 ' For each record, update the progress bar
-                Call IncrementToolStripProgressBar(pnlProgressBar)
+                Call IncrementToolStripProgressBar(MetroProgressBar)
 
                 Application.DoEvents()
             Next
@@ -5504,7 +5504,7 @@ ExitSub:
 
         ' Done updating, hide the progress bar
         CancelUpdatePrices = False
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Visible = False
         UpdatePricesCache = True
         pnlStatus.Text = ""
         Application.DoEvents()
@@ -5927,7 +5927,7 @@ ExitPRocessing:
 
 #Region "Manufacturing Object Functions"
 
-    Private Sub lstManufacturing_KeyDown(sender As System.Object, e As System.Windows.Forms.KeyEventArgs) Handles lstManufacturing.KeyDown
+    Private Sub lstManufacturing_KeyDown(sender As System.Object, e As System.Windows.Forms.KeyEventArgs)
 
         If e.KeyCode = Keys.C AndAlso e.Control = True Then ' Copy
             ' Find the bp record selected
@@ -6174,7 +6174,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcCanBuild_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCalcCanBuild.CheckedChanged
+    Private Sub chkCalcCanBuild_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -6389,21 +6389,21 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub rbtnCalcBPOwned_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcBPOwned.CheckedChanged
+    Private Sub rbtnCalcBPOwned_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcAllBPs.CheckedChanged
+    Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             Call ResetRefresh()
         End If
     End Sub
 
-    Private Sub rbtnCalcBPFavorites_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnCalcBPFavorites.CheckedChanged
+    Private Sub rbtnCalcBPFavorites_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             Call ResetRefresh()
@@ -6532,7 +6532,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstManufacturing.ColumnClick
+    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs)
 
         Call ListViewColumnSorter(e.Column, CType(lstManufacturing, ListView), ManufacturingColumnClicked, ManufacturingColumnSortType)
 
@@ -6973,7 +6973,7 @@ ExitPRocessing:
     End Function
 
     ' Updates the column order when changed
-    Private Sub lstManufacturing_ColumnReordered(sender As Object, e As System.Windows.Forms.ColumnReorderedEventArgs) Handles lstManufacturing.ColumnReordered
+    Private Sub lstManufacturing_ColumnReordered(sender As Object, e As System.Windows.Forms.ColumnReorderedEventArgs)
         Dim TempArray(NumManufacturingTabColumns) As String
         Dim Minus1 As Boolean = False
 
@@ -7249,7 +7249,7 @@ ExitPRocessing:
     End Sub
 
     ' Updates the column sizes when changed
-    Private Sub lstManufacturing_ColumnWidthChanged(sender As Object, e As System.Windows.Forms.ColumnWidthChangedEventArgs) Handles lstManufacturing.ColumnWidthChanged
+    Private Sub lstManufacturing_ColumnWidthChanged(sender As Object, e As System.Windows.Forms.ColumnWidthChangedEventArgs)
         Dim NewWidth As Integer = lstManufacturing.Columns(e.ColumnIndex).Width
 
         If Not AddingColumns Then
@@ -8078,10 +8078,10 @@ ExitPRocessing:
             End If
 
             'Cursor.Current = Cursors.WaitCursor
-            pnlProgressBar.Minimum = 0
-            pnlProgressBar.Maximum = BPRecordCount
-            pnlProgressBar.Value = 0
-            pnlProgressBar.Visible = True
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = BPRecordCount
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
 
             ' Reset the record Iterator and list formats
             ListIDIterator = 0
@@ -8408,7 +8408,7 @@ ExitPRocessing:
                 End If
 
                 ' For each record, update the progress bar
-                Call IncrementToolStripProgressBar(pnlProgressBar)
+                Call IncrementToolStripProgressBar(MetroProgressBar)
 
             End While
 
@@ -8449,11 +8449,11 @@ ExitPRocessing:
 
                 If Not UserApplicationSettings.DisableSVR Then
 
-                    Dim MH As New MarketPriceInterface(pnlProgressBar)
+                    Dim MH As New MarketPriceInterface(MetroProgressBar)
 
                     ' First thing we want to do is update the manufactured item prices
                     pnlStatus.Text = "Updating Market History..."
-                    pnlProgressBar.Visible = False
+                    MetroProgressBar.Visible = False
                     Application.DoEvents()
 
                     ' First find out which of the typeIDs in BaseItems have MarketID's
@@ -8496,10 +8496,10 @@ ExitPRocessing:
                 End If
 
                 pnlStatus.Text = "Calculating..."
-                pnlProgressBar.Minimum = 0
-                pnlProgressBar.Maximum = TotalItemCount
-                pnlProgressBar.Value = 0
-                pnlProgressBar.Visible = True
+                MetroProgressBar.Minimum = 0
+                MetroProgressBar.Maximum = TotalItemCount
+                MetroProgressBar.Value = 0
+                MetroProgressBar.Visible = True
 
                 Application.DoEvents()
 
@@ -8871,7 +8871,7 @@ ExitPRocessing:
                     End If
 
                     ' For each record, update the progress bar
-                    Call IncrementToolStripProgressBar(pnlProgressBar)
+                    Call IncrementToolStripProgressBar(MetroProgressBar)
 
                 Next
 
@@ -8879,8 +8879,8 @@ ExitPRocessing:
                 CalculateScore(ManufacturingList)
 
                 ' Done processing the blueprints
-                pnlProgressBar.Value = 0
-                pnlProgressBar.Visible = False
+                MetroProgressBar.Value = 0
+                MetroProgressBar.Visible = False
                 Cursor.Current = Cursors.Default
                 pnlStatus.Text = ""
 
@@ -8930,10 +8930,10 @@ DisplayResults:
         ' Remove only but the optimal decryptor items before final display, and set the final list
         FinalItemList = SetOptimalDecryptorList(FinalManufacturingItemList, OptimalDecryptorItems)
 
-        pnlProgressBar.Minimum = 0
-        pnlProgressBar.Maximum = FinalItemList.Count
-        pnlProgressBar.Value = 0
-        pnlProgressBar.Visible = True
+        MetroProgressBar.Minimum = 0
+        MetroProgressBar.Maximum = FinalItemList.Count
+        MetroProgressBar.Value = 0
+        MetroProgressBar.Visible = True
 
         lstManufacturing.Items.Clear()
         lstManufacturing.BeginUpdate()
@@ -9189,7 +9189,7 @@ DisplayResults:
             Call lstManufacturing.Items.Add(BPList)
 
             ' For each record, update the progress bar
-            Call IncrementToolStripProgressBar(pnlProgressBar)
+            Call IncrementToolStripProgressBar(MetroProgressBar)
 
         Next
 
@@ -9219,8 +9219,8 @@ DisplayResults:
         lstManufacturing.EndUpdate()
 
 ExitCalc:
-        pnlProgressBar.Value = 0
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Value = 0
+        MetroProgressBar.Visible = False
         pnlStatus.Text = ""
         lstManufacturing.EndUpdate()
 
@@ -9606,10 +9606,10 @@ ExitCalc:
 
                     If Items.Count > 0 Then
                         Cursor.Current = Cursors.WaitCursor
-                        pnlProgressBar.Minimum = 0
-                        pnlProgressBar.Maximum = Items.Count - 1
-                        pnlProgressBar.Value = 0
-                        pnlProgressBar.Visible = True
+                        MetroProgressBar.Minimum = 0
+                        MetroProgressBar.Maximum = Items.Count - 1
+                        MetroProgressBar.Value = 0
+                        MetroProgressBar.Visible = True
                         pnlStatus.Text = "Exporting Table..."
                         Application.DoEvents()
 
@@ -9632,7 +9632,7 @@ ExitCalc:
                             Next
 
                             ' For each record, update the progress bar
-                            Call IncrementToolStripProgressBar(pnlProgressBar)
+                            Call IncrementToolStripProgressBar(MetroProgressBar)
                             Application.DoEvents()
 
                             MyStream.Write(OutputText & Environment.NewLine)
@@ -9651,8 +9651,8 @@ ExitCalc:
         End If
 
         ' Done processing the blueprints
-        pnlProgressBar.Value = 0
-        pnlProgressBar.Visible = False
+        MetroProgressBar.Value = 0
+        MetroProgressBar.Visible = False
 
         Cursor.Current = Cursors.Default
         Me.Refresh()
@@ -10043,7 +10043,7 @@ ExitCalc:
         End If
     End Function
 
-    Private Sub lstManufacturing_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs) Handles lstManufacturing.ColumnWidthChanging
+    Private Sub lstManufacturing_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs)
         If e.ColumnIndex = 0 Then
             e.Cancel = True
             e.NewWidth = lstPricesView.Columns(e.ColumnIndex).Width
@@ -10051,7 +10051,7 @@ ExitCalc:
     End Sub
 
     ' On double click of the item, it will open up the bp window with the item 
-    Private Sub lstManufacturing_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstManufacturing.Click
+    Private Sub lstManufacturing_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim FoundItem As New ManufacturingItem
         Dim CompareType As String
 
