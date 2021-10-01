@@ -124,7 +124,6 @@ Partial Class frmMain
         Me.MetroProgressBar = New MetroFramework.Controls.MetroProgressBar()
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me.MetroTabControl = New MetroFramework.Controls.MetroTabControl()
-        Me.Character = New System.Windows.Forms.TabPage()
         Me.Settings = New System.Windows.Forms.TabPage()
         Me.gbCalcBPSelect = New System.Windows.Forms.GroupBox()
         Me.rbtnCalcBPFavorites = New MetroFramework.Controls.MetroRadioButton()
@@ -140,6 +139,7 @@ Partial Class frmMain
         Me.chkSystems1 = New MetroFramework.Controls.MetroCheckBox()
         Me.Prices = New System.Windows.Forms.TabPage()
         Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
+        Me.Character = New System.Windows.Forms.TabPage()
         Me.Products = New System.Windows.Forms.TabPage()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
@@ -152,7 +152,7 @@ Partial Class frmMain
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.lblBPCanMakeBP = New System.Windows.Forms.Label()
         Me.pictBP = New System.Windows.Forms.PictureBox()
-        Me.asdf = New System.Windows.Forms.TabPage()
+        Me.ShoppingList = New System.Windows.Forms.TabPage()
         Me.MetroTile2 = New MetroFramework.Controls.MetroTile()
         Me.MetroTile3 = New MetroFramework.Controls.MetroTile()
         Me.MetroTile4 = New MetroFramework.Controls.MetroTile()
@@ -170,6 +170,7 @@ Partial Class frmMain
         Me.gbCalcIncludeItems.SuspendLayout()
         Me.gbTradeHubSystems.SuspendLayout()
         Me.Prices.SuspendLayout()
+        Me.Character.SuspendLayout()
         Me.Products.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
         CType(Me.pictBP, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -591,19 +592,19 @@ Partial Class frmMain
         '
         Me.lstBPList.FormattingEnabled = True
         Me.lstBPList.ItemHeight = 16
-        Me.lstBPList.Location = New System.Drawing.Point(1548, 287)
+        Me.lstBPList.Location = New System.Drawing.Point(343, 412)
         Me.lstBPList.Margin = New System.Windows.Forms.Padding(4)
         Me.lstBPList.Name = "lstBPList"
-        Me.lstBPList.Size = New System.Drawing.Size(402, 132)
+        Me.lstBPList.Size = New System.Drawing.Size(381, 132)
         Me.lstBPList.TabIndex = 64
         Me.lstBPList.Visible = False
         '
         'cmbBPBlueprintSelection
         '
-        Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(1659, 274)
+        Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(225, 350)
         Me.cmbBPBlueprintSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbBPBlueprintSelection.Name = "cmbBPBlueprintSelection"
-        Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(402, 24)
+        Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(400, 24)
         Me.cmbBPBlueprintSelection.TabIndex = 70
         Me.cmbBPBlueprintSelection.Text = "Select Blueprint or Reaction"
         Me.cmbBPBlueprintSelection.Visible = False
@@ -953,6 +954,7 @@ Partial Class frmMain
         Me.MetroProgressBar.Name = "MetroProgressBar"
         Me.MetroProgressBar.Size = New System.Drawing.Size(380, 66)
         Me.MetroProgressBar.TabIndex = 76
+        Me.MetroProgressBar.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'MetroTile1
         '
@@ -966,26 +968,18 @@ Partial Class frmMain
         '
         'MetroTabControl
         '
+        Me.MetroTabControl.Controls.Add(Me.Character)
         Me.MetroTabControl.Controls.Add(Me.Settings)
         Me.MetroTabControl.Controls.Add(Me.Prices)
-        Me.MetroTabControl.Controls.Add(Me.Character)
         Me.MetroTabControl.Controls.Add(Me.Products)
-        Me.MetroTabControl.Controls.Add(Me.asdf)
+        Me.MetroTabControl.Controls.Add(Me.ShoppingList)
         Me.MetroTabControl.Location = New System.Drawing.Point(77, 198)
         Me.MetroTabControl.Name = "MetroTabControl"
-        Me.MetroTabControl.SelectedIndex = 3
+        Me.MetroTabControl.SelectedIndex = 0
         Me.MetroTabControl.Size = New System.Drawing.Size(743, 531)
         Me.MetroTabControl.TabIndex = 79
         Me.MetroTabControl.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroTabControl.UseSelectable = True
-        '
-        'Character
-        '
-        Me.Character.Location = New System.Drawing.Point(4, 38)
-        Me.Character.Name = "Character"
-        Me.Character.Size = New System.Drawing.Size(735, 489)
-        Me.Character.TabIndex = 2
-        Me.Character.Text = "--------------------"
         '
         'Settings
         '
@@ -1187,13 +1181,24 @@ Partial Class frmMain
         Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
         Me.lstPricesView.MultiSelect = False
         Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(188, 149)
+        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
         Me.lstPricesView.TabIndex = 1
         Me.lstPricesView.UseCompatibleStateImageBehavior = False
         Me.lstPricesView.View = System.Windows.Forms.View.Details
         '
+        'Character
+        '
+        Me.Character.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Character.Controls.Add(Me.mnuChar)
+        Me.Character.Location = New System.Drawing.Point(4, 38)
+        Me.Character.Name = "Character"
+        Me.Character.Size = New System.Drawing.Size(735, 489)
+        Me.Character.TabIndex = 2
+        Me.Character.Text = "--------------------"
+        '
         'Products
         '
+        Me.Products.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Products.Controls.Add(Me.gbCalcTextColors)
         Me.Products.Controls.Add(Me.lstManufacturing)
         Me.Products.Controls.Add(Me.lblBPCanMakeBP)
@@ -1344,13 +1349,14 @@ Partial Class frmMain
         Me.pictBP.TabIndex = 15
         Me.pictBP.TabStop = False
         '
-        'asdf
+        'ShoppingList
         '
-        Me.asdf.Location = New System.Drawing.Point(4, 38)
-        Me.asdf.Name = "asdf"
-        Me.asdf.Size = New System.Drawing.Size(735, 489)
-        Me.asdf.TabIndex = 4
-        Me.asdf.Text = "--------------------"
+        Me.ShoppingList.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.ShoppingList.Location = New System.Drawing.Point(4, 38)
+        Me.ShoppingList.Name = "ShoppingList"
+        Me.ShoppingList.Size = New System.Drawing.Size(735, 489)
+        Me.ShoppingList.TabIndex = 4
+        Me.ShoppingList.Text = "--------------------"
         '
         'MetroTile2
         '
@@ -1395,38 +1401,42 @@ Partial Class frmMain
         'pnlShoppingList
         '
         Me.pnlShoppingList.AutoSize = True
-        Me.pnlShoppingList.Location = New System.Drawing.Point(1714, 705)
+        Me.pnlShoppingList.Location = New System.Drawing.Point(507, 752)
         Me.pnlShoppingList.Name = "pnlShoppingList"
         Me.pnlShoppingList.Size = New System.Drawing.Size(91, 20)
         Me.pnlShoppingList.TabIndex = 84
         Me.pnlShoppingList.Text = "Shopping List"
+        Me.pnlShoppingList.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'pnlSkills
         '
         Me.pnlSkills.AutoSize = True
-        Me.pnlSkills.Location = New System.Drawing.Point(1714, 740)
+        Me.pnlSkills.Location = New System.Drawing.Point(523, 790)
         Me.pnlSkills.Name = "pnlSkills"
         Me.pnlSkills.Size = New System.Drawing.Size(38, 20)
         Me.pnlSkills.TabIndex = 85
         Me.pnlSkills.Text = "Skills"
+        Me.pnlSkills.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'pnlStatus
         '
         Me.pnlStatus.AutoSize = True
-        Me.pnlStatus.Location = New System.Drawing.Point(1714, 772)
+        Me.pnlStatus.BackColor = System.Drawing.Color.Transparent
+        Me.pnlStatus.Location = New System.Drawing.Point(268, 927)
         Me.pnlStatus.Name = "pnlStatus"
         Me.pnlStatus.Size = New System.Drawing.Size(45, 20)
         Me.pnlStatus.TabIndex = 86
         Me.pnlStatus.Text = "Status"
+        Me.pnlStatus.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'mnuChar
         '
         Me.mnuChar.FormattingEnabled = True
         Me.mnuChar.ItemHeight = 24
-        Me.mnuChar.Location = New System.Drawing.Point(1083, 799)
+        Me.mnuChar.Location = New System.Drawing.Point(229, 229)
         Me.mnuChar.Name = "mnuChar"
         Me.mnuChar.Size = New System.Drawing.Size(276, 30)
-        Me.mnuChar.TabIndex = 87
+        Me.mnuChar.TabIndex = 88
         Me.mnuChar.UseSelectable = True
         '
         'frmMain
@@ -1436,7 +1446,6 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
-        Me.Controls.Add(Me.mnuChar)
         Me.Controls.Add(Me.pnlStatus)
         Me.Controls.Add(Me.pnlSkills)
         Me.Controls.Add(Me.pnlShoppingList)
@@ -1486,6 +1495,7 @@ Partial Class frmMain
         Me.gbTradeHubSystems.ResumeLayout(False)
         Me.gbTradeHubSystems.PerformLayout()
         Me.Prices.ResumeLayout(False)
+        Me.Character.ResumeLayout(False)
         Me.Products.ResumeLayout(False)
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.gbCalcTextColors.PerformLayout()
@@ -1623,7 +1633,7 @@ Partial Class frmMain
     Friend WithEvents lstManufacturing As ManufacturingListView
     Friend WithEvents lblBPCanMakeBP As Label
     Friend WithEvents pictBP As PictureBox
-    Friend WithEvents asdf As TabPage
+    Friend WithEvents ShoppingList As TabPage
     Friend WithEvents MetroTile3 As MetroFramework.Controls.MetroTile
     Friend WithEvents MetroTile4 As MetroFramework.Controls.MetroTile
     Friend WithEvents MetroTile5 As MetroFramework.Controls.MetroTile

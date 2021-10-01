@@ -983,7 +983,7 @@ Public Class frmMain
     End Function
 
     ' Set all the tool strips for characters since I can't process them if they aren't set at runtime
-    Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs) Handles mnuChar.SelectedIndexChanged
+    Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs)
         Call LoadSelectedCharacter(mnuChar.Text)
     End Sub
 
