@@ -264,6 +264,7 @@ Public Class ProgramSettings
     Public DefaultCheckRelicIntact As Boolean = False
     Public DefaultCheckRelicMalfunction As Boolean = False
     Public DefaultCheckOnlyBuild As Boolean = False
+    Public DefaultCheckAutoShop As Boolean = False
     Public DefaultCheckOnlyInvent As Boolean = False
     Public DefaultCheckIncludeTaxes As Boolean = True
     Public DefaultIncludeBrokersFees As Integer = 0
@@ -2042,6 +2043,8 @@ Public Class ProgramSettings
                     .VolumeThresholdCheck = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "VolumeThresholdCheck", DefaultCalcVolumeThresholdCheck))
                     .CheckSellExcessItems = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckSellExcessItems", DefaultCalcSellExcessItems))
                     .BuildT2T3Materials = CType(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeString, ManufacturingSettingsFileName, "BuildT2T3Materials", DefaultBuiltMatsType), BuildMatType)
+                    .CheckAutoShop = CBool(GetSettingValue(SettingsFolder, ManufacturingSettingsFileName, SettingTypes.TypeBoolean, ManufacturingSettingsFileName, "CheckAutoShop", DefaultCheckAutoShop))
+
                 End With
             Else
                 ' Load defaults 
@@ -2108,6 +2111,7 @@ Public Class ProgramSettings
             .CheckRelicIntact = DefaultCheckRelicIntact
             .CheckRelicMalfunction = DefaultCheckRelicMalfunction
             .CheckOnlyBuild = DefaultCheckOnlyBuild
+            .CheckAutoShop = DefaultCheckAutoShop
             .CheckOnlyInvent = DefaultCheckOnlyInvent
             .CheckIncludeTaxes = DefaultCheckIncludeTaxes
             .CheckIncludeBrokersFees = DefaultIncludeBrokersFees
@@ -2170,7 +2174,7 @@ Public Class ProgramSettings
 
     ' Saves the tab settings to XML
     Public Sub SaveManufacturingSettings(SentSettings As ManufacturingTabSettings)
-        Dim ManufacturingSettingsList(92) As Setting
+        Dim ManufacturingSettingsList(93) As Setting
 
         Try
             ManufacturingSettingsList(0) = New Setting("BlueprintType", CStr(SentSettings.BlueprintType))
@@ -2266,6 +2270,7 @@ Public Class ProgramSettings
             ManufacturingSettingsList(90) = New Setting("RiskIPH", CStr(SentSettings.RiskIPH))
             ManufacturingSettingsList(91) = New Setting("RiskProfit", CStr(SentSettings.RiskProfit))
             ManufacturingSettingsList(92) = New Setting("RiskPrice", CStr(SentSettings.RiskPrice))
+            ManufacturingSettingsList(93) = New Setting("CheckAutoShop", CStr(SentSettings.CheckAutoShop))
 
             Call WriteSettingsToFile(SettingsFolder, ManufacturingSettingsFileName, ManufacturingSettingsList, ManufacturingSettingsFileName)
 
@@ -5209,6 +5214,7 @@ Public Structure ManufacturingTabSettings
     Dim CheckRelicMalfunction As Boolean
 
     Dim CheckOnlyBuild As Boolean
+    Dim CheckAutoShop As Boolean
     Dim CheckOnlyInvent As Boolean
 
     Dim CheckIncludeTaxes As Boolean

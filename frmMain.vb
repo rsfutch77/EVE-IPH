@@ -11,8 +11,8 @@ Public Class frmMain
 
     ' Update Prices Variables
     Private m_ControlsCollection As ControlsCollection
-    Private RegionCheckBoxes() As CheckBox
-    Private SystemCheckBoxes() As CheckBox
+    Private RegionCheckBoxes() As MetroFramework.Controls.MetroRadioButton
+    Private SystemCheckBoxes() As MetroFramework.Controls.MetroRadioButton
     ' For saving the price type that was used in the download
     Private GroupPricesList As New List(Of GroupPriceType)
     Private GroupPriceTypetoFind As New GroupPriceType
@@ -540,7 +540,7 @@ Public Class frmMain
         ' Create the controls collection class
         m_ControlsCollection = New ControlsCollection(Me)
         ' Get Region check boxes (note index starts at 1)
-        SystemCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkSystems"), CheckBox())
+        SystemCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkSystems"), MetroFramework.Controls.MetroRadioButton())
 
         ' Columns of Update Prices Listview (width = 639) + 21 for scroll = 660
         lstPricesView.Columns.Add("TypeID", 0, HorizontalAlignment.Left) ' Hidden
@@ -1816,12 +1816,6 @@ Public Class frmMain
 
         MsgBox("Manufacturing Tab Default Settings Restored", vbInformation, Application.ProductName)
 
-    End Sub
-
-    Private Sub mnuResetBuildBuyManualSelections_Click(sender As Object, e As EventArgs) Handles mnuResetBuildBuyManualSelections.Click
-        ' Reset the list
-        BPBBItems = New List(Of BPBBItem)
-        MsgBox("Manual Build/Buy List Reset")
     End Sub
 
     Private Sub UpdateIndustryFacilitiesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuUpdateIndustryFacilities.Click
@@ -6222,7 +6216,12 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcAllBPs.CheckedChanged
+
+        If rbtnCalcAllBPs.Checked = True Then
+            autoShopping.Checked = False
+        End If
+
         If Not FirstManufacturingGridLoad Then
             FirstLoadCalcBPTypes = True
             Call ResetRefresh()
@@ -6358,7 +6357,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs)
+    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstManufacturing.ColumnClick
 
         Call ListViewColumnSorter(e.Column, CType(lstManufacturing, ListView), ManufacturingColumnClicked, ManufacturingColumnSortType)
 
@@ -7537,6 +7536,7 @@ ExitPRocessing:
             FirstManufacturingGridLoad = False ' Change this now so it will load the grids for all on reset
 
             chkCalcCanBuild.Checked = .CheckOnlyBuild
+            autoShopping.Checked = .CheckAutoShop
 
             calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
@@ -7677,6 +7677,7 @@ ExitPRocessing:
             .BPRuns = CInt(txtCalcNumBPs.Text)
 
             .CheckOnlyBuild = chkCalcCanBuild.Checked
+            .CheckAutoShop = autoShopping.Checked
 
             .PriceTrend = "All"
 
@@ -8268,7 +8269,6 @@ ExitPRocessing:
                 ' Disable all the controls individulally so we can use cancel button
                 btnCalcSelectColumns.Enabled = False
                 gbCalcBPSelect.Enabled = False
-                gbCalcIncludeItems.Enabled = False
                 gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
@@ -9053,7 +9053,6 @@ ExitCalc:
         ' Enable all the controls
         btnCalcSelectColumns.Enabled = True
         gbCalcBPSelect.Enabled = True
-        gbCalcIncludeItems.Enabled = True
         gbCalcProdLines.Enabled = True
         gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
@@ -9586,6 +9585,12 @@ ExitCalc:
         Else
             Call DisplayManufacturingResults(True)
         End If
+
+        'Auto setup shopping list
+        If autoShopping.Checked Then
+            AutoAddToShoppingList()
+        End If
+
     End Sub
 
     ' Builds the query for the main grid update
@@ -10359,15 +10364,13 @@ ExitCalc:
 
         '-IPH-------------------------
         'Eliminate negative IPH and low IPH before IQR
-        'The 60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
-        'running a small number of low skill, low IPH jobs
         Dim IPHExcludingNegatives(ManufacturingList.Count) As Double
         For i = 0 To ManufacturingList.Count - 1
+            'See below note regarding 60k IPH
             If ManufacturingList(i).IPH > 60000 Then
                 IPHExcludingNegatives(i) = ManufacturingList(i).IPH
             Else
                 IPHExcludingNegatives(i) = 0
-                ManufacturingList(i).IPH = 0
             End If
         Next
         'Eliminate outliers via IQR
@@ -10524,7 +10527,9 @@ ExitCalc:
             End If
 
             'Give a score of zero to anything that is missing market history or won't result in any profit
-            If ManufacturingList(i).IPH > 0 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
+            'The 60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
+            'running a small number of low skill, low IPH jobs
+            If ManufacturingList(i).IPH > 60000 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
                 'SVR and trend are not as important as volatility and risk
                 ManufacturingList(i).Score = IPHNormal(i) * 1.5 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
 
@@ -10628,15 +10633,6 @@ ExitCalc:
 
 #Region "List Options Menu"
 
-    Private Sub ListOptionsMenu_Opening(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles ListOptionsMenu.Opening
-        ' If we have one line selected, then allow both options, if more than one line don't allow the market history to be selected
-        If lstManufacturing.SelectedItems.Count > 1 Then
-            ViewMarketHistoryToolStripMenuItem.Enabled = False
-        Else
-            ViewMarketHistoryToolStripMenuItem.Enabled = True
-        End If
-    End Sub
-
     ' Allows users to ignore one or more blueprints from the manufacturing tab
     Private Sub IgnoreBlueprintToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles IgnoreBlueprintToolStripMenuItem.Click
 
@@ -10725,6 +10721,71 @@ ExitCalc:
 
     End Sub
 
+    ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
+    Private Sub AutoAddToShoppingList()
+
+        If lstManufacturing.Items.Count > 0 Then
+            Dim FoundItem As New ManufacturingItem
+
+            'Get player's max jobs
+            Dim maxJobs As Integer = 5
+
+
+            'Sort the list by Score
+            Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
+
+            ' Find the top items
+            For i = 0 To maxJobs
+
+                ' Find the item clicked in the list of items then just send those values over
+                ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
+                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                ' Add it to shopping list
+                If FoundItem IsNot Nothing Then
+                    Dim BuildBuy As Boolean
+                    Dim CopyRaw As Boolean
+
+                    If FoundItem.CalcType = "Build/Buy" Then
+                        BuildBuy = True
+                    End If
+
+                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
+                        CopyRaw = True
+                    Else
+                        CopyRaw = False
+                    End If
+
+                    ' Get the BP variable and send the other settings to shopping list
+                    With FoundItem
+                        If Not IsNothing(.Blueprint) Then
+                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
+                               False, False, False, False)
+                        Else
+                            MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
+                            Exit Sub
+                        End If
+                    End With
+                End If
+            Next
+        End If
+
+        If TotalShoppingList.GetNumShoppingItems > 0 Then
+            ' Add the final item and mark as items in list
+            pnlShoppingList.Text = "Items in Shopping List"
+            pnlShoppingList.ForeColor = Color.Red
+        Else
+            pnlShoppingList.Text = "No Items in Shopping List"
+            pnlShoppingList.ForeColor = Color.Black
+        End If
+
+        ' Refresh the data if it's open
+        If frmShop.Visible Then
+            Call frmShop.RefreshLists()
+        End If
+
+    End Sub
+
     ' Adds one or multiple items to the shopping list from the manufacturing tab
     Private Sub AddToShoppingListToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles AddToShoppingListToolStripMenuItem.Click
 
@@ -10781,6 +10842,15 @@ ExitCalc:
             Call frmShop.RefreshLists()
         End If
 
+    End Sub
+
+    Private Sub autoShopping_CheckedChanged(sender As Object, e As EventArgs) Handles autoShopping.CheckedChanged
+        If autoShopping.Checked = True Then
+            chkCalcCanBuild.Checked = True
+            rbtnCalcBPOwned.Checked = True
+            rbtnCalcAllBPs.Checked = False
+            rbtnCalcBPFavorites.Checked = False
+        End If
     End Sub
 
 #End Region
