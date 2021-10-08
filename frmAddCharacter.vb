@@ -13,6 +13,7 @@ Public Class frmAddCharacter
         ESIScopesString = ""
         chkReadAgentsResearch.Checked = True
         chkReadAssets.Checked = True
+        chkReadWallet.Checked = True
         chkReadBlueprints.Checked = True
         chkReadCharacterJobs.Checked = True
         chkReadCorporationAssets.Checked = True
@@ -28,6 +29,7 @@ Public Class frmAddCharacter
         With ttAPI
             .SetToolTip(chkReadAgentsResearch, "Reads a list of research agents' information for a character")
             .SetToolTip(chkReadAssets, "Reads a list of the character's assets")
+            .SetToolTip(chkReadWallet, "Reads the total value of the character's wallet")
             .SetToolTip(chkReadBlueprints, "Reads a list of blueprints the character owns")
             .SetToolTip(chkReadCharacterJobs, "Reads a list of the character's industry jobs")
             .SetToolTip(chkReadStandings, "Reads a list of character standings from agents, NPC corporations, and factions")
@@ -167,6 +169,12 @@ Public Class frmAddCharacter
 
     Private Sub chkStructureMarkets_CheckedChanged(sender As Object, e As EventArgs) Handles chkStructureMarkets.CheckedChanged
         With chkStructureMarkets
+            Call UpdateScopesString(.Text, .Checked)
+        End With
+    End Sub
+
+    Private Sub chkReadWallet_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadWallet.CheckedChanged
+        With chkReadWallet
             Call UpdateScopesString(.Text, .Checked)
         End With
     End Sub

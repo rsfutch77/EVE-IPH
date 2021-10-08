@@ -14,6 +14,7 @@ Public Module ESIGlobals
 End Module
 
 Public Class ESI
+    'More info on how to use ESI here: https://esi.evetech.net/ui
     Private Const ESIAuthorizeURL As String = "https://login.eveonline.com/v2/oauth/authorize"
     Private Const ESITokenURL As String = "https://login.eveonline.com/v2/oauth/token"
     Private Const ESIVerifyURL As String = "https://login.eveonline.com/oauth/verify"
@@ -23,7 +24,7 @@ Public Class ESI
 
     Private Const LocalHost As String = "127.0.0.1" ' All calls will redirect to local host.
     Private Const LocalPort As String = "12500" ' Always use this port
-    Private Const EVEIPHClientID As String = "2737513b64854fa0a309e125419f8eff" ' IPH Client ID in EVE Developers
+    Private Const EVEIPHClientID As String = "7395463b5e654547a3ccca2daf8c9314" ' IPH Client ID in EVE Developers
 
     Private AuthorizationToken As String ' Token returned by ESI on initial authorization - good for 5 minutes
     Private CodeVerifier As String ' For PKCE - generated code we send to ESI for access codes after sending the hashed version of this for authorization code
@@ -34,6 +35,7 @@ Public Class ESI
     Public Const ESICharacterStandingsScope As String = "esi-characters.read_standings"
     Public Const ESICharacterIndustryJobsScope As String = "esi-industry.read_character_jobs"
     Public Const ESICharacterSkillsScope As String = "esi-skills.read_skill"
+    Public Const ESICharacterWalletScope As String = "esi-skills.read_skill"
 
     Public Const ESICorporationAssetScope As String = "esi-assets.read_corporation_assets"
     Public Const ESICorporationBlueprintsScope As String = "esi-corporations.read_blueprints"
@@ -73,11 +75,7 @@ Public Class ESI
     ' esi-characters.read_standings.v1: Allows reading a character's standings
     ' esi-industry.read_character_jobs.v1: Allows reading a character's industry jobs
     ' esi-skills.read_skills.v1: Allows reading of a character's currently known skills.
-
-    ' Corporation
-    ' esi-assets.read_corporation_assets.v1: Allows reading of a character's corporation's assets, if the character has roles to do so.
-    ' esi-corporations.read_blueprints.v1: Allows reading a corporation's blueprints
-    ' esi-industry.read_corporation_jobs.v1: Allows reading of a character's corporation's industry jobs, if the character has roles to do so.
+    ' esi-wallet.read_character_wallet.v1: Allows reading character wallet amount
     '
     ' esi-universe.read_structure.v1: Allows reading of all public structures in the universe
     ' esi-markets.structure_markets.v1: Allows reading of markets for structures the character can use
@@ -804,6 +802,16 @@ Public Class ESI
         Else
             Return Nothing
         End If
+
+    End Function
+
+    Public Function GetCharacterWallet(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef WalletCacheDate As Date) As Double
+        Dim ReturnData As String = ""
+
+        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/wallet/" & TranquilityDataSource,
+                                              FormatTokenData(TokenData), TokenData.TokenExpiration, WalletCacheDate, CharacterID)
+
+        Return CDbl(ReturnData)
 
     End Function
 

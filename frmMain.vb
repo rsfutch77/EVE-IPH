@@ -732,6 +732,10 @@ Public Class frmMain
                 End If
 
                 ' Personal Scopes
+                If .Contains(ESI.ESICharacterWalletScope) And rsStatus.GetString(0) = ESI.ESICharacterWalletScope And rsStatus.GetString(1) <> "green" Then
+                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
+                End If
+
                 If .Contains(ESI.ESICharacterIndustryJobsScope) And rsStatus.GetString(0) = ESI.ESICharacterIndustryJobsScope And rsStatus.GetString(1) <> "green" Then
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If
@@ -983,7 +987,7 @@ Public Class frmMain
     End Function
 
     ' Set all the tool strips for characters since I can't process them if they aren't set at runtime
-    Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs) Handles mnuChar.SelectedIndexChanged
         Call LoadSelectedCharacter(mnuChar.Text)
     End Sub
 
@@ -10724,6 +10728,17 @@ ExitCalc:
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
     Private Sub AutoAddToShoppingList()
 
+        Dim ESIData As New ESI
+        Dim TempWalletData As Double
+
+        'Load the character's wallet as well if a non dummy character is selected
+        Dim CacheDate As Date
+        If SelectedCharacter.ID = DummyCharacterID Then
+            TempWalletData = 500000000 'Default for dummy character, 500m
+        Else
+            TempWalletData = ESIData.GetCharacterWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, CacheDate)
+        End If
+
         If lstManufacturing.Items.Count > 0 Then
             Dim FoundItem As New ManufacturingItem
 
@@ -10760,7 +10775,7 @@ ExitCalc:
                     With FoundItem
                         If Not IsNothing(.Blueprint) Then
                             Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
-                               False, False, False, False)
+                                False, False, False, False)
                         Else
                             MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
                             Exit Sub
