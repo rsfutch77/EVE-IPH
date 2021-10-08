@@ -10728,7 +10728,7 @@ ExitCalc:
             Dim FoundItem As New ManufacturingItem
 
             'Get player's max jobs
-            Dim maxJobs As Integer = 5
+            Dim maxJobs As Integer = SelectedCharacter.Skills.GetSkillLevel(3387) + SelectedCharacter.Skills.GetSkillLevel(24625)
 
 
             'Sort the list by Score
