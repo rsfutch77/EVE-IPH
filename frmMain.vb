@@ -9164,7 +9164,7 @@ ExitCalc:
         ' Build the where clause to look up data
         Dim AssetLocationFlagList As New List(Of String)
         ' First look up the location and flagID pairs - unique ID of asset locations
-        SQL = "SELECT LocationID, FlagID FROM ASSET_LOCATIONS WHERE EnumAssetType = " & CStr(AssetWindow.ManufacturingTab) & " And ID IN (" & IDString & ")"
+        SQL = "SELECT LocationID, FlagID FROM ASSET_LOCATIONS"
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         readerAssets = DBCommand.ExecuteReader
 
@@ -10729,21 +10729,161 @@ ExitCalc:
     Private Sub AutoAddToShoppingList()
 
         Dim ESIData As New ESI
-        Dim TempWalletData As Double
+        Dim WalletData As Double
 
         'Load the character's wallet as well if a non dummy character is selected
         Dim CacheDate As Date
         If SelectedCharacter.ID = DummyCharacterID Then
-            TempWalletData = 500000000 'Default for dummy character, 500m
+            WalletData = 500000000 'Default for dummy character, 500m
         Else
-            TempWalletData = ESIData.GetCharacterWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, CacheDate)
+            WalletData = ESIData.GetCharacterWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, CacheDate)
         End If
 
+        'If at least one item was calculated
         If lstManufacturing.Items.Count > 0 Then
             Dim FoundItem As New ManufacturingItem
 
             'Get player's max jobs
             Dim maxJobs As Integer = SelectedCharacter.Skills.GetSkillLevel(3387) + SelectedCharacter.Skills.GetSkillLevel(24625)
+
+            'Check if the player can fly a freighter and get the amount of space in their cargohold
+            'Check base skills, then check racial skills, then check if they have one already or at least enough money
+            Dim cargoVolume As Double = 5000 '5000 is the default volume if they don't have any other ships
+            Dim transportFreighter As Boolean
+            If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
+                If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
+                    'Galente
+                    If GetTotalItemsinStock(20187) > 0 Then
+                        transportFreighter = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Obelisk", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20527) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(20187) + 500000000 Then
+                        lblRecommendation.Text = "You should buy a freighter."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for a freighter."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 2 And SelectedCharacter.Skills.GetSkillLevel(20528) > 0 Then
+                    'Minmatar
+                    If GetTotalItemsinStock(20190) > 0 Then
+                        transportFreighter = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Fenrir", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20528) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(20190) + 500000000 Then
+                        lblRecommendation.Text = "You should buy a freighter."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for a freighter."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 2 And SelectedCharacter.Skills.GetSkillLevel(20526) > 0 Then
+                    'Caldari
+                    If GetTotalItemsinStock(20186) > 0 Then
+                        transportFreighter = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Charon", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20526) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(20186) + 500000000 Then
+                        lblRecommendation.Text = "You should buy a freighter."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for a freighter."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 2 And SelectedCharacter.Skills.GetSkillLevel(20424) > 0 Then
+                    'Amarr
+                    If GetTotalItemsinStock(20183) > 0 Then
+                        transportFreighter = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Providence", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20424) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(20183) + 500000000 Then
+                        lblRecommendation.Text = "You should buy a freighter."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for a freighter."
+                    End If
+                Else
+                    lblRecommendation.Text = "You should finish training racial skills for a freighter."
+                End If
+            Else
+                lblRecommendation.Text = "You should train for a freighter."
+            End If
+            lblRecommendation.Text = lblRecommendation.Text + " A freighter can make a lot more money transporting ships and making fewer trips. It will also reduce risk of being ganked by pirates. "
+
+            Dim allowAutoShopShips As Boolean = False
+            'If they can fly a freighter, allow ship blueprints
+            'If not, recommend training into a freighter
+            If transportFreighter = True Then
+                allowAutoShopShips = True
+            End If
+
+            'Check if they can transport with an industrial
+            Dim transportindustrial As Boolean = False
+            If transportFreighter = False Then
+                If SelectedCharacter.Skills.GetSkillLevel(3327) > 2 Then
+                    If SelectedCharacter.Skills.GetSkillLevel(3340) > 0 Then
+                        'Galente
+                        If GetTotalItemsinStock(657) > 0 Then
+                            transportindustrial = True
+                            cargoVolume = EVEAttributes.GetInventoryAttribute("Iteron Mark V", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3340) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                            'Make sure they have some money left over for materials
+                        ElseIf WalletData > GetItemPrice(657) + 5000000 Then
+                            lblRecommendation.Text = "You should buy an industrial."
+                        Else
+                            'They can fly one, but they don't have the money
+                            lblRecommendation.Text = "You should save up for an industrial."
+                        End If
+                    ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 0 Then
+                        'Minmatar
+                        If GetTotalItemsinStock(652) > 0 Then
+                            transportindustrial = True
+                            cargoVolume = EVEAttributes.GetInventoryAttribute("Mammoth", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3341) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                            'Make sure they have some money left over for materials
+                        ElseIf WalletData > GetItemPrice(652) + 5000000 Then
+                            lblRecommendation.Text = "You should buy an industrial."
+                        Else
+                            'They can fly one, but they don't have the money
+                            lblRecommendation.Text = "You should save up for an industrial."
+                        End If
+                    ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 0 Then
+                        'Caldari
+                        If GetTotalItemsinStock(649) > 0 Then
+                            transportindustrial = True
+                            cargoVolume = EVEAttributes.GetInventoryAttribute("Tayra", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3342) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                            'Make sure they have some money left over for materials
+                        ElseIf WalletData > GetItemPrice(649) + 5000000 Then
+                            lblRecommendation.Text = "You should buy an industrial."
+                        Else
+                            'They can fly one, but they don't have the money
+                            lblRecommendation.Text = "You should save up for an industrial."
+                        End If
+                    ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 0 Then
+                        'Amarr
+                        If GetTotalItemsinStock(1944) > 0 Then
+                            transportindustrial = True
+                            cargoVolume = EVEAttributes.GetInventoryAttribute("Bestower", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3343) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                            'Make sure they have some money left over for materials
+                        ElseIf WalletData > GetItemPrice(1944) + 5000000 Then
+                            lblRecommendation.Text = "You should buy an industrial."
+                        Else
+                            'They can fly one, but they don't have the money
+                            lblRecommendation.Text = "You should save up for an industrial."
+                        End If
+                    Else
+                        lblRecommendation.Text = "You should finish training racial skills for an industrial."
+                    End If
+                Else
+                    lblRecommendation.Text = "You should train for an industrial."
+                End If
+                lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips."
+            End If
+
+
+
+            'Get the number of items in production and on the market and in assets And dont build any of these
+            'GetTotalItemsinProduction()
+            'if this shrinks the list to zero then
+            'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
+
+
+
 
 
             'Sort the list by Score

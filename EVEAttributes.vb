@@ -4,17 +4,17 @@
 Public Class EVEAttributes
 
     ' Gets the attribute by the name sent for the typename sent
-    Public Function GetAttribute(ByVal TypeName As String, ByVal AttributeCode As ItemAttributes) As Double
+    Public Shared Function GetInventoryAttribute(ByVal TypeName As String, ByVal Attribute As String) As Double
         Dim SQL As String
         Dim readerSearch As SQLiteDataReader
 
-        SQL = "SELECT typeID FROM INVENTORY_TYPES WHERE typeName = '" & TypeName & "'"
+        SQL = "SELECT " & Attribute & " FROM INVENTORY_TYPES WHERE typeName = '" & TypeName & "'"
 
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         readerSearch = DBCommand.ExecuteReader
 
         If readerSearch.Read Then
-            Return GetAttribute(readerSearch.GetInt32(0), AttributeCode)
+            Return readerSearch.GetDouble(0)
         Else
             Return Nothing
         End If
