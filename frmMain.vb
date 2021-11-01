@@ -10875,16 +10875,10 @@ ExitCalc:
                 lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips."
             End If
 
-
-
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
             'if this shrinks the list to zero then
             'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
-
-
-
-
 
             'Sort the list by Score
             Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
@@ -10892,7 +10886,6 @@ ExitCalc:
             ' Find the top items
             For i = 0 To maxJobs
 
-                ' Find the item clicked in the list of items then just send those values over
                 ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
                 FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
 
@@ -10916,6 +10909,14 @@ ExitCalc:
                         If Not IsNothing(.Blueprint) Then
                             Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
                                 False, False, False, False)
+
+                            'Calculate how many of each item we can manufacture in 5 days (a little less than a week so the player has time to sell everything and start again)
+                            'Get production time for one run
+                            Dim RuntimeSeconds As Double = .Blueprint.GetTotalProductionTime
+                            Dim ShopListItem As ShoppingListItem = CopyManufacturingItemToShoppingItem(FoundItem)
+                            'Update the quantity
+                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(5 * 24 * 60 * 60 / RuntimeSeconds))
+
                         Else
                             MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
                             Exit Sub
@@ -10940,6 +10941,32 @@ ExitCalc:
         End If
 
     End Sub
+
+
+    'Copy Manufacturing Item to Shopping Item
+    Private Function CopyManufacturingItemToShoppingItem(ManufacturingItem As ManufacturingItem) As ShoppingListItem
+
+        Dim ShopListItem As New ShoppingListItem
+
+        With ManufacturingItem
+            Dim TempName As String = .ItemName
+            If TempName.Contains("(") Then
+                ShopListItem.Name = TempName.Substring(0, InStr(TempName, "(") - 2)
+                ShopListItem.Relic = TempName.Substring(InStr(TempName, "("), InStr(TempName, ")") - InStr(TempName, "(") - 1)
+            Else
+                ShopListItem.Name = TempName
+                ShopListItem.Relic = ""
+            End If
+            ShopListItem.ItemME = .BPME
+            ShopListItem.BuildType = "Raw Mats" 'Easy IPH always uses Raw Mats
+            ShopListItem.Decryptor = ""
+            ShopListItem.ManufacturingFacility.FacilityName = .ManufacturingFacility.FacilityName
+
+        End With
+
+        Return ShopListItem
+
+    End Function
 
     ' Adds one or multiple items to the shopping list from the manufacturing tab
     Private Sub AddToShoppingListToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles AddToShoppingListToolStripMenuItem.Click
