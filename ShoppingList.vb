@@ -60,6 +60,78 @@ Public Class ShoppingList
 
 #Region "Update Shopping List Functions"
 
+    'Reduce quantities of items until the player can afford to manufacture the whole shopping list
+    Public Sub AffordableShoppingItemQuantity(WalletData As Double)
+        'Reduce the runs until the total job cost is below the player's wallet amount
+        'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat+
+
+        'Sort descending
+        TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
+
+        'Don't use all of the player's money, just most of it
+        While TotalShoppingList.GetTotalCost > WalletData * 0.75
+            Dim reducer As Double = 0.25
+            For Each ShopListItem As ShoppingListItem In TotalItemList
+                UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
+                reducer = reducer / 2
+            Next
+        End While
+
+    End Sub
+
+    'Reduce quantities of items until the player can fit everything in their ship on the way to the manufacturing facility (materials)
+    Public Sub MaterialVolumeShoppingItemQuantity(CargoVolume As Double)
+        'Reduce the runs until the total job cost is below the player's wallet amount
+        'Cut the biggest job by 25%, then the second most by 12.5% and so on, then repeat
+
+        'First add the material volume to each of the items
+        For Each ShopListItem As ShoppingListItem In TotalItemList
+            ShopListItem.MaterialVolume = ShopListItem.BPMaterialList.GetTotalVolume() * ShopListItem.Runs
+        Next
+
+        'Leave some room for error on the cargo volume
+        While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95
+            'Sort descending
+            TotalItemList.Sort(Function(x, y) y.MaterialVolume.CompareTo(x.MaterialVolume))
+            Dim reducer As Double = 0.25
+            For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
+                If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
+                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                Else
+                    UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
+                End If
+                reducer = reducer / 2
+            Next
+            'Update the volume to each of the items
+            For Each ShopListItem As ShoppingListItem In TotalItemList
+                ShopListItem.MaterialVolume = ShopListItem.BPMaterialList.GetTotalVolume() * ShopListItem.Runs
+            Next
+        End While
+
+    End Sub
+
+    'Reduce quantities of items until the player can fit everything in their ship on the way back (products/built)
+    Public Sub BuiltVolumeShoppingItemQuantity(CargoVolume As Double)
+        'Reduce the runs until the total job cost is below the player's wallet amount
+        'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat
+
+        'Leave some room for error on the cargo volume
+        While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95
+            'Sort descending
+            TotalItemList.Sort(Function(x, y) y.BuildVolume.CompareTo(x.BuildVolume))
+            Dim reducer As Double = 0.25
+            For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
+                If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
+                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                Else
+                    UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
+                End If
+                reducer = reducer / 2
+            Next
+        End While
+
+    End Sub
+
     ' Removes or updates the item quantity and all mats associated with that item from the full list - i.e. Anshar
     Public Sub UpdateShoppingItemQuantity(ByVal SentItem As ShoppingListItem, ByVal UpdateItemQuantity As Long)
         Dim FoundItem As ShoppingListItem
@@ -214,6 +286,9 @@ Public Class ShoppingList
                 FoundItem.Runs = UpdateItemQuantity
             End If
         End If
+
+        Dim BFI As BrokerFeeInfo = GetBrokerFeeData()
+        Call TotalShoppingList.SetPriceData(BFI, True, frmShoppingList.ItemBuyTypeList)
 
     End Sub
 
@@ -1561,6 +1636,7 @@ Public Class ShoppingListItem
     Public ItemTE As Double
     Public TechLevel As Integer ' T1, T2, or T3
     Public BuildVolume As Double ' Volume of the built item
+    Public MaterialVolume As Double ' Volume of materials
     Public PortionSize As Long ' Portion size of one run of this blueprint
 
     Public Decryptor As String ' If it's invented or RE'd, then store the Relic or Decryptor name here * Key value

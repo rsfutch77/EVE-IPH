@@ -10872,7 +10872,7 @@ ExitCalc:
                 Else
                     lblRecommendation.Text = "You should train for an industrial."
                 End If
-                lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips."
+                lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
             End If
 
             'Get the number of items in production and on the market and in assets And dont build any of these
@@ -10884,10 +10884,19 @@ ExitCalc:
             Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
 
             ' Find the top items
-            For i = 0 To maxJobs
+            Dim j As Integer
+            For i = 0 To (maxJobs + j)
 
                 ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
                 FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                'Skip this item if we are not allowing ships
+                If allowAutoShopShips = False Then
+                    If FoundItem.ItemCategory = "Ship" Then
+                        j = j + 1
+                        GoTo NextIteration
+                    End If
+                End If
 
                 ' Add it to shopping list
                 If FoundItem IsNot Nothing Then
@@ -10923,8 +10932,16 @@ ExitCalc:
                         End If
                     End With
                 End If
+NextIteration:
             Next
-        End If
+
+            Call TotalShoppingList.AffordableShoppingItemQuantity(WalletData)
+
+            Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
+
+            Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
+
+        End If 'End if at least one manufacturing item was calculated
 
         If TotalShoppingList.GetNumShoppingItems > 0 Then
             ' Add the final item and mark as items in list

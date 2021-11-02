@@ -43,7 +43,7 @@ Public Class frmShoppingList
     Private BuildListColumnClicked As Integer
     Private BuildListColumnSortOrder As SortOrder
 
-    Private ItemBuyTypeList As List(Of ItemBuyType)
+    Public Shared ItemBuyTypeList As List(Of ItemBuyType)
 
     Private Const BuyListLabel As String = "Buy List"
     Private Const BuildListLabel As String = "Build List"
