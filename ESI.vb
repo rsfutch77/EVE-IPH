@@ -108,8 +108,8 @@ Public Class ESI
 
             ' Now loop until thread is done, 60 seconds goes by, or cancel clicked
             Do
-                If DateDiff(DateInterval.Second, StartTime, Now) > 60 Then
-                    Call MsgBox("Request timed out. You must complete your login within 60 seconds.", vbInformation, Application.ProductName)
+                If DateDiff(DateInterval.Second, StartTime, Now) > 120 Then
+                    Call MsgBox("Request timed out. You must complete your login within 120 seconds.", vbInformation, Application.ProductName)
                     myListener.Stop()
                     AuthThreadReference.Abort()
                     Return Nothing
