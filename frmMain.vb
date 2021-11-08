@@ -10912,11 +10912,8 @@ ExitCalc:
 
             'Get player's max jobs
             Dim maxJobs As Integer = SelectedCharacter.Skills.GetSkillLevel(3387) + SelectedCharacter.Skills.GetSkillLevel(24625)
-
             'Subtract any active jobs
-            'maxJobs = maxJobs - 
-
-            Dim cargoVolume As Double = GetAutoShopVolume(WalletData)
+            maxJobs = maxJobs - SelectedCharacter.GetIndustryJobs().JobList.Count
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
@@ -10978,10 +10975,10 @@ ExitCalc:
 NextIteration:
             Next
 
+            'Shrink the shopping list until it is feasible for the player
+            Dim cargoVolume As Double = GetAutoShopVolume(WalletData)
             Call TotalShoppingList.AffordableShoppingItemQuantity(WalletData)
-
             Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
-
             Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
 
         End If 'End if at least one manufacturing item was calculated

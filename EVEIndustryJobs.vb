@@ -3,7 +3,7 @@ Imports System.Data.SQLite
 
 Public Class EVEIndustryJobs
 
-    Private JobList As List(Of IndustryJob)
+    Public JobList As List(Of IndustryJob)
 
     Public Sub New()
 
