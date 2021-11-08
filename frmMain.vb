@@ -1627,7 +1627,7 @@ Public Class frmMain
         Call ShowShoppingList()
     End Sub
 
-    Private Sub mnuViewAssets_Click(sender As Object, e As EventArgs) Handles mnuViewAssets.Click
+    Private Sub mnuViewAssets_Click(sender As Object, e As EventArgs)
         ' Make sure it's not disposed
         If IsNothing(frmDefaultAssets) Then
             ' Make new form
