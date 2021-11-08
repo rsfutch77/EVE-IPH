@@ -10823,7 +10823,7 @@ ExitCalc:
                         If GetTotalItemsinStock(657) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Iteron Mark V", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3340) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                            cargoVolume = EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                            cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
                             'Make sure they have some money left over for materials
                         ElseIf WalletData > GetItemPrice(657) + 5000000 Then
                             lblRecommendation.Text = "You should buy an industrial."
@@ -10836,7 +10836,7 @@ ExitCalc:
                         If GetTotalItemsinStock(652) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Mammoth", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3341) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                            cargoVolume = EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                            cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
                             'Make sure they have some money left over for materials
                         ElseIf WalletData > GetItemPrice(652) + 5000000 Then
                             lblRecommendation.Text = "You should buy an industrial."
@@ -10849,7 +10849,7 @@ ExitCalc:
                         If GetTotalItemsinStock(649) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Tayra", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3342) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                            cargoVolume = EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                            cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
                             'Make sure they have some money left over for materials
                         ElseIf WalletData > GetItemPrice(649) + 5000000 Then
                             lblRecommendation.Text = "You should buy an industrial."
@@ -10862,7 +10862,7 @@ ExitCalc:
                         If GetTotalItemsinStock(1944) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Bestower", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3343) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                            cargoVolume = EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                            cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
                             'Make sure they have some money left over for materials
                         ElseIf WalletData > GetItemPrice(1944) + 5000000 Then
                             lblRecommendation.Text = "You should buy an industrial."
