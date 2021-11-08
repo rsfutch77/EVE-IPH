@@ -9214,6 +9214,36 @@ ExitCalc:
 
     End Function
 
+    ' Finds the number of items in stock for the asset settings set here
+    Private Function GetTotalItemsAnywhere(ByVal TypeID As Long) As Integer
+        Dim SQL As String
+        Dim readerAssets As SQLiteDataReader
+        Dim ItemQuantity As Integer = 0
+
+        Application.UseWaitCursor = True
+        Cursor.Current = Cursors.WaitCursor
+        Application.DoEvents()
+
+        Dim IDString As String = ""
+
+        ' Set the ID string we will use to update
+        IDString = CStr(SelectedCharacter.ID)
+
+        SQL = "SELECT SUM(Quantity) FROM ASSETS WHERE "
+        SQL = SQL & "ASSETS.TypeID = " & CStr(TypeID) & " And ID IN (" & IDString & ")"
+
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        readerAssets = DBCommand.ExecuteReader
+        readerAssets.Read()
+
+        If readerAssets.HasRows And Not IsDBNull(readerAssets.GetValue(0)) Then
+            ItemQuantity += readerAssets.GetInt32(0) ' sum up
+        End If
+
+        Return ItemQuantity
+
+    End Function
+
     ' Finds the number of items in production from all loaded characters
     Private Function GetTotalItemsinProduction(ByVal TypeID As Long) As Integer
         Dim SQL As String
@@ -10753,7 +10783,7 @@ ExitCalc:
             If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
                 If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
                     'Galente
-                    If GetTotalItemsinStock(20187) > 0 Then
+                    If GetTotalItemsAnywhere(20187) > 0 Then
                         transportFreighter = True
                         cargoVolume = EVEAttributes.GetInventoryAttribute("Obelisk", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20527) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
                         'Make sure they have some money left over for materials
@@ -10765,7 +10795,7 @@ ExitCalc:
                     End If
                 ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 2 And SelectedCharacter.Skills.GetSkillLevel(20528) > 0 Then
                     'Minmatar
-                    If GetTotalItemsinStock(20190) > 0 Then
+                    If GetTotalItemsAnywhere(20190) > 0 Then
                         transportFreighter = True
                         cargoVolume = EVEAttributes.GetInventoryAttribute("Fenrir", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20528) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
                         'Make sure they have some money left over for materials
@@ -10777,7 +10807,7 @@ ExitCalc:
                     End If
                 ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 2 And SelectedCharacter.Skills.GetSkillLevel(20526) > 0 Then
                     'Caldari
-                    If GetTotalItemsinStock(20186) > 0 Then
+                    If GetTotalItemsAnywhere(20186) > 0 Then
                         transportFreighter = True
                         cargoVolume = EVEAttributes.GetInventoryAttribute("Charon", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20526) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
                         'Make sure they have some money left over for materials
@@ -10789,7 +10819,7 @@ ExitCalc:
                     End If
                 ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 2 And SelectedCharacter.Skills.GetSkillLevel(20424) > 0 Then
                     'Amarr
-                    If GetTotalItemsinStock(20183) > 0 Then
+                    If GetTotalItemsAnywhere(20183) > 0 Then
                         transportFreighter = True
                         cargoVolume = EVEAttributes.GetInventoryAttribute("Providence", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20424) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
                         'Make sure they have some money left over for materials
@@ -10820,7 +10850,7 @@ ExitCalc:
                 If SelectedCharacter.Skills.GetSkillLevel(3327) > 2 Then
                     If SelectedCharacter.Skills.GetSkillLevel(3340) > 0 Then
                         'Galente
-                        If GetTotalItemsinStock(657) > 0 Then
+                        If GetTotalItemsAnywhere(657) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Iteron Mark V", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3340) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
                             cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
@@ -10833,7 +10863,7 @@ ExitCalc:
                         End If
                     ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 0 Then
                         'Minmatar
-                        If GetTotalItemsinStock(652) > 0 Then
+                        If GetTotalItemsAnywhere(652) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Mammoth", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3341) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
                             cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
@@ -10846,7 +10876,7 @@ ExitCalc:
                         End If
                     ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 0 Then
                         'Caldari
-                        If GetTotalItemsinStock(649) > 0 Then
+                        If GetTotalItemsAnywhere(649) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Tayra", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3342) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
                             cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
@@ -10859,7 +10889,7 @@ ExitCalc:
                         End If
                     ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 0 Then
                         'Amarr
-                        If GetTotalItemsinStock(1944) > 0 Then
+                        If GetTotalItemsAnywhere(1944) > 0 Then
                             transportindustrial = True
                             cargoVolume = EVEAttributes.GetInventoryAttribute("Bestower", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3343) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
                             cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
