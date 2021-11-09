@@ -10890,6 +10890,8 @@ ExitCalc:
             lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
         End If
 
+        Return cargoVolume
+
     End Function
 
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
