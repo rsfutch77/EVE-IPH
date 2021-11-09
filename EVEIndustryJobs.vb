@@ -86,9 +86,28 @@ Public Class EVEIndustryJobs
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                     ' Insert industry data
+                    If CharacterTokenData.CharacterID = SelectedCharacter.CharacterTokenData.CharacterID Then
+                        SelectedCharacter.Jobs.JobList.Clear() 'Clear the character job list before we start
+                    End If
                     For i = 0 To IndyJobs.Count - 1
+
                         ' First make sure it's not already in there
                         With IndyJobs(i)
+
+                            'Add active jobs to the Character's job list
+                            If CharacterTokenData.CharacterID = SelectedCharacter.CharacterTokenData.CharacterID Then
+
+                                Dim CurrentDateTime As Date = DateTime.UtcNow
+                                Dim startdate As Date = ESIData.FormatESIDate(.start_date)
+                                Dim enddate As Date = ESIData.FormatESIDate(.end_date)
+
+                                If .status = "active" And .activity_id = 1 And ESIData.FormatESIDate(.start_date) < CurrentDateTime And ESIData.FormatESIDate(.end_date) > CurrentDateTime Then
+                                    Dim job As IndustryJob
+                                    job.BlueprintTypeID = IndyJobs(i).blueprint_type_id
+                                    SelectedCharacter.Jobs.JobList.Add(job)
+                                End If
+                            End If
+
                             ' Insert it
                             If .location_id = 0 Then
                                 LocationID = .station_id

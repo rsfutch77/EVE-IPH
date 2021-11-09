@@ -10913,9 +10913,12 @@ ExitCalc:
             Dim FoundItem As New ManufacturingItem
 
             'Get player's max jobs
-            Dim maxJobs As Integer = SelectedCharacter.Skills.GetSkillLevel(3387) + SelectedCharacter.Skills.GetSkillLevel(24625)
+            Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
             'Subtract any active jobs
+            Call frmIndustryJobsViewer.UpdateJobs(True) 'Update the jobs first
             maxJobs = maxJobs - SelectedCharacter.GetIndustryJobs().JobList.Count
+
+            Dim cargoVolume As Double = GetAutoShopVolume(WalletData)
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()

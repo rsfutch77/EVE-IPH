@@ -137,7 +137,7 @@ Public Class frmIndustryJobsViewer
     End Sub
 
     ' Updates all the jobs
-    Private Sub UpdateJobs(ByVal RefreshAPI As Boolean)
+    Public Sub UpdateJobs(ByVal RefreshAPI As Boolean)
         Updating = True
 
         ' Just refresh the char list and it will update from ESI
