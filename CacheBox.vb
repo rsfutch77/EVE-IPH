@@ -141,9 +141,8 @@ Public Enum CacheDateType
     PersonalBlueprints = 3
     PersonalAssets = 4
     PersonalIndyJobs = 5
-
-    CorporateRoles = 14
     CorporateBlueprints = 6
+
     CorporateAssets = 7
     CorporateIndyJobs = 8
 
@@ -154,7 +153,12 @@ Public Enum CacheDateType
     IndustrySystems = 11
     IndustryFacilities = 12
     MarketPrices = 13
+
+    CorporateRoles = 14
     PublicStructures = 15
     ESIStatus = 16
+
+
+    Wallet = 17
 
 End Enum

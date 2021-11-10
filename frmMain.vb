@@ -10894,18 +10894,37 @@ ExitCalc:
 
     End Function
 
+    'Get's ESI wallet data this character and returns it
+    Private Function UpdateWallet(ByVal ID As Long, ByVal CharacterTokenData As SavedTokenData) As Double
+        Dim Wallet As Double
+
+        Dim ESIData As New ESI
+        Dim CB As New CacheBox
+
+        Dim CacheDate As Date
+
+        Dim CDType As CacheDateType = CacheDateType.Wallet
+
+        ' Look up the assets cache date first      
+        If CB.DataUpdateable(CDType, ID) Then
+            Wallet = ESIData.GetCharacterWallet(ID, CharacterTokenData, CacheDate)
+
+            ' Update cache date since it's all set now
+            Call CB.UpdateCacheDate(CDType, CacheDate, ID)
+        End If
+
+        Return Wallet
+
+    End Function
+
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
     Private Sub AutoAddToShoppingList()
 
-        Dim ESIData As New ESI
-        Dim WalletData As Double
-
         'Load the character's wallet as well if a non dummy character is selected
-        Dim CacheDate As Date
         If SelectedCharacter.ID = DummyCharacterID Then
-            WalletData = 500000000 'Default for dummy character, 500m
+            SelectedCharacter.Wallet = 500000000 'Default for dummy character, 500m
         Else
-            WalletData = ESIData.GetCharacterWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, CacheDate)
+            SelectedCharacter.Wallet = UpdateWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
         End If
 
         'If at least one item was calculated
@@ -10918,7 +10937,7 @@ ExitCalc:
             Call frmIndustryJobsViewer.UpdateJobs(True) 'Update the jobs first
             maxJobs = maxJobs - SelectedCharacter.GetIndustryJobs().JobList.Count
 
-            Dim cargoVolume As Double = GetAutoShopVolume(WalletData)
+            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.Wallet)
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()

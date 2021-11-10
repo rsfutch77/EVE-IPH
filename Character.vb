@@ -10,6 +10,7 @@ Public Class Character
     Public BloodLineID As Integer
     Public AncestryLineID As Integer
     Public Descripton As String
+    Public Wallet As Double
 
     ' For ESI access, etc.
     Public CharacterTokenData As SavedTokenData
@@ -73,6 +74,8 @@ Public Class Character
 
         ' Corporation Data for this character
         CharacterCorporation = New Corporation
+
+        Wallet = 0
 
     End Sub
 
