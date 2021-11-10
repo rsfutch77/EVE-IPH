@@ -85,21 +85,25 @@ Public Class ShoppingList
         End While
 
     End Sub
+
     'Reduce quantities of items until the player can afford to manufacture the whole shopping list
     Public Sub AffordableShoppingItemQuantity(WalletData As Double)
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat+
 
-        'Sort descending
-        TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
-
         Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
 
         'Don't use all of the player's money, just most of it
         While TotalShoppingList.GetTotalCost > WalletData * 0.75
+            'Sort descending
+            TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
             Dim reducer As Double = 0.25
             For Each ShopListItem As ShoppingListItem In TotalItemList
-                UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
+                If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
+                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                Else
+                    UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
+                End If
                 reducer = reducer / 2
                 frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetTotalCost - WalletData)) / difference))
             Next
