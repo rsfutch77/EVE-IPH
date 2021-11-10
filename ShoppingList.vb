@@ -68,12 +68,6 @@ Public Class ShoppingList
         'Sort descending
         TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
 
-        frmMain.pnlStatus.Text = "Autoshopping for cost..."
-        frmMain.MetroProgressBar.Minimum = 0
-        frmMain.MetroProgressBar.Maximum = 100
-        frmMain.MetroProgressBar.Value = 0
-        frmMain.MetroProgressBar.Visible = True
-
         Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
 
         'Don't use all of the player's money, just most of it
@@ -85,10 +79,6 @@ Public Class ShoppingList
                 frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetTotalCost - WalletData)) / difference))
             Next
         End While
-
-        frmMain.MetroProgressBar.Value = 0
-        frmMain.MetroProgressBar.Visible = False
-        frmMain.pnlStatus.Text = ""
 
     End Sub
 
@@ -102,6 +92,8 @@ Public Class ShoppingList
             ShopListItem.MaterialVolume = ShopListItem.BPMaterialList.GetTotalVolume() * ShopListItem.Runs
         Next
 
+        Dim difference As Double = TotalShoppingList.GetTotalVolume - CargoVolume
+
         'Leave some room for error on the cargo volume
         While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95
             'Sort descending
@@ -114,6 +106,7 @@ Public Class ShoppingList
                     UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 End If
                 reducer = reducer / 2
+                frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetTotalVolume - CargoVolume)) / difference))
             Next
             'Update the volume to each of the items
             For Each ShopListItem As ShoppingListItem In TotalItemList
@@ -128,6 +121,8 @@ Public Class ShoppingList
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat
 
+        Dim difference As Double = TotalShoppingList.GetBuiltItemVolume - CargoVolume
+
         'Leave some room for error on the cargo volume
         While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95
             'Sort descending
@@ -140,6 +135,7 @@ Public Class ShoppingList
                     UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 End If
                 reducer = reducer / 2
+                frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetBuiltItemVolume - CargoVolume)) / difference))
             Next
         End While
 

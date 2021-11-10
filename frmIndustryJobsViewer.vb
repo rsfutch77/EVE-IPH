@@ -516,8 +516,8 @@ ExitSub:
         Dim TempCharacter As New Character
         Dim TokenData As New SavedTokenData
 
-        f1.lblStatus.Text = "Updating Character data..."
-        f1.Show()
+        'f1.lblStatus.Text = "Updating Character data..."
+        'f1.Show()
         Application.UseWaitCursor = True
         Application.DoEvents()
 
@@ -539,8 +539,8 @@ ExitSub:
 
         PauseScreenUpdate = False
 
-        f1.Dispose()
-        f1 = Nothing
+        'f1.Dispose()
+        'f1 = Nothing
         Me.Select()
         Application.UseWaitCursor = False
         Application.DoEvents()

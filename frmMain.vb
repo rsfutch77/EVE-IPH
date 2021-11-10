@@ -11027,10 +11027,38 @@ NextIteration:
             Next
 
             'Shrink the shopping list until it is feasible for the player
-            Dim cargoVolume As Double = GetAutoShopVolume(WalletData)
-            Call TotalShoppingList.AffordableShoppingItemQuantity(WalletData)
+            pnlStatus.Text = "Autoshopping for cost..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.Wallet)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
+
+            pnlStatus.Text = "Autoshopping for material volume..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
+
+            pnlStatus.Text = "Autoshopping for built volume..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
 
         End If 'End if at least one manufacturing item was calculated
 
