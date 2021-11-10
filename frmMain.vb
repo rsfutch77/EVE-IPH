@@ -10924,7 +10924,24 @@ ExitCalc:
         If SelectedCharacter.ID = DummyCharacterID Then
             SelectedCharacter.Wallet = 500000000 'Default for dummy character, 500m
         Else
+
+            pnlStatus.Text = "Getting Wallet Data..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 1
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+
             SelectedCharacter.Wallet = UpdateWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
+
+            If SelectedCharacter.Wallet = 0 Then
+                Return
+            End If
+
+            Call IncrementToolStripProgressBar(MetroProgressBar)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
+
         End If
 
         'If at least one item was calculated
@@ -10934,7 +10951,17 @@ ExitCalc:
             'Get player's max jobs
             Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
             'Subtract any active jobs
+            pnlStatus.Text = "Getting Job Data..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 1
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
             Call frmIndustryJobsViewer.UpdateJobs(True) 'Update the jobs first
+            Call IncrementToolStripProgressBar(MetroProgressBar)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
+
             maxJobs = maxJobs - SelectedCharacter.GetIndustryJobs().JobList.Count
 
             Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.Wallet)

@@ -68,14 +68,27 @@ Public Class ShoppingList
         'Sort descending
         TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
 
+        frmMain.pnlStatus.Text = "Autoshopping for cost..."
+        frmMain.MetroProgressBar.Minimum = 0
+        frmMain.MetroProgressBar.Maximum = 100
+        frmMain.MetroProgressBar.Value = 0
+        frmMain.MetroProgressBar.Visible = True
+
+        Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
+
         'Don't use all of the player's money, just most of it
         While TotalShoppingList.GetTotalCost > WalletData * 0.75
             Dim reducer As Double = 0.25
             For Each ShopListItem As ShoppingListItem In TotalItemList
                 UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 reducer = reducer / 2
+                frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetTotalCost - WalletData)) / difference))
             Next
         End While
+
+        frmMain.MetroProgressBar.Value = 0
+        frmMain.MetroProgressBar.Visible = False
+        frmMain.pnlStatus.Text = ""
 
     End Sub
 
