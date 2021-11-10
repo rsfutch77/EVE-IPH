@@ -10931,9 +10931,11 @@ ExitCalc:
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = True
 
-            SelectedCharacter.Wallet = UpdateWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
+            Dim tempWallet = UpdateWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
 
-            If SelectedCharacter.Wallet = 0 Then
+            If tempWallet > 0 Then
+                SelectedCharacter.Wallet = tempWallet
+            Else
                 Return
             End If
 
