@@ -60,6 +60,31 @@ Public Class ShoppingList
 
 #Region "Update Shopping List Functions"
 
+    'Reduce quantities of items until the player can manufacture all these items in one week
+    Public Sub ScheduleShoppingItemQuantity()
+        'Reduce the biggest run by a small quantity, sort and repeat until all runs are below one week
+
+        Const ManufacturingDays = 1
+
+        TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
+        Dim difference As Double = TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60
+
+        'Leave some room for error on the cargo volume
+        While TotalItemList(0).TotalBuildTime > ManufacturingDays * 24 * 60 * 60
+            If CLng(TotalItemList(0).Runs * (1 - 0.25)) = TotalItemList(0).Runs Then
+                UpdateShoppingItemQuantity(TotalItemList(0), 0) ' Get rid of this item if we get near zero runs
+            Else
+                UpdateShoppingItemQuantity(TotalItemList(0), CLng(TotalItemList(0).Runs * (1 - 0.25)))
+            End If
+            frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60)) / difference))
+
+            'Sort descending
+            TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
+            'Update build time
+            '...
+        End While
+
+    End Sub
     'Reduce quantities of items until the player can afford to manufacture the whole shopping list
     Public Sub AffordableShoppingItemQuantity(WalletData As Double)
         'Reduce the runs until the total job cost is below the player's wallet amount

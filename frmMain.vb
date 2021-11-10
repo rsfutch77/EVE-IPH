@@ -11038,6 +11038,17 @@ NextIteration:
             MetroProgressBar.Visible = False
             pnlStatus.Text = ""
 
+            pnlStatus.Text = "Autoshopping for schedule..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.ScheduleShoppingItemQuantity()
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = ""
+
             pnlStatus.Text = "Autoshopping for material volume..."
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 100
