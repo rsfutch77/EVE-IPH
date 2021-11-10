@@ -145,7 +145,7 @@ Public Class frmIndustryJobsViewer
         Call RefreshGrid()
 
         If RefreshAPI Then
-            MsgBox("Industry Jobs updated.", vbInformation, Application.ProductName)
+            'MsgBox("Industry Jobs updated.", vbInformation, Application.ProductName)
         End If
 
         Updating = False
