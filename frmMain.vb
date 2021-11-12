@@ -10972,8 +10972,11 @@ ExitCalc:
                 End If
             Next
             Dim result As DialogResult = frmJobsNearCompletion.ShowDialog()
-            '....do the if then here based on result
-            maxJobs = maxJobs - activeJobsFarFromCompletion
+            If result = DialogResult.OK Then 'Make stuff now
+                maxJobs = maxJobs - activeJobsFarFromCompletion
+            ElseIf result = DialogResult.Cancel Then 'Planning for later
+                'Do nothing
+            End If
 
             Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.Wallet)
 

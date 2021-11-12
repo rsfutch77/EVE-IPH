@@ -171,7 +171,6 @@ Partial Class frmMain
         Me.Products.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
         CType(Me.pictBP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ShoppingList.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuStripMain
@@ -703,7 +702,7 @@ Partial Class frmMain
         Me.txtCalcRuns.CustomButton.UseSelectable = True
         Me.txtCalcRuns.CustomButton.Visible = False
         Me.txtCalcRuns.Lines = New String(-1) {}
-        Me.txtCalcRuns.Location = New System.Drawing.Point(11, 35)
+        Me.txtCalcRuns.Location = New System.Drawing.Point(9, 35)
         Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCalcRuns.MaxLength = 4
         Me.txtCalcRuns.Name = "txtCalcRuns"
@@ -927,7 +926,7 @@ Partial Class frmMain
         Me.MetroTabControl.Controls.Add(Me.ShoppingList)
         Me.MetroTabControl.Location = New System.Drawing.Point(77, 198)
         Me.MetroTabControl.Name = "MetroTabControl"
-        Me.MetroTabControl.SelectedIndex = 0
+        Me.MetroTabControl.SelectedIndex = 2
         Me.MetroTabControl.Size = New System.Drawing.Size(901, 531)
         Me.MetroTabControl.TabIndex = 79
         Me.MetroTabControl.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -1318,7 +1317,6 @@ Partial Class frmMain
         'ShoppingList
         '
         Me.ShoppingList.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ShoppingList.Controls.Add(Me.lblRecommendation)
         Me.ShoppingList.Location = New System.Drawing.Point(4, 38)
         Me.ShoppingList.Name = "ShoppingList"
         Me.ShoppingList.Size = New System.Drawing.Size(893, 489)
@@ -1327,13 +1325,14 @@ Partial Class frmMain
         '
         'lblRecommendation
         '
-        Me.lblRecommendation.AutoSize = True
-        Me.lblRecommendation.Location = New System.Drawing.Point(401, 364)
+        Me.lblRecommendation.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.lblRecommendation.Location = New System.Drawing.Point(900, 824)
         Me.lblRecommendation.Name = "lblRecommendation"
-        Me.lblRecommendation.Size = New System.Drawing.Size(227, 20)
+        Me.lblRecommendation.Size = New System.Drawing.Size(395, 151)
         Me.lblRecommendation.TabIndex = 88
         Me.lblRecommendation.Text = "Recommendations will appear here"
         Me.lblRecommendation.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.lblRecommendation.WrapToLine = True
         '
         'MetroTile2
         '
@@ -1409,7 +1408,7 @@ Partial Class frmMain
         'CalcBaseFacility
         '
         Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(1597, 824)
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(1548, 709)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
         Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
@@ -1437,12 +1436,12 @@ Partial Class frmMain
         '
         'frmMain
         '
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
+        Me.Controls.Add(Me.lblRecommendation)
         Me.Controls.Add(Me.pnlStatus)
         Me.Controls.Add(Me.pnlSkills)
         Me.Controls.Add(Me.pnlShoppingList)
@@ -1476,6 +1475,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "EasyIPH"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.mnuStripMain.ResumeLayout(False)
@@ -1496,8 +1496,6 @@ Partial Class frmMain
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.gbCalcTextColors.PerformLayout()
         CType(Me.pictBP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ShoppingList.ResumeLayout(False)
-        Me.ShoppingList.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
