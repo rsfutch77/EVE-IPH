@@ -104,6 +104,7 @@ Public Class EVEIndustryJobs
                                 If .status = "active" And .activity_id = 1 And ESIData.FormatESIDate(.start_date) < CurrentDateTime And ESIData.FormatESIDate(.end_date) > CurrentDateTime Then
                                     Dim job As IndustryJob
                                     job.BlueprintTypeID = IndyJobs(i).blueprint_type_id
+                                    job.EndDate = ESIData.FormatESIDate(IndyJobs(i).end_date)
                                     SelectedCharacter.Jobs.JobList.Add(job)
                                 End If
                             End If

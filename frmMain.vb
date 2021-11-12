@@ -10964,7 +10964,16 @@ ExitCalc:
             MetroProgressBar.Visible = False
             pnlStatus.Text = ""
 
-            maxJobs = maxJobs - SelectedCharacter.GetIndustryJobs().JobList.Count
+            'If any active jobs are far from completion, ask the user if they want to subtract these from the autoshop calculation
+            Dim activeJobsFarFromCompletion As Integer = 0
+            For Each Job As IndustryJob In SelectedCharacter.Jobs.JobList
+                If Job.EndDate - DateTime.UtcNow > TimeSpan.FromHours(1) Then
+                    activeJobsFarFromCompletion = activeJobsFarFromCompletion + 1
+                End If
+            Next
+            Dim result As DialogResult = frmJobsNearCompletion.ShowDialog()
+            '....do the if then here based on result
+            maxJobs = maxJobs - activeJobsFarFromCompletion
 
             Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.Wallet)
 

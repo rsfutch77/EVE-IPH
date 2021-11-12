@@ -1437,6 +1437,7 @@ Partial Class frmMain
         '
         'frmMain
         '
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
