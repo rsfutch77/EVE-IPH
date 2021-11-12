@@ -10859,7 +10859,8 @@ ExitCalc:
                     activeJobsFarFromCompletion = activeJobsFarFromCompletion + 1
                 End If
             Next
-            Dim result As DialogResult = frmJobsNearCompletion.ShowDialog()
+            Dim rf As New frmJobsNearCompletion
+            Dim result As DialogResult = rf.ShowDialog()
             If result = DialogResult.OK Then 'Make stuff now
                 maxJobs = maxJobs - activeJobsFarFromCompletion
             ElseIf result = DialogResult.Cancel Then 'Planning for later
