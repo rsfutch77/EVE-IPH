@@ -586,12 +586,6 @@ Public Class frmMain
         ' Add the columns based on settings
         Call RefreshManufacturingTabColumns()
 
-        If UserApplicationSettings.ShowToolTips Then
-            ' Decryptor Tool tips
-            ttUpdatePrices.SetToolTip(txtCalcProdLines, "Will assume Number of BPs is same as Number of Production lines for Calculations")
-            ttUpdatePrices.SetToolTip(txtCalcProdLines, "Enter the number of Manufacturing Lines you have to build items per day for calculations. Calculations will assume the same number of BPs used." & vbCrLf & "Calculations for components will also use this value. Double-Click to enter max runs for this character.")
-
-        End If
         FirstLoadCalcBPTypes = True
         FirstManufacturingGridLoad = True
 
@@ -5812,12 +5806,7 @@ ExitPRocessing:
         e.Handled = True
     End Sub
 
-    Private Sub txtCalcProdLines_DoubleClick(sender As Object, e As System.EventArgs) Handles txtCalcProdLines.DoubleClick
-        ' Enter the max lines we have
-        txtCalcProdLines.Text = CStr(SelectedCharacter.MaximumProductionLines)
-    End Sub
-
-    Private Sub txtCalcProdLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcProdLines.KeyPress
+    Private Sub txtCalcProdLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -5829,11 +5818,11 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcProdLines_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcProdLines.TextChanged
+    Private Sub txtCalcProdLines_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcBPs_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcNumBPs.KeyPress
+    Private Sub txtCalcBPs_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -5845,11 +5834,11 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcBPs_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcNumBPs.TextChanged
+    Private Sub txtCalcBPs_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcRuns_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtCalcRuns.TextChanged
+    Private Sub txtCalcRuns_TextChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7539,10 +7528,6 @@ ExitPRocessing:
 
             calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
-            txtCalcProdLines.Text = CStr(.ProductionLines)
-            txtCalcRuns.Text = CStr(.Runs)
-            txtCalcNumBPs.Text = CStr(.BPRuns)
-
             ' Time pickers
             chkCalcMaxBuildTimeFilter.Checked = .MaxBuildTimeCheck
             chkCalcMinBuildTimeFilter.Checked = .MinBuildTimeCheck
@@ -7577,22 +7562,6 @@ ExitPRocessing:
     Private Sub btnCalcSaveSettings()
         Dim TempSettings As ManufacturingTabSettings = Nothing
         Dim Settings As New ProgramSettings
-
-        If Trim(txtCalcProdLines.Text) <> "" Then
-            If Not IsNumeric(txtCalcProdLines.Text) Then
-                MsgBox("Invalid Production Lines Value", vbExclamation, Application.ProductName)
-                txtCalcProdLines.Focus()
-                Exit Sub
-            End If
-        End If
-
-        If Trim(txtCalcRuns.Text) <> "" Then
-            If Not IsNumeric(txtCalcRuns.Text) Then
-                MsgBox("Invalid Runs Value", vbExclamation, Application.ProductName)
-                txtCalcRuns.Focus()
-                Exit Sub
-            End If
-        End If
 
         ' Save the column order and width first
         AllSettings.SaveManufacturingTabColumnSettings(UserManufacturingTabColumnSettings)
@@ -7661,10 +7630,10 @@ ExitPRocessing:
             .CheckXL = True
 
             .CheckSVRIncludeNull = True
-            .ProductionLines = CInt(txtCalcProdLines.Text)
+            .ProductionLines = 1
             .LaboratoryLines = 1
-            .Runs = CInt(txtCalcRuns.Text)
-            .BPRuns = CInt(txtCalcNumBPs.Text)
+            .Runs = 1
+            .BPRuns = 1
 
             .CheckOnlyBuild = chkCalcCanBuild.Checked
             .CheckAutoShop = autoShopping.Checked
@@ -7778,54 +7747,6 @@ ExitPRocessing:
 
         ' Set this now and enable it if they calculate
         AddToShoppingListToolStripMenuItem.Enabled = False
-
-        If Trim(txtCalcProdLines.Text) <> "" Then
-            If Not IsNumeric(txtCalcProdLines.Text) Then
-                MsgBox("Invalid Production Lines value", vbExclamation, Application.ProductName)
-                txtCalcProdLines.Focus()
-                txtCalcProdLines.SelectAll()
-                Exit Sub
-            End If
-        End If
-
-        If Val(txtCalcProdLines.Text) = 0 Then
-            MsgBox("You must select a non-zero production lines value.", vbExclamation, Application.ProductName)
-            txtCalcProdLines.Focus()
-            txtCalcProdLines.SelectAll()
-            Exit Sub
-        End If
-
-        If Trim(txtCalcNumBPs.Text) <> "" Then
-            If Not IsNumeric(txtCalcNumBPs.Text) Then
-                MsgBox("Invalid Num BPs value", vbExclamation, Application.ProductName)
-                txtCalcNumBPs.Focus()
-                txtCalcNumBPs.SelectAll()
-                Exit Sub
-            End If
-        End If
-
-        If Val(txtCalcNumBPs.Text) = 0 Then
-            MsgBox("You must select a non-zero Num BPs value.", vbExclamation, Application.ProductName)
-            txtCalcNumBPs.Focus()
-            txtCalcNumBPs.SelectAll()
-            Exit Sub
-        End If
-
-        If Trim(txtCalcRuns.Text) <> "" Then
-            If Not IsNumeric(txtCalcRuns.Text) Then
-                MsgBox("Invalid Runs value", vbExclamation, Application.ProductName)
-                txtCalcRuns.Focus()
-                txtCalcRuns.SelectAll()
-                Exit Sub
-            End If
-        End If
-
-        If Val(txtCalcRuns.Text) = 0 Then
-            MsgBox("You must select a non-zero Runs value.", vbExclamation, Application.ProductName)
-            txtCalcRuns.Focus()
-            txtCalcRuns.SelectAll()
-            Exit Sub
-        End If
 
         ' Make sure the build times don't overlap if both checked
         If chkCalcMinBuildTimeFilter.Checked And chkCalcMaxBuildTimeFilter.Checked Then
@@ -8019,8 +7940,8 @@ ExitPRocessing:
                 OrigTE = CInt(InsertItem.BPTE)
 
                 ' Runs and lines
-                InsertItem.Runs = CInt(txtCalcRuns.Text)
-                InsertItem.ProductionLines = CInt(txtCalcProdLines.Text)
+                InsertItem.Runs = 1
+                InsertItem.ProductionLines = 1
                 InsertItem.LaboratoryLines = 1
 
                 ' Reset all the industry facilities
@@ -8243,7 +8164,6 @@ ExitPRocessing:
                 ' Disable all the controls individulally so we can use cancel button
                 btnCalcSelectColumns.Enabled = False
                 gbCalcBPSelect.Enabled = False
-                gbCalcProdLines.Enabled = False
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
 
@@ -8321,13 +8241,13 @@ ExitPRocessing:
                             ' For T3 or if they have calc checked, we will never have a BPO so determine the number of BPs
                             NumberofBlueprints = GetUsedNumBPs(.BPID, CInt(.TechLevel.Substring(1, 1)), .Runs, .ProductionLines, .NumBPs, .Decryptor.RunMod)
                         Else
-                            NumberofBlueprints = CInt(txtCalcNumBPs.Text)
+                            NumberofBlueprints = 1
                         End If
                     End With
 
                     ' Construct the BP
-                    ManufacturingBlueprint = New Blueprint(InsertItem.BPID, CInt(txtCalcRuns.Text), InsertItem.BPME, InsertItem.BPTE,
-                                                           NumberofBlueprints, CInt(txtCalcProdLines.Text), SelectedCharacter,
+                    ManufacturingBlueprint = New Blueprint(InsertItem.BPID, 1, InsertItem.BPME, InsertItem.BPTE,
+                                                           NumberofBlueprints, 1, SelectedCharacter,
                                                            UserApplicationSettings, False, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                            InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility, InsertItem.ReactionFacility,
                                                            False, UserManufacturingTabSettings.BuildT2T3Materials, True)
@@ -8527,8 +8447,8 @@ ExitPRocessing:
 
                             ' *** For Build/Buy we need to construct a new BP and add that
                             ' Construct the BP
-                            ManufacturingBlueprint = New Blueprint(InsertItem.BPID, CInt(txtCalcRuns.Text), InsertItem.BPME, InsertItem.BPTE,
-                                                        NumberofBlueprints, CInt(txtCalcProdLines.Text), SelectedCharacter,
+                            ManufacturingBlueprint = New Blueprint(InsertItem.BPID, 1, InsertItem.BPME, InsertItem.BPTE,
+                                                        NumberofBlueprints, 1, SelectedCharacter,
                                                         UserApplicationSettings, True, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                         InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility,
                                                         InsertItem.ReactionFacility, False, UserManufacturingTabSettings.BuildT2T3Materials, True)
@@ -9027,7 +8947,6 @@ ExitCalc:
         ' Enable all the controls
         btnCalcSelectColumns.Enabled = True
         gbCalcBPSelect.Enabled = True
-        gbCalcProdLines.Enabled = True
         gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
 
@@ -9913,8 +9832,8 @@ ExitCalc:
                                      .ManufacturingFacility, .ComponentManufacturingFacility, .CapComponentManufacturingFacility,
                                      .InventionFacility, .CopyFacility,
                                      True, GetBrokerFeeData(),
-                                     CStr(.BPME), CStr(.BPTE), txtCalcRuns.Text, txtCalcProdLines.Text, "1",
-                                     txtCalcNumBPs.Text, FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
+                                     CStr(.BPME), CStr(.BPTE), "1", "1", "1",
+                                     "1", FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
             End With
         End If
 

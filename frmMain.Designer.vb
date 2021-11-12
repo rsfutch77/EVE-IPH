@@ -99,14 +99,6 @@ Partial Class frmMain
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
         Me.btnCancelUpdate = New MetroFramework.Controls.MetroButton()
-        Me.gbCalcProdLines = New System.Windows.Forms.GroupBox()
-        Me.lblCalcBPs = New System.Windows.Forms.Label()
-        Me.txtCalcNumBPs = New MetroFramework.Controls.MetroTextBox()
-        Me.txtCalcRuns = New MetroFramework.Controls.MetroTextBox()
-        Me.lblCalcRuns = New System.Windows.Forms.Label()
-        Me.lblCalcLabLines1 = New System.Windows.Forms.Label()
-        Me.lblCalcProdLines1 = New System.Windows.Forms.Label()
-        Me.txtCalcProdLines = New MetroFramework.Controls.MetroTextBox()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
         Me.chkCalcMinBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
@@ -160,7 +152,6 @@ Partial Class frmMain
         Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
-        Me.gbCalcProdLines.SuspendLayout()
         Me.MetroTabControl.SuspendLayout()
         Me.Character.SuspendLayout()
         Me.Settings.SuspendLayout()
@@ -622,162 +613,6 @@ Partial Class frmMain
         Me.btnCancelUpdate.Text = "Cancel Update"
         Me.btnCancelUpdate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCancelUpdate.UseSelectable = True
-        '
-        'gbCalcProdLines
-        '
-        Me.gbCalcProdLines.BackColor = System.Drawing.Color.Transparent
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcBPs)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcNumBPs)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcRuns)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcRuns)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcLabLines1)
-        Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcProdLines)
-        Me.gbCalcProdLines.ForeColor = System.Drawing.Color.White
-        Me.gbCalcProdLines.Location = New System.Drawing.Point(1632, 530)
-        Me.gbCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcProdLines.Name = "gbCalcProdLines"
-        Me.gbCalcProdLines.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcProdLines.Size = New System.Drawing.Size(295, 90)
-        Me.gbCalcProdLines.TabIndex = 15
-        Me.gbCalcProdLines.TabStop = False
-        Me.gbCalcProdLines.Text = "use to auto calculate available lines?"
-        '
-        'lblCalcBPs
-        '
-        Me.lblCalcBPs.AutoSize = True
-        Me.lblCalcBPs.Location = New System.Drawing.Point(55, 16)
-        Me.lblCalcBPs.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcBPs.Name = "lblCalcBPs"
-        Me.lblCalcBPs.Size = New System.Drawing.Size(37, 17)
-        Me.lblCalcBPs.TabIndex = 2
-        Me.lblCalcBPs.Text = "BPs:"
-        '
-        'txtCalcNumBPs
-        '
-        '
-        '
-        '
-        Me.txtCalcNumBPs.CustomButton.Image = Nothing
-        Me.txtCalcNumBPs.CustomButton.Location = New System.Drawing.Point(19, 2)
-        Me.txtCalcNumBPs.CustomButton.Name = ""
-        Me.txtCalcNumBPs.CustomButton.Size = New System.Drawing.Size(17, 17)
-        Me.txtCalcNumBPs.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtCalcNumBPs.CustomButton.TabIndex = 1
-        Me.txtCalcNumBPs.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtCalcNumBPs.CustomButton.UseSelectable = True
-        Me.txtCalcNumBPs.CustomButton.Visible = False
-        Me.txtCalcNumBPs.Lines = New String(-1) {}
-        Me.txtCalcNumBPs.Location = New System.Drawing.Point(56, 35)
-        Me.txtCalcNumBPs.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcNumBPs.MaxLength = 3
-        Me.txtCalcNumBPs.Name = "txtCalcNumBPs"
-        Me.txtCalcNumBPs.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtCalcNumBPs.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtCalcNumBPs.SelectedText = ""
-        Me.txtCalcNumBPs.SelectionLength = 0
-        Me.txtCalcNumBPs.SelectionStart = 0
-        Me.txtCalcNumBPs.ShortcutsEnabled = True
-        Me.txtCalcNumBPs.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcNumBPs.TabIndex = 3
-        Me.txtCalcNumBPs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtCalcNumBPs.UseSelectable = True
-        Me.txtCalcNumBPs.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtCalcNumBPs.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'txtCalcRuns
-        '
-        '
-        '
-        '
-        Me.txtCalcRuns.CustomButton.Image = Nothing
-        Me.txtCalcRuns.CustomButton.Location = New System.Drawing.Point(19, 2)
-        Me.txtCalcRuns.CustomButton.Name = ""
-        Me.txtCalcRuns.CustomButton.Size = New System.Drawing.Size(17, 17)
-        Me.txtCalcRuns.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtCalcRuns.CustomButton.TabIndex = 1
-        Me.txtCalcRuns.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtCalcRuns.CustomButton.UseSelectable = True
-        Me.txtCalcRuns.CustomButton.Visible = False
-        Me.txtCalcRuns.Lines = New String(-1) {}
-        Me.txtCalcRuns.Location = New System.Drawing.Point(9, 35)
-        Me.txtCalcRuns.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcRuns.MaxLength = 4
-        Me.txtCalcRuns.Name = "txtCalcRuns"
-        Me.txtCalcRuns.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtCalcRuns.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtCalcRuns.SelectedText = ""
-        Me.txtCalcRuns.SelectionLength = 0
-        Me.txtCalcRuns.SelectionStart = 0
-        Me.txtCalcRuns.ShortcutsEnabled = True
-        Me.txtCalcRuns.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcRuns.TabIndex = 1
-        Me.txtCalcRuns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.txtCalcRuns.UseSelectable = True
-        Me.txtCalcRuns.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtCalcRuns.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'lblCalcRuns
-        '
-        Me.lblCalcRuns.AutoSize = True
-        Me.lblCalcRuns.Location = New System.Drawing.Point(10, 16)
-        Me.lblCalcRuns.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcRuns.Name = "lblCalcRuns"
-        Me.lblCalcRuns.Size = New System.Drawing.Size(45, 17)
-        Me.lblCalcRuns.TabIndex = 0
-        Me.lblCalcRuns.Text = "Runs:"
-        '
-        'lblCalcLabLines1
-        '
-        Me.lblCalcLabLines1.AutoSize = True
-        Me.lblCalcLabLines1.Location = New System.Drawing.Point(141, 16)
-        Me.lblCalcLabLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcLabLines1.Name = "lblCalcLabLines1"
-        Me.lblCalcLabLines1.Size = New System.Drawing.Size(43, 17)
-        Me.lblCalcLabLines1.TabIndex = 6
-        Me.lblCalcLabLines1.Text = "Labs:"
-        '
-        'lblCalcProdLines1
-        '
-        Me.lblCalcProdLines1.AutoSize = True
-        Me.lblCalcProdLines1.Location = New System.Drawing.Point(99, 16)
-        Me.lblCalcProdLines1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcProdLines1.Name = "lblCalcProdLines1"
-        Me.lblCalcProdLines1.Size = New System.Drawing.Size(42, 17)
-        Me.lblCalcProdLines1.TabIndex = 4
-        Me.lblCalcProdLines1.Text = "Prod:"
-        '
-        'txtCalcProdLines
-        '
-        '
-        '
-        '
-        Me.txtCalcProdLines.CustomButton.Image = Nothing
-        Me.txtCalcProdLines.CustomButton.Location = New System.Drawing.Point(19, 2)
-        Me.txtCalcProdLines.CustomButton.Name = ""
-        Me.txtCalcProdLines.CustomButton.Size = New System.Drawing.Size(17, 17)
-        Me.txtCalcProdLines.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtCalcProdLines.CustomButton.TabIndex = 1
-        Me.txtCalcProdLines.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtCalcProdLines.CustomButton.UseSelectable = True
-        Me.txtCalcProdLines.CustomButton.Visible = False
-        Me.txtCalcProdLines.Lines = New String(-1) {}
-        Me.txtCalcProdLines.Location = New System.Drawing.Point(100, 35)
-        Me.txtCalcProdLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcProdLines.MaxLength = 3
-        Me.txtCalcProdLines.Name = "txtCalcProdLines"
-        Me.txtCalcProdLines.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtCalcProdLines.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtCalcProdLines.SelectedText = ""
-        Me.txtCalcProdLines.SelectionLength = 0
-        Me.txtCalcProdLines.SelectionStart = 0
-        Me.txtCalcProdLines.ShortcutsEnabled = True
-        Me.txtCalcProdLines.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcProdLines.TabIndex = 5
-        Me.txtCalcProdLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtCalcProdLines.UseSelectable = True
-        Me.txtCalcProdLines.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtCalcProdLines.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'btnDownloadPrices
         '
@@ -1424,7 +1259,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.btnCalcSelectColumns)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.tpMaxBuildTimeFilter)
-        Me.Controls.Add(Me.gbCalcProdLines)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.tpMinBuildTimeFilter)
         Me.Controls.Add(Me.mnuStripMain)
@@ -1447,8 +1281,6 @@ Partial Class frmMain
         Me.mnuStripMain.ResumeLayout(False)
         Me.mnuStripMain.PerformLayout()
         Me.ListOptionsMenu.ResumeLayout(False)
-        Me.gbCalcProdLines.ResumeLayout(False)
-        Me.gbCalcProdLines.PerformLayout()
         Me.MetroTabControl.ResumeLayout(False)
         Me.Character.ResumeLayout(False)
         Me.Settings.ResumeLayout(False)
@@ -1541,14 +1373,6 @@ Partial Class frmMain
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents cmbEdit As ComboBox
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
-    Friend WithEvents gbCalcProdLines As GroupBox
-    Friend WithEvents lblCalcBPs As Label
-    Friend WithEvents txtCalcNumBPs As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents txtCalcRuns As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents lblCalcRuns As Label
-    Friend WithEvents lblCalcLabLines1 As Label
-    Friend WithEvents lblCalcProdLines1 As Label
-    Friend WithEvents txtCalcProdLines As MetroFramework.Controls.MetroTextBox
     Friend WithEvents tpMinBuildTimeFilter As TimePicker
     Friend WithEvents tpMaxBuildTimeFilter As TimePicker
     Friend WithEvents Label1 As Label
