@@ -103,7 +103,6 @@ Partial Class frmMain
         Me.lblCalcBPs = New System.Windows.Forms.Label()
         Me.txtCalcNumBPs = New MetroFramework.Controls.MetroTextBox()
         Me.txtCalcRuns = New MetroFramework.Controls.MetroTextBox()
-        Me.txtCalcLabLines = New MetroFramework.Controls.MetroTextBox()
         Me.lblCalcRuns = New System.Windows.Forms.Label()
         Me.lblCalcLabLines1 = New System.Windows.Forms.Label()
         Me.lblCalcProdLines1 = New System.Windows.Forms.Label()
@@ -630,7 +629,6 @@ Partial Class frmMain
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcBPs)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcNumBPs)
         Me.gbCalcProdLines.Controls.Add(Me.txtCalcRuns)
-        Me.gbCalcProdLines.Controls.Add(Me.txtCalcLabLines)
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcRuns)
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcLabLines1)
         Me.gbCalcProdLines.Controls.Add(Me.lblCalcProdLines1)
@@ -718,38 +716,6 @@ Partial Class frmMain
         Me.txtCalcRuns.UseSelectable = True
         Me.txtCalcRuns.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.txtCalcRuns.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'txtCalcLabLines
-        '
-        '
-        '
-        '
-        Me.txtCalcLabLines.CustomButton.Image = Nothing
-        Me.txtCalcLabLines.CustomButton.Location = New System.Drawing.Point(19, 2)
-        Me.txtCalcLabLines.CustomButton.Name = ""
-        Me.txtCalcLabLines.CustomButton.Size = New System.Drawing.Size(17, 17)
-        Me.txtCalcLabLines.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.txtCalcLabLines.CustomButton.TabIndex = 1
-        Me.txtCalcLabLines.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.txtCalcLabLines.CustomButton.UseSelectable = True
-        Me.txtCalcLabLines.CustomButton.Visible = False
-        Me.txtCalcLabLines.Lines = New String(-1) {}
-        Me.txtCalcLabLines.Location = New System.Drawing.Point(144, 35)
-        Me.txtCalcLabLines.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtCalcLabLines.MaxLength = 3
-        Me.txtCalcLabLines.Name = "txtCalcLabLines"
-        Me.txtCalcLabLines.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.txtCalcLabLines.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.txtCalcLabLines.SelectedText = ""
-        Me.txtCalcLabLines.SelectionLength = 0
-        Me.txtCalcLabLines.SelectionStart = 0
-        Me.txtCalcLabLines.ShortcutsEnabled = True
-        Me.txtCalcLabLines.Size = New System.Drawing.Size(39, 22)
-        Me.txtCalcLabLines.TabIndex = 7
-        Me.txtCalcLabLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtCalcLabLines.UseSelectable = True
-        Me.txtCalcLabLines.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.txtCalcLabLines.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'lblCalcRuns
         '
@@ -1579,7 +1545,6 @@ Partial Class frmMain
     Friend WithEvents lblCalcBPs As Label
     Friend WithEvents txtCalcNumBPs As MetroFramework.Controls.MetroTextBox
     Friend WithEvents txtCalcRuns As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents txtCalcLabLines As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lblCalcRuns As Label
     Friend WithEvents lblCalcLabLines1 As Label
     Friend WithEvents lblCalcProdLines1 As Label

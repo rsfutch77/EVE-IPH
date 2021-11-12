@@ -590,7 +590,6 @@ Public Class frmMain
             ' Decryptor Tool tips
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Will assume Number of BPs is same as Number of Production lines for Calculations")
             ttUpdatePrices.SetToolTip(txtCalcProdLines, "Enter the number of Manufacturing Lines you have to build items per day for calculations. Calculations will assume the same number of BPs used." & vbCrLf & "Calculations for components will also use this value. Double-Click to enter max runs for this character.")
-            ttUpdatePrices.SetToolTip(txtCalcLabLines, "Enter the number of Laboratory Lines you have to invent per day for calculations. Double-Click to enter max runs for this character.")
 
         End If
         FirstLoadCalcBPTypes = True
@@ -5854,12 +5853,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub txtCalcLabLines_DoubleClick(sender As Object, e As System.EventArgs) Handles txtCalcLabLines.DoubleClick
-        ' Enter the max lab lines we have
-        txtCalcLabLines.Text = CStr(SelectedCharacter.MaximumLaboratoryLines)
-    End Sub
-
-    Private Sub txtCalcLabLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtCalcLabLines.KeyPress
+    Private Sub txtCalcLabLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -5871,7 +5865,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcLabLines_TextChanged(sender As Object, e As System.EventArgs) Handles txtCalcLabLines.TextChanged
+    Private Sub txtCalcLabLines_TextChanged(sender As Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7546,7 +7540,6 @@ ExitPRocessing:
             calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
             txtCalcProdLines.Text = CStr(.ProductionLines)
-            txtCalcLabLines.Text = CStr(.LaboratoryLines)
             txtCalcRuns.Text = CStr(.Runs)
             txtCalcNumBPs.Text = CStr(.BPRuns)
 
@@ -7589,14 +7582,6 @@ ExitPRocessing:
             If Not IsNumeric(txtCalcProdLines.Text) Then
                 MsgBox("Invalid Production Lines Value", vbExclamation, Application.ProductName)
                 txtCalcProdLines.Focus()
-                Exit Sub
-            End If
-        End If
-
-        If Trim(txtCalcLabLines.Text) <> "" Then
-            If Not IsNumeric(txtCalcLabLines.Text) Then
-                MsgBox("Invalid Laboratory Lines Value", vbExclamation, Application.ProductName)
-                txtCalcLabLines.Focus()
                 Exit Sub
             End If
         End If
@@ -7677,7 +7662,7 @@ ExitPRocessing:
 
             .CheckSVRIncludeNull = True
             .ProductionLines = CInt(txtCalcProdLines.Text)
-            .LaboratoryLines = CInt(txtCalcLabLines.Text)
+            .LaboratoryLines = 1
             .Runs = CInt(txtCalcRuns.Text)
             .BPRuns = CInt(txtCalcNumBPs.Text)
 
@@ -7839,22 +7824,6 @@ ExitPRocessing:
             MsgBox("You must select a non-zero Runs value.", vbExclamation, Application.ProductName)
             txtCalcRuns.Focus()
             txtCalcRuns.SelectAll()
-            Exit Sub
-        End If
-
-        If Trim(txtCalcLabLines.Text) <> "" Then
-            If Not IsNumeric(txtCalcLabLines.Text) Then
-                MsgBox("Invalid Laboratory Lines value", vbExclamation, Application.ProductName)
-                txtCalcLabLines.Focus()
-                txtCalcLabLines.SelectAll()
-                Exit Sub
-            End If
-        End If
-
-        If Val(txtCalcLabLines.Text) = 0 Then
-            MsgBox("You must select a non-zero laboratory lines value.", vbExclamation, Application.ProductName)
-            txtCalcLabLines.Focus()
-            txtCalcLabLines.SelectAll()
             Exit Sub
         End If
 
@@ -8052,7 +8021,7 @@ ExitPRocessing:
                 ' Runs and lines
                 InsertItem.Runs = CInt(txtCalcRuns.Text)
                 InsertItem.ProductionLines = CInt(txtCalcProdLines.Text)
-                InsertItem.LaboratoryLines = CInt(txtCalcLabLines.Text)
+                InsertItem.LaboratoryLines = 1
 
                 ' Reset all the industry facilities
                 InsertItem.ManufacturingFacility = New IndustryFacility
@@ -8380,7 +8349,7 @@ ExitPRocessing:
                         End If
 
                         ' Construct the T2/T3 BP
-                        Call ManufacturingBlueprint.InventBlueprint(CInt(txtCalcLabLines.Text), SelectedDecryptor, InsertItem.InventionFacility,
+                        Call ManufacturingBlueprint.InventBlueprint(1, SelectedDecryptor, InsertItem.InventionFacility,
                                                                InsertItem.CopyFacility, GetInventItemTypeID(InsertItem.BPID, InsertItem.Relic))
 
                     End If
@@ -8566,7 +8535,7 @@ ExitPRocessing:
 
                             If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) Then
                                 ' Construct the T2/T3 BP
-                                ManufacturingBlueprint.InventBlueprint(CInt(txtCalcLabLines.Text), SelectedDecryptor, InsertItem.InventionFacility,
+                                ManufacturingBlueprint.InventBlueprint(1, SelectedDecryptor, InsertItem.InventionFacility,
                                                                        InsertItem.CopyFacility, GetInventItemTypeID(InsertItem.BPID, InsertItem.Relic))
 
                             End If
@@ -9944,7 +9913,7 @@ ExitCalc:
                                      .ManufacturingFacility, .ComponentManufacturingFacility, .CapComponentManufacturingFacility,
                                      .InventionFacility, .CopyFacility,
                                      True, GetBrokerFeeData(),
-                                     CStr(.BPME), CStr(.BPTE), txtCalcRuns.Text, txtCalcProdLines.Text, txtCalcLabLines.Text,
+                                     CStr(.BPME), CStr(.BPTE), txtCalcRuns.Text, txtCalcProdLines.Text, "1",
                                      txtCalcNumBPs.Text, FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
             End With
         End If
