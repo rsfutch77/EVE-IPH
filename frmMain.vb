@@ -6391,29 +6391,11 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub chkCalcMinBuildTimeFilter_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcMinBuildTimeFilter.CheckedChanged
-        Call ResetRefresh()
-        If chkCalcMinBuildTimeFilter.Checked Then
-            tpMinBuildTimeFilter.Enabled = True
-        Else
-            tpMinBuildTimeFilter.Enabled = False
-        End If
-    End Sub
-
-    Private Sub chkCalcMaxBuildTimeFilter_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkCalcMaxBuildTimeFilter.CheckedChanged
-        Call ResetRefresh()
-        If chkCalcMaxBuildTimeFilter.Checked Then
-            tpMaxBuildTimeFilter.Enabled = True
-        Else
-            tpMaxBuildTimeFilter.Enabled = False
-        End If
-    End Sub
-
-    Private Sub tpMinBuildTimeFilter_TimeChange(sender As Object, e As System.EventArgs) Handles tpMinBuildTimeFilter.TimeChange
+    Private Sub tpMinBuildTimeFilter_TimeChange(sender As Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
-    Private Sub tpMaxBuildTimeFilter_TimeChange(sender As Object, e As System.EventArgs) Handles tpMaxBuildTimeFilter.TimeChange
+    Private Sub tpMaxBuildTimeFilter_TimeChange(sender As Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
 
@@ -7528,12 +7510,6 @@ ExitPRocessing:
 
             calcHistoryRegion = UserApplicationSettings.SVRAveragePriceRegion
 
-            ' Time pickers
-            chkCalcMaxBuildTimeFilter.Checked = .MaxBuildTimeCheck
-            chkCalcMinBuildTimeFilter.Checked = .MinBuildTimeCheck
-            tpMaxBuildTimeFilter.Text = .MaxBuildTime
-            tpMinBuildTimeFilter.Text = .MinBuildTime
-
             ProfitPercentText = "0.0%"
             ProfitText = "0.00"
 
@@ -7640,11 +7616,6 @@ ExitPRocessing:
 
             .PriceTrend = "All"
 
-            .MaxBuildTimeCheck = chkCalcMaxBuildTimeFilter.Checked
-            .MaxBuildTime = tpMaxBuildTimeFilter.Text
-            .MinBuildTimeCheck = chkCalcMinBuildTimeFilter.Checked
-            .MinBuildTime = tpMinBuildTimeFilter.Text
-
             .BuildT2T3Materials = BuildMatType.RawMaterials
 
             .ProfitThresholdCheck = CheckState.Unchecked
@@ -7747,15 +7718,6 @@ ExitPRocessing:
 
         ' Set this now and enable it if they calculate
         AddToShoppingListToolStripMenuItem.Enabled = False
-
-        ' Make sure the build times don't overlap if both checked
-        If chkCalcMinBuildTimeFilter.Checked And chkCalcMaxBuildTimeFilter.Checked Then
-            If ConvertDHMSTimetoSeconds(tpMinBuildTimeFilter.Text) >= ConvertDHMSTimetoSeconds(tpMaxBuildTimeFilter.Text) Then
-                MsgBox("You must select a Min Build time less than the Max Build time selected.", vbExclamation, Application.ProductName)
-                chkCalcMinBuildTimeFilter.Focus()
-                Exit Sub
-            End If
-        End If
 
         SVRThresholdValue = Nothing ' Include everything
 
@@ -9671,22 +9633,6 @@ ExitCalc:
         ' If it's empty and you don't want blank svr's, don't insert
         If SentItem.SVR = "-" And Not InsertBlankSVR Then
             InsertItem = False
-        End If
-
-        ' Min Build time
-        If chkCalcMinBuildTimeFilter.Checked Then
-            ' If greater than max threshold, don't include
-            If ConvertDHMSTimetoSeconds(SentItem.TotalProductionTime) < ConvertDHMSTimetoSeconds(tpMinBuildTimeFilter.Text) Then
-                InsertItem = False
-            End If
-        End If
-
-        ' Max Build time
-        If chkCalcMaxBuildTimeFilter.Checked Then
-            ' If greater than max threshold, don't include
-            If ConvertDHMSTimetoSeconds(SentItem.TotalProductionTime) > ConvertDHMSTimetoSeconds(tpMaxBuildTimeFilter.Text) Then
-                InsertItem = False
-            End If
         End If
 
         ' Now determine the format of the item and save it for drawing the list - only if we add it

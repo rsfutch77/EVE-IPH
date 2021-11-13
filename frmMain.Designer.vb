@@ -101,10 +101,7 @@ Partial Class frmMain
         Me.btnCancelUpdate = New MetroFramework.Controls.MetroButton()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
-        Me.chkCalcMinBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
         Me.btnCalcSelectColumns = New MetroFramework.Controls.MetroButton()
-        Me.chkCalcMaxBuildTimeFilter = New MetroFramework.Controls.MetroCheckBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.MetroProgressBar = New MetroFramework.Controls.MetroProgressBar()
         Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
@@ -148,8 +145,6 @@ Partial Class frmMain
         Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
-        Me.tpMaxBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
-        Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.MetroTabControl.SuspendLayout()
@@ -636,20 +631,6 @@ Partial Class frmMain
         Me.btnCalcCalculate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCalcCalculate.UseSelectable = True
         '
-        'chkCalcMinBuildTimeFilter
-        '
-        Me.chkCalcMinBuildTimeFilter.AutoSize = True
-        Me.chkCalcMinBuildTimeFilter.BackColor = System.Drawing.Color.Transparent
-        Me.chkCalcMinBuildTimeFilter.ForeColor = System.Drawing.Color.White
-        Me.chkCalcMinBuildTimeFilter.Location = New System.Drawing.Point(1517, 182)
-        Me.chkCalcMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcMinBuildTimeFilter.Name = "chkCalcMinBuildTimeFilter"
-        Me.chkCalcMinBuildTimeFilter.Size = New System.Drawing.Size(113, 17)
-        Me.chkCalcMinBuildTimeFilter.TabIndex = 70
-        Me.chkCalcMinBuildTimeFilter.Text = "Min Build Time:"
-        Me.chkCalcMinBuildTimeFilter.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.chkCalcMinBuildTimeFilter.UseSelectable = True
-        '
         'btnCalcSelectColumns
         '
         Me.btnCalcSelectColumns.Location = New System.Drawing.Point(1745, 461)
@@ -660,33 +641,6 @@ Partial Class frmMain
         Me.btnCalcSelectColumns.Text = "Select Columns"
         Me.btnCalcSelectColumns.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCalcSelectColumns.UseSelectable = True
-        '
-        'chkCalcMaxBuildTimeFilter
-        '
-        Me.chkCalcMaxBuildTimeFilter.AutoSize = True
-        Me.chkCalcMaxBuildTimeFilter.BackColor = System.Drawing.Color.Transparent
-        Me.chkCalcMaxBuildTimeFilter.ForeColor = System.Drawing.Color.White
-        Me.chkCalcMaxBuildTimeFilter.Location = New System.Drawing.Point(1517, 211)
-        Me.chkCalcMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCalcMaxBuildTimeFilter.Name = "chkCalcMaxBuildTimeFilter"
-        Me.chkCalcMaxBuildTimeFilter.Size = New System.Drawing.Size(116, 17)
-        Me.chkCalcMaxBuildTimeFilter.TabIndex = 71
-        Me.chkCalcMaxBuildTimeFilter.Text = "Max Build Time:"
-        Me.chkCalcMaxBuildTimeFilter.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.chkCalcMaxBuildTimeFilter.UseSelectable = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(1478, 160)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(554, 17)
-        Me.Label1.TabIndex = 72
-        Me.Label1.Text = "use build time limits to not build anything more than a week long when counting a" &
-    "ll runs"
         '
         'Label4
         '
@@ -1214,26 +1168,6 @@ Partial Class frmMain
         Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcBaseFacility.TabIndex = 0
         '
-        'tpMaxBuildTimeFilter
-        '
-        Me.tpMaxBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tpMaxBuildTimeFilter.Enabled = False
-        Me.tpMaxBuildTimeFilter.Location = New System.Drawing.Point(1673, 231)
-        Me.tpMaxBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
-        Me.tpMaxBuildTimeFilter.Name = "tpMaxBuildTimeFilter"
-        Me.tpMaxBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
-        Me.tpMaxBuildTimeFilter.TabIndex = 70
-        '
-        'tpMinBuildTimeFilter
-        '
-        Me.tpMinBuildTimeFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tpMinBuildTimeFilter.Enabled = False
-        Me.tpMinBuildTimeFilter.Location = New System.Drawing.Point(1673, 193)
-        Me.tpMinBuildTimeFilter.Margin = New System.Windows.Forms.Padding(5)
-        Me.tpMinBuildTimeFilter.Name = "tpMinBuildTimeFilter"
-        Me.tpMinBuildTimeFilter.Size = New System.Drawing.Size(141, 28)
-        Me.tpMinBuildTimeFilter.TabIndex = 69
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -1257,14 +1191,9 @@ Partial Class frmMain
         Me.Controls.Add(Me.cmbEdit)
         Me.Controls.Add(Me.btnCalcSelectColumns)
         Me.Controls.Add(Me.txtListEdit)
-        Me.Controls.Add(Me.tpMaxBuildTimeFilter)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.tpMinBuildTimeFilter)
         Me.Controls.Add(Me.mnuStripMain)
         Me.Controls.Add(Me.cmbBPBlueprintSelection)
-        Me.Controls.Add(Me.chkCalcMaxBuildTimeFilter)
         Me.Controls.Add(Me.lstBPList)
-        Me.Controls.Add(Me.chkCalcMinBuildTimeFilter)
         Me.Controls.Add(Me.btnCalcCalculate)
         Me.Controls.Add(Me.btnCancelUpdate)
         Me.Controls.Add(Me.btnDownloadPrices)
@@ -1372,16 +1301,11 @@ Partial Class frmMain
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents cmbEdit As ComboBox
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
-    Friend WithEvents tpMinBuildTimeFilter As TimePicker
-    Friend WithEvents tpMaxBuildTimeFilter As TimePicker
-    Friend WithEvents Label1 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents btnCancelUpdate As MetroFramework.Controls.MetroButton
     Friend WithEvents btnDownloadPrices As MetroFramework.Controls.MetroButton
     Friend WithEvents btnCalcCalculate As MetroFramework.Controls.MetroButton
-    Friend WithEvents chkCalcMinBuildTimeFilter As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents btnCalcSelectColumns As MetroFramework.Controls.MetroButton
-    Friend WithEvents chkCalcMaxBuildTimeFilter As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents MetroProgressBar As MetroFramework.Controls.MetroProgressBar
     Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
     Friend WithEvents MetroTabControl As MetroFramework.Controls.MetroTabControl
