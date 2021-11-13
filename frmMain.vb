@@ -10935,10 +10935,10 @@ NextIteration:
 
         If TotalShoppingList.GetNumShoppingItems > 0 Then
             ' Add the final item and mark as items in list
-            pnlShoppingList.Text = "Items in Shopping List"
+            pnlShoppingList.Text = "Autoshop success!"
             pnlShoppingList.ForeColor = Color.Red
         Else
-            pnlShoppingList.Text = "No Items in Shopping List"
+            pnlShoppingList.Text = "Autoshop failed, make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint."
             pnlShoppingList.ForeColor = Color.Black
         End If
 

@@ -125,7 +125,6 @@ Partial Class frmMain
         Me.chkSystems3 = New MetroFramework.Controls.MetroRadioButton()
         Me.chkSystems1 = New MetroFramework.Controls.MetroRadioButton()
         Me.Prices = New System.Windows.Forms.TabPage()
-        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.Products = New System.Windows.Forms.TabPage()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
@@ -135,7 +134,6 @@ Partial Class frmMain
         Me.lblCalcColorCode5 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode2 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
-        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.lblBPCanMakeBP = New System.Windows.Forms.Label()
         Me.pictBP = New System.Windows.Forms.PictureBox()
         Me.ShoppingList = New System.Windows.Forms.TabPage()
@@ -147,6 +145,8 @@ Partial Class frmMain
         Me.pnlShoppingList = New MetroFramework.Controls.MetroLabel()
         Me.pnlSkills = New MetroFramework.Controls.MetroLabel()
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
+        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
+        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.tpMaxBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
         Me.tpMinBuildTimeFilter = New EVE_Isk_per_Hour.TimePicker()
@@ -727,7 +727,7 @@ Partial Class frmMain
         Me.MetroTabControl.Controls.Add(Me.ShoppingList)
         Me.MetroTabControl.Location = New System.Drawing.Point(77, 198)
         Me.MetroTabControl.Name = "MetroTabControl"
-        Me.MetroTabControl.SelectedIndex = 2
+        Me.MetroTabControl.SelectedIndex = 0
         Me.MetroTabControl.Size = New System.Drawing.Size(901, 531)
         Me.MetroTabControl.TabIndex = 79
         Me.MetroTabControl.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -948,20 +948,6 @@ Partial Class frmMain
         Me.Prices.TabIndex = 0
         Me.Prices.Text = " --------------------"
         '
-        'lstPricesView
-        '
-        Me.lstPricesView.FullRowSelect = True
-        Me.lstPricesView.GridLines = True
-        Me.lstPricesView.HideSelection = False
-        Me.lstPricesView.Location = New System.Drawing.Point(122, 81)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstPricesView.MultiSelect = False
-        Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
-        Me.lstPricesView.TabIndex = 1
-        Me.lstPricesView.UseCompatibleStateImageBehavior = False
-        Me.lstPricesView.View = System.Windows.Forms.View.Details
-        '
         'Products
         '
         Me.Products.BackColor = System.Drawing.SystemColors.ActiveCaptionText
@@ -1076,22 +1062,6 @@ Partial Class frmMain
         Me.lblCalcColorCode1.Text = "T"
         Me.lblCalcColorCode1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lstManufacturing
-        '
-        Me.lstManufacturing.AllowColumnReorder = True
-        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
-        Me.lstManufacturing.FullRowSelect = True
-        Me.lstManufacturing.GridLines = True
-        Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Location = New System.Drawing.Point(32, 38)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstManufacturing.Name = "lstManufacturing"
-        Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(453, 434)
-        Me.lstManufacturing.TabIndex = 17
-        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
-        Me.lstManufacturing.View = System.Windows.Forms.View.Details
-        '
         'lblBPCanMakeBP
         '
         Me.lblBPCanMakeBP.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1129,7 +1099,7 @@ Partial Class frmMain
         Me.lblRecommendation.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.lblRecommendation.Location = New System.Drawing.Point(900, 824)
         Me.lblRecommendation.Name = "lblRecommendation"
-        Me.lblRecommendation.Size = New System.Drawing.Size(395, 151)
+        Me.lblRecommendation.Size = New System.Drawing.Size(550, 212)
         Me.lblRecommendation.TabIndex = 88
         Me.lblRecommendation.Text = "Recommendations will appear here"
         Me.lblRecommendation.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -1177,10 +1147,9 @@ Partial Class frmMain
         '
         'pnlShoppingList
         '
-        Me.pnlShoppingList.AutoSize = True
-        Me.pnlShoppingList.Location = New System.Drawing.Point(507, 752)
+        Me.pnlShoppingList.Location = New System.Drawing.Point(900, 752)
         Me.pnlShoppingList.Name = "pnlShoppingList"
-        Me.pnlShoppingList.Size = New System.Drawing.Size(91, 20)
+        Me.pnlShoppingList.Size = New System.Drawing.Size(283, 68)
         Me.pnlShoppingList.TabIndex = 84
         Me.pnlShoppingList.Text = "Shopping List"
         Me.pnlShoppingList.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -1205,6 +1174,36 @@ Partial Class frmMain
         Me.pnlStatus.TabIndex = 86
         Me.pnlStatus.Text = "Status"
         Me.pnlStatus.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'lstPricesView
+        '
+        Me.lstPricesView.FullRowSelect = True
+        Me.lstPricesView.GridLines = True
+        Me.lstPricesView.HideSelection = False
+        Me.lstPricesView.Location = New System.Drawing.Point(122, 81)
+        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstPricesView.MultiSelect = False
+        Me.lstPricesView.Name = "lstPricesView"
+        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
+        Me.lstPricesView.TabIndex = 1
+        Me.lstPricesView.UseCompatibleStateImageBehavior = False
+        Me.lstPricesView.View = System.Windows.Forms.View.Details
+        '
+        'lstManufacturing
+        '
+        Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
+        Me.lstManufacturing.FullRowSelect = True
+        Me.lstManufacturing.GridLines = True
+        Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Location = New System.Drawing.Point(32, 38)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Name = "lstManufacturing"
+        Me.lstManufacturing.OwnerDraw = True
+        Me.lstManufacturing.Size = New System.Drawing.Size(453, 434)
+        Me.lstManufacturing.TabIndex = 17
+        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
+        Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
         'CalcBaseFacility
         '
