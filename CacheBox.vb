@@ -28,6 +28,28 @@ Public Class CacheBox
             rsCheck.Close()
         End If
 
+        ' Add a column
+        Dim walletCheck As SQLiteDataReader
+        ' Check if the column exists already
+        SQL = "pragma table_info(ESI_CHARACTER_DATA)"
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        walletCheck = DBCommand.ExecuteReader
+        Dim columnName As String
+        Dim ColumnFound As Boolean
+        While (walletCheck.Read())
+            columnName = walletCheck.GetString(1)
+            If String.Equals(columnName, "WALLET_CACHE_DATE") Then
+                ColumnFound = True
+            End If
+        End While
+        ' If not found, add it
+        If Not ColumnFound Then
+            ' Add the risk price column
+            SQL = "ALTER TABLE ESI_CHARACTER_DATA ADD WALLET_CACHE_DATE float"
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            walletCheck = DBCommand.ExecuteReader
+        End If
+
         If UpdateInfo.FieldName <> "" Then
             ' Update the cache date
             SQL = String.Format("UPDATE {0} SET {1} = '" & Format(SentDate, SQLiteDateFormat) & "'", UpdateInfo.TableName, UpdateInfo.FieldName)
@@ -111,6 +133,8 @@ Public Class CacheBox
                     .FieldName = "CORP_ROLES_CACHE_DATE"
                 Case CacheDateType.ESIStatus
                     .FieldName = "PUBLIC_ESI_STATUS_CACHED_UNTIL"
+                Case CacheDateType.Wallet
+                    .FieldName = "WALLET_CACHE_DATE"
                 Case Else
                     .FieldName = ""
             End Select

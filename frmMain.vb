@@ -10782,71 +10782,23 @@ ExitCalc:
 
     End Function
 
-    'Get's ESI wallet data this character and returns it
-    Private Function UpdateWallet(ByVal ID As Long, ByVal CharacterTokenData As SavedTokenData) As Double
-        Dim Wallet As Double
-
-        Dim ESIData As New ESI
-        Dim CB As New CacheBox
-
-        Dim CacheDate As Date
-
-        Dim CDType As CacheDateType = CacheDateType.Wallet
-
-        ' Look up the assets cache date first      
-        If CB.DataUpdateable(CDType, ID) Then
-            Wallet = ESIData.GetCharacterWallet(ID, CharacterTokenData, CacheDate)
-
-            ' Update cache date since it's all set now
-            Call CB.UpdateCacheDate(CDType, CacheDate, ID)
-        End If
-
-        Return Wallet
-
-    End Function
-
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
     Private Sub AutoAddToShoppingList()
-
-        'Load the character's wallet as well if a non dummy character is selected
-        If SelectedCharacter.ID = DummyCharacterID Then
-            SelectedCharacter.Wallet = 500000000 'Default for dummy character, 500m
-        Else
-
-            pnlStatus.Text = "Getting Wallet Data..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 1
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-
-            Dim tempWallet = UpdateWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
-
-            If tempWallet > 0 Then
-                SelectedCharacter.Wallet = tempWallet
-            Else
-                Return
-            End If
-
-            Call IncrementToolStripProgressBar(MetroProgressBar)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
-
-        End If
 
         'If at least one item was calculated
         If lstManufacturing.Items.Count > 0 Then
             Dim FoundItem As New ManufacturingItem
 
-            'Get player's max jobs
-            Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
             'Subtract any active jobs
-            pnlStatus.Text = "Getting Job Data..."
+            pnlStatus.Text = "Getting Character Data..."
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 1
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = True
-            Call frmIndustryJobsViewer.UpdateJobs(True) 'Update the jobs first
+            ' Try to update character data (including jobs and wallet)
+            SelectedCharacter.LoadCharacterData(SelectedCharacter.CharacterTokenData, False, False, True)
+            'If jobs did not update for the selected character,  note the most recent time
+            '
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
@@ -10864,13 +10816,15 @@ ExitCalc:
                 Dim rf As New frmJobsNearCompletion
                 makeStuffNow = rf.ShowDialog()
             End If
+            'Get player's max jobs
+            Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
             If makeStuffNow = DialogResult.OK Then 'Make stuff now
                 maxJobs = maxJobs - activeJobsFarFromCompletion
             ElseIf makeStuffNow = DialogResult.Cancel Then 'Planning for later
                 'Do nothing
             End If
 
-            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.Wallet)
+            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
@@ -10939,7 +10893,7 @@ NextIteration:
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = True
             Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.Wallet)
+            Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
             pnlStatus.Text = ""

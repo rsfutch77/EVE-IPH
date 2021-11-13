@@ -10,7 +10,8 @@ Public Class Character
     Public BloodLineID As Integer
     Public AncestryLineID As Integer
     Public Descripton As String
-    Public Wallet As Double
+    Public WalletData As EVEWallet
+    Public JobsUpdated As Boolean
 
     ' For ESI access, etc.
     Public CharacterTokenData As SavedTokenData
@@ -75,7 +76,7 @@ Public Class Character
         ' Corporation Data for this character
         CharacterCorporation = New Corporation
 
-        Wallet = 0
+        WalletData = New EVEWallet
 
     End Sub
 
@@ -277,10 +278,17 @@ Public Class Character
                 MaximumLaboratoryLines = 1
             End If
 
+
             ' Load the character's industry jobs
             If CharacterTokenData.Scopes.Contains(ESI.ESICharacterIndustryJobsScope) Then
                 IndustryJobsAccess = True
-                Call Jobs.UpdateIndustryJobs(ID, CharacterTokenData, ScanType.Personal)
+                Call WalletData.LoadWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
+            End If
+
+            ' Load the character's industry jobs
+            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterIndustryJobsScope) Then
+                IndustryJobsAccess = True
+                Call Jobs.LoadIndustryJobs(ID, CharacterTokenData, ScanType.Personal)
             End If
 
             If IndustryJobsUpdate Then

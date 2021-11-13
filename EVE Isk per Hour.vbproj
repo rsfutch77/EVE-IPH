@@ -447,6 +447,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TopMostMessageBox.vb" />
+    <Compile Include="Wallet.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmAddCharacter.resx">

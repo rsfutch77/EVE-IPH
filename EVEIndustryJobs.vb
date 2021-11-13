@@ -13,26 +13,63 @@ Public Class EVEIndustryJobs
 
     ' Loads all the Industry Assets from the DB for the ID sent - I'm not using this locally so don't load anything
     Public Sub LoadIndustryJobs(ByVal ID As Long, ByVal TokenData As SavedTokenData, ByVal JobType As ScanType)
-        'Dim SQL As String
-        'Dim readerJobs As SQLiteDataReader
-        'Dim TempJob As IndustryJob
-        'Dim Jobs As New List(Of IndustryJob)
+        Dim SQL As String
+        Dim readerJobs As SQLiteDataReader
+        Dim TempJob As IndustryJob
+        Dim Jobs As New List(Of IndustryJob)
 
         ' Update Industry jobs first
         Call UpdateIndustryJobs(ID, TokenData, JobType)
 
-        'DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        'readerJobs = DBCommand.ExecuteReader
+        ' See what ID we use
+        Dim CharID As Long = 0
+        If UserApplicationSettings.LoadBPsbyChar Then
+            ' Use the ID sent
+            CharID = SelectedCharacter.ID
+        Else
+            CharID = CommonLoadBPsID
+        End If
 
-        'While readerJobs.Read
+        ' Load the blueprints
+        SQL = "SELECT jobID, installerID, facilityID, locationID, activityID, blueprintID, blueprintTypeID, blueprintLocationID, outputLocationID, runs, cost, licensedRuns, probability, productTypeID, status, duration, startDate, endDate, pauseDate, completedDate, completedCharacterID, successfulRuns, JobType "
+        SQL = SQL & "FROM INDUSTRY_JOBS WHERE installerID = " & CharID
 
-        'End While
+        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        readerJobs = DBCommand.ExecuteReader
 
-        'readerJobs.Close()
-        'DBCommand = Nothing
-        'readerJobs = Nothing
+        While readerJobs.Read
+            TempJob.JobID = readerJobs.GetInt32(0)
+            TempJob.InstallerID = readerJobs.GetInt32(1)
+            TempJob.FacilityID = readerJobs.GetInt32(2)
+            TempJob.LocationID = readerJobs.GetInt32(3)
+            TempJob.ActivityID = readerJobs.GetInt32(4)
+            TempJob.BlueprintID = readerJobs.GetInt32(5)
+            TempJob.BlueprintTypeID = readerJobs.GetInt32(6)
+            TempJob.BlueprintLocationID = readerJobs.GetInt32(7)
+            TempJob.OutputlocationID = readerJobs.GetInt32(8)
+            TempJob.Runs = readerJobs.GetInt32(9)
+            TempJob.Cost = readerJobs.GetDouble(10)
+            TempJob.Licensedruns = readerJobs.GetInt32(11)
+            TempJob.Probability = readerJobs.GetDouble(12)
+            TempJob.ProductTypeID = readerJobs.GetInt32(13)
+            'TempJob.Status = readerJobs.GetString(14)
+            TempJob.Duration = readerJobs.GetInt32(15)
+            TempJob.StartDate = readerJobs.GetDateTime(16)
+            TempJob.EndDate = readerJobs.GetDateTime(17)
+            'TempJob.PauseDate = readerJobs.GetDateTime(18)
+            'TempJob.CompletedDate = readerJobs.GetDateTime(19)
+            TempJob.CompletedCharacterID = readerJobs.GetInt32(20)
+            TempJob.SuccessfulRuns = readerJobs.GetInt32(21)
+            TempJob.JobType = readerJobs.GetInt32(22)
 
-        ' JobList = Jobs
+            Jobs.Add(TempJob)
+        End While
+
+        readerJobs.Close()
+        DBCommand = Nothing
+        readerJobs = Nothing
+
+        JobList = Jobs
 
     End Sub
 
@@ -86,28 +123,10 @@ Public Class EVEIndustryJobs
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                     ' Insert industry data
-                    If CharacterTokenData.CharacterID = SelectedCharacter.CharacterTokenData.CharacterID Then
-                        SelectedCharacter.Jobs.JobList.Clear() 'Clear the character job list before we start
-                    End If
                     For i = 0 To IndyJobs.Count - 1
 
                         ' First make sure it's not already in there
                         With IndyJobs(i)
-
-                            'Add active jobs to the Character's job list
-                            If CharacterTokenData.CharacterID = SelectedCharacter.CharacterTokenData.CharacterID Then
-
-                                Dim CurrentDateTime As Date = DateTime.UtcNow
-                                Dim startdate As Date = ESIData.FormatESIDate(.start_date)
-                                Dim enddate As Date = ESIData.FormatESIDate(.end_date)
-
-                                If .status = "active" And .activity_id = 1 And ESIData.FormatESIDate(.start_date) < CurrentDateTime And ESIData.FormatESIDate(.end_date) > CurrentDateTime Then
-                                    Dim job As IndustryJob
-                                    job.BlueprintTypeID = IndyJobs(i).blueprint_type_id
-                                    job.EndDate = ESIData.FormatESIDate(IndyJobs(i).end_date)
-                                    SelectedCharacter.Jobs.JobList.Add(job)
-                                End If
-                            End If
 
                             ' Insert it
                             If .location_id = 0 Then
