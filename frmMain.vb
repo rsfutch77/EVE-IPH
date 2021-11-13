@@ -10731,6 +10731,11 @@ ExitCalc:
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
     Private Sub AutoAddToShoppingList()
 
+        pnlShoppingList.Text = "Calcuating Autoshop"
+
+        'Clear the shopping list before we start
+        Call TotalShoppingList.Clear()
+
         'If at least one item was calculated
         If lstManufacturing.Items.Count > 0 Then
             Dim FoundItem As New ManufacturingItem
