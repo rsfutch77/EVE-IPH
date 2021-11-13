@@ -66,11 +66,14 @@ Public Class ShoppingList
 
         Const ManufacturingDays = 1
 
+        Dim iterations As Integer
+
         TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
         Dim difference As Double = TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60
 
         'Leave some room for error on the cargo volume
-        While TotalItemList(0).TotalBuildTime > ManufacturingDays * 24 * 60 * 60
+        While TotalItemList(0).TotalBuildTime > ManufacturingDays * 24 * 60 * 60 And iterations < 100
+            iterations = iterations + 1
             If CLng(TotalItemList(0).Runs * (1 - 0.25)) = TotalItemList(0).Runs Then
                 UpdateShoppingItemQuantity(TotalItemList(0), 0) ' Get rid of this item if we get near zero runs
             Else
@@ -84,6 +87,12 @@ Public Class ShoppingList
             '...
         End While
 
+        'If we spent a long time on this and it doesn't work, then clear the list
+        If iterations >= 100 Then
+            TotalItemList.Clear()
+        End If
+
+
     End Sub
 
     'Reduce quantities of items until the player can afford to manufacture the whole shopping list
@@ -91,10 +100,17 @@ Public Class ShoppingList
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat+
 
+        If WalletData = 0 Then
+            Return
+        End If
+
+        Dim iterations As Integer
+
         Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
 
         'Don't use all of the player's money, just most of it
-        While TotalShoppingList.GetTotalCost > WalletData * 0.75
+        While TotalShoppingList.GetTotalCost > WalletData * 0.75 And iterations < 100
+            iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
             Dim reducer As Double = 0.25
@@ -109,6 +125,11 @@ Public Class ShoppingList
             Next
         End While
 
+        'If we spent a long time on this and it doesn't work, then clear the list
+        If iterations >= 100 Then
+            TotalItemList.Clear()
+        End If
+
     End Sub
 
     'Reduce quantities of items until the player can fit everything in their ship on the way to the manufacturing facility (materials)
@@ -121,10 +142,13 @@ Public Class ShoppingList
             ShopListItem.MaterialVolume = ShopListItem.BPMaterialList.GetTotalVolume() * ShopListItem.Runs
         Next
 
+        Dim iterations As Integer
+
         Dim difference As Double = TotalShoppingList.GetTotalVolume - CargoVolume
 
         'Leave some room for error on the cargo volume
-        While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95
+        While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95 And iterations < 100
+            iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.MaterialVolume.CompareTo(x.MaterialVolume))
             Dim reducer As Double = 0.25
@@ -143,6 +167,12 @@ Public Class ShoppingList
             Next
         End While
 
+        'If we spent a long time on this and it doesn't work, then clear the list
+        If iterations >= 100 Then
+            TotalItemList.Clear()
+        End If
+
+
     End Sub
 
     'Reduce quantities of items until the player can fit everything in their ship on the way back (products/built)
@@ -150,10 +180,13 @@ Public Class ShoppingList
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat
 
+        Dim iterations As Integer
+
         Dim difference As Double = TotalShoppingList.GetBuiltItemVolume - CargoVolume
 
         'Leave some room for error on the cargo volume
-        While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95
+        While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95 And iterations < 100
+            iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.BuildVolume.CompareTo(x.BuildVolume))
             Dim reducer As Double = 0.25
@@ -167,6 +200,12 @@ Public Class ShoppingList
                 frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalShoppingList.GetBuiltItemVolume - CargoVolume)) / difference))
             Next
         End While
+
+        'If we spent a long time on this and it doesn't work, then clear the list
+        If iterations >= 100 Then
+            TotalItemList.Clear()
+        End If
+
 
     End Sub
 
