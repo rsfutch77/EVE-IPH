@@ -115,12 +115,7 @@ Public Class ManufacturingFacility
         ' Add any initialization after the InitializeComponent() call.
 
         ' Hide everything until constructed with the options sent
-        cmbFacilityActivities.Visible = False
-        lblFacilityActivity.Visible = False
-        lblFacilityUsage.Visible = False
         chkFacilityToggle.Visible = False
-        lblFacilityFWUpgrade.Visible = False
-        cmbFacilityFWUpgrade.Visible = False
         txtFacilityManualCost.Visible = False
         lblFacilityManualCost.Visible = False
         btnFacilityFitting.Visible = False
@@ -142,12 +137,6 @@ Public Class ManufacturingFacility
         lblFacilityLocation.Visible = False
         lblFacilityType.Visible = False
         cmbFacilityType.Visible = False
-        cmbLargeShips.Visible = False
-        lblLargeShips.Visible = False
-        cmbFuelBlocks.Visible = False
-        lblFuelBlocks.Visible = False
-        cmbModules.Visible = False
-        lblModules.Visible = False
 
         UpdatingManualBoxes = False
 
@@ -193,21 +182,9 @@ Public Class ManufacturingFacility
         Select Case ViewType
             Case FacilityView.FullControls
 
-                lblFacilityActivity.Top = 2
-                lblFacilityActivity.Left = LeftLabelLocation
-                lblFacilityActivity.Visible = True
-
-                cmbFacilityActivities.Top = lblFacilityActivity.Top + lblFacilityActivity.Height + 1
-                cmbFacilityActivities.Left = LeftObjectLocation
-                cmbFacilityActivities.Visible = True
-                cmbFacilityActivities.Text = InitialActivityComboText
-
                 lblFacilityType.Top = 1
-                lblFacilityType.Left = cmbFacilityActivities.Left + cmbFacilityActivities.Width
                 lblFacilityType.Visible = True
 
-                cmbFacilityType.Top = cmbFacilityActivities.Top
-                cmbFacilityType.Left = cmbFacilityActivities.Left + cmbFacilityActivities.Width + 2
                 cmbFacilityType.Visible = True
                 cmbFacilityType.Text = InitialTypeComboText
 
@@ -218,7 +195,6 @@ Public Class ManufacturingFacility
                 lblFacilityDefault.Left = cmbFacilityType.Left + cmbFacilityType.Width - 2
                 lblFacilityDefault.Visible = True
 
-                lblFacilityLocation.Top = cmbFacilityActivities.Top + cmbFacilityActivities.Height + 3
                 lblFacilityLocation.Left = LeftLabelLocation
                 lblFacilityLocation.Visible = True
 
@@ -226,11 +202,6 @@ Public Class ManufacturingFacility
                 chkFacilityIncludeUsage.Left = lblFacilityLocation.Left + lblFacilityLocation.Width + 27
                 chkFacilityIncludeUsage.Text = "Usage:"
                 chkFacilityIncludeUsage.Visible = True
-
-                lblFacilityUsage.Top = chkFacilityIncludeUsage.Top - 1
-                lblFacilityUsage.Left = chkFacilityIncludeUsage.Left + chkFacilityIncludeUsage.Width - 4
-                lblFacilityUsage.Width = SolarSystemWidthBP
-                lblFacilityUsage.Visible = True
 
                 cmbFacilityRegion.Top = lblFacilityLocation.Top + lblFacilityLocation.Height + 3
                 cmbFacilityRegion.Left = LeftObjectLocation
@@ -302,17 +273,6 @@ Public Class ManufacturingFacility
 
                 txtFacilityManualTE.Left = txtFacilityManualTax.Left
 
-                cmbFacilityFWUpgrade.Top = btnFacilitySave.Top + btnFacilitySave.Height
-                cmbFacilityFWUpgrade.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - cmbFacilityFWUpgrade.Width
-                cmbFacilityFWUpgrade.Visible = False
-
-                lblFacilityFWUpgrade.Height = 30
-                lblFacilityFWUpgrade.Width = 51
-                lblFacilityFWUpgrade.Top = (cmbFacilityFWUpgrade.Top + cmbFacilityFWUpgrade.Height) - lblFacilityFWUpgrade.Height
-                lblFacilityFWUpgrade.Left = cmbFacilityFWUpgrade.Left - lblFacilityFWUpgrade.Width
-                lblFacilityFWUpgrade.Visible = False
-                Call lblFacilityFWUpgrade.SendToBack()
-
                 ' Set initial settings to load 
                 If SelectedBPID = 0 Then
                     SelectedBPCategoryID = ItemIDs.ShipCategoryID
@@ -334,8 +294,6 @@ Public Class ManufacturingFacility
                 Call InitializeFacilities(FacilityView.FullControls)
 
             Case FacilityView.LimitedControls
-
-                cmbFacilityActivities.Visible = False
 
                 lblFacilityType.Top = 5
                 lblFacilityType.Left = 0
@@ -465,47 +423,9 @@ Public Class ManufacturingFacility
 
                 txtFacilityManualTE.Left = txtFacilityManualTax.Left
 
-                ' Visible will be set later
-                cmbFacilityFWUpgrade.Top = btnFacilitySave.Top + btnFacilitySave.Height + 4
-                cmbFacilityFWUpgrade.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - cmbFacilityFWUpgrade.Width
-                cmbFacilityFWUpgrade.Visible = False
-
-                lblFacilityFWUpgrade.Height = 13
-                lblFacilityFWUpgrade.Width = 71
-                lblFacilityFWUpgrade.Top = cmbFacilityFWUpgrade.Top + 4
-                lblFacilityFWUpgrade.Left = cmbFacilityFWUpgrade.Left - lblFacilityFWUpgrade.Width
-                lblFacilityFWUpgrade.Visible = False
-                Call lblFacilityFWUpgrade.SendToBack()
-
-                ' Position these but they will be shown later
-                lblModules.Top = cmbFacilityorArray.Top
-                lblModules.Left = 0
-                lblModules.Visible = False
-                Call lblModules.SendToBack()
-
-                cmbModules.Top = lblModules.Top + lblModules.Height - 3
-                cmbModules.Left = cmbFacilityRegion.Left
-                cmbModules.Visible = False
-
-                cmbFuelBlocks.Top = cmbModules.Top
-                cmbFuelBlocks.Left = cmbModules.Left + cmbModules.Width + 2
-                cmbFuelBlocks.Visible = False
-
-                cmbLargeShips.Top = cmbModules.Top + cmbModules.Height + 1
-                cmbLargeShips.Left = cmbModules.Left + cmbModules.Width + 2
-                cmbLargeShips.Visible = False
-
-                lblFuelBlocks.Top = cmbFuelBlocks.Top - lblFuelBlocks.Height - 1
-                lblFuelBlocks.Left = cmbFuelBlocks.Left - 2
-                lblFuelBlocks.Visible = False
-
-                lblLargeShips.Left = lblModules.Left
-                lblLargeShips.Top = lblFacilityFWUpgrade.Top
-                lblLargeShips.Visible = False
-
                 ' Set the initial group/category IDs
                 ' also set the activity combo text to show what type of activity this facility is, even if not visible
-                Call GetFacilityBPItemData(InitialProductionType, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, cmbFacilityActivities.Text)
+                Call GetFacilityBPItemData(InitialProductionType, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, ActivityManufacturing)
 
                 ' Load the defaults
                 Call InitializeFacilities(FacilityView.LimitedControls, InitialProductionType)
@@ -711,11 +631,10 @@ Public Class ManufacturingFacility
             If Not ActivityComboSelect Then ' only load if from the activities combo
                 Call LoadFacilityActivities(ItemGroupID, ItemCategoryID, BlueprintTech, SelectedBPID)
             End If
-            PreviousActivity = cmbFacilityActivities.Text
         End If
 
         ' Get the production type, based on activity selected
-        SelectedProductionType = GetProductionType(ItemGroupID, ItemCategoryID, cmbFacilityActivities.Text)
+        SelectedProductionType = GetProductionType(ItemGroupID, ItemCategoryID, ActivityManufacturing)
         Application.DoEvents()
 
         ' Look up Facility - activity set to facility inside
@@ -795,42 +714,11 @@ Public Class ManufacturingFacility
 
         LoadingActivities = True
         Dim HasComponents As Boolean = False
-        Dim ActivityText As String = cmbFacilityActivities.Text ' Save what is selected first
-        cmbFacilityActivities.BeginUpdate()
-
         ' If it's a reaction, only load that activity and manufacturing for fuel blocks
         If BPGroupID = ItemIDs.ReactionBiochmeicalsGroupID Or BPGroupID = ItemIDs.ReactionCompositesGroupID Or BPGroupID = ItemIDs.ReactionPolymersGroupID Or BPGroupID = ItemIDs.ReactionsIntermediateGroupID Then
-            cmbFacilityActivities.Items.Clear()
-            cmbFacilityActivities.Items.Add(ActivityReactions)
-            cmbFacilityActivities.Items.Add(ActivityManufacturing)
 
-            ' Start with reactions for a new facility because its a call to load not from combo
-            cmbFacilityActivities.Text = ActivityReactions
-
-            cmbFacilityActivities.EndUpdate()
             LoadingActivities = False
             Exit Sub
-        Else
-            Select Case BlueprintTech
-                Case BPTechLevel.T1
-                    ' Just manufacturing (add components later if there are any)
-                    cmbFacilityActivities.Items.Clear()
-                    cmbFacilityActivities.Items.Add(ActivityManufacturing)
-
-                Case BPTechLevel.T2
-                    ' Add only T2 activities to equipment
-                    cmbFacilityActivities.Items.Clear()
-                    cmbFacilityActivities.Items.Add(ActivityManufacturing)
-                    cmbFacilityActivities.Items.Add(ActivityCopying)
-                    cmbFacilityActivities.Items.Add(ActivityInvention)
-
-                Case BPTechLevel.T3
-                    ' Add only T3 activities to eqipment
-                    cmbFacilityActivities.Items.Clear()
-                    cmbFacilityActivities.Items.Add(ActivityManufacturing)
-                    cmbFacilityActivities.Items.Add(ActivityInvention)
-
-            End Select
         End If
 
         Dim SQL As String
@@ -852,21 +740,6 @@ Public Class ManufacturingFacility
 
         ' Add components as a manufacturing facility option if this bp has any
         If HasComponents Then
-            Select Case BPGroupID
-                Case ItemIDs.TitanGroupID, ItemIDs.DreadnoughtGroupID, ItemIDs.CarrierGroupID, ItemIDs.SupercarrierGroupID, ItemIDs.CapitalIndustrialShipGroupID,
-                        ItemIDs.IndustrialCommandShipGroupID, ItemIDs.FreighterGroupID, ItemIDs.JumpFreighterGroupID, ItemIDs.FAXGroupID
-                    cmbFacilityActivities.Items.Add(ActivityCapComponentManufacturing)
-                    If BPGroupID = ItemIDs.JumpFreighterGroupID Then
-                        ' Need to add both cap and components
-                        cmbFacilityActivities.Items.Add(ActivityComponentManufacturing)
-                    End If
-                Case Else
-                    ' Iif it's not a T2 component, then load the component manufacturing activity else it will get a reaction load below
-                    If Not (BPCategoryID = ItemIDs.ComponentCategoryID Or BPGroupID = ItemIDs.AdvCapitalComponentGroupID) Then
-                        ' Just regular
-                        cmbFacilityActivities.Items.Add(ActivityComponentManufacturing)
-                    End If
-            End Select
 
             SQL = ""
             If UserManufacturingTabSettings.BuildT2T3Materials = BuildMatType.ProcessedMaterials Then
@@ -885,31 +758,17 @@ Public Class ManufacturingFacility
                 DBCommand = New SQLiteCommand(String.Format(SQL, BPID), EVEDB.DBREf)
                 readerBP = DBCommand.ExecuteReader
 
-                ' If they want to drill down on reactions, add the reactions facility option
-                If readerBP.Read Then
-                    cmbFacilityActivities.Items.Add(ActivityReactions)
-                End If
-
                 readerBP.Close()
             End If
-        End If
-
-        cmbFacilityActivities.EndUpdate()
-
-        ' Set default activity text if it's not in the list
-        If Not cmbFacilityActivities.Items.Contains(ActivityText) Then
-            cmbFacilityActivities.Text = ActivityManufacturing
-        Else
-            cmbFacilityActivities.Text = ActivityText
         End If
 
         LoadingActivities = False
 
     End Sub
-    Private Sub cmbFacilityActivities_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbFacilityActivities.SelectedIndexChanged
+    Private Sub cmbFacilityActivities_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
 
         If Not LoadingActivities And Not FirstLoad Then
-            SelectedProductionType = GetProductionType(SelectedBPGroupID, SelectedBPCategoryID, cmbFacilityActivities.Text)
+            SelectedProductionType = GetProductionType(SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing)
 
             ' If they switch the activity and it changed from the previous, then load the selected facility for this activity
             If SelectedProductionType <> PreviousProductionType Then
@@ -932,16 +791,12 @@ Public Class ManufacturingFacility
 
         End If
     End Sub
-    Private Sub cmbFacilityActivities_DropDown(sender As Object, e As System.EventArgs) Handles cmbFacilityActivities.DropDown
-        PreviousActivity = cmbFacilityActivities.Text
+
+    Private Sub cmbFacilityActivities_DropDown(sender As Object, e As System.EventArgs)
+        PreviousActivity = ActivityManufacturing
     End Sub
-    Private Sub cmbFacilityActivities_GotFocus(sender As Object, e As EventArgs) Handles cmbFacilityActivities.GotFocus
-        Call cmbFacilityActivities.SelectAll()
-    End Sub
-    Private Sub cmbFacilityActivities_LostFocus(sender As Object, e As EventArgs) Handles cmbFacilityActivities.LostFocus
-        cmbFacilityActivities.SelectionLength = 0
-    End Sub
-    Private Sub cmbFacilityActivities_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbFacilityActivities.KeyPress
+
+    Private Sub cmbFacilityActivities_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         e.Handled = True
     End Sub
 
@@ -1050,7 +905,7 @@ Public Class ManufacturingFacility
             ' Might not want to set a facility for copy or invention - "None" is an option for these two activities
             If Not LoadingFacilityTypes And Not FirstLoad And GetFacilityTypeCode(cmbFacilityType.Text) <> FacilityTypes.None Then
 
-                Call LoadFacilityRegions(SelectedBPGroupID, SelectedBPCategoryID, True, cmbFacilityActivities.Text)
+                Call LoadFacilityRegions(SelectedBPGroupID, SelectedBPCategoryID, True, ActivityManufacturing)
                 Call cmbFacilityRegion.Focus()
 
             ElseIf GetFacilityTypeCode(cmbFacilityType.Text) = FacilityTypes.None Then ' Invention or Copy facility - set to none
@@ -1062,7 +917,7 @@ Public Class ManufacturingFacility
                 ' changed so not the default
                 Call SetDefaultVisuals(False)
                 ' Save the facility locally
-                Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, cmbFacilityActivities.Text,
+                Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
                                           GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
             End If
 
@@ -1208,7 +1063,7 @@ Public Class ManufacturingFacility
     End Sub
     Private Sub cmbFacilityRegion_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbFacilityRegion.SelectedIndexChanged
         If Not LoadingRegions And Not FirstLoad And PreviousRegion <> cmbFacilityRegion.Text Then
-            Call LoadFacilitySystems(SelectedBPGroupID, SelectedBPCategoryID, True, cmbFacilityActivities.Text)
+            Call LoadFacilitySystems(SelectedBPGroupID, SelectedBPCategoryID, True, ActivityManufacturing)
             Call cmbFacilitySystem.Focus()
             Call SetFacilityBonusBoxes(False)
             SelectedFacility.FullyLoaded = False
@@ -1227,7 +1082,7 @@ Public Class ManufacturingFacility
             ' Save the current
             PreviousRegion = cmbFacilityRegion.Text
 
-            Call LoadFacilityRegions(SelectedBPGroupID, SelectedBPCategoryID, False, cmbFacilityActivities.Text)
+            Call LoadFacilityRegions(SelectedBPGroupID, SelectedBPCategoryID, False, ActivityManufacturing)
 
         End If
     End Sub
@@ -1436,7 +1291,7 @@ Public Class ManufacturingFacility
             End If
 
             ' Load the facilities
-            Call LoadFacilities(False, cmbFacilityActivities.Text, Autoload, OverrideFacilityName)
+            Call LoadFacilities(False, ActivityManufacturing, Autoload, OverrideFacilityName)
 
             If Autoload Then
                 SelectedFacility.FullyLoaded = True
@@ -1461,7 +1316,7 @@ Public Class ManufacturingFacility
 
         If Not FacilitySystemsLoaded And Not FirstLoad Then
             PreviousSystem = cmbFacilitySystem.Text
-            Call LoadFacilitySystems(SelectedBPGroupID, SelectedBPCategoryID, False, cmbFacilityActivities.Text)
+            Call LoadFacilitySystems(SelectedBPGroupID, SelectedBPCategoryID, False, ActivityManufacturing)
         End If
     End Sub
     Private Sub cmbFacilitySystem_GotFocus(sender As Object, e As EventArgs) Handles cmbFacilitySystem.GotFocus
@@ -1601,7 +1456,7 @@ Public Class ManufacturingFacility
 
             AutoLoadFacility = True
             ' Display bonuses - Need to load everything since the array won't change to cause it to reload
-            Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, cmbFacilityActivities.Text,
+            Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
                                       GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
         Else
             If Not cmbFacilityorArray.Items.Contains(cmbFacilityorArray.Text) Then
@@ -1654,7 +1509,7 @@ Public Class ManufacturingFacility
     Private Sub cmbFacilityorArray_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbFacilityorArray.SelectedIndexChanged
 
         If Not LoadingFacilities And Not FirstLoad And PreviousEquipment <> cmbFacilityorArray.Text Then
-            Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, cmbFacilityActivities.Text,
+            Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
                                           GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
 
             PreviousEquipment = cmbFacilityorArray.Text
@@ -1669,7 +1524,7 @@ Public Class ManufacturingFacility
 
         If Not FacilityorArrayLoaded And Not FirstLoad Then
             PreviousEquipment = cmbFacilityorArray.Text
-            Call LoadFacilities(False, cmbFacilityActivities.Text, False, "")
+            Call LoadFacilities(False, ActivityManufacturing, False, "")
         End If
     End Sub
     Private Sub cmbFacilityorArray_GotFocus(sender As Object, e As EventArgs) Handles cmbFacilityorArray.GotFocus
@@ -2133,7 +1988,6 @@ Public Class ManufacturingFacility
             chkFacilityIncludeUsage.Enabled = True
             chkFacilityIncludeCost.Enabled = True
             chkFacilityIncludeTime.Enabled = True
-            lblFacilityUsage.Text = FormatNumber(SelectedFacility.FacilityUsage, 2)
         End If
 
         If FacilityType = FacilityTypes.UpwellStructure Then
@@ -2144,9 +1998,6 @@ Public Class ManufacturingFacility
             btnFacilityFitting.Enabled = False
             btnFacilityFitting.Visible = False
         End If
-
-        ' Enable the FW settings 
-        Call SetFWUpgradeControls(SelectedFacility.SolarSystemName)
 
         ' Loaded up, let them save it
         btnFacilitySave.Visible = True
@@ -2374,8 +2225,6 @@ Public Class ManufacturingFacility
             ' Facility is loaded, so save it to default and dynamic variable
             Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
 
-            lblFacilityUsage.Text = FormatNumber(GetSelectedFacility.FacilityUsage, 2)
-
         End If
 
         Call SetResetRefresh()
@@ -2484,14 +2333,12 @@ Public Class ManufacturingFacility
                         SelectedBPCategoryID = ItemIDs.CapitalComponentGroupID
                         SelectedBPGroupID = ItemIDs.None
                         SelectedBPTech = BPTechLevel.T1
-                        cmbFacilityActivities.Text = ActivityCapComponentManufacturing
                         Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
                     Else
                         SelectedProductionType = ProductionType.ComponentManufacturing
                         SelectedBPCategoryID = ItemIDs.ComponentCategoryID
                         SelectedBPGroupID = ItemIDs.None
                         SelectedBPTech = BPTechLevel.T1
-                        cmbFacilityActivities.Text = ActivityComponentManufacturing
                         Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
                     End If
                 Case ProductionType.T3DestroyerManufacturing, ProductionType.T3CruiserManufacturing
@@ -2499,13 +2346,11 @@ Public Class ManufacturingFacility
                         SelectedBPCategoryID = ItemIDs.ShipCategoryID
                         SelectedBPGroupID = ItemIDs.TacticalDestroyerGroupID
                         SelectedBPTech = BPTechLevel.T3
-                        cmbFacilityActivities.Text = ActivityManufacturing
                         Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
                     Else
                         SelectedBPCategoryID = ItemIDs.ShipCategoryID
                         SelectedBPGroupID = ItemIDs.StrategicCruiserGroupID
                         SelectedBPTech = BPTechLevel.T3
-                        cmbFacilityActivities.Text = ActivityManufacturing
                         Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
                     End If
             End Select
@@ -2853,15 +2698,6 @@ Public Class ManufacturingFacility
         lblFacilityManualTax.Visible = Value
         lblFacilityManualCost.Visible = Value
 
-        ' only set these false when this is called, it will load if needed elsewhere
-        lblFacilityFWUpgrade.Visible = False
-        cmbFacilityFWUpgrade.Visible = False
-
-        ' Clear the usage until these are set
-        If Not IsNothing(lblFacilityUsage) Then
-            lblFacilityUsage.Text = ""
-        End If
-
     End Sub
 
     ' Resets all combo boxes toggles that might need to be updated 
@@ -2887,18 +2723,6 @@ Public Class ManufacturingFacility
                 Return SentFacility.FacilityName
         End Select
 
-    End Function
-
-    Public Function GetPOSFuelBlockComboName() As String
-        Return cmbFuelBlocks.Text
-    End Function
-
-    Public Function GetPOSLargeShipComboName() As String
-        Return cmbLargeShips.Text
-    End Function
-
-    Public Function GetPOSModulesComboName() As String
-        Return cmbModules.Text
     End Function
 
     ' Sets the tool tip text for default facility labels if they can double click to reload
@@ -3002,7 +2826,7 @@ Public Class ManufacturingFacility
     End Function
 
     ' Loads up all the usage for all facilities on this bp into a form
-    Private Sub lblFacilityUsage_DoubleClick(sender As System.Object, e As System.EventArgs) Handles lblFacilityUsage.DoubleClick
+    Private Sub lblFacilityUsage_DoubleClick(sender As System.Object, e As System.EventArgs)
         Dim f1 As New frmUsageViewer
         Dim RawCostSplit As UsageSplit
 
@@ -3066,143 +2890,6 @@ Public Class ManufacturingFacility
         If SelectedLocation = ProgramLocation.ManufacturingTab And Not FirstLoad Then
             Call frmMain.ResetRefresh()
         End If
-    End Sub
-
-#End Region
-
-#Region "Faction Warfare Functions"
-
-    Private Function GetFWUpgradeLevel(SolarSystemName As String) As Integer
-
-        If Not FirstLoad And cmbFacilitySystem.Text <> InitialSolarSystemComboText Then
-            Dim FWUpgradeLevel As Integer
-
-            Dim rsFW As SQLiteDataReader
-            Dim SSID As Long
-
-            ' Format system name
-            If SolarSystemName.Contains("(") Then
-                SolarSystemName = SolarSystemName.Substring(0, InStr(SolarSystemName, "(") - 2)
-            End If
-
-            Dim SQL As String = "SELECT factionWarzone, solarSystemID FROM SOLAR_SYSTEMS WHERE solarSystemName = '" & FormatDBString(SolarSystemName) & "'"
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            rsFW = DBCommand.ExecuteReader
-
-            Dim Warzone As Boolean
-            If rsFW.Read Then
-                Warzone = CBool(rsFW.GetInt32(0))
-                SSID = rsFW.GetInt64(1)
-            Else
-                Warzone = False
-            End If
-
-            If Warzone Then
-                If Not IsNothing(cmbFacilityFWUpgrade) Then
-                    Select Case cmbFacilityFWUpgrade.Text
-                        Case "Level 1"
-                            FWUpgradeLevel = 1
-                        Case "Level 2"
-                            FWUpgradeLevel = 2
-                        Case "Level 3"
-                            FWUpgradeLevel = 3
-                        Case "Level 4"
-                            FWUpgradeLevel = 4
-                        Case "Level 5"
-                            FWUpgradeLevel = 5
-                        Case Else
-                            FWUpgradeLevel = 0
-                    End Select
-                Else
-                    FWUpgradeLevel = 0
-                End If
-            Else
-                FWUpgradeLevel = -1
-            End If
-
-            Return FWUpgradeLevel
-        End If
-
-        Return -1
-
-    End Function
-
-    ' Enables the controls for FW settings on the bp tab
-    Private Sub SetFWUpgradeControls(ByVal SolarSystemName As String)
-        ' Load the faction warfare upgrade
-        Dim rsFW As SQLiteDataReader
-        Dim SSID As Long
-
-        ' Format system name
-        If SolarSystemName.Contains("(") Then
-            SolarSystemName = SolarSystemName.Substring(0, InStr(SolarSystemName, "(") - 2)
-        End If
-
-        Dim SQL As String = "SELECT factionWarzone, solarSystemID FROM SOLAR_SYSTEMS WHERE solarSystemName = '" & FormatDBString(SolarSystemName) & "'"
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        rsFW = DBCommand.ExecuteReader
-
-        Dim Warzone As Boolean
-        If rsFW.Read Then
-            Warzone = CBool(rsFW.GetInt32(0))
-            SSID = rsFW.GetInt64(1)
-        Else
-            Warzone = False
-        End If
-
-        If Warzone Then
-            lblFacilityFWUpgrade.Enabled = True
-            lblFacilityFWUpgrade.Visible = True
-            cmbFacilityFWUpgrade.Enabled = True
-            cmbFacilityFWUpgrade.Visible = True
-            ' look up level
-            Dim rsFWLevel As SQLiteDataReader
-            SQL = "SELECT UPGRADE_LEVEL FROM FW_SYSTEM_UPGRADES WHERE SOLAR_SYSTEM_ID = " & CStr(SSID)
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            rsFWLevel = DBCommand.ExecuteReader
-            rsFWLevel.Read()
-
-            If rsFWLevel.HasRows Then
-                If rsFWLevel.GetInt32(0) = 0 Then
-                    cmbFacilityFWUpgrade.Text = None
-                Else
-                    cmbFacilityFWUpgrade.Text = "Level " & CStr(rsFWLevel.GetInt32(0))
-                End If
-            Else
-                cmbFacilityFWUpgrade.Text = None
-            End If
-        Else
-            lblFacilityFWUpgrade.Enabled = False
-            lblFacilityFWUpgrade.Visible = False
-            cmbFacilityFWUpgrade.Enabled = False
-            cmbFacilityFWUpgrade.Visible = False
-            cmbFacilityFWUpgrade.Text = None
-            SelectedFacility.FWUpgradeLevel = -1
-        End If
-        rsFW.Close()
-
-    End Sub
-
-    Private Sub cmbFWUpgrade_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbFacilityFWUpgrade.SelectedIndexChanged
-        If Not FirstLoad Then
-            btnFacilitySave.Enabled = True
-            ' Set the selected level
-            SelectedFacility.FWUpgradeLevel = GetFWUpgradeLevel(cmbFacilitySystem.Text)
-            ' Facility is loaded, so save it to default and dynamic variable
-            Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
-
-            ' If this changed, we need to update the usage
-            If Not IsNothing(SelectedBlueprint) And SelectedLocation = ProgramLocation.BlueprintTab Then
-                Call UpdateUsage("")
-            End If
-        End If
-
-        Call SetResetRefresh()
-
-    End Sub
-
-    Private Sub cmbFWUpgrade_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbFacilityFWUpgrade.KeyPress
-        e.Handled = True
     End Sub
 
 #End Region
@@ -3445,27 +3132,7 @@ Public Class ManufacturingFacility
         Return SelectedFacility.FacilityProductionType
     End Function
 
-    ' Updates the usage value   
-    Public Sub UpdateUsage(ToolTipText As String)
-        lblFacilityUsage.Text = FormatNumber(SelectedFacility.FacilityUsage)
-        Call mainToolTip.SetToolTip(lblFacilityUsage, ToolTipText)
-    End Sub
-
     Public Sub SetIgnoreInvention(ByVal Ignore As Boolean, ByVal InventionType As ProductionType, ByVal UsageCheckValue As Boolean)
-
-        If Ignore Then
-            ' Remove copy and invention activities
-            cmbFacilityActivities.Items.Remove(ActivityInvention)
-            cmbFacilityActivities.Items.Remove(ActivityCopying)
-        Else
-            ' Add the copy and invention activities
-            If Not cmbFacilityActivities.Items.Contains(ActivityInvention) Then
-                cmbFacilityActivities.Items.Add(ActivityInvention)
-            End If
-            If Not cmbFacilityActivities.Items.Contains(ActivityCopying) Then
-                cmbFacilityActivities.Items.Add(ActivityCopying)
-            End If
-        End If
 
         ' Set the usage
         ChangingUsageChecks = True
@@ -3640,19 +3307,19 @@ Public Class ManufacturingFacility
 
     End Function
 
-    Private Sub cmbModules_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbModules.SelectedIndexChanged
+    Private Sub cmbModules_SelectedIndexChanged(sender As Object, e As EventArgs)
 
         Call SetResetRefresh()
 
     End Sub
 
-    Private Sub cmbFuelBlocks_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFuelBlocks.SelectedIndexChanged
+    Private Sub cmbFuelBlocks_SelectedIndexChanged(sender As Object, e As EventArgs)
 
         Call SetResetRefresh()
 
     End Sub
 
-    Private Sub cmbLargeShips_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLargeShips.SelectedIndexChanged
+    Private Sub cmbLargeShips_SelectedIndexChanged(sender As Object, e As EventArgs)
 
         Call SetResetRefresh()
 

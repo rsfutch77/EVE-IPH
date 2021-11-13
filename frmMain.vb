@@ -7923,33 +7923,9 @@ ExitPRocessing:
                 If CalcBaseFacility.GetFacility(ProductionType.Manufacturing).FacilityType = FacilityTypes.POS Then
                     ' If this is visible, then look up as a pos, else just look up normally
                     SelectedIndyType = CalcBaseFacility.GetProductionType(InsertItem.ItemGroupID, InsertItem.ItemCategoryID, ManufacturingFacility.ActivityManufacturing)
-                    ' See if we will have to add duplicate entries for each type of multi-use array
-                    Select Case SelectedIndyType
-                        Case ProductionType.POSFuelBlockManufacturing
-                            If CalcBaseFacility.GetPOSFuelBlockComboName = "All" Then
-                                ProcessAllMultiUsePOSArrays = True
-                            Else
-                                ProcessAllMultiUsePOSArrays = False
-                                ArrayName = GetCalcPOSMultiUseArrayName(CalcBaseFacility.GetPOSFuelBlockComboName)
-                            End If
-                        Case ProductionType.POSLargeShipManufacturing
-                            If CalcBaseFacility.GetPOSLargeShipComboName = "All" Then
-                                ProcessAllMultiUsePOSArrays = True
-                            Else
-                                ProcessAllMultiUsePOSArrays = False
-                                ArrayName = GetCalcPOSMultiUseArrayName(CalcBaseFacility.GetPOSLargeShipComboName)
-                            End If
-                        Case ProductionType.POSModuleManufacturing
-                            If CalcBaseFacility.GetPOSModulesComboName = "All" Then
-                                ProcessAllMultiUsePOSArrays = True
-                            Else
-                                ProcessAllMultiUsePOSArrays = False
-                                ArrayName = GetCalcPOSMultiUseArrayName(CalcBaseFacility.GetPOSModulesComboName)
-                            End If
-                        Case Else
-                            ProcessAllMultiUsePOSArrays = False
-                            ArrayName = ""
-                    End Select
+                    'Disable array use in EasyIPH
+                    ProcessAllMultiUsePOSArrays = False
+                    ArrayName = ""
 
                     ' Need to autoselect the pos array by type of blueprint
                     SQL = "SELECT DISTINCT ARRAY_NAME, MATERIAL_MULTIPLIER, TIME_MULTIPLIER FROM ASSEMBLY_ARRAYS "

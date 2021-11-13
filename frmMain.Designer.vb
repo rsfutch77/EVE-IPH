@@ -145,6 +145,7 @@ Partial Class frmMain
         Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
+        Me.facilityPicker = New MetroFramework.Controls.MetroLabel()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.MetroTabControl.SuspendLayout()
@@ -1162,11 +1163,20 @@ Partial Class frmMain
         'CalcBaseFacility
         '
         Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(1548, 709)
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(1002, 423)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
         Me.CalcBaseFacility.Size = New System.Drawing.Size(379, 160)
         Me.CalcBaseFacility.TabIndex = 0
+        '
+        'facilityPicker
+        '
+        Me.facilityPicker.Location = New System.Drawing.Point(1002, 360)
+        Me.facilityPicker.Name = "facilityPicker"
+        Me.facilityPicker.Size = New System.Drawing.Size(423, 34)
+        Me.facilityPicker.TabIndex = 89
+        Me.facilityPicker.Text = "Pick a nearby system to manufacture in (lower taxes is better)"
+        Me.facilityPicker.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'frmMain
         '
@@ -1175,6 +1185,7 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
+        Me.Controls.Add(Me.facilityPicker)
         Me.Controls.Add(Me.lblRecommendation)
         Me.Controls.Add(Me.pnlStatus)
         Me.Controls.Add(Me.pnlSkills)
@@ -1347,4 +1358,5 @@ Partial Class frmMain
     Friend WithEvents autoShopping As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents chkCalcCanBuild As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents lblRecommendation As MetroFramework.Controls.MetroLabel
+    Friend WithEvents facilityPicker As MetroFramework.Controls.MetroLabel
 End Class
