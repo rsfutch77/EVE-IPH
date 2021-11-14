@@ -10706,8 +10706,12 @@ ExitCalc:
 
     End Function
 
+    Public Function test() As Integer
+        Return TotalShoppingList.GetNumShoppingItems
+    End Function
+
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
-    Private Sub AutoAddToShoppingList()
+    Public Sub AutoAddToShoppingList()
 
         pnlShoppingList.Text = "Calculating Autoshop"
 

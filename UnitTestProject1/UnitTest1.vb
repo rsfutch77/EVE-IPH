@@ -8,9 +8,18 @@ Imports EVE_Isk_per_Hour
 
         Dim form1 As New frmMain
 
-        Dim result As Integer = form1.frmMain_Load()
+        'form1.Show()
 
-        Assert.AreEqual(2, result)
+        'form1.AutoAddToShoppingList()
+
+        'Dim temp As Integer = form1.test
+
+        'If temp > 0 Then
+        '    Assert.AreEqual(2, 2)
+        'Else
+        '    Assert.AreEqual(2, 1)
+        'End If
+
 
     End Sub
 
