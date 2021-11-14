@@ -5,3 +5,5 @@ Service References/*
 *.user
 EVE Isk per Hour.vbproj
 .vs/EVE Isk per Hour/v16/TestStore/0
+UnitTestProject1/bin
+UnitTestProject1/obj
