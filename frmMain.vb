@@ -985,14 +985,16 @@ Public Class frmMain
         Call LoadSelectedCharacter(mnuChar.Text)
     End Sub
 
-    Private Sub frmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Public Function frmMain_Load() As Integer Handles MyBase.Load
 
         ' After initializing everything, refresh the tabs so they draw fast on first click
 
         ' Done loading
         Call SetProgress("")
 
-    End Sub
+        Return 2
+
+    End Function
 
     ' Adds mouse down handlers for all controls of the parent
     Private Sub MouseDownSetting(ByVal parentCtr As Control)
