@@ -26,7 +26,6 @@ C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\EasyIPH.ex
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\System.Data.SQLite.xml
-C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\Newtonsoft.Json.xml
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\MoreLinq.Portable.xml
@@ -39,3 +38,4 @@ C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\obj\Debug\UnitTestPr
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\obj\Debug\UnitTestProject1.xml
 C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+C:\Users\rsfutch77\Desktop\Working\EVE-IPH\UnitTestProject1\bin\Debug\UnitTestProject1.dll.config

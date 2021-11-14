@@ -381,7 +381,7 @@ Public Class frmMain
         ' Initialize stuff
         Call SetProgress("Initializing Database...")
         Application.DoEvents()
-        'EVEDB = New DBConnection(Path.Combine(DBFilePath, SQLiteDBFileName))
+        EVEDB = New DBConnection(Path.Combine(DBFilePath, SQLiteDBFileName))
 
         ' Add a column for risk prices
         Dim riskStatus As SQLiteDataReader
