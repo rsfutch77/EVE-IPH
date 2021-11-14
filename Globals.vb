@@ -348,7 +348,7 @@ Public Module Public_Variables
         Dim splash As SplashScreen = DirectCast(My.Application.SplashScreen, SplashScreen)
 
         'Invoke the splach screen's SetProgress method on the thread that owns it.
-        splash.Invoke(New ProgressSetter(AddressOf splash.SetProgress), progress)
+        'splash.Invoke(New ProgressSetter(AddressOf splash.SetProgress), progress)
     End Sub
 
     ' Takes a string value percent and returns a double

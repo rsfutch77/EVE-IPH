@@ -381,30 +381,30 @@ Public Class frmMain
         ' Initialize stuff
         Call SetProgress("Initializing Database...")
         Application.DoEvents()
-        EVEDB = New DBConnection(Path.Combine(DBFilePath, SQLiteDBFileName))
+        'EVEDB = New DBConnection(Path.Combine(DBFilePath, SQLiteDBFileName))
 
         ' Add a column for risk prices
         Dim riskStatus As SQLiteDataReader
         Dim SQL As String = ""
         ' Check if the risk price column exists already
         SQL = "pragma table_info(ITEM_PRICES_FACT)"
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        riskStatus = DBCommand.ExecuteReader
-        Dim columnName As String
-        Dim riskColumnFound As Boolean
-        While (riskStatus.Read())
-            columnName = riskStatus.GetString(1)
-            If String.Equals(columnName, "RISK_PRICE") Then
-                riskColumnFound = True
-            End If
-        End While
-        ' If not found, add it
-        If Not riskColumnFound Then
-            ' Add the risk price column
-            SQL = "ALTER TABLE ITEM_PRICES_FACT ADD RISK_PRICE float"
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            riskStatus = DBCommand.ExecuteReader
-        End If
+        'DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        'riskStatus = DBCommand.ExecuteReader
+        'Dim columnName As String
+        'Dim riskColumnFound As Boolean
+        'While (riskStatus.Read())
+        '    columnName = riskStatus.GetString(1)
+        '    If String.Equals(columnName, "RISK_PRICE") Then
+        '        riskColumnFound = True
+        '    End If
+        'End While
+        '' If not found, add it
+        'If Not riskColumnFound Then
+        '    ' Add the risk price column
+        '    SQL = "ALTER TABLE ITEM_PRICES_FACT ADD RISK_PRICE float"
+        '    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+        '    riskStatus = DBCommand.ExecuteReader
+        'End If
 
         ' For speed on ESI calls
         ServicePointManager.DefaultConnectionLimit = 20
@@ -442,48 +442,48 @@ Public Class frmMain
         Call SetProgress("Checking Status of ESI...")
         Call ESIData.GetESIStatus()
         If Not UserApplicationSettings.SupressESIStatusMessages Then
-            Call DisplayESIStatusMessages()
+            'Call DisplayESIStatusMessages()
         End If
 
         ' Load the default character data
         Call SetProgress("Loading Character Data from ESI...")
-        Call LoadCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
-        Call LoadCharacterNamesinMenu()
+        'Call LoadCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
+        'Call LoadCharacterNamesinMenu()
 
         ' Type of skills loaded
-        Call UpdateSkillPanel()
+        'Call UpdateSkillPanel()
 
-        ' Update System Cost Indicies
-        If UserApplicationSettings.LoadESISystemCostIndiciesDataonStartup Then
-            Application.UseWaitCursor = True
-            Call SetProgress("Updating Industry System Indicies...")
-            Application.DoEvents()
-            Call ESIData.UpdateIndustrySystemsCostIndex()
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
+        '' Update System Cost Indicies
+        'If UserApplicationSettings.LoadESISystemCostIndiciesDataonStartup Then
+        '    Application.UseWaitCursor = True
+        '    Call SetProgress("Updating Industry System Indicies...")
+        '    Application.DoEvents()
+        '    Call ESIData.UpdateIndustrySystemsCostIndex()
+        '    Application.UseWaitCursor = False
+        '    Application.DoEvents()
+        'End If
 
-        DBCommand = Nothing
+        'DBCommand = Nothing
 
-        ' ESI Market Data
-        If UserApplicationSettings.LoadESIMarketDataonStartup Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-            Call SetProgress("Updating Avg/Adj Market Prices...")
-            Call ESIData.UpdateAdjAvgMarketPrices()
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
+        '' ESI Market Data
+        'If UserApplicationSettings.LoadESIMarketDataonStartup Then
+        '    Application.UseWaitCursor = True
+        '    Application.DoEvents()
+        '    Call SetProgress("Updating Avg/Adj Market Prices...")
+        '    Call ESIData.UpdateAdjAvgMarketPrices()
+        '    Application.UseWaitCursor = False
+        '    Application.DoEvents()
+        'End If
 
-        ' Refresh Public Structures
-        If UserApplicationSettings.LoadESIPublicStructuresonStartup And SelectedCharacter.PublicStructuresAccess Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-            Call SetProgress("Updating Public Structures Data...")
-            Call ESIData.UpdatePublicStructureswithMarkets()
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
+        '' Refresh Public Structures
+        'If UserApplicationSettings.LoadESIPublicStructuresonStartup And SelectedCharacter.PublicStructuresAccess Then
+        '    Application.UseWaitCursor = True
+        '    Application.DoEvents()
+        '    Call SetProgress("Updating Public Structures Data...")
+        '    Call ESIData.UpdatePublicStructureswithMarkets()
+        '    Application.UseWaitCursor = False
+        '    Application.DoEvents()
+        'End If
 
         If TestingVersion Then
             Me.Text = Me.Text & " - Testing"
@@ -496,7 +496,7 @@ Public Class frmMain
         End If
 
         ' Load all the forms' facilities
-        Call LoadFacilities()
+        'Call LoadFacilities()
 
         ' Init Tool tips
         If UserApplicationSettings.ShowToolTips Then
@@ -513,7 +513,7 @@ Public Class frmMain
         '**** Blueprints Tab Initializations ****
         '****************************************
 
-        Call InitBPTab()
+        'Call InitBPTab()
 
         ' Base Decryptor
         SelectedDecryptor.MEMod = 0
@@ -577,7 +577,7 @@ Public Class frmMain
         CancelManufacturingTabCalc = False
         CancelThreading = False
 
-        Call InitUpdatePricesTab()
+        'Call InitUpdatePricesTab()
 
         '****************************************
         '**** Manufacturing Tab Initializations ****
