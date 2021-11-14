@@ -8,6 +8,8 @@ Imports EVE_Isk_per_Hour
 
         Dim form1 As New frmMain
 
+        form1.frmMain_Load()
+
         Assert.AreEqual(2, 2)
 
     End Sub
