@@ -12,7 +12,6 @@ Public Class frmMain
     ' Update Prices Variables
     Private m_ControlsCollection As ControlsCollection
     Private RegionCheckBoxes() As MetroFramework.Controls.MetroRadioButton
-    Private SystemCheckBoxes() As MetroFramework.Controls.MetroRadioButton
     ' For saving the price type that was used in the download
     Private GroupPricesList As New List(Of GroupPriceType)
     Private GroupPriceTypetoFind As New GroupPriceType
@@ -540,8 +539,6 @@ Public Class frmMain
         '*******************************************
         ' Create the controls collection class
         m_ControlsCollection = New ControlsCollection(Me)
-        ' Get Region check boxes (note index starts at 1)
-        SystemCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkSystems"), MetroFramework.Controls.MetroRadioButton())
 
         ' Columns of Update Prices Listview (width = 639) + 21 for scroll = 660
         lstPricesView.Columns.Add("TypeID", 0, HorizontalAlignment.Left) ' Hidden
@@ -3602,7 +3599,6 @@ Tabs:
     ' Disables the forms and controls on update prices
     Private Sub DisableUpdatePricesTab(Value As Boolean)
         ' Disable tab
-        gbTradeHubSystems.Enabled = Not Value
         btnDownloadPrices.Enabled = Not Value
         lstPricesView.Enabled = Not Value
     End Sub
@@ -3671,17 +3667,6 @@ Tabs:
         ' Save status of the Tech check boxes
         PriceCheckT1Enabled = True
 
-    End Sub
-
-    ' Clears all system's that may be checked including resetting the system combo
-    Private Sub ClearSystemChecks(Optional ResetSystemCombo As Boolean = True)
-        Dim i As Integer
-
-        If Not IgnoreSystemCheckUpdates Then
-            For i = 1 To SystemCheckBoxes.Length - 1
-                SystemCheckBoxes(i).Checked = False
-            Next
-        End If
     End Sub
 
     Private Sub cmbPriceShipTypes_DropDown(sender As Object, e As System.EventArgs)
@@ -4003,30 +3988,7 @@ Tabs:
         Dim i As Integer
 
         If Not FirstLoad Then
-            ' Trigger Index is a box that was checked on or off
-            If SystemCheckBoxes(TriggerIndex).Checked = True Then
-                ' Uncheck all other systems and regions
-                For i = 1 To SystemCheckBoxes.Length - 1
-                    If i <> TriggerIndex Then
-                        SystemCheckBoxes(i).Checked = False
-                    End If
-                Next
-                'Set the region to match
-                Select Case TriggerIndex
-                    Case 1
-                        calcHistoryRegion = "The Forge"
-                    Case 2
-                        calcHistoryRegion = "Domain"
-                    Case 3
-                        calcHistoryRegion = "Sinq Laison"
-                    Case 4
-                        calcHistoryRegion = "Heimatar"
-                    Case 5
-                        calcHistoryRegion = "Metropolis"
-                    Case Else
-                        calcHistoryRegion = "The Forge"
-                End Select
-            End If
+            calcHistoryRegion = "The Forge"
         End If
 
     End Sub
@@ -4070,8 +4032,6 @@ Tabs:
         FirstPriceShipTypesComboLoad = True
         RefreshList = False
 
-        Call ClearSystemChecks()
-
         With UserUpdatePricesTabSettings
             RunUpdatePriceList = False ' If the settings trigger an update, we don't want to update the prices
             RunUpdatePriceList = False ' If the settings trigger an update, we don't want to update the prices
@@ -4094,33 +4054,6 @@ Tabs:
 
         ' Preload the systems combo
         Call LoadPriceSolarSystems()
-
-        ' Set system/region 
-        If UserUpdatePricesTabSettings.SelectedSystem <> "0" Then
-            ' Check the preset systems fist
-            Select Case UserUpdatePricesTabSettings.SelectedSystem
-                Case "Jita"
-                    chkSystems1.Checked = True
-                Case "Amarr"
-                    chkSystems2.Checked = True
-                Case "Dodixie"
-                    chkSystems3.Checked = True
-                Case "Rens"
-                    chkSystems4.Checked = True
-                Case "Hek"
-                    chkSystems5.Checked = True
-            End Select
-
-        Else ' They set a region
-            ' Loop through the checks and check the ones they set
-            IgnoreSystemCheckUpdates = True
-            For i = 1 To RegionCheckBoxes.Count - 1
-                If UserUpdatePricesTabSettings.SelectedRegions.Contains(RegionCheckBoxes(i).Text) Then
-                    RegionCheckBoxes(i).Checked = True
-                End If
-            Next
-            IgnoreSystemCheckUpdates = False
-        End If
 
         UpdatePricesColumnClicked = UserUpdatePricesTabSettings.ColumnSort
         If UserUpdatePricesTabSettings.ColumnSortType = "Ascending" Then
@@ -4248,15 +4181,8 @@ Tabs:
         Dim SystemChecked As Boolean = False
         Dim SearchSystem As String = ""
 
-        ' Check systems too
-        For i = 1 To SystemCheckBoxes.Length - 1
-            If SystemCheckBoxes(i).Checked = True Then
-                ' Save the checked system (can only be one)
-                SearchSystem = SystemCheckBoxes(i).Text
-                SystemChecked = True
-                Exit For
-            End If
-        Next
+        SearchSystem = "Jita"
+        SystemChecked = True
 
         ' Finally check system combo
         If Not SystemChecked Then
@@ -4280,25 +4206,7 @@ Tabs:
         TempSettings.ItemsPriceModifier = 0
 
         ' Search for a set system first
-        TempSettings.SelectedSystem = "0"
-        For i = 1 To SystemCheckBoxes.Count - 1
-            If SystemCheckBoxes(i).Checked Then
-                ' Save it
-                TempSettings.SelectedSystem = SystemCheckBoxes(i).Text
-                Exit For
-            End If
-        Next
-
-        ' If no system found, then region
-        If TempSettings.SelectedSystem = "0" Then
-            ' Loop through the region checks and find checked regions
-            For i = 1 To RegionCheckBoxes.Count - 1
-                If RegionCheckBoxes(i).Checked = True Then
-                    TempRegions.Add(RegionCheckBoxes(i).Text)
-                End If
-            Next
-            TempSettings.SelectedRegions = TempRegions
-        End If
+        TempSettings.SelectedSystem = "Jita"
 
         ' Raw items
         ' Manufactured Items
@@ -4401,15 +4309,8 @@ Tabs:
 
         Dim RegionSelectedCount As Integer = 0
 
-        ' Check systems too
-        For i = 1 To SystemCheckBoxes.Length - 1
-            If SystemCheckBoxes(i).Checked = True Then
-                ' Save the checked system (can only be one)
-                SearchSystem = SystemCheckBoxes(i).Text
-                SystemChecked = True
-                Exit For
-            End If
-        Next
+        SearchSystem = "Jita"
+        SystemChecked = True
 
         ' Finally check system combo
         If Not SystemChecked Then
@@ -10716,21 +10617,26 @@ ExitCalc:
         If lstManufacturing.Items.Count > 0 Then
             Dim FoundItem As New ManufacturingItem
 
-            'Subtract any active jobs
             pnlStatus.Text = "Getting Character Data..."
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 1
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = True
             ' Try to update character data (including jobs and wallet)
+            'If jobs can not update for the selected character,  note the most recent time
+            'Move the below ifthen to within LoadCharacterData so it sets the correct text when the form loads the first time
+            'If currentdate > jobscachedate && currentdate > walletcachedate Then
+            '    lblCharacterData = "Job/Wallet data was recently updated."
+            'Else
+            '    lblCharacterData = "Job/Wallet data cannot be updated until: " & CStr(jobscachedate)
+            'End If
             SelectedCharacter.LoadCharacterData(SelectedCharacter.CharacterTokenData, False, False, True)
-            'If jobs did not update for the selected character,  note the most recent time
-            '
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
             pnlStatus.Text = ""
 
+            'Subtract any active jobs
             'If any active jobs are far from completion, ask the user if they want to subtract these from the autoshop calculation
             Dim activeJobsFarFromCompletion As Integer = 0
             For Each Job As IndustryJob In SelectedCharacter.Jobs.JobList
