@@ -23,11 +23,7 @@ Partial Class ManufacturingFacility
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.lblInclude = New System.Windows.Forms.Label()
         Me.chkFacilityIncludeUsage = New System.Windows.Forms.CheckBox()
-        Me.chkFacilityIncludeTime = New System.Windows.Forms.CheckBox()
-        Me.lblFacilityDefault = New System.Windows.Forms.Label()
-        Me.chkFacilityIncludeCost = New System.Windows.Forms.CheckBox()
         Me.cmbFacilityorArray = New System.Windows.Forms.ComboBox()
         Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
         Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
@@ -44,19 +40,8 @@ Partial Class ManufacturingFacility
         Me.lblFacilityManualME = New System.Windows.Forms.Label()
         Me.lblFacilityManualCost = New System.Windows.Forms.Label()
         Me.txtFacilityManualCost = New System.Windows.Forms.TextBox()
-        Me.chkFacilityToggle = New System.Windows.Forms.CheckBox()
         Me.mainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
-        '
-        'lblInclude
-        '
-        Me.lblInclude.AutoSize = True
-        Me.lblInclude.Location = New System.Drawing.Point(181, 5)
-        Me.lblInclude.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblInclude.Name = "lblInclude"
-        Me.lblInclude.Size = New System.Drawing.Size(57, 17)
-        Me.lblInclude.TabIndex = 6
-        Me.lblInclude.Text = "Include:"
         '
         'chkFacilityIncludeUsage
         '
@@ -68,39 +53,6 @@ Partial Class ManufacturingFacility
         Me.chkFacilityIncludeUsage.TabIndex = 7
         Me.chkFacilityIncludeUsage.Text = "Usage"
         Me.chkFacilityIncludeUsage.UseVisualStyleBackColor = True
-        '
-        'chkFacilityIncludeTime
-        '
-        Me.chkFacilityIncludeTime.AutoSize = True
-        Me.chkFacilityIncludeTime.Location = New System.Drawing.Point(324, 25)
-        Me.chkFacilityIncludeTime.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkFacilityIncludeTime.Name = "chkFacilityIncludeTime"
-        Me.chkFacilityIncludeTime.Size = New System.Drawing.Size(61, 21)
-        Me.chkFacilityIncludeTime.TabIndex = 10
-        Me.chkFacilityIncludeTime.Text = "Time"
-        Me.chkFacilityIncludeTime.UseVisualStyleBackColor = True
-        '
-        'lblFacilityDefault
-        '
-        Me.lblFacilityDefault.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.lblFacilityDefault.Location = New System.Drawing.Point(291, 4)
-        Me.lblFacilityDefault.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblFacilityDefault.Name = "lblFacilityDefault"
-        Me.lblFacilityDefault.Size = New System.Drawing.Size(105, 25)
-        Me.lblFacilityDefault.TabIndex = 4
-        Me.lblFacilityDefault.Text = "Default Facility"
-        Me.lblFacilityDefault.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'chkFacilityIncludeCost
-        '
-        Me.chkFacilityIncludeCost.AutoSize = True
-        Me.chkFacilityIncludeCost.Location = New System.Drawing.Point(261, 25)
-        Me.chkFacilityIncludeCost.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkFacilityIncludeCost.Name = "chkFacilityIncludeCost"
-        Me.chkFacilityIncludeCost.Size = New System.Drawing.Size(58, 21)
-        Me.chkFacilityIncludeCost.TabIndex = 9
-        Me.chkFacilityIncludeCost.Text = "Cost"
-        Me.chkFacilityIncludeCost.UseVisualStyleBackColor = True
         '
         'cmbFacilityorArray
         '
@@ -269,23 +221,11 @@ Partial Class ManufacturingFacility
         Me.txtFacilityManualCost.Text = "100.00%"
         Me.txtFacilityManualCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'chkFacilityToggle
-        '
-        Me.chkFacilityToggle.AutoSize = True
-        Me.chkFacilityToggle.Location = New System.Drawing.Point(185, 4)
-        Me.chkFacilityToggle.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkFacilityToggle.Name = "chkFacilityToggle"
-        Me.chkFacilityToggle.Size = New System.Drawing.Size(98, 21)
-        Me.chkFacilityToggle.TabIndex = 5
-        Me.chkFacilityToggle.Text = "Dessy/Cap"
-        Me.chkFacilityToggle.UseVisualStyleBackColor = True
-        '
         'ManufacturingFacility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.cmbFacilityType)
-        Me.Controls.Add(Me.chkFacilityToggle)
         Me.Controls.Add(Me.txtFacilityManualCost)
         Me.Controls.Add(Me.lblFacilityManualCost)
         Me.Controls.Add(Me.btnFacilityFitting)
@@ -296,11 +236,7 @@ Partial Class ManufacturingFacility
         Me.Controls.Add(Me.txtFacilityManualME)
         Me.Controls.Add(Me.lblFacilityManualTE)
         Me.Controls.Add(Me.lblFacilityManualME)
-        Me.Controls.Add(Me.lblInclude)
         Me.Controls.Add(Me.chkFacilityIncludeUsage)
-        Me.Controls.Add(Me.chkFacilityIncludeTime)
-        Me.Controls.Add(Me.lblFacilityDefault)
-        Me.Controls.Add(Me.chkFacilityIncludeCost)
         Me.Controls.Add(Me.cmbFacilityorArray)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
@@ -313,11 +249,7 @@ Partial Class ManufacturingFacility
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lblInclude As Label
     Friend WithEvents chkFacilityIncludeUsage As CheckBox
-    Friend WithEvents chkFacilityIncludeTime As CheckBox
-    Friend WithEvents lblFacilityDefault As Label
-    Friend WithEvents chkFacilityIncludeCost As CheckBox
     Friend WithEvents cmbFacilityorArray As ComboBox
     Friend WithEvents cmbFacilitySystem As ComboBox
     Friend WithEvents cmbFacilityRegion As ComboBox
@@ -334,6 +266,5 @@ Partial Class ManufacturingFacility
     Friend WithEvents lblFacilityManualME As Label
     Friend WithEvents lblFacilityManualCost As Label
     Friend WithEvents txtFacilityManualCost As TextBox
-    Friend WithEvents chkFacilityToggle As CheckBox
     Friend WithEvents mainToolTip As ToolTip
 End Class

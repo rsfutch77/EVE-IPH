@@ -115,7 +115,6 @@ Public Class ManufacturingFacility
         ' Add any initialization after the InitializeComponent() call.
 
         ' Hide everything until constructed with the options sent
-        chkFacilityToggle.Visible = False
         txtFacilityManualCost.Visible = False
         lblFacilityManualCost.Visible = False
         btnFacilityFitting.Visible = False
@@ -126,11 +125,7 @@ Public Class ManufacturingFacility
         txtFacilityManualME.Visible = False
         lblFacilityManualTE.Visible = False
         lblFacilityManualME.Visible = False
-        lblInclude.Visible = False
         chkFacilityIncludeUsage.Visible = False
-        chkFacilityIncludeTime.Visible = False
-        lblFacilityDefault.Visible = False
-        chkFacilityIncludeCost.Visible = False
         cmbFacilityorArray.Visible = False
         cmbFacilitySystem.Visible = False
         cmbFacilityRegion.Visible = False
@@ -187,13 +182,6 @@ Public Class ManufacturingFacility
 
                 cmbFacilityType.Visible = True
                 cmbFacilityType.Text = InitialTypeComboText
-
-                lblFacilityDefault.Height = DefaultLabelHeightBP
-                lblFacilityDefault.Width = DefaultLabelWidthBP
-                Call lblFacilityDefault.SendToBack()
-                lblFacilityDefault.Top = lblFacilityType.Top + 5
-                lblFacilityDefault.Left = cmbFacilityType.Left + cmbFacilityType.Width - 2
-                lblFacilityDefault.Visible = True
 
                 lblFacilityLocation.Left = LeftLabelLocation
                 lblFacilityLocation.Visible = True
@@ -304,44 +292,11 @@ Public Class ManufacturingFacility
                 cmbFacilityType.Visible = True
                 cmbFacilityType.Text = InitialTypeComboText
 
-                chkFacilityToggle.Top = lblFacilityType.Top - 2
-                chkFacilityToggle.Left = cmbFacilityType.Left + cmbFacilityType.Width + 5
-
                 chkFacilityIncludeUsage.Visible = True
-                chkFacilityIncludeUsage.Left = chkFacilityToggle.Left
-                chkFacilityIncludeUsage.Top = chkFacilityToggle.Top + chkFacilityToggle.Height - 1
-
                 chkFacilityIncludeUsage.Text = "Include Usage"
-                chkFacilityIncludeTime.Visible = False
-                chkFacilityIncludeCost.Visible = False
-                lblInclude.Visible = False
-
                 Select Case InitialProductionType
-                    Case ProductionType.CapitalComponentManufacturing, ProductionType.ComponentManufacturing
-                        chkFacilityToggle.Visible = True
-                        chkFacilityToggle.Text = "Cap Parts"
-                        If InitialProductionType = ProductionType.CapitalComponentManufacturing Then
-                            chkFacilityToggle.Checked = True
-                        End If
-                    Case ProductionType.T3DestroyerManufacturing, ProductionType.T3CruiserManufacturing
-                        chkFacilityToggle.Visible = True
-                        chkFacilityToggle.Text = "Destroyers"
-                        If InitialProductionType = ProductionType.T3DestroyerManufacturing Then
-                            chkFacilityToggle.Checked = True
-                        End If
                     Case ProductionType.Invention, ProductionType.T3Invention, ProductionType.Copying
                         chkFacilityIncludeUsage.Text = "Usage"
-                        lblInclude.Top = lblFacilityType.Top
-                        lblInclude.Left = chkFacilityIncludeUsage.Left - 2
-                        lblInclude.Visible = True
-                        chkFacilityIncludeCost.Top = chkFacilityIncludeUsage.Top
-                        chkFacilityIncludeCost.Left = chkFacilityIncludeUsage.Left + chkFacilityIncludeUsage.Width
-                        chkFacilityIncludeCost.Visible = True
-                        chkFacilityIncludeTime.Top = chkFacilityIncludeUsage.Top
-                        chkFacilityIncludeTime.Left = chkFacilityIncludeCost.Left + chkFacilityIncludeCost.Width
-                        chkFacilityIncludeTime.Visible = True
-                    Case Else
-                        chkFacilityToggle.Visible = False
                 End Select
 
                 lblFacilityLocation.Visible = True
@@ -365,11 +320,6 @@ Public Class ManufacturingFacility
                 cmbFacilityorArray.Width = FacilityArrayWidthCalc
                 cmbFacilityorArray.Text = InitialFacilityComboText
                 cmbFacilityorArray.Visible = True
-
-                lblFacilityDefault.Visible = True
-                lblFacilityDefault.Top = chkFacilityToggle.Top
-                lblFacilityDefault.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - lblFacilityDefault.Width
-                Call lblFacilityDefault.SendToBack()
 
                 btnFacilitySave.Top = cmbFacilityorArray.Top + cmbFacilityorArray.Height + 2
                 btnFacilitySave.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - btnFacilitySave.Width + 1
@@ -680,8 +630,6 @@ Public Class ManufacturingFacility
         ChangingUsageChecks = True
 
         chkFacilityIncludeUsage.Checked = SelectedFacility.IncludeActivityUsage
-        chkFacilityIncludeCost.Checked = SelectedFacility.IncludeActivityCost
-        chkFacilityIncludeTime.Checked = SelectedFacility.IncludeActivityTime
 
         ChangingUsageChecks = False
 
@@ -869,8 +817,6 @@ Public Class ManufacturingFacility
             PreviousEquipment = InitialFacilityComboText
             cmbFacilityorArray.Enabled = False
             chkFacilityIncludeUsage.Enabled = False
-            chkFacilityIncludeCost.Enabled = False
-            chkFacilityIncludeTime.Enabled = False
 
             PreviousProductionType = FacilityProductionType
             PreviousActivity = FacilityActivity
@@ -888,7 +834,6 @@ Public Class ManufacturingFacility
         cmbFacilityType.Enabled = True
 
         ' Make sure default is not shown yet
-        lblFacilityDefault.Visible = False
         btnFacilitySave.Enabled = False
 
         LoadingFacilityTypes = False
@@ -1037,8 +982,6 @@ Public Class ManufacturingFacility
             btnFacilitySave.Enabled = False
             btnFacilityFitting.Visible = False
             chkFacilityIncludeUsage.Enabled = False
-            chkFacilityIncludeCost.Enabled = False
-            chkFacilityIncludeTime.Enabled = False
 
             Call SetFacilityBonusBoxes(False)
         End If
@@ -1253,8 +1196,6 @@ Public Class ManufacturingFacility
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
             chkFacilityIncludeUsage.Enabled = False
-            chkFacilityIncludeCost.Enabled = False
-            chkFacilityIncludeTime.Enabled = False
 
             Call SetFacilityBonusBoxes(False)
         End If
@@ -1474,15 +1415,11 @@ Public Class ManufacturingFacility
                 btnFacilitySave.Enabled = False
                 Call SetDefaultVisuals(False)
                 chkFacilityIncludeUsage.Enabled = False ' Don't enable the usage either
-                chkFacilityIncludeCost.Enabled = False
-                chkFacilityIncludeTime.Enabled = False
             Else
                 ' Since this is a different system but facility is loaded, enable save
                 btnFacilitySave.Enabled = True
                 Call SetDefaultVisuals(False)
                 chkFacilityIncludeUsage.Enabled = True
-                chkFacilityIncludeCost.Enabled = True
-                chkFacilityIncludeTime.Enabled = True
             End If
 
             AutoLoadFacility = False
@@ -1539,48 +1476,40 @@ Public Class ManufacturingFacility
     Private Sub cmbFacilityorArray_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbFacilityorArray.KeyPress
         e.Handled = True
     End Sub
-    Private Sub lblFacilityDefault_DoubleClick(sender As Object, e As EventArgs) Handles lblFacilityDefault.DoubleClick
+    Private Sub loadDefaultFacility()
         ' Load the default facility for the selected activity if it's not already the default
-        If lblFacilityDefault.ForeColor = SystemColors.ButtonShadow Then
-            LoadingActivities = True ' Don't trigger a combo load yet
-            Dim SelectedFacility As New IndustryFacility
-            Dim SelectedActivity As String = ""
-            Dim BPID As Integer = 0
-            Dim ItemGroupID As Integer = 0
-            Dim ItemCategoryID As Integer = 0
-            Dim TechLevel As Integer = 0
-            Dim Activity As String = ""
-            Dim OriginalProductionType As ProductionType = SelectedProductionType
+        LoadingActivities = True ' Don't trigger a combo load yet
+        Dim SelectedFacility As New IndustryFacility
+        Dim SelectedActivity As String = ""
+        Dim BPID As Integer = 0
+        Dim ItemGroupID As Integer = 0
+        Dim ItemCategoryID As Integer = 0
+        Dim TechLevel As Integer = 0
+        Dim Activity As String = ""
+        Dim OriginalProductionType As ProductionType = SelectedProductionType
 
-            SelectedFacility = SelectFacility(OriginalProductionType, True)
+        SelectedFacility = SelectFacility(OriginalProductionType, True)
 
-            If Not IsNothing(SelectedBlueprint) Then
-                With SelectedBlueprint
-                    BPID = .GetBPID
-                    ItemGroupID = .GetItemGroupID
-                    ItemCategoryID = .GetItemCategoryID
-                    TechLevel = .GetTechLevel
-                End With
-            ElseIf SelectedLocation = ProgramLocation.ManufacturingTab Then
-                BPID = 0 ' this only matters for the activity combo
-                ' For the manufacturing tab, we manually put in the IDs, so get the data first
-                Call GetFacilityBPItemData(OriginalProductionType, ItemGroupID, ItemCategoryID, TechLevel, Activity)
-            End If
-
-            ' Load up the default based on the BPID - assume we selected from combo to bypass loading activities again
-            Call LoadFacility(BPID, ItemGroupID, ItemCategoryID, TechLevel, True, True)
-
-            'If ReactionTypes.Contains(SelectedBlueprint.GetItemGroup) And OriginalProductionType = ProductionType.Manufacturing Then
-            '    ' Need to make sure the default of the manufacturing facility is loaded and not reactions
-            '    ' Use the Fuelblock blueprint data
-            '    Call LoadFacility(4314, 1136, 4, 1, True)
-            'End If
-
-            ' Set the default based on the checkbox 
-            Call SetFacility(SelectedFacility, OriginalProductionType, False, False)
-
-            LoadingActivities = False
+        If Not IsNothing(SelectedBlueprint) Then
+            With SelectedBlueprint
+                BPID = .GetBPID
+                ItemGroupID = .GetItemGroupID
+                ItemCategoryID = .GetItemCategoryID
+                TechLevel = .GetTechLevel
+            End With
+        ElseIf SelectedLocation = ProgramLocation.ManufacturingTab Then
+            BPID = 0 ' this only matters for the activity combo
+            ' For the manufacturing tab, we manually put in the IDs, so get the data first
+            Call GetFacilityBPItemData(OriginalProductionType, ItemGroupID, ItemCategoryID, TechLevel, Activity)
         End If
+
+        ' Load up the default based on the BPID - assume we selected from combo to bypass loading activities again
+        Call LoadFacility(BPID, ItemGroupID, ItemCategoryID, TechLevel, True, True)
+
+        ' Set the default based on the checkbox 
+        Call SetFacility(SelectedFacility, OriginalProductionType, False, False)
+
+        LoadingActivities = False
     End Sub
 
     ' Displays the bonus for the facility selected in the facility or array combo
@@ -1986,8 +1915,6 @@ Public Class ManufacturingFacility
         ' Make sure the usage check is now enabled and update the box if a value exists
         If FacilityType <> FacilityTypes.None Then
             chkFacilityIncludeUsage.Enabled = True
-            chkFacilityIncludeCost.Enabled = True
-            chkFacilityIncludeTime.Enabled = True
         End If
 
         If FacilityType = FacilityTypes.UpwellStructure Then
@@ -2231,44 +2158,6 @@ Public Class ManufacturingFacility
 
     End Sub
 
-    Private Sub chkFacilityIncludeCost_CheckedChanged(sender As Object, e As EventArgs) Handles chkFacilityIncludeCost.CheckedChanged
-        If Not ChangingUsageChecks Then
-            If chkFacilityIncludeCost.Checked = True And SelectedFacility.IncludeActivityCost = False _
-            Or chkFacilityIncludeCost.Checked = False And SelectedFacility.IncludeActivityCost = True Then
-                ' Different than what was set, so set default visuals to false
-                Call SetDefaultVisuals(False)
-                SelectedFacility.IncludeActivityCost = chkFacilityIncludeCost.Checked
-                ' Now set the facility
-                Call SetFacility(SelectedFacility, SelectedFacility.FacilityProductionType, True, True)
-            Else
-                ' Same as what was set so set to true
-                Call SetDefaultVisuals(True)
-            End If
-        End If
-
-        Call SetResetRefresh()
-
-    End Sub
-
-    Private Sub chkFacilityIncludeTime_CheckedChanged(sender As Object, e As EventArgs) Handles chkFacilityIncludeTime.CheckedChanged
-        If Not ChangingUsageChecks Then
-            If chkFacilityIncludeTime.Checked = True And SelectedFacility.IncludeActivityTime = False _
-            Or chkFacilityIncludeTime.Checked = False And SelectedFacility.IncludeActivityTime = True Then
-                ' Different than what was set, so set default visuals to false
-                Call SetDefaultVisuals(False)
-                SelectedFacility.IncludeActivityTime = chkFacilityIncludeTime.Checked
-                ' Now set the facility
-                Call SetFacility(SelectedFacility, SelectedFacility.FacilityProductionType, True, True)
-            Else
-                ' Same as what was set so set to true
-                Call SetDefaultVisuals(True)
-            End If
-        End If
-
-        Call SetResetRefresh()
-
-    End Sub
-
     Private Sub btnFacilitySave_Click(sender As Object, e As EventArgs) Handles btnFacilitySave.Click
         If SelectedFacility.FullyLoaded Then
 
@@ -2321,40 +2210,6 @@ Public Class ManufacturingFacility
 
         End If
 
-    End Sub
-
-    ' Load the facility for the check - either components or cap components OR T3 destroyers or T3 cruisers (only need to do this with limited controls)
-    Private Sub chkFacilityToggle_CheckedChanged(sender As Object, e As EventArgs) Handles chkFacilityToggle.CheckedChanged
-        If Not FirstLoad Then
-            Select Case SelectedProductionType
-                Case ProductionType.CapitalComponentManufacturing, ProductionType.ComponentManufacturing
-                    If chkFacilityToggle.Checked Then
-                        SelectedProductionType = ProductionType.CapitalComponentManufacturing
-                        SelectedBPCategoryID = ItemIDs.CapitalComponentGroupID
-                        SelectedBPGroupID = ItemIDs.None
-                        SelectedBPTech = BPTechLevel.T1
-                        Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
-                    Else
-                        SelectedProductionType = ProductionType.ComponentManufacturing
-                        SelectedBPCategoryID = ItemIDs.ComponentCategoryID
-                        SelectedBPGroupID = ItemIDs.None
-                        SelectedBPTech = BPTechLevel.T1
-                        Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
-                    End If
-                Case ProductionType.T3DestroyerManufacturing, ProductionType.T3CruiserManufacturing
-                    If chkFacilityToggle.Checked Then
-                        SelectedBPCategoryID = ItemIDs.ShipCategoryID
-                        SelectedBPGroupID = ItemIDs.TacticalDestroyerGroupID
-                        SelectedBPTech = BPTechLevel.T3
-                        Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
-                    Else
-                        SelectedBPCategoryID = ItemIDs.ShipCategoryID
-                        SelectedBPGroupID = ItemIDs.StrategicCruiserGroupID
-                        SelectedBPTech = BPTechLevel.T3
-                        Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech)
-                    End If
-            End Select
-        End If
     End Sub
 
 #Region "Support Functions"
@@ -2628,29 +2483,13 @@ Public Class ManufacturingFacility
         cmbFacilityorArray.Text = InitialFacilityComboText
         chkFacilityIncludeUsage.Enabled = False
 
-        If Not IsNothing(chkFacilityIncludeCost) Then
-            chkFacilityIncludeCost.Enabled = False
-        End If
-        If Not IsNothing(chkFacilityIncludeTime) Then
-            chkFacilityIncludeTime.Enabled = False
-        End If
-        cmbFacilityorArray.Enabled = False
-        If Not IsNothing(chkFacilityToggle) Then
-            chkFacilityToggle.Enabled = False
-        End If
     End Sub
 
     ' Sets the visual data for default facility
     Private Sub SetDefaultVisuals(isDefault As Boolean)
         If isDefault = True Then
-            lblFacilityDefault.ForeColor = FacilityLabelDefaultColor
-            lblFacilityDefault.Visible = True
-            Call ResetToolTipforDefaultFacilityLabel(False)
             btnFacilitySave.Enabled = False ' don't enable since it's already the default, it's pointless to save it
         Else
-            lblFacilityDefault.ForeColor = FacilityLabelNonDefaultColor
-            lblFacilityDefault.Visible = True
-            Call ResetToolTipforDefaultFacilityLabel(True)
             If SelectedFacility.FullyLoaded Then
                 btnFacilitySave.Enabled = True
             End If
@@ -2724,17 +2563,6 @@ Public Class ManufacturingFacility
         End Select
 
     End Function
-
-    ' Sets the tool tip text for default facility labels if they can double click to reload
-    Private Sub ResetToolTipforDefaultFacilityLabel(ByVal ShowTip As Boolean)
-        If Not IsNothing(mainToolTip) Then
-            If ShowTip And UserApplicationSettings.ShowToolTips Then
-                mainToolTip.SetToolTip(lblFacilityDefault, "Double-Click to reload default facility")
-            Else
-                mainToolTip.SetToolTip(lblFacilityDefault, "")
-            End If
-        End If
-    End Sub
 
     ' Returns the type of production done for the activity and bp data sent
     Public Function GetProductionType(BPGroupID As Integer, BPCategoryID As Integer, SelectedActivity As String) As ProductionType
