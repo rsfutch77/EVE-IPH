@@ -27,9 +27,6 @@ Partial Class ManufacturingFacility
         Me.cmbFacilityorArray = New System.Windows.Forms.ComboBox()
         Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
         Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
-        Me.lblFacilityLocation = New System.Windows.Forms.Label()
-        Me.lblFacilityType = New System.Windows.Forms.Label()
-        Me.cmbFacilityType = New System.Windows.Forms.ComboBox()
         Me.btnFacilityFitting = New System.Windows.Forms.Button()
         Me.txtFacilityManualTax = New System.Windows.Forms.TextBox()
         Me.lblFacilityManualTax = New System.Windows.Forms.Label()
@@ -86,36 +83,6 @@ Partial Class ManufacturingFacility
         Me.cmbFacilityRegion.Size = New System.Drawing.Size(172, 24)
         Me.cmbFacilityRegion.TabIndex = 12
         Me.cmbFacilityRegion.Text = "Select Region"
-        '
-        'lblFacilityLocation
-        '
-        Me.lblFacilityLocation.AutoSize = True
-        Me.lblFacilityLocation.Location = New System.Drawing.Point(4, 27)
-        Me.lblFacilityLocation.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblFacilityLocation.Name = "lblFacilityLocation"
-        Me.lblFacilityLocation.Size = New System.Drawing.Size(66, 17)
-        Me.lblFacilityLocation.TabIndex = 11
-        Me.lblFacilityLocation.Text = "Location:"
-        '
-        'lblFacilityType
-        '
-        Me.lblFacilityType.AutoSize = True
-        Me.lblFacilityType.Location = New System.Drawing.Point(1, 5)
-        Me.lblFacilityType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblFacilityType.Name = "lblFacilityType"
-        Me.lblFacilityType.Size = New System.Drawing.Size(91, 17)
-        Me.lblFacilityType.TabIndex = 2
-        Me.lblFacilityType.Text = "Facility Type:"
-        '
-        'cmbFacilityType
-        '
-        Me.cmbFacilityType.FormattingEnabled = True
-        Me.cmbFacilityType.ItemHeight = 16
-        Me.cmbFacilityType.Location = New System.Drawing.Point(91, 1)
-        Me.cmbFacilityType.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbFacilityType.Name = "cmbFacilityType"
-        Me.cmbFacilityType.Size = New System.Drawing.Size(85, 24)
-        Me.cmbFacilityType.TabIndex = 3
         '
         'btnFacilityFitting
         '
@@ -225,7 +192,6 @@ Partial Class ManufacturingFacility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.cmbFacilityType)
         Me.Controls.Add(Me.txtFacilityManualCost)
         Me.Controls.Add(Me.lblFacilityManualCost)
         Me.Controls.Add(Me.btnFacilityFitting)
@@ -240,8 +206,6 @@ Partial Class ManufacturingFacility
         Me.Controls.Add(Me.cmbFacilityorArray)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
-        Me.Controls.Add(Me.lblFacilityLocation)
-        Me.Controls.Add(Me.lblFacilityType)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "ManufacturingFacility"
         Me.Size = New System.Drawing.Size(549, 422)
@@ -253,9 +217,6 @@ Partial Class ManufacturingFacility
     Friend WithEvents cmbFacilityorArray As ComboBox
     Friend WithEvents cmbFacilitySystem As ComboBox
     Friend WithEvents cmbFacilityRegion As ComboBox
-    Friend WithEvents lblFacilityLocation As Label
-    Friend WithEvents lblFacilityType As Label
-    Friend WithEvents cmbFacilityType As ComboBox
     Friend WithEvents btnFacilityFitting As Button
     Friend WithEvents txtFacilityManualTax As TextBox
     Friend WithEvents lblFacilityManualTax As Label

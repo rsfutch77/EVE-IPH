@@ -129,9 +129,6 @@ Public Class ManufacturingFacility
         cmbFacilityorArray.Visible = False
         cmbFacilitySystem.Visible = False
         cmbFacilityRegion.Visible = False
-        lblFacilityLocation.Visible = False
-        lblFacilityType.Visible = False
-        cmbFacilityType.Visible = False
 
         UpdatingManualBoxes = False
 
@@ -177,21 +174,9 @@ Public Class ManufacturingFacility
         Select Case ViewType
             Case FacilityView.FullControls
 
-                lblFacilityType.Top = 1
-                lblFacilityType.Visible = True
-
-                cmbFacilityType.Visible = True
-                cmbFacilityType.Text = InitialTypeComboText
-
-                lblFacilityLocation.Left = LeftLabelLocation
-                lblFacilityLocation.Visible = True
-
-                chkFacilityIncludeUsage.Top = lblFacilityLocation.Top - 1
-                chkFacilityIncludeUsage.Left = lblFacilityLocation.Left + lblFacilityLocation.Width + 27
                 chkFacilityIncludeUsage.Text = "Usage:"
                 chkFacilityIncludeUsage.Visible = True
 
-                cmbFacilityRegion.Top = lblFacilityLocation.Top + lblFacilityLocation.Height + 3
                 cmbFacilityRegion.Left = LeftObjectLocation
                 cmbFacilityRegion.Width = RegionWidthBP
                 cmbFacilityRegion.Text = InitialRegionComboText
@@ -283,15 +268,6 @@ Public Class ManufacturingFacility
 
             Case FacilityView.LimitedControls
 
-                lblFacilityType.Top = 5
-                lblFacilityType.Left = 0
-                lblFacilityType.Visible = True
-
-                cmbFacilityType.Top = lblFacilityType.Top - 2
-                cmbFacilityType.Left = lblFacilityType.Width + 2
-                cmbFacilityType.Visible = True
-                cmbFacilityType.Text = InitialTypeComboText
-
                 chkFacilityIncludeUsage.Visible = True
                 chkFacilityIncludeUsage.Text = "Include Usage"
                 Select Case InitialProductionType
@@ -299,12 +275,6 @@ Public Class ManufacturingFacility
                         chkFacilityIncludeUsage.Text = "Usage"
                 End Select
 
-                lblFacilityLocation.Visible = True
-                lblFacilityLocation.Left = 0
-                lblFacilityLocation.Top = chkFacilityIncludeUsage.Top + 2
-
-                cmbFacilityRegion.Left = LeftObjectLocation
-                cmbFacilityRegion.Top = lblFacilityLocation.Top + lblFacilityLocation.Height + 2
                 cmbFacilityRegion.Text = InitialRegionComboText
                 cmbFacilityRegion.Width = RegionWidthCalc
                 cmbFacilityRegion.Visible = True
@@ -595,8 +565,6 @@ Public Class ManufacturingFacility
 
         ' Enable the type of facility and set
         LoadingFacilityTypes = True
-        cmbFacilityType.Enabled = True
-        cmbFacilityType.Text = GetFacilityNamefromCode(SelectedFacility.FacilityType)
         LoadingFacilityTypes = False
 
         If SelectedFacility.FacilityType = FacilityTypes.None Then
@@ -639,7 +607,7 @@ Public Class ManufacturingFacility
             With SelectedFacility
                 cmbFacilityorArray.Text = .FacilityName
                 Call DisplayFacilityBonus(.FacilityProductionType, ItemGroupID, ItemCategoryID, SelectedFacility.Activity,
-                                          GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
+                                          GetFacilityTypeCode("Station"), cmbFacilityorArray.Text)
             End With
             LoadingFacilities = False
         End If
@@ -726,7 +694,7 @@ Public Class ManufacturingFacility
                 Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, False, True)
 
                 ' Reset all previous to current list, since all the combos should be loaded
-                PreviousFacilityType = GetFacilityTypeCode(cmbFacilityType.Text)
+                PreviousFacilityType = GetFacilityTypeCode("Station")
                 PreviousEquipment = cmbFacilityorArray.Text
                 PreviousRegion = cmbFacilityRegion.Text
                 PreviousSystem = cmbFacilitySystem.Text
@@ -734,8 +702,6 @@ Public Class ManufacturingFacility
 
             ' Make sure the usage is updated
             Call frmMain.UpdateBPPriceLabels()
-
-            Call cmbFacilityType.Focus()
 
         End If
     End Sub
@@ -760,51 +726,9 @@ Public Class ManufacturingFacility
         LoadingSystems = True
         LoadingFacilities = True
 
-        ' Clear the types each time for a fresh set of options
-        cmbFacilityType.Items.Clear()
-
-        ' Load the facility type options
-        Select Case FacilityActivity
-                ' Load up None for Invention/RE, Copy - they could buy the BP or T2 BPO
-            Case ActivityCopying, ActivityInvention
-                Select Case FacilityProductionType
-                    Case ProductionType.T3Invention
-                        ' Can be invented in POS
-                        If POS <> "" Then cmbFacilityType.Items.Add(POS)
-                        If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-                        If NoneFacility <> "" Then cmbFacilityType.Items.Add(NoneFacility)
-                    Case Else
-                        If Station <> "" Then cmbFacilityType.Items.Add(Station)
-                        If POS <> "" Then cmbFacilityType.Items.Add(POS)
-                        If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-                        If NoneFacility <> "" Then cmbFacilityType.Items.Add(NoneFacility)
-                End Select
-            Case ActivityManufacturing
-                Select Case FacilityProductionType
-                    Case ProductionType.SuperManufacturing, ProductionType.SubsystemManufacturing, ProductionType.T3CruiserManufacturing, ProductionType.T3DestroyerManufacturing
-                        ' Can be built in and POS and structure
-                        If POS <> "" Then cmbFacilityType.Items.Add(POS)
-                        If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-                    Case Else
-                        ' Add all
-                        If Station <> "" Then cmbFacilityType.Items.Add(Station)
-                        If POS <> "" Then cmbFacilityType.Items.Add(POS)
-                        If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-                End Select
-            Case ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                ' Can do these anywhere
-                If Station <> "" Then cmbFacilityType.Items.Add(Station)
-                If POS <> "" Then cmbFacilityType.Items.Add(POS)
-                If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-            Case ActivityReactions
-                ' Only in upwells
-                If UpwellStructure <> "" Then cmbFacilityType.Items.Add(UpwellStructure)
-        End Select
-
         ' Only reset if they changed it
         If FacilityProductionType <> PreviousProductionType Or FacilityActivity <> PreviousActivity Then
             ' Reset all other dropdowns
-            cmbFacilityType.Text = InitialTypeComboText
             cmbFacilityRegion.Items.Clear()
             cmbFacilityRegion.Text = InitialRegionComboText
             cmbFacilityRegion.Enabled = False
@@ -825,14 +749,6 @@ Public Class ManufacturingFacility
 
         End If
 
-        ' Double check the text selected and reset 
-        If Not cmbFacilityType.Items.Contains(cmbFacilityType.Text) Then
-            cmbFacilityType.Text = GetFacilityNamefromCode(FacilityTypes.POS) ' can build almost everything (if not all) in a pos
-        End If
-
-        ' Enable the facility type combo
-        cmbFacilityType.Enabled = True
-
         ' Make sure default is not shown yet
         btnFacilitySave.Enabled = False
 
@@ -844,16 +760,16 @@ Public Class ManufacturingFacility
         Call ResetComboLoadVariables(False, False, False)
 
     End Sub
-    Private Sub cmbFacilityType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmbFacilityType.SelectedIndexChanged
+    Private Sub cmbFacilityType_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         ' Don't do anything if it's the same as the old type
-        If PreviousFacilityType <> GetFacilityTypeCode(cmbFacilityType.Text) Then
+        If PreviousFacilityType <> GetFacilityTypeCode("Station") Then
             ' Might not want to set a facility for copy or invention - "None" is an option for these two activities
-            If Not LoadingFacilityTypes And Not FirstLoad And GetFacilityTypeCode(cmbFacilityType.Text) <> FacilityTypes.None Then
+            If Not LoadingFacilityTypes And Not FirstLoad And GetFacilityTypeCode("Station") <> FacilityTypes.None Then
 
                 Call LoadFacilityRegions(SelectedBPGroupID, SelectedBPCategoryID, True, ActivityManufacturing)
                 Call cmbFacilityRegion.Focus()
 
-            ElseIf GetFacilityTypeCode(cmbFacilityType.Text) = FacilityTypes.None Then ' Invention or Copy facility - set to none
+            ElseIf GetFacilityTypeCode("Station") = FacilityTypes.None Then ' Invention or Copy facility - set to none
 
                 Call SetNoFacility()
 
@@ -863,13 +779,13 @@ Public Class ManufacturingFacility
                 Call SetDefaultVisuals(False)
                 ' Save the facility locally
                 Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
-                                          GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
+                                          GetFacilityTypeCode("Station"), cmbFacilityorArray.Text)
             End If
 
             ' Anytime this changes, set all the other ME/TE boxes to not viewed
             Call SetFacilityBonusBoxes(False)
             SelectedFacility.FullyLoaded = False
-            PreviousFacilityType = GetFacilityTypeCode(cmbFacilityType.Text)
+            PreviousFacilityType = GetFacilityTypeCode("Station")
             ' Reset the previous records
             PreviousEquipment = ""
             PreviousRegion = ""
@@ -880,19 +796,12 @@ Public Class ManufacturingFacility
         Call SetResetRefresh()
 
     End Sub
-    Private Sub cmbFacilityType_DropDown(sender As Object, e As System.EventArgs) Handles cmbFacilityType.DropDown
-        PreviousFacilityType = GetFacilityTypeCode(cmbFacilityType.Text)
+
+    Private Sub cmbFacilityType_DropDown(sender As Object, e As System.EventArgs)
+        PreviousFacilityType = GetFacilityTypeCode("Station")
     End Sub
-    Private Sub cmbFacilityType_GotFocus(sender As Object, e As EventArgs) Handles cmbFacilityType.GotFocus
-        Call cmbFacilityType.SelectAll()
-    End Sub
-    Private Sub cmbFacilityType_LostFocus(sender As Object, e As EventArgs) Handles cmbFacilityType.LostFocus
-        cmbFacilityType.SelectionLength = 0
-        If Trim(cmbFacilityType.Text) = "" Then
-            cmbFacilityType.Text = GetFacilityNamefromCode(PreviousFacilityType)
-        End If
-    End Sub
-    Private Sub cmbFacilityType_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbFacilityType.KeyPress
+
+    Private Sub cmbFacilityType_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         e.Handled = True
     End Sub
 
@@ -908,52 +817,10 @@ Public Class ManufacturingFacility
         cmbFacilityRegion.Items.Clear()
 
         ' Load regions from the facilities table - only load regions for our activity type and item group/category
-        Select Case cmbFacilityType.Text
-
-            Case StationFacility
-
-                SQL = "SELECT DISTINCT REGION_NAME FROM STATION_FACILITIES "
-
-                Select Case FacilityActivity
-                    Case ActivityManufacturing
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                        ' Add only regions with stations that can make what we sent
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Manufacturing)
-                    Case ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                        ' Add category for components - All types can be built in stations
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemIDs.ComponentCategoryID, -1, IndustryActivities.Manufacturing)
-                    Case ActivityCopying
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Copying) & " "
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Copying)
-                    Case ActivityInvention
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Invention) & " "
-                        ' For T3 stuff, need to make sure we only show facilities that can do T3 invention (Caldari Outposts)
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Invention)
-                End Select
-
-            Case POSFacility, StructureFacility
-                ' For a POS and Upwell Structures, load all regions as options, but adding only one wormhole region option and don't show Jove regions
-                SQL = "SELECT DISTINCT CASE WHEN (REGIONS.regionID >=11000000 and REGIONS.regionid <=11000030) THEN 'Wormhole Space' ELSE regionName END AS REGION_NAME "
-                SQL = SQL & "FROM REGIONS, SOLAR_SYSTEMS "
-                SQL = SQL & "WHERE SOLAR_SYSTEMS.regionID = REGIONS.regionID "
-                SQL = SQL & "AND (factionID <> 500005 OR factionID IS NULL) "
-
-                ' Make sure the region listed has at least one system not in the disallowed anchoring lists
-                ' Upwell Structures can be anchored almost anywhere except starter systems, trade hubs, and shattered wormholes (including Thera)
-                ' Check both disallowable anchor tables
-                SQL = SQL & "AND (solarSystemID NOT IN (SELECT SOLAR_SYSTEM_ID FROM MAP_DISALLOWED_ANCHOR_CATEGORIES WHERE CATEGORY_ID = 65) AND "
-                SQL = SQL & "solarSystemID NOT IN (SELECT SOLAR_SYSTEM_ID FROM MAP_DISALLOWED_ANCHOR_GROUPS WHERE GROUP_ID = 65)) "
-
-                ' For supers, only show null regions where you can have sov (no factionID excludes NPC null, etc)
-                If ItemGroupID = ItemIDs.SupercarrierGroupID Or ItemGroupID = ItemIDs.TitanGroupID Then
-                    SQL = SQL & " AND security <= 0.0 AND factionID IS NULL AND regionName <> 'Wormhole Space' "
-                ElseIf ItemGroupID = ItemIDs.DreadnoughtGroupID Or ItemGroupID = ItemIDs.CarrierGroupID Or ItemGroupID = ItemIDs.CapitalIndustrialShipGroupID Or ItemGroupID = ItemIDs.FAXGroupID Or IsReaction(ItemGroupID) Then
-                    ' For caps and reactions, only show low sec
-                    SQL = SQL & " AND security < .45 "
-                End If
-
-        End Select
+        SQL = "SELECT DISTINCT REGION_NAME FROM STATION_FACILITIES "
+        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
+        ' Add only regions with stations that can make what we sent
+        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Manufacturing)
 
         SQL = SQL & "GROUP BY REGION_NAME "
 
@@ -1067,111 +934,17 @@ Public Class ManufacturingFacility
 
         cmbFacilitySystem.Items.Clear()
 
-        Select Case cmbFacilityType.Text
+        SQL = "SELECT DISTINCT STATION_FACILITIES.SOLAR_SYSTEM_NAME AS SSN, INDUSTRY_SYSTEMS_COST_INDICIES.COST_INDEX AS CI "
+        SQL &= "FROM STATION_FACILITIES, INDUSTRY_SYSTEMS_COST_INDICIES "
+        SQL &= "WHERE STATION_FACILITIES.SOLAR_SYSTEM_ID = INDUSTRY_SYSTEMS_COST_INDICIES.SOLAR_SYSTEM_ID "
+        SQL &= "AND STATION_FACILITIES.ACTIVITY_ID = INDUSTRY_SYSTEMS_COST_INDICIES.ACTIVITY_ID "
+        SQL &= "AND STATION_FACILITIES.ACTIVITY_ID = "
 
-            Case StationFacility
+        SQL = SQL & CStr(IndustryActivities.Manufacturing) & " "
+        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Manufacturing)
 
-                SQL = "SELECT DISTINCT STATION_FACILITIES.SOLAR_SYSTEM_NAME AS SSN, INDUSTRY_SYSTEMS_COST_INDICIES.COST_INDEX AS CI "
-                SQL &= "FROM STATION_FACILITIES, INDUSTRY_SYSTEMS_COST_INDICIES "
-                SQL &= "WHERE STATION_FACILITIES.SOLAR_SYSTEM_ID = INDUSTRY_SYSTEMS_COST_INDICIES.SOLAR_SYSTEM_ID "
-                SQL &= "AND STATION_FACILITIES.ACTIVITY_ID = INDUSTRY_SYSTEMS_COST_INDICIES.ACTIVITY_ID "
-                SQL &= "AND STATION_FACILITIES.ACTIVITY_ID = "
 
-                Select Case FacilityActivity
-                    Case ActivityManufacturing
-                        SQL = SQL & CStr(IndustryActivities.Manufacturing) & " "
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Manufacturing)
-                    Case ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                        SQL = SQL & CStr(IndustryActivities.Manufacturing) & " "
-                        ' Add category for components - All types can be built in stations
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemIDs.ComponentCategoryID, -1, IndustryActivities.Manufacturing)
-                    Case ActivityCopying
-                        SQL = SQL & CStr(IndustryActivities.Copying) & " "
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Copying)
-                    Case ActivityInvention
-                        SQL = SQL & CStr(IndustryActivities.Invention) & " "
-                        ' For T3 stuff, need to make sure we only show facilities that can do T3 invention (Caldari Outposts)
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemCategoryID, ItemGroupID, IndustryActivities.Invention)
-                End Select
-
-                SQL = SQL & "AND REGION_NAME = '" & FormatDBString(cmbFacilityRegion.Text) & "'"
-
-            Case POSFacility
-                ' For a POS, load all systems, if wormhole 'region' selected, then load jspace systems
-                SQL = "SELECT DISTINCT solarSystemName AS SSN, CASE WHEN COST_INDEX IS NOT NULL THEN COST_INDEX ELSE 0 END AS CI  "
-                SQL = SQL & "FROM REGIONS, SOLAR_SYSTEMS "
-                SQL = SQL & "LEFT JOIN INDUSTRY_SYSTEMS_COST_INDICIES ON solarSystemID = SOLAR_SYSTEM_ID "
-
-                Select Case FacilityActivity
-                    Case ActivityManufacturing, ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                    Case ActivityCopying
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Copying) & " "
-                    Case ActivityInvention
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Invention) & " "
-                End Select
-
-                SQL = SQL & "WHERE SOLAR_SYSTEMS.regionID = REGIONS.regionID "
-
-                If cmbFacilityRegion.Text = "Wormhole Space" Then
-                    SQL = SQL & "AND SOLAR_SYSTEMS.regionID >=11000000 and SOLAR_SYSTEMS.regionid <=11000030 "
-                Else
-                    ' For a POS, load all systems that have records linked
-                    SQL = SQL & "AND regionName = '" & FormatDBString(cmbFacilityRegion.Text) & "'"
-                End If
-
-                ' For supers, only show null regions where you can have sov (no factionID excludes NPC null, etc)
-                ' Also, make sure not to include component building in this limitiation as you can build those anywhere
-                If ItemGroupID = ItemIDs.SupercarrierGroupID Or ItemGroupID = ItemIDs.TitanGroupID Then
-                    SQL = SQL & " AND security <= 0.0 AND factionID IS NULL AND regionName <> 'Wormhole Space' "
-                ElseIf (ItemGroupID = ItemIDs.DreadnoughtGroupID Or ItemGroupID = ItemIDs.CarrierGroupID Or
-                    ItemGroupID = ItemIDs.CapitalIndustrialShipGroupID Or ItemGroupID = ItemIDs.FAXGroupID) And
-                    FacilityActivity = ActivityManufacturing Then
-                    ' For caps, only show low sec
-                    SQL = SQL & " AND security < .45 "
-                End If
-
-            Case StructureFacility
-                SQL = "SELECT DISTINCT solarSystemName AS SSN, CASE WHEN COST_INDEX IS NOT NULL THEN COST_INDEX ELSE 0 END  AS CI "
-                SQL = SQL & "FROM REGIONS, SOLAR_SYSTEMS "
-                SQL = SQL & "LEFT JOIN INDUSTRY_SYSTEMS_COST_INDICIES ON solarSystemID = SOLAR_SYSTEM_ID "
-
-                Select Case FacilityActivity
-                    Case ActivityManufacturing, ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                    Case ActivityCopying
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Copying) & " "
-                    Case ActivityInvention
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Invention) & " "
-                    Case ActivityReactions
-                        SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Reactions) & " "
-                End Select
-
-                SQL = SQL & "WHERE SOLAR_SYSTEMS.regionID = REGIONS.regionID "
-
-                ' Upwell Structures can be anchored almost anywhere except starter systems, trade hubs, and shattered wormholes (including Thera)
-                ' Check both disallowable anchor tables
-                SQL = SQL & "AND (solarSystemID NOT IN (SELECT SOLAR_SYSTEM_ID FROM MAP_DISALLOWED_ANCHOR_CATEGORIES WHERE CATEGORY_ID = 65) AND "
-                SQL = SQL & "solarSystemID NOT IN (SELECT SOLAR_SYSTEM_ID FROM MAP_DISALLOWED_ANCHOR_GROUPS WHERE GROUP_ID = 65)) "
-
-                If cmbFacilityRegion.Text = "Wormhole Space" Then
-                    SQL = SQL & "AND SOLAR_SYSTEMS.regionID >=11000000 and SOLAR_SYSTEMS.regionid <=11000030 "
-                Else
-                    ' For an upwell, load all systems that have records linked
-                    SQL = SQL & "AND regionName = '" & FormatDBString(cmbFacilityRegion.Text) & "' "
-                End If
-
-                ' For supers, only show null regions where you can have sov (no factionID excludes NPC null, etc)
-                If ItemGroupID = ItemIDs.SupercarrierGroupID Or ItemGroupID = ItemIDs.TitanGroupID Then
-                    SQL = SQL & "AND security <= 0.0 AND factionID IS NULL AND regionName <> 'Wormhole Space' "
-                ElseIf (ItemGroupID = ItemIDs.DreadnoughtGroupID Or ItemGroupID = ItemIDs.CarrierGroupID Or
-                    ItemGroupID = ItemIDs.CapitalIndustrialShipGroupID Or ItemGroupID = ItemIDs.FAXGroupID Or
-                    IsReaction(itemgroupid)) And FacilityActivity = ActivityManufacturing Or facilityactivity = ActivityReactions Then
-                    ' For caps and reactions, only show low sec
-                    SQL = SQL & "AND security < .45 "
-                End If
-
-        End Select
+        SQL = SQL & "AND REGION_NAME = '" & FormatDBString(cmbFacilityRegion.Text) & "'"
 
         SQL = SQL & " GROUP BY SSN, CI"
 
@@ -1227,7 +1000,7 @@ Public Class ManufacturingFacility
 
             Call SetFacilityBonusBoxes(False)
 
-            If cmbFacilityType.Text = POSFacility Then
+            If "Station" = POSFacility Then
                 OverrideFacilityName = GetPOSManufacturingFacilityName(SelectedFacility)
             End If
 
@@ -1289,7 +1062,7 @@ Public Class ManufacturingFacility
             SystemName = cmbFacilitySystem.Text
         End If
 
-        Dim LocalFacilityType As FacilityTypes = GetFacilityTypeCode(cmbFacilityType.Text)
+        Dim LocalFacilityType As FacilityTypes = GetFacilityTypeCode("Station")
 
         If FacilityActivity = ActivityReactions And LocalFacilityType = FacilityTypes.Station Then
             ' Need to force it to use the upwell structure since we can only do reactions there (or pos)
@@ -1302,24 +1075,9 @@ Public Class ManufacturingFacility
             Case FacilityTypes.Station
                 ' Load the Stations in system for the activity we are doing
                 SQL = "SELECT DISTINCT FACILITY_NAME, FACILITY_ID FROM STATION_FACILITIES "
-
-                Select Case FacilityActivity
-                    Case ActivityManufacturing
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                        ' Check groups and categories
-                        SQL = SQL & GetFacilityCatGroupIDSQL(SelectedBPCategoryID, SelectedBPGroupID, IndustryActivities.Manufacturing)
-                    Case ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                        ' Add category for components - All types can be built in stations
-                        SQL = SQL & GetFacilityCatGroupIDSQL(ItemIDs.ComponentCategoryID, -1, IndustryActivities.Manufacturing)
-                    Case ActivityCopying
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Copying) & " "
-                        SQL = SQL & GetFacilityCatGroupIDSQL(SelectedBPCategoryID, SelectedBPGroupID, IndustryActivities.Copying)
-                    Case ActivityInvention
-                        SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Invention) & " "
-                        ' For T3 stuff, need to make sure we only show facilities that can do T3 invention (Caldari Outposts)
-                        SQL = SQL & GetFacilityCatGroupIDSQL(SelectedBPCategoryID, SelectedBPGroupID, IndustryActivities.Invention)
-                End Select
+                SQL = SQL & "WHERE ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
+                ' Check groups and categories
+                SQL = SQL & GetFacilityCatGroupIDSQL(SelectedBPCategoryID, SelectedBPGroupID, IndustryActivities.Manufacturing)
 
                 SQL = SQL & "AND REGION_NAME = '" & FormatDBString(cmbFacilityRegion.Text) & "' "
                 SQL = SQL & "AND SOLAR_SYSTEM_NAME = '" & FormatDBString(SystemName) & "' "
@@ -1345,7 +1103,7 @@ Public Class ManufacturingFacility
         Dim i As Integer = 0
 
         While rsLoader.Read
-            If rsLoader.GetString(0).Contains("Thukker") And GetFacilityTypeCode(cmbFacilityType.Text) = FacilityTypes.POS Then
+            If rsLoader.GetString(0).Contains("Thukker") And GetFacilityTypeCode("Station") = FacilityTypes.POS Then
                 ' Need to make sure it's a low sec system selected
                 Dim security As Double = GetSolarSystemSecurityLevel(SystemName)
 
@@ -1398,11 +1156,11 @@ Public Class ManufacturingFacility
             AutoLoadFacility = True
             ' Display bonuses - Need to load everything since the array won't change to cause it to reload
             Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
-                                      GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
+                                      GetFacilityTypeCode("Station"), cmbFacilityorArray.Text)
         Else
             If Not cmbFacilityorArray.Items.Contains(cmbFacilityorArray.Text) Then
                 ' Only load if the item isn't in the combo
-                Select Case GetFacilityTypeCode(cmbFacilityType.Text)
+                Select Case GetFacilityTypeCode("Station")
                     Case FacilityTypes.Station
                         cmbFacilityorArray.Text = "Select Station"
                     Case FacilityTypes.POS
@@ -1447,7 +1205,7 @@ Public Class ManufacturingFacility
 
         If Not LoadingFacilities And Not FirstLoad And PreviousEquipment <> cmbFacilityorArray.Text Then
             Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
-                                          GetFacilityTypeCode(cmbFacilityType.Text), cmbFacilityorArray.Text)
+                                          GetFacilityTypeCode("Station"), cmbFacilityorArray.Text)
 
             PreviousEquipment = cmbFacilityorArray.Text
         End If
@@ -2571,12 +2329,7 @@ Public Class ManufacturingFacility
         Dim FacilityType As FacilityTypes
         Dim BaseActivity As String
 
-        ' Select the facility type from the combo or default
-        If cmbFacilityType.Text = InitialTypeComboText Then
-            FacilityType = FacilityTypes.Station
-        Else
-            FacilityType = GetFacilityTypeCode(cmbFacilityType.Text)
-        End If
+        FacilityType = FacilityTypes.Station
 
         ' Select the activity type from combo or default
         If SelectedActivity = InitialActivityComboText Then
