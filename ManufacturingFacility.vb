@@ -42,42 +42,8 @@ Public Class ManufacturingFacility
 
     ' All locally saved facility variables will be here
     Private SelectedManufacturingFacility As New IndustryFacility
-    Private SelectedComponentManufacturingFacility As New IndustryFacility
-    Private SelectedCapitalComponentManufacturingFacility As New IndustryFacility
-    Private SelectedCapitalManufacturingFacility As New IndustryFacility
-    Private SelectedSuperManufacturingFacility As New IndustryFacility
-    Private SelectedT3CruiserManufacturingFacility As New IndustryFacility
-    Private SelectedT3DestroyerManufacturingFacility As New IndustryFacility
-    Private SelectedSubsystemManufacturingFacility As New IndustryFacility
-    Private SelectedBoosterManufacturingFacility As New IndustryFacility
-    Private SelectedInventionFacility As New IndustryFacility
-    Private SelectedT3InventionFacility As New IndustryFacility
-    Private SelectedCopyFacility As New IndustryFacility
-    Private SelectedReactionsFacility As New IndustryFacility
-
-    ' Special cases for POS Facilities where items can be produced at more than one array
-    Private SelectedPOSFuelBlockFacility As New IndustryFacility
-    Private SelectedPOSLargeShipFacility As New IndustryFacility
-    Private SelectedPOSModuleFacility As New IndustryFacility
-
-    ' Save the default data for checking if the selected facility is a default and quick reference
-    Private DefaultPOSFuelBlockFacility As New IndustryFacility
-    Private DefaultPOSLargeShipFacility As New IndustryFacility
-    Private DefaultPOSModuleFacility As New IndustryFacility
 
     Private DefaultManufacturingFacility As New IndustryFacility
-    Private DefaultComponentManufacturingFacility As New IndustryFacility
-    Private DefaultCapitalComponentManufacturingFacility As New IndustryFacility
-    Private DefaultCapitalManufacturingFacility As New IndustryFacility
-    Private DefaultSuperManufacturingFacility As New IndustryFacility
-    Private DefaultT3CruiserManufacturingFacility As New IndustryFacility
-    Private DefaultT3DestroyerManufacturingFacility As New IndustryFacility
-    Private DefaultSubsystemManufacturingFacility As New IndustryFacility
-    Private DefaultBoosterManufacturingFacility As New IndustryFacility
-    Private DefaultInventionFacility As New IndustryFacility
-    Private DefaultT3InventionFacility As New IndustryFacility
-    Private DefaultCopyFacility As New IndustryFacility
-    Private DefaultReactionsFacility As New IndustryFacility
 
     ' Constant activities
     Public Const ActivityManufacturing As String = "Manufacturing"
@@ -283,71 +249,8 @@ Public Class ManufacturingFacility
     Public Sub SetSelectedFacility(BuildType As ProductionType, ViewType As FacilityView, Optional LoadDualFacilities As Boolean = True)
 
         'Now save the default and selected facility to the appropriate variable
-        Select Case BuildType
-            Case ProductionType.Manufacturing
-                SelectedManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.CapitalComponentManufacturing
-                SelectedCapitalComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultCapitalComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                If LoadDualFacilities Then
-                    ' Load component too so we can click back and forth
-                    Call SelectedFacility.InitalizeFacility(ProductionType.ComponentManufacturing, ViewType, SelectedControlForm)
-                    SelectedComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                    DefaultComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                End If
-            Case ProductionType.ComponentManufacturing
-                SelectedComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                If LoadDualFacilities Then
-                    ' Load cap component too so we can click back and forth
-                    Call SelectedFacility.InitalizeFacility(ProductionType.CapitalComponentManufacturing, ViewType, SelectedControlForm)
-                    SelectedCapitalComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                    DefaultCapitalComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                End If
-            Case ProductionType.CapitalManufacturing
-                SelectedCapitalManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultCapitalManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.SuperManufacturing
-                SelectedSuperManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultSuperManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3CruiserManufacturing
-                SelectedT3CruiserManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultT3CruiserManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                If LoadDualFacilities Then
-                    ' Load T3 destroyers too so we can click back and forth
-                    Call SelectedFacility.InitalizeFacility(ProductionType.T3DestroyerManufacturing, ViewType, SelectedControlForm)
-                    SelectedT3DestroyerManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                    DefaultT3DestroyerManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                End If
-            Case ProductionType.SubsystemManufacturing
-                SelectedSubsystemManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultSubsystemManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.BoosterManufacturing
-                SelectedBoosterManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultBoosterManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.Copying
-                SelectedCopyFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultCopyFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.Invention
-                SelectedInventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultInventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.Reactions
-                SelectedReactionsFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultReactionsFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3Invention
-                SelectedT3InventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultT3InventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3DestroyerManufacturing
-                SelectedT3DestroyerManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                DefaultT3DestroyerManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                If LoadDualFacilities Then
-                    ' Load T3 cruisers too so we can click back and forth
-                    Call SelectedFacility.InitalizeFacility(ProductionType.T3CruiserManufacturing, ViewType, SelectedControlForm)
-                    SelectedT3CruiserManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                    DefaultT3CruiserManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                End If
-        End Select
+        SelectedManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
+        DefaultManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
 
     End Sub
 
@@ -524,7 +427,6 @@ Public Class ManufacturingFacility
     ' Loads the facility types in the sent combo
     Public Sub LoadFacilityTypes(FacilityProductionType As ProductionType, FacilityActivity As String)
         Dim Station As String = GetFacilityNamefromCode(FacilityTypes.Station)
-        Dim POS As String = GetFacilityNamefromCode(FacilityTypes.POS)
         Dim NoneFacility As String = GetFacilityNamefromCode(FacilityTypes.None)
 
         LoadingFacilityTypes = True
@@ -793,10 +695,6 @@ Public Class ManufacturingFacility
         cmbFacilitySystem.SelectionLength = 0
 
         If Not LoadingSystems And Not FirstLoad And PreviousSystem <> cmbFacilitySystem.Text Then
-
-            If "Station" = POSFacility Then
-                OverrideFacilityName = GetPOSManufacturingFacilityName(SelectedFacility)
-            End If
 
             ' Load the facilities
             Call LoadFacilities(False, ActivityManufacturing, Autoload, OverrideFacilityName)
@@ -1409,178 +1307,11 @@ Public Class ManufacturingFacility
             Case ProductionType.Manufacturing
                 PreviousFacility = CType(SelectedManufacturingFacility.Clone, IndustryFacility)
                 SelectedManufacturingFacility = CType(SentFacility.Clone, IndustryFacility)
-                '' Set the other three types for pos too
-                'If SentFacility.FacilityType = FacilityTypes.POS Then
-                '    SentFacility.FacilityName = SelectedPOSFuelBlockFacility.FacilityName
-                '    SentFacility.FacilityType = SelectedPOSFuelBlockFacility.FacilityType
-                '    SelectedPOSFuelBlockFacility = CType(SentFacility.Clone, IndustryFacility)
-
-                '    SentFacility.FacilityName = SelectedPOSLargeShipFacility.FacilityName
-                '    SentFacility.FacilityType = SelectedPOSLargeShipFacility.FacilityType
-                '    SelectedPOSLargeShipFacility = CType(SentFacility.Clone, IndustryFacility)
-
-                '    SentFacility.FacilityName = SelectedPOSModuleFacility.FacilityName
-                '    SentFacility.FacilityType = SelectedPOSModuleFacility.FacilityType
-                '    SelectedPOSModuleFacility = CType(SentFacility.Clone, IndustryFacility)
-                'End If
                 If SelectedManufacturingFacility.IsEqual(DefaultManufacturingFacility) Then
                     SelectedManufacturingFacility.IsDefault = True
                     SentFacility.IsDefault = True
                 Else
                     SelectedManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.POSFuelBlockManufacturing
-                PreviousFacility = CType(SelectedPOSFuelBlockFacility.Clone, IndustryFacility)
-                SelectedPOSFuelBlockFacility = SentFacility
-                'SelectedManufacturingFacility = SentFacility ' This is also the default POS for everything else, so save
-                If SelectedPOSFuelBlockFacility.IsEqual(DefaultPOSFuelBlockFacility) Then
-                    SelectedPOSFuelBlockFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedPOSFuelBlockFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.POSLargeShipManufacturing
-                PreviousFacility = CType(SelectedPOSLargeShipFacility.Clone, IndustryFacility)
-                SelectedPOSLargeShipFacility = SentFacility
-                'SelectedManufacturingFacility = SentFacility ' This is also the default POS for everything else, so save
-                If SelectedPOSLargeShipFacility.IsEqual(DefaultPOSLargeShipFacility) Then
-                    SelectedPOSLargeShipFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedPOSLargeShipFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.POSModuleManufacturing
-                PreviousFacility = CType(SelectedPOSModuleFacility.Clone, IndustryFacility)
-                SelectedPOSModuleFacility = SentFacility
-                'SelectedManufacturingFacility = SentFacility ' This is also the default POS for everything else, so save
-                If SelectedPOSModuleFacility.IsEqual(DefaultPOSModuleFacility) Then
-                    SelectedPOSModuleFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedPOSModuleFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.BoosterManufacturing
-                PreviousFacility = CType(SelectedBoosterManufacturingFacility.Clone, IndustryFacility)
-                SelectedBoosterManufacturingFacility = SentFacility
-                If SelectedBoosterManufacturingFacility.IsEqual(DefaultBoosterManufacturingFacility) Then
-                    SelectedBoosterManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedBoosterManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.CapitalManufacturing
-                PreviousFacility = CType(SelectedCapitalManufacturingFacility.Clone, IndustryFacility)
-                SelectedCapitalManufacturingFacility = SentFacility
-                If SelectedCapitalManufacturingFacility.IsEqual(DefaultCapitalManufacturingFacility) Then
-                    SelectedCapitalManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedCapitalManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.SuperManufacturing
-                PreviousFacility = CType(SelectedSuperManufacturingFacility.Clone, IndustryFacility)
-                SelectedSuperManufacturingFacility = SentFacility
-                If SelectedSuperManufacturingFacility.IsEqual(DefaultSuperManufacturingFacility) Then
-                    SelectedSuperManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedSuperManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.T3CruiserManufacturing
-                PreviousFacility = CType(SelectedT3CruiserManufacturingFacility.Clone, IndustryFacility)
-                SelectedT3CruiserManufacturingFacility = SentFacility
-                If SelectedT3CruiserManufacturingFacility.IsEqual(DefaultT3CruiserManufacturingFacility) Then
-                    SelectedT3CruiserManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedT3CruiserManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.T3DestroyerManufacturing
-                PreviousFacility = CType(SelectedT3DestroyerManufacturingFacility.Clone, IndustryFacility)
-                SelectedT3DestroyerManufacturingFacility = SentFacility
-                If SelectedT3DestroyerManufacturingFacility.IsEqual(DefaultT3DestroyerManufacturingFacility) Then
-                    SelectedT3DestroyerManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedT3DestroyerManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.SubsystemManufacturing
-                PreviousFacility = CType(SelectedSubsystemManufacturingFacility.Clone, IndustryFacility)
-                SelectedSubsystemManufacturingFacility = SentFacility
-                If SelectedSubsystemManufacturingFacility.IsEqual(DefaultSubsystemManufacturingFacility) Then
-                    SelectedSubsystemManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedSubsystemManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.ComponentManufacturing
-                PreviousFacility = CType(SelectedComponentManufacturingFacility.Clone, IndustryFacility)
-                SelectedComponentManufacturingFacility = SentFacility
-                If SelectedComponentManufacturingFacility.IsEqual(DefaultComponentManufacturingFacility) Then
-                    SelectedComponentManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedComponentManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.CapitalComponentManufacturing
-                PreviousFacility = CType(SelectedCapitalComponentManufacturingFacility.Clone, IndustryFacility)
-                SelectedCapitalComponentManufacturingFacility = SentFacility
-                If SelectedCapitalComponentManufacturingFacility.IsEqual(DefaultCapitalComponentManufacturingFacility) Then
-                    SelectedCapitalComponentManufacturingFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedCapitalComponentManufacturingFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.Invention
-                PreviousFacility = CType(SelectedInventionFacility.Clone, IndustryFacility)
-                SelectedInventionFacility = SentFacility
-                If SelectedInventionFacility.IsEqual(DefaultInventionFacility, CompareIncludeCostCheck, CompareIncludeTimeCheck) Then
-                    SelectedInventionFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedInventionFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.T3Invention
-                PreviousFacility = CType(SelectedT3InventionFacility.Clone, IndustryFacility)
-                SelectedT3InventionFacility = SentFacility
-                If SelectedT3InventionFacility.IsEqual(DefaultT3InventionFacility, CompareIncludeCostCheck, CompareIncludeTimeCheck) Then
-                    SelectedT3InventionFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedT3InventionFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.Copying
-                PreviousFacility = CType(SelectedCopyFacility.Clone, IndustryFacility)
-                SelectedCopyFacility = SentFacility
-                If SelectedCopyFacility.IsEqual(DefaultCopyFacility, CompareIncludeCostCheck, CompareIncludeTimeCheck) Then
-                    SelectedCopyFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedCopyFacility.IsDefault = False
-                    SentFacility.IsDefault = False
-                End If
-            Case ProductionType.Reactions
-                PreviousFacility = CType(SelectedReactionsFacility.Clone, IndustryFacility)
-                SelectedReactionsFacility = SentFacility
-                If SelectedReactionsFacility.IsEqual(DefaultReactionsFacility) Then
-                    SelectedReactionsFacility.IsDefault = True
-                    SentFacility.IsDefault = True
-                Else
-                    SelectedReactionsFacility.IsDefault = False
                     SentFacility.IsDefault = False
                 End If
             Case Else
@@ -1615,40 +1346,7 @@ Public Class ManufacturingFacility
             End If
 
             ' Need to update the local default copy of the facility first
-            Select Case SelectedFacility.FacilityProductionType
-                Case ProductionType.BoosterManufacturing
-                    DefaultBoosterManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.CapitalComponentManufacturing
-                    DefaultCapitalComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.CapitalManufacturing
-                    DefaultCapitalManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.ComponentManufacturing
-                    DefaultComponentManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.Copying
-                    DefaultCopyFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.Invention
-                    DefaultInventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.Manufacturing
-                    DefaultManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.Reactions
-                    DefaultReactionsFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.POSFuelBlockManufacturing
-                    DefaultPOSFuelBlockFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.POSLargeShipManufacturing
-                    DefaultPOSLargeShipFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.POSModuleManufacturing
-                    DefaultPOSModuleFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.SubsystemManufacturing
-                    DefaultSubsystemManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.SuperManufacturing
-                    DefaultSuperManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.T3CruiserManufacturing
-                    DefaultT3CruiserManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.T3DestroyerManufacturing
-                    DefaultT3DestroyerManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
-                Case ProductionType.T3Invention
-                    DefaultT3InventionFacility = CType(SelectedFacility.Clone, IndustryFacility)
-            End Select
+            DefaultManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
 
             ' Now set the facility
             Call SetFacility(SelectedFacility, SelectedFacility.FacilityProductionType, True, True)
@@ -1739,108 +1437,11 @@ Public Class ManufacturingFacility
         Dim ReturnFacility As New IndustryFacility
 
         If IsDefault Then
-            Select Case BuildType
-                Case ProductionType.Manufacturing
-                    ReturnFacility = CType(DefaultManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.SuperManufacturing
-                    ReturnFacility = CType(DefaultSuperManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.CapitalManufacturing
-                    ReturnFacility = CType(DefaultCapitalManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.BoosterManufacturing
-                    ReturnFacility = CType(DefaultBoosterManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.T3CruiserManufacturing
-                    ReturnFacility = CType(DefaultT3CruiserManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.T3DestroyerManufacturing
-                    ReturnFacility = CType(DefaultT3DestroyerManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.SubsystemManufacturing
-                    ReturnFacility = CType(DefaultSubsystemManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.Invention
-                    ReturnFacility = CType(DefaultInventionFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityInvention
-                Case ProductionType.T3Invention
-                    ReturnFacility = CType(DefaultT3InventionFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityInvention
-                Case ProductionType.Copying
-                    FacilityActivity = ActivityCopying
-                    ReturnFacility = CType(DefaultCopyFacility.Clone, IndustryFacility)
-                Case ProductionType.Reactions
-                    FacilityActivity = ActivityReactions
-                    ReturnFacility = CType(DefaultReactionsFacility.Clone, IndustryFacility)
-                Case ProductionType.ComponentManufacturing
-                    FacilityActivity = ActivityComponentManufacturing
-                    ReturnFacility = CType(DefaultComponentManufacturingFacility.Clone, IndustryFacility)
-                Case ProductionType.CapitalComponentManufacturing
-                    FacilityActivity = ActivityCapComponentManufacturing
-                    ReturnFacility = CType(DefaultCapitalComponentManufacturingFacility.Clone, IndustryFacility)
-                Case ProductionType.POSFuelBlockManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(DefaultPOSFuelBlockFacility.Clone, IndustryFacility)
-                Case ProductionType.POSLargeShipManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(DefaultPOSLargeShipFacility.Clone, IndustryFacility)
-                Case ProductionType.POSModuleManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(DefaultPOSModuleFacility.Clone, IndustryFacility)
-            End Select
-
+            ReturnFacility = CType(DefaultManufacturingFacility.Clone, IndustryFacility)
+            FacilityActivity = ActivityManufacturing
         Else
-            Select Case BuildType
-                Case ProductionType.Manufacturing
-                    ReturnFacility = CType(SelectedManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.SuperManufacturing
-                    ReturnFacility = CType(SelectedSuperManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.CapitalManufacturing
-                    ReturnFacility = CType(SelectedCapitalManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.BoosterManufacturing
-                    ReturnFacility = CType(SelectedBoosterManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.T3CruiserManufacturing
-                    ReturnFacility = CType(SelectedT3CruiserManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.T3DestroyerManufacturing
-                    ReturnFacility = CType(SelectedT3DestroyerManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.SubsystemManufacturing
-                    ReturnFacility = CType(SelectedSubsystemManufacturingFacility.Clone, IndustryFacility)
-                    FacilityActivity = ActivityManufacturing
-                Case ProductionType.Invention
-                    FacilityActivity = ActivityInvention
-                    ReturnFacility = CType(SelectedInventionFacility.Clone, IndustryFacility)
-                Case ProductionType.T3Invention
-                    FacilityActivity = ActivityInvention
-                    ReturnFacility = CType(SelectedT3InventionFacility.Clone, IndustryFacility)
-                Case ProductionType.Copying
-                    FacilityActivity = ActivityCopying
-                    ReturnFacility = CType(SelectedCopyFacility.Clone, IndustryFacility)
-                Case ProductionType.Reactions
-                    FacilityActivity = ActivityReactions
-                    ReturnFacility = CType(SelectedReactionsFacility.Clone, IndustryFacility)
-                Case ProductionType.ComponentManufacturing
-                    FacilityActivity = ActivityComponentManufacturing
-                    ReturnFacility = CType(SelectedComponentManufacturingFacility.Clone, IndustryFacility)
-                Case ProductionType.CapitalComponentManufacturing
-                    FacilityActivity = ActivityCapComponentManufacturing
-                    ReturnFacility = CType(SelectedCapitalComponentManufacturingFacility.Clone, IndustryFacility)
-                Case ProductionType.POSFuelBlockManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(SelectedPOSFuelBlockFacility.Clone, IndustryFacility)
-                Case ProductionType.POSLargeShipManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(SelectedPOSLargeShipFacility.Clone, IndustryFacility)
-                Case ProductionType.POSModuleManufacturing
-                    FacilityActivity = ActivityManufacturing
-                    ReturnFacility = CType(SelectedPOSModuleFacility.Clone, IndustryFacility)
-            End Select
+            ReturnFacility = CType(SelectedManufacturingFacility.Clone, IndustryFacility)
+            FacilityActivity = ActivityManufacturing
         End If
 
         ' Set the activity text here
@@ -1977,22 +1578,6 @@ Public Class ManufacturingFacility
 
     End Sub
 
-    ' Returns the POS manufacturing facility for the type sent
-    Private Function GetPOSManufacturingFacilityName(ByVal SentFacility As IndustryFacility) As String
-
-        Select Case SelectedProductionType
-            Case ProductionType.POSFuelBlockManufacturing
-                Return SelectedPOSFuelBlockFacility.FacilityName
-            Case ProductionType.POSLargeShipManufacturing
-                Return SelectedPOSLargeShipFacility.FacilityName
-            Case ProductionType.POSModuleManufacturing
-                Return SelectedPOSModuleFacility.FacilityName
-            Case Else
-                Return SentFacility.FacilityName
-        End Select
-
-    End Function
-
     ' Returns the type of production done for the activity and bp data sent
     Public Function GetProductionType(BPGroupID As Integer, BPCategoryID As Integer, SelectedActivity As String) As ProductionType
         Dim SelectedIndyType As ProductionType
@@ -2010,133 +1595,22 @@ Public Class ManufacturingFacility
             BaseActivity = SelectedActivity
         End If
 
-        ' Determine if it's a fuel block, module, or big ship that can use a multi-use array in a POS - Need to add as a query, not hard code
-        If FacilityType = FacilityTypes.POS And (BPGroupID = 1136 _
-                                           Or BPCategoryID = 7 Or BPCategoryID = 20 Or BPCategoryID = 22 Or BPCategoryID = 23 _
-                                           Or BPGroupID = 27 Or BPGroupID = 513 Or BPGroupID = 941 _
-                                           Or BPGroupID = 12 Or BPGroupID = 340 Or BPGroupID = 448 Or BPGroupID = 649
-                                           ) And BaseActivity = ActivityManufacturing Then
-            If BPGroupID = 1136 Then
-                SelectedIndyType = ProductionType.POSFuelBlockManufacturing
-            ElseIf BPGroupID = 27 Or BPGroupID = 513 Or BPGroupID = 941 Then
-                SelectedIndyType = ProductionType.POSLargeShipManufacturing
-            ElseIf BPCategoryID = 7 Or BPCategoryID = 20 Or BPCategoryID = 22 Or BPCategoryID = 23 _
-                Or BPGroupID = 12 Or BPGroupID = 340 Or BPGroupID = 448 Or BPGroupID = 649 Then
-                SelectedIndyType = ProductionType.POSModuleManufacturing
+        SelectedIndyType = ProductionType.Manufacturing
+
+        If BPCategoryID = ItemIDs.SubsystemCategoryID Then
+            SelectedIndyType = ProductionType.SubsystemManufacturing
+        ElseIf BPCategoryID = ItemIDs.ComponentCategoryID Then
+            ' Add category for component
+            If BPGroupID = ItemIDs.CapitalComponentGroupID Or BPGroupID = ItemIDs.AdvCapitalComponentGroupID Then
+                SelectedIndyType = ProductionType.CapitalComponentManufacturing ' These all use cap components
+            Else
+                SelectedIndyType = ProductionType.ComponentManufacturing
             End If
-        Else
-            Select Case BaseActivity
-                ' TODO look into making these a lookup with the facility type if there are category or groupid's in the tables for them. 
-                Case ActivityManufacturing
-                    ' Need to load selected manufacturing facility
-                    Select Case BPGroupID
-                        Case ItemIDs.SupercarrierGroupID, ItemIDs.TitanGroupID
-                            SelectedIndyType = ProductionType.SuperManufacturing
-                        Case ItemIDs.BoosterGroupID
-                            SelectedIndyType = ProductionType.BoosterManufacturing
-                        Case ItemIDs.CarrierGroupID, ItemIDs.DreadnoughtGroupID, ItemIDs.CapitalIndustrialShipGroupID, ItemIDs.FAXGroupID
-                            SelectedIndyType = ProductionType.CapitalManufacturing
-                        Case ItemIDs.StrategicCruiserGroupID
-                            SelectedIndyType = ProductionType.T3CruiserManufacturing
-                        Case ItemIDs.TacticalDestroyerGroupID
-                            SelectedIndyType = ProductionType.T3DestroyerManufacturing
-
-                        Case Else
-                            SelectedIndyType = ProductionType.Manufacturing
-
-                            If BPCategoryID = ItemIDs.SubsystemCategoryID Then
-                                SelectedIndyType = ProductionType.SubsystemManufacturing
-                            ElseIf BPCategoryID = ItemIDs.ComponentCategoryID Then
-                                ' Add category for component
-                                If BPGroupID = ItemIDs.CapitalComponentGroupID Or BPGroupID = ItemIDs.AdvCapitalComponentGroupID Then
-                                    SelectedIndyType = ProductionType.CapitalComponentManufacturing ' These all use cap components
-                                Else
-                                    SelectedIndyType = ProductionType.ComponentManufacturing
-                                End If
-                            End If
-                    End Select
-                Case ActivityComponentManufacturing
-                    SelectedIndyType = ProductionType.ComponentManufacturing
-                Case ActivityCapComponentManufacturing
-                    SelectedIndyType = ProductionType.CapitalComponentManufacturing
-                Case ActivityCopying
-                    SelectedIndyType = ProductionType.Copying
-                Case ActivityInvention
-                    If BPCategoryID = ItemIDs.SubsystemCategoryID Or BPGroupID = ItemIDs.StrategicCruiserGroupID Or BPGroupID = ItemIDs.TacticalDestroyerGroupID Then
-                        ' Need to invent this at a station or pos
-                        SelectedIndyType = ProductionType.T3Invention
-                    Else
-                        SelectedIndyType = ProductionType.Invention
-                    End If
-                Case ActivityReactions
-                    SelectedIndyType = ProductionType.Reactions
-            End Select
         End If
 
         Return SelectedIndyType
 
     End Function
-
-    ' Loads up all the usage for all facilities on this bp into a form
-    Private Sub lblFacilityUsage_DoubleClick(sender As System.Object, e As System.EventArgs)
-        Dim f1 As New frmUsageViewer
-        Dim RawCostSplit As UsageSplit
-
-        ' Fill up the array to display only if on the bp tab
-        If Not IsNothing(SelectedBlueprint) And SelectedLocation = ProgramLocation.BlueprintTab Then
-
-            ' Manufacturing Facility usage
-            RawCostSplit.UsageName = "Manufacturing Facility Usage"
-            If Not ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                RawCostSplit.UsageValue = GetSelectedManufacturingFacility(SelectedBlueprint.GetItemGroupID, SelectedBlueprint.GetItemCategoryID).FacilityUsage
-            Else
-                ' Add fuel block usage
-                RawCostSplit.UsageValue = SelectedManufacturingFacility.FacilityUsage
-            End If
-            f1.UsageSplits.Add(RawCostSplit)
-
-            If SelectedBlueprint.HasComponents And SelectedBlueprint.GetItemCategoryID <> ItemIDs.ComponentCategoryID And SelectedBlueprint.GetItemGroupID <> ItemIDs.AdvCapitalComponentGroupID And
-            Not ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                ' Component Facility Usage
-                RawCostSplit.UsageName = "Component Facility Usage"
-                RawCostSplit.UsageValue = SelectedComponentManufacturingFacility.FacilityUsage
-                f1.UsageSplits.Add(RawCostSplit)
-
-                ' Capital Component Facility Usage
-                Select Case SelectedBlueprint.GetItemGroupID
-                    Case ItemIDs.TitanGroupID, ItemIDs.SupercarrierGroupID, ItemIDs.CarrierGroupID, ItemIDs.DreadnoughtGroupID,
-                    ItemIDs.JumpFreighterGroupID, ItemIDs.FreighterGroupID, ItemIDs.IndustrialCommandShipGroupID, ItemIDs.CapitalIndustrialShipGroupID, ItemIDs.FAXGroupID
-                        ' Only add cap component usage for ships that use them
-                        RawCostSplit.UsageName = "Capital Component Facility Usage"
-                        RawCostSplit.UsageValue = SelectedCapitalComponentManufacturingFacility.FacilityUsage
-                        f1.UsageSplits.Add(RawCostSplit)
-                End Select
-            ElseIf (SelectedBlueprint.GetItemCategoryID = ItemIDs.ComponentCategoryID Or SelectedBlueprint.GetItemGroupID = ItemIDs.AdvCapitalComponentGroupID) Or
-            ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                ' Load reactions usage
-                RawCostSplit.UsageName = "Reaction Facility Usage"
-                RawCostSplit.UsageValue = SelectedReactionsFacility.FacilityUsage
-                f1.UsageSplits.Add(RawCostSplit)
-            End If
-
-            If SelectedBlueprint.GetTechLevel <> BPTechLevel.T1 Then
-                ' Invention Facility
-                RawCostSplit.UsageName = "Invention Usage"
-                RawCostSplit.UsageValue = SelectedInventionFacility.FacilityUsage
-                f1.UsageSplits.Add(RawCostSplit)
-            End If
-
-            If SelectedBlueprint.GetTechLevel = BPTechLevel.T2 Then
-                ' Copy Facility
-                RawCostSplit.UsageName = "Copy Usage"
-                RawCostSplit.UsageValue = SelectedCopyFacility.FacilityUsage
-                f1.UsageSplits.Add(RawCostSplit)
-            End If
-
-
-            f1.Show()
-        End If
-    End Sub
 
     Private Sub SetResetRefresh()
         If SelectedLocation = ProgramLocation.ManufacturingTab And Not FirstLoad Then
@@ -2156,40 +1630,7 @@ Public Class ManufacturingFacility
     ' Loads the facility sent into the type of the facility
     Public Sub UpdateFacility(UpdatedFacility As IndustryFacility)
 
-        Select Case UpdatedFacility.FacilityProductionType
-            Case ProductionType.BoosterManufacturing
-                SelectedBoosterManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.CapitalComponentManufacturing
-                SelectedCapitalComponentManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.CapitalManufacturing
-                SelectedCapitalManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.ComponentManufacturing
-                SelectedComponentManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.Copying
-                SelectedCopyFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.Invention
-                SelectedInventionFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.Manufacturing
-                SelectedManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.Reactions
-                SelectedReactionsFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.POSFuelBlockManufacturing
-                SelectedPOSFuelBlockFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.POSLargeShipManufacturing
-                SelectedPOSLargeShipFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.POSModuleManufacturing
-                SelectedPOSModuleFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.SubsystemManufacturing
-                SelectedSubsystemManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.SuperManufacturing
-                SelectedSuperManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3CruiserManufacturing
-                SelectedT3CruiserManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3DestroyerManufacturing
-                SelectedT3DestroyerManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-            Case ProductionType.T3Invention
-                SelectedT3InventionFacility = CType(UpdatedFacility.Clone, IndustryFacility)
-        End Select
+        SelectedManufacturingFacility = CType(UpdatedFacility.Clone, IndustryFacility)
 
     End Sub
 

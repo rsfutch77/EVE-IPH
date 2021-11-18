@@ -191,8 +191,6 @@ Public Module Public_Variables
 
     Public NoPOSCategoryIDs As List(Of Long) ' For facilities
 
-    Public Const POSTaxRate = 0.0 ' was 10% tax on pos usage now it's 0
-
     ' Mining Ship Name constants
     Public Const Procurer As String = "Procurer"
     Public Const Retriever As String = "Retriever"

@@ -32,7 +32,6 @@ Partial Class frmMain
         Me.mnuSelectionExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuItemUpdatePrices = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SetPOSDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuClearBPHistory = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUpdateData = New System.Windows.Forms.ToolStripMenuItem()
@@ -195,7 +194,7 @@ Partial Class frmMain
         '
         'mnuEdit
         '
-        Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuItemUpdatePrices, Me.SetPOSDataToolStripMenuItem, Me.mnuManageBlueprintsToolStripMenuItem, Me.mnuClearBPHistory})
+        Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuItemUpdatePrices, Me.mnuManageBlueprintsToolStripMenuItem, Me.mnuClearBPHistory})
         Me.mnuEdit.Name = "mnuEdit"
         Me.mnuEdit.Size = New System.Drawing.Size(49, 24)
         Me.mnuEdit.Text = "Edit"
@@ -203,26 +202,19 @@ Partial Class frmMain
         'mnuItemUpdatePrices
         '
         Me.mnuItemUpdatePrices.Name = "mnuItemUpdatePrices"
-        Me.mnuItemUpdatePrices.Size = New System.Drawing.Size(216, 26)
+        Me.mnuItemUpdatePrices.Size = New System.Drawing.Size(224, 26)
         Me.mnuItemUpdatePrices.Text = "Prices"
-        '
-        'SetPOSDataToolStripMenuItem
-        '
-        Me.SetPOSDataToolStripMenuItem.Name = "SetPOSDataToolStripMenuItem"
-        Me.SetPOSDataToolStripMenuItem.Size = New System.Drawing.Size(216, 26)
-        Me.SetPOSDataToolStripMenuItem.Text = "POS Data"
-        Me.SetPOSDataToolStripMenuItem.Visible = False
         '
         'mnuManageBlueprintsToolStripMenuItem
         '
         Me.mnuManageBlueprintsToolStripMenuItem.Name = "mnuManageBlueprintsToolStripMenuItem"
-        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(216, 26)
+        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.mnuManageBlueprintsToolStripMenuItem.Text = "Manage Blueprints"
         '
         'mnuClearBPHistory
         '
         Me.mnuClearBPHistory.Name = "mnuClearBPHistory"
-        Me.mnuClearBPHistory.Size = New System.Drawing.Size(216, 26)
+        Me.mnuClearBPHistory.Size = New System.Drawing.Size(224, 26)
         Me.mnuClearBPHistory.Text = "Clear BP History"
         '
         'mnuUpdateData
@@ -1172,7 +1164,6 @@ Partial Class frmMain
     Friend WithEvents mnuCharacterStandings As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuSelectionManageCharacters As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents SetPOSDataToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRestoreDefaultTabSettings As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRestoreDefaultBP As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRestoreDefaultUpdatePrices As System.Windows.Forms.ToolStripMenuItem

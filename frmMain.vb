@@ -7578,18 +7578,6 @@ ExitPRocessing:
 
         Dim AddItem As Boolean
 
-        ' For multi-use pos arrays
-        Dim ProcessAllMultiUsePOSArrays As Boolean = False
-        Dim ArrayName As String = ""
-        Dim MultiUsePOSArrays As List(Of IndustryFacility)
-
-        Dim DecryptorUsed As New Decryptor
-
-        ' T2/T3 variables
-        Dim RelicName As String = ""
-        Dim InputText As String = ""
-        Dim DecryptorName As String = ""
-
         ' BPC stuff
         Dim CopyPricePerSecond As Double = 0
         Dim T1BPCType As String = ""
@@ -7678,11 +7666,6 @@ ExitPRocessing:
                 ' 16-BP_TYPE, 17-UNIQUE_BP_ITEM_ID, 18-FAVORITE, 19-VOLUME, 20-MARKET_GROUP_ID, 21-ADDITIONAL_COSTS, 
                 ' 22-LOCATION_ID, 23-QUANTITY, 24-FLAG_ID, 25-RUNS, 26-IGNORE, 27-TECH_LEVEL
                 InsertItem = New ManufacturingItem
-
-                ' Reset
-                MultiUsePOSArrays = New List(Of IndustryFacility)
-                ProcessAllMultiUsePOSArrays = False
-                ArrayName = ""
 
                 ' Save the items before adding
                 InsertItem.BPID = CLng(readerBPs.GetValue(0)) ' Hidden
@@ -7812,56 +7795,15 @@ ExitPRocessing:
                 Dim BuildType As ProductionType
 
                 ' Set the facility for manufacturing
-                If CalcBaseFacility.GetFacility(ProductionType.Manufacturing).FacilityType = FacilityTypes.POS Then
-                    ' If this is visible, then look up as a pos, else just look up normally
-                    SelectedIndyType = CalcBaseFacility.GetProductionType(InsertItem.ItemGroupID, InsertItem.ItemCategoryID, ManufacturingFacility.ActivityManufacturing)
-                    'Disable array use in EasyIPH
-                    ProcessAllMultiUsePOSArrays = False
-                    ArrayName = ""
+                ' Nothing special, just set it to the current selected facility for this type
+                Select Case InsertItem.ItemGroupID
+                    Case ItemIDs.ReactionBiochmeicalsGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionsIntermediateGroupID
+                        BuildType = ProductionType.Reactions
+                    Case Else
+                        BuildType = TempFacility.GetProductionType(InsertItem.ItemGroupID, InsertItem.ItemCategoryID, ManufacturingFacility.ActivityManufacturing)
+                End Select
 
-                    ' Need to autoselect the pos array by type of blueprint
-                    SQL = "SELECT DISTINCT ARRAY_NAME, MATERIAL_MULTIPLIER, TIME_MULTIPLIER FROM ASSEMBLY_ARRAYS "
-                    SQL = SQL & "WHERE ACTIVITY_ID = "
-                    SQL = SQL & CStr(IndustryActivities.Manufacturing) & " "
-                    ' Check groups and categories
-                    SQL = SQL & CalcBaseFacility.GetFacilityCatGroupIDSQL(InsertItem.ItemCategoryID, InsertItem.ItemGroupID, IndustryActivities.Manufacturing) & " "
-                    If ArrayName <> "" Then
-                        SQL = SQL & "AND ARRAY_NAME = '" & ArrayName & "'"
-                    End If
-
-                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                    readerArray = DBCommand.ExecuteReader
-
-                    While readerArray.Read()
-                        ' Set the facility
-                        InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(SelectedIndyType)
-                        InsertItem.ManufacturingFacility.FacilityName = readerArray.GetString(0)
-                        InsertItem.ManufacturingFacility.MaterialMultiplier = readerArray.GetDouble(1)
-                        InsertItem.ManufacturingFacility.TimeMultiplier = readerArray.GetDouble(2)
-                        InsertItem.ManufacturingFacility.TaxRate = POSTaxRate
-
-                        ' Add the facility if multiple
-                        If ProcessAllMultiUsePOSArrays Then
-                            Call MultiUsePOSArrays.Add(InsertItem.ManufacturingFacility)
-                        End If
-                    End While
-
-                    readerArray.Close()
-                Else
-
-                    ' Nothing special, just set it to the current selected facility for this type
-                    Select Case InsertItem.ItemGroupID
-                        Case ItemIDs.ReactionBiochmeicalsGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionsIntermediateGroupID
-                            BuildType = ProductionType.Reactions
-                        Case Else
-                            BuildType = TempFacility.GetProductionType(InsertItem.ItemGroupID, InsertItem.ItemCategoryID, ManufacturingFacility.ActivityManufacturing)
-                    End Select
-
-                    Select Case BuildType
-                        Case ProductionType.Manufacturing
-                            InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(BuildType)
-                    End Select
-                End If
+                InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(BuildType)
 
                 If BuildType = ProductionType.Reactions Then
                     'Need to use the manufacturing facility instead of component facility since they are more likely to make fuel blocks for reactions there
@@ -7870,94 +7812,15 @@ ExitPRocessing:
 
                 ' Now determine how many copies of the base item we need with different data changed
                 ' If T1, just select compare types (raw and components)
-                ' If T2, first select each decryptor, then select Compare types (raw and components)
-                ' If T3, first choose a decryptor, then Relic, then select compare types (raw and components)
-                ' Insert each different combination
-                If InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3" Then
-                    ' For determining the owned blueprints
-                    Dim TempDecryptors As New DecryptorList
-                    Dim OriginalRelicUsed As String = ""
-                    Dim CheckOwnedBP As Boolean = False
-                    Dim OriginalBPType As BPType = InsertItem.BlueprintType
-                    Dim OriginalDecryptorUsed As Decryptor = TempDecryptors.GetDecryptor(OrigME, OrigTE, InsertItem.SavedBPRuns, CInt(InsertItem.TechLevel.Substring(1)))
-                    If InsertItem.TechLevel = "T3" Then
-                        OriginalRelicUsed = GetRelicfromInputs(OriginalDecryptorUsed, InsertItem.BPID, InsertItem.SavedBPRuns)
-                    End If
+                InsertItem.Inputs = None
+                InsertItem.Relic = ""
+                InsertItem.Decryptor = NoDecryptor
 
-                    ' Now add additional records for each decryptor
-                    For j = 1 To CalcDecryptorCheckBoxes.Count - 1
-                        ' If it's checked or if optimal is checked, add the decryptor
-                        If CalcDecryptorCheckBoxes(j).Checked Then
+                InsertItem.InventionFacility = NoFacility
+                InsertItem.CopyFacility = NoFacility
 
-                            ' These are all invented BPCs, BPC and BPOs are added separately below
-                            InsertItem.BlueprintType = BPType.InventedBPC
-
-                            ' If they are not using for T2 or T3 then only add No Decyrptor and exit for
-                            If CalcDecryptorCheckBoxes(j).Text <> None Then
-
-                                ' Select a decryptor
-                                DecryptorUsed = InventionDecryptors.GetDecryptor(CDbl(CalcDecryptorCheckBoxes(j).Text.Substring(0, 3)))
-
-                                ' Add decryptor
-                                InsertItem.Decryptor = DecryptorUsed
-                                InsertItem.Inputs = DecryptorUsed.Name
-                                InsertItem.BPME = BaseT2T3ME + InsertItem.Decryptor.MEMod
-                                InsertItem.BPTE = BaseT2T3TE + InsertItem.Decryptor.TEMod
-
-                            Else
-                                ' Add no decryptor, this is a copy or bpo
-                                InsertItem.Decryptor = NoDecryptor
-                                InsertItem.Inputs = NoDecryptor.Name
-                                InsertItem.BPME = BaseT2T3ME
-                                InsertItem.BPTE = BaseT2T3TE
-                            End If
-
-                            ' Relics
-                            If InsertItem.TechLevel = "T3" Then
-                                ' Skip T3 items
-                            Else
-                                ' No relic for T2
-                                InsertItem.Relic = ""
-                                ' Set the owned flag before inserting
-                                CheckOwnedBP = SetItemOwnedFlag(InsertItem, OriginalDecryptorUsed, OriginalRelicUsed, OrigME, OrigTE, OriginalBPOwnedFlag)
-                                If rbtnCalcAllBPs.Checked Or (UserInventedBPs.Contains(InsertItem.BPID)) Or
-                                    (rbtnCalcBPOwned.Checked And CheckOwnedBP) Or rbtnCalcBPFavorites.Checked Then
-                                    ' Insert the item 
-                                    Call InsertItemCalcType(BaseItems, InsertItem, ProcessAllMultiUsePOSArrays, MultiUsePOSArrays, ListRowFormats)
-                                End If
-                            End If
-
-                            ' If they don't want to include decryptors, then exit loop after adding none
-                            If InsertItem.TechLevel = "T2" Then
-                                Exit For
-                            End If
-                        End If
-                    Next
-
-                    ' Finally, see if the original blueprint was not invented and then add it separately - BPCs and BPOs (should only be T2)
-                    If OriginalBPType = BPType.Copy Or OriginalBPType = BPType.Original Then
-                        ' Get the original me/te
-                        InsertItem.BPME = OrigME
-                        InsertItem.BPTE = OrigTE
-                        InsertItem.Owned = Yes
-                        InsertItem.Inputs = Unknown
-                        InsertItem.BlueprintType = OriginalBPType
-
-                        ' Insert the item 
-                        Call InsertItemCalcType(BaseItems, InsertItem, ProcessAllMultiUsePOSArrays, MultiUsePOSArrays, ListRowFormats)
-                    End If
-
-                Else ' All T1 and others
-                    InsertItem.Inputs = None
-                    InsertItem.Relic = ""
-                    InsertItem.Decryptor = NoDecryptor
-
-                    InsertItem.InventionFacility = NoFacility
-                    InsertItem.CopyFacility = NoFacility
-
-                    ' Insert the items based on compare types
-                    Call InsertItemCalcType(BaseItems, InsertItem, ProcessAllMultiUsePOSArrays, MultiUsePOSArrays, ListRowFormats)
-                End If
+                ' Insert the items based on compare types
+                Call InsertItemCalcType(BaseItems, InsertItem, False, New List(Of IndustryFacility), ListRowFormats)
 
                 ' For each record, update the progress bar
                 Call IncrementToolStripProgressBar(MetroProgressBar)
@@ -8081,28 +7944,6 @@ ExitPRocessing:
                                                            UserApplicationSettings, False, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
                                                            InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility, InsertItem.ReactionFacility,
                                                            False, UserManufacturingTabSettings.BuildT2T3Materials, True)
-
-                    ' Set the T2 and T3 inputs if necessary
-                    If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) Then
-
-                        ' Strip off the relic if in here for the decryptor
-                        If InsertItem.Inputs.Contains("-") Then
-                            InputText = InsertItem.Inputs.Substring(0, InStr(InsertItem.Inputs, "-") - 2)
-                        Else
-                            InputText = InsertItem.Inputs
-                        End If
-
-                        If InputText = None Then
-                            SelectedDecryptor = NoDecryptor
-                        Else ' A decryptor is set
-                            SelectedDecryptor = InventionDecryptors.GetDecryptor(InputText)
-                        End If
-
-                        ' Construct the T2/T3 BP
-                        Call ManufacturingBlueprint.InventBlueprint(1, SelectedDecryptor, InsertItem.InventionFacility,
-                                                               InsertItem.CopyFacility, GetInventItemTypeID(InsertItem.BPID, InsertItem.Relic))
-
-                    End If
 
                     ' Build the blueprint(s)
                     Call ManufacturingBlueprint.BuildItems(True, GetBrokerFeeData(), False, False, False)
