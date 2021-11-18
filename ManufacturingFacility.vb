@@ -20,7 +20,6 @@ Public Class ManufacturingFacility
     Private LoadingRegions As Boolean
     Private LoadingSystems As Boolean
     Private LoadingFacilities As Boolean
-    Private ChangingUsageChecks As Boolean
 
     ' To save previous values for checking and loading
     Private PreviousProductionType As ProductionType
@@ -125,7 +124,6 @@ Public Class ManufacturingFacility
         txtFacilityManualME.Visible = False
         lblFacilityManualTE.Visible = False
         lblFacilityManualME.Visible = False
-        chkFacilityIncludeUsage.Visible = False
         cmbFacilityorArray.Visible = False
         cmbFacilitySystem.Visible = False
         cmbFacilityRegion.Visible = False
@@ -173,9 +171,6 @@ Public Class ManufacturingFacility
         ' Move and show the selected controls depending on the view sent
         Select Case ViewType
             Case FacilityView.FullControls
-
-                chkFacilityIncludeUsage.Text = "Usage:"
-                chkFacilityIncludeUsage.Visible = True
 
                 cmbFacilityRegion.Left = LeftObjectLocation
                 cmbFacilityRegion.Width = RegionWidthBP
@@ -268,19 +263,12 @@ Public Class ManufacturingFacility
 
             Case FacilityView.LimitedControls
 
-                chkFacilityIncludeUsage.Visible = True
-                chkFacilityIncludeUsage.Text = "Include Usage"
-                Select Case InitialProductionType
-                    Case ProductionType.Invention, ProductionType.T3Invention, ProductionType.Copying
-                        chkFacilityIncludeUsage.Text = "Usage"
-                End Select
 
                 cmbFacilityRegion.Text = InitialRegionComboText
                 cmbFacilityRegion.Width = RegionWidthCalc
                 cmbFacilityRegion.Visible = True
 
                 cmbFacilitySystem.Top = cmbFacilityRegion.Top
-                cmbFacilitySystem.Left = chkFacilityIncludeUsage.Left
                 cmbFacilitySystem.Width = SolarSystemWidthCalc
                 cmbFacilitySystem.Text = InitialSolarSystemComboText
                 cmbFacilitySystem.Visible = True
@@ -458,7 +446,6 @@ Public Class ManufacturingFacility
         LoadingRegions = False
         LoadingSystems = False
         LoadingFacilities = False
-        ChangingUsageChecks = False
 
         ' Load the selected facility with set bp
         Call LoadFacility(SelectedBPID, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, True)
@@ -593,13 +580,6 @@ Public Class ManufacturingFacility
         Dim AutoLoad As Boolean = False
         Call LoadFacilities(False, SelectedFacility.Activity, AutoLoad, SelectedFacility.FacilityName)
         LoadingFacilities = False
-
-        ' Usage checks
-        ChangingUsageChecks = True
-
-        chkFacilityIncludeUsage.Checked = SelectedFacility.IncludeActivityUsage
-
-        ChangingUsageChecks = False
 
         ' Finally show the results and save the facility locally
         If Not AutoLoad Then
@@ -740,7 +720,6 @@ Public Class ManufacturingFacility
             ' Reset the facility so it can load later
             PreviousEquipment = InitialFacilityComboText
             cmbFacilityorArray.Enabled = False
-            chkFacilityIncludeUsage.Enabled = False
 
             PreviousProductionType = FacilityProductionType
             PreviousActivity = FacilityActivity
@@ -848,7 +827,6 @@ Public Class ManufacturingFacility
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
             btnFacilityFitting.Visible = False
-            chkFacilityIncludeUsage.Enabled = False
 
             Call SetFacilityBonusBoxes(False)
         End If
@@ -968,7 +946,6 @@ Public Class ManufacturingFacility
             ' Make sure default is not checked yet
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
-            chkFacilityIncludeUsage.Enabled = False
 
             Call SetFacilityBonusBoxes(False)
         End If
@@ -1172,12 +1149,10 @@ Public Class ManufacturingFacility
                 ' Make sure default is turned off since we still have to load the array
                 btnFacilitySave.Enabled = False
                 Call SetDefaultVisuals(False)
-                chkFacilityIncludeUsage.Enabled = False ' Don't enable the usage either
             Else
                 ' Since this is a different system but facility is loaded, enable save
                 btnFacilitySave.Enabled = True
                 Call SetDefaultVisuals(False)
-                chkFacilityIncludeUsage.Enabled = True
             End If
 
             AutoLoadFacility = False
@@ -1670,11 +1645,6 @@ Public Class ManufacturingFacility
         ' Show the boxes
         Call SetFacilityBonusBoxes(True)
 
-        ' Make sure the usage check is now enabled and update the box if a value exists
-        If FacilityType <> FacilityTypes.None Then
-            chkFacilityIncludeUsage.Enabled = True
-        End If
-
         If FacilityType = FacilityTypes.UpwellStructure Then
             ' Enable fitting
             btnFacilityFitting.Enabled = True
@@ -1899,20 +1869,6 @@ Public Class ManufacturingFacility
 
         ' Save the selected facility locally
         SelectedFacility = CType(SentFacility.Clone, IndustryFacility)
-
-    End Sub
-
-    Private Sub chkFacilityIncludeUsage_CheckedChanged(sender As Object, e As EventArgs) Handles chkFacilityIncludeUsage.CheckedChanged
-        If Not ChangingUsageChecks Then
-
-            SelectedFacility.IncludeActivityUsage = chkFacilityIncludeUsage.Checked
-
-            ' Facility is loaded, so save it to default and dynamic variable
-            Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
-
-        End If
-
-        Call SetResetRefresh()
 
     End Sub
 
@@ -2239,7 +2195,6 @@ Public Class ManufacturingFacility
         cmbFacilitySystem.Enabled = False
         cmbFacilityorArray.Items.Clear()
         cmbFacilityorArray.Text = InitialFacilityComboText
-        chkFacilityIncludeUsage.Enabled = False
 
     End Sub
 
@@ -2525,106 +2480,19 @@ Public Class ManufacturingFacility
     ' Returns the facilty for the production type sent
     Public Function GetFacility(BuildType As ProductionType) As IndustryFacility
 
+        'Always include usage in EasyIPH
+        SelectedFacility.IncludeActivityUsage = True
+        ' Facility is loaded, so save it to default and dynamic variable
+        Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
+        Call SetResetRefresh()
+
         ' Select based on input type. If not fully loaded, then load the default and also load the default facility in the facility controls
         Select Case BuildType
-            Case ProductionType.BoosterManufacturing
-                If SelectedBoosterManufacturingFacility.FullyLoaded Then
-                    Return SelectedBoosterManufacturingFacility
-                Else
-                    Return DefaultBoosterManufacturingFacility
-                End If
-            Case ProductionType.CapitalComponentManufacturing
-                If SelectedCapitalComponentManufacturingFacility.FullyLoaded Then
-                    Return SelectedCapitalComponentManufacturingFacility
-                Else
-                    Return DefaultCapitalComponentManufacturingFacility
-                End If
-            Case ProductionType.CapitalManufacturing
-                If SelectedCapitalManufacturingFacility.FullyLoaded Then
-                    Return SelectedCapitalManufacturingFacility
-                Else
-                    Return DefaultCapitalManufacturingFacility
-                End If
-            Case ProductionType.ComponentManufacturing
-                If SelectedComponentManufacturingFacility.FullyLoaded Then
-                    Return SelectedComponentManufacturingFacility
-                Else
-                    Return DefaultComponentManufacturingFacility
-                End If
-            Case ProductionType.Copying
-                If SelectedCopyFacility.FullyLoaded Then
-                    Return SelectedCopyFacility
-                Else
-                    Return DefaultCopyFacility
-                End If
-            Case ProductionType.Invention
-                If SelectedInventionFacility.FullyLoaded Then
-                    Return SelectedInventionFacility
-                Else
-                    Return DefaultInventionFacility
-                End If
             Case ProductionType.Manufacturing
                 If SelectedManufacturingFacility.FullyLoaded Then
                     Return SelectedManufacturingFacility
                 Else
                     Return DefaultManufacturingFacility
-                End If
-            Case ProductionType.Reactions
-                If SelectedReactionsFacility.FullyLoaded Then
-                    Return SelectedReactionsFacility
-                Else
-                    Return DefaultReactionsFacility
-                End If
-            Case ProductionType.POSFuelBlockManufacturing
-                If SelectedPOSFuelBlockFacility.FullyLoaded Then
-                    Return SelectedPOSFuelBlockFacility
-                Else
-                    Return DefaultPOSFuelBlockFacility
-                End If
-            Case ProductionType.POSLargeShipManufacturing
-                If SelectedPOSLargeShipFacility.FullyLoaded Then
-                    Return SelectedPOSLargeShipFacility
-                Else
-
-                    Return DefaultPOSLargeShipFacility
-                End If
-            Case ProductionType.POSModuleManufacturing
-                If SelectedPOSModuleFacility.FullyLoaded Then
-                    Return SelectedPOSModuleFacility
-                Else
-                    Return DefaultPOSModuleFacility
-                End If
-            Case ProductionType.SubsystemManufacturing
-                If SelectedSubsystemManufacturingFacility.FullyLoaded Then
-                    Return SelectedSubsystemManufacturingFacility
-                Else
-                    Return DefaultSubsystemManufacturingFacility
-                End If
-            Case ProductionType.SuperManufacturing
-                If SelectedSuperManufacturingFacility.FullyLoaded Then
-                    Return SelectedSuperManufacturingFacility
-                Else
-                    Return DefaultSuperManufacturingFacility
-                End If
-            Case ProductionType.T3CruiserManufacturing
-                If SelectedT3CruiserManufacturingFacility.FullyLoaded Then
-                    Return SelectedT3CruiserManufacturingFacility
-                Else
-
-                    Return DefaultT3CruiserManufacturingFacility
-                End If
-            Case ProductionType.T3DestroyerManufacturing
-                If SelectedT3DestroyerManufacturingFacility.FullyLoaded Then
-                    Return SelectedT3DestroyerManufacturingFacility
-                Else
-                    Return DefaultT3DestroyerManufacturingFacility
-                End If
-            Case ProductionType.T3Invention
-                If SelectedT3InventionFacility.FullyLoaded Then
-                    Return SelectedT3InventionFacility
-                Else
-
-                    Return DefaultT3InventionFacility
                 End If
             Case Else
                 Return Nothing
@@ -2712,15 +2580,6 @@ Public Class ManufacturingFacility
     Public Function GetCurrentFacilityProductionType() As ProductionType
         Return SelectedFacility.FacilityProductionType
     End Function
-
-    Public Sub SetIgnoreInvention(ByVal Ignore As Boolean, ByVal InventionType As ProductionType, ByVal UsageCheckValue As Boolean)
-
-        ' Set the usage
-        ChangingUsageChecks = True
-        chkFacilityIncludeUsage.Checked = UsageCheckValue
-        ChangingUsageChecks = False
-
-    End Sub
 
     Private Sub txtFacilityManualME_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualME.KeyPress
         Call SetResetRefresh()

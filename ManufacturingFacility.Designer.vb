@@ -23,7 +23,6 @@ Partial Class ManufacturingFacility
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.chkFacilityIncludeUsage = New System.Windows.Forms.CheckBox()
         Me.cmbFacilityorArray = New System.Windows.Forms.ComboBox()
         Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
         Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
@@ -39,17 +38,6 @@ Partial Class ManufacturingFacility
         Me.txtFacilityManualCost = New System.Windows.Forms.TextBox()
         Me.mainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
-        '
-        'chkFacilityIncludeUsage
-        '
-        Me.chkFacilityIncludeUsage.AutoSize = True
-        Me.chkFacilityIncludeUsage.Location = New System.Drawing.Point(185, 25)
-        Me.chkFacilityIncludeUsage.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkFacilityIncludeUsage.Name = "chkFacilityIncludeUsage"
-        Me.chkFacilityIncludeUsage.Size = New System.Drawing.Size(71, 21)
-        Me.chkFacilityIncludeUsage.TabIndex = 7
-        Me.chkFacilityIncludeUsage.Text = "Usage"
-        Me.chkFacilityIncludeUsage.UseVisualStyleBackColor = True
         '
         'cmbFacilityorArray
         '
@@ -202,7 +190,6 @@ Partial Class ManufacturingFacility
         Me.Controls.Add(Me.txtFacilityManualME)
         Me.Controls.Add(Me.lblFacilityManualTE)
         Me.Controls.Add(Me.lblFacilityManualME)
-        Me.Controls.Add(Me.chkFacilityIncludeUsage)
         Me.Controls.Add(Me.cmbFacilityorArray)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
@@ -213,7 +200,6 @@ Partial Class ManufacturingFacility
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents chkFacilityIncludeUsage As CheckBox
     Friend WithEvents cmbFacilityorArray As ComboBox
     Friend WithEvents cmbFacilitySystem As ComboBox
     Friend WithEvents cmbFacilityRegion As ComboBox
