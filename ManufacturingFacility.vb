@@ -9,6 +9,8 @@ Public Class ManufacturingFacility
     Private SelectedProductionType As ProductionType
     Private SelectedControlForm As Form ' Where the control lives
 
+    Private DoneInitialzing As Boolean
+
     Private SelectedBPTech As Integer
     Private SelectedBPID As Integer
     Private SelectedBPGroupID As Integer
@@ -78,7 +80,6 @@ Public Class ManufacturingFacility
         ' Add any initialization after the InitializeComponent() call.
 
         ' Hide everything until constructed with the options sent
-        btnFacilitySave.Visible = False
         cmbFacilityorArray.Visible = False
         cmbFacilitySystem.Visible = False
         cmbFacilityRegion.Visible = False
@@ -138,11 +139,6 @@ Public Class ManufacturingFacility
                 cmbFacilityorArray.Text = InitialFacilityComboText
                 cmbFacilityorArray.Visible = True
 
-                btnFacilitySave.Top = cmbFacilityorArray.Top + cmbFacilityorArray.Height
-                btnFacilitySave.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - btnFacilitySave.Width + 1
-                btnFacilitySave.Visible = True
-                btnFacilitySave.Enabled = False
-
                 ' Set initial settings to load 
                 If SelectedBPID = 0 Then
                     SelectedBPCategoryID = ItemIDs.ShipCategoryID
@@ -181,11 +177,6 @@ Public Class ManufacturingFacility
                 cmbFacilityorArray.Text = InitialFacilityComboText
                 cmbFacilityorArray.Visible = True
 
-                btnFacilitySave.Top = cmbFacilityorArray.Top + cmbFacilityorArray.Height + 2
-                btnFacilitySave.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - btnFacilitySave.Width + 1
-                btnFacilitySave.Visible = True
-                btnFacilitySave.Enabled = False
-
                 ' Set the initial group/category IDs
                 ' also set the activity combo text to show what type of activity this facility is, even if not visible
                 Call GetFacilityBPItemData(InitialProductionType, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, ActivityManufacturing)
@@ -197,6 +188,8 @@ Public Class ManufacturingFacility
                 ' Leave, no valid option sent
                 Exit Sub
         End Select
+
+        DoneInitialzing = True
 
     End Sub
 
@@ -448,9 +441,6 @@ Public Class ManufacturingFacility
 
         End If
 
-        ' Make sure default is not shown yet
-        btnFacilitySave.Enabled = False
-
         LoadingFacilityTypes = False
         LoadingRegions = False
         LoadingSystems = False
@@ -472,10 +462,6 @@ Public Class ManufacturingFacility
 
                 Call SetNoFacility()
 
-                ' Allow this to be saved as a default though
-                btnFacilitySave.Enabled = True
-                ' changed so not the default
-                Call SetDefaultVisuals(False)
                 ' Save the facility locally
                 Call DisplayFacilityBonus(SelectedProductionType, SelectedBPGroupID, SelectedBPCategoryID, ActivityManufacturing,
                                           GetFacilityTypeCode("Station"), cmbFacilityorArray.Text)
@@ -542,9 +528,6 @@ Public Class ManufacturingFacility
             ' Reset the facility so it can load later
             PreviousEquipment = InitialFacilityComboText
             cmbFacilityorArray.Enabled = False
-            ' Make sure default is not checked yet
-            Call SetDefaultVisuals(False)
-            btnFacilitySave.Enabled = False
 
         End If
 
@@ -659,9 +642,6 @@ Public Class ManufacturingFacility
             ' Reset the facility so it can load later
             PreviousEquipment = InitialFacilityComboText
             cmbFacilityorArray.Enabled = False
-            ' Make sure default is not checked yet
-            Call SetDefaultVisuals(False)
-            btnFacilitySave.Enabled = False
 
         End If
 
@@ -844,23 +824,10 @@ Public Class ManufacturingFacility
                         cmbFacilityorArray.Text = "Select Station"
                 End Select
 
-                ' Make sure default is turned off since we still have to load the array
-                btnFacilitySave.Enabled = False
-                Call SetDefaultVisuals(False)
-            Else
-                ' Since this is a different system but facility is loaded, enable save
-                btnFacilitySave.Enabled = True
-                Call SetDefaultVisuals(False)
             End If
 
             AutoLoadFacility = False
 
-        End If
-
-        If NewFacility Then
-            ' Make sure default is not checked yet
-            Call SetDefaultVisuals(False)
-            btnFacilitySave.Enabled = False
         End If
 
         ' Users might select the facility drop down first, so reload all others
@@ -883,6 +850,8 @@ Public Class ManufacturingFacility
         End If
 
         Call SetResetRefresh()
+
+        FacilitySave()
 
     End Sub
     Private Sub cmbFacilityorArray_DropDown(sender As Object, e As System.EventArgs) Handles cmbFacilityorArray.DropDown
@@ -1278,7 +1247,6 @@ Public Class ManufacturingFacility
         Dim TaxText As String = FormatPercent(DFTax, 1)
 
         ' Loaded up, let them save it
-        btnFacilitySave.Visible = True
         PreviousEquipment = cmbFacilityorArray.Text
         ' Fully loaded
         SelectedFacility.FullyLoaded = True
@@ -1320,22 +1288,16 @@ Public Class ManufacturingFacility
                 End If
         End Select
 
-        ' Set the default 
-        Call SetDefaultVisuals(SentFacility.IsDefault)
-
         ' Save the selected facility locally
         SelectedFacility = CType(SentFacility.Clone, IndustryFacility)
 
     End Sub
 
-    Private Sub btnFacilitySave_Click(sender As Object, e As EventArgs) Handles btnFacilitySave.Click
-        If SelectedFacility.FullyLoaded Then
+    Public Sub FacilitySave()
+        If DoneInitialzing Then
 
             If SelectedFacility.SaveFacility(SelectedView, SelectedCharacterID, SelectedLocation) Then
-                ' Just saved, so must be the default
-                Call SetDefaultVisuals(True)
             Else
-                Call SetDefaultVisuals(False)
                 Exit Sub
             End If
 
@@ -1522,17 +1484,6 @@ Public Class ManufacturingFacility
         cmbFacilityorArray.Items.Clear()
         cmbFacilityorArray.Text = InitialFacilityComboText
 
-    End Sub
-
-    ' Sets the visual data for default facility
-    Private Sub SetDefaultVisuals(isDefault As Boolean)
-        If isDefault = True Then
-            btnFacilitySave.Enabled = False ' don't enable since it's already the default, it's pointless to save it
-        Else
-            If SelectedFacility.FullyLoaded Then
-                btnFacilitySave.Enabled = True
-            End If
-        End If
     End Sub
 
     ' Translates the string facility type into the enum code
@@ -1744,9 +1695,6 @@ Public Class ManufacturingFacility
                 EnableButton = False
             End If
         End If
-
-        ' If we set this to true, then we changed input and it's not default anymore
-        Call SetDefaultVisuals(Not EnableButton)
 
         Call SetResetRefresh()
 
@@ -2287,8 +2235,6 @@ ExitBlock:
             If (Location = ProgramLocation.BlueprintTab Or Location = ProgramLocation.ManufacturingTab) And UserApplicationSettings.ShareSavedFacilities Then
                 Call CType(ControlForm, frmMain).LoadFacilities(Location, FacilityProductionType)
             End If
-
-            Call MsgBox("Facility Saved", vbInformation, Application.ProductName)
 
             Return True
 

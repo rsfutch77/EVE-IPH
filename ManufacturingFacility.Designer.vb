@@ -26,7 +26,6 @@ Partial Class ManufacturingFacility
         Me.cmbFacilityorArray = New System.Windows.Forms.ComboBox()
         Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
         Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
-        Me.btnFacilitySave = New System.Windows.Forms.Button()
         Me.mainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
@@ -63,21 +62,10 @@ Partial Class ManufacturingFacility
         Me.cmbFacilityRegion.TabIndex = 12
         Me.cmbFacilityRegion.Text = "Select Region"
         '
-        'btnFacilitySave
-        '
-        Me.btnFacilitySave.Location = New System.Drawing.Point(340, 105)
-        Me.btnFacilitySave.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnFacilitySave.Name = "btnFacilitySave"
-        Me.btnFacilitySave.Size = New System.Drawing.Size(53, 27)
-        Me.btnFacilitySave.TabIndex = 24
-        Me.btnFacilitySave.Text = "Save"
-        Me.btnFacilitySave.UseVisualStyleBackColor = True
-        '
         'ManufacturingFacility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.btnFacilitySave)
         Me.Controls.Add(Me.cmbFacilityorArray)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
@@ -90,6 +78,5 @@ Partial Class ManufacturingFacility
     Friend WithEvents cmbFacilityorArray As ComboBox
     Friend WithEvents cmbFacilitySystem As ComboBox
     Friend WithEvents cmbFacilityRegion As ComboBox
-    Friend WithEvents btnFacilitySave As Button
     Friend WithEvents mainToolTip As ToolTip
 End Class

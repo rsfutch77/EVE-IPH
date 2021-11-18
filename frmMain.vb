@@ -680,13 +680,6 @@ Public Class frmMain
         If FacilityType = ProductionType.None Then
             ' Load up the Manufacturing tab facilities
             Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
-
-        Else ' Multi-save
-            ' They saved a facility on the manufacturing tab, so init all the facilities on the bp tab and reload the current facility
-            Select Case FacilityType
-                Case ProductionType.Manufacturing
-                    Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
-            End Select
         End If
 
     End Sub
@@ -7031,7 +7024,6 @@ ExitPRocessing:
         Dim SQL As String
         Dim readerBPs As SQLiteDataReader
         Dim readerIDs As SQLiteDataReader
-        Dim readerArray As SQLiteDataReader
 
         Dim UpdateTypeIDs As New List(Of Long) ' Full list of TypeID's to update SVR data with, these will have Market IDs
         Dim MarketRegionID As Long
