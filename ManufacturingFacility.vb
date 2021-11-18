@@ -34,8 +34,6 @@ Public Class ManufacturingFacility
     Private FacilitySystemsLoaded As Boolean
     Private FacilityorArrayLoaded As Boolean
 
-    Private UpdatingManualBoxes As Boolean
-
     ' Save these options here in the facility and allow functions to get the values publically
     Private FacilityIncludeCopyCost As Boolean
     Private FacilityIncludeCopyTime As Boolean
@@ -114,21 +112,10 @@ Public Class ManufacturingFacility
         ' Add any initialization after the InitializeComponent() call.
 
         ' Hide everything until constructed with the options sent
-        txtFacilityManualCost.Visible = False
-        lblFacilityManualCost.Visible = False
-        btnFacilityFitting.Visible = False
-        txtFacilityManualTax.Visible = False
-        lblFacilityManualTax.Visible = False
         btnFacilitySave.Visible = False
-        txtFacilityManualTE.Visible = False
-        txtFacilityManualME.Visible = False
-        lblFacilityManualTE.Visible = False
-        lblFacilityManualME.Visible = False
         cmbFacilityorArray.Visible = False
         cmbFacilitySystem.Visible = False
         cmbFacilityRegion.Visible = False
-
-        UpdatingManualBoxes = False
 
         ' For checking facilities later - will remove if we can get locations from ESI
         FactionCitadelList.Add(47512) ' Moreau Fortizar
@@ -156,10 +143,6 @@ Public Class ManufacturingFacility
         Const FacilityArrayWidthCalc As Integer = 295
 
         Const LeftObjectLocation As Integer = 3
-        Const LeftLabelLocation As Integer = 1
-
-        Const DefaultLabelWidthBP As Integer = 48
-        Const DefaultLabelHeightBP As Integer = 34
 
         ' Save for later
         SelectedView = ViewType
@@ -193,53 +176,6 @@ Public Class ManufacturingFacility
                 btnFacilitySave.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - btnFacilitySave.Width + 1
                 btnFacilitySave.Visible = True
                 btnFacilitySave.Enabled = False
-
-                btnFacilityFitting.Top = btnFacilitySave.Top
-                btnFacilityFitting.Left = btnFacilitySave.Left - (btnFacilityFitting.Width + 2)
-                btnFacilityFitting.Visible = False
-                btnFacilityFitting.Enabled = False
-
-                ' Load all the manual lables and text
-                lblFacilityManualME.Top = cmbFacilityorArray.Top + cmbFacilityorArray.Height + 4
-                lblFacilityManualME.Left = LeftLabelLocation
-                lblFacilityManualME.Text = "ME:"
-                lblFacilityManualME.Visible = True
-
-                txtFacilityManualME.Top = cmbFacilityorArray.Top + cmbFacilityorArray.Height + 1
-                txtFacilityManualME.Left = lblFacilityManualME.Left + lblFacilityManualME.Width
-                txtFacilityManualME.Visible = True
-
-                lblFacilityManualCost.Top = lblFacilityManualME.Top + lblFacilityManualME.Height + 7
-                lblFacilityManualCost.Left = LeftLabelLocation
-                lblFacilityManualCost.Text = "Cost:"
-                lblFacilityManualCost.Visible = True
-
-                txtFacilityManualCost.Top = txtFacilityManualME.Top + txtFacilityManualME.Height + 1
-                txtFacilityManualCost.Left = lblFacilityManualCost.Left + lblFacilityManualCost.Width
-                txtFacilityManualCost.Visible = True
-
-                ' Reset manual ME so it aligns with cost box
-                txtFacilityManualME.Left = txtFacilityManualCost.Left
-
-                lblFacilityManualTE.Top = lblFacilityManualME.Top
-                lblFacilityManualTE.Left = txtFacilityManualME.Left + txtFacilityManualME.Width + 3
-                lblFacilityManualTE.Text = "TE:"
-                lblFacilityManualTE.Visible = True
-
-                txtFacilityManualTE.Top = txtFacilityManualME.Top
-                txtFacilityManualTE.Left = lblFacilityManualTE.Left + lblFacilityManualTE.Width
-                txtFacilityManualTE.Visible = True
-
-                lblFacilityManualTax.Top = lblFacilityManualCost.Top
-                lblFacilityManualTax.Left = txtFacilityManualCost.Left + txtFacilityManualCost.Width + 3
-                lblFacilityManualTax.Text = "Tax:"
-                lblFacilityManualTax.Visible = True
-
-                txtFacilityManualTax.Top = txtFacilityManualCost.Top
-                txtFacilityManualTax.Left = lblFacilityManualTax.Left + lblFacilityManualTax.Width
-                txtFacilityManualTax.Visible = True
-
-                txtFacilityManualTE.Left = txtFacilityManualTax.Left
 
                 ' Set initial settings to load 
                 If SelectedBPID = 0 Then
@@ -283,53 +219,6 @@ Public Class ManufacturingFacility
                 btnFacilitySave.Left = (cmbFacilityorArray.Left + cmbFacilityorArray.Width) - btnFacilitySave.Width + 1
                 btnFacilitySave.Visible = True
                 btnFacilitySave.Enabled = False
-
-                btnFacilityFitting.Top = btnFacilitySave.Top
-                btnFacilityFitting.Left = btnFacilitySave.Left - (btnFacilityFitting.Width + 2)
-                btnFacilityFitting.Visible = False
-                btnFacilityFitting.Enabled = False
-
-                ' Manual text boxes and labels
-                lblFacilityManualME.Top = btnFacilitySave.Top + 6
-                lblFacilityManualME.Left = LeftLabelLocation
-                lblFacilityManualME.Text = "ME:"
-                lblFacilityManualME.Visible = False
-
-                txtFacilityManualME.Top = btnFacilitySave.Top + 2
-                txtFacilityManualME.Left = lblFacilityManualME.Left + lblFacilityManualME.Width
-                txtFacilityManualME.Visible = False
-
-                lblFacilityManualCost.Top = lblFacilityManualME.Top + lblFacilityManualME.Height + 7
-                lblFacilityManualCost.Left = LeftLabelLocation
-                lblFacilityManualCost.Text = "Cost:"
-                lblFacilityManualCost.Visible = False
-
-                txtFacilityManualCost.Top = txtFacilityManualME.Top + txtFacilityManualME.Height + 1
-                txtFacilityManualCost.Left = lblFacilityManualCost.Left + lblFacilityManualCost.Width
-                txtFacilityManualCost.Visible = False
-
-                ' Reset manual ME so it aligns with cost box
-                txtFacilityManualME.Left = txtFacilityManualCost.Left
-
-                lblFacilityManualTE.Top = lblFacilityManualME.Top
-                lblFacilityManualTE.Left = txtFacilityManualME.Left + txtFacilityManualME.Width + 3
-                lblFacilityManualTE.Text = "TE:"
-                lblFacilityManualTE.Visible = False
-
-                txtFacilityManualTE.Top = txtFacilityManualME.Top
-                txtFacilityManualTE.Left = lblFacilityManualTE.Left + lblFacilityManualTE.Width
-                txtFacilityManualTE.Visible = False
-
-                lblFacilityManualTax.Top = lblFacilityManualCost.Top
-                lblFacilityManualTax.Left = txtFacilityManualCost.Left + txtFacilityManualCost.Width + 3
-                lblFacilityManualTax.Text = "Tax:"
-                lblFacilityManualTax.Visible = False
-
-                txtFacilityManualTax.Top = txtFacilityManualCost.Top
-                txtFacilityManualTax.Left = lblFacilityManualTax.Left + lblFacilityManualTax.Width
-                txtFacilityManualTax.Visible = False
-
-                txtFacilityManualTE.Left = txtFacilityManualTax.Left
 
                 ' Set the initial group/category IDs
                 ' also set the activity combo text to show what type of activity this facility is, even if not visible
@@ -495,7 +384,6 @@ Public Class ManufacturingFacility
 
         If SelectedFacility.FacilityType = FacilityTypes.None Then
             ' Just hide the boxes and exit
-            Call SetFacilityBonusBoxes(False)
             SelectedFacility.FullyLoaded = True ' Even with none, it's loaded
             Call SetNoFacility()
             Exit Sub ' Leave, all loaded
@@ -637,7 +525,6 @@ Public Class ManufacturingFacility
     Public Sub LoadFacilityTypes(FacilityProductionType As ProductionType, FacilityActivity As String)
         Dim Station As String = GetFacilityNamefromCode(FacilityTypes.Station)
         Dim POS As String = GetFacilityNamefromCode(FacilityTypes.POS)
-        Dim UpwellStructure As String = GetFacilityNamefromCode(FacilityTypes.UpwellStructure)
         Dim NoneFacility As String = GetFacilityNamefromCode(FacilityTypes.None)
 
         LoadingFacilityTypes = True
@@ -662,8 +549,6 @@ Public Class ManufacturingFacility
 
             PreviousProductionType = FacilityProductionType
             PreviousActivity = FacilityActivity
-
-            Call SetFacilityBonusBoxes(False)
 
         End If
 
@@ -701,7 +586,6 @@ Public Class ManufacturingFacility
             End If
 
             ' Anytime this changes, set all the other ME/TE boxes to not viewed
-            Call SetFacilityBonusBoxes(False)
             SelectedFacility.FullyLoaded = False
             PreviousFacilityType = GetFacilityTypeCode("Station")
             ' Reset the previous records
@@ -765,9 +649,7 @@ Public Class ManufacturingFacility
             ' Make sure default is not checked yet
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
-            btnFacilityFitting.Visible = False
 
-            Call SetFacilityBonusBoxes(False)
         End If
 
         ' Only reset the region if the current selected region is not in list, also if it is in list, enable solarsystem
@@ -792,7 +674,6 @@ Public Class ManufacturingFacility
         If Not LoadingRegions And Not FirstLoad And PreviousRegion <> cmbFacilityRegion.Text Then
             Call LoadFacilitySystems(SelectedBPGroupID, SelectedBPCategoryID, True, ActivityManufacturing)
             Call cmbFacilitySystem.Focus()
-            Call SetFacilityBonusBoxes(False)
             SelectedFacility.FullyLoaded = False
             PreviousRegion = cmbFacilityRegion.Text
         End If
@@ -886,7 +767,6 @@ Public Class ManufacturingFacility
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
 
-            Call SetFacilityBonusBoxes(False)
         End If
 
         ' Only reset the system if the current selected system is not in list, also if it is in list, enable facilty
@@ -914,8 +794,6 @@ Public Class ManufacturingFacility
 
         If Not LoadingSystems And Not FirstLoad And PreviousSystem <> cmbFacilitySystem.Text Then
 
-            Call SetFacilityBonusBoxes(False)
-
             If "Station" = POSFacility Then
                 OverrideFacilityName = GetPOSManufacturingFacilityName(SelectedFacility)
             End If
@@ -928,7 +806,6 @@ Public Class ManufacturingFacility
                 ' Facility is loaded, so save it to default and dynamic variable
                 Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
             Else
-                Call SetFacilityBonusBoxes(False)
                 SelectedFacility.FullyLoaded = False
             End If
 
@@ -979,12 +856,6 @@ Public Class ManufacturingFacility
         End If
 
         Dim LocalFacilityType As FacilityTypes = GetFacilityTypeCode("Station")
-
-        If FacilityActivity = ActivityReactions And LocalFacilityType = FacilityTypes.Station Then
-            ' Need to force it to use the upwell structure since we can only do reactions there (or pos)
-            LocalFacilityType = FacilityTypes.UpwellStructure
-            AutoLoadFacility = True
-        End If
 
         Select Case LocalFacilityType
 
@@ -1079,10 +950,6 @@ Public Class ManufacturingFacility
                 Select Case GetFacilityTypeCode("Station")
                     Case FacilityTypes.Station
                         cmbFacilityorArray.Text = "Select Station"
-                    Case FacilityTypes.POS
-                        cmbFacilityorArray.Text = "Select Array"
-                    Case FacilityTypes.UpwellStructure
-                        cmbFacilityorArray.Text = "Select Upwell Structure"
                 End Select
 
                 ' Make sure default is turned off since we still have to load the array
@@ -1102,7 +969,6 @@ Public Class ManufacturingFacility
             ' Make sure default is not checked yet
             Call SetDefaultVisuals(False)
             btnFacilitySave.Enabled = False
-            Call SetFacilityBonusBoxes(True)
         End If
 
         ' Users might select the facility drop down first, so reload all others
@@ -1252,26 +1118,10 @@ Public Class ManufacturingFacility
                 rsLoader.Close()
 
                 ' Not in there for either character or default, so use the defaults from lookup
-                Select Case FacilityType
-
-                    Case FacilityTypes.Station
-
-                        ' Load the Stations in system for the activity we are doing
-                        SQL = "SELECT DISTINCT FACILITY_ID, FACILITY_TYPE_ID, FACILITY_TAX "
-                        SQL = SQL & "FROM STATION_FACILITIES "
-                        SQL = SQL & "WHERE FACILITY_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                    Case FacilityTypes.POS
-
-                        SQL = "SELECT ARRAY_TYPE_ID AS FACILITY_ID, ARRAY_TYPE_ID, " & CStr(POSTaxRate) & " as TAX "
-                        SQL = SQL & "FROM ASSEMBLY_ARRAYS WHERE ARRAY_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                    Case FacilityTypes.UpwellStructure
-
-                        SQL = "SELECT UPWELL_STRUCTURE_TYPE_ID AS FACILITY_ID, UPWELL_STRUCTURE_TYPE_ID, " & CStr(POSTaxRate) & " as TAX "
-                        SQL &= "FROM UPWELL_STRUCTURES WHERE UPWELL_STRUCTURE_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                End Select
+                ' Load the Stations in system for the activity we are doing
+                SQL = "SELECT DISTINCT FACILITY_ID, FACILITY_TYPE_ID, FACILITY_TAX "
+                SQL = SQL & "FROM STATION_FACILITIES "
+                SQL = SQL & "WHERE FACILITY_NAME = '" & FormatDBString(FacilityName) & "' "
 
                 If FacilityType <> FacilityTypes.UpwellStructure Then
                     ' Get the sql to select the right facility bonuses
@@ -1290,36 +1140,10 @@ Public Class ManufacturingFacility
                 DFTax = rsLoader.GetDouble(2)
 
                 ' Pull data for ME/TE/CE
-                Select Case FacilityType
-                    Case FacilityTypes.Station
-
-                        ' Load the Stations in system for the activity we are doing
-                        SQL = "SELECT DISTINCT MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
-                        SQL = SQL & "FROM STATION_FACILITIES "
-                        SQL = SQL & "WHERE FACILITY_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                    Case FacilityTypes.POS
-
-                        SQL = "SELECT MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER  "
-                        SQL = SQL & "FROM ASSEMBLY_ARRAYS WHERE ARRAY_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                    Case FacilityTypes.UpwellStructure
-
-                        SQL = "SELECT MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
-                        SQL &= "FROM UPWELL_STRUCTURES WHERE UPWELL_STRUCTURE_NAME = '" & FormatDBString(FacilityName) & "' "
-
-                        Select Case Activity
-                            Case ActivityManufacturing, ActivityComponentManufacturing, ActivityCapComponentManufacturing
-                                SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Manufacturing) & " "
-                            Case ActivityCopying
-                                SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Copying) & " "
-                            Case ActivityInvention
-                                SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Invention) & " "
-                            Case ActivityReactions
-                                SQL = SQL & "AND ACTIVITY_ID = " & CStr(IndustryActivities.Reactions) & " "
-                        End Select
-
-                End Select
+                ' Load the Stations in system for the activity we are doing
+                SQL = "SELECT DISTINCT MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
+                SQL = SQL & "FROM STATION_FACILITIES "
+                SQL = SQL & "WHERE FACILITY_NAME = '" & FormatDBString(FacilityName) & "' "
 
                 DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
                 rsStats = DBCommand.ExecuteReader
@@ -1560,38 +1384,6 @@ Public Class ManufacturingFacility
         Dim TMText As String = FormatPercent(1 - DFTimeMultiplier, 2)
         Dim CostText As String = FormatPercent(1 - DFCostMultiplier, 2)
         Dim TaxText As String = FormatPercent(DFTax, 1)
-
-        If FacilityType = FacilityTypes.UpwellStructure Then
-            txtFacilityManualME.Enabled = True
-            txtFacilityManualTE.Enabled = True
-            txtFacilityManualTax.Enabled = True
-            txtFacilityManualCost.Enabled = True
-        Else ' Disable for non-upwell
-            txtFacilityManualME.Enabled = False
-            txtFacilityManualTE.Enabled = False
-            txtFacilityManualTax.Enabled = False
-            txtFacilityManualCost.Enabled = False
-        End If
-
-        ' Set the values
-        UpdatingManualBoxes = True
-        txtFacilityManualME.Text = MMText
-        txtFacilityManualTE.Text = TMText
-        txtFacilityManualTax.Text = TaxText
-        txtFacilityManualCost.Text = CostText
-        UpdatingManualBoxes = False
-
-        ' Show the boxes
-        Call SetFacilityBonusBoxes(True)
-
-        If FacilityType = FacilityTypes.UpwellStructure Then
-            ' Enable fitting
-            btnFacilityFitting.Enabled = True
-            btnFacilityFitting.Visible = True
-        Else
-            btnFacilityFitting.Enabled = False
-            btnFacilityFitting.Visible = False
-        End If
 
         ' Loaded up, let them save it
         btnFacilitySave.Visible = True
@@ -2176,21 +1968,6 @@ Public Class ManufacturingFacility
 
     End Function
 
-    ' Hides all the facility bonus boxes and such
-    Private Sub SetFacilityBonusBoxes(ByVal Value As Boolean)
-
-        txtFacilityManualME.Visible = Value
-        txtFacilityManualTE.Visible = Value
-        txtFacilityManualTax.Visible = Value
-        txtFacilityManualCost.Visible = Value
-
-        lblFacilityManualME.Visible = Value
-        lblFacilityManualTE.Visible = Value
-        lblFacilityManualTax.Visible = Value
-        lblFacilityManualCost.Visible = Value
-
-    End Sub
-
     ' Resets all combo boxes toggles that might need to be updated 
     Private Sub ResetComboLoadVariables(RegionsValue As Boolean, SystemsValue As Boolean, FacilitiesValue As Boolean)
 
@@ -2519,150 +2296,6 @@ Public Class ManufacturingFacility
     Public Function GetCurrentFacilityProductionType() As ProductionType
         Return SelectedFacility.FacilityProductionType
     End Function
-
-    Private Sub txtFacilityManualME_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualME.KeyPress
-        Call SetResetRefresh()
-        e.Handled = ProcessKeyPressInput(e)
-    End Sub
-
-    Private Sub txtFacilityManualME_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualME.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Call SetManualTextBoxValue(BoxType._ME)
-        ElseIf e.KeyCode = Keys.Delete Then
-            btnFacilitySave.Enabled = True
-        End If
-    End Sub
-
-    Private Sub txtFacilityManualME_GotFocus(sender As Object, e As EventArgs) Handles txtFacilityManualME.GotFocus
-        Call txtFacilityManualCost.SelectAll()
-    End Sub
-
-    Private Sub txtFacilityManualME_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualME.LostFocus
-        Call SetManualTextBoxValue(BoxType._ME)
-    End Sub
-
-    Private Sub txtFacilityManualTE_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualTE.KeyPress
-        Call SetResetRefresh()
-        e.Handled = ProcessKeyPressInput(e)
-    End Sub
-
-    Private Sub txtFacilityManualTE_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualTE.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Call SetManualTextBoxValue(BoxType._TE)
-        ElseIf e.KeyCode = Keys.Delete Then
-            btnFacilitySave.Enabled = True
-        End If
-    End Sub
-
-    Private Sub txtFacilityManualTE_GotFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTE.GotFocus
-        Call txtFacilityManualTE.SelectAll()
-    End Sub
-
-    Private Sub txtFacilityManualTE_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTE.LostFocus
-        Call SetManualTextBoxValue(BoxType._TE)
-    End Sub
-
-    Private Sub txtFacilityManualCost_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualCost.KeyPress
-        Call SetResetRefresh()
-        e.Handled = ProcessKeyPressInput(e)
-    End Sub
-
-    Private Sub txtFacilityManualCost_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualCost.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Call SetManualTextBoxValue(BoxType._Cost)
-        ElseIf e.KeyCode = Keys.Delete Then
-            btnFacilitySave.Enabled = True
-        End If
-    End Sub
-
-    Private Sub txtFacilityManualCost_GotFocus(sender As Object, e As EventArgs) Handles txtFacilityManualCost.GotFocus
-        Call txtFacilityManualCost.SelectAll()
-    End Sub
-
-    Private Sub txtFacilityManualCost_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualCost.LostFocus
-        Call SetManualTextBoxValue(BoxType._Cost)
-    End Sub
-
-    Private Sub txtFacilityManualTax_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFacilityManualTax.KeyPress
-        Call SetResetRefresh()
-        e.Handled = ProcessKeyPressInput(e)
-    End Sub
-
-    Private Sub txtFacilityManualTax_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFacilityManualTax.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Call SetManualTextBoxValue(BoxType._Tax)
-        ElseIf e.KeyCode = Keys.Delete Then
-            btnFacilitySave.Enabled = True
-        End If
-    End Sub
-
-    Private Sub txtFacilityManualTax_GotFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTax.GotFocus
-        Call txtFacilityManualTax.SelectAll()
-    End Sub
-
-    Private Sub txtFacilityManualTax_LostFocus(sender As Object, e As EventArgs) Handles txtFacilityManualTax.LostFocus
-        Call SetManualTextBoxValue(BoxType._Tax)
-    End Sub
-
-    Private Function FormatManualEntry(Entry As String) As Double
-        Dim EntryText As String
-
-        If Entry.Contains("%") Then
-            ' Strip the percent first
-            EntryText = Entry.Substring(0, Len(Entry) - 1)
-        Else
-            EntryText = Entry
-        End If
-
-        If IsNumeric(EntryText) Then
-            Return CDbl(EntryText) / 100
-        Else
-            Return 0
-        End If
-
-    End Function
-
-    Private Sub SetManualTextBoxValue(Box As BoxType)
-
-        If Not FirstLoad And Not IsNothing(SelectedFacility) And Not UpdatingManualBoxes Then
-            ' Format for text box
-            UpdatingManualBoxes = True
-            btnFacilitySave.Enabled = True
-
-            Select Case Box
-                Case BoxType._ME
-                    SelectedFacility.MaterialMultiplier = 1 - FormatManualEntry(txtFacilityManualME.Text)
-                    GetFacility(SelectedFacility.FacilityProductionType).MaterialMultiplier = SelectedFacility.MaterialMultiplier
-                    txtFacilityManualME.Text = FormatPercent(1 - SelectedFacility.MaterialMultiplier, 2)
-                Case BoxType._TE
-                    SelectedFacility.TimeMultiplier = 1 - FormatManualEntry(txtFacilityManualTE.Text)
-                    GetFacility(SelectedFacility.FacilityProductionType).TimeMultiplier = SelectedFacility.TimeMultiplier
-                    txtFacilityManualTE.Text = FormatPercent(1 - SelectedFacility.TimeMultiplier, 2)
-                Case BoxType._Cost
-                    SelectedFacility.CostMultiplier = 1 - FormatManualEntry(txtFacilityManualCost.Text)
-                    GetFacility(SelectedFacility.FacilityProductionType).CostMultiplier = SelectedFacility.CostMultiplier
-                    txtFacilityManualCost.Text = FormatPercent(1 - SelectedFacility.CostMultiplier, 2)
-                Case BoxType._Tax
-                    SelectedFacility.TaxRate = FormatManualEntry(txtFacilityManualTax.Text)
-                    GetFacility(SelectedFacility.FacilityProductionType).TaxRate = SelectedFacility.TaxRate
-                    txtFacilityManualTax.Text = FormatPercent(SelectedFacility.TaxRate, 2)
-            End Select
-
-            ' No longer a default
-            Call SetDefaultVisuals(False)
-
-            UpdatingManualBoxes = False
-
-        End If
-
-    End Sub
-
-    Private Enum BoxType
-        _ME = 0
-        _TE = 1
-        _Cost = 2
-        _Tax = 3
-    End Enum
 
     Private Function ProcessKeyPressInput(e As KeyPressEventArgs) As Boolean
         Dim EnableButton As Boolean = True
@@ -3042,16 +2675,8 @@ Public Class IndustryFacility
                 End If
 
                 ' Now, depending on type, look up the name, cost index, tax, and multipliers from the station_facilities table (this is mainly for speed)
-                If FacilityType = FacilityTypes.POS Then
-                    SQL = "SELECT DISTINCT ARRAY_NAME, " & CStr(POSTaxRate) & " AS FACILITY_TAX, MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
-                    SQL = SQL & "FROM ASSEMBLY_ARRAYS WHERE ARRAY_TYPE_ID = " & CStr(FacilityTypeID) & " " ' use typeid for the module used
-                ElseIf FacilityType = FacilityTypes.Station Then ' Stations
-                    SQL = "SELECT DISTINCT FACILITY_NAME, FACILITY_TAX, MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
-                    SQL = SQL & "FROM STATION_FACILITIES WHERE FACILITY_ID = " & CStr(FacilityID) & " "
-                ElseIf FacilityType = FacilityTypes.UpwellStructure Then
-                    SQL = "SELECT DISTINCT UPWELL_STRUCTURE_NAME, " & CStr(POSTaxRate) & " AS FACILITY_TAX, MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
-                    SQL = SQL & "FROM UPWELL_STRUCTURES WHERE UPWELL_STRUCTURE_TYPE_ID = " & CStr(FacilityID) & " "
-                End If
+                SQL = "SELECT DISTINCT FACILITY_NAME, FACILITY_TAX, MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER "
+                SQL = SQL & "FROM STATION_FACILITIES WHERE FACILITY_ID = " & CStr(FacilityID) & " "
 
                 SQL = SQL & "AND ACTIVITY_ID = " & CStr(ActivityID) & " "
 
@@ -3168,33 +2793,9 @@ ExitBlock:
                     TempSQL &= "INCLUDE_ACTIVITY_USAGE = {8}, "
                     TempSQL &= "FACILITY_TAX = {9}, "
 
-                    If FacilityType = FacilityTypes.UpwellStructure Then
-                        ' if what they have now is different from what they started with, then they made a change
-                        ' for upwell structures, the base is updated when they make changes to the facility fitting
-                        If MaterialMultiplier <> BaseME Then
-                            TempSQL &= "MATERIAL_MULTIPLIER = " & CStr(MaterialMultiplier) & ", "
-                            ManualEntries = True
-                        Else
-                            TempSQL &= "MATERIAL_MULTIPLIER = NULL, "
-                        End If
-
-                        If TimeMultiplier <> BaseTE Then
-                            TempSQL &= "TIME_MULTIPLIER = " & CStr(TimeMultiplier) & ", "
-                            ManualEntries = True
-                        Else
-                            TempSQL &= "TIME_MULTIPLIER = NULL, "
-                        End If
-                        If CostMultiplier <> BaseCost Then
-                            TempSQL &= "COST_MULTIPLIER = " & CStr(CostMultiplier) & " "
-                            ManualEntries = True
-                        Else
-                            TempSQL &= "COST_MULTIPLIER = NULL "
-                        End If
-                    Else
-                        TempSQL &= "MATERIAL_MULTIPLIER = NULL, "
-                        TempSQL &= "TIME_MULTIPLIER = NULL, "
-                        TempSQL &= "COST_MULTIPLIER = NULL "
-                    End If
+                    TempSQL &= "MATERIAL_MULTIPLIER = NULL, "
+                    TempSQL &= "TIME_MULTIPLIER = NULL, "
+                    TempSQL &= "COST_MULTIPLIER = NULL "
 
                     TempSQL &= "WHERE PRODUCTION_TYPE = {10} AND CHARACTER_ID = {11} "
                     TempSQL &= "AND FACILITY_VIEW = " & CStr(VID)
@@ -3208,24 +2809,6 @@ ExitBlock:
                     Dim MEValue As String = "NULL"
                     Dim TEValue As String = "NULL"
                     Dim CostValue As String = "NULL"
-
-                    If FacilityType = FacilityTypes.UpwellStructure Then
-                        ' if what they have now is different from what they started with, then they made a change
-                        ' for upwell structures, the base is updated when they make changes to the facility fitting
-                        If MaterialMultiplier <> BaseME Then
-                            MEValue = CStr(MaterialMultiplier)
-                            ManualEntries = True
-                        End If
-
-                        If TimeMultiplier <> BaseTE Then
-                            TEValue = CStr(TimeMultiplier)
-                            ManualEntries = True
-                        End If
-                        If CostMultiplier <> BaseCost Then
-                            CostValue = CStr(CostMultiplier)
-                            ManualEntries = True
-                        End If
-                    End If
 
                     ' Insert
                     SQL = String.Format("INSERT INTO SAVED_FACILITIES VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15});",
@@ -3328,12 +2911,8 @@ ExitBlock:
 
     Public Function GetFacilityTypeDescription() As String
         Select Case FacilityType
-            Case FacilityTypes.POS
-                Return ManufacturingFacility.POSFacility
             Case FacilityTypes.Station
                 Return ManufacturingFacility.StationFacility
-            Case FacilityTypes.UpwellStructure
-                Return ManufacturingFacility.StructureFacility
             Case FacilityTypes.None
                 Return None
             Case Else

@@ -194,22 +194,10 @@
     <Compile Include="frmAddCharacter.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddStructureIDs.Designer.vb">
-      <DependentUpon>frmAddStructureIDs.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAddStructureIDs.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmAppRegistrationNotice.Designer.vb">
       <DependentUpon>frmAppRegistrationNotice.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAppRegistrationNotice.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBonusPopout.Designer.vb">
-      <DependentUpon>frmBonusPopout.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmBonusPopout.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmChangeDummyCharacter.Designer.vb">
@@ -453,14 +441,8 @@
     <EmbeddedResource Include="frmAddCharacter.resx">
       <DependentUpon>frmAddCharacter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddStructureIDs.resx">
-      <DependentUpon>frmAddStructureIDs.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmAppRegistrationNotice.resx">
       <DependentUpon>frmAppRegistrationNotice.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBonusPopout.resx">
-      <DependentUpon>frmBonusPopout.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChangeDummyCharacter.resx">
       <DependentUpon>frmChangeDummyCharacter.vb</DependentUpon>

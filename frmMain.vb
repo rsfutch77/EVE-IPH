@@ -423,8 +423,6 @@ Public Class frmMain
         UserShoppingListSettings = AllSettings.LoadShoppingListSettings
         UserMHViewerSettings = AllSettings.LoadMarketHistoryViewerSettingsSettings
         UserBPViewerSettings = AllSettings.LoadBPViewerSettings
-        UserUpwellStructureSettings = AllSettings.LoadUpwellStructureViewerSettings
-        StructureBonusPopoutViewerSettings = AllSettings.LoadStructureBonusPopoutViewerSettings
 
         UserIndustryFlipBeltSettings = AllSettings.LoadIndustryFlipBeltColumnSettings
         UserIndustryFlipBeltOreCheckSettings1 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Small)
@@ -4253,13 +4251,6 @@ Tabs:
 
     Private Sub lstPricesView_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs)
         Call ListClicked(lstPricesView, sender, e)
-    End Sub
-
-    Private Sub btnAddStructureIDs_Click(sender As Object, e As EventArgs)
-        Dim f1 As New frmAddStructureIDs
-
-        f1.ShowDialog()
-
     End Sub
 
     ' Sets the price profile defaults for anything that has a price profile set

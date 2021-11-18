@@ -45,10 +45,6 @@ Public Module SettingsVariables
     Public UserLPStoreSettings As LPStore
     ' For the Blueprint List Viewer
     Public UserBPViewerSettings As BPViewerSettings
-    ' For Upwell Structure viewer
-    Public UserUpwellStructureSettings As UpwellStructureSettings
-    ' For bonus popout on structure viewer
-    Public StructureBonusPopoutViewerSettings As StructureBonusPopoutSettings
 
 End Module
 
@@ -894,32 +890,6 @@ Public Class ProgramSettings
     Private DefaultLPHighlightCheck As Boolean = True
     Private DefaultLPSelectedCorporations As String = ""
 
-    ' Upwell Structures Viewer
-    Private DefaultHighSlotsCheck As Boolean = False
-    Private DefaultMediumSlotsCheck As Boolean = False
-    Private DefaultLowSlotsCheck As Boolean = False
-    Private DefaultServicesCheck As Boolean = False
-    Private DefaultReprocessingRigsCheck As Boolean = False
-    Private DefaultEngineeringRigsCheck As Boolean = False
-    Private DefaultCombatRigsCheck As Boolean = False
-    Private DefaultIncludeFuelCostsCheck As Boolean = False
-    Private DefaultFuelBlockType As String = "Helium Fuel Block"
-    Private DefaultBuyBuildBlockOption As String = "Buy Blocks"
-    Private DefaultAutoUpdateFuelBlockPricesCheck As Boolean = False
-    Private DefaultSearchFilterText As String = ""
-    Private DefaultSelectedStructureName As String = "Raitaru"
-    Private DefaultReactionsRigsCheck As Boolean = False
-    Private DefaultDrillingRigsCheck As Boolean = False
-    Private DefaultIconListView As Boolean = True
-
-    ' Bonus Popout Viewer Settings for facilities
-    Private DefaultSBPVFormWidth As Integer = 750
-    Private DefaultSBPVFormHeight As Integer = 275
-    Private DefaultSBPVBonusAppliesColumnWidth As Integer = 150
-    Private DefaultSBPVActivityColumnWidth As Integer = 125
-    Private DefaultSBPVBonusesColumnWidth As Integer = 250
-    Private DefaultSBPVBonusSourceColumnWidth As Integer = 165
-
     ' Local versions of settings
     Private ApplicationSettings As ApplicationSettings
     Private BPSettings As BPTabSettings
@@ -934,7 +904,6 @@ Public Class ProgramSettings
     Private ShoppingListTabSettings As ShoppingListSettings
     Private LPStoreSettings As LPStore
     Private MarketHistoryViewSettings As MarketHistoryViewerSettings
-    Private UpwellStructureViewerSettings As UpwellStructureSettings
     Private BPViewSettings As BPViewerSettings
 
     ' Multiple versions of Asset windows
@@ -963,8 +932,6 @@ Public Class ProgramSettings
 
     Private Const LPStoreSettingsFileName As String = "LPStoreSettings"
     Private Const MarketHistoryViewerSettingsFileName As String = "MarketHistoryViewerSettings"
-    Private Const UpwellStructureViewerSettingsFileName As String = "UpwellStructureViewerSettings"
-    Private Const StructureBonusPopoutViewerSettingsFileName As String = "StructureBonusPopoutViewerSettings"
 
     ' For BP List Viewer
     Public DefaultBPViewerTechChecks As Boolean = True
@@ -1004,7 +971,6 @@ Public Class ProgramSettings
         ShoppingListTabSettings = Nothing
         LPStoreSettings = Nothing
         MarketHistoryViewSettings = Nothing
-        UpwellStructureViewerSettings = Nothing
         BPViewSettings = Nothing
 
     End Sub
@@ -4732,200 +4698,6 @@ Public Class ProgramSettings
 
 #End Region
 
-#Region "Upwell Structures Viewer Settings"
-
-    ' Loads the tab settings
-    Public Function LoadUpwellStructureViewerSettings() As UpwellStructureSettings
-        Dim TempSettings As UpwellStructureSettings = Nothing
-
-        Try
-
-            If FileExists(SettingsFolder, UpwellStructureViewerSettingsFileName) Then
-                'Get the settings
-                With TempSettings
-                    .HighSlotsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "HighSlotsCheck", DefaultHighSlotsCheck))
-                    .MediumSlotsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "MediumSlotsCheck", DefaultMediumSlotsCheck))
-                    .LowSlotsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "LowSlotsCheck", DefaultLowSlotsCheck))
-                    .ServicesCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "ServicesCheck", DefaultServicesCheck))
-                    .ReprocessingRigsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "ReprocessingRigsCheck", DefaultReprocessingRigsCheck))
-                    .EngineeringRigsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "EngineeringRigsCheck", DefaultEngineeringRigsCheck))
-                    .CombatRigsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "CombatRigsCheck", DefaultCombatRigsCheck))
-                    .IncludeFuelCostsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "IncludeFuelCostsCheck", DefaultIncludeFuelCostsCheck))
-                    .FuelBlockType = CStr(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeString, UpwellStructureViewerSettingsFileName, "FuelBlockType", DefaultFuelBlockType))
-                    .BuyBuildBlockOption = CStr(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeString, UpwellStructureViewerSettingsFileName, "BuyBuildBlockOption", DefaultBuyBuildBlockOption))
-                    .AutoUpdateFuelBlockPricesCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "AutoUpdateFuelBlockPricesCheck", DefaultAutoUpdateFuelBlockPricesCheck))
-                    .SearchFilterText = CStr(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeString, UpwellStructureViewerSettingsFileName, "SearchFilterText", DefaultSearchFilterText))
-                    .SelectedStructureName = CStr(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeString, UpwellStructureViewerSettingsFileName, "SelectedStructureName", DefaultSelectedStructureName))
-                    .ReactionsRigsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "ReactionsRigsCheck", DefaultReactionsRigsCheck))
-                    .DrillingRigsCheck = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "DrillingRigsCheck", DefaultDrillingRigsCheck))
-                    .IconListView = CBool(GetSettingValue(SettingsFolder, UpwellStructureViewerSettingsFileName, SettingTypes.TypeBoolean, UpwellStructureViewerSettingsFileName, "IconListView", DefaultIconListView))
-                End With
-
-            Else
-                ' Load defaults 
-                TempSettings = SetDefaultUpwellStructureViewerSettings()
-            End If
-
-        Catch ex As Exception
-            MsgBox("An error occured when loading UpwellStructureViewer Settings. Error: " & Err.Description & vbCrLf & "Default settings were loaded.", vbExclamation, Application.ProductName)
-            ' Load defaults 
-            TempSettings = SetDefaultUpwellStructureViewerSettings()
-        End Try
-
-        ' Save them locally and then export
-        UpwellStructureViewerSettings = TempSettings
-
-        Return TempSettings
-
-    End Function
-
-    Public Function SetDefaultUpwellStructureViewerSettings() As UpwellStructureSettings
-        Dim LocalSettings As UpwellStructureSettings
-
-        With LocalSettings
-            .HighSlotsCheck = DefaultHighSlotsCheck
-            .MediumSlotsCheck = DefaultMediumSlotsCheck
-            .LowSlotsCheck = DefaultLowSlotsCheck
-            .ServicesCheck = DefaultServicesCheck
-            .ReprocessingRigsCheck = DefaultReprocessingRigsCheck
-            .EngineeringRigsCheck = DefaultEngineeringRigsCheck
-            .CombatRigsCheck = DefaultCombatRigsCheck
-            .IncludeFuelCostsCheck = DefaultIncludeFuelCostsCheck
-            .FuelBlockType = DefaultFuelBlockType
-            .BuyBuildBlockOption = DefaultBuyBuildBlockOption
-            .AutoUpdateFuelBlockPricesCheck = DefaultAutoUpdateFuelBlockPricesCheck
-            .SearchFilterText = DefaultSearchFilterText
-            .SelectedStructureName = DefaultSelectedStructureName
-            .ReactionsRigsCheck = DefaultReactionsRigsCheck
-            .DrillingRigsCheck = DefaultDrillingRigsCheck
-            .IconListView = DefaultIconListView
-        End With
-
-        ' Save locally
-        UpwellStructureViewerSettings = LocalSettings
-        Return LocalSettings
-
-    End Function
-
-    ' Saves the tab settings to XML
-    Public Sub SaveUpwellStructureViewerSettings(SentSettings As UpwellStructureSettings)
-        Dim UpwellStructureViewerSettingsList(15) As Setting
-
-        Try
-            UpwellStructureViewerSettingsList(0) = New Setting("HighSlotsCheck", CStr(SentSettings.HighSlotsCheck))
-            UpwellStructureViewerSettingsList(1) = New Setting("MediumSlotsCheck", CStr(SentSettings.MediumSlotsCheck))
-            UpwellStructureViewerSettingsList(2) = New Setting("LowSlotsCheck", CStr(SentSettings.LowSlotsCheck))
-            UpwellStructureViewerSettingsList(3) = New Setting("ServicesCheck", CStr(SentSettings.ServicesCheck))
-            UpwellStructureViewerSettingsList(4) = New Setting("ReprocessingRigsCheck", CStr(SentSettings.ReprocessingRigsCheck))
-            UpwellStructureViewerSettingsList(5) = New Setting("EngineeringRigsCheck", CStr(SentSettings.EngineeringRigsCheck))
-            UpwellStructureViewerSettingsList(6) = New Setting("CombatRigsCheck", CStr(SentSettings.CombatRigsCheck))
-            UpwellStructureViewerSettingsList(7) = New Setting("IncludeFuelCostsCheck", CStr(SentSettings.IncludeFuelCostsCheck))
-            UpwellStructureViewerSettingsList(8) = New Setting("FuelBlockType", CStr(SentSettings.FuelBlockType))
-            UpwellStructureViewerSettingsList(9) = New Setting("BuyBuildBlockOption", CStr(SentSettings.BuyBuildBlockOption))
-            UpwellStructureViewerSettingsList(10) = New Setting("AutoUpdateFuelBlockPricesCheck", CStr(SentSettings.AutoUpdateFuelBlockPricesCheck))
-            UpwellStructureViewerSettingsList(11) = New Setting("SearchFilterText", CStr(SentSettings.SearchFilterText))
-            UpwellStructureViewerSettingsList(12) = New Setting("SelectedStructureName", CStr(SentSettings.SelectedStructureName))
-            UpwellStructureViewerSettingsList(13) = New Setting("ReactionsRigsCheck", CStr(SentSettings.ReactionsRigsCheck))
-            UpwellStructureViewerSettingsList(14) = New Setting("DrillingRigsCheck", CStr(SentSettings.DrillingRigsCheck))
-            UpwellStructureViewerSettingsList(15) = New Setting("IconListView", CStr(SentSettings.IconListView))
-
-            Call WriteSettingsToFile(SettingsFolder, UpwellStructureViewerSettingsFileName, UpwellStructureViewerSettingsList, UpwellStructureViewerSettingsFileName)
-
-        Catch ex As Exception
-            MsgBox("An error occured when saving Upwell Structures Viewer Settings. Error: " & Err.Description & vbCrLf & "Settings not saved.", vbExclamation, Application.ProductName)
-        End Try
-
-    End Sub
-
-    ' Returns the tab settings
-    Public Function GetUpwellStructureViewerSettings() As UpwellStructureSettings
-        Return UpwellStructureViewerSettings
-    End Function
-
-#End Region
-
-#Region "Bonus Popup Settings"
-
-    ' Loads the tab settings
-    Public Function LoadStructureBonusPopoutViewerSettings() As StructureBonusPopoutSettings
-        Dim TempSettings As StructureBonusPopoutSettings = Nothing
-
-        Try
-
-            If FileExists(SettingsFolder, StructureBonusPopoutViewerSettingsFileName) Then
-                'Get the settings
-                With TempSettings
-                    .FormHeight = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "FormHeight", DefaultSBPVFormHeight))
-                    .FormWidth = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "FormWidth", DefaultSBPVFormWidth))
-                    .ActivityColumnWidth = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "ActivityColumnWidth", DefaultSBPVActivityColumnWidth))
-                    .BonusAppliesColumnWidth = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "BonusAppliesColumnWidth", DefaultSBPVBonusAppliesColumnWidth))
-                    .BonusesColumnWidth = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "BonusesColumnWidth", DefaultSBPVBonusesColumnWidth))
-                    .BonusSourceColumnWidth = CInt(GetSettingValue(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, SettingTypes.TypeInteger, StructureBonusPopoutViewerSettingsFileName, "BonusSourceColumnWidth", DefaultSBPVBonusSourceColumnWidth))
-                End With
-
-            Else
-                ' Load defaults 
-                TempSettings = SetDefaultStructureBonusPopoutViewerSettings()
-            End If
-
-        Catch ex As Exception
-            MsgBox("An error occured when loading UpwellStructureViewer Settings. Error: " & Err.Description & vbCrLf & "Default settings were loaded.", vbExclamation, Application.ProductName)
-            ' Load defaults 
-            TempSettings = SetDefaultStructureBonusPopoutViewerSettings()
-        End Try
-
-        ' Save them locally and then export
-        StructureBonusPopoutViewerSettings = TempSettings
-
-        Return TempSettings
-
-    End Function
-
-    Public Function SetDefaultStructureBonusPopoutViewerSettings() As StructureBonusPopoutSettings
-        Dim LocalSettings As StructureBonusPopoutSettings
-
-        With LocalSettings
-            .FormHeight = DefaultSBPVFormHeight
-            .FormWidth = DefaultSBPVFormWidth
-            .ActivityColumnWidth = DefaultSBPVActivityColumnWidth
-            .BonusAppliesColumnWidth = DefaultSBPVBonusAppliesColumnWidth
-            .BonusesColumnWidth = DefaultSBPVBonusesColumnWidth
-            .BonusSourceColumnWidth = DefaultSBPVBonusSourceColumnWidth
-        End With
-
-        ' Save locally
-        StructureBonusPopoutViewerSettings = LocalSettings
-        Return LocalSettings
-
-    End Function
-
-    ' Saves the tab settings to XML
-    Public Sub SaveStructureBonusPopoutViewerSettings(SentSettings As StructureBonusPopoutSettings)
-        Dim StructureBonusPopoutViewerSettingsList(5) As Setting
-
-        Try
-            StructureBonusPopoutViewerSettingsList(0) = New Setting("FormHeight", CStr(SentSettings.FormHeight))
-            StructureBonusPopoutViewerSettingsList(1) = New Setting("FormWidth", CStr(SentSettings.FormWidth))
-            StructureBonusPopoutViewerSettingsList(2) = New Setting("ActivityColumnWidth", CStr(SentSettings.ActivityColumnWidth))
-            StructureBonusPopoutViewerSettingsList(3) = New Setting("BonusAppliesColumnWidth", CStr(SentSettings.BonusAppliesColumnWidth))
-            StructureBonusPopoutViewerSettingsList(4) = New Setting("BonusesColumnWidth", CStr(SentSettings.BonusesColumnWidth))
-            StructureBonusPopoutViewerSettingsList(5) = New Setting("BonusSourceColumnWidth", CStr(SentSettings.BonusSourceColumnWidth))
-
-            Call WriteSettingsToFile(SettingsFolder, StructureBonusPopoutViewerSettingsFileName, StructureBonusPopoutViewerSettingsList, StructureBonusPopoutViewerSettingsFileName)
-
-        Catch ex As Exception
-            MsgBox("An error occured when saving Upwell Structures Viewer Settings. Error: " & Err.Description & vbCrLf & "Settings not saved.", vbExclamation, Application.ProductName)
-        End Try
-
-    End Sub
-
-    ' Returns the tab settings
-    Public Function GetStructureBonusPopoutViewerSettings() As StructureBonusPopoutSettings
-        Return StructureBonusPopoutViewerSettings
-    End Function
-
-#End Region
-
 End Class
 
 ' For general program settings
@@ -5905,37 +5677,4 @@ Public Structure LPStore
 
     Dim SelectedCorporations As String ' CSV string with all the corp names checked
 
-End Structure
-
-' For Upwell Structures fitting window
-Public Structure UpwellStructureSettings
-    Dim HighSlotsCheck As Boolean
-    Dim MediumSlotsCheck As Boolean
-    Dim LowSlotsCheck As Boolean
-    Dim ServicesCheck As Boolean
-    Dim ReprocessingRigsCheck As Boolean
-    Dim EngineeringRigsCheck As Boolean
-    Dim CombatRigsCheck As Boolean
-    Dim ReactionsRigsCheck As Boolean
-    Dim DrillingRigsCheck As Boolean
-
-    Dim IncludeFuelCostsCheck As Boolean
-    Dim FuelBlockType As String
-    Dim BuyBuildBlockOption As String
-    Dim AutoUpdateFuelBlockPricesCheck As Boolean
-    Dim SearchFilterText As String
-    Dim SelectedStructureName As String
-
-    Dim IconListView As Boolean
-
-End Structure
-
-' For structure bonus viewing
-Public Structure StructureBonusPopoutSettings
-    Dim FormWidth As Integer
-    Dim FormHeight As Integer
-    Dim BonusAppliesColumnWidth As Integer
-    Dim ActivityColumnWidth As Integer
-    Dim BonusesColumnWidth As Integer
-    Dim BonusSourceColumnWidth As Integer
 End Structure
