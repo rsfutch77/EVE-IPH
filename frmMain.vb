@@ -415,21 +415,11 @@ Public Class frmMain
         UserBPTabSettings = AllSettings.LoadBPSettings
         UserUpdatePricesTabSettings = AllSettings.LoadUpdatePricesSettings
         UserManufacturingTabSettings = AllSettings.LoadManufacturingSettings
-        UserDCTabSettings = AllSettings.LoadDatacoreSettings
-        UserReactionTabSettings = AllSettings.LoadReactionSettings
-        UserMiningTabSettings = AllSettings.LoadMiningSettings
         UserIndustryJobsColumnSettings = AllSettings.LoadIndustryJobsColumnSettings
         UserManufacturingTabColumnSettings = AllSettings.LoadManufacturingTabColumnSettings
         UserShoppingListSettings = AllSettings.LoadShoppingListSettings
         UserMHViewerSettings = AllSettings.LoadMarketHistoryViewerSettingsSettings
         UserBPViewerSettings = AllSettings.LoadBPViewerSettings
-
-        UserIndustryFlipBeltSettings = AllSettings.LoadIndustryFlipBeltColumnSettings
-        UserIndustryFlipBeltOreCheckSettings1 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Small)
-        UserIndustryFlipBeltOreCheckSettings2 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Medium)
-        UserIndustryFlipBeltOreCheckSettings3 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Large)
-        UserIndustryFlipBeltOreCheckSettings4 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Enormous)
-        UserIndustryFlipBeltOreCheckSettings5 = AllSettings.LoadIndustryBeltOreChecksSettings(BeltType.Colossal)
 
         UserAssetWindowManufacturingTabSettings = AllSettings.LoadAssetWindowSettings(AssetWindow.ManufacturingTab)
         UserAssetWindowShoppingListSettings = AllSettings.LoadAssetWindowSettings(AssetWindow.ShoppingList)
@@ -1125,50 +1115,11 @@ Public Class frmMain
             RawCostSplit.SplitValue = MaterialsCost
             f1.CostSplits.Add(RawCostSplit)
 
-            ' Add reaction usage if it's a reaction for main bp
-            If ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                RawCostSplit.SplitName = "Reaction Facility Usage"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetReactionFacilityUsage
-            Else
-                ' Manufacturing Facility usage
-                RawCostSplit.SplitName = "Manufacturing Facilities Usage"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetManufacturingFacilityUsage
-            End If
+            ' Manufacturing Facility usage
+            RawCostSplit.SplitName = "Manufacturing Facilities Usage"
+            RawCostSplit.SplitValue = SelectedBlueprint.GetManufacturingFacilityUsage
 
             f1.CostSplits.Add(RawCostSplit)
-
-            If (SelectedBlueprint.HasComponents) Or MaterialType = "Raw" Then
-                If ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                    ' Reactions Facility Usage
-                    If SelectedBlueprint.GetTotalReactionFacilityUsage - SelectedBlueprint.GetReactionFacilityUsage > 0 Then
-                        RawCostSplit.SplitName = "Component Reaction Facilities Usage"
-                        RawCostSplit.SplitValue = SelectedBlueprint.GetTotalReactionFacilityUsage - SelectedBlueprint.GetReactionFacilityUsage
-                        f1.CostSplits.Add(RawCostSplit)
-                    End If
-                    ' Manufacturing Facility usage for fuel blocks
-                    RawCostSplit.SplitName = "Manufacturing Facilities Usage"
-                    RawCostSplit.SplitValue = SelectedBlueprint.GetManufacturingFacilityUsage
-                    f1.CostSplits.Add(RawCostSplit)
-                End If
-
-                ' The reaction blueprint won't have components or cap components
-                If Not ReactionTypes.Contains(SelectedBlueprint.GetItemData.GetMaterialGroup) Then
-                    ' Component Facility Usage
-                    RawCostSplit.SplitName = "Component Facilities Usage"
-                    RawCostSplit.SplitValue = SelectedBlueprint.GetComponentFacilityUsage
-                    f1.CostSplits.Add(RawCostSplit)
-
-                    ' Capital Component Facility Usage
-                    Select Case SelectedBlueprint.GetItemGroupID
-                        Case ItemIDs.TitanGroupID, ItemIDs.SupercarrierGroupID, ItemIDs.CarrierGroupID, ItemIDs.DreadnoughtGroupID,
-                        ItemIDs.JumpFreighterGroupID, ItemIDs.FreighterGroupID, ItemIDs.IndustrialCommandShipGroupID, ItemIDs.CapitalIndustrialShipGroupID, ItemIDs.FAXGroupID
-                            ' Only add cap component usage for ships that use them
-                            RawCostSplit.SplitName = "Capital Component Facilities Usage"
-                            RawCostSplit.SplitValue = SelectedBlueprint.GetCapComponentFacilityUsage
-                            f1.CostSplits.Add(RawCostSplit)
-                    End Select
-                End If
-            End If
 
             ' Taxes
             RawCostSplit.SplitName = "Taxes"
@@ -1184,26 +1135,6 @@ Public Class frmMain
             If SelectedBlueprint.GetAdditionalCosts <> 0 Then
                 RawCostSplit.SplitName = "Additional Costs"
                 RawCostSplit.SplitValue = SelectedBlueprint.GetAdditionalCosts
-                f1.CostSplits.Add(RawCostSplit)
-            End If
-
-            If SelectedBlueprint.GetTechLevel <> BPTechLevel.T1 Then
-                ' Total Invention Costs
-                RawCostSplit.SplitName = "Invention Costs"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetInventionCost
-                f1.CostSplits.Add(RawCostSplit)
-
-                RawCostSplit.SplitName = "Invention Usage"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetInventionUsage
-                f1.CostSplits.Add(RawCostSplit)
-
-                ' Total Copy Costs
-                RawCostSplit.SplitName = "Copy Costs"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetCopyCost
-                f1.CostSplits.Add(RawCostSplit)
-
-                RawCostSplit.SplitName = "Copy Usage"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetCopyUsage
                 f1.CostSplits.Add(RawCostSplit)
             End If
 
@@ -3313,33 +3244,14 @@ Tabs:
 
         ' Save all the usage values each time we update to allow updates for changing the facility
         If SelectedManufacturingFacility.FacilityProductionType = ProductionType.Reactions Then
-            SelectedManufacturingFacility.FacilityUsage = SelectedBlueprint.GetReactionFacilityUsage / DivideUnits
         Else
             SelectedManufacturingFacility.FacilityUsage = SelectedBlueprint.GetManufacturingFacilityUsage / DivideUnits
         End If
 
         ' Show the usage cost for the activity selected
         If UsedFacility.IncludeActivityUsage Then
-            Select Case UsedFacility.Activity
-                Case ManufacturingFacility.ActivityManufacturing
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetManufacturingFacilityUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetManufacturingFacility, True)
-                Case ManufacturingFacility.ActivityInvention
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetInventionUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetInventionFacility, False)
-                Case ManufacturingFacility.ActivityCopying
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetCopyUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetCopyFacility, False)
-                Case ManufacturingFacility.ActivityComponentManufacturing
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetComponentFacilityUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetComponentManufacturingFacility, True)
-                Case ManufacturingFacility.ActivityCapComponentManufacturing
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetCapComponentFacilityUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetCapitalComponentManufacturingFacility, True)
-                Case ManufacturingFacility.ActivityReactions
-                    UsedFacility.FacilityUsage = SelectedBlueprint.GetReactionFacilityUsage / DivideUnits
-                    TTText = GetUsageToolTipText(SelectedBlueprint.GetReactionFacility, True)
-            End Select
+            UsedFacility.FacilityUsage = SelectedBlueprint.GetManufacturingFacilityUsage / DivideUnits
+            TTText = GetUsageToolTipText(SelectedBlueprint.GetManufacturingFacility, True)
         Else
             UsedFacility.FacilityUsage = 0
         End If
@@ -6341,8 +6253,6 @@ ExitPRocessing:
             ColumnPositions(.SingleInventedBPCRuns) = ProgramSettings.SingleInventedBPCRunsColumnName
             ColumnPositions(.ProductionLines) = ProgramSettings.ProductionLinesColumnName
             ColumnPositions(.LaboratoryLines) = ProgramSettings.LaboratoryLinesColumnName
-            ColumnPositions(.TotalInventionCost) = ProgramSettings.TotalInventionCostColumnName
-            ColumnPositions(.TotalCopyCost) = ProgramSettings.TotalCopyCostColumnName
             ColumnPositions(.Taxes) = ProgramSettings.TaxesColumnName
             ColumnPositions(.BrokerFees) = ProgramSettings.BrokerFeesColumnName
             ColumnPositions(.BPProductionTime) = ProgramSettings.BPProductionTimeColumnName
@@ -6371,7 +6281,6 @@ ExitPRocessing:
             ColumnPositions(.TotalCost) = ProgramSettings.TotalCostColumnName
             ColumnPositions(.BaseJobCost) = ProgramSettings.BaseJobCostColumnName
             ColumnPositions(.NumBPs) = ProgramSettings.NumBPsColumnName
-            ColumnPositions(.InventionChance) = ProgramSettings.InventionChanceColumnName
             ColumnPositions(.BPType) = ProgramSettings.BPTypeColumnName
             ColumnPositions(.Race) = ProgramSettings.RaceColumnName
             ColumnPositions(.VolumeperItem) = ProgramSettings.VolumeperItemColumnName
@@ -6387,51 +6296,6 @@ ExitPRocessing:
             ColumnPositions(.ManufacturingFacilityTEBonus) = ProgramSettings.ManufacturingFacilityTEBonusColumnName
             ColumnPositions(.ManufacturingFacilityUsage) = ProgramSettings.ManufacturingFacilityUsageColumnName
             ColumnPositions(.ManufacturingFacilityFWSystemLevel) = ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
-            ColumnPositions(.ComponentFacilityName) = ProgramSettings.ComponentFacilityNameColumnName
-            ColumnPositions(.ComponentFacilitySystem) = ProgramSettings.ComponentFacilitySystemColumnName
-            ColumnPositions(.ComponentFacilityRegion) = ProgramSettings.ComponentFacilityRegionColumnName
-            ColumnPositions(.ComponentFacilitySystemIndex) = ProgramSettings.ComponentFacilitySystemIndexColumnName
-            ColumnPositions(.ComponentFacilityTax) = ProgramSettings.ComponentFacilityTaxColumnName
-            ColumnPositions(.ComponentFacilityMEBonus) = ProgramSettings.ComponentFacilityMEBonusColumnName
-            ColumnPositions(.ComponentFacilityTEBonus) = ProgramSettings.ComponentFacilityTEBonusColumnName
-            ColumnPositions(.ComponentFacilityUsage) = ProgramSettings.ComponentFacilityUsageColumnName
-            ColumnPositions(.ComponentFacilityFWSystemLevel) = ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-            ColumnPositions(.CapComponentFacilityName) = ProgramSettings.CapComponentFacilityNameColumnName
-            ColumnPositions(.CapComponentFacilitySystem) = ProgramSettings.CapComponentFacilitySystemColumnName
-            ColumnPositions(.CapComponentFacilityRegion) = ProgramSettings.CapComponentFacilityRegionColumnName
-            ColumnPositions(.CapComponentFacilitySystemIndex) = ProgramSettings.CapComponentFacilitySystemIndexColumnName
-            ColumnPositions(.CapComponentFacilityTax) = ProgramSettings.CapComponentFacilityTaxColumnName
-            ColumnPositions(.CapComponentFacilityMEBonus) = ProgramSettings.CapComponentFacilityMEBonusColumnName
-            ColumnPositions(.CapComponentFacilityTEBonus) = ProgramSettings.CapComponentFacilityTEBonusColumnName
-            ColumnPositions(.CapComponentFacilityUsage) = ProgramSettings.CapComponentFacilityUsageColumnName
-            ColumnPositions(.CapComponentFacilityFWSystemLevel) = ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-            ColumnPositions(.CopyingFacilityName) = ProgramSettings.CopyingFacilityNameColumnName
-            ColumnPositions(.CopyingFacilitySystem) = ProgramSettings.CopyingFacilitySystemColumnName
-            ColumnPositions(.CopyingFacilityRegion) = ProgramSettings.CopyingFacilityRegionColumnName
-            ColumnPositions(.CopyingFacilitySystemIndex) = ProgramSettings.CopyingFacilitySystemIndexColumnName
-            ColumnPositions(.CopyingFacilityTax) = ProgramSettings.CopyingFacilityTaxColumnName
-            ColumnPositions(.CopyingFacilityMEBonus) = ProgramSettings.CopyingFacilityMEBonusColumnName
-            ColumnPositions(.CopyingFacilityTEBonus) = ProgramSettings.CopyingFacilityTEBonusColumnName
-            ColumnPositions(.CopyingFacilityUsage) = ProgramSettings.CopyingFacilityUsageColumnName
-            ColumnPositions(.CopyingFacilityFWSystemLevel) = ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-            ColumnPositions(.InventionFacilityName) = ProgramSettings.InventionFacilityNameColumnName
-            ColumnPositions(.InventionFacilitySystem) = ProgramSettings.InventionFacilitySystemColumnName
-            ColumnPositions(.InventionFacilityRegion) = ProgramSettings.InventionFacilityRegionColumnName
-            ColumnPositions(.InventionFacilitySystemIndex) = ProgramSettings.InventionFacilitySystemIndexColumnName
-            ColumnPositions(.InventionFacilityTax) = ProgramSettings.InventionFacilityTaxColumnName
-            ColumnPositions(.InventionFacilityMEBonus) = ProgramSettings.InventionFacilityMEBonusColumnName
-            ColumnPositions(.InventionFacilityTEBonus) = ProgramSettings.InventionFacilityTEBonusColumnName
-            ColumnPositions(.InventionFacilityUsage) = ProgramSettings.InventionFacilityUsageColumnName
-            ColumnPositions(.InventionFacilityFWSystemLevel) = ProgramSettings.InventionFacilityFWSystemLevelColumnName
-            ColumnPositions(.ReactionFacilityName) = ProgramSettings.ReactionFacilityNameColumnName
-            ColumnPositions(.ReactionFacilitySystem) = ProgramSettings.ReactionFacilitySystemColumnName
-            ColumnPositions(.ReactionFacilityRegion) = ProgramSettings.ReactionFacilityRegionColumnName
-            ColumnPositions(.ReactionFacilitySystemIndex) = ProgramSettings.ReactionFacilitySystemIndexColumnName
-            ColumnPositions(.ReactionFacilityTax) = ProgramSettings.ReactionFacilityTaxColumnName
-            ColumnPositions(.ReactionFacilityMEBonus) = ProgramSettings.ReactionFacilityMEBonusColumnName
-            ColumnPositions(.ReactionFacilityTEBonus) = ProgramSettings.ReactionFacilityTEBonusColumnName
-            ColumnPositions(.ReactionFacilityUsage) = ProgramSettings.ReactionFacilityUsageColumnName
-            ColumnPositions(.ReactionFacilityFWSystemLevel) = ProgramSettings.ReactionFacilityFWSystemLevelColumnName
         End With
 
         ' First column is always the ListID
@@ -6470,10 +6334,6 @@ ExitPRocessing:
                     Return .ProductionLinesWidth
                 Case ProgramSettings.LaboratoryLinesColumnName
                     Return .LaboratoryLinesWidth
-                Case ProgramSettings.TotalInventionCostColumnName
-                    Return .TotalInventionCostWidth
-                Case ProgramSettings.TotalCopyCostColumnName
-                    Return .TotalCopyCostWidth
                 Case ProgramSettings.TaxesColumnName
                     Return .TaxesWidth
                 Case ProgramSettings.BrokerFeesColumnName
@@ -6530,8 +6390,6 @@ ExitPRocessing:
                     Return .BaseJobCostWidth
                 Case ProgramSettings.NumBPsColumnName
                     Return .NumBPsWidth
-                Case ProgramSettings.InventionChanceColumnName
-                    Return .InventionChanceWidth
                 Case ProgramSettings.BPTypeColumnName
                     Return .BPTypeWidth
                 Case ProgramSettings.RaceColumnName
@@ -6562,96 +6420,6 @@ ExitPRocessing:
                     Return .ManufacturingFacilityUsageWidth
                 Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
                     Return .ManufacturingFacilityFWSystemLevelWidth
-                Case ProgramSettings.ComponentFacilityNameColumnName
-                    Return .ComponentFacilityNameWidth
-                Case ProgramSettings.ComponentFacilitySystemColumnName
-                    Return .ComponentFacilitySystemWidth
-                Case ProgramSettings.ComponentFacilityRegionColumnName
-                    Return .ComponentFacilityRegionWidth
-                Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                    Return .ComponentFacilitySystemIndexWidth
-                Case ProgramSettings.ComponentFacilityTaxColumnName
-                    Return .ComponentFacilityTaxWidth
-                Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                    Return .ComponentFacilityMEBonusWidth
-                Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                    Return .ComponentFacilityTEBonusWidth
-                Case ProgramSettings.ComponentFacilityUsageColumnName
-                    Return .ComponentFacilityUsageWidth
-                Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                    Return .ComponentFacilityFWSystemLevelWidth
-                Case ProgramSettings.CapComponentFacilityNameColumnName
-                    Return .CapComponentFacilityNameWidth
-                Case ProgramSettings.CapComponentFacilitySystemColumnName
-                    Return .CapComponentFacilitySystemWidth
-                Case ProgramSettings.CapComponentFacilityRegionColumnName
-                    Return .CapComponentFacilityRegionWidth
-                Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                    Return .CapComponentFacilitySystemIndexWidth
-                Case ProgramSettings.CapComponentFacilityTaxColumnName
-                    Return .CapComponentFacilityTaxWidth
-                Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                    Return .CapComponentFacilityMEBonusWidth
-                Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                    Return .CapComponentFacilityTEBonusWidth
-                Case ProgramSettings.CapComponentFacilityUsageColumnName
-                    Return .CapComponentFacilityUsageWidth
-                Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                    Return .CapComponentFacilityFWSystemLevelWidth
-                Case ProgramSettings.CopyingFacilityNameColumnName
-                    Return .CopyingFacilityNameWidth
-                Case ProgramSettings.CopyingFacilitySystemColumnName
-                    Return .CopyingFacilitySystemWidth
-                Case ProgramSettings.CopyingFacilityRegionColumnName
-                    Return .CopyingFacilityRegionWidth
-                Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                    Return .CopyingFacilitySystemIndexWidth
-                Case ProgramSettings.CopyingFacilityTaxColumnName
-                    Return .CopyingFacilityTaxWidth
-                Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                    Return .CopyingFacilityMEBonusWidth
-                Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                    Return .CopyingFacilityTEBonusWidth
-                Case ProgramSettings.CopyingFacilityUsageColumnName
-                    Return .CopyingFacilityUsageWidth
-                Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                    Return .CopyingFacilityFWSystemLevelWidth
-                Case ProgramSettings.InventionFacilityNameColumnName
-                    Return .InventionFacilityNameWidth
-                Case ProgramSettings.InventionFacilitySystemColumnName
-                    Return .InventionFacilitySystemWidth
-                Case ProgramSettings.InventionFacilityRegionColumnName
-                    Return .InventionFacilityRegionWidth
-                Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                    Return .InventionFacilitySystemIndexWidth
-                Case ProgramSettings.InventionFacilityTaxColumnName
-                    Return .InventionFacilityTaxWidth
-                Case ProgramSettings.InventionFacilityMEBonusColumnName
-                    Return .InventionFacilityMEBonusWidth
-                Case ProgramSettings.InventionFacilityTEBonusColumnName
-                    Return .InventionFacilityTEBonusWidth
-                Case ProgramSettings.InventionFacilityUsageColumnName
-                    Return .InventionFacilityUsageWidth
-                Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                    Return .InventionFacilityFWSystemLevelWidth
-                Case ProgramSettings.ReactionFacilityNameColumnName
-                    Return .ReactionFacilityNameWidth
-                Case ProgramSettings.ReactionFacilitySystemColumnName
-                    Return .ReactionFacilitySystemWidth
-                Case ProgramSettings.ReactionFacilityRegionColumnName
-                    Return .ReactionFacilityRegionWidth
-                Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                    Return .ReactionFacilitySystemIndexWidth
-                Case ProgramSettings.ReactionFacilityTaxColumnName
-                    Return .ReactionFacilityTaxWidth
-                Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                    Return .ReactionFacilityMEBonusWidth
-                Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                    Return .ReactionFacilityTEBonusWidth
-                Case ProgramSettings.ReactionFacilityUsageColumnName
-                    Return .ReactionFacilityUsageWidth
-                Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
-                    Return .ReactionFacilityFWSystemLevelWidth
                 Case Else
                     Return 0
             End Select
@@ -6743,10 +6511,6 @@ ExitPRocessing:
                         .ProductionLines = i
                     Case ProgramSettings.LaboratoryLinesColumnName
                         .LaboratoryLines = i
-                    Case ProgramSettings.TotalInventionCostColumnName
-                        .TotalInventionCost = i
-                    Case ProgramSettings.TotalCopyCostColumnName
-                        .TotalCopyCost = i
                     Case ProgramSettings.TaxesColumnName
                         .Taxes = i
                     Case ProgramSettings.BrokerFeesColumnName
@@ -6799,8 +6563,6 @@ ExitPRocessing:
                         .BaseJobCost = i
                     Case ProgramSettings.NumBPsColumnName
                         .NumBPs = i
-                    Case ProgramSettings.InventionChanceColumnName
-                        .InventionChance = i
                     Case ProgramSettings.BPTypeColumnName
                         .BPType = i
                     Case ProgramSettings.RaceColumnName
@@ -6831,96 +6593,6 @@ ExitPRocessing:
                         .ManufacturingFacilityUsage = i
                     Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
                         .ManufacturingFacilityFWSystemLevel = i
-                    Case ProgramSettings.ComponentFacilityNameColumnName
-                        .ComponentFacilityName = i
-                    Case ProgramSettings.ComponentFacilitySystemColumnName
-                        .ComponentFacilitySystem = i
-                    Case ProgramSettings.ComponentFacilityRegionColumnName
-                        .ComponentFacilityRegion = i
-                    Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                        .ComponentFacilitySystemIndex = i
-                    Case ProgramSettings.ComponentFacilityTaxColumnName
-                        .ComponentFacilityTax = i
-                    Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                        .ComponentFacilityMEBonus = i
-                    Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                        .ComponentFacilityTEBonus = i
-                    Case ProgramSettings.ComponentFacilityUsageColumnName
-                        .ComponentFacilityUsage = i
-                    Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                        .ComponentFacilityFWSystemLevel = i
-                    Case ProgramSettings.CapComponentFacilityNameColumnName
-                        .CapComponentFacilityName = i
-                    Case ProgramSettings.CapComponentFacilitySystemColumnName
-                        .CapComponentFacilitySystem = i
-                    Case ProgramSettings.CapComponentFacilityRegionColumnName
-                        .CapComponentFacilityRegion = i
-                    Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                        .CapComponentFacilitySystemIndex = i
-                    Case ProgramSettings.CapComponentFacilityTaxColumnName
-                        .CapComponentFacilityTax = i
-                    Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                        .CapComponentFacilityMEBonus = i
-                    Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                        .CapComponentFacilityTEBonus = i
-                    Case ProgramSettings.CapComponentFacilityUsageColumnName
-                        .CapComponentFacilityUsage = i
-                    Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                        .CapComponentFacilityFWSystemLevel = i
-                    Case ProgramSettings.CopyingFacilityNameColumnName
-                        .CopyingFacilityName = i
-                    Case ProgramSettings.CopyingFacilitySystemColumnName
-                        .CopyingFacilitySystem = i
-                    Case ProgramSettings.CopyingFacilityRegionColumnName
-                        .CopyingFacilityRegion = i
-                    Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                        .CopyingFacilitySystemIndex = i
-                    Case ProgramSettings.CopyingFacilityTaxColumnName
-                        .CopyingFacilityTax = i
-                    Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                        .CopyingFacilityMEBonus = i
-                    Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                        .CopyingFacilityTEBonus = i
-                    Case ProgramSettings.CopyingFacilityUsageColumnName
-                        .CopyingFacilityUsage = i
-                    Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                        .CopyingFacilityFWSystemLevel = i
-                    Case ProgramSettings.InventionFacilityNameColumnName
-                        .InventionFacilityName = i
-                    Case ProgramSettings.InventionFacilitySystemColumnName
-                        .InventionFacilitySystem = i
-                    Case ProgramSettings.InventionFacilityRegionColumnName
-                        .InventionFacilityRegion = i
-                    Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                        .InventionFacilitySystemIndex = i
-                    Case ProgramSettings.InventionFacilityTaxColumnName
-                        .InventionFacilityTax = i
-                    Case ProgramSettings.InventionFacilityMEBonusColumnName
-                        .InventionFacilityMEBonus = i
-                    Case ProgramSettings.InventionFacilityTEBonusColumnName
-                        .InventionFacilityTEBonus = i
-                    Case ProgramSettings.InventionFacilityUsageColumnName
-                        .InventionFacilityUsage = i
-                    Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                        .InventionFacilityFWSystemLevel = i
-                    Case ProgramSettings.ReactionFacilityNameColumnName
-                        .ReactionFacilityName = i
-                    Case ProgramSettings.ReactionFacilitySystemColumnName
-                        .ReactionFacilitySystem = i
-                    Case ProgramSettings.ReactionFacilityRegionColumnName
-                        .ReactionFacilityRegion = i
-                    Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                        .ReactionFacilitySystemIndex = i
-                    Case ProgramSettings.ReactionFacilityTaxColumnName
-                        .ReactionFacilityTax = i
-                    Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                        .ReactionFacilityMEBonus = i
-                    Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                        .ReactionFacilityTEBonus = i
-                    Case ProgramSettings.ReactionFacilityUsageColumnName
-                        .ReactionFacilityUsage = i
-                    Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
-                        .ReactionFacilityFWSystemLevel = i
                 End Select
             Next
         End With
@@ -6968,10 +6640,6 @@ ExitPRocessing:
                         .ProductionLinesWidth = NewWidth
                     Case ProgramSettings.LaboratoryLinesColumnName
                         .LaboratoryLinesWidth = NewWidth
-                    Case ProgramSettings.TotalInventionCostColumnName
-                        .TotalInventionCostWidth = NewWidth
-                    Case ProgramSettings.TotalCopyCostColumnName
-                        .TotalCopyCostWidth = NewWidth
                     Case ProgramSettings.TaxesColumnName
                         .TaxesWidth = NewWidth
                     Case ProgramSettings.BrokerFeesColumnName
@@ -7024,8 +6692,6 @@ ExitPRocessing:
                         .BaseJobCostWidth = NewWidth
                     Case ProgramSettings.NumBPsColumnName
                         .NumBPsWidth = NewWidth
-                    Case ProgramSettings.InventionChanceColumnName
-                        .InventionChanceWidth = NewWidth
                     Case ProgramSettings.BPTypeColumnName
                         .BPTypeWidth = NewWidth
                     Case ProgramSettings.RaceColumnName
@@ -7056,96 +6722,6 @@ ExitPRocessing:
                         .ManufacturingFacilityUsageWidth = NewWidth
                     Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
                         .ManufacturingFacilityFWSystemLevelWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityNameColumnName
-                        .ComponentFacilityNameWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilitySystemColumnName
-                        .ComponentFacilitySystemWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityRegionColumnName
-                        .ComponentFacilityRegionWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                        .ComponentFacilitySystemIndexWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityTaxColumnName
-                        .ComponentFacilityTaxWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                        .ComponentFacilityMEBonusWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                        .ComponentFacilityTEBonusWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityUsageColumnName
-                        .ComponentFacilityUsageWidth = NewWidth
-                    Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                        .ComponentFacilityFWSystemLevelWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityNameColumnName
-                        .CapComponentFacilityNameWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilitySystemColumnName
-                        .CapComponentFacilitySystemWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityRegionColumnName
-                        .CapComponentFacilityRegionWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                        .CapComponentFacilitySystemIndexWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityTaxColumnName
-                        .CapComponentFacilityTaxWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                        .CapComponentFacilityMEBonusWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                        .CapComponentFacilityTEBonusWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityUsageColumnName
-                        .CapComponentFacilityUsageWidth = NewWidth
-                    Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                        .CapComponentFacilityFWSystemLevelWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityNameColumnName
-                        .CopyingFacilityNameWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilitySystemColumnName
-                        .CopyingFacilitySystemWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityRegionColumnName
-                        .CopyingFacilityRegionWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                        .CopyingFacilitySystemIndexWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityTaxColumnName
-                        .CopyingFacilityTaxWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                        .CopyingFacilityMEBonusWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                        .CopyingFacilityTEBonusWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityUsageColumnName
-                        .CopyingFacilityUsageWidth = NewWidth
-                    Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                        .CopyingFacilityFWSystemLevelWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityNameColumnName
-                        .InventionFacilityNameWidth = NewWidth
-                    Case ProgramSettings.InventionFacilitySystemColumnName
-                        .InventionFacilitySystemWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityRegionColumnName
-                        .InventionFacilityRegionWidth = NewWidth
-                    Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                        .InventionFacilitySystemIndexWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityTaxColumnName
-                        .InventionFacilityTaxWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityMEBonusColumnName
-                        .InventionFacilityMEBonusWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityTEBonusColumnName
-                        .InventionFacilityTEBonusWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityUsageColumnName
-                        .InventionFacilityUsageWidth = NewWidth
-                    Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                        .InventionFacilityFWSystemLevelWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityNameColumnName
-                        .ReactionFacilityNameWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilitySystemColumnName
-                        .ReactionFacilitySystemWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityRegionColumnName
-                        .ReactionFacilityRegionWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                        .ReactionFacilitySystemIndexWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityTaxColumnName
-                        .ReactionFacilityTaxWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                        .ReactionFacilityMEBonusWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                        .ReactionFacilityTEBonusWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityUsageColumnName
-                        .ReactionFacilityUsageWidth = NewWidth
-                    Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
-                        .ReactionFacilityFWSystemLevelWidth = NewWidth
                 End Select
             End With
         End If
@@ -7190,10 +6766,6 @@ ExitPRocessing:
             Case ProgramSettings.ProductionLinesColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.LaboratoryLinesColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.TotalInventionCostColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.TotalCopyCostColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.TaxesColumnName
                 Return HorizontalAlignment.Right
@@ -7251,8 +6823,6 @@ ExitPRocessing:
                 Return HorizontalAlignment.Right
             Case ProgramSettings.NumBPsColumnName
                 Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionChanceColumnName
-                Return HorizontalAlignment.Right
             Case ProgramSettings.BPTypeColumnName
                 Return HorizontalAlignment.Left
             Case ProgramSettings.RaceColumnName
@@ -7282,96 +6852,6 @@ ExitPRocessing:
             Case ProgramSettings.ManufacturingFacilityUsageColumnName
                 Return HorizontalAlignment.Right
             Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ComponentFacilityNameColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ComponentFacilitySystemColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ComponentFacilityRegionColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ComponentFacilityTaxColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ComponentFacilityUsageColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CapComponentFacilityNameColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CapComponentFacilitySystemColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CapComponentFacilityRegionColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CapComponentFacilityTaxColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CapComponentFacilityUsageColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CopyingFacilityNameColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CopyingFacilitySystemColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CopyingFacilityRegionColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.CopyingFacilityTaxColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CopyingFacilityUsageColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionFacilityNameColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.InventionFacilitySystemColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.InventionFacilityRegionColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.InventionFacilityTaxColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionFacilityMEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionFacilityTEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionFacilityUsageColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ReactionFacilityNameColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ReactionFacilitySystemColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ReactionFacilityRegionColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                Return HorizontalAlignment.Left
-            Case ProgramSettings.ReactionFacilityTaxColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ReactionFacilityUsageColumnName
-                Return HorizontalAlignment.Right
-            Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
                 Return HorizontalAlignment.Right
             Case Else
                 Return 0
@@ -7783,13 +7263,6 @@ ExitPRocessing:
 
                 ' Reset all the industry facilities
                 InsertItem.ManufacturingFacility = New IndustryFacility
-                InsertItem.ComponentManufacturingFacility = New IndustryFacility
-                InsertItem.CapComponentManufacturingFacility = New IndustryFacility
-                InsertItem.CopyFacility = New IndustryFacility
-                InsertItem.InventionFacility = New IndustryFacility
-                InsertItem.ReactionFacility = New IndustryFacility
-
-                Dim SelectedIndyType As ProductionType
                 Dim TempFacility As New ManufacturingFacility
 
                 Dim BuildType As ProductionType
@@ -7805,19 +7278,11 @@ ExitPRocessing:
 
                 InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(BuildType)
 
-                If BuildType = ProductionType.Reactions Then
-                    'Need to use the manufacturing facility instead of component facility since they are more likely to make fuel blocks for reactions there
-                    InsertItem.ComponentManufacturingFacility = CalcBaseFacility.GetFacility(ProductionType.Manufacturing)
-                End If
-
                 ' Now determine how many copies of the base item we need with different data changed
                 ' If T1, just select compare types (raw and components)
                 InsertItem.Inputs = None
                 InsertItem.Relic = ""
                 InsertItem.Decryptor = NoDecryptor
-
-                InsertItem.InventionFacility = NoFacility
-                InsertItem.CopyFacility = NoFacility
 
                 ' Insert the items based on compare types
                 Call InsertItemCalcType(BaseItems, InsertItem, False, New List(Of IndustryFacility), ListRowFormats)
@@ -7942,7 +7407,7 @@ ExitPRocessing:
                     ManufacturingBlueprint = New Blueprint(InsertItem.BPID, 1, InsertItem.BPME, InsertItem.BPTE,
                                                            NumberofBlueprints, 1, SelectedCharacter,
                                                            UserApplicationSettings, False, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
-                                                           InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility, InsertItem.ReactionFacility,
+                                                           New IndustryFacility, New IndustryFacility, New IndustryFacility,
                                                            False, UserManufacturingTabSettings.BuildT2T3Materials, True)
 
                     ' Build the blueprint(s)
@@ -8005,11 +7470,9 @@ ExitPRocessing:
                                 InsertItem.TotalCost = ManufacturingBlueprint.GetTotalComponentCost
                                 InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                                 InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
-                                InsertItem.SingleInventedBPCRunsperBPC = ManufacturingBlueprint.GetSingleInventedBPCRuns
                                 InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
                                 InsertItem.JobFee = ManufacturingBlueprint.GetJobFee
                                 InsertItem.NumBPs = ManufacturingBlueprint.GetUsedNumBPs
-                                InsertItem.InventionChance = ManufacturingBlueprint.GetInventionChance
                                 InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
@@ -8019,29 +7482,10 @@ ExitPRocessing:
 
                                 InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                                 InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits) ' Total production time for components only is always the bp production time
-                                InsertItem.CopyTime = FormatIPHTime(ManufacturingBlueprint.GetCopyTime / InsertItem.DivideUnits)
-                                InsertItem.InventionTime = FormatIPHTime(ManufacturingBlueprint.GetInventionTime / InsertItem.DivideUnits)
-
-                                If (ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 Or ManufacturingBlueprint.GetTechLevel = BPTechLevel.T3) _
-                                    And (InsertItem.BlueprintType <> BPType.Original And InsertItem.BlueprintType <> BPType.Copy) Then
-                                    InsertItem.InventionCost = ManufacturingBlueprint.GetInventionCost
-                                Else
-                                    InsertItem.InventionCost = 0
-                                End If
-
-                                If ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 Then
-                                    InsertItem.CopyCost = ManufacturingBlueprint.GetCopyCost
-                                Else
-                                    InsertItem.CopyCost = 0
-                                End If
 
                                 ' Usage
                                 InsertItem.ManufacturingFacilityUsage = ManufacturingBlueprint.GetManufacturingFacilityUsage
-                                ' Don't build components in this calculation
-                                InsertItem.ComponentManufacturingFacilityUsage = 0
-                                InsertItem.CapComponentManufacturingFacilityUsage = 0
-                                InsertItem.CopyFacilityUsage = ManufacturingBlueprint.GetCopyUsage
-                                InsertItem.InventionFacilityUsage = ManufacturingBlueprint.GetInventionUsage
+
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
 
@@ -8068,11 +7512,9 @@ ExitPRocessing:
                             InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
                             InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                             InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
-                            InsertItem.SingleInventedBPCRunsperBPC = ManufacturingBlueprint.GetSingleInventedBPCRuns
                             InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
                             InsertItem.JobFee = ManufacturingBlueprint.GetJobFee
                             InsertItem.NumBPs = ManufacturingBlueprint.GetUsedNumBPs
-                            InsertItem.InventionChance = ManufacturingBlueprint.GetInventionChance
                             InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
@@ -8082,29 +7524,9 @@ ExitPRocessing:
 
                             InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                             InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
-                            InsertItem.CopyTime = FormatIPHTime(ManufacturingBlueprint.GetCopyTime / InsertItem.DivideUnits)
-                            InsertItem.InventionTime = FormatIPHTime(ManufacturingBlueprint.GetInventionTime / InsertItem.DivideUnits)
-
-                            If (ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 Or ManufacturingBlueprint.GetTechLevel = BPTechLevel.T3) _
-                                    And (InsertItem.BlueprintType <> BPType.Original And InsertItem.BlueprintType <> BPType.Copy) Then
-                                InsertItem.InventionCost = ManufacturingBlueprint.GetInventionCost
-                            Else
-                                InsertItem.InventionCost = 0
-                            End If
-
-                            If ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 And InsertItem.BlueprintType <> BPType.Original Then
-                                InsertItem.CopyCost = ManufacturingBlueprint.GetCopyCost
-                            Else
-                                InsertItem.CopyCost = 0
-                            End If
 
                             ' Usage
                             InsertItem.ManufacturingFacilityUsage = ManufacturingBlueprint.GetManufacturingFacilityUsage
-                            InsertItem.ComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetComponentFacilityUsage
-                            InsertItem.CapComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetCapComponentFacilityUsage
-                            InsertItem.ReactionFacilityUsage = ManufacturingBlueprint.GetTotalReactionFacilityUsage
-                            InsertItem.CopyFacilityUsage = ManufacturingBlueprint.GetCopyUsage
-                            InsertItem.InventionFacilityUsage = ManufacturingBlueprint.GetInventionUsage
 
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
@@ -8121,15 +7543,8 @@ ExitPRocessing:
                             ManufacturingBlueprint = New Blueprint(InsertItem.BPID, 1, InsertItem.BPME, InsertItem.BPTE,
                                                         NumberofBlueprints, 1, SelectedCharacter,
                                                         UserApplicationSettings, True, InsertItem.AddlCosts, InsertItem.ManufacturingFacility,
-                                                        InsertItem.ComponentManufacturingFacility, InsertItem.CapComponentManufacturingFacility,
-                                                        InsertItem.ReactionFacility, False, UserManufacturingTabSettings.BuildT2T3Materials, True)
-
-                            If ((InsertItem.TechLevel = "T2" Or InsertItem.TechLevel = "T3") And InsertItem.BlueprintType = BPType.InventedBPC) Then
-                                ' Construct the T2/T3 BP
-                                ManufacturingBlueprint.InventBlueprint(1, SelectedDecryptor, InsertItem.InventionFacility,
-                                                                       InsertItem.CopyFacility, GetInventItemTypeID(InsertItem.BPID, InsertItem.Relic))
-
-                            End If
+                                                        New IndustryFacility, New IndustryFacility,
+                                                        New IndustryFacility, False, UserManufacturingTabSettings.BuildT2T3Materials, True)
 
                             ' Get the list of materials
                             Call ManufacturingBlueprint.BuildItems(True, GetBrokerFeeData(), False, False, False)
@@ -8149,11 +7564,9 @@ ExitPRocessing:
                                 InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
                                 InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                                 InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
-                                InsertItem.SingleInventedBPCRunsperBPC = ManufacturingBlueprint.GetSingleInventedBPCRuns
                                 InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
                                 InsertItem.JobFee = ManufacturingBlueprint.GetJobFee
                                 InsertItem.NumBPs = ManufacturingBlueprint.GetUsedNumBPs
-                                InsertItem.InventionChance = ManufacturingBlueprint.GetInventionChance
                                 InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
@@ -8163,29 +7576,9 @@ ExitPRocessing:
 
                                 InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                                 InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
-                                InsertItem.CopyTime = FormatIPHTime(ManufacturingBlueprint.GetCopyTime / InsertItem.DivideUnits)
-                                InsertItem.InventionTime = FormatIPHTime(ManufacturingBlueprint.GetInventionTime / InsertItem.DivideUnits)
-
-                                If (ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 Or ManufacturingBlueprint.GetTechLevel = BPTechLevel.T3) _
-                                    And (InsertItem.BlueprintType <> BPType.Original And InsertItem.BlueprintType <> BPType.Copy) Then
-                                    InsertItem.InventionCost = ManufacturingBlueprint.GetInventionCost
-                                Else
-                                    InsertItem.InventionCost = 0
-                                End If
-
-                                If ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 And InsertItem.BlueprintType <> BPType.Original Then
-                                    InsertItem.CopyCost = ManufacturingBlueprint.GetCopyCost
-                                Else
-                                    InsertItem.CopyCost = 0
-                                End If
 
                                 ' Usage
                                 InsertItem.ManufacturingFacilityUsage = ManufacturingBlueprint.GetManufacturingFacilityUsage
-                                InsertItem.ComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetComponentFacilityUsage
-                                InsertItem.CapComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetCapComponentFacilityUsage
-                                InsertItem.ReactionFacilityUsage = ManufacturingBlueprint.GetReactionFacilityUsage
-                                InsertItem.CopyFacilityUsage = ManufacturingBlueprint.GetCopyUsage
-                                InsertItem.InventionFacilityUsage = ManufacturingBlueprint.GetInventionUsage
 
                                 ' Save the bp
                                 InsertItem.Blueprint = ManufacturingBlueprint
@@ -8202,11 +7595,9 @@ ExitPRocessing:
 
                             InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                             InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
-                            InsertItem.SingleInventedBPCRunsperBPC = ManufacturingBlueprint.GetSingleInventedBPCRuns
                             InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
                             InsertItem.JobFee = ManufacturingBlueprint.GetJobFee
                             InsertItem.NumBPs = ManufacturingBlueprint.GetUsedNumBPs
-                            InsertItem.InventionChance = ManufacturingBlueprint.GetInventionChance
                             InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
@@ -8217,35 +7608,8 @@ ExitPRocessing:
                             InsertItem.BPProductionTime = FormatIPHTime(ManufacturingBlueprint.GetProductionTime / InsertItem.DivideUnits)
                             InsertItem.TotalProductionTime = FormatIPHTime(ManufacturingBlueprint.GetTotalProductionTime / InsertItem.DivideUnits)
 
-                            InsertItem.CopyTime = FormatIPHTime(ManufacturingBlueprint.GetCopyTime / InsertItem.DivideUnits)
-                            InsertItem.InventionTime = FormatIPHTime(ManufacturingBlueprint.GetInventionTime / InsertItem.DivideUnits)
-
-                            If (ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 Or ManufacturingBlueprint.GetTechLevel = BPTechLevel.T3) _
-                                    And (InsertItem.BlueprintType <> BPType.Original And InsertItem.BlueprintType <> BPType.Copy) Then
-                                InsertItem.InventionCost = ManufacturingBlueprint.GetInventionCost
-                            Else
-                                InsertItem.InventionCost = 0
-                            End If
-
-                            If ManufacturingBlueprint.GetTechLevel = BPTechLevel.T2 And InsertItem.BlueprintType <> BPType.Original Then
-                                InsertItem.CopyCost = ManufacturingBlueprint.GetCopyCost
-                            Else
-                                InsertItem.CopyCost = 0
-                            End If
-
                             ' Usage
-                            ' If it's a reaction, we don't want to add the manufacturing usage for any fuel blocks if it's a component
-                            Select Case InsertItem.ItemGroupID
-                                Case ItemIDs.ReactionsIntermediateGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionBiochmeicalsGroupID
-                                    InsertItem.ManufacturingFacilityUsage = 0
-                                Case Else
-                                    InsertItem.ManufacturingFacilityUsage = ManufacturingBlueprint.GetManufacturingFacilityUsage
-                            End Select
-                            InsertItem.ComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetComponentFacilityUsage
-                            InsertItem.CapComponentManufacturingFacilityUsage = ManufacturingBlueprint.GetCapComponentFacilityUsage
-                            InsertItem.ReactionFacilityUsage = ManufacturingBlueprint.GetReactionFacilityUsage
-                            InsertItem.CopyFacilityUsage = ManufacturingBlueprint.GetCopyUsage
-                            InsertItem.InventionFacilityUsage = ManufacturingBlueprint.GetInventionUsage
+                            InsertItem.ManufacturingFacilityUsage = ManufacturingBlueprint.GetManufacturingFacilityUsage
 
                             ' Save the bp
                             InsertItem.Blueprint = ManufacturingBlueprint
@@ -8349,14 +7713,6 @@ DisplayResults:
                 FinalItemList(i).DivideUnits = 1
             End If
 
-            ' If the bp is a blueprint, change the reaction facility equal to the manufacturing facility (used in bp)
-            ' and the manufacturing facility equal to the component facility
-            Select Case FinalItemList(i).ItemGroup
-                Case "Composite", "Biochemical Material", "Hybrid Polymers", "Intermediate Materials"
-                    FinalItemList(i).ReactionFacility = CType(FinalItemList(i).ManufacturingFacility.Clone, IndustryFacility)
-                    FinalItemList(i).ManufacturingFacility = CType(FinalItemList(i).ComponentManufacturingFacility.Clone, IndustryFacility) ' fuel blocks
-            End Select
-
             For j = 1 To ColumnPositions.Count - 1
                 Select Case ColumnPositions(j)
                     Case ProgramSettings.ItemCategoryColumnName
@@ -8379,16 +7735,10 @@ DisplayResults:
                         BPList.SubItems.Add(FinalItemList(i).CalcType)
                     Case ProgramSettings.TotalRunsColumnName
                         BPList.SubItems.Add(CStr(FinalItemList(i).Runs))
-                    Case ProgramSettings.SingleInventedBPCRunsColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).SingleInventedBPCRunsperBPC))
                     Case ProgramSettings.ProductionLinesColumnName
                         BPList.SubItems.Add(CStr(FinalItemList(i).ProductionLines))
                     Case ProgramSettings.LaboratoryLinesColumnName
                         BPList.SubItems.Add(CStr(FinalItemList(i).LaboratoryLines))
-                    Case ProgramSettings.TotalInventionCostColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).InventionCost / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.TotalCopyCostColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).CopyCost / FinalItemList(i).DivideUnits, 2))
                     Case ProgramSettings.TaxesColumnName
                         BPList.SubItems.Add(FormatNumber(FinalItemList(i).Taxes / FinalItemList(i).DivideUnits, 2))
                     Case ProgramSettings.BrokerFeesColumnName
@@ -8397,10 +7747,6 @@ DisplayResults:
                         BPList.SubItems.Add(FinalItemList(i).BPProductionTime)
                     Case ProgramSettings.TotalProductionTimeColumnName
                         BPList.SubItems.Add(FinalItemList(i).TotalProductionTime)
-                    Case ProgramSettings.CopyTimeColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CopyTime)
-                    Case ProgramSettings.InventionTimeColumnName
-                        BPList.SubItems.Add(FinalItemList(i).InventionTime)
                     Case ProgramSettings.ItemMarketPriceColumnName
                         BPList.SubItems.Add(FormatNumber(FinalItemList(i).ItemMarketPrice / FinalItemList(i).DivideUnits, 2))
                     Case ProgramSettings.ProfitColumnName
@@ -8445,8 +7791,6 @@ DisplayResults:
                         BPList.SubItems.Add(FormatNumber(FinalItemList(i).BaseJobCost / FinalItemList(i).DivideUnits, 2))
                     Case ProgramSettings.NumBPsColumnName
                         BPList.SubItems.Add(CStr(FinalItemList(i).NumBPs))
-                    Case ProgramSettings.InventionChanceColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).InventionChance, 2))
                     Case ProgramSettings.BPTypeColumnName
                         BPList.SubItems.Add(GetBPTypeString(FinalItemList(i).BlueprintType))
                     Case ProgramSettings.RaceColumnName
@@ -8479,100 +7823,6 @@ DisplayResults:
                     Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
                         BPList.SubItems.Add(CStr(FinalItemList(i).ManufacturingFacility.FWUpgradeLevel))
 
-                    Case ProgramSettings.ComponentFacilityNameColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ComponentManufacturingFacility.FacilityName)
-                    Case ProgramSettings.ComponentFacilitySystemColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ComponentManufacturingFacility.SolarSystemName)
-                    Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).ComponentManufacturingFacility.CostIndex, 5))
-                    Case ProgramSettings.ComponentFacilityTaxColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).ComponentManufacturingFacility.TaxRate, 1))
-                    Case ProgramSettings.ComponentFacilityRegionColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ComponentManufacturingFacility.RegionName)
-                    Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ComponentManufacturingFacility.MaterialMultiplier))
-                    Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ComponentManufacturingFacility.TimeMultiplier))
-                    Case ProgramSettings.ComponentFacilityUsageColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).ComponentManufacturingFacilityUsage / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ComponentManufacturingFacility.FWUpgradeLevel))
-
-                    Case ProgramSettings.CapComponentFacilityNameColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CapComponentManufacturingFacility.FacilityName)
-                    Case ProgramSettings.CapComponentFacilitySystemColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CapComponentManufacturingFacility.SolarSystemName)
-                    Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).CapComponentManufacturingFacility.CostIndex, 5))
-                    Case ProgramSettings.CapComponentFacilityTaxColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).CapComponentManufacturingFacility.TaxRate, 1))
-                    Case ProgramSettings.CapComponentFacilityRegionColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CapComponentManufacturingFacility.RegionName)
-                    Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CapComponentManufacturingFacility.MaterialMultiplier))
-                    Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CapComponentManufacturingFacility.TimeMultiplier))
-                    Case ProgramSettings.CapComponentFacilityUsageColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).CapComponentManufacturingFacilityUsage / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CapComponentManufacturingFacility.FWUpgradeLevel))
-
-                    Case ProgramSettings.CopyingFacilityNameColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CopyFacility.FacilityName)
-                    Case ProgramSettings.CopyingFacilitySystemColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CopyFacility.SolarSystemName)
-                    Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).CopyFacility.CostIndex, 5))
-                    Case ProgramSettings.CopyingFacilityTaxColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).CopyFacility.TaxRate, 1))
-                    Case ProgramSettings.CopyingFacilityRegionColumnName
-                        BPList.SubItems.Add(FinalItemList(i).CopyFacility.RegionName)
-                    Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CopyFacility.MaterialMultiplier))
-                    Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CopyFacility.TimeMultiplier))
-                    Case ProgramSettings.CopyingFacilityUsageColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).CopyFacilityUsage / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).CopyFacility.FWUpgradeLevel))
-
-                    Case ProgramSettings.InventionFacilityNameColumnName
-                        BPList.SubItems.Add(FinalItemList(i).InventionFacility.FacilityName)
-                    Case ProgramSettings.InventionFacilitySystemColumnName
-                        BPList.SubItems.Add(FinalItemList(i).InventionFacility.SolarSystemName)
-                    Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).InventionFacility.CostIndex, 5))
-                    Case ProgramSettings.InventionFacilityTaxColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).InventionFacility.TaxRate, 1))
-                    Case ProgramSettings.InventionFacilityRegionColumnName
-                        BPList.SubItems.Add(FinalItemList(i).InventionFacility.RegionName)
-                    Case ProgramSettings.InventionFacilityMEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).InventionFacility.MaterialMultiplier))
-                    Case ProgramSettings.InventionFacilityTEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).InventionFacility.TimeMultiplier))
-                    Case ProgramSettings.InventionFacilityUsageColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).InventionFacilityUsage / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).InventionFacility.FWUpgradeLevel))
-
-                    Case ProgramSettings.ReactionFacilityNameColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ReactionFacility.FacilityName)
-                    Case ProgramSettings.ReactionFacilitySystemColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ReactionFacility.SolarSystemName)
-                    Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).ReactionFacility.CostIndex, 5))
-                    Case ProgramSettings.ReactionFacilityTaxColumnName
-                        BPList.SubItems.Add(FormatPercent(FinalItemList(i).ReactionFacility.TaxRate, 1))
-                    Case ProgramSettings.ReactionFacilityRegionColumnName
-                        BPList.SubItems.Add(FinalItemList(i).ReactionFacility.RegionName)
-                    Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ReactionFacility.MaterialMultiplier))
-                    Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ReactionFacility.TimeMultiplier))
-                    Case ProgramSettings.ReactionFacilityUsageColumnName
-                        BPList.SubItems.Add(FormatNumber(FinalItemList(i).ReactionFacilityUsage / FinalItemList(i).DivideUnits, 2))
-                    Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
-                        BPList.SubItems.Add(CStr(FinalItemList(i).ReactionFacility.FWUpgradeLevel))
                 End Select
             Next
 
@@ -8927,10 +8177,6 @@ ExitCalc:
         Dim TempItem As New ManufacturingItem
         Dim CurrentRowFormat As New RowFormat
 
-        If IsNothing(BaseItem.ReactionFacility) Then
-            Application.DoEvents()
-        End If
-
         CalcType = "All Calcs"
 
         If AddMultipleFacilities Then
@@ -9085,15 +8331,9 @@ ExitCalc:
         Dim ExportData As String
 
         Select Case ColumnName
-            Case ProgramSettings.InventionChanceColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
             Case ProgramSettings.VolumeperItemColumnName
                 ExportData = Format(DataText, "Fixed") & Separator
             Case ProgramSettings.TotalVolumeColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.TotalInventionCostColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.TotalCopyCostColumnName
                 ExportData = Format(DataText, "Fixed") & Separator
             Case ProgramSettings.TaxesColumnName
                 ExportData = Format(DataText, "Fixed") & Separator
@@ -9132,22 +8372,6 @@ ExitCalc:
             Case ProgramSettings.ManufacturingFacilitySystemIndexColumnName
                 ExportData = FormatNumber(DataText, 5) & Separator
             Case ProgramSettings.ManufacturingFacilityUsageColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                ExportData = FormatNumber(DataText, 5) & Separator
-            Case ProgramSettings.ComponentFacilityUsageColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                ExportData = FormatNumber(DataText, 5) & Separator
-            Case ProgramSettings.CapComponentFacilityUsageColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                ExportData = FormatNumber(DataText, 5) & Separator
-            Case ProgramSettings.CopyingFacilityUsageColumnName
-                ExportData = Format(DataText, "Fixed") & Separator
-            Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                ExportData = FormatNumber(DataText, 5) & Separator
-            Case ProgramSettings.InventionFacilityUsageColumnName
                 ExportData = Format(DataText, "Fixed") & Separator
             Case ProgramSettings.PortionSizeColumnName
                 ExportData = Format(DataText, "Fixed") & Separator
@@ -9484,8 +8708,8 @@ ExitCalc:
                 T2T3Type = Nothing
 
                 Call LoadBPfromEvent(.BPID, .CalcType, .Inputs, SentFromLocation.ManufacturingTab,
-                                     .ManufacturingFacility, .ComponentManufacturingFacility, .CapComponentManufacturingFacility,
-                                     .InventionFacility, .CopyFacility,
+                                     .ManufacturingFacility, New IndustryFacility, New IndustryFacility,
+                                     New IndustryFacility, New IndustryFacility,
                                      True, GetBrokerFeeData(),
                                      CStr(.BPME), CStr(.BPTE), "1", "1", "1",
                                      "1", FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
@@ -9525,7 +8749,6 @@ ExitCalc:
         Public BlueprintType As BPType
 
         Public Runs As Integer
-        Public SingleInventedBPCRunsperBPC As Integer
         Public ProductionLines As Integer
         Public LaboratoryLines As Integer
 
@@ -9557,25 +8780,8 @@ ExitCalc:
 
         Public ManufacturingFacility As IndustryFacility
         Public ManufacturingFacilityUsage As Double
-        Public ComponentManufacturingFacility As IndustryFacility
-        Public ComponentManufacturingFacilityUsage As Double
-        Public CapComponentManufacturingFacility As IndustryFacility
-        Public CapComponentManufacturingFacilityUsage As Double
-        Public ReactionFacility As IndustryFacility
-        Public ReactionFacilityUsage As Double
-
-        Public CopyCost As Double
-        Public CopyFacilityUsage As Double
-        Public CopyFacility As IndustryFacility
-
-        Public InventionCost As Double
-        Public InventionFacilityUsage As Double
-        Public InventionFacility As IndustryFacility
-
         Public BPProductionTime As String
         Public TotalProductionTime As String
-        Public CopyTime As String
-        Public InventionTime As String
 
         Public ItemMarketPrice As Double
 
@@ -9584,7 +8790,6 @@ ExitCalc:
 
         Public BaseJobCost As Double
         Public NumBPs As Integer
-        Public InventionChance As Double
         Public Race As String
         Public VolumeperItem As Double
         Public TotalVolume As Double
@@ -9621,12 +8826,8 @@ ExitCalc:
             CopyofMe.BlueprintType = BlueprintType
 
             CopyofMe.Runs = Runs
-            CopyofMe.SingleInventedBPCRunsperBPC = SingleInventedBPCRunsperBPC
             CopyofMe.ProductionLines = ProductionLines
             CopyofMe.LaboratoryLines = LaboratoryLines
-
-            CopyofMe.CopyTime = CopyTime
-            CopyofMe.InventionTime = InventionTime
 
             CopyofMe.Inputs = Inputs
             CopyofMe.Decryptor = Decryptor
@@ -9653,16 +8854,7 @@ ExitCalc:
             CopyofMe.ItemsinStock = ItemsinStock
             CopyofMe.ItemsinProduction = ItemsinProduction
 
-            CopyofMe.CopyCost = CopyCost
-            CopyofMe.InventionCost = InventionCost
-
             CopyofMe.ManufacturingFacility = ManufacturingFacility
-            CopyofMe.ComponentManufacturingFacility = ComponentManufacturingFacility
-            CopyofMe.CapComponentManufacturingFacility = CapComponentManufacturingFacility
-            CopyofMe.ReactionFacility = ReactionFacility
-            CopyofMe.InventionFacility = InventionFacility
-            CopyofMe.CopyFacility = CopyFacility
-
             CopyofMe.BPProductionTime = BPProductionTime
             CopyofMe.TotalProductionTime = TotalProductionTime
             CopyofMe.ItemMarketPrice = ItemMarketPrice
@@ -9671,7 +8863,6 @@ ExitCalc:
             CopyofMe.BaseJobCost = BaseJobCost
 
             CopyofMe.NumBPs = NumBPs
-            CopyofMe.InventionChance = InventionChance
             CopyofMe.BlueprintType = BlueprintType
             CopyofMe.Race = Race
             CopyofMe.VolumeperItem = VolumeperItem
@@ -9682,11 +8873,6 @@ ExitCalc:
             CopyofMe.JobFee = JobFee
 
             CopyofMe.ManufacturingFacilityUsage = ManufacturingFacilityUsage
-            CopyofMe.ComponentManufacturingFacilityUsage = ComponentManufacturingFacilityUsage
-            CopyofMe.CapComponentManufacturingFacilityUsage = CapComponentManufacturingFacilityUsage
-            CopyofMe.ReactionFacilityUsage = ReactionFacilityUsage
-            CopyofMe.CopyFacilityUsage = CopyFacilityUsage
-            CopyofMe.InventionFacilityUsage = InventionFacilityUsage
 
             Return CopyofMe
 
@@ -10624,14 +9810,11 @@ NextIteration:
             Dim TempName As String = .ItemName
             If TempName.Contains("(") Then
                 ShopListItem.Name = TempName.Substring(0, InStr(TempName, "(") - 2)
-                ShopListItem.Relic = TempName.Substring(InStr(TempName, "("), InStr(TempName, ")") - InStr(TempName, "(") - 1)
             Else
                 ShopListItem.Name = TempName
-                ShopListItem.Relic = ""
             End If
             ShopListItem.ItemME = .BPME
             ShopListItem.BuildType = "Raw Mats" 'Easy IPH always uses Raw Mats
-            ShopListItem.Decryptor = ""
             ShopListItem.ManufacturingFacility.FacilityName = .ManufacturingFacility.FacilityName
 
         End With

@@ -283,66 +283,6 @@ Public Class ShoppingList
                 End With
             End If
 
-            ' Update Buy List with invention mats
-            If Not IsNothing(FoundItem.InventionMaterials) Then
-                If Not IsNothing(FoundItem.InventionMaterials.GetMaterialList) Then
-                    With FoundItem.InventionMaterials ' Update all base materials for this item first
-                        Dim TempInventionMaterials As New Materials
-                        For i = 0 To .GetMaterialList.Count - 1
-                            ' Make sure the material exists (might have been deleted already in the main list) before updating
-                            If Not IsNothing(TotalBuyList.SearchListbyName(.GetMaterialList(i).GetMaterialName)) Then
-                                ' Need to update to the quantity sent in the Buy List
-                                UpdatedRunQuantity = GetUpdatedQuantity("Invention", FoundItem, UpdateItemQuantity, .GetMaterialList(i), True)
-
-                                Call UpdateShoppingBuyQuantity(.GetMaterialList(i).GetMaterialName, UpdatedRunQuantity)
-                                ' Update this material in the item's invention list for copy/paste function
-                                If UpdatedRunQuantity > 0 Then
-                                    ' Need to copy, remove, update, then add to update the volumes and prices of the material lists
-                                    Dim TempMat As Material
-                                    TempMat = CType(TotalInventionMats.SearchListbyName(.GetMaterialList(i).GetMaterialName).Clone, Material)
-                                    Call TempInventionMaterials.InsertMaterial(TempMat)
-                                End If
-                            End If
-                        Next
-
-                        ' Reset the Invention Materials for this item
-                        FoundItem.InventionMaterials = TempInventionMaterials
-
-                    End With
-                End If
-            End If
-
-            ' Update buy list with copy materials
-            If Not IsNothing(FoundItem.CopyMaterials) Then
-                If Not IsNothing(FoundItem.CopyMaterials.GetMaterialList) Then
-                    With FoundItem.CopyMaterials ' Update all base materials for this item first
-                        Dim TempCopyMaterials As New Materials
-                        For i = 0 To .GetMaterialList.Count - 1
-                            ' Make sure the material exists (might have been deleted already in the main list) before updating
-                            If Not IsNothing(TotalBuyList.SearchListbyName(.GetMaterialList(i).GetMaterialName)) Then
-                                ' Need to update to the quantity sent in the Buy List
-                                UpdatedRunQuantity = GetUpdatedQuantity("Copying", FoundItem, UpdateItemQuantity, .GetMaterialList(i), True)
-
-                                Call UpdateShoppingBuyQuantity(.GetMaterialList(i).GetMaterialName, UpdatedRunQuantity)
-                                ' Update this material in the item's invention list for copy/paste function
-                                If UpdatedRunQuantity <= 0 Then
-                                    Call TotalCopyMats.RemoveMaterial(.GetMaterialList(i))
-                                Else
-                                    ' Need to copy, remove, update, then add to update the volumes and prices of the material lists
-                                    Dim TempMat As Material
-                                    TempMat = CType(TotalCopyMats.SearchListbyName(.GetMaterialList(i).GetMaterialName).Clone, Material)
-                                    Call TempCopyMaterials.InsertMaterial(TempMat)
-                                End If
-                            End If
-                        Next
-
-                        ' Reset the Invention Materials for this item
-                        FoundItem.CopyMaterials = TempCopyMaterials
-
-                    End With
-                End If
-            End If
-
             ' Need to increment or decrement the new item quantity and volume, the rest of the mats and components will be updated above
             If UpdateItemQuantity = 0 Then
                 Call TotalItemList.Remove(FoundItem)
@@ -353,12 +293,6 @@ Public Class ShoppingList
                 FoundItem.TotalUsage = FoundItem.TotalUsage / FoundItem.Runs * UpdateItemQuantity
                 FoundItem.TotalItemMarketCost = FoundItem.TotalItemMarketCost / FoundItem.Runs * UpdateItemQuantity
                 FoundItem.TotalBuildTime = FoundItem.TotalBuildTime / FoundItem.Runs * UpdateItemQuantity
-                ' Update the invention jobs if they update this later
-                If FoundItem.InventionJobs <> 0 Then
-                    FoundItem.InventionJobs = CInt(Math.Ceiling(FoundItem.AvgInvRunsforSuccess * Math.Ceiling(UpdateItemQuantity / FoundItem.InventedRunsPerBP)))
-                    ' How many bps do we need to make?
-                    FoundItem.NumBPs = CInt(Math.Ceiling(UpdateItemQuantity / FoundItem.InventedRunsPerBP))
-                End If
                 ' Finally update the quantity
                 FoundItem.Runs = UpdateItemQuantity
             End If
@@ -425,9 +359,6 @@ Public Class ShoppingList
                             ShoppingItem.PortionSize = FoundItem.PortionSize
 
                             ' Blank these out for now if we use them later
-                            ShoppingItem.InventionJobs = 0
-                            ShoppingItem.InventedRunsPerBP = 0
-                            ShoppingItem.AvgInvRunsforSuccess = 0
                             ShoppingItem.NumBPs = 1 ' Built items (components) are always one bp for now
 
                             UpdateMaterial = CType(.GetMaterialList(i).Clone, Material)
@@ -710,43 +641,16 @@ Public Class ShoppingList
 
         ' Calc out final mat quantity
         If ProcessingType = "Invention" Or ProcessingType = "Copying" Then
-
-            ListMatQuantity = TotalBuyList.SearchListbyName(UpdateMaterial.GetMaterialName).GetQuantity
-
-            ' For invention materials, find out how many mats we need by calcuating the new value from the item runs and invention jobs per item
-            If NewMaterialQuantity <= 0 Then
-                ' Easy case, just remove the update material quantity (add the negative)
-                NewMatQuantity = 0
-            Else
-                ' Here, we need to figure out how many items per run to remove (3 inv mats per job, and remove 2 items, then remove 6 invention mats)
-                NumInventionJobs = CInt(Math.Ceiling(CurrentItem.AvgInvRunsforSuccess * Math.Ceiling(ItemBPRuns / CurrentItem.InventedRunsPerBP)))
-
-                ' Update quantity based on invention calculations
-                NewMatQuantity = NumInventionJobs * SingleRunQuantity
-                RefMatQuantity = NewMatQuantity
-            End If
-
+            'No inventing or copying in EasyIPH
         ElseIf ProcessingType = "Buy" Or ProcessingType = "Build" Then
             Dim UpdatedItemNumBPs As Integer = 0
 
-            ' Figure out how many bps for the component we need 
-            If CurrentItem.InventionJobs <> 0 Then
-                If NewMaterialQuantity <> 0 Then
-                    ' Calc how many bps we will need based off of invention
-                    UpdatedItemNumBPs = CInt(Math.Ceiling(ItemBPRuns / CurrentItem.InventedRunsPerBP))
-                Else
-                    ' Deleting, so need the original amount and bps
-                    UpdatedItemNumBPs = CurrentItem.NumBPs
-                End If
-            Else
-                ' This isn't invented so just use the number of blueprints
-                UpdatedItemNumBPs = CurrentItem.NumBPs
+            ' This isn't invented so just use the number of blueprints
+            UpdatedItemNumBPs = CurrentItem.NumBPs
 
-                ' Make sure we aren't building more bps than the quantity
-                If UpdatedItemNumBPs > NewMaterialQuantity And NewMaterialQuantity <> 0 Then
-                    UpdatedItemNumBPs = CInt(NewMaterialQuantity)
-                End If
-
+            ' Make sure we aren't building more bps than the quantity
+            If UpdatedItemNumBPs > NewMaterialQuantity And NewMaterialQuantity <> 0 Then
+                UpdatedItemNumBPs = CInt(NewMaterialQuantity)
             End If
 
             Dim TempItemRuns As Long = 0
@@ -911,25 +815,14 @@ Public Class ShoppingList
         Dim NewNumBPs As Integer
         Dim NewRunsperBP As Integer
 
-        If ItemData.InventionJobs <> 0 Then
-            If ItemData.NumBPs = 1 Then
-                NewNumBPs = CInt(Math.Ceiling(NewQuantity / ItemData.InventedRunsPerBP))
-            Else
-                NewNumBPs = CInt(Math.Ceiling(NewQuantity / (ItemData.Runs / ItemData.NumBPs)))
-            End If
+        ' This isn't invented so just use the number of blueprints
+        NewNumBPs = ItemData.NumBPs
 
-            NewRunsperBP = CInt(Math.Ceiling(NewQuantity / NewNumBPs))
-        Else
-            ' This isn't invented so just use the number of blueprints
-            NewNumBPs = ItemData.NumBPs
+        NewRunsperBP = CInt(Math.Ceiling(NewQuantity / NewNumBPs))
 
-            NewRunsperBP = CInt(Math.Ceiling(NewQuantity / NewNumBPs))
-
-            ' Make sure we aren't building more bps than the quantity
-            If NewNumBPs > NewQuantity Then
-                NewNumBPs = CInt(NewQuantity)
-            End If
-
+        ' Make sure we aren't building more bps than the quantity
+        If NewNumBPs > NewQuantity Then
+            NewNumBPs = CInt(NewQuantity)
         End If
 
         Dim NewMatQuantity As Long = 0
@@ -970,7 +863,6 @@ Public Class ShoppingList
                 .TotalItemMarketCost = .TotalItemMarketCost + SentItem.TotalItemMarketCost
                 .TotalBuildTime = .TotalBuildTime + SentItem.TotalBuildTime
                 .NumBPs = .NumBPs + SentItem.NumBPs ' Need to add the set of numbps used to the current
-                .InventionJobs = .InventionJobs + SentItem.InventionJobs
 
                 ' Increment BP Mat List
                 If Not IsNothing(SentItem.BPMaterialList) Then
@@ -1000,16 +892,6 @@ Public Class ShoppingList
                 Else
                     .BPBuiltItems = New BuiltItemList
                     .BPBuiltItems = CType(FoundItem.BPBuiltItems.Clone, BuiltItemList)
-                End If
-
-                ' Update invention mats
-                If Not IsNothing(SentItem.InventionMaterials) Then
-                    .InventionMaterials.InsertMaterialList(SentItem.InventionMaterials.GetMaterialList)
-                End If
-
-                ' Update copy mats
-                If Not IsNothing(SentItem.CopyMaterials) Then
-                    .CopyMaterials.InsertMaterialList(SentItem.CopyMaterials.GetMaterialList)
                 End If
 
             End With
@@ -1085,16 +967,6 @@ Public Class ShoppingList
                     End If
                 Next
             End If
-        End If
-
-        ' Invention Materials
-        If Not IsNothing(SentItem.InventionMaterials) Then
-            TotalInventionMats.InsertMaterialList(SentItem.InventionMaterials.GetMaterialList)
-        End If
-
-        ' Copy Materials
-        If Not IsNothing(SentItem.CopyMaterials) Then
-            TotalCopyMats.InsertMaterialList(SentItem.CopyMaterials.GetMaterialList)
         End If
 
         ItemToFind = Nothing
@@ -1219,27 +1091,14 @@ Public Class ShoppingList
 
         Dim TempMatList As New Materials
 
-        Dim InventionMatList As New Materials
         Dim REMatList As New Materials
 
-        Dim IncludeInventionMats As Boolean = False
         Dim IncludeREMats As Boolean = False
 
         ' Full output lists
         FullBuildList = GetFullBuildMaterialList() ' GetFullBuildList uses BuildItem for built in pos, and Volume for the facility ME value
         FullBuyList = CType(TotalBuyList.Clone, Materials)
         FullItemList = GetFullItemList()
-
-        ' Add the Invention mats to buy
-        InventionMatList = GetFullInventionList()
-        If Not IsNothing(InventionMatList.GetMaterialList) Then
-            IncludeInventionMats = True
-            ' Remove the invention materials from the buy list so we can separate them in the output
-            Call FullBuyList.RemoveMaterialList(InventionMatList.GetMaterialList)
-            ' Update the total though as if the materials were in the full list for price purposes
-            FullBuyList.AddTotalValue(InventionMatList.GetTotalMaterialsCost, InventionMatList.GetTotalRiskMaterialsCost)
-            FullBuyList.AddTotalVolume(InventionMatList.GetTotalVolume)
-        End If
 
         ' Sort the Item List by order sent (this is based on how they sorted in the grid)
         ' Item sort order Name, Quantity, ME, Num BPs, Build Type, Decryptor, and Relic
@@ -1285,20 +1144,6 @@ Public Class ShoppingList
                 OutputText = OutputText & TempListText
                 ' Spacer
                 OutputText = OutputText & vbCrLf
-            End If
-        End If
-
-        ' Invention materials (If they exist)
-        If IncludeInventionMats Then
-            ' Add Invention mats if there are any
-            TempListText = InventionMatList.GetClipboardList(ExportFormat, False, False, False, UserApplicationSettings.IncludeInGameLinksinCopyText)
-            If TempListText <> "No items in List" And ExportFormat <> MultiBuyDataExport Then
-                OutputText = OutputText & "Estimated Invention Materials: " & vbCrLf
-                OutputText = OutputText & TempListText
-                ' Spacer
-                OutputText = OutputText & vbCrLf
-            ElseIf ExportFormat = MultiBuyDataExport Then
-                OutputText = OutputText & TempListText
             End If
         End If
 
@@ -1450,34 +1295,6 @@ Public Class ShoppingList
 
     End Function
 
-    ' Returns the list of Invention items and quantity
-    Public Function GetFullInventionList() As Materials
-        Dim TempInventionMats As New Materials
-
-        For i = 0 To TotalItemList.Count - 1
-            If TotalItemList(i).TechLevel <> 1 And Not IsNothing(TotalItemList(i).InventionMaterials) Then
-                TempInventionMats.InsertMaterialList(TotalItemList(i).InventionMaterials.GetMaterialList)
-            End If
-        Next
-
-        Return TempInventionMats
-
-    End Function
-
-    ' Returns the list of Invention items and quantity
-    Public Function GetFullCopyList() As Materials
-        Dim TempCopyMats As New Materials
-
-        For i = 0 To TotalItemList.Count - 1
-            If TotalItemList(i).TechLevel = 2 And Not IsNothing(TotalItemList(i).CopyMaterials) Then
-                TempCopyMats.InsertMaterialList(TotalItemList(i).CopyMaterials.GetMaterialList)
-            End If
-        Next
-
-        Return TempCopyMats
-
-    End Function
-
     ' Returns the full list of Items we want to build in the shopping list
     Public Function GetFullItemList() As Materials
         Dim TempMat As Material
@@ -1486,7 +1303,7 @@ Public Class ShoppingList
         For i = 0 To TotalItemList.Count - 1
             With TotalItemList(i)
                 ' Item sort order is Build Type, Decryptor, NumBps, and Relic for the group name
-                TempMat = New Material(.TypeID, .Name, .BuildType & "|" & .Decryptor & "|" & CStr(.NumBPs) & "|" & CStr(.Relic) & "|" _
+                TempMat = New Material(.TypeID, .Name, .BuildType & "|" & "" & "|" & CStr(.NumBPs) & "|" & "" & "|" _
                                        & .ManufacturingFacility.FacilityName, .Runs, .BuildVolume / .Runs, 0, 0, CStr(.ItemME), CStr(.ItemTE))
             End With
             ReturnMaterials.InsertMaterial(TempMat)
@@ -1633,15 +1450,6 @@ Public Class ShoppingList
         If Item1.BuildType <> Item2.BuildType Then
             Return False
         End If
-        If Item1.Decryptor <> Item2.Decryptor Then
-            Return False
-        End If
-        If Item1.Relic <> Item2.Relic Then
-            Return False
-        End If
-        'If Item1.NumBPs <> Item2.NumBPs Then
-        '    Return False
-        'End If
         If Item1.ManufacturingFacility.FacilityName <> Item2.ManufacturingFacility.FacilityName Then
             Return False
         End If
@@ -1716,15 +1524,6 @@ Public Class ShoppingListItem
     Public MaterialVolume As Double ' Volume of materials
     Public PortionSize As Long ' Portion size of one run of this blueprint
 
-    Public Decryptor As String ' If it's invented or RE'd, then store the Relic or Decryptor name here * Key value
-    Public Relic As String ' Relic used for T3
-
-    Public InventionMaterials As New Materials ' The List of Invention materials needed to build the T2 item
-    Public CopyMaterials As New Materials ' List of materials used to make the copies to invent
-    Public AvgInvRunsforSuccess As Double ' How many Invention/RE runs we need for success - used to calculate correct changes in list for mats
-    Public InventionJobs As Long ' How many jobs did we do
-    Public InventedRunsPerBP As Integer ' Number of runs for each bp in NumBPs (helps with determining invention changes later)
-
     Public NumBPs As Integer ' Number of BPs used to build item
 
     Public BPMaterialList As New Materials ' This is the list of items on the Blueprint so we have a record of what they are building - it is not updated
@@ -1732,8 +1531,6 @@ Public Class ShoppingListItem
 
     ' Set the component facility (use BP tab for now)
     Public ManufacturingFacility As IndustryFacility
-    Public ComponentManufacturingFacility As IndustryFacility
-    Public ReactionFacility As IndustryFacility
 
     ' Ignore Variables
     Public IgnoredInvention As Boolean
@@ -1763,23 +1560,12 @@ Public Class ShoppingListItem
         BuildVolume = 0
         PortionSize = 0
 
-        Decryptor = ""
-        Relic = ""
-
-        InventionMaterials = New Materials
-        CopyMaterials = New Materials
-        AvgInvRunsforSuccess = 0
-        InventedRunsPerBP = 0
-        InventionJobs = 0
-
         NumBPs = 0
 
         BPMaterialList = Nothing
         BPBuiltItems = Nothing
 
         ManufacturingFacility = New IndustryFacility
-        ComponentManufacturingFacility = New IndustryFacility
-        ReactionFacility = New IndustryFacility
 
         IgnoredInvention = False
         IgnoredMinerals = False

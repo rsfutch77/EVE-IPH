@@ -92,51 +92,6 @@
             Call UpdateListCheck(.ManufacturingFacilityTEBonus, 51)
             Call UpdateListCheck(.ManufacturingFacilityUsage, 52)
             Call UpdateListCheck(.ManufacturingFacilityFWSystemLevel, 53)
-            Call UpdateListCheck(.ComponentFacilityName, 54)
-            Call UpdateListCheck(.ComponentFacilitySystem, 55)
-            Call UpdateListCheck(.ComponentFacilityRegion, 56)
-            Call UpdateListCheck(.ComponentFacilitySystemIndex, 57)
-            Call UpdateListCheck(.ComponentFacilityTax, 58)
-            Call UpdateListCheck(.ComponentFacilityMEBonus, 59)
-            Call UpdateListCheck(.ComponentFacilityTEBonus, 60)
-            Call UpdateListCheck(.ComponentFacilityUsage, 61)
-            Call UpdateListCheck(.ComponentFacilityFWSystemLevel, 62)
-            Call UpdateListCheck(.CapComponentFacilityName, 63)
-            Call UpdateListCheck(.CapComponentFacilitySystem, 64)
-            Call UpdateListCheck(.CapComponentFacilityRegion, 65)
-            Call UpdateListCheck(.CapComponentFacilitySystemIndex, 66)
-            Call UpdateListCheck(.CapComponentFacilityTax, 67)
-            Call UpdateListCheck(.CapComponentFacilityMEBonus, 68)
-            Call UpdateListCheck(.CapComponentFacilityTEBonus, 69)
-            Call UpdateListCheck(.CapComponentFacilityUsage, 70)
-            Call UpdateListCheck(.CapComponentFacilityFWSystemLevel, 71)
-            Call UpdateListCheck(.CopyingFacilityName, 72)
-            Call UpdateListCheck(.CopyingFacilitySystem, 73)
-            Call UpdateListCheck(.CopyingFacilityRegion, 74)
-            Call UpdateListCheck(.CopyingFacilitySystemIndex, 75)
-            Call UpdateListCheck(.CopyingFacilityTax, 76)
-            Call UpdateListCheck(.CopyingFacilityMEBonus, 77)
-            Call UpdateListCheck(.CopyingFacilityTEBonus, 78)
-            Call UpdateListCheck(.CopyingFacilityUsage, 79)
-            Call UpdateListCheck(.CopyingFacilityFWSystemLevel, 80)
-            Call UpdateListCheck(.InventionFacilityName, 81)
-            Call UpdateListCheck(.InventionFacilitySystem, 82)
-            Call UpdateListCheck(.InventionFacilityRegion, 83)
-            Call UpdateListCheck(.InventionFacilitySystemIndex, 84)
-            Call UpdateListCheck(.InventionFacilityTax, 85)
-            Call UpdateListCheck(.InventionFacilityMEBonus, 86)
-            Call UpdateListCheck(.InventionFacilityTEBonus, 87)
-            Call UpdateListCheck(.InventionFacilityUsage, 88)
-            Call UpdateListCheck(.InventionFacilityFWSystemLevel, 89)
-            Call UpdateListCheck(.ReactionFacilityName, 90)
-            Call UpdateListCheck(.ReactionFacilitySystem, 91)
-            Call UpdateListCheck(.ReactionFacilityRegion, 92)
-            Call UpdateListCheck(.ReactionFacilitySystemIndex, 93)
-            Call UpdateListCheck(.ReactionFacilityTax, 94)
-            Call UpdateListCheck(.ReactionFacilityMEBonus, 95)
-            Call UpdateListCheck(.ReactionFacilityTEBonus, 96)
-            Call UpdateListCheck(.ReactionFacilityUsage, 97)
-            Call UpdateListCheck(.ReactionFacilityFWSystemLevel, 98)
             Call UpdateListCheck(.Volatility, 99)
             Call UpdateListCheck(.Score, 100)
             Call UpdateListCheck(.RiskPrice, 101)
@@ -254,51 +209,7 @@
             .ManufacturingFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(51), .ManufacturingFacilityTEBonus)
             .ManufacturingFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(52), .ManufacturingFacilityUsage)
             .ManufacturingFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(53), .ManufacturingFacilityFWSystemLevel)
-            .ComponentFacilityName = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(54), .ComponentFacilityName)
-            .ComponentFacilitySystem = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(55), .ComponentFacilitySystem)
-            .ComponentFacilityRegion = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(56), .ComponentFacilityRegion)
-            .ComponentFacilitySystemIndex = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(57), .ComponentFacilitySystemIndex)
-            .ComponentFacilityTax = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(58), .ComponentFacilityTax)
-            .ComponentFacilityMEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(59), .ComponentFacilityMEBonus)
-            .ComponentFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(60), .ComponentFacilityTEBonus)
-            .ComponentFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(61), .ComponentFacilityUsage)
-            .ComponentFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(62), .ComponentFacilityFWSystemLevel)
-            .CapComponentFacilityName = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(63), .CapComponentFacilityName)
-            .CapComponentFacilitySystem = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(64), .CapComponentFacilitySystem)
-            .CapComponentFacilityRegion = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(65), .CapComponentFacilityRegion)
-            .CapComponentFacilitySystemIndex = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(66), .CapComponentFacilitySystemIndex)
-            .CapComponentFacilityTax = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(67), .CapComponentFacilityTax)
-            .CapComponentFacilityMEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(68), .CapComponentFacilityMEBonus)
-            .CapComponentFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(69), .CapComponentFacilityTEBonus)
-            .CapComponentFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(70), .CapComponentFacilityUsage)
-            .CapComponentFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(71), .CapComponentFacilityFWSystemLevel)
-            .CopyingFacilityName = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(72), .CopyingFacilityName)
-            .CopyingFacilitySystem = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(73), .CopyingFacilitySystem)
-            .CopyingFacilityRegion = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(74), .CopyingFacilityRegion)
-            .CopyingFacilitySystemIndex = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(75), .CopyingFacilitySystemIndex)
-            .CopyingFacilityTax = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(76), .CopyingFacilityTax)
-            .CopyingFacilityMEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(77), .CopyingFacilityMEBonus)
-            .CopyingFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(78), .CopyingFacilityTEBonus)
-            .CopyingFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(79), .CopyingFacilityUsage)
-            .CopyingFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(80), .CopyingFacilityFWSystemLevel)
-            .InventionFacilityName = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(81), .InventionFacilityName)
-            .InventionFacilitySystem = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(82), .InventionFacilitySystem)
-            .InventionFacilityRegion = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(83), .InventionFacilityRegion)
-            .InventionFacilitySystemIndex = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(84), .InventionFacilitySystemIndex)
-            .InventionFacilityTax = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(85), .InventionFacilityTax)
-            .InventionFacilityMEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(86), .InventionFacilityMEBonus)
-            .InventionFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(87), .InventionFacilityTEBonus)
-            .InventionFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(88), .InventionFacilityUsage)
-            .InventionFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(89), .InventionFacilityFWSystemLevel)
-            .ReactionFacilityName = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(90), .ReactionFacilityName)
-            .ReactionFacilitySystem = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(91), .ReactionFacilitySystem)
-            .ReactionFacilityRegion = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(92), .ReactionFacilityRegion)
-            .ReactionFacilitySystemIndex = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(93), .ReactionFacilitySystemIndex)
-            .ReactionFacilityTax = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(94), .ReactionFacilityTax)
-            .ReactionFacilityMEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(95), .ReactionFacilityMEBonus)
-            .ReactionFacilityTEBonus = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(96), .ReactionFacilityTEBonus)
-            .ReactionFacilityUsage = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(97), .ReactionFacilityUsage)
-            .ReactionFacilityFWSystemLevel = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(98), .ReactionFacilityFWSystemLevel)
+
             .Volatility = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(99), .Volatility)
             .Score = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(100), .Score)
             .RiskPrice = GetColumnNumber(chkLstBoxColumns.GetItemCheckState(101), .RiskPrice)
@@ -325,8 +236,6 @@
                     ColumnPositions(.SingleInventedBPCRuns) = ProgramSettings.SingleInventedBPCRunsColumnName
                     ColumnPositions(.ProductionLines) = ProgramSettings.ProductionLinesColumnName
                     ColumnPositions(.LaboratoryLines) = ProgramSettings.LaboratoryLinesColumnName
-                    ColumnPositions(.TotalInventionCost) = ProgramSettings.TotalInventionCostColumnName
-                    ColumnPositions(.TotalCopyCost) = ProgramSettings.TotalCopyCostColumnName
                     ColumnPositions(.Taxes) = ProgramSettings.TaxesColumnName
                     ColumnPositions(.BrokerFees) = ProgramSettings.BrokerFeesColumnName
                     ColumnPositions(.BPProductionTime) = ProgramSettings.BPProductionTimeColumnName
@@ -355,7 +264,6 @@
                     ColumnPositions(.TotalCost) = ProgramSettings.TotalCostColumnName
                     ColumnPositions(.BaseJobCost) = ProgramSettings.BaseJobCostColumnName
                     ColumnPositions(.NumBPs) = ProgramSettings.NumBPsColumnName
-                    ColumnPositions(.InventionChance) = ProgramSettings.InventionChanceColumnName
                     ColumnPositions(.BPType) = ProgramSettings.BPTypeColumnName
                     ColumnPositions(.Race) = ProgramSettings.RaceColumnName
                     ColumnPositions(.VolumeperItem) = ProgramSettings.VolumeperItemColumnName
@@ -371,51 +279,7 @@
                     ColumnPositions(.ManufacturingFacilityTEBonus) = ProgramSettings.ManufacturingFacilityTEBonusColumnName
                     ColumnPositions(.ManufacturingFacilityUsage) = ProgramSettings.ManufacturingFacilityUsageColumnName
                     ColumnPositions(.ManufacturingFacilityFWSystemLevel) = ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
-                    ColumnPositions(.ComponentFacilityName) = ProgramSettings.ComponentFacilityNameColumnName
-                    ColumnPositions(.ComponentFacilitySystem) = ProgramSettings.ComponentFacilitySystemColumnName
-                    ColumnPositions(.ComponentFacilityRegion) = ProgramSettings.ComponentFacilityRegionColumnName
-                    ColumnPositions(.ComponentFacilitySystemIndex) = ProgramSettings.ComponentFacilitySystemIndexColumnName
-                    ColumnPositions(.ComponentFacilityTax) = ProgramSettings.ComponentFacilityTaxColumnName
-                    ColumnPositions(.ComponentFacilityMEBonus) = ProgramSettings.ComponentFacilityMEBonusColumnName
-                    ColumnPositions(.ComponentFacilityTEBonus) = ProgramSettings.ComponentFacilityTEBonusColumnName
-                    ColumnPositions(.ComponentFacilityUsage) = ProgramSettings.ComponentFacilityUsageColumnName
-                    ColumnPositions(.ComponentFacilityFWSystemLevel) = ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                    ColumnPositions(.CapComponentFacilityName) = ProgramSettings.CapComponentFacilityNameColumnName
-                    ColumnPositions(.CapComponentFacilitySystem) = ProgramSettings.CapComponentFacilitySystemColumnName
-                    ColumnPositions(.CapComponentFacilityRegion) = ProgramSettings.CapComponentFacilityRegionColumnName
-                    ColumnPositions(.CapComponentFacilitySystemIndex) = ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                    ColumnPositions(.CapComponentFacilityTax) = ProgramSettings.CapComponentFacilityTaxColumnName
-                    ColumnPositions(.CapComponentFacilityMEBonus) = ProgramSettings.CapComponentFacilityMEBonusColumnName
-                    ColumnPositions(.CapComponentFacilityTEBonus) = ProgramSettings.CapComponentFacilityTEBonusColumnName
-                    ColumnPositions(.CapComponentFacilityUsage) = ProgramSettings.CapComponentFacilityUsageColumnName
-                    ColumnPositions(.CapComponentFacilityFWSystemLevel) = ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                    ColumnPositions(.CopyingFacilityName) = ProgramSettings.CopyingFacilityNameColumnName
-                    ColumnPositions(.CopyingFacilitySystem) = ProgramSettings.CopyingFacilitySystemColumnName
-                    ColumnPositions(.CopyingFacilityRegion) = ProgramSettings.CopyingFacilityRegionColumnName
-                    ColumnPositions(.CopyingFacilitySystemIndex) = ProgramSettings.CopyingFacilitySystemIndexColumnName
-                    ColumnPositions(.CopyingFacilityTax) = ProgramSettings.CopyingFacilityTaxColumnName
-                    ColumnPositions(.CopyingFacilityMEBonus) = ProgramSettings.CopyingFacilityMEBonusColumnName
-                    ColumnPositions(.CopyingFacilityTEBonus) = ProgramSettings.CopyingFacilityTEBonusColumnName
-                    ColumnPositions(.CopyingFacilityUsage) = ProgramSettings.CopyingFacilityUsageColumnName
-                    ColumnPositions(.CopyingFacilityFWSystemLevel) = ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                    ColumnPositions(.InventionFacilityName) = ProgramSettings.InventionFacilityNameColumnName
-                    ColumnPositions(.InventionFacilitySystem) = ProgramSettings.InventionFacilitySystemColumnName
-                    ColumnPositions(.InventionFacilityRegion) = ProgramSettings.InventionFacilityRegionColumnName
-                    ColumnPositions(.InventionFacilitySystemIndex) = ProgramSettings.InventionFacilitySystemIndexColumnName
-                    ColumnPositions(.InventionFacilityTax) = ProgramSettings.InventionFacilityTaxColumnName
-                    ColumnPositions(.InventionFacilityMEBonus) = ProgramSettings.InventionFacilityMEBonusColumnName
-                    ColumnPositions(.InventionFacilityTEBonus) = ProgramSettings.InventionFacilityTEBonusColumnName
-                    ColumnPositions(.InventionFacilityUsage) = ProgramSettings.InventionFacilityUsageColumnName
-                    ColumnPositions(.InventionFacilityFWSystemLevel) = ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                    ColumnPositions(.InventionFacilityName) = ProgramSettings.InventionFacilityNameColumnName
-                    ColumnPositions(.ReactionFacilitySystem) = ProgramSettings.ReactionFacilitySystemColumnName
-                    ColumnPositions(.ReactionFacilityRegion) = ProgramSettings.ReactionFacilityRegionColumnName
-                    ColumnPositions(.ReactionFacilitySystemIndex) = ProgramSettings.ReactionFacilitySystemIndexColumnName
-                    ColumnPositions(.ReactionFacilityTax) = ProgramSettings.ReactionFacilityTaxColumnName
-                    ColumnPositions(.ReactionFacilityMEBonus) = ProgramSettings.ReactionFacilityMEBonusColumnName
-                    ColumnPositions(.ReactionFacilityTEBonus) = ProgramSettings.ReactionFacilityTEBonusColumnName
-                    ColumnPositions(.ReactionFacilityUsage) = ProgramSettings.ReactionFacilityUsageColumnName
-                    ColumnPositions(.ReactionFacilityFWSystemLevel) = ProgramSettings.ReactionFacilityFWSystemLevelColumnName
+
                 End With
 
                 ' Reset the first column is empty
@@ -478,10 +342,6 @@
                                 .ProductionLines = i
                             Case ProgramSettings.LaboratoryLinesColumnName
                                 .LaboratoryLines = i
-                            Case ProgramSettings.TotalInventionCostColumnName
-                                .TotalInventionCost = i
-                            Case ProgramSettings.TotalCopyCostColumnName
-                                .TotalCopyCost = i
                             Case ProgramSettings.TaxesColumnName
                                 .Taxes = i
                             Case ProgramSettings.BrokerFeesColumnName
@@ -538,8 +398,6 @@
                                 .BaseJobCost = i
                             Case ProgramSettings.NumBPsColumnName
                                 .NumBPs = i
-                            Case ProgramSettings.InventionChanceColumnName
-                                .InventionChance = i
                             Case ProgramSettings.BPTypeColumnName
                                 .BPType = i
                             Case ProgramSettings.RaceColumnName
@@ -570,96 +428,6 @@
                                 .ManufacturingFacilityUsage = i
                             Case ProgramSettings.ManufacturingFacilityFWSystemLevelColumnName
                                 .ManufacturingFacilityFWSystemLevel = i
-                            Case ProgramSettings.ComponentFacilityNameColumnName
-                                .ComponentFacilityName = i
-                            Case ProgramSettings.ComponentFacilitySystemColumnName
-                                .ComponentFacilitySystem = i
-                            Case ProgramSettings.ComponentFacilityRegionColumnName
-                                .ComponentFacilityRegion = i
-                            Case ProgramSettings.ComponentFacilitySystemIndexColumnName
-                                .ComponentFacilitySystemIndex = i
-                            Case ProgramSettings.ComponentFacilityTaxColumnName
-                                .ComponentFacilityTax = i
-                            Case ProgramSettings.ComponentFacilityMEBonusColumnName
-                                .ComponentFacilityMEBonus = i
-                            Case ProgramSettings.ComponentFacilityTEBonusColumnName
-                                .ComponentFacilityTEBonus = i
-                            Case ProgramSettings.ComponentFacilityUsageColumnName
-                                .ComponentFacilityUsage = i
-                            Case ProgramSettings.ComponentFacilityFWSystemLevelColumnName
-                                .ComponentFacilityFWSystemLevel = i
-                            Case ProgramSettings.CapComponentFacilityNameColumnName
-                                .CapComponentFacilityName = i
-                            Case ProgramSettings.CapComponentFacilitySystemColumnName
-                                .CapComponentFacilitySystem = i
-                            Case ProgramSettings.CapComponentFacilityRegionColumnName
-                                .CapComponentFacilityRegion = i
-                            Case ProgramSettings.CapComponentFacilitySystemIndexColumnName
-                                .CapComponentFacilitySystemIndex = i
-                            Case ProgramSettings.CapComponentFacilityTaxColumnName
-                                .CapComponentFacilityTax = i
-                            Case ProgramSettings.CapComponentFacilityMEBonusColumnName
-                                .CapComponentFacilityMEBonus = i
-                            Case ProgramSettings.CapComponentFacilityTEBonusColumnName
-                                .CapComponentFacilityTEBonus = i
-                            Case ProgramSettings.CapComponentFacilityUsageColumnName
-                                .CapComponentFacilityUsage = i
-                            Case ProgramSettings.CapComponentFacilityFWSystemLevelColumnName
-                                .CapComponentFacilityFWSystemLevel = i
-                            Case ProgramSettings.CopyingFacilityNameColumnName
-                                .CopyingFacilityName = i
-                            Case ProgramSettings.CopyingFacilitySystemColumnName
-                                .CopyingFacilitySystem = i
-                            Case ProgramSettings.CopyingFacilityRegionColumnName
-                                .CopyingFacilityRegion = i
-                            Case ProgramSettings.CopyingFacilitySystemIndexColumnName
-                                .CopyingFacilitySystemIndex = i
-                            Case ProgramSettings.CopyingFacilityTaxColumnName
-                                .CopyingFacilityTax = i
-                            Case ProgramSettings.CopyingFacilityMEBonusColumnName
-                                .CopyingFacilityMEBonus = i
-                            Case ProgramSettings.CopyingFacilityTEBonusColumnName
-                                .CopyingFacilityTEBonus = i
-                            Case ProgramSettings.CopyingFacilityUsageColumnName
-                                .CopyingFacilityUsage = i
-                            Case ProgramSettings.CopyingFacilityFWSystemLevelColumnName
-                                .CopyingFacilityFWSystemLevel = i
-                            Case ProgramSettings.InventionFacilityNameColumnName
-                                .InventionFacilityName = i
-                            Case ProgramSettings.InventionFacilitySystemColumnName
-                                .InventionFacilitySystem = i
-                            Case ProgramSettings.InventionFacilityRegionColumnName
-                                .InventionFacilityRegion = i
-                            Case ProgramSettings.InventionFacilitySystemIndexColumnName
-                                .InventionFacilitySystemIndex = i
-                            Case ProgramSettings.InventionFacilityTaxColumnName
-                                .InventionFacilityTax = i
-                            Case ProgramSettings.InventionFacilityMEBonusColumnName
-                                .InventionFacilityMEBonus = i
-                            Case ProgramSettings.InventionFacilityTEBonusColumnName
-                                .InventionFacilityTEBonus = i
-                            Case ProgramSettings.InventionFacilityUsageColumnName
-                                .InventionFacilityUsage = i
-                            Case ProgramSettings.InventionFacilityFWSystemLevelColumnName
-                                .InventionFacilityFWSystemLevel = i
-                            Case ProgramSettings.ReactionFacilityNameColumnName
-                                .ReactionFacilityName = i
-                            Case ProgramSettings.ReactionFacilitySystemColumnName
-                                .ReactionFacilitySystem = i
-                            Case ProgramSettings.ReactionFacilityRegionColumnName
-                                .ReactionFacilityRegion = i
-                            Case ProgramSettings.ReactionFacilitySystemIndexColumnName
-                                .ReactionFacilitySystemIndex = i
-                            Case ProgramSettings.ReactionFacilityTaxColumnName
-                                .ReactionFacilityTax = i
-                            Case ProgramSettings.ReactionFacilityMEBonusColumnName
-                                .ReactionFacilityMEBonus = i
-                            Case ProgramSettings.ReactionFacilityTEBonusColumnName
-                                .ReactionFacilityTEBonus = i
-                            Case ProgramSettings.ReactionFacilityUsageColumnName
-                                .ReactionFacilityUsage = i
-                            Case ProgramSettings.ReactionFacilityFWSystemLevelColumnName
-                                .ReactionFacilityFWSystemLevel = i
                         End Select
                     Next
                 End With

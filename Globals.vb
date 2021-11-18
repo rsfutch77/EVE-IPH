@@ -1086,8 +1086,6 @@ InvalidDate:
                     .PortionSize = SentBlueprint.GetPortionSize
 
                     .ManufacturingFacility = SentBlueprint.GetManufacturingFacility
-                    .ComponentManufacturingFacility = SentBlueprint.GetComponentManufacturingFacility
-                    .ReactionFacility = SentBlueprint.GetReactionFacility
 
                     If BuildBuy Then
                         .BuildType = "Build/Buy"
@@ -1102,8 +1100,7 @@ InvalidDate:
                     End If
 
                     ' Total up all usage
-                    .TotalUsage = SentBlueprint.GetManufacturingFacilityUsage + SentBlueprint.GetComponentFacilityUsage + SentBlueprint.GetCapComponentFacilityUsage _
-                        + SentBlueprint.GetInventionUsage + SentBlueprint.GetCopyUsage + SentBlueprint.GetReactionFacilityUsage
+                    .TotalUsage = SentBlueprint.GetManufacturingFacilityUsage
 
                     ' Get the build time
                     .TotalBuildTime = SentBlueprint.GetTotalProductionTime
@@ -1124,8 +1121,6 @@ InvalidDate:
                     .ItemME = SentBlueprint.GetME
                     .ItemTE = SentBlueprint.GetTE
                     .ManufacturingFacility = SentBlueprint.GetManufacturingFacility
-                    .ComponentManufacturingFacility = SentBlueprint.GetComponentManufacturingFacility
-                    .ReactionFacility = SentBlueprint.GetReactionFacility
                     .PortionSize = SentBlueprint.GetPortionSize
                     .BuildType = "Components"
 
@@ -1135,7 +1130,7 @@ InvalidDate:
                     End If
 
                     ' Total up all usage but not component usage
-                    .TotalUsage = SentBlueprint.GetManufacturingFacilityUsage + SentBlueprint.GetInventionUsage + SentBlueprint.GetCopyUsage
+                    .TotalUsage = SentBlueprint.GetManufacturingFacilityUsage
 
                     ' Get the build time
                     .TotalBuildTime = SentBlueprint.GetProductionTime
@@ -1150,44 +1145,6 @@ InvalidDate:
                     ShoppingItem.BPBuiltItems = Nothing ' no building here
 
                 End If
-            End If
-
-            If SentBlueprint.GetTechLevel = BPTechLevel.T2 Or SentBlueprint.GetTechLevel = BPTechLevel.T3 Then
-                If UserApplicationSettings.ShopListIncludeInventMats = True Or CopyInventionMatsOnly Then
-                    ' Save the list of invention materials
-                    .InventionMaterials = CType(SentBlueprint.GetInventionMaterials.Clone, Materials)
-
-                    ' Now insert into main buy List 
-                    ShoppingBuyList.InsertMaterialList(.InventionMaterials.GetMaterialList)
-
-                    ' Remove the data interface though, we will assume they don't want to buy this but this will get listed in the copy output (sent above)
-                    ShoppingBuyList.RemoveMaterial(SentBlueprint.GetInventionMaterials.SearchListbyName("Data Interface"))
-
-                    ' Remove the usage as well
-                    ShoppingBuyList.RemoveMaterial(SentBlueprint.GetInventionMaterials.SearchListbyName("Invention Usage"))
-
-                End If
-
-                If UserApplicationSettings.ShopListIncludeCopyMats = True Or CopyInventionMatsOnly Then
-                    ' Save the list of copy materials
-                    .CopyMaterials = CType(SentBlueprint.GetCopyMaterials.Clone, Materials)
-
-                    ' Now insert these into main buy list
-                    ShoppingBuyList.InsertMaterialList(.CopyMaterials.GetMaterialList)
-
-                    ' Remove Usage
-                    ShoppingBuyList.RemoveMaterial(SentBlueprint.GetInventionMaterials.SearchListbyName("Copy Usage"))
-                End If
-
-                ' How many runs do we need to invent this?
-                .AvgInvRunsforSuccess = 1 / SentBlueprint.GetInventionChance
-                .InventedRunsPerBP = SentBlueprint.GetSingleInventedBPCRuns
-                .InventionJobs = SentBlueprint.GetInventionJobs
-
-                ' Decryptor if used
-                .Decryptor = SentBlueprint.GetDecryptor.Name
-                .Relic = SentBlueprint.GetRelic
-
             End If
 
             ' Volume of the item(s)

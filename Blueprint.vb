@@ -49,20 +49,12 @@ Public Class Blueprint
 
     ' New cost variables
     Private BaseJobCost As Double ' Total per material used * average price
-    Private BaseCopyJobCost As Double ' Total job cost for copying (need to use the BPC job cost)
-    Private BaseInventionJobCost As Double ' Total job cost for invention (need to use the BPC job cost)
-
     ' Base Fees for activity
     Private JobFee As Double
 
     ' How much it costs to use each facility to manufacture items and parts
     Private ManufacturingFacilityUsage As Double
     Private IncludeManufacturingUsage As Boolean
-    Private ComponentFacilityUsage As Double
-    Private CapComponentFacilityUsage As Double
-    Private ReactionFacilityUsage As Double ' This stores the main reaction usage if the reaction is a composite and has other reactions
-    Private TotalReactionFacilityUsage As Double ' Total of all reaction facilities usage for totaling all reactions below a composite or collection of composites
-
     ' Variables for calcuations
     Private BPProductionTime As Double ' Production Time for 1 Run of Blueprint 
     Private TotalProductionTime As Double ' Production Time for 1 run of BP plus any components (this is to compare buying components vs. making them)
@@ -99,39 +91,8 @@ Public Class Blueprint
 
     ' Invention variables
     Private MaxRunsPerBP As Integer ' The max runs for a copy or invented bpc. Zero is unlimited runs
-    Private ReqInventionSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' For inventing this BP
-    Private ReqCopySkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' For copying the BPC
-    Public InventionMaterials As Materials
-    Public CopyMaterials As Materials ' Some copies require items
-    Private InventionChance As Double
-    Private InventionDecryptor As New Decryptor
-    Private Relic As String ' Name of relic
-    Private TotalInventedRuns As Integer ' Number of runs all the invention jobs will produce
-    Private SingleInventedBPCRuns As Integer ' The runs on one bp invented
-    Private NumInventionJobs As Integer ' Number of invention jobs we will do
-    Private PerInventionRunCost As Double ' The cost per invention run based on the probability of success
-
-    Private TotalCopyCost As Double ' Total Cost of the BPCs for the T2 item - for copy materials for things like data sheets, etc when needed, and get enough successful inventions for these runs
-    Private CopyCost As Double ' Cost for the runs given
-    Private CopyTime As Double ' Total time in seconds to copy the BPCs needed for the T2 item
-    Private CopyUsage As Double ' Total Cost to make a copy
-
-    Private IncludeCopyTime As Boolean
-    Private IncludeCopyCosts As Boolean
-    Private IncludeCopyUsage As Boolean
-
-    Private TotalInventionCost As Double ' Total cost for all the invention runs to get enough successful inventions for these runs
-    Private InventionCost As Double ' Cost for the runs given 
-    Private InventionTime As Double ' Total time in seconds to invent this bp
-    Private InventionUsage As Double ' Total cost to do this activity in a facility
-
-    Private IncludeInventionCosts As Boolean
-    Private IncludeInventionTime As Boolean
-    Private IncludeInventionUsage As Boolean ' just the facility usage, not the full cost use for both T2 and T3
 
     Private AdvManufacturingSkillLevelBonus As Double ' The total TE reduction from skills required to invent and build this item (T2/T3)
-
-    Private InventionBPCTypeID As Long ' BP used to invent the BP we are building
 
     ' Price Variables
     Private ItemMarketCost As Double ' Market cost of item 
@@ -241,30 +202,10 @@ Public Class Blueprint
 
         RawMaterials = New Materials
         ComponentMaterials = New Materials
-        InventionMaterials = New Materials
-        CopyMaterials = New Materials
-
-        TotalCopyCost = 0
-        CopyTime = 0
-        InventionTime = 0
-
         ManufacturingFacilityUsage = 0
-        ComponentFacilityUsage = 0
-        CapComponentFacilityUsage = 0
-        ReactionFacilityUsage = 0
-        TotalReactionFacilityUsage = 0
-
-        CopyUsage = 0
-        InventionUsage = 0
 
         BaseJobCost = 0
         JobFee = 0
-
-        InventionDecryptor = NoDecryptor
-        Relic = ""
-        TotalInventedRuns = 0
-
-        NumInventionJobs = 0
 
         ' Do build/buy 
         BuildBuy = BPBuildBuy
@@ -357,32 +298,6 @@ Public Class Blueprint
         readerBP = Nothing
         DBCommand = Nothing
 
-        ' Set the invention variables to default
-        IncludeInventionCosts = False
-        IncludeInventionTime = False
-        IncludeInventionUsage = False
-
-        IncludeCopyCosts = False
-        IncludeCopyTime = False
-        IncludeCopyUsage = False
-
-        InventionChance = 0
-
-        TotalInventedRuns = 0
-        SingleInventedBPCRuns = 0
-        NumInventionJobs = 0
-
-        TotalCopyCost = 0
-        CopyTime = 0
-        CopyUsage = 0
-
-        TotalInventionCost = 0
-        InventionTime = 0
-        InventionUsage = 0
-
-        InventionDecryptor = NoDecryptor
-        Relic = ""
-
         ' 3406 laboratory operation and 24624 is adv laboratory operation
         NumberofLaboratoryLines = 0
 
@@ -390,96 +305,12 @@ Public Class Blueprint
         CopyFacility = NoFacility
         InventionFacility = NoFacility
 
-        ' Invention variable inputs - The BPC or Relic first
-        InventionBPCTypeID = 0
-
-        ' Set the Decryptor data
-        InventionDecryptor = NoDecryptor
-
         ' Implement passing in the runs per copy later based on user, right now though this is unlimited
         MaxRunsPerBP = 0
 
         ProductionChain = New List(Of List(Of Integer))
 
     End Sub
-
-    Public Function InventBlueprint(ByVal NumLaboratoryLines As Integer, ByVal BPDecryptor As Decryptor,
-                ByVal BPInventionFacility As IndustryFacility, ByVal BPCopyFacility As IndustryFacility, ByVal InventionItemTypeID As Long) As Integer
-
-        ' 3406 laboratory operation and 24624 is adv laboratory operation
-        NumberofLaboratoryLines = NumLaboratoryLines
-
-        ' Save copy and invention facility
-        CopyFacility = BPCopyFacility
-        InventionFacility = BPInventionFacility
-
-        ' Set the FW bonus levels
-        Select Case CopyFacility.FWUpgradeLevel
-            Case 1
-                FWCopyingCostBonus = 0.9
-            Case 2
-                FWCopyingCostBonus = 0.8
-            Case 3
-                FWCopyingCostBonus = 0.7
-            Case 4
-                FWCopyingCostBonus = 0.6
-            Case 5
-                FWCopyingCostBonus = 0.5
-            Case Else
-                FWCopyingCostBonus = 1
-        End Select
-
-        Select Case InventionFacility.FWUpgradeLevel
-            Case 1
-                FWInventionCostBonus = 0.9
-            Case 2
-                FWInventionCostBonus = 0.8
-            Case 3
-                FWInventionCostBonus = 0.7
-            Case 4
-                FWInventionCostBonus = 0.6
-            Case 5
-                FWInventionCostBonus = 0.5
-            Case Else
-                FWInventionCostBonus = 1
-        End Select
-
-        ' Invention variable inputs - The BPC or Relic first
-        InventionBPCTypeID = InventionItemTypeID
-
-        ' Set the Decryptor data
-        InventionDecryptor = BPDecryptor
-
-        ' Invention and Copy costs/times are set after getting the full base job materials
-        IncludeInventionCosts = InventionFacility.IncludeActivityCost
-        IncludeInventionTime = InventionFacility.IncludeActivityTime
-        IncludeInventionUsage = InventionFacility.IncludeActivityUsage
-
-        IncludeCopyCosts = CopyFacility.IncludeActivityCost
-        IncludeCopyTime = CopyFacility.IncludeActivityTime
-        IncludeCopyUsage = CopyFacility.IncludeActivityUsage
-
-        ' Set the T2/T3 skills to invent from the T1 version
-        Call SetInventionSkills()
-
-        ' Set the T2/T3 skills to copy from the T1 BPC
-        Call SetCopySkills()
-
-        ' Set the invention flag
-        CanInventRE = UserHasReqSkills(BPCharacter.Skills, ReqInventionSkills)
-
-        ' Use typical invention costs to invent this
-        Dim InventedBPs As Integer = InventREBlueprint(Not CanInventRE)
-
-        ' Save the max runs per invented bpc
-        MaxRunsPerBP = SingleInventedBPCRuns
-
-        ' Reset the number of bps needed based on the runs we have
-        NumberofBlueprints = CInt(Math.Ceiling(UserRuns / MaxRunsPerBP))
-
-        Return InventedBPs
-
-    End Function
 
     ' Base build function that takes a look at the number of blueprints the user wants to use and then builts each blueprint batch
     Public Sub BuildItems(ByVal SetTaxes As Boolean, ByVal BrokerFeeData As BrokerFeeInfo, ByVal SetProductionCosts As Boolean,
@@ -647,13 +478,8 @@ Public Class Blueprint
                         ' Base Fees for activity
                         JobFee += .GetJobFee
 
-                        Select Case BatchBlueprint.GetItemGroupID
-                            Case ItemIDs.ReactionBiochmeicalsGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionsIntermediateGroupID
-                                ReactionFacilityUsage += .GetReactionFacilityUsage
-                            Case Else
-                                ' How much it costs to use each facility to manufacture items 
-                                ManufacturingFacilityUsage += .GetManufacturingFacilityUsage
-                        End Select
+                        ' How much it costs to use each facility to manufacture items 
+                        ManufacturingFacilityUsage += .GetManufacturingFacilityUsage
 
                     End With
                 Next
@@ -825,16 +651,10 @@ Public Class Blueprint
 
                 ' Get the usage
                 Select Case GroupID
-                    Case ItemIDs.AdvCapitalComponentGroupID, ItemIDs.CapitalComponentGroupID
-                        CapComponentFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                    Case ItemIDs.ReactionBiochmeicalsGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionsIntermediateGroupID
-                        TotalReactionFacilityUsage += ComponentBlueprint.GetReactionFacilityUsage
                     Case Else
                         If ReactionBPGroups.Contains(BlueprintGroupID) Then
                             ' Save the manufacturing cost for fuel blocks
                             ManufacturingFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                        Else
-                            ComponentFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
                         End If
                 End Select
             Next
@@ -847,7 +667,7 @@ Public Class Blueprint
             Next
 
             ' Update the bp production time to equal the longest runs per line times the number of batches - add in copy and invention time if we invented (totaled up in invention function)
-            BPProductionTime = (BPProductionTime * Batches) + CopyTime + InventionTime
+            BPProductionTime = (BPProductionTime * Batches)
 
             ' Set the total production time by adding just the components (invention and copy already included in bp production time
             If Not IsNothing(ComponentProductionTimes) Then
@@ -1148,23 +968,10 @@ Public Class Blueprint
                         ' Get the skills for BP to build it and add them to the list
                         TempSkills = ComponentBlueprint.GetReqBPSkills
 
-                        ' Get the component usage
-                        Select Case ComponentBlueprint.GetItemGroupID
-                            Case ItemIDs.AdvCapitalComponentGroupID, ItemIDs.CapitalComponentGroupID
-                                CapComponentFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                            Case ItemIDs.ReactionBiochmeicalsGroupID, ItemIDs.ReactionCompositesGroupID, ItemIDs.ReactionPolymersGroupID, ItemIDs.ReactionsIntermediateGroupID
-                                ' Save reaction and fuel block usage for reaction bps
-                                TotalReactionFacilityUsage += ComponentBlueprint.GetReactionFacilityUsage
-                                ManufacturingFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                            Case Else
-                                If ReactionBPGroups.Contains(BlueprintGroupID) Then
-                                    ' Save fuel block usage
-                                    ManufacturingFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                                Else
-                                    ' Just a regular component
-                                    ComponentFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
-                                End If
-                        End Select
+                        If ReactionBPGroups.Contains(BlueprintGroupID) Then
+                            ' Save fuel block usage
+                            ManufacturingFacilityUsage += ComponentBlueprint.GetManufacturingFacilityUsage
+                        End If
 
                         ' Insert the raw mats of this blueprint
                         RawMaterials.InsertMaterialList(ComponentBlueprint.GetRawMaterials.GetMaterialList)
@@ -1331,9 +1138,9 @@ SkipProcessing:
         End If
 
         ' Add all the times here - only include copy, re, and invention times here since it's the total time
-        TotalProductionTime = TotalProductionTime + BPProductionTime + CopyTime + InventionTime
+        TotalProductionTime = TotalProductionTime + BPProductionTime
         ' Finally, add in the copy, invention and RE time if they sent it
-        BPProductionTime = BPProductionTime + CopyTime + InventionTime
+        BPProductionTime = BPProductionTime
 
         ' Update the built runs on each built item in the built component list
         For Each BI In BuiltComponentList.GetBuiltItemList
@@ -1738,47 +1545,13 @@ SkipProcessing:
 
         TaxesFees = DisplayTaxes + DisplayBrokerFees
 
-        If ComponentManufacturingFacility.IncludeActivityUsage Then
-            ComponentUsage += ComponentFacilityUsage
-        End If
-
-        If CapitalComponentManufacturingFacility.IncludeActivityUsage Then
-            ComponentUsage += CapComponentFacilityUsage
-        End If
-
         If ReactionFacility.IncludeActivityUsage And MainManufacturingFacility.FacilityProductionType = ProductionType.Reactions Then
-            MainFacilityUsage = ReactionFacilityUsage
             ComponentUsage += ManufacturingFacilityUsage
-            RemainingReactionUsage = TotalReactionFacilityUsage - ReactionFacilityUsage
         Else
             MainFacilityUsage = ManufacturingFacilityUsage
-            ComponentUsage += ReactionFacilityUsage
         End If
 
-        ' Finalize invention and copying usage and total cost of all invention
-        Call SetCopyUsage()
-        Call SetInventionUsage()
-
-        ' Set copy and invention costs (total mats needed + usage) for the number of runs they want
-        If IncludeInventionCosts Then
-            ' Set the total cost for the sent runs by totaling all to get success needed, then dividing it by the runs invented
-            ' (some bps have more runs than 1 - i.e. Drones = 10) to get the cost per run, then multiply that cost by the number of runs
-            ' InventionCost = TotalInventionCost / TotalInventedRuns * UserRuns
-            ' Use the Per Run Cost for a more accurate invention cost assuming a large number of runs - more accurate than small runs however will not be the exact cost of the invention materials needed
-            InventionCost = PerInventionRunCost * UserRuns
-        Else
-            InventionCost = 0
-        End If
-
-        If IncludeCopyCosts And TechLevel <> BPTechLevel.T3 Then
-            ' Set the total cost for the sent runs by totaling all to get success needed, then dividing it by the runs invented
-            ' (some bps have more runs than 1 - i.e. Drones = 10) to get the cost per run, then multiply that cost by the number of runs
-            CopyCost = TotalCopyCost / TotalInventedRuns * UserRuns
-        Else
-            CopyCost = 0
-        End If
-
-        TotalUsage = MainFacilityUsage + ComponentUsage + InventionUsage + CopyUsage + RemainingReactionUsage
+        TotalUsage = MainFacilityUsage + ComponentUsage + RemainingReactionUsage
 
         'Total up the excess material amounts
         SellExcessAmount = 0 ' reset
@@ -1801,10 +1574,10 @@ SkipProcessing:
         End If
 
         ' Totals 
-        TotalRawCost = RawMaterials.GetTotalMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
-        TotalComponentCost = ComponentMaterials.GetTotalMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
-        TotalRiskRawCost = RawMaterials.GetTotalRiskMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
-        TotalRiskComponentCost = ComponentMaterials.GetTotalRiskMaterialsCost + InventionCost + CopyCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
+        TotalRawCost = RawMaterials.GetTotalMaterialsCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
+        TotalComponentCost = ComponentMaterials.GetTotalMaterialsCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
+        TotalRiskRawCost = RawMaterials.GetTotalRiskMaterialsCost + TaxesFees + AdditionalCosts + TotalUsage - SellExcessAmount
+        TotalRiskComponentCost = ComponentMaterials.GetTotalRiskMaterialsCost + TaxesFees + AdditionalCosts + (TotalUsage - ComponentUsage - RemainingReactionUsage) - SellExcessAmount ' don't build components
 
         ' Don't include usage in the total cost above but if we are doing build/buy add it back
         If BuildBuy Then
@@ -2007,8 +1780,6 @@ SkipProcessing:
         End If
 
         If MainManufacturingFacility.FacilityProductionType = ProductionType.Reactions Then
-            ReactionFacilityUsage = TempFacilityUsage
-            TotalReactionFacilityUsage += TempFacilityUsage
         Else
             ManufacturingFacilityUsage = TempFacilityUsage
         End If
@@ -2089,18 +1860,6 @@ SkipProcessing:
 
     End Function
 
-    ' Returns the BPC used as a string
-    Public Function GetInventionBPC() As String
-
-        For i = 0 To InventionMaterials.GetMaterialList.Count - 1
-            If InventionMaterials.GetMaterialList(i).GetMaterialTypeID = InventionBPCTypeID Then
-                Return InventionMaterials.GetMaterialList(i).GetMaterialName
-            End If
-        Next
-
-        Return ""
-    End Function
-
     ' Predicate for finding the BuildBuyItem in full list
     Public Function FindBBItem(ByVal Item As BuildBuyItem) As Boolean
         If BBItemtoFind = Item.ItemID Then
@@ -2110,605 +1869,16 @@ SkipProcessing:
         End If
     End Function
 
-#Region "Invention/RE Functions"
-
-    ' Sets the invention cost and materials for this BP
-    Private Function InventREBlueprint(Optional ByVal UseTypical As Boolean = False) As Integer
-        Dim AvgRunsforSuccess As Double
-        Dim readerBP As SQLiteDataReader
-        Dim readerRiskBP As SQLiteDataReader
-        Dim readerCost As SQLiteDataReader
-        Dim readerRiskCost As SQLiteDataReader
-        Dim MatCost As Double = 0
-
-        Dim SQL As String
-        Dim InventionMat As Material = Nothing
-        Dim CopyMat As Material = Nothing
-        Dim SingleInventionMats As New Materials
-        Dim SingleCopyMats As New Materials
-        Dim NumInventionSessions As Integer = 0 ' How many sessions (runs per set of lines) ie. 10 runs 5 lines = 2 sessions
-
-        ' First select the datacores needed
-        SQL = "Select MATERIAL_ID, MATERIAL, MATERIAL_CATEGORY, QUANTITY, MATERIAL_VOLUME, PRICE, MATERIAL_GROUP "
-        SQL = SQL & "FROM ALL_BLUEPRINT_MATERIALS LEFT OUTER JOIN ITEM_PRICES_FACT On ALL_BLUEPRINT_MATERIALS.MATERIAL_ID = ITEM_PRICES_FACT.ITEM_ID "
-        SQL = SQL & "WHERE BLUEPRINT_ID = " & InventionBPCTypeID & " And PRODUCT_ID = " & BlueprintID & " "
-        SQL = SQL & "And ACTIVITY = 8 And MATERIAL_GROUP = 'Datacores'"
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerBP = DBCommand.ExecuteReader()
-
-        ' Get all the Datacores
-        While readerBP.Read
-            ' Look up the Risk cost for the material
-            SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerBP.GetInt64(0))
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerRiskBP = DBCommand.ExecuteReader
-
-            If readerRiskBP.Read Then
-                ' Add this to the invention materials - add price for data cores
-                InventionMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                    readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)),
-                                    "", "")
-            Else
-                ' Add this to the invention materials - add price for data cores
-                InventionMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                    readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0,
-                                    "", "")
-
-            End If
-            readerRiskBP.Close()
-            readerRiskBP = Nothing
-            SingleInventionMats.InsertMaterial(InventionMat)
-        End While
-
-        readerBP.Close()
-        readerBP = Nothing
-        DBCommand = Nothing
-
-        ' If they selected a decryptor, add that cost for one invention run
-        If InventionDecryptor.Name <> None Then
-            InventionMat = New Material(InventionDecryptor.TypeID, InventionDecryptor.Name, "Decryptors", 1, 0.1, GetItemPrice(InventionDecryptor.TypeID), GetItemRiskPrice(InventionDecryptor.TypeID),
-                                        "", "")
-            SingleInventionMats.InsertMaterial(InventionMat)
-        End If
-
-        ' If this is T3, get the relic and add it to the list of invention materials
-        If TechLevel = BPTechLevel.T3 Then
-            ' Look up the cost for the material
-            SQL = "SELECT PRICE, ITEM_NAME FROM ITEM_PRICES WHERE ITEM_ID =" & InventionBPCTypeID
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerCost = DBCommand.ExecuteReader
-
-            ' Look up the cost for the material
-            SQL = "SELECT RISK_PRICE, ITEM_NAME FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & InventionBPCTypeID
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerRiskCost = DBCommand.ExecuteReader
-
-            If readerCost.Read Then
-                If readerRiskCost.Read() Then
-                    InventionMat = New Material(InventionBPCTypeID, readerCost.GetString(1), "Ancient Relics", 1, 100, readerCost.GetDouble(0), readerRiskCost.GetDouble(0), "", "")
-                Else
-                    InventionMat = New Material(InventionBPCTypeID, readerCost.GetString(1), "Ancient Relics", 1, 100, readerCost.GetDouble(0), 0, "", "")
-                End If
-                SingleInventionMats.InsertMaterial(InventionMat)
-            End If
-
-            readerCost.Close()
-            readerCost = Nothing
-            readerRiskCost.Close()
-            readerRiskCost = Nothing
-            DBCommand = Nothing
-
-        End If
-
-        ' Get and set the invention chance
-        InventionChance = SetInventionChance(UseTypical)
-
-        ' Use the max runs for the T2 item and this should be the invented runs for one bpc
-        If TechLevel = BPTechLevel.T2 Then
-            SingleInventedBPCRuns = MaxProductionLimit + InventionDecryptor.RunMod
-        Else
-            ' Base it off of the relic type - need to look it up based on the TypeID
-            SQL = "SELECT typeName, quantity FROM INVENTORY_TYPES, INDUSTRY_ACTIVITY_PRODUCTS "
-            SQL = SQL & "WHERE typeID = blueprintTypeID And typeID = " & CStr(InventionBPCTypeID) & " AND productTypeID = " & CStr(BlueprintID)
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerBP = DBCommand.ExecuteReader()
-
-            If readerBP.Read Then
-                ' Set the name
-                Relic = readerBP.GetString(0)
-                MaxProductionLimit = readerBP.GetInt32(1)
-            Else
-                MaxProductionLimit = 3
-                Relic = WreckedRelic
-            End If
-
-            ' Set the final runs for one bp
-            SingleInventedBPCRuns = MaxProductionLimit + InventionDecryptor.RunMod
-        End If
-
-        ' Averages and final cost per run
-        AvgRunsforSuccess = 1 / InventionChance
-
-        ' Set how many total invention runs we will need to do - take the number of bpc's we'll need and multiply by how many runs for a success - round up
-        If InventionChance <> 0 Then
-            NumInventionJobs = CInt(Math.Ceiling(AvgRunsforSuccess * Math.Ceiling(UserRuns / SingleInventedBPCRuns)))
-        End If
-
-        ' Now set the total runs we will get from all jobs
-        TotalInventedRuns = CInt(Math.Ceiling(UserRuns / SingleInventedBPCRuns) * SingleInventedBPCRuns)
-
-        ' Find the number of invention sessions we'll need to invent the number of runs for this item. This will be used in the copy and invention times
-        ' Basically, the number avg number of runs for success times the total runs wanted is the total invention runs needed for single runs. Divide this
-        ' by the invented runs, then divide that by how many laboratory lines we are using.  Need to round up each time
-        ' Ex. avgruns = 2, user runs = 100, inventedruns = 10, lines = 10 => 200/10 = 20/10 = 2 invention sessions to get enough bps to make 100 runs.
-        NumInventionSessions = CInt(Math.Ceiling(NumInventionJobs / NumberofLaboratoryLines))
-
-        If IncludeCopyTime And TechLevel <> BPTechLevel.T3 Then
-            ' Set the total copy time based on the number of invention jobs we need - assume only one bp to copy
-            CopyTime = GetCopyTime(NumInventionJobs)
-        Else
-            CopyTime = 0 ' No copies for T3
-        End If
-
-        If IncludeCopyCosts And TechLevel <> BPTechLevel.T3 Then
-            ' Get the copy materials and update
-            SQL = "SELECT MATERIAL_ID, MATERIAL, MATERIAL_CATEGORY, QUANTITY, MATERIAL_VOLUME, PRICE, MATERIAL_GROUP "
-            SQL = SQL & "FROM ALL_BLUEPRINT_MATERIALS LEFT OUTER JOIN ITEM_PRICES_FACT ON ALL_BLUEPRINT_MATERIALS.MATERIAL_ID = ITEM_PRICES_FACT.ITEM_ID "
-            SQL = SQL & "WHERE BLUEPRINT_ID = " & InventionBPCTypeID & " AND PRODUCT_ID = " & InventionBPCTypeID & " "
-            SQL = SQL & "AND ACTIVITY = 5 AND MATERIAL_CATEGORY <> 'Skill'"
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerBP = DBCommand.ExecuteReader()
-
-            ' Get all the mats and add
-            While readerBP.Read
-
-                ' Look up the Risk cost for the material
-                SQL = "SELECT RISK_PRICE FROM ITEM_PRICES_FACT WHERE ITEM_ID =" & CStr(readerBP.GetInt64(0))
-
-                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                readerRiskBP = DBCommand.ExecuteReader
-
-                If readerRiskBP.Read Then
-                    ' Add this to the copy materials 
-                    CopyMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                        readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), If(readerRiskBP.IsDBNull(0), 0, readerRiskBP.GetDouble(0)), "", "")
-                Else
-                    CopyMat = New Material(readerBP.GetInt64(0), readerBP.GetString(1), readerBP.GetString(2),
-                                        readerBP.GetInt64(3), readerBP.GetDouble(4), If(readerBP.IsDBNull(5), 0, readerBP.GetDouble(5)), 0, "", "")
-                End If
-                SingleCopyMats.InsertMaterial(CopyMat)
-
-                readerRiskBP.Close()
-                readerRiskBP = Nothing
-            End While
-
-            readerBP.Close()
-            readerBP = Nothing
-            DBCommand = Nothing
-
-            If Not IsNothing(SingleCopyMats.GetMaterialList) Then
-                ' Update the copy mats to reflect the number of copy runs we will do and save into the final list
-                For i = 0 To SingleCopyMats.GetMaterialList.Count - 1
-                    SingleCopyMats.GetMaterialList(i).SetQuantity(SingleCopyMats.GetMaterialList(i).GetQuantity * NumInventionJobs)
-                Next
-
-                ' Now insert all the materials in a new list to get the correct cost (kind of a hack, need a better process - no automatic way to update the total price in a material list)
-                For i = 0 To SingleCopyMats.GetMaterialList.Count - 1
-                    CopyMaterials.InsertMaterial(SingleCopyMats.GetMaterialList(i))
-                Next
-            End If
-
-            ' Finally set the cost
-            TotalCopyCost = CopyMaterials.GetTotalMaterialsCost
-        Else
-            TotalCopyCost = 0 ' No copies for T3
-        End If
-
-        ' Set invention time
-        If IncludeInventionTime Then
-            Call SetInventionTime(NumInventionSessions)
-        End If
-
-        ' Finally set the total invention cost for just inventing
-        If IncludeInventionCosts Then
-
-            ' Before updating the materials, use the cost of a single run to determine a single run invention cost. This is an accurate cost based on the probability of success with a large number of runs
-            PerInventionRunCost = (SingleInventionMats.GetTotalMaterialsCost() / InventionChance) / SingleInventedBPCRuns
-
-            ' Update the invention mats to reflect the number of invention runs we will do and save into the final list
-            For i = 0 To SingleInventionMats.GetMaterialList.Count - 1
-                SingleInventionMats.GetMaterialList(i).SetQuantity(SingleInventionMats.GetMaterialList(i).GetQuantity * NumInventionJobs)
-            Next
-
-            ' Now insert all the materials in a new list to get the correct cost (kind of a hack, need a better process - no automatic way to update the total price in a material list)
-            For i = 0 To SingleInventionMats.GetMaterialList.Count - 1
-                InventionMaterials.InsertMaterial(SingleInventionMats.GetMaterialList(i))
-            Next
-
-            ' Insert the BPC used
-            If TechLevel = BPTechLevel.T2 Then
-                SQL = "SELECT typeName FROM INVENTORY_TYPES WHERE typeID = " & CStr(InventionBPCTypeID)
-
-                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                readerBP = DBCommand.ExecuteReader()
-                readerBP.Read()
-
-                If Not IsNothing(readerBP.GetValue(0)) Then
-                    Dim TempMat = New Material(InventionBPCTypeID, readerBP.GetString(0) & " Copy", "Blueprint", 1, 0.1, 0, 0, "", "")
-                    InventionMaterials.InsertMaterial(TempMat)
-                End If
-            End If
-
-            TotalInventionCost = InventionMaterials.GetTotalMaterialsCost
-
-        End If
-
-        Return CInt(Math.Ceiling(TotalInventedRuns / SingleInventedBPCRuns))
-
-    End Function
-
-    ' Sets the usage for Copying, which is based on the base mats cost
-    Private Sub SetCopyUsage()
-
-        If IncludeCopyUsage And TechLevel <> BPTechLevel.T3 Then
-            ' Set the copy cost based on the number of copies we'll need for these runs
-            CopyUsage = GetCopyUsage(NumInventionJobs) / TotalInventedRuns
-            'InventionMaterials.InsertMaterial(New Material(0, "Copy Usage", "Usage", 1, 0, CopyUsage, ""))
-        Else
-            CopyUsage = 0 ' No copies for T3
-        End If
-    End Sub
-
-    ' Sets the usage for Invention, which is based on the base mats cost
-    Private Sub SetInventionUsage()
-
-        If IncludeInventionUsage Then
-            ' Set the usage for these invention runs only
-            InventionUsage = GetInventionUsage(NumInventionJobs) / TotalInventedRuns
-            ' Add the usage
-            'InventionMaterials.InsertMaterial(New Material(0, "Invention Usage", "Usage", 1, 0, InventionUsage, ""))
-        Else
-            InventionUsage = 0
-        End If
-
-    End Sub
-
-    ' Sets the invention chance of the blueprint if set
-    Private Function SetInventionChance(ByVal UseTypical As Boolean) As Double
-        Dim BaseInventionChance As Double
-        Dim i As Integer = 0
-        Dim readerLookup As SQLiteDataReader
-        Dim SQL As String
-
-        Dim EncryptionSkillLevel As Integer
-        Dim InventionSkillLevels As New List(Of Integer) ' 
-
-        ' Get the base invention chance from the activities for the T1 BPO
-        SQL = "SELECT probability FROM INDUSTRY_ACTIVITY_PRODUCTS WHERE blueprintTypeID = " & InventionBPCTypeID
-        SQL = SQL & " AND activityID = 8 AND productTypeID = " & BlueprintID
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerLookup = DBCommand.ExecuteReader()
-        readerLookup.Read()
-
-        If readerLookup.HasRows Then
-            BaseInventionChance = readerLookup.GetDouble(0)
-        Else
-            BaseInventionChance = 0
-        End If
-
-        ' Pull out the invention skills
-        For i = 0 To ReqInventionSkills.GetSkillList.Count - 1
-            ' Look up the level of the character's skills
-            If ReqInventionSkills.GetSkillList(i).Name.Contains("Encryption") Then
-                EncryptionSkillLevel = BPCharacter.Skills.GetSkillLevel(ReqInventionSkills.GetSkillList(i).TypeID)
-            Else
-                ' A datacore or supporting skill (i.e. cap ship construction)
-                InventionSkillLevels.Add(BPCharacter.Skills.GetSkillLevel(ReqInventionSkills.GetSkillList(i).TypeID))
-            End If
-        Next
-
-        If Not UseTypical Then
-            Dim TotalInventionSkillLevels As Integer = 0
-            For Each skill In InventionSkillLevels
-                TotalInventionSkillLevels += skill
-            Next
-            ' BaseChance * [ 1 + (((ScienceSkill1 + ScienceSkill2 + ...) / 30) + (EncryptionSkill / 40 ))]
-            InventionChance = BaseInventionChance * (1 + (TotalInventionSkillLevels / 30) + (EncryptionSkillLevel / 40)) * InventionDecryptor.ProductionMod
-            '(1 + (0.01 * EncryptionSkillLevel) + (0.02 * (DatacoreSkillLevels(0) + DatacoreSkillLevels(1)))) * InventionDecryptor.ProductionMod
-        Else
-            ' Just use typical invention costs - ie, all level 4 skills
-            InventionChance = BaseInventionChance * (1 + (((4 + 4) / 30) + (4 / 40))) * InventionDecryptor.ProductionMod
-        End If
-
-        Return InventionChance
-
-    End Function
-
-    ' Sets the cost of doing the number of invention jobs sent
-    Private Function GetInventionUsage(InventionJobs As Double) As Double
-        'jobFee = baseJobCost * systemCostIndex * 0.02
-        BaseInventionJobCost = GetBaseJobCostforBPC(InventionBPCTypeID)
-        Dim InventionJobFee As Double = BaseInventionJobCost * InventionFacility.CostIndex * 0.02 * InventionJobs
-
-        ' facilityUsage = (jobFee) * taxRate
-        Dim InventionFacilityTax As Double = InventionJobFee * InventionFacility.TaxRate
-
-        ' totalInstallationCost = jobFee + facilityTax * bonus for FW and invention facility
-        Return (InventionJobFee + InventionFacilityTax) * FWInventionCostBonus * InventionFacility.CostMultiplier
-
-    End Function
-
-    ' Sets the invention time for the sent BP 
-    Private Sub SetInventionTime(NumInventionSessions As Integer)
-        Dim SQL As String
-        Dim readerLookup As SQLiteDataReader
-        Dim TempTime As Double
-
-        ' Look up the blueprint name from the sent blueprint ID
-        If TechLevel = BPTechLevel.T3 Then
-            ' Hardcode this to 3600 for now. Later need to figure out the logic for looking it up, since the "T1" BP is a relic, we can't do anything but invent it and don't want to include it in the all_blueprints table since we only use that to select what to build
-            TempTime = 3600
-        Else
-            ' Look it up
-            SQL = "SELECT BASE_INVENTION_TIME FROM ALL_BLUEPRINTS_FACT WHERE BLUEPRINT_ID =" & InventionBPCTypeID
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerLookup = DBCommand.ExecuteReader
-
-            ' inventionTime = baseInventionTime * facilityModifier * 3% of AI level * implant (doesn't work)
-            If readerLookup.Read Then
-                TempTime = CDbl(readerLookup.GetInt64(0)) * InventionFacility.TimeMultiplier * (1 - (0.03 * AdvancedIndustrySkill)) * 1 '* InventionImplantValue
-            Else
-                TempTime = 0
-            End If
-
-            readerLookup.Close()
-        End If
-
-        ' Finally, set the time
-        InventionTime = TempTime * NumInventionSessions
-
-    End Sub
-
-    ' Sets and returns the copy cost for the number of copies sent
-    Private Function GetCopyUsage(NumberofCopies As Integer) As Double
-        ' jobFee = baseJobCost * systemCostIndex * 0.02 * runs * runsPerCopy (just use the total number of copies here)
-        BaseCopyJobCost = GetBaseJobCostforBPC(InventionBPCTypeID)
-        Dim CopyJobFee As Double = BaseCopyJobCost * CopyFacility.CostIndex * 0.02 * NumberofCopies
-
-        ' facilityUsage = jobFee * taxRate
-        Dim CopyFacilityTax As Double = CopyJobFee * CopyFacility.TaxRate
-
-        ' totalInstallationCost = jobFee +  facilityTax * bonus for FW and copy facility
-        Return (CopyJobFee + CopyFacilityTax) * FWCopyingCostBonus * CopyFacility.CostMultiplier
-
-    End Function
-
-    ' Returns the copy time for a single T1 copy in seconds to copy the sent number of runs
-    Private Function GetCopyTime(UserCopyRuns As Integer) As Double
-        Dim SQL As String
-        Dim readerLookup As SQLiteDataReader
-        Dim TempTime As Decimal
-
-        ' Look up the blueprint name from the sent blueprint ID 
-        SQL = "SELECT BASE_COPY_TIME FROM ALL_BLUEPRINTS_FACT WHERE BLUEPRINT_ID =" & InventionBPCTypeID
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerLookup = DBCommand.ExecuteReader
-
-        ' copyTime = BaseCopyTime * runs * runsperBP * (1 - (0.05 * science)) * (1 - (0.03 * advancedindustry)) * facility copyslotmod * (1-implant)
-        If readerLookup.Read Then ' just use the number of runs we need to make
-            TempTime = CDec((readerLookup.GetInt64(0)) * (1 - (0.05 * ScienceSkill)) * (1 - (0.03 * AdvancedIndustrySkill)) * CopyFacility.TimeMultiplier * (1 - BPUserSettings.CopyImplantValue))
-        Else
-            TempTime = 0
-        End If
-
-        readerLookup.Close()
-
-        Return TempTime * UserCopyRuns
-
-    End Function
-
-    ' Sets the skills for inventing this blueprint (T2 or T3 blueprint types)
-    Private Sub SetInventionSkills()
-        Dim SQL As String = ""
-        Dim readerItems As SQLiteDataReader
-
-        ' Tech 2 items are invented from T1 blueprint copies, so take the T1 component ID and look it up for
-        ' the invention skill requirements (for datacores and data interface)
-        SQL = "SELECT MATERIAL_ID, QUANTITY FROM ALL_BLUEPRINT_MATERIALS_FACT "
-        SQL = SQL & "WHERE BLUEPRINT_ID = " & InventionBPCTypeID & " "
-        SQL = SQL & "AND ACTIVITY = 8 AND MATERIAL_CATEGORY_ID = 16" ' 16 is Skill Category
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerItems = DBCommand.ExecuteReader
-
-        ' Just add all the skills and levels
-        While readerItems.Read
-            ReqInventionSkills.InsertSkill(readerItems.GetInt64(0), readerItems.GetInt32(1), readerItems.GetInt32(1), readerItems.GetInt32(1), 0, False, 0, "", Nothing, True)
-        End While
-
-        readerItems.Close()
-        readerItems = Nothing
-        DBCommand = Nothing
-
-    End Sub
-
-    ' Sets the skills for copying this blueprint (T2 or T3 blueprint types)
-    Private Sub SetCopySkills()
-        Dim SQL As String = ""
-        Dim readerItems As SQLiteDataReader
-
-        ' Tech 2 items are invented from T1 blueprint copies, so take the T1 component ID and look it up for
-        ' the invention skill requirements (for datacores and data interface)
-        SQL = "SELECT MATERIAL_ID, QUANTITY FROM ALL_BLUEPRINT_MATERIALS_FACT "
-        SQL = SQL & "WHERE BLUEPRINT_ID = " & InventionBPCTypeID & " "
-        SQL = SQL & "AND ACTIVITY = 5 AND MATERIAL_CATEGORY_ID = 16" ' 16 is Skill Category
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerItems = DBCommand.ExecuteReader
-
-        ' Just add all the skills and levels
-        While readerItems.Read
-            ReqCopySkills.InsertSkill(readerItems.GetInt64(0), readerItems.GetInt32(1), readerItems.GetInt32(1), readerItems.GetInt32(1), 0, False, 0, "", Nothing, True)
-        End While
-
-        readerItems.Close()
-        readerItems = Nothing
-        DBCommand = Nothing
-
-    End Sub
-
-    ' Gets the job fee for the BPC and not the current T2/T3 bp
-    Private Function GetBaseJobCostforBPC(ByVal BPCTypeID As Long) As Double
-        Dim SQL As String
-        Dim readerLookup As SQLiteDataReader
-        Dim BaseJobCost As Double = 0
-
-        ' Look up the sum of the quantity from the sent BPC ID 
-        SQL = "SELECT QUANTITY, ADJUSTED_PRICE FROM ALL_BLUEPRINT_MATERIALS_FACT "
-        SQL = SQL & "LEFT OUTER JOIN ITEM_PRICES_FACT ON ALL_BLUEPRINT_MATERIALS_FACT.MATERIAL_ID = ITEM_PRICES_FACT.ITEM_ID "
-        SQL = SQL & "WHERE BLUEPRINT_ID =" & InventionBPCTypeID & " AND ACTIVITY IN (1,11) "
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerLookup = DBCommand.ExecuteReader
-
-        While readerLookup.Read
-            BaseJobCost += readerLookup.GetInt64(0) * If(IsDBNull(readerLookup.GetValue(1)), 0, readerLookup.GetDouble(1))
-        End While
-
-        Return BaseJobCost
-
-    End Function
-
-#End Region
-
 #Region "Get Functions"
-
-#Region "Invention Gets"
-
-    ' Returns the copy time for a T1 copy used to make a T2
-    Public Function GetCopyTime() As Double
-        Return CopyTime
-    End Function
-
-    ' Returns the total usage cost to make the copy
-    Public Function GetCopyUsage() As Double
-        Return CopyUsage
-    End Function
-
-    ' Returns the total cost of materials for the copy
-    Public Function GetCopyCost() As Double
-        Return CopyCost
-    End Function
-
-    ' Returns the list of materials used to make a copy for this BP
-    Public Function GetCopyMaterials() As Materials
-        Return CopyMaterials
-    End Function
-
-    ' Returns the invention time in friendly format it took to make a T2/T3 BPC 
-    Public Function GetInventionTime() As Double
-        Return InventionTime
-    End Function
-
-    ' Gets the invention usage fees for installing this invention job for this BP
-    Public Function GetInventionUsage() As Double
-        Return InventionUsage
-    End Function
-
-    ' Gets the total Invention Cost of this Blueprint if it can be invented
-    Public Function GetInventionCost() As Double
-        Return InventionCost
-    End Function
-
-    ' Returns the list of invention materials used
-    Public Function GetInventionMaterials() As Materials
-        Return InventionMaterials
-    End Function
-
-    ' Returns the decryptor used in this BP
-    Public Function GetDecryptor() As Decryptor
-        Return InventionDecryptor
-    End Function
-
-    ' Returns the Relic name used in this BP
-    Public Function GetRelic() As String
-        Return Relic
-    End Function
-
-    ' Gets the Invention Chance this blueprint is invented if it can be
-    Public Function GetInventionChance() As Double
-        Return InventionChance
-    End Function
-
-    ' Gets the total invented runs for each BPC
-    Public Function GetSingleInventedBPCRuns() As Integer
-        Return SingleInventedBPCRuns
-    End Function
-
-    ' Gets the total runs invented for the entire set of runs
-    Public Function GetTotalInventedRuns() As Integer
-        Return TotalInventedRuns
-    End Function
-
-    ' Returns the number of jobs we'll have to do
-    Public Function GetInventionJobs() As Integer
-        Return NumInventionJobs
-    End Function
-
-    ' Returns the Invention facility we used
-    Public Function GetInventionFacility() As IndustryFacility
-        Return InventionFacility
-    End Function
-
-    ' Returns the Copy facility we used
-    Public Function GetCopyFacility() As IndustryFacility
-        Return CopyFacility
-    End Function
-
-#End Region
 
     ' Returns the manufacturing facility used
     Public Function GetManufacturingFacility() As IndustryFacility
         Return MainManufacturingFacility
     End Function
 
-    ' Returns the component manufacturing facility used
-    Public Function GetComponentManufacturingFacility() As IndustryFacility
-        Return ComponentManufacturingFacility
-    End Function
-
-    ' Returns the capital component manufacturing facility used
-    Public Function GetCapitalComponentManufacturingFacility() As IndustryFacility
-        Return CapitalComponentManufacturingFacility
-    End Function
-
-    ' Returns the Reaction facility used
-    Public Function GetReactionFacility() As IndustryFacility
-        Return ReactionFacility
-    End Function
-
     ' Returns the base job cost for this blueprint
     Public Function GetBaseJobCost() As Double
         Return BaseJobCost
-    End Function
-
-    ' Returns the base job cost for the BPC to make this bp
-    Public Function GetBaseInventionJobCost() As Double
-        Return BaseInventionJobCost
-    End Function
-
-    ' Returns the base job cost for the BPC to make the invention bpc
-    Public Function GetBaseCopyJobCost() As Double
-        Return BaseCopyJobCost
     End Function
 
     ' Returns the Job fee based on the system index
@@ -2721,37 +1891,11 @@ SkipProcessing:
         Return ManufacturingFacilityUsage
     End Function
 
-    ' Returns the base facility tax/fee for this blueprints components
-    Public Function GetComponentFacilityUsage() As Double
-        Return ComponentFacilityUsage
-    End Function
-
-    ' Returns the base facility tax/fee for this blueprint's cap components
-    Public Function GetCapComponentFacilityUsage() As Double
-        Return CapComponentFacilityUsage
-    End Function
-
-    ' Returns the base facility tax/fee usage for this blueprints reactions
-    Public Function GetReactionFacilityUsage() As Double
-        Return ReactionFacilityUsage
-    End Function
-
-    ' Returns the total facility tax/fee usage for all reaction usage
-    Public Function GetTotalReactionFacilityUsage() As Double
-        Return TotalReactionFacilityUsage
-    End Function
-
     ' Returns the max production limit for this blueprint
     Public Function GetMaxProductionLimit() As Long
 
         If TechLevel = 1 Then
             Return MaxProductionLimit
-        ElseIf TechLevel = 2 Then
-            If TotalInventedRuns = 0 Then
-                Return MaxProductionLimit
-            Else
-                Return TotalInventedRuns
-            End If
         Else
             Return MaxProductionLimit
         End If
@@ -2920,21 +2064,6 @@ SkipProcessing:
     ' Gets the total volume of the items built
     Public Function GetTotalItemVolume() As Double
         Return ItemVolume * UserRuns
-    End Function
-
-    ' Returns the required skills to build all the components for this bp
-    Public Function GetReqComponentSkills() As EVESkillList
-        Return ReqBuildComponentSkills
-    End Function
-
-    ' Function returns the array of all the character skills to invent this blueprint
-    Public Function GetReqInventionSkills() As EVESkillList
-        Return ReqInventionSkills
-    End Function
-
-    ' Function returns the array of all the character skills to copy this blueprint
-    Public Function GetReqCopySkills() As EVESkillList
-        Return ReqCopySkills
     End Function
 
     ' Returns the total list of raw materials for the Blueprint

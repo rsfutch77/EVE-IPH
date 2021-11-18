@@ -340,12 +340,6 @@ Public Class ManufacturingFacility
 
         LoadingActivities = True
         Dim HasComponents As Boolean = False
-        ' If it's a reaction, only load that activity and manufacturing for fuel blocks
-        If BPGroupID = ItemIDs.ReactionBiochmeicalsGroupID Or BPGroupID = ItemIDs.ReactionCompositesGroupID Or BPGroupID = ItemIDs.ReactionPolymersGroupID Or BPGroupID = ItemIDs.ReactionsIntermediateGroupID Then
-
-            LoadingActivities = False
-            Exit Sub
-        End If
 
         Dim SQL As String
         Dim readerBP As SQLiteDataReader

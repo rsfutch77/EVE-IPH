@@ -533,13 +533,12 @@ Public Class frmShoppingList
                 If .TechLevel <> 3 Then
                     lstItem.SubItems.Add(ItemList(i).Name)
                 Else
-                    lstItem.SubItems.Add(ItemList(i).Name & " (" & ItemList(i).Relic & ")") ' Add relic name after the item
+                    lstItem.SubItems.Add(ItemList(i).Name & " (" & "" & ")") ' Add relic name after the item
                 End If
                 lstItem.SubItems.Add(CStr(FormatNumber(ItemList(i).Runs, 0)))
                 lstItem.SubItems.Add(CStr(ItemList(i).ItemME))
                 lstItem.SubItems.Add(CStr(ItemList(i).NumBPs))
                 lstItem.SubItems.Add(ItemList(i).BuildType)
-                lstItem.SubItems.Add(ItemList(i).Decryptor)
                 lstItem.SubItems.Add(ItemList(i).ManufacturingFacility.FacilityName)
                 lstItem.SubItems.Add(CStr(ItemList(i).ManufacturingFacility.FacilityType))
                 lstItem.SubItems.Add(CStr(ItemList(i).IgnoredInvention))
@@ -693,10 +692,6 @@ Public Class frmShoppingList
                         ProcessList = CType(TotalShoppingList.GetFullBuildMaterialList.Clone, Materials)
                     Case 1
                         ProcessList = CType(TotalShoppingList.GetFullBuyList.Clone, Materials)
-                    Case 2
-                        ProcessList = CType(TotalShoppingList.GetFullInventionList.Clone, Materials)
-                    Case 3
-                        ProcessList = CType(TotalShoppingList.GetFullCopyList.Clone, Materials)
                 End Select
 
                 If Not IsNothing(ProcessList) Then
@@ -1647,17 +1642,14 @@ Public Class frmShoppingList
                     If SelectedItem.Contains("(") Then
                         ' Strip off the relic from the name
                         ShopListItem.Name = SelectedItem.Substring(0, InStr(SelectedItem, "(") - 2)
-                        ShopListItem.Relic = SelectedItem.Substring(InStr(SelectedItem, "("), InStr(SelectedItem, ")") - InStr(SelectedItem, "(") - 1)
                     Else
                         ShopListItem.Name = SelectedItem
-                        ShopListItem.Relic = ""
                     End If
                     ShopListItem.Runs = CLng(lstItems.SelectedItems(i).SubItems(2).Text)
                     ShopListItem.ItemME = CInt(lstItems.SelectedItems(i).SubItems(3).Text)
                     ShopListItem.ItemTE = CInt(CBool(lstItems.SelectedItems(i).SubItems(12).Text))
                     ShopListItem.NumBPs = CInt(lstItems.SelectedItems(i).SubItems(4).Text)
                     ShopListItem.BuildType = lstItems.SelectedItems(i).SubItems(5).Text
-                    ShopListItem.Decryptor = lstItems.SelectedItems(i).SubItems(6).Text
                     ShopListItem.ManufacturingFacility.FacilityName = lstItems.SelectedItems(i).SubItems(7).Text
 
                     ' Remove it from shopping list
@@ -1983,18 +1975,14 @@ Public Class frmShoppingList
                     Dim TempName As String = CurrentRow.SubItems(1).Text
                     If TempName.Contains("(") Then
                         ShopListItem.Name = TempName.Substring(0, InStr(TempName, "(") - 2)
-                        ShopListItem.Relic = TempName.Substring(InStr(TempName, "("), InStr(TempName, ")") - InStr(TempName, "(") - 1)
                     Else
                         ShopListItem.Name = TempName
-                        ShopListItem.Relic = ""
                     End If
                     ShopListItem.Runs = CLng(CurrentRow.SubItems(2).Text)
                     ShopListItem.ItemME = CInt(CurrentRow.SubItems(3).Text)
                     ShopListItem.ItemTE = CInt(CurrentRow.SubItems(15).Text)
                     ShopListItem.NumBPs = CInt(CurrentRow.SubItems(4).Text)
                     ShopListItem.BuildType = CurrentRow.SubItems(5).Text
-                    ShopListItem.Decryptor = CurrentRow.SubItems(6).Text
-                    ShopListItem.InventedRunsPerBP = CInt(Math.Ceiling(ShopListItem.Runs / ShopListItem.NumBPs))
                     ShopListItem.ManufacturingFacility.FacilityName = CurrentRow.SubItems(7).Text
 
                     ' Update the full shopping list

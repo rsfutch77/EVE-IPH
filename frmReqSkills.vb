@@ -35,16 +35,6 @@ Public Class frmReqSkills
             Exit Sub
         End If
 
-        If SelectedBlueprint.GetReqComponentSkills.NumSkills = 0 And SkillTypeDisplay = SkillType.BPComponentSkills Then
-            SkillTree.Nodes.Clear()
-            Exit Sub
-        End If
-
-        If SelectedBlueprint.GetReqInventionSkills.NumSkills = 0 And SkillTypeDisplay = SkillType.InventionReqSkills Then
-            SkillTree.Nodes.Clear()
-            Exit Sub
-        End If
-
         ' Fill the tree
         SkillTree.BeginUpdate()
         SkillTree.Nodes.Clear()
@@ -53,18 +43,6 @@ Public Class frmReqSkills
             Case SkillType.BPReqSkills
                 CurrentNode = SkillTree.Nodes.Add("BP Required Manufacturing Skills")
                 DisplaySkills = SelectedBlueprint.GetReqBPSkills
-            Case SkillType.BPComponentSkills
-                ' When there are no components for the object, show the base skills
-                If IsNothing(SelectedBlueprint.GetReqComponentSkills.GetSkillList) Then
-                    CurrentNode = SkillTree.Nodes.Add("BP Required Manufacturing Skills")
-                    DisplaySkills = SelectedBlueprint.GetReqBPSkills
-                Else
-                    CurrentNode = SkillTree.Nodes.Add("Components Required Manufacturing Skills")
-                    DisplaySkills = SelectedBlueprint.GetReqComponentSkills
-                End If
-            Case SkillType.InventionReqSkills, SkillType.REReqSkills
-                CurrentNode = SkillTree.Nodes.Add("Required Invention / RE Skills")
-                DisplaySkills = SelectedBlueprint.GetReqInventionSkills
         End Select
 
         ' Add the nodes
