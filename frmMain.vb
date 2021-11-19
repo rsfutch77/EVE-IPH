@@ -1097,19 +1097,6 @@ Public Class frmMain
 
     End Sub
 
-    ' Clears the BP history (forward / back) functionality
-    Private Sub mnuClearBPHistory_Click(sender As System.Object, e As System.EventArgs) Handles mnuClearBPHistory.Click
-        BPHistory = New List(Of BPHistoryItem)
-        ' Reset the index
-        CurrentBPHistoryIndex = -1
-    End Sub
-
-    Private Sub mnuViewESIStatus_Click(sender As Object, e As EventArgs) Handles mnuViewESIStatus.Click
-        Dim f1 As New frmESIStatus
-
-        f1.Show()
-    End Sub
-
     Private Sub mnuResetPriceData_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String

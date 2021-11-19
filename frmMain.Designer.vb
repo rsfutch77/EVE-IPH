@@ -26,9 +26,7 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuItemUpdatePrices = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuClearBPHistory = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSelectionShoppingList = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCharacterSkills = New System.Windows.Forms.ToolStripMenuItem()
@@ -36,7 +34,6 @@ Partial Class frmMain
         Me.mnuCurrentResearchAgents = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCurrentIndustryJobs = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuViewESIStatus = New System.Windows.Forms.ToolStripMenuItem()
         Me.ttBP = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
@@ -73,7 +70,6 @@ Partial Class frmMain
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
-        Me.lblCalcText = New System.Windows.Forms.Label()
         Me.lblCalcColorCode3 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode4 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode5 = New System.Windows.Forms.Label()
@@ -82,17 +78,17 @@ Partial Class frmMain
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
+        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.FrmAbout2 = New EVE_Isk_per_Hour.frmAbout()
+        Me.FrmSettings2 = New EVE_Isk_per_Hour.frmSettings()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
-        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
-        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.FrmAbout1 = New EVE_Isk_per_Hour.frmAbout()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
-        Me.FrmSettings2 = New EVE_Isk_per_Hour.frmSettings()
-        Me.FrmAbout2 = New EVE_Isk_per_Hour.frmAbout()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -109,40 +105,28 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1664, 30)
+        Me.mnuStripMain.Size = New System.Drawing.Size(1664, 28)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
         'mnuEdit
         '
-        Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuItemUpdatePrices, Me.mnuManageBlueprintsToolStripMenuItem, Me.mnuClearBPHistory})
+        Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuManageBlueprintsToolStripMenuItem})
         Me.mnuEdit.Name = "mnuEdit"
-        Me.mnuEdit.Size = New System.Drawing.Size(49, 26)
+        Me.mnuEdit.Size = New System.Drawing.Size(49, 24)
         Me.mnuEdit.Text = "Edit"
-        '
-        'mnuItemUpdatePrices
-        '
-        Me.mnuItemUpdatePrices.Name = "mnuItemUpdatePrices"
-        Me.mnuItemUpdatePrices.Size = New System.Drawing.Size(216, 26)
-        Me.mnuItemUpdatePrices.Text = "Prices"
         '
         'mnuManageBlueprintsToolStripMenuItem
         '
         Me.mnuManageBlueprintsToolStripMenuItem.Name = "mnuManageBlueprintsToolStripMenuItem"
-        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(216, 26)
+        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.mnuManageBlueprintsToolStripMenuItem.Text = "Manage Blueprints"
-        '
-        'mnuClearBPHistory
-        '
-        Me.mnuClearBPHistory.Name = "mnuClearBPHistory"
-        Me.mnuClearBPHistory.Size = New System.Drawing.Size(216, 26)
-        Me.mnuClearBPHistory.Text = "Clear BP History"
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSelectionShoppingList, Me.mnuCharacterSkills, Me.ToolStripSeparator5, Me.mnuCurrentResearchAgents, Me.mnuCurrentIndustryJobs, Me.ToolStripSeparator3, Me.mnuViewESIStatus})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSelectionShoppingList, Me.mnuCharacterSkills, Me.ToolStripSeparator5, Me.mnuCurrentResearchAgents, Me.mnuCurrentIndustryJobs, Me.ToolStripSeparator3})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(55, 26)
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
         Me.ViewToolStripMenuItem.Text = "View"
         '
         'mnuSelectionShoppingList
@@ -178,12 +162,6 @@ Partial Class frmMain
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(250, 6)
-        '
-        'mnuViewESIStatus
-        '
-        Me.mnuViewESIStatus.Name = "mnuViewESIStatus"
-        Me.mnuViewESIStatus.Size = New System.Drawing.Size(253, 26)
-        Me.mnuViewESIStatus.Text = "View ESI Status"
         '
         'ttBP
         '
@@ -461,7 +439,6 @@ Partial Class frmMain
         'gbCalcTextColors
         '
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode6)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcText)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode3)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode4)
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode5)
@@ -487,16 +464,6 @@ Partial Class frmMain
         Me.lblCalcColorCode6.TabIndex = 5
         Me.lblCalcColorCode6.Text = "T"
         Me.lblCalcColorCode6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcText
-        '
-        Me.lblCalcText.AutoSize = True
-        Me.lblCalcText.Location = New System.Drawing.Point(8, 14)
-        Me.lblCalcText.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcText.Name = "lblCalcText"
-        Me.lblCalcText.Size = New System.Drawing.Size(39, 17)
-        Me.lblCalcText.TabIndex = 0
-        Me.lblCalcText.Text = "Text:"
         '
         'lblCalcColorCode3
         '
@@ -572,6 +539,7 @@ Partial Class frmMain
         '
         'TabPage1
         '
+        Me.TabPage1.BackColor = System.Drawing.Color.Black
         Me.TabPage1.Controls.Add(Me.btnAddChar)
         Me.TabPage1.Controls.Add(Me.lblRecommendation)
         Me.TabPage1.Controls.Add(Me.btnCancelUpdate)
@@ -594,7 +562,6 @@ Partial Class frmMain
         Me.TabPage1.Size = New System.Drawing.Size(1617, 817)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
-        Me.TabPage1.UseVisualStyleBackColor = True
         '
         'btnAddChar
         '
@@ -607,8 +574,18 @@ Partial Class frmMain
         Me.btnAddChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnAddChar.UseSelectable = True
         '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(35, 277)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(1065, 58)
+        Me.CalcBaseFacility.TabIndex = 0
+        '
         'TabPage2
         '
+        Me.TabPage2.BackColor = System.Drawing.Color.Black
         Me.TabPage2.Controls.Add(Me.gbCalcTextColors)
         Me.TabPage2.Controls.Add(Me.lstManufacturing)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
@@ -617,10 +594,29 @@ Partial Class frmMain
         Me.TabPage2.Size = New System.Drawing.Size(1617, 817)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'lstManufacturing
+        '
+        Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.BackColor = System.Drawing.Color.Gray
+        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
+        Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.lstManufacturing.FullRowSelect = True
+        Me.lstManufacturing.GridLines = True
+        Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Name = "lstManufacturing"
+        Me.lstManufacturing.OwnerDraw = True
+        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 717)
+        Me.lstManufacturing.TabIndex = 94
+        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
+        Me.lstManufacturing.UseSelectable = True
+        Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
         'TabPage3
         '
+        Me.TabPage3.BackColor = System.Drawing.Color.Gray
         Me.TabPage3.Controls.Add(Me.FrmAbout2)
         Me.TabPage3.Controls.Add(Me.FrmSettings2)
         Me.TabPage3.Controls.Add(Me.btnResetAll)
@@ -631,7 +627,25 @@ Partial Class frmMain
         Me.TabPage3.Size = New System.Drawing.Size(1617, 817)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
-        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'FrmAbout2
+        '
+        Me.FrmAbout2.AutoSize = True
+        Me.FrmAbout2.Location = New System.Drawing.Point(88, 147)
+        Me.FrmAbout2.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmAbout2.Name = "FrmAbout2"
+        Me.FrmAbout2.Padding = New System.Windows.Forms.Padding(11)
+        Me.FrmAbout2.Size = New System.Drawing.Size(489, 425)
+        Me.FrmAbout2.TabIndex = 26
+        '
+        'FrmSettings2
+        '
+        Me.FrmSettings2.AutoSize = True
+        Me.FrmSettings2.Location = New System.Drawing.Point(744, 78)
+        Me.FrmSettings2.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmSettings2.Name = "FrmSettings2"
+        Me.FrmSettings2.Size = New System.Drawing.Size(828, 566)
+        Me.FrmSettings2.TabIndex = 25
         '
         'btnResetAll
         '
@@ -667,33 +681,6 @@ Partial Class frmMain
         Me.btnUpdate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnUpdate.UseSelectable = True
         '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(35, 277)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(1065, 58)
-        Me.CalcBaseFacility.TabIndex = 0
-        '
-        'lstManufacturing
-        '
-        Me.lstManufacturing.AllowColumnReorder = True
-        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
-        Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.lstManufacturing.FullRowSelect = True
-        Me.lstManufacturing.GridLines = True
-        Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstManufacturing.Name = "lstManufacturing"
-        Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 717)
-        Me.lstManufacturing.TabIndex = 94
-        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
-        Me.lstManufacturing.UseSelectable = True
-        Me.lstManufacturing.View = System.Windows.Forms.View.Details
-        '
         'FrmAbout1
         '
         Me.FrmAbout1.AutoSize = True
@@ -715,25 +702,6 @@ Partial Class frmMain
         Me.FrmSettings1.TabIndex = 0
         Me.FrmSettings1.Visible = False
         '
-        'FrmSettings2
-        '
-        Me.FrmSettings2.AutoSize = True
-        Me.FrmSettings2.Location = New System.Drawing.Point(744, 78)
-        Me.FrmSettings2.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmSettings2.Name = "FrmSettings2"
-        Me.FrmSettings2.Size = New System.Drawing.Size(828, 566)
-        Me.FrmSettings2.TabIndex = 25
-        '
-        'FrmAbout2
-        '
-        Me.FrmAbout2.AutoSize = True
-        Me.FrmAbout2.Location = New System.Drawing.Point(88, 147)
-        Me.FrmAbout2.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmAbout2.Name = "FrmAbout2"
-        Me.FrmAbout2.Padding = New System.Windows.Forms.Padding(11)
-        Me.FrmAbout2.Size = New System.Drawing.Size(489, 425)
-        Me.FrmAbout2.TabIndex = 26
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -754,13 +722,13 @@ Partial Class frmMain
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "EasyIPH"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.TransparencyKey = System.Drawing.Color.LightBlue
         Me.mnuStripMain.ResumeLayout(False)
         Me.mnuStripMain.PerformLayout()
         Me.ListOptionsMenu.ResumeLayout(False)
         Me.gbCalcBPSelect.ResumeLayout(False)
         Me.gbCalcBPSelect.PerformLayout()
         Me.gbCalcTextColors.ResumeLayout(False)
-        Me.gbCalcTextColors.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -773,7 +741,6 @@ Partial Class frmMain
     End Sub
     Friend WithEvents mnuStripMain As System.Windows.Forms.MenuStrip
     Friend WithEvents mnuEdit As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuItemUpdatePrices As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuManageBlueprintsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gbSystems As System.Windows.Forms.GroupBox
     Friend WithEvents ttBP As System.Windows.Forms.ToolTip
@@ -795,9 +762,7 @@ Partial Class frmMain
     Friend WithEvents ttPI As System.Windows.Forms.ToolTip
     Friend WithEvents CalcImageList As System.Windows.Forms.ImageList
     Friend WithEvents AddToShoppingListToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuClearBPHistory As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents mnuViewESIStatus As ToolStripMenuItem
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents cmbEdit As ComboBox
@@ -821,7 +786,6 @@ Partial Class frmMain
     Friend WithEvents lblRecommendation As MetroFramework.Controls.MetroLabel
     Friend WithEvents gbCalcTextColors As GroupBox
     Friend WithEvents lblCalcColorCode6 As Label
-    Friend WithEvents lblCalcText As Label
     Friend WithEvents lblCalcColorCode3 As Label
     Friend WithEvents lblCalcColorCode4 As Label
     Friend WithEvents lblCalcColorCode5 As Label

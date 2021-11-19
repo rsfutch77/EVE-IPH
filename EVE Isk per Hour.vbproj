@@ -212,12 +212,6 @@
     <Compile Include="frmChooseFacility.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmESIStatus.Designer.vb">
-      <DependentUpon>frmESIStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmESIStatus.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSupportSplash.Designer.vb">
       <DependentUpon>frmSupportSplash.vb</DependentUpon>
     </Compile>
@@ -434,9 +428,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmChooseFacility.resx">
       <DependentUpon>frmChooseFacility.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmESIStatus.resx">
-      <DependentUpon>frmESIStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJobsNearCompletion.resx">
       <DependentUpon>frmJobsNearCompletion.vb</DependentUpon>
