@@ -33,7 +33,7 @@ Partial Class ManufacturingFacility
         '
         Me.cmbFacilityorArray.FormattingEnabled = True
         Me.cmbFacilityorArray.ItemHeight = 16
-        Me.cmbFacilityorArray.Location = New System.Drawing.Point(11, 261)
+        Me.cmbFacilityorArray.Location = New System.Drawing.Point(398, 13)
         Me.cmbFacilityorArray.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilityorArray.Name = "cmbFacilityorArray"
         Me.cmbFacilityorArray.Size = New System.Drawing.Size(387, 24)
@@ -43,7 +43,7 @@ Partial Class ManufacturingFacility
         'cmbFacilitySystem
         '
         Me.cmbFacilitySystem.FormattingEnabled = True
-        Me.cmbFacilitySystem.Location = New System.Drawing.Point(185, 46)
+        Me.cmbFacilitySystem.Location = New System.Drawing.Point(182, 13)
         Me.cmbFacilitySystem.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilitySystem.Name = "cmbFacilitySystem"
         Me.cmbFacilitySystem.Size = New System.Drawing.Size(208, 24)
@@ -55,7 +55,7 @@ Partial Class ManufacturingFacility
         Me.cmbFacilityRegion.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbFacilityRegion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFacilityRegion.FormattingEnabled = True
-        Me.cmbFacilityRegion.Location = New System.Drawing.Point(7, 46)
+        Me.cmbFacilityRegion.Location = New System.Drawing.Point(4, 13)
         Me.cmbFacilityRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilityRegion.Name = "cmbFacilityRegion"
         Me.cmbFacilityRegion.Size = New System.Drawing.Size(172, 24)
@@ -71,7 +71,7 @@ Partial Class ManufacturingFacility
         Me.Controls.Add(Me.cmbFacilityRegion)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "ManufacturingFacility"
-        Me.Size = New System.Drawing.Size(549, 422)
+        Me.Size = New System.Drawing.Size(798, 51)
         Me.ResumeLayout(False)
 
     End Sub

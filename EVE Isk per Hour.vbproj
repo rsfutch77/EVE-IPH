@@ -281,7 +281,6 @@
     </Compile>
     <Compile Include="EVEAssets.vb" />
     <Compile Include="EVESkillList.vb" />
-    <Compile Include="ControlArrayUtils.vb" />
     <Compile Include="Corporation.vb" />
     <Compile Include="DecryptorList.vb" />
     <Compile Include="frmAbout.Designer.vb">
@@ -405,11 +404,9 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="EVENPCStandings.vb" />
     <Compile Include="ProgramSettings.vb" />
     <Compile Include="ProgramUpdater.vb" />
     <Compile Include="RefiningReprocessing.vb" />
-    <Compile Include="EVEResearchAgents.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="ShoppingList.vb" />
     <Compile Include="SplashScreen.Designer.vb">

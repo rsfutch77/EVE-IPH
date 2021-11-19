@@ -815,51 +815,6 @@ Public Class ESI
 
     End Function
 
-    Public Function GetCharacterStandings(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef StandingsCacheDate As Date) As EVENPCStandings
-        Dim TempStandingsList As New EVENPCStandings
-        Dim StandingsData As List(Of ESICharacterStandingsData)
-        Dim ReturnData As String = ""
-        Dim StandingType As String = ""
-
-        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/standings/" & TranquilityDataSource,
-                                              FormatTokenData(TokenData), TokenData.TokenExpiration, StandingsCacheDate, CharacterID)
-
-        If Not IsNothing(ReturnData) Then
-            StandingsData = JsonConvert.DeserializeObject(Of List(Of ESICharacterStandingsData))(ReturnData)
-
-            For Each entry In StandingsData
-                Select Case entry.from_type
-                    Case "agents"
-                        StandingType = "Agent"
-                    Case "faction"
-                        StandingType = "Faction"
-                    Case "npc_corp"
-                        StandingType = "Corporation"
-                End Select
-                TempStandingsList.InsertStanding(entry.from_id, StandingType, "", entry.standing)
-            Next
-
-            Return TempStandingsList
-        Else
-            Return Nothing
-        End If
-
-    End Function
-
-    Public Function GetCurrentResearchAgents(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef AgentsCacheDate As Date) As List(Of ESIResearchAgent)
-        Dim ReturnData As String
-
-        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/agents_research/" & TranquilityDataSource,
-                                              FormatTokenData(TokenData), TokenData.TokenExpiration, AgentsCacheDate, CharacterID)
-
-        If Not IsNothing(ReturnData) Then
-            Return JsonConvert.DeserializeObject(Of List(Of ESIResearchAgent))(ReturnData)
-        Else
-            Return Nothing
-        End If
-
-    End Function
-
     Public Function GetBlueprints(ByVal ID As Long, ByVal TokenData As SavedTokenData, ByVal ScanType As ScanType, ByRef BPCacheDate As Date) As List(Of EVEBlueprint)
         Dim ReturnedBPs As New List(Of EVEBlueprint)
         Dim TempBlueprint As EVEBlueprint

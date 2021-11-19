@@ -122,23 +122,6 @@ Public Class ManufacturingFacility
         Select Case ViewType
             Case FacilityView.FullControls
 
-                cmbFacilityRegion.Left = LeftObjectLocation
-                cmbFacilityRegion.Width = RegionWidthBP
-                cmbFacilityRegion.Text = InitialRegionComboText
-                cmbFacilityRegion.Visible = True
-
-                cmbFacilitySystem.Top = cmbFacilityRegion.Top
-                cmbFacilitySystem.Left = cmbFacilityRegion.Left + cmbFacilityRegion.Width + 2
-                cmbFacilitySystem.Width = SolarSystemWidthBP
-                cmbFacilitySystem.Text = InitialSolarSystemComboText
-                cmbFacilitySystem.Visible = True
-
-                cmbFacilityorArray.Top = cmbFacilityRegion.Top + cmbFacilityRegion.Height + 1
-                cmbFacilityorArray.Left = LeftObjectLocation
-                cmbFacilityorArray.Width = FacilityArrayWidthBP
-                cmbFacilityorArray.Text = InitialFacilityComboText
-                cmbFacilityorArray.Visible = True
-
                 ' Set initial settings to load 
                 If SelectedBPID = 0 Then
                     SelectedBPCategoryID = ItemIDs.ShipCategoryID

@@ -10,7 +10,6 @@ Imports GoogleAnalyticsClientDotNet
 Public Class frmMain
 
     ' Update Prices Variables
-    Private m_ControlsCollection As ControlsCollection
     Private RegionCheckBoxes() As MetroFramework.Controls.MetroRadioButton
     ' For saving the price type that was used in the download
     Private GroupPricesList As New List(Of GroupPriceType)
@@ -525,8 +524,6 @@ Public Class frmMain
         '*******************************************
         '**** Update Prices Tab Initializations ****
         '*******************************************
-        ' Create the controls collection class
-        m_ControlsCollection = New ControlsCollection(Me)
 
         ' Columns of Update Prices Listview (width = 639) + 21 for scroll = 660
         lstPricesView.Columns.Add("TypeID", 0, HorizontalAlignment.Left) ' Hidden
@@ -658,12 +655,6 @@ Public Class frmMain
         Return ReturnValue
 
     End Function
-
-    Public ReadOnly Property MyControls() As Collection
-        Get
-            Return m_ControlsCollection.Controls
-        End Get
-    End Property
 
     ' Loads up the facilities for the selected character
     Public Sub LoadFacilities(Optional FacilityLocation As ProgramLocation = Nothing, Optional FacilityType As ProductionType = ProductionType.None)
@@ -1618,7 +1609,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub mnuCharacterStandings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCharacterStandings.Click
+    Private Sub mnuCharacterStandings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f1 = New frmCharacterStandings
         ' Open the character screen
         f1.ShowDialog()
@@ -1676,7 +1667,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuRestoreDefaultBP_Click(sender As System.Object, e As System.EventArgs) Handles mnuRestoreDefaultBP.Click
+    Private Sub mnuRestoreDefaultBP_Click(sender As System.Object, e As System.EventArgs)
         Call AllSettings.SetDefaultBPSettings()
 
         ' Also need to reset the shared variables
@@ -1697,7 +1688,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuRestoreDefaultUpdatePrices_Click(sender As System.Object, e As System.EventArgs) Handles mnuRestoreDefaultUpdatePrices.Click
+    Private Sub mnuRestoreDefaultUpdatePrices_Click(sender As System.Object, e As System.EventArgs)
         Call AllSettings.SetDefaultUpdatePriceSettings()
         ' Save them
         Call AllSettings.SaveUpdatePricesSettings(AllSettings.GetUpdatePricesSettings)
@@ -1711,7 +1702,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuRestoreDefaultManufacturing_Click(sender As System.Object, e As System.EventArgs) Handles mnuRestoreDefaultManufacturing.Click
+    Private Sub mnuRestoreDefaultManufacturing_Click(sender As System.Object, e As System.EventArgs)
         Call AllSettings.SetDefaultManufacturingSettings()
 
         ' Also need to reset the shared variables
@@ -7274,7 +7265,7 @@ ExitPRocessing:
                 ' If T1, just select compare types (raw and components)
                 InsertItem.Inputs = None
                 InsertItem.Relic = ""
-                InsertItem.Decryptor = NoDecryptor
+                InsertItem.Decryptor = New Decryptor
 
                 ' Insert the items based on compare types
                 Call InsertItemCalcType(BaseItems, InsertItem, False, New List(Of IndustryFacility), ListRowFormats)

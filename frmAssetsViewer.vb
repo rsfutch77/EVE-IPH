@@ -13,7 +13,6 @@ Public Class frmAssetsViewer
     ' The saved location ids
     Private SavedLocationIDs As List(Of LocationInfo)
 
-    Private m_ControlsCollection As ControlsCollection
     Private TechCheckBoxes() As CheckBox
     Private UpdateAllTechChecks As Boolean = True ' Whether to update all Tech checks in items or not
     Private FirstPriceShipTypesComboLoad As Boolean
@@ -86,12 +85,6 @@ Public Class frmAssetsViewer
 
     End Sub
 
-    Public ReadOnly Property MyControls() As Collection
-        Get
-            Return m_ControlsCollection.Controls
-        End Get
-    End Property
-
 #End Region
 
     Public Sub New(ByVal AssetType As AssetWindow)
@@ -160,11 +153,6 @@ Public Class frmAssetsViewer
 
         btnScanCorpAssets.Enabled = False
         btnScanPersonalAssets.Enabled = False
-
-        ' Create the controls collection class
-        m_ControlsCollection = New ControlsCollection(Me)
-        ' Get Region check boxes (note index starts at 1)
-        TechCheckBoxes = DirectCast(ControlArrayUtils.getControlArray(Me, Me.MyControls, "chkItemsT"), CheckBox())
 
         ' Main form
         Select Case SelectedSettings.AssetType

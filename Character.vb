@@ -21,15 +21,9 @@ Public Class Character
 
     ' Skill Tree - Required Scope
     Public Skills As EVESkillList
-    ' Standings
-    Public StandingsAccess As Boolean
-    Public Standings As EVENPCStandings ' Base Standings
     ' Industry jobs
     Public IndustryJobsAccess As Boolean
     Public Jobs As EVEIndustryJobs
-    ' Research agents
-    Public ResearchAgentAccess As Boolean
-    Public DatacoreAgents As EVEResearchAgents
     ' Assets
     Public AssetsAccess As Boolean
     Public Assets As EVEAssets
@@ -59,18 +53,14 @@ Public Class Character
         CharacterTokenData = New SavedTokenData
 
         ' To store the scope access they give us when registering
-        StandingsAccess = False
         AssetsAccess = False
         IndustryJobsAccess = False
-        ResearchAgentAccess = False
         BlueprintsAccess = False
         PublicStructuresAccess = False
         StructureMarketsAccess = False
 
         Skills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
-        Standings = New EVENPCStandings
         Jobs = New EVEIndustryJobs
-        DatacoreAgents = New EVEResearchAgents
         Assets = New EVEAssets
 
         ' Corporation Data for this character
@@ -143,12 +133,6 @@ Public Class Character
                     Skills.LoadDummySkills()
                 End If
 
-                ' No standings
-                Standings = New EVENPCStandings
-
-                ' No agents
-                DatacoreAgents = New EVEResearchAgents
-
                 ' No Assets
                 Assets = New EVEAssets
 
@@ -214,8 +198,6 @@ Public Class Character
         If readerCharacter.Read Then
             ' Initialize the different character data classes
             Jobs = New EVEIndustryJobs()
-            Standings = New EVENPCStandings()
-            DatacoreAgents = New EVEResearchAgents()
             Blueprints = New EVEBlueprints()
             Assets = New EVEAssets(ScanType.Personal)
 
@@ -296,18 +278,6 @@ Public Class Character
                 Return True
             End If
 
-            ' Load the standings for this character
-            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterStandingsScope) Then
-                StandingsAccess = True
-                Call Standings.LoadCharacterStandings(ID, CharacterTokenData)
-            End If
-
-            ' Load the character's research agents
-            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterResearchAgentsScope) Then
-                ResearchAgentAccess = True
-                Call DatacoreAgents.LoadResearchAgents(ID, CharacterTokenData)
-            End If
-
             ' Load the Blueprints but don't load if they don't have selected
             If CharacterTokenData.Scopes.Contains(ESI.ESICharacterBlueprintsScope) Then
                 BlueprintsAccess = True
@@ -343,10 +313,6 @@ Public Class Character
 
     Public Function GetIndustryJobs() As EVEIndustryJobs
         Return Jobs
-    End Function
-
-    Public Function GetResearchAgents() As EVEResearchAgents
-        Return DatacoreAgents
     End Function
 
     Public Function GetAssets() As EVEAssets
