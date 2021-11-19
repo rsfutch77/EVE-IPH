@@ -36,7 +36,6 @@ Partial Class frmManageAccounts
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnDeleteCharacter = New System.Windows.Forms.Button()
         Me.btnAddCharacter = New System.Windows.Forms.Button()
-        Me.btnSelectDefaultChar = New System.Windows.Forms.Button()
         Me.lstScopes = New System.Windows.Forms.ListView()
         Me.colScopes = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.gbAccountData = New System.Windows.Forms.GroupBox()
@@ -57,10 +56,11 @@ Partial Class frmManageAccounts
         Me.lstAccounts.FullRowSelect = True
         Me.lstAccounts.GridLines = True
         Me.lstAccounts.HideSelection = False
-        Me.lstAccounts.Location = New System.Drawing.Point(12, 12)
+        Me.lstAccounts.Location = New System.Drawing.Point(15, 15)
+        Me.lstAccounts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstAccounts.MultiSelect = False
         Me.lstAccounts.Name = "lstAccounts"
-        Me.lstAccounts.Size = New System.Drawing.Size(594, 370)
+        Me.lstAccounts.Size = New System.Drawing.Size(742, 462)
         Me.lstAccounts.TabIndex = 3
         Me.lstAccounts.UseCompatibleStateImageBehavior = False
         Me.lstAccounts.View = System.Windows.Forms.View.Details
@@ -107,9 +107,10 @@ Partial Class frmManageAccounts
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(762, 391)
+        Me.btnClose.Location = New System.Drawing.Point(952, 489)
+        Me.btnClose.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(122, 30)
+        Me.btnClose.Size = New System.Drawing.Size(152, 38)
         Me.btnClose.TabIndex = 4
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
@@ -117,31 +118,23 @@ Partial Class frmManageAccounts
         'btnDeleteCharacter
         '
         Me.btnDeleteCharacter.Enabled = False
-        Me.btnDeleteCharacter.Location = New System.Drawing.Point(378, 391)
+        Me.btnDeleteCharacter.Location = New System.Drawing.Point(472, 489)
+        Me.btnDeleteCharacter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDeleteCharacter.Name = "btnDeleteCharacter"
-        Me.btnDeleteCharacter.Size = New System.Drawing.Size(122, 30)
+        Me.btnDeleteCharacter.Size = New System.Drawing.Size(152, 38)
         Me.btnDeleteCharacter.TabIndex = 6
         Me.btnDeleteCharacter.Text = "Delete Character"
         Me.btnDeleteCharacter.UseVisualStyleBackColor = True
         '
         'btnAddCharacter
         '
-        Me.btnAddCharacter.Location = New System.Drawing.Point(250, 391)
+        Me.btnAddCharacter.Location = New System.Drawing.Point(312, 489)
+        Me.btnAddCharacter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAddCharacter.Name = "btnAddCharacter"
-        Me.btnAddCharacter.Size = New System.Drawing.Size(122, 30)
+        Me.btnAddCharacter.Size = New System.Drawing.Size(152, 38)
         Me.btnAddCharacter.TabIndex = 7
         Me.btnAddCharacter.Text = "Add Character"
         Me.btnAddCharacter.UseVisualStyleBackColor = True
-        '
-        'btnSelectDefaultChar
-        '
-        Me.btnSelectDefaultChar.Enabled = False
-        Me.btnSelectDefaultChar.Location = New System.Drawing.Point(506, 391)
-        Me.btnSelectDefaultChar.Name = "btnSelectDefaultChar"
-        Me.btnSelectDefaultChar.Size = New System.Drawing.Size(122, 30)
-        Me.btnSelectDefaultChar.TabIndex = 8
-        Me.btnSelectDefaultChar.Text = "Set Default Character"
-        Me.btnSelectDefaultChar.UseVisualStyleBackColor = True
         '
         'lstScopes
         '
@@ -149,10 +142,11 @@ Partial Class frmManageAccounts
         Me.lstScopes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colScopes})
         Me.lstScopes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lstScopes.HideSelection = False
-        Me.lstScopes.Location = New System.Drawing.Point(612, 12)
+        Me.lstScopes.Location = New System.Drawing.Point(765, 15)
+        Me.lstScopes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstScopes.MultiSelect = False
         Me.lstScopes.Name = "lstScopes"
-        Me.lstScopes.Size = New System.Drawing.Size(516, 231)
+        Me.lstScopes.Size = New System.Drawing.Size(644, 288)
         Me.lstScopes.TabIndex = 9
         Me.lstScopes.UseCompatibleStateImageBehavior = False
         Me.lstScopes.View = System.Windows.Forms.View.Details
@@ -171,26 +165,30 @@ Partial Class frmManageAccounts
         Me.gbAccountData.Controls.Add(Me.txtRefreshToken)
         Me.gbAccountData.Controls.Add(Me.txtAccessTokenExpDate)
         Me.gbAccountData.Controls.Add(Me.txtAccessToken)
-        Me.gbAccountData.Location = New System.Drawing.Point(612, 249)
+        Me.gbAccountData.Location = New System.Drawing.Point(765, 311)
+        Me.gbAccountData.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.gbAccountData.Name = "gbAccountData"
-        Me.gbAccountData.Size = New System.Drawing.Size(516, 133)
+        Me.gbAccountData.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbAccountData.Size = New System.Drawing.Size(645, 166)
         Me.gbAccountData.TabIndex = 11
         Me.gbAccountData.TabStop = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 106)
+        Me.Label1.Location = New System.Drawing.Point(4, 132)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(154, 13)
+        Me.Label1.Size = New System.Drawing.Size(201, 17)
         Me.Label1.TabIndex = 13
         Me.Label1.Text = "Access Token Expiration Date:"
         '
         'btnCopyAll
         '
-        Me.btnCopyAll.Location = New System.Drawing.Point(402, 103)
+        Me.btnCopyAll.Location = New System.Drawing.Point(502, 129)
+        Me.btnCopyAll.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCopyAll.Name = "btnCopyAll"
-        Me.btnCopyAll.Size = New System.Drawing.Size(108, 21)
+        Me.btnCopyAll.Size = New System.Drawing.Size(135, 26)
         Me.btnCopyAll.TabIndex = 12
         Me.btnCopyAll.Text = "Copy Token Data"
         Me.btnCopyAll.UseVisualStyleBackColor = True
@@ -198,70 +196,76 @@ Partial Class frmManageAccounts
         'lblRefreshToken
         '
         Me.lblRefreshToken.AutoSize = True
-        Me.lblRefreshToken.Location = New System.Drawing.Point(3, 61)
+        Me.lblRefreshToken.Location = New System.Drawing.Point(4, 76)
+        Me.lblRefreshToken.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblRefreshToken.Name = "lblRefreshToken"
-        Me.lblRefreshToken.Size = New System.Drawing.Size(81, 13)
+        Me.lblRefreshToken.Size = New System.Drawing.Size(106, 17)
         Me.lblRefreshToken.TabIndex = 4
         Me.lblRefreshToken.Text = "Refresh Token:"
         '
         'lblAccessToken
         '
         Me.lblAccessToken.AutoSize = True
-        Me.lblAccessToken.Location = New System.Drawing.Point(3, 16)
+        Me.lblAccessToken.Location = New System.Drawing.Point(4, 20)
+        Me.lblAccessToken.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAccessToken.Name = "lblAccessToken"
-        Me.lblAccessToken.Size = New System.Drawing.Size(79, 13)
+        Me.lblAccessToken.Size = New System.Drawing.Size(101, 17)
         Me.lblAccessToken.TabIndex = 3
         Me.lblAccessToken.Text = "Access Token:"
         '
         'txtRefreshToken
         '
-        Me.txtRefreshToken.Location = New System.Drawing.Point(6, 77)
+        Me.txtRefreshToken.Location = New System.Drawing.Point(8, 96)
+        Me.txtRefreshToken.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtRefreshToken.Name = "txtRefreshToken"
         Me.txtRefreshToken.ReadOnly = True
-        Me.txtRefreshToken.Size = New System.Drawing.Size(504, 20)
+        Me.txtRefreshToken.Size = New System.Drawing.Size(629, 22)
         Me.txtRefreshToken.TabIndex = 2
         '
         'txtAccessTokenExpDate
         '
-        Me.txtAccessTokenExpDate.Location = New System.Drawing.Point(163, 103)
+        Me.txtAccessTokenExpDate.Location = New System.Drawing.Point(204, 129)
+        Me.txtAccessTokenExpDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAccessTokenExpDate.Name = "txtAccessTokenExpDate"
         Me.txtAccessTokenExpDate.ReadOnly = True
-        Me.txtAccessTokenExpDate.Size = New System.Drawing.Size(122, 20)
+        Me.txtAccessTokenExpDate.Size = New System.Drawing.Size(152, 22)
         Me.txtAccessTokenExpDate.TabIndex = 1
         '
         'txtAccessToken
         '
-        Me.txtAccessToken.Location = New System.Drawing.Point(6, 34)
+        Me.txtAccessToken.Location = New System.Drawing.Point(8, 42)
+        Me.txtAccessToken.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAccessToken.Name = "txtAccessToken"
         Me.txtAccessToken.ReadOnly = True
-        Me.txtAccessToken.Size = New System.Drawing.Size(504, 20)
+        Me.txtAccessToken.Size = New System.Drawing.Size(629, 22)
         Me.txtAccessToken.TabIndex = 0
         '
         'btnRefreshToken
         '
-        Me.btnRefreshToken.Location = New System.Drawing.Point(634, 391)
+        Me.btnRefreshToken.Location = New System.Drawing.Point(792, 489)
+        Me.btnRefreshToken.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRefreshToken.Name = "btnRefreshToken"
-        Me.btnRefreshToken.Size = New System.Drawing.Size(122, 30)
+        Me.btnRefreshToken.Size = New System.Drawing.Size(152, 38)
         Me.btnRefreshToken.TabIndex = 12
         Me.btnRefreshToken.Text = "Refresh Token Data"
         Me.btnRefreshToken.UseVisualStyleBackColor = True
         '
         'frmManageAccounts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1134, 430)
+        Me.ClientSize = New System.Drawing.Size(1418, 538)
         Me.Controls.Add(Me.btnRefreshToken)
         Me.Controls.Add(Me.gbAccountData)
         Me.Controls.Add(Me.lstScopes)
-        Me.Controls.Add(Me.btnSelectDefaultChar)
         Me.Controls.Add(Me.btnAddCharacter)
         Me.Controls.Add(Me.btnDeleteCharacter)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lstAccounts)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmManageAccounts"
@@ -277,7 +281,6 @@ Partial Class frmManageAccounts
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents btnDeleteCharacter As System.Windows.Forms.Button
     Friend WithEvents btnAddCharacter As System.Windows.Forms.Button
-    Friend WithEvents btnSelectDefaultChar As System.Windows.Forms.Button
     Friend WithEvents colCorporationName As ColumnHeader
     Friend WithEvents lstScopes As ListView
     Friend WithEvents colScopes As ColumnHeader

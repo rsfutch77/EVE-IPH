@@ -28,10 +28,6 @@
         Me.TextBoxDescription.Text = My.Application.Info.Description
     End Sub
 
-    Private Sub OKButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OKButton.Click
-        Me.Close()
-    End Sub
-
     Private Sub pbPaypal_Click(sender As Object, e As EventArgs) Handles pbPaypal.Click
         ' Take them to the donation page
         Call Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HSZKRQYTX5HR6&source=url")

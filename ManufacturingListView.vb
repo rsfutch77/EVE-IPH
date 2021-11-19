@@ -1,5 +1,5 @@
 ﻿
-Public Class ManufacturingListView : Inherits System.Windows.Forms.ListView
+Public Class ManufacturingListView : Inherits MetroFramework.Controls.MetroListView
 
     Public Event ProcMsg(ByVal m As Message)
     Public Const WM_VSCROLL As Integer = 277

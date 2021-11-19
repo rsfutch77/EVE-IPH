@@ -425,9 +425,6 @@ Public Class frmMain
         Call LoadCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
         Call LoadCharacterNamesinMenu()
 
-        ' Type of skills loaded
-        Call UpdateSkillPanel()
-
         ' Update System Cost Indicies
         If UserApplicationSettings.LoadESISystemCostIndiciesDataonStartup Then
             Application.UseWaitCursor = True
@@ -1107,102 +1104,13 @@ Public Class frmMain
         CurrentBPHistoryIndex = -1
     End Sub
 
-    ' Menu update to show the patch notes
-    Private Sub mnuPatchNotes_Click(sender As System.Object, e As System.EventArgs) Handles mnuPatchNotes.Click
-        Dim f1 As New frmPatchNotes
-
-        Application.UseWaitCursor = True
-        Application.DoEvents()
-
-        f1.Show()
-
-    End Sub
-
     Private Sub mnuViewESIStatus_Click(sender As Object, e As EventArgs) Handles mnuViewESIStatus.Click
         Dim f1 As New frmESIStatus
 
         f1.Show()
     End Sub
 
-    ' Full reset - will delete all data downloaded, updated, or otherwise set by the user
-    Private Sub mnuResetAllData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuResetAllData.Click
-        Dim Response As MsgBoxResult
-        Dim SQL As String
-
-        Response = MsgBox("This will reset all data for the program including ESI Tokens, Blueprints, Assets, Industry Jobs, and Price data." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
-
-        If Response = vbYes Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-
-            SQL = "DELETE FROM ESI_CHARACTER_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ESI_CORPORATION_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CHARACTER_STANDINGS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CHARACTER_SKILLS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM OWNED_BLUEPRINTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ITEM_PRICES_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ASSETS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM INDUSTRY_JOBS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CURRENT_RESEARCH_AGENTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = 0"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM MARKET_HISTORY"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM MARKET_HISTORY_UPDATE_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            ' Reset all the cache dates
-            Call ResetESIDates()
-
-            ' Reset ESI data
-            Call ResetESIIndustrySystemIndicies()
-            Call ResetESIAdjustedMarketPrices()
-
-            FirstLoad = True ' Temporarily just to get screen to show correctly
-
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-
-            Call SelectedCharacter.LoadDummyCharacter(True)
-
-            MsgBox("All Data Reset", vbInformation, Application.ProductName)
-
-            ' Need to set a default, open that form
-            Dim f2 = New frmSetCharacterDefault
-            f2.ShowDialog()
-
-            Call LoadCharacterNamesinMenu()
-
-            ' Reset the tabs
-            Call ResetTabs()
-
-            FirstLoad = False
-
-        End If
-
-    End Sub
-
-    Private Sub mnuResetPriceData_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetPriceData.Click
+    Private Sub mnuResetPriceData_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
 
@@ -1235,7 +1143,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetESIDates_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetESIDates.Click
+    Private Sub mnuResetESIDates_Click(sender As System.Object, e As System.EventArgs)
         Call ResetESIDates()
     End Sub
 
@@ -1269,7 +1177,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetESIPublicStructures_Click(sender As Object, e As EventArgs) Handles mnuResetESIPublicStructures.Click
+    Private Sub mnuResetESIPublicStructures_Click(sender As Object, e As EventArgs)
         ' Delete all the public structures
         Call ResetPublicStructureData()
         Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_PUBLIC_CACHE_DATES SET PUBLIC_STRUCTURES_CACHED_UNTIL = NULL")
@@ -1278,7 +1186,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetMarketOrders_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetMarketOrders.Click
+    Private Sub mnuResetMarketOrders_Click(sender As System.Object, e As System.EventArgs)
 
         Application.UseWaitCursor = True
         Application.DoEvents()
@@ -1295,7 +1203,7 @@ Public Class frmMain
         Application.DoEvents()
     End Sub
 
-    Private Sub mnuResetMarketHistory_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetMarketHistory.Click
+    Private Sub mnuResetMarketHistory_Click(sender As System.Object, e As System.EventArgs)
 
         Application.UseWaitCursor = True
         Application.DoEvents()
@@ -1310,7 +1218,7 @@ Public Class frmMain
         Application.DoEvents()
     End Sub
 
-    Private Sub mnuResetBlueprintData_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetBlueprintData.Click
+    Private Sub mnuResetBlueprintData_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
 
         Response = MsgBox("This will reset all blueprints for this character" & Environment.NewLine & "deleting all scanned data and stored ME/TE values." & Environment.NewLine & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
@@ -1328,7 +1236,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetAgents_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetAgents.Click
+    Private Sub mnuResetAgents_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
 
@@ -1352,7 +1260,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetIndustryJobs_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetIndustryJobs.Click
+    Private Sub mnuResetIndustryJobs_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
 
@@ -1376,7 +1284,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuResetIgnoredBPs_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetIgnoredBPs.Click
+    Private Sub mnuResetIgnoredBPs_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
 
@@ -1396,7 +1304,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub mnuResetAssets_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetAssets.Click
+    Private Sub mnuResetAssets_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
 
@@ -1437,65 +1345,19 @@ Public Class frmMain
         f1.Show()
     End Sub
 
-    Private Sub mnuResetESIMarketPrices_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetESIMarketPrices.Click
+    Private Sub mnuResetESIMarketPrices_Click(sender As System.Object, e As System.EventArgs)
         Call ResetESIAdjustedMarketPrices()
     End Sub
 
-    Private Sub mnuResetESIIndustryFacilities_Click(sender As System.Object, e As System.EventArgs) Handles mnuResetESIIndustryFacilities.Click
+    Private Sub mnuResetESIIndustryFacilities_Click(sender As System.Object, e As System.EventArgs)
         Call ResetESIIndustrySystemIndicies()
-    End Sub
-
-    Private Sub mnuSelectionAddChar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectionAddChar.Click
-
-        ' Open up the default select box here
-        Dim f1 = New frmAddCharacter
-        f1.ShowDialog()
-
-        Call LoadCharacterNamesinMenu()
-
-        ' Reinit form
-        Call ResetTabs()
-
-    End Sub
-
-    Private Sub mnuSelectionManageCharacters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectionManageCharacters.Click
-        Dim f1 As New frmManageAccounts
-
-        Call f1.ShowDialog()
-
-        ' Default character set, now set the panel if it changed
-        If SelectedCharacter.Name <> mnuChar.SelectedText Then
-            ' If we returned, we got a default character set
-            Call ResetTabs()
-            Call LoadCharacterNamesinMenu()
-        End If
-
-    End Sub
-
-    Private Sub mnuChangeDummyCharacterName_Click(sender As Object, e As EventArgs) Handles mnuChangeDummyCharacterName.Click
-        Dim f1 As New frmChangeDummyCharacter
-
-        f1.ShowDialog()
-
-        If SelectedCharacter.ID = DummyCharacterID Then
-            ' Reload with new information
-            SelectedCharacter.LoadDefaultCharacter(False, False, True)
-            Call LoadCharacterNamesinMenu()
-        End If
-    End Sub
-
-    Private Sub mnuCheckforUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCheckforUpdates.Click
-        Cursor.Current = Cursors.WaitCursor
-        Application.DoEvents()
-        Call CheckForUpdates(True, Me.Icon)
-        Cursor.Current = Cursors.Default
     End Sub
 
     Private Sub btnCancelUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelUpdate.Click
         CancelUpdatePrices = True
     End Sub
 
-    Private Sub mnuSelectionExit_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mnuSelectionExit.Click
+    Private Sub mnuSelectionExit_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         End
     End Sub
 
@@ -1532,34 +1394,12 @@ Public Class frmMain
         'End If
     End Sub
 
-    Private Sub mnuSelectDefaultChar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectDefaultChar.Click
-        Dim f1 = New frmSetCharacterDefault
-        Dim PreviousChar As String
-
-        PreviousChar = SelectedCharacter.Name
-        f1.ShowDialog()
-        ' If we returned, we got a default character set
-        Call LoadCharacterNamesinMenu()
-
-        ' If they cancel or choose the same one, don't re load everything
-        If PreviousChar <> SelectedCharacter.Name Then
-            Call ResetTabs()
-            Call ResetRefresh()
-        End If
-    End Sub
-
     Private Sub pnlShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ShowShoppingList()
     End Sub
 
     Private Sub mnuSelectionShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Call ShowShoppingList()
-    End Sub
-
-    Private Sub mnuSelectionAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectionAbout.Click
-        Dim f1 = New frmAbout
-        ' Open the Shopping List
-        f1.ShowDialog()
     End Sub
 
     Private Sub mnuCharacterSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCharacterSkills.Click
@@ -1576,24 +1416,12 @@ Public Class frmMain
         SkillsUpdated = False
         f1.ShowDialog()
 
-        If SkillsUpdated Then
-            Call UpdateSkillPanel()
-        End If
     End Sub
 
     Private Sub mnuCharacterStandings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f1 = New frmCharacterStandings
         ' Open the character screen
         f1.ShowDialog()
-    End Sub
-
-    Private Sub mnuUserSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuUserSettings.Click
-        Dim f1 = New frmSettings
-        Dim OldFacilitySaveSetting As Boolean = UserApplicationSettings.SaveFacilitiesbyChar
-
-        ' Open the settings form
-        f1.ShowDialog()
-
     End Sub
 
     Private Sub ShowShoppingList()
@@ -1615,25 +1443,12 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub UpdateSkillPanel()
-        If UserApplicationSettings.AllowSkillOverride Then
-            pnlSkills.ForeColor = Color.Red
-            pnlSkills.Text = "Skills Overridden"
-        Else
-            pnlSkills.ForeColor = Color.Black
-            pnlSkills.Text = "Skills Loaded"
-        End If
-    End Sub
-
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
         ' Init all forms
         Cursor.Current = Cursors.WaitCursor
         Call InitBPTab(ResetBPTab)
         Call InitManufacturingTab()
         Call InitUpdatePricesTab()
-
-        ' Update skill override
-        Call UpdateSkillPanel()
 
         Cursor.Current = Cursors.Default
 
@@ -1698,7 +1513,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub UpdateIndustryFacilitiesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuUpdateIndustryFacilities.Click
+    Private Sub UpdateIndustryFacilitiesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
         Dim ESIData As New ESI
         Dim f1 As New frmStatus
 
@@ -1715,7 +1530,7 @@ Public Class frmMain
         Application.UseWaitCursor = False
     End Sub
 
-    Private Sub UpdateMarketPricesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuUpdateESIMarketPrices.Click
+    Private Sub UpdateMarketPricesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
         Dim ESIData As New ESI
         Dim f1 As New frmStatus
 
@@ -1732,22 +1547,6 @@ Public Class frmMain
 
         f1.Dispose()
         Application.UseWaitCursor = False
-    End Sub
-
-    Private Sub mnuUpdateESIPublicStructures_Click(sender As Object, e As EventArgs) Handles mnuUpdateESIPublicStructures.Click
-        Dim ESIData As New ESI
-        Dim f1 As New frmStatus
-
-        Application.UseWaitCursor = True
-        Call f1.Show()
-        Application.DoEvents()
-        If ESIData.UpdatePublicStructureswithMarkets(f1.lblStatus, f1.pgStatus) Then
-            MsgBox("Public Structure Data Updated", vbInformation, Application.ProductName)
-        End If
-
-        f1.Dispose()
-        Application.UseWaitCursor = False
-
     End Sub
 
 #End Region
@@ -4998,7 +4797,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub btnCalcSelectColumns_Click(sender As System.Object, e As System.EventArgs) Handles btnCalcSelectColumns.Click
+    Private Sub btnCalcSelectColumns_Click(sender As System.Object, e As System.EventArgs)
         Dim f1 As New frmSelectManufacturingTabColumns
         ManufacturingTabColumnsChanged = False
         f1.ShowDialog()
@@ -5018,7 +4817,7 @@ ExitPRocessing:
         Call ResetRefresh()
     End Sub
 
-    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstManufacturing.ColumnClick
+    Private Sub lstManufacturing_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs)
 
         Call ListViewColumnSorter(e.Column, CType(lstManufacturing, ListView), ManufacturingColumnClicked, ManufacturingColumnSortType)
 
@@ -6188,7 +5987,6 @@ ExitPRocessing:
                 ListRowFormats = New List(Of RowFormat)
 
                 ' Disable all the controls individulally so we can use cancel button
-                btnCalcSelectColumns.Enabled = False
                 gbCalcBPSelect.Enabled = False
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
@@ -6734,7 +6532,6 @@ ExitCalc:
         lstManufacturing.EndUpdate()
 
         ' Enable all the controls
-        btnCalcSelectColumns.Enabled = True
         gbCalcBPSelect.Enabled = True
         gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
@@ -8754,6 +8551,113 @@ NextIteration:
             rbtnCalcAllBPs.Checked = False
             rbtnCalcBPFavorites.Checked = False
         End If
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Cursor.Current = Cursors.WaitCursor
+        Application.DoEvents()
+        Call CheckForUpdates(True, Me.Icon)
+        Cursor.Current = Cursors.Default
+    End Sub
+
+    Private Sub btnAddChar_Click(sender As Object, e As EventArgs) Handles btnAddChar.Click
+
+        ' Open up the default select box here
+        Dim f1 = New frmAddCharacter
+        f1.ShowDialog()
+
+        Call LoadCharacterNamesinMenu()
+
+        ' Reinit form
+        Call ResetTabs()
+
+    End Sub
+
+    Private Sub btnManageChar_Click(sender As Object, e As EventArgs) Handles btnManageChar.Click
+        Dim f1 As New frmManageAccounts
+
+        Call f1.ShowDialog()
+
+        ' Default character set, now set the panel if it changed
+        If SelectedCharacter.Name <> mnuChar.SelectedText Then
+            ' If we returned, we got a default character set
+            Call ResetTabs()
+            Call LoadCharacterNamesinMenu()
+        End If
+
+    End Sub
+
+    Private Sub btnResetAll_Click(sender As Object, e As EventArgs) Handles btnResetAll.Click
+        Dim Response As MsgBoxResult
+        Dim SQL As String
+
+        Response = MsgBox("This will reset all data for the program including ESI Tokens, Blueprints, Assets, Industry Jobs, and Price data." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
+
+        If Response = vbYes Then
+            Application.UseWaitCursor = True
+            Application.DoEvents()
+
+            SQL = "DELETE FROM ESI_CHARACTER_DATA"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ESI_CORPORATION_DATA"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CHARACTER_STANDINGS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CHARACTER_SKILLS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM OWNED_BLUEPRINTS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ITEM_PRICES_CACHE"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ASSETS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM INDUSTRY_JOBS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CURRENT_RESEARCH_AGENTS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = 0"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM MARKET_HISTORY"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM MARKET_HISTORY_UPDATE_CACHE"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            ' Reset all the cache dates
+            Call ResetESIDates()
+
+            ' Reset ESI data
+            Call ResetESIIndustrySystemIndicies()
+            Call ResetESIAdjustedMarketPrices()
+
+            FirstLoad = True ' Temporarily just to get screen to show correctly
+
+            Application.UseWaitCursor = False
+            Application.DoEvents()
+
+            Call SelectedCharacter.LoadDummyCharacter(True)
+
+            MsgBox("All Data Reset", vbInformation, Application.ProductName)
+
+            Call LoadCharacterNamesinMenu()
+
+            ' Reset the tabs
+            Call ResetTabs()
+
+            FirstLoad = False
+
+        End If
+
     End Sub
 
 #End Region

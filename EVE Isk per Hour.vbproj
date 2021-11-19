@@ -287,7 +287,7 @@
       <DependentUpon>frmAbout.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAbout.vb">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="frmAPIError.Designer.vb">
       <DependentUpon>frmAPIError.vb</DependentUpon>
@@ -343,29 +343,17 @@
     <Compile Include="frmManageAccounts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPatchNotes.Designer.vb">
-      <DependentUpon>frmPatchNotes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmPatchNotes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSelectIndustryJobColumns.Designer.vb">
       <DependentUpon>frmSelectIndustryJobColumns.vb</DependentUpon>
     </Compile>
     <Compile Include="frmSelectIndustryJobColumns.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSetCharacterDefault.Designer.vb">
-      <DependentUpon>frmSetCharacterDefault.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmSetCharacterDefault.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSettings.Designer.vb">
       <DependentUpon>frmSettings.vb</DependentUpon>
     </Compile>
     <Compile Include="frmSettings.vb">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="frmShoppingList.Designer.vb">
       <DependentUpon>frmShoppingList.vb</DependentUpon>
@@ -514,19 +502,8 @@
       <DependentUpon>frmManageAccounts.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPatchNotes.en-US.resx">
-      <DependentUpon>frmPatchNotes.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmPatchNotes.resx">
-      <DependentUpon>frmPatchNotes.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmSelectIndustryJobColumns.resx">
       <DependentUpon>frmSelectIndustryJobColumns.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmSetCharacterDefault.resx">
-      <DependentUpon>frmSetCharacterDefault.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.vb</DependentUpon>

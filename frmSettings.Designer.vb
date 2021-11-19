@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmSettings
-    Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.UserControl
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -904,13 +904,8 @@ Partial Class frmSettings
         Me.Controls.Add(Me.gbGeneral)
         Me.Controls.Add(Me.gbDefaultMEPE)
         Me.Controls.Add(Me.gbShoppingList)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmSettings"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Application Settings"
         Me.gbGeneral.ResumeLayout(False)
         Me.gbGeneral.PerformLayout()

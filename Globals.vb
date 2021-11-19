@@ -426,10 +426,6 @@ Public Module Public_Variables
             If CInt(CMDCount.ExecuteScalar()) = 0 Then
                 ' No characters loaded yet so load dummy for all
                 Call SelectedCharacter.LoadDummyCharacter(True)
-            Else
-                ' Have a set of chars, need to set a default, open that form
-                Dim f2 = New frmSetCharacterDefault
-                f2.ShowDialog()
             End If
 
         End If

@@ -354,14 +354,24 @@ Public Class ProgramSettings
 
     ' Manufacturing Tab column settings - index 0 is for hidden id column
     Public DefaultMTItemCategory As Integer = 1
-    Public DefaultMTItemGroup As Integer = 0
     Public DefaultMTItemName As Integer = 2
     Public DefaultMTOwned As Integer = 3
-    Public DefaultMTTech As Integer = 4
-    Public DefaultMTBPME As Integer = 5
-    Public DefaultMTBPTE As Integer = 6
-    Public DefaultMTInputs As Integer = 7
-    Public DefaultMTCompared As Integer = 8
+    Public DefaultMTBPME As Integer = 4
+    Public DefaultMTBPTE As Integer = 5
+    Public DefaultMTIskperHour As Integer = 6
+    Public DefaultMTSVR As Integer = 7
+    Public DefaultMTRiskIPH As Integer = 8
+    Public DefaultMTVolatility As Integer = 9
+    Public DefaultMTPriceTrend As Integer = 10
+    Public DefaultMTCurrentSellOrders As Integer = 11
+    Public DefaultMTItemsinProduction As Integer = 12
+    Public DefaultMTItemsinStock As Integer = 13
+    Public DefaultMTScore As Integer = 14
+
+    Public DefaultMTItemGroup As Integer = 0
+    Public DefaultMTTech As Integer = 0
+    Public DefaultMTInputs As Integer = 0
+    Public DefaultMTCompared As Integer = 0
     Public DefaultMTTotalRuns As Integer = 0
     Public DefaultMTSingleInventedBPCRuns As Integer = 0
     Public DefaultMTProductionLines As Integer = 0
@@ -377,23 +387,14 @@ Public Class ProgramSettings
     Public DefaultMTItemMarketPrice As Integer = 0
     Public DefaultMTProfit As Integer = 9
     Public DefaultMTProfitPercentage As Integer = 0
-    Public DefaultMTIskperHour As Integer = 10
-    Public DefaultMTSVR As Integer = 11
     Public DefaultMTSVRxIPH As Integer = 0
     Public DefaultMTRiskPrice As Integer = 0
-    Public DefaultMTScore As Integer = 0
     Public DefaultMTRiskProfit As Integer = 0
-    Public DefaultMTRiskIPH As Integer = 0
-    Public DefaultMTVolatility As Integer = 0
-    Public DefaultMTPriceTrend As Integer = 0
     Public DefaultMTTotalItemsSold As Integer = 0
     Public DefaultMTTotalOrdersFilled As Integer = 0
     Public DefaultMTAvgItemsperOrder As Integer = 0
-    Public DefaultMTCurrentSellOrders As Integer = 0
     Public DefaultMTCurrentBuyOrders As Integer = 0
-    Public DefaultMTItemsinProduction As Integer = 0
-    Public DefaultMTItemsinStock As Integer = 0
-    Public DefaultMTTotalCost As Integer = 12
+    Public DefaultMTTotalCost As Integer = 0
     Public DefaultMTBaseJobCost As Integer = 0
     Public DefaultMTNumBPs As Integer = 0
     Public DefaultMTInventionChance As Integer = 0

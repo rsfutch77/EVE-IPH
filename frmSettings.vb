@@ -357,11 +357,8 @@ Public Class frmSettings
             End With
         End If
 
-    End Sub
-
-    Private Sub frmSettings_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-        ' Load the settings for the program from DB
         Call LoadFormSettings()
+
     End Sub
 
     Private Sub LoadFormSettings()

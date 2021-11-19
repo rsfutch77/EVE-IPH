@@ -36,9 +36,6 @@ Public Class frmManageAccounts
         Dim lstViewRow As ListViewItem
         Dim CharList As String = ""
 
-        ' Until there is a key able to set a default to, don't enable the select default button
-        btnSelectDefaultChar.Enabled = False
-
         Application.UseWaitCursor = True
 
         SQL = "SELECT CHARACTER_ID, CHARACTER_NAME, CORPORATION_NAME, IS_DEFAULT, SCOPES, ACCESS_TOKEN, ACCESS_TOKEN_EXPIRE_DATE_TIME, TOKEN_TYPE, REFRESH_TOKEN "
@@ -88,13 +85,6 @@ Public Class frmManageAccounts
         rsAccounts = DBCommand.ExecuteReader
 
         rsAccounts.Read()
-
-        ' Don't enable default setting if there aren't any new api keys
-        If CInt(rsAccounts.GetValue(0)) = 0 Then
-            btnSelectDefaultChar.Enabled = False
-        Else
-            btnSelectDefaultChar.Enabled = True
-        End If
 
         Application.UseWaitCursor = False
 
@@ -200,15 +190,6 @@ Public Class frmManageAccounts
         lstAccounts.Items.Clear()
 
         ' Reload accounts
-        Call LoadAccountGrid()
-
-    End Sub
-
-    Private Sub btnSelectDefaultChar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectDefaultChar.Click
-        Dim fDefault As New frmSetCharacterDefault
-
-        fDefault.ShowDialog()
-
         Call LoadAccountGrid()
 
     End Sub
