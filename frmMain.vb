@@ -516,11 +516,6 @@ Public Class frmMain
         PriceCheckT5Enabled = True
         PriceCheckT6Enabled = True
 
-        ' Tool Tips
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblBPCanMakeBP, "Double-Click here to see required skills to make this BP")
-        End If
-
         '*******************************************
         '**** Update Prices Tab Initializations ****
         '*******************************************
@@ -2670,51 +2665,10 @@ Tabs:
 
 #Region "BP Combo / List Processing "
 
-    Private Sub cmbBPBlueprintSelection_DropDown(sender As Object, e As System.EventArgs) Handles cmbBPBlueprintSelection.DropDown
-        ' If you drop down, don't show the text window
-        'cmbBPBlueprintSelection.AutoCompleteMode = AutoCompleteMode.None
-        lstBPList.Hide()
-        ComboMenuDown = True
-        ' if we drop down, we aren't using the arrow keys
-        ComboBoxArrowKeys = False
-        BPComboKeyDown = False
-    End Sub
-
-    Private Sub cmbBPBlueprintSelection_DropDownClosed(sender As Object, e As System.EventArgs) Handles cmbBPBlueprintSelection.DropDownClosed
-        ' If it closes up, re-enable autocomplete
-        'cmbBPBlueprintSelection.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-        ComboMenuDown = False
-        lstBPList.Hide() ' This could show up if people type into the list when combo down
-        'Call SelectBlueprint() ' Loads in selectionchangecommitted
-        cmbBPBlueprintSelection.Focus()
-    End Sub
-
-    Private Sub cmbBPBlueprintSelection_MouseWheel(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles cmbBPBlueprintSelection.MouseWheel
-        ' Only set mouse boolean when the combo isn't dropped down since users might want to use the wheel and click to select
-        If ComboMenuDown Then
-            MouseWheelSelection = False
-        Else
-            MouseWheelSelection = True
-            cmbBPBlueprintSelection.Focus()
-        End If
-
-    End Sub
-
-    Private Sub cmbBPBlueprintSelection_DoubleClick(sender As Object, e As EventArgs) Handles cmbBPBlueprintSelection.DoubleClick
-        cmbBPBlueprintSelection.SelectAll()
-    End Sub
-
-    Private Sub cmbBPBlueprintSelection_LostFocus(sender As Object, e As EventArgs) Handles cmbBPBlueprintSelection.LostFocus
-        ' Close the list view when lost focus
-        Call lstBPList.Hide()
-        Call cmbBPBlueprintSelection.SelectAll()
-    End Sub
-
     ' Thrown when the user changes the value in the combo box
     Private Sub cmbBPBlueprintSelection_SelectionChangeCommitted(sender As Object, e As System.EventArgs) Handles cmbBPBlueprintSelection.SelectionChangeCommitted
 
         If Not MouseWheelSelection And Not ComboBoxArrowKeys Then
-            lstBPList.Visible = False ' We are loading the bp, so hide this
             BPSelected = True
             Call LoadBPFromCombo()
         End If
@@ -2730,61 +2684,8 @@ Tabs:
                 If (cmbBPBlueprintSelection.Text <> "") Then
                     GetBPWithName(cmbBPBlueprintSelection.Text)
                 End If
-                If (String.IsNullOrEmpty(cmbBPBlueprintSelection.Text)) Then
-                    lstBPList.Items.Clear()
-                    lstBPList.Visible = False
-                End If
             End If
         End If
-    End Sub
-
-    ' Process keys for bp combo
-    Private Sub cmbBPBlueprintSelection_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles cmbBPBlueprintSelection.KeyDown
-
-        If cmbBPBlueprintSelection.DroppedDown = False Then
-            BPComboKeyDown = True
-        Else
-            BPComboKeyDown = False
-        End If
-
-        If e.KeyValue = Keys.Up Or e.KeyValue = Keys.Down Then
-            ComboBoxArrowKeys = True
-        Else
-            ComboBoxArrowKeys = False
-        End If
-
-        ' If they hit the arrow keys when the combo is dropped down (just in the combo it won't throw this)
-        If lstBPList.Visible = False Then
-            ' If they select enter, then load the BP
-            If e.KeyValue = Keys.Enter Then
-                Call LoadBPFromCombo()
-            End If
-        Else
-            ' They have the list down, so process up and down keys to work with selecting in the list
-            e.Handled = True ' Don't process up and down in the combo when the list shown
-            Select Case (e.KeyCode)
-                Case Keys.Down
-                    If (lstBPList.SelectedIndex < lstBPList.Items.Count - 1) Then
-                        lstBPList.SelectedIndex = lstBPList.SelectedIndex + 1
-                    End If
-                Case Keys.Up
-                    If (lstBPList.SelectedIndex > 0) Then
-                        lstBPList.SelectedIndex = lstBPList.SelectedIndex - 1
-                    End If
-                Case Keys.Enter
-                    If (lstBPList.SelectedIndex > -1) Then
-                        SelectedBPText = lstBPList.SelectedItem.ToString()
-                        cmbBPBlueprintSelection.Text = SelectedBPText
-                        lstBPList.Visible = False
-                        BPSelected = True
-                        Call SelectBlueprint()
-                        BPSelected = False
-                    End If
-                Case Keys.Escape
-                    lstBPList.Visible = False
-            End Select
-        End If
-
     End Sub
 
     Private Sub cmbBlueprintSelection_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -2792,37 +2693,23 @@ Tabs:
     End Sub
 
     ' Process up down arrows in bp list
-    Private Sub lstBPList_SelectedValueChanged(sender As Object, e As EventArgs) Handles lstBPList.SelectedValueChanged
-        If Not IsNothing(lstBPList.SelectedItem) Then
-            cmbBPBlueprintSelection.Text = lstBPList.SelectedItem.ToString
-            cmbBPBlueprintSelection.SelectAll()
-        End If
-    End Sub
+    'Private Sub lstBPList_SelectedValueChanged(sender As Object, e As EventArgs)
+    '    If Not IsNothing(lstBPList.SelectedItem) Then
+    '        cmbBPBlueprintSelection.Text = lstBPList.SelectedItem.ToString
+    '        cmbBPBlueprintSelection.SelectAll()
+    '    End If
+    'End Sub
 
-    ' Loads the item by clicking on the item selected
-    Private Sub lstBPList_MouseDown(sender As Object, e As MouseEventArgs) Handles lstBPList.MouseDown
-        If lstBPList.SelectedItems.Count <> 0 Then
-            SelectedBPText = lstBPList.SelectedItem.ToString()
-            cmbBPBlueprintSelection.Text = SelectedBPText
-            lstBPList.Visible = False
-            Call SelectBlueprint()
-            cmbBPBlueprintSelection.SelectAll()
-        End If
-    End Sub
-
-    Private Sub lstBPList_MouseMove(sender As Object, e As MouseEventArgs) Handles lstBPList.MouseMove
-        Dim Index As Integer = lstBPList.IndexFromPoint(e.X, e.Y)
-
-        RemoveHandler lstBPList.SelectedValueChanged, AddressOf lstBPList_SelectedValueChanged
-        lstBPList.SelectedIndex = Index
-        AddHandler lstBPList.SelectedValueChanged, AddressOf lstBPList_SelectedValueChanged
-    End Sub
-
-    Private Sub lstBPList_LostFocus(sender As Object, e As EventArgs) Handles lstBPList.LostFocus
-        ' hide when losing focus
-        Call lstBPList.Hide()
-        Call cmbBPBlueprintSelection.SelectAll()
-    End Sub
+    '' Loads the item by clicking on the item selected
+    'Private Sub lstBPList_MouseDown(sender As Object, e As MouseEventArgs)
+    '    If lstBPList.SelectedItems.Count <> 0 Then
+    '        SelectedBPText = lstBPList.SelectedItem.ToString()
+    '        cmbBPBlueprintSelection.Text = SelectedBPText
+    '        lstBPList.Visible = False
+    '        Call SelectBlueprint()
+    '        cmbBPBlueprintSelection.SelectAll()
+    '    End If
+    'End Sub
 
     ' Loads the blueprint combo based on what was selected
     Private Sub LoadBlueprintCombo()
@@ -2875,7 +2762,6 @@ Tabs:
         Dim SQL As String = ""
 
         cmbBPBlueprintSelection.Text = bpName
-        lstBPList.Items.Clear()
 
         ' Add limiting functions here based on radio buttons
         ' Use replace to Get rid of 's in blueprint name for sorting
@@ -2889,17 +2775,13 @@ Tabs:
 
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         readerBP = DBCommand.ExecuteReader
-        lstBPList.BeginUpdate()
 
         While readerBP.Read()
-            lstBPList.Items.Add(readerBP.GetString(0))
             Application.DoEvents()
         End While
 
         readerBP.Close()
         readerBP = Nothing
-        lstBPList.EndUpdate()
-        lstBPList.Visible = True
         Application.UseWaitCursor = False
 
     End Sub
@@ -2999,18 +2881,11 @@ Tabs:
     ' Initializes all the boxes on the BP tab
     Private Sub InitBPTab(Optional ResetBPHistory As Boolean = True)
 
-        pictBP.Image = Nothing
-        pictBP.BackgroundImage = Nothing
-        pictBP.Update()
-
         cmbBPBlueprintSelection.Text = "Select Blueprint"
 
         With UserBPTabSettings
             cmbBPsLoaded = False
             InventionDecryptorsLoaded = False
-
-            ' Don't show labels to make
-            lblBPCanMakeBP.Visible = False
 
             SetTaxFeeChecks = False
 
@@ -3101,9 +2976,6 @@ Tabs:
 
         readerBP.Close()
 
-        ' Load the image
-        Call LoadBlueprintPicture(BPID, ItemType)
-
         ' Set for max production lines 
         If SentFrom = SentFromLocation.None Then ' We might have different values there and they set on double click
         ElseIf SentFrom <> SentFromLocation.None Then  ' Sent from manufacturing tab, bp tab, history, or shopping list
@@ -3153,25 +3025,6 @@ Tabs:
 
     End Sub
 
-    ' Selects the images to be shown in the picture when a blueprint is selected
-    Private Sub LoadBlueprintPicture(ByVal BPID As Long, ByVal ItemType As Integer)
-        Dim BPImage As String
-        Dim BPTechImagePath As String = ""
-
-        ' Load the image - use absolute value since I use negative bpid's for special bps
-        BPImage = Path.Combine(UserImagePath, CStr(Math.Abs(BPID)) & "_64.png")
-
-        ' Check for the Tech Image
-        If File.Exists(BPImage) Then
-            pictBP.Image = Image.FromFile(BPImage)
-        Else
-            pictBP.Image = Nothing
-        End If
-
-        pictBP.Update()
-
-    End Sub
-
     ' Updates the price and other labels on the BP tab for the selected BP
     Public Sub UpdateBPPriceLabels()
         ' For final printout in boxes
@@ -3200,15 +3053,6 @@ Tabs:
 
             TotalCompIPH = TotalCompProfit / (SelectedBlueprint.GetProductionTime / DivideUnits) * 3600 ' Buy all components, just production time of BP
 
-        End If
-
-        ' Set the labels if the User Can make this item and/or all components
-        If SelectedBlueprint.UserCanBuildBlueprint Then
-            lblBPCanMakeBP.Text = "Can make this Item"
-            lblBPCanMakeBP.ForeColor = Color.Black
-        Else
-            lblBPCanMakeBP.Text = "Cannot make this Item"
-            lblBPCanMakeBP.ForeColor = Color.Red
         End If
 
         ' SVR Values
@@ -8678,8 +8522,6 @@ ExitCalc:
         SelectedBlueprint = FoundItem.Blueprint
 
         UpdateBPPriceLabels()
-
-        lblBPCanMakeBP.Visible = True
 
         ' Set the build facility we are sending to the proper facility type for this item. 
         If FoundItem IsNot Nothing Then

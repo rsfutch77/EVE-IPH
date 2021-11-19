@@ -86,7 +86,6 @@ Partial Class frmMain
         Me.ttMining = New System.Windows.Forms.ToolTip(Me.components)
         Me.ttPI = New System.Windows.Forms.ToolTip(Me.components)
         Me.CalcImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.lstBPList = New System.Windows.Forms.ListBox()
         Me.cmbBPBlueprintSelection = New System.Windows.Forms.ComboBox()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
@@ -113,8 +112,6 @@ Partial Class frmMain
         Me.lblCalcColorCode2 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
-        Me.lblBPCanMakeBP = New System.Windows.Forms.Label()
-        Me.pictBP = New System.Windows.Forms.PictureBox()
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
         Me.pnlShoppingList = New MetroFramework.Controls.MetroLabel()
         Me.pnlSkills = New MetroFramework.Controls.MetroLabel()
@@ -127,7 +124,6 @@ Partial Class frmMain
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
-        CType(Me.pictBP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'mnuStripMain
@@ -378,13 +374,13 @@ Partial Class frmMain
         'mnuUserSettings
         '
         Me.mnuUserSettings.Name = "mnuUserSettings"
-        Me.mnuUserSettings.Size = New System.Drawing.Size(382, 26)
+        Me.mnuUserSettings.Size = New System.Drawing.Size(270, 26)
         Me.mnuUserSettings.Text = "Select Application Settings"
         '
         'mnuSelectDefaultChar
         '
         Me.mnuSelectDefaultChar.Name = "mnuSelectDefaultChar"
-        Me.mnuSelectDefaultChar.Size = New System.Drawing.Size(382, 26)
+        Me.mnuSelectDefaultChar.Size = New System.Drawing.Size(270, 26)
         Me.mnuSelectDefaultChar.Text = "Select Default Character"
         '
         'mnuAbout
@@ -473,20 +469,9 @@ Partial Class frmMain
         Me.CalcImageList.Images.SetKeyName(7, "Green Up Arrow.bmp")
         Me.CalcImageList.Images.SetKeyName(8, "Red Down Arrow.bmp")
         '
-        'lstBPList
-        '
-        Me.lstBPList.FormattingEnabled = True
-        Me.lstBPList.ItemHeight = 16
-        Me.lstBPList.Location = New System.Drawing.Point(1353, 735)
-        Me.lstBPList.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstBPList.Name = "lstBPList"
-        Me.lstBPList.Size = New System.Drawing.Size(381, 132)
-        Me.lstBPList.TabIndex = 64
-        Me.lstBPList.Visible = False
-        '
         'cmbBPBlueprintSelection
         '
-        Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(1300, 796)
+        Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(1300, 581)
         Me.cmbBPBlueprintSelection.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbBPBlueprintSelection.Name = "cmbBPBlueprintSelection"
         Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(400, 24)
@@ -805,29 +790,6 @@ Partial Class frmMain
         Me.lstManufacturing.UseCompatibleStateImageBehavior = False
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
-        'lblBPCanMakeBP
-        '
-        Me.lblBPCanMakeBP.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBPCanMakeBP.ForeColor = System.Drawing.Color.Red
-        Me.lblBPCanMakeBP.Location = New System.Drawing.Point(1567, 464)
-        Me.lblBPCanMakeBP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblBPCanMakeBP.Name = "lblBPCanMakeBP"
-        Me.lblBPCanMakeBP.Size = New System.Drawing.Size(144, 26)
-        Me.lblBPCanMakeBP.TabIndex = 16
-        Me.lblBPCanMakeBP.Text = "Cannot Make this Item"
-        Me.lblBPCanMakeBP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'pictBP
-        '
-        Me.pictBP.BackColor = System.Drawing.Color.White
-        Me.pictBP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pictBP.Location = New System.Drawing.Point(1598, 369)
-        Me.pictBP.Margin = New System.Windows.Forms.Padding(4)
-        Me.pictBP.Name = "pictBP"
-        Me.pictBP.Size = New System.Drawing.Size(84, 85)
-        Me.pictBP.TabIndex = 15
-        Me.pictBP.TabStop = False
-        '
         'lblRecommendation
         '
         Me.lblRecommendation.FontSize = MetroFramework.MetroLabelSize.Tall
@@ -914,9 +876,7 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
-        Me.Controls.Add(Me.lblBPCanMakeBP)
         Me.Controls.Add(Me.lstManufacturing)
-        Me.Controls.Add(Me.pictBP)
         Me.Controls.Add(Me.gbCalcTextColors)
         Me.Controls.Add(Me.lstPricesView)
         Me.Controls.Add(Me.autoShopping)
@@ -938,7 +898,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.mnuStripMain)
         Me.Controls.Add(Me.cmbBPBlueprintSelection)
-        Me.Controls.Add(Me.lstBPList)
         Me.Controls.Add(Me.btnCalcCalculate)
         Me.Controls.Add(Me.btnCancelUpdate)
         Me.Controls.Add(Me.btnDownloadPrices)
@@ -958,7 +917,6 @@ Partial Class frmMain
         Me.gbCalcBPSelect.PerformLayout()
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.gbCalcTextColors.PerformLayout()
-        CType(Me.pictBP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1025,7 +983,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents mnuViewESIStatus As ToolStripMenuItem
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents lstBPList As ListBox
     Friend WithEvents cmbBPBlueprintSelection As ComboBox
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents cmbEdit As ComboBox
@@ -1050,8 +1007,6 @@ Partial Class frmMain
     Friend WithEvents lblCalcColorCode2 As Label
     Friend WithEvents lblCalcColorCode1 As Label
     Friend WithEvents lstManufacturing As ManufacturingListView
-    Friend WithEvents lblBPCanMakeBP As Label
-    Friend WithEvents pictBP As PictureBox
     Friend WithEvents pnlShoppingList As MetroFramework.Controls.MetroLabel
     Friend WithEvents pnlSkills As MetroFramework.Controls.MetroLabel
     Friend WithEvents pnlStatus As MetroFramework.Controls.MetroLabel
