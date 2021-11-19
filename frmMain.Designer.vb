@@ -86,7 +86,6 @@ Partial Class frmMain
         Me.ttMining = New System.Windows.Forms.ToolTip(Me.components)
         Me.ttPI = New System.Windows.Forms.ToolTip(Me.components)
         Me.CalcImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.cmbBPBlueprintSelection = New System.Windows.Forms.ComboBox()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
         Me.btnCancelUpdate = New MetroFramework.Controls.MetroButton()
@@ -102,7 +101,6 @@ Partial Class frmMain
         Me.rbtnCalcBPFavorites = New MetroFramework.Controls.MetroRadioButton()
         Me.rbtnCalcAllBPs = New MetroFramework.Controls.MetroRadioButton()
         Me.rbtnCalcBPOwned = New MetroFramework.Controls.MetroRadioButton()
-        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
         Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
         Me.lblCalcText = New System.Windows.Forms.Label()
@@ -111,15 +109,16 @@ Partial Class frmMain
         Me.lblCalcColorCode5 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode2 = New System.Windows.Forms.Label()
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
-        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
         Me.pnlShoppingList = New MetroFramework.Controls.MetroLabel()
         Me.pnlSkills = New MetroFramework.Controls.MetroLabel()
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
-        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.facilityPicker = New MetroFramework.Controls.MetroLabel()
         Me.lblCharacterData = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
+        Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
+        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
+        Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -469,16 +468,6 @@ Partial Class frmMain
         Me.CalcImageList.Images.SetKeyName(7, "Green Up Arrow.bmp")
         Me.CalcImageList.Images.SetKeyName(8, "Red Down Arrow.bmp")
         '
-        'cmbBPBlueprintSelection
-        '
-        Me.cmbBPBlueprintSelection.Location = New System.Drawing.Point(1300, 581)
-        Me.cmbBPBlueprintSelection.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbBPBlueprintSelection.Name = "cmbBPBlueprintSelection"
-        Me.cmbBPBlueprintSelection.Size = New System.Drawing.Size(400, 24)
-        Me.cmbBPBlueprintSelection.TabIndex = 70
-        Me.cmbBPBlueprintSelection.Text = "Select Blueprint or Reaction"
-        Me.cmbBPBlueprintSelection.Visible = False
-        '
         'txtListEdit
         '
         Me.txtListEdit.Location = New System.Drawing.Point(1300, 4)
@@ -659,20 +648,6 @@ Partial Class frmMain
         Me.rbtnCalcBPOwned.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.rbtnCalcBPOwned.UseSelectable = True
         '
-        'lstPricesView
-        '
-        Me.lstPricesView.FullRowSelect = True
-        Me.lstPricesView.GridLines = True
-        Me.lstPricesView.HideSelection = False
-        Me.lstPricesView.Location = New System.Drawing.Point(1448, 639)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstPricesView.MultiSelect = False
-        Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
-        Me.lstPricesView.TabIndex = 1
-        Me.lstPricesView.UseCompatibleStateImageBehavior = False
-        Me.lstPricesView.View = System.Windows.Forms.View.Details
-        '
         'gbCalcTextColors
         '
         Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode6)
@@ -774,22 +749,6 @@ Partial Class frmMain
         Me.lblCalcColorCode1.Text = "T"
         Me.lblCalcColorCode1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lstManufacturing
-        '
-        Me.lstManufacturing.AllowColumnReorder = True
-        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
-        Me.lstManufacturing.FullRowSelect = True
-        Me.lstManufacturing.GridLines = True
-        Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Location = New System.Drawing.Point(827, 581)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstManufacturing.Name = "lstManufacturing"
-        Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(453, 434)
-        Me.lstManufacturing.TabIndex = 17
-        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
-        Me.lstManufacturing.View = System.Windows.Forms.View.Details
-        '
         'lblRecommendation
         '
         Me.lblRecommendation.FontSize = MetroFramework.MetroLabelSize.Tall
@@ -832,15 +791,6 @@ Partial Class frmMain
         Me.pnlStatus.Text = "Status"
         Me.pnlStatus.Theme = MetroFramework.MetroThemeStyle.Dark
         '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(25, 252)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(1065, 58)
-        Me.CalcBaseFacility.TabIndex = 0
-        '
         'facilityPicker
         '
         Me.facilityPicker.Location = New System.Drawing.Point(23, 213)
@@ -868,6 +818,45 @@ Partial Class frmMain
         Me.MetroLabel1.TabIndex = 91
         Me.MetroLabel1.Text = "Pick a character or add one"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
+        '
+        'lstManufacturing
+        '
+        Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
+        Me.lstManufacturing.FullRowSelect = True
+        Me.lstManufacturing.GridLines = True
+        Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Location = New System.Drawing.Point(827, 581)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Name = "lstManufacturing"
+        Me.lstManufacturing.OwnerDraw = True
+        Me.lstManufacturing.Size = New System.Drawing.Size(453, 434)
+        Me.lstManufacturing.TabIndex = 17
+        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
+        Me.lstManufacturing.View = System.Windows.Forms.View.Details
+        '
+        'lstPricesView
+        '
+        Me.lstPricesView.FullRowSelect = True
+        Me.lstPricesView.GridLines = True
+        Me.lstPricesView.HideSelection = False
+        Me.lstPricesView.Location = New System.Drawing.Point(1448, 639)
+        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstPricesView.MultiSelect = False
+        Me.lstPricesView.Name = "lstPricesView"
+        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
+        Me.lstPricesView.TabIndex = 1
+        Me.lstPricesView.UseCompatibleStateImageBehavior = False
+        Me.lstPricesView.View = System.Windows.Forms.View.Details
+        '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(25, 252)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(1065, 58)
+        Me.CalcBaseFacility.TabIndex = 0
         '
         'frmMain
         '
@@ -897,7 +886,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.btnCalcSelectColumns)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.mnuStripMain)
-        Me.Controls.Add(Me.cmbBPBlueprintSelection)
         Me.Controls.Add(Me.btnCalcCalculate)
         Me.Controls.Add(Me.btnCancelUpdate)
         Me.Controls.Add(Me.btnDownloadPrices)
@@ -983,7 +971,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents mnuViewESIStatus As ToolStripMenuItem
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents cmbBPBlueprintSelection As ComboBox
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents cmbEdit As ComboBox
     Friend WithEvents CalcBaseFacility As ManufacturingFacility

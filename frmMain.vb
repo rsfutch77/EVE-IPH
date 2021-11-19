@@ -999,10 +999,7 @@ Public Class frmMain
         readerBP = DBCommand.ExecuteReader
 
         readerBP.Read()
-        RemoveHandler cmbBPBlueprintSelection.TextChanged, AddressOf cmbBPBlueprintSelection_TextChanged
-        cmbBPBlueprintSelection.Text = readerBP.GetString(0)
         SelectedBPText = readerBP.GetString(0)
-        AddHandler cmbBPBlueprintSelection.TextChanged, AddressOf cmbBPBlueprintSelection_TextChanged
         BPTech = readerBP.GetInt32(1)
         If SentFrom = SentFromLocation.BlueprintTab Then
             AdjustedRuns = CInt(Math.Ceiling(CInt(SentRuns) / readerBP.GetInt64(2)))
@@ -2511,11 +2508,6 @@ Tabs:
         ComboBoxArrowKeys = False
         BPComboKeyDown = False
 
-        Call LoadBlueprintCombo()
-
-        cmbBPBlueprintSelection.Text = "Select Blueprint"
-        cmbBPBlueprintSelection.Focus()
-
     End Sub
 
     Private Sub txtBPRuns_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
@@ -2663,225 +2655,8 @@ Tabs:
 
 #End Region
 
-#Region "BP Combo / List Processing "
-
-    ' Thrown when the user changes the value in the combo box
-    Private Sub cmbBPBlueprintSelection_SelectionChangeCommitted(sender As Object, e As System.EventArgs) Handles cmbBPBlueprintSelection.SelectionChangeCommitted
-
-        If Not MouseWheelSelection And Not ComboBoxArrowKeys Then
-            BPSelected = True
-            Call LoadBPFromCombo()
-        End If
-
-        BPSelected = False
-
-    End Sub
-
-    ' Load the list box when the user types and don't use the drop down list
-    Private Sub cmbBPBlueprintSelection_TextChanged(sender As System.Object, e As System.EventArgs) Handles cmbBPBlueprintSelection.TextChanged
-        If Not FirstLoad And Not BPSelected And Trim(cmbBPBlueprintSelection.Text) <> "Select Blueprint" And BPComboKeyDown Then
-            If ComboBoxArrowKeys = False Then
-                If (cmbBPBlueprintSelection.Text <> "") Then
-                    GetBPWithName(cmbBPBlueprintSelection.Text)
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub cmbBlueprintSelection_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call cmbBPBlueprintSelection.SelectAll()
-    End Sub
-
-    ' Process up down arrows in bp list
-    'Private Sub lstBPList_SelectedValueChanged(sender As Object, e As EventArgs)
-    '    If Not IsNothing(lstBPList.SelectedItem) Then
-    '        cmbBPBlueprintSelection.Text = lstBPList.SelectedItem.ToString
-    '        cmbBPBlueprintSelection.SelectAll()
-    '    End If
-    'End Sub
-
-    '' Loads the item by clicking on the item selected
-    'Private Sub lstBPList_MouseDown(sender As Object, e As MouseEventArgs)
-    '    If lstBPList.SelectedItems.Count <> 0 Then
-    '        SelectedBPText = lstBPList.SelectedItem.ToString()
-    '        cmbBPBlueprintSelection.Text = SelectedBPText
-    '        lstBPList.Visible = False
-    '        Call SelectBlueprint()
-    '        cmbBPBlueprintSelection.SelectAll()
-    '    End If
-    'End Sub
-
-    ' Loads the blueprint combo based on what was selected
-    Private Sub LoadBlueprintCombo()
-        Dim readerBPs As SQLiteDataReader
-        Dim SQL As String = ""
-
-        Application.UseWaitCursor = True
-        If Not cmbBPsLoaded Then
-            ' Clear anything that was there
-            cmbBPBlueprintSelection.Items.Clear()
-            cmbBPBlueprintSelection.BeginUpdate()
-
-            SQL = "SELECT ALL_BLUEPRINTS.BLUEPRINT_NAME, REPLACE(LOWER(BLUEPRINT_NAME),'''','') AS X FROM ALL_BLUEPRINTS, INVENTORY_TYPES AS IT, INVENTORY_TYPES AS IT2 "
-            SQL = SQL & "WHERE ALL_BLUEPRINTS.ITEM_ID = IT.typeID AND ALL_BLUEPRINTS.BLUEPRINT_ID = IT2.typeID "
-            SQL = SQL & BuildBPSelectQuery()
-
-            If SQL = "" Then
-                Application.UseWaitCursor = False
-                Exit Sub
-            End If
-
-            SQL = SQL & " ORDER BY X"
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerBPs = DBCommand.ExecuteReader
-
-            While readerBPs.Read
-                ' Add the data to the array and combo
-                cmbBPBlueprintSelection.Items.Add(Trim(readerBPs.GetString(0)))
-                Application.DoEvents()
-            End While
-
-            readerBPs.Close()
-
-            readerBPs = Nothing
-            DBCommand = Nothing
-
-            cmbBPBlueprintSelection.EndUpdate()
-
-            cmbBPsLoaded = True
-
-        End If
-        Application.UseWaitCursor = False
-
-    End Sub
-
-    Private Sub GetBPWithName(bpName As String)
-        ' Query: SELECT BLUEPRINT_NAME AS bpName FROM ALL_BLUEPRINTS b, INVENTORY_TYPES t WHERE b.ITEM_ID = t.typeID AND bpName LIKE '%Repair%'
-        Dim readerBP As SQLiteDataReader
-        Dim SQL As String = ""
-
-        cmbBPBlueprintSelection.Text = bpName
-
-        ' Add limiting functions here based on radio buttons
-        ' Use replace to Get rid of 's in blueprint name for sorting
-        SQL = "SELECT ALL_BLUEPRINTS.BLUEPRINT_NAME, REPLACE(LOWER(BLUEPRINT_NAME),'''','') AS X FROM ALL_BLUEPRINTS, INVENTORY_TYPES AS IT2 "
-        SQL &= "WHERE ALL_BLUEPRINTS.ITEM_ID = IT2.typeID "
-        SQL &= BuildBPSelectQuery()
-        SQL &= " AND ALL_BLUEPRINTS.BLUEPRINT_NAME LIKE '%" & FormatDBString(bpName) & "%'"
-        SQL &= " ORDER BY X"
-
-        ' query = "SELECT BLUEPRINT_NAME AS bpName FROM ALL_BLUEPRINTS b, INVENTORY_TYPES t WHERE b.ITEM_ID = t.typeID AND bpName LIKE '%" & bpName & "%'"
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerBP = DBCommand.ExecuteReader
-
-        While readerBP.Read()
-            Application.DoEvents()
-        End While
-
-        readerBP.Close()
-        readerBP = Nothing
-        Application.UseWaitCursor = False
-
-    End Sub
-
-    ' Builds the query for the select combo
-    Private Function BuildBPSelectQuery() As String
-        Dim SQL As String = ""
-        Dim SQLItemType As String = ""
-
-        ' See what ID we use for character bps
-        Dim CharID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
-
-        ' Item Type Definitions - These are set by me based on existing data
-        ' 1, 2, 14 are T1, T2, T3
-        ' 3 is Storyline
-        ' 15 is Pirate Faction
-        ' 16 is Navy Faction
-
-        ' Add Item Type
-        If SQLItemType <> "" Then
-            SQLItemType = " ALL_BLUEPRINTS.ITEM_TYPE IN (" & SQLItemType.Substring(0, SQLItemType.Length - 1) & ") "
-        Else
-            ' They need to have at least one. If not, just return nothing
-            BuildBPSelectQuery = ""
-            Exit Function
-        End If
-
-        ' Add the item types
-        SQL = SQL & " And " & SQLItemType
-
-        Dim SizesClause As String = ""
-
-        If SizesClause <> "" Then
-            SizesClause = " AND SIZE_GROUP IN (" & SizesClause.Substring(0, Len(SizesClause) - 1) & ") "
-        End If
-
-        Dim NPCBPOsClause As String = ""
-
-        SQL = SQL & SizesClause & NPCBPOsClause
-
-        BuildBPSelectQuery = SQL
-
-    End Function
-
-    ' Loads a blueprint if selected in the combo box by different methods
-    Private Sub LoadBPFromCombo()
-
-        If Not IsNothing(cmbBPBlueprintSelection.SelectedItem) Then
-            SelectedBPText = cmbBPBlueprintSelection.SelectedItem.ToString
-            cmbBPBlueprintSelection.Text = SelectedBPText
-
-            Call SelectBlueprint()
-
-            ComboMenuDown = False
-            MouseWheelSelection = False
-            ComboBoxArrowKeys = False
-            BPComboKeyDown = False
-        End If
-
-    End Sub
-
-    ' Reloads the BP combo when run
-    Private Sub ResetBlueprintCombo(ByVal T1 As Boolean, ByVal T2 As Boolean, ByVal T3 As Boolean, ByVal Storyline As Boolean, ByVal NavyFaction As Boolean, ByVal PirateFaction As Boolean)
-        cmbBPsLoaded = False
-        ComboMenuDown = False
-        MouseWheelSelection = False
-        ComboBoxArrowKeys = False
-        BPComboKeyDown = False
-
-        ' Load the New data
-        Call LoadBlueprintCombo()
-
-        cmbBPBlueprintSelection.Text = "Select Blueprint"
-        cmbBPBlueprintSelection.Focus()
-
-    End Sub
-
-    Private Sub UpdateSelectedBPText(bpName As String)
-        If bpName.Contains("Blueprint") Then
-            RemoveHandler cmbBPBlueprintSelection.TextChanged, AddressOf cmbBPBlueprintSelection_TextChanged
-            cmbBPBlueprintSelection.Text = bpName
-            SelectedBPText = bpName
-            AddHandler cmbBPBlueprintSelection.TextChanged, AddressOf cmbBPBlueprintSelection_TextChanged
-            Call SelectBlueprint()
-        End If
-
-    End Sub
-
-#End Region
-
     ' Initializes all the boxes on the BP tab
     Private Sub InitBPTab(Optional ResetBPHistory As Boolean = True)
-
-        cmbBPBlueprintSelection.Text = "Select Blueprint"
 
         With UserBPTabSettings
             cmbBPsLoaded = False
@@ -2924,9 +2699,6 @@ Tabs:
         LoadingBPfromHistory = False
         PreviousBPfromHistory = False
 
-        ' Load the combo
-        Call LoadBlueprintCombo()
-
         ' BP History
         If ResetBPHistory Then
             BPHistory = New List(Of BPHistoryItem)
@@ -2953,10 +2725,6 @@ Tabs:
         SQL = "SELECT ALL_BLUEPRINTS.BLUEPRINT_ID, TECH_LEVEL, ITEM_TYPE, ITEM_GROUP_ID, ITEM_CATEGORY_ID, BLUEPRINT_GROUP "
         SQL = SQL & "FROM ALL_BLUEPRINTS "
         SQL = SQL & "WHERE ALL_BLUEPRINTS.BLUEPRINT_NAME = "
-
-        If SelectedBPText = "" Then
-            SelectedBPText = cmbBPBlueprintSelection.Text
-        End If
 
         SQL = SQL & "'" & FormatDBString(SelectedBPText) & "'"
 
@@ -3008,8 +2776,6 @@ Tabs:
 
         readerMat.Close()
 
-        cmbBPBlueprintSelection.Focus()
-
         ' Make sure everything is enabled on first BP load
         If ResetBPTab Then
             ResetBPTab = False ' Reset
@@ -3020,8 +2786,6 @@ Tabs:
         DBCommand = Nothing
 
         Application.DoEvents()
-
-        cmbBPBlueprintSelection.SelectionLength = 0
 
     End Sub
 
