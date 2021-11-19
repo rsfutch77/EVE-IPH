@@ -154,8 +154,8 @@ Public Class ManufacturingFacility
                 cmbFacilitySystem.Text = InitialSolarSystemComboText
                 cmbFacilitySystem.Visible = True
 
-                cmbFacilityorArray.Top = cmbFacilityRegion.Top + cmbFacilityRegion.Height + 1
-                cmbFacilityorArray.Left = LeftObjectLocation
+                cmbFacilityorArray.Top = cmbFacilityRegion.Top
+                cmbFacilityorArray.Left = LeftObjectLocation + RegionWidthCalc + SolarSystemWidthCalc + 1
                 cmbFacilityorArray.Width = FacilityArrayWidthCalc
                 cmbFacilityorArray.Text = InitialFacilityComboText
                 cmbFacilityorArray.Visible = True
