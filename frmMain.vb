@@ -24,18 +24,7 @@ Public Class frmMain
         End Sub
     End Class
 
-    ' Datacores
-    Private DCSkillCheckBoxes() As CheckBox
-    Private DCSkillLabels() As Label
-    Private DCSkillCombos() As ComboBox
-    Private DCCorpCheckBoxes() As CheckBox
-    Private DCCorpLabels() As Label
-    Private DCCorpTextboxes() As TextBox
-
-    ' Mining ore processing skills
-    Private MineProcessingCheckBoxes() As CheckBox
-    Private MineProcessingLabels() As Label
-    Private MineProcessingCombos() As ComboBox
+    Private lstPricesView As New List(Of ListViewItem)
 
     ' Manufacturing
     Private CalcRelicCheckboxes() As CheckBox
@@ -519,15 +508,6 @@ Public Class frmMain
         '*******************************************
         '**** Update Prices Tab Initializations ****
         '*******************************************
-
-        ' Columns of Update Prices Listview (width = 639) + 21 for scroll = 660
-        lstPricesView.Columns.Add("TypeID", 0, HorizontalAlignment.Left) ' Hidden
-        lstPricesView.Columns.Add("Group", 220, HorizontalAlignment.Left)
-        lstPricesView.Columns.Add("Item", 319, HorizontalAlignment.Left)
-        lstPricesView.Columns.Add("Price", 100, HorizontalAlignment.Right)
-        lstPricesView.Columns.Add("Manufacture", 0, HorizontalAlignment.Right) ' Hidden
-        lstPricesView.Columns.Add("Market ID", 0, HorizontalAlignment.Right) ' Hidden
-        lstPricesView.Columns.Add("Price Type", 0, HorizontalAlignment.Right) ' Hidden
 
         FirstSolarSystemComboLoad = True
         FirstPriceChargeTypesComboLoad = True
@@ -1772,680 +1752,6 @@ Public Class frmMain
 
 #End Region
 
-#Region "InlineListUpdate"
-
-    ' Determines where to show the text box when clicking on the list sent
-    Private Sub ListClicked(ListRef As ListView, sender As Object, e As System.Windows.Forms.MouseEventArgs)
-        Dim iSubIndex As Integer = 0
-
-        ' Hide the text box when a new line is selected
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-
-        CurrentRow = ListRef.GetItemAt(e.X, e.Y) ' which listviewitem was clicked
-        SelectedGrid = ListRef
-
-        If CurrentRow Is Nothing Then
-            Exit Sub
-        End If
-
-        CurrentCell = CurrentRow.GetSubItemAt(e.X, e.Y)  ' which subitem was clicked
-
-        ' Determine where the previous and next item boxes will be based on what they clicked - used in tab event handling
-        Call SetNextandPreviousCells(ListRef)
-
-        ' See which column has been clicked
-        iSubIndex = CurrentRow.SubItems.IndexOf(CurrentCell)
-
-        If ListRef.Name <> lstPricesView.Name Then
-            ' Set the columns that can be edited, just ME and Price
-            If iSubIndex = 2 Or iSubIndex = 3 Then
-
-                If iSubIndex = 2 Then
-                    MEUpdate = True
-                Else
-                    MEUpdate = False
-                End If
-
-                If iSubIndex = 3 Then
-                    PriceUpdate = True
-                Else
-                    PriceUpdate = False
-                End If
-
-                ' For the update grids in the Blueprint Tab, only show the box if
-                ' 1 - If the ME is clicked and it has something other than a '-' in it (meaning no BP)
-                ' 2 - If the Price is clicked and the ME box has '-' in it
-                If (CurrentRow.SubItems(2).Text <> "-" And MEUpdate) Or (CurrentRow.SubItems(2).Text = "-" And PriceUpdate) Then
-                    Call ShowEditBox(ListRef)
-                End If
-
-            End If
-
-        ElseIf ListRef.Name = lstPricesView.Name Then ' Price update for update prices and mining grid
-
-            ' Set the columns that can be edited, just Price
-            If iSubIndex = 3 Then
-                Call ShowEditBox(ListRef)
-                PriceUpdate = True
-            End If
-
-        End If
-
-    End Sub
-
-    ' For updating the items in the list by clicking on them
-    Private Sub ProcessKeyDownEdit(SentKey As Keys, ListRef As ListView)
-        Dim SQL As String = ""
-        Dim rsData As SQLiteDataReader
-
-        Dim MEValue As String = ""
-        Dim PriceValue As Double = 0
-        Dim PriceUpdated As Boolean = False
-
-        ' Change blank entry to 0
-        If Trim(txtListEdit.Text) = "" Then
-            txtListEdit.Text = "0"
-        End If
-
-        DataUpdated = False
-
-        ' If they hit enter or tab away, mark the BP as owned in the DB with the values entered
-        If (SentKey = Keys.Enter Or SentKey = Keys.ShiftKey Or SentKey = Keys.Tab) And DataEntered Then
-
-            ' Check the input first
-            If Not IsNumeric(txtListEdit.Text) And MEUpdate Then
-                MsgBox("Invalid ME Value", vbExclamation)
-                Exit Sub
-            End If
-
-            If Not IsNumeric(txtListEdit.Text) And PriceUpdate Then
-                MsgBox("Invalid Price Value", vbExclamation)
-                Exit Sub
-            End If
-
-            ' Save the data depending on what we are updating
-            If MEUpdate Then
-                MEValue = txtListEdit.Text
-            End If
-
-            If PriceUpdate Then
-                PriceValue = CDbl(txtListEdit.Text)
-            End If
-
-            ' Now do the update for the grids
-            If ListRef.Name <> lstPricesView.Name Then
-
-                ' BP Grid update
-
-                ' Check the numbers, if the same then don't update
-                If MEValue = CurrentRow.SubItems(2).Text And PriceValue = CDbl(CurrentRow.SubItems(3).Text) Then
-                    ' Skip down
-                    GoTo Tabs
-                End If
-
-                ' First, see if we are updating an ME or a price, then deal with each separately
-                If MEUpdate Then
-                    ' First we need to look up the Blueprint ID
-                    SQL = "SELECT ALL_BLUEPRINTS.BLUEPRINT_ID, ALL_BLUEPRINTS.BLUEPRINT_NAME, TECH_LEVEL, "
-                    SQL = SQL & "CASE WHEN ALL_BLUEPRINTS.FAVORITE IS NULL THEN 0 ELSE ALL_BLUEPRINTS.FAVORITE END AS FAVORITE, IGNORE, "
-                    SQL = SQL & "CASE WHEN TE IS NULL THEN 0 ELSE TE END AS BP_TE "
-                    SQL = SQL & "FROM ALL_BLUEPRINTS LEFT JOIN OWNED_BLUEPRINTS ON ALL_BLUEPRINTS.BLUEPRINT_ID = OWNED_BLUEPRINTS.BLUEPRINT_ID  "
-                    SQL = SQL & "WHERE ITEM_NAME = '" & RemoveItemNameRuns(CurrentRow.SubItems(0).Text) & "'"
-
-                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                    rsData = DBCommand.ExecuteReader
-                    rsData.Read()
-
-                    ' If they update the ME of the blueprint, then we mark it as Owned and a 0 for TE value, but set the type depending on the bp loaded
-                    Dim TempBPType As BPType
-                    Dim AdditionalCost As Double
-                    Dim TempTE As Integer = rsData.GetInt32(5)
-
-                    If rsData.GetInt64(2) = BPTechLevel.T1 Then
-                        ' T1 BPO
-                        TempBPType = BPType.Original
-                    Else
-                        ' Remaining T2 and T3 must be invited
-                        TempBPType = BPType.InventedBPC
-                    End If
-
-                    AdditionalCost = 0
-
-                    ' If there is no TE for an invented BPC then set it to the base
-                    If TempBPType = BPType.InventedBPC And TempTE = 0 Then
-                        TempTE = BaseT2T3TE
-                    End If
-
-                    Call UpdateBPinDB(rsData.GetInt64(0), rsData.GetString(1), CInt(MEValue), TempTE, TempBPType, CInt(MEValue), 0,
-                                      CBool(rsData.GetInt32(3)), CBool(rsData.GetInt32(4)), AdditionalCost)
-
-                    ' Mark the line with white color since it's no longer going to be unowned
-                    CurrentRow.BackColor = Color.White
-
-                    rsData.Close()
-
-                Else ' Price per unit update
-
-                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(CDbl(txtListEdit.Text)) & ", PRICE_TYPE = 'User' WHERE ITEM_ID = " & GetTypeID(CurrentRow.SubItems(0).Text)
-                    Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                    ' Mark the line text with black incase it is red for no price
-                    CurrentRow.ForeColor = Color.Black
-
-                    PriceUpdated = True
-
-                End If
-
-                ' Update the data in the current row
-                CurrentRow.SubItems(2).Text = CStr(MEValue)
-                CurrentRow.SubItems(3).Text = FormatNumber(PriceValue, 2)
-
-                ' For both ME and Prices, we need to re-calculate the blueprint (hit the Refresh Button) to reflect the new numbers
-                ' First save the current grid for locations
-                RefreshingGrid = True
-                RefreshingGrid = False
-
-            Else
-                ' Price Profile update
-                Dim RawMat As String
-                RawMat = "0"
-
-                ' See if they have the profile set already
-                SQL = "SELECT 'X' FROM PRICE_PROFILES WHERE ID = " & CStr(SelectedCharacter.ID) & " "
-                SQL = SQL & "AND GROUP_NAME = '" & CurrentRow.SubItems(0).Text & "' "
-                SQL = SQL & "AND RAW_MATERIAL = " & RawMat
-
-                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                rsData = DBCommand.ExecuteReader
-
-                If rsData.Read() Then
-                    ' Update
-                    SQL = "UPDATE PRICE_PROFILES SET "
-                    If PriceTypeUpdate Then
-                        ' Save current region/system
-                        SQL = SQL & "PRICE_TYPE = '" & cmbEdit.Text & "' "
-                        CurrentRow.SubItems(1).Text = cmbEdit.Text
-                    ElseIf PriceSystemUpdate Then
-                        ' Just update system, save others
-                        SQL = SQL & "SOLAR_SYSTEM_NAME = '" & cmbEdit.Text & "' "
-                        CurrentRow.SubItems(3).Text = cmbEdit.Text
-                    ElseIf PriceRegionUpdate Then
-                        ' Set region, but set system to all systems (blank)
-                        SQL = SQL & "REGION_NAME ='" & cmbEdit.Text & "', SOLAR_SYSTEM_NAME = 'All Systems' "
-                        CurrentRow.SubItems(2).Text = cmbEdit.Text
-                        CurrentRow.SubItems(3).Text = AllSystems
-                    ElseIf PriceModifierUpdate Then
-                        Dim PM As Double = CDbl(txtListEdit.Text.Replace("%", "")) / 100
-                        SQL = SQL & "PRICE_MODIFIER = " & CStr(PM) & " "
-                        CurrentRow.SubItems(4).Text = FormatPercent(PM, 1)
-                    End If
-
-                    SQL = SQL & "WHERE ID = " & CStr(SelectedCharacter.ID) & " "
-                    SQL = SQL & "AND GROUP_NAME ='" & CurrentRow.SubItems(0).Text & "' "
-                    SQL = SQL & "AND RAW_MATERIAL = " & RawMat
-
-                Else
-                    ' Insert new record
-                    Dim TempPercent As String = CStr(CDbl(CurrentRow.SubItems(4).Text.Replace("%", "")) / 100)
-                    SQL = "INSERT INTO PRICE_PROFILES VALUES (" & CStr(SelectedCharacter.ID) & ",'" & CurrentRow.SubItems(0).Text & "','"
-                    If PriceTypeUpdate Then
-                        ' Save current region/system
-                        SQL = SQL & FormatDBString(cmbEdit.Text) & "','" & CurrentRow.SubItems(2).Text & "','" & CurrentRow.SubItems(3).Text & "'," & TempPercent & "," & RawMat & ")"
-                        CurrentRow.SubItems(1).Text = cmbEdit.Text
-                    ElseIf PriceSystemUpdate Then
-                        ' Just update system, save others
-                        SQL = SQL & CurrentRow.SubItems(1).Text & "','" & CurrentRow.SubItems(2).Text & "','" & FormatDBString(cmbEdit.Text) & "'," & TempPercent & "," & RawMat & ")"
-                        CurrentRow.SubItems(3).Text = cmbEdit.Text
-                    ElseIf PriceRegionUpdate Then
-                        ' Set region, but set system to all systems (blank)
-                        SQL = SQL & CurrentRow.SubItems(1).Text & "','" & FormatDBString(cmbEdit.Text) & "','All Systems'," & TempPercent & "," & RawMat & ")"
-                        ' Set the text
-                        CurrentRow.SubItems(2).Text = cmbEdit.Text
-                        CurrentRow.SubItems(3).Text = AllSystems
-                    ElseIf PriceModifierUpdate Then
-                        ' Save current region/system/type
-                        SQL = SQL & CurrentRow.SubItems(1).Text & "','" & CurrentRow.SubItems(2).Text & "','" & CurrentRow.SubItems(3).Text & "',"
-                        Dim PM As Double = CDbl(txtListEdit.Text.Replace("%", "")) / 100
-                        SQL = SQL & CStr(PM) & "," & RawMat & ")"
-                        CurrentRow.SubItems(4).Text = FormatPercent(PM, 1)
-                    End If
-
-                End If
-
-                Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                ' Reset these
-                PriceTypeUpdate = False
-                PriceRegionUpdate = False
-                PriceSystemUpdate = False
-                PreviousPriceType = ""
-                PreviousRegion = ""
-                PreviousSystem = ""
-                PriceUpdated = False
-
-            End If
-
-            ' If we updated a price, then update the program everywhere to be consistent
-            If PriceUpdated Then
-                IgnoreFocus = True
-                Call UpdateProgramPrices(False) ' Don't refresh the grid, we are already updating it
-                IgnoreFocus = False
-            End If
-
-            ' Play sound to indicate update complete
-            If PriceUpdated Then
-                Call PlayNotifySound()
-            End If
-
-            ' Reset text they entered if tabbed
-            If SentKey = Keys.ShiftKey Or SentKey = Keys.Tab Then
-                txtListEdit.Text = ""
-                cmbEdit.Text = ""
-            End If
-
-            If SentKey = Keys.Enter Then
-                ' Just refresh and select the current row
-                CurrentRow.Selected = True
-                txtListEdit.Visible = False
-            End If
-
-            ' Data updated, so reset
-            DataEntered = False
-            DataUpdated = True
-
-        End If
-
-Tabs:
-        ' If they hit tab, then tab to the next cell
-        If SentKey = Keys.Tab Then
-            If CurrentRow.Index = -1 Then
-                ' Reset the current row based on the original click
-                CurrentRow = ListRef.GetItemAt(SavedListClickLoc.X, SavedListClickLoc.Y)
-                CurrentCell = CurrentRow.GetSubItemAt(SavedListClickLoc.X, SavedListClickLoc.Y)
-                ' Reset the next and previous cells
-                SetNextandPreviousCells(ListRef)
-            End If
-
-            CurrentCell = NextCell
-            ' Reset these each time
-            Call SetNextandPreviousCells(ListRef, "Next")
-            If CurrentRow.Index = 0 Then
-                ' Scroll to top
-                ListRef.Items.Item(0).Selected = True
-                ListRef.EnsureVisible(0)
-                ListRef.Update()
-            Else
-                ' Make sure the row is visible
-                ListRef.EnsureVisible(CurrentRow.Index)
-            End If
-
-            ' Show the text box
-            Call ShowEditBox(ListRef)
-        End If
-
-        ' If shift+tab, then go to the previous cell 
-        If SentKey = Keys.ShiftKey Then
-            If CurrentRow.Index = -1 Then
-                ' Reset the current row based on the original click
-                CurrentRow = ListRef.GetItemAt(SavedListClickLoc.X, SavedListClickLoc.Y)
-                CurrentCell = CurrentRow.GetSubItemAt(SavedListClickLoc.X, SavedListClickLoc.Y)
-                ' Reset the next and previous cells
-                SetNextandPreviousCells(ListRef)
-            End If
-
-            CurrentCell = PreviousCell
-            ' Reset these each time
-            Call SetNextandPreviousCells(ListRef, "Previous")
-            If CurrentRow.Index = ListRef.Items.Count - 1 Then
-                ' Scroll to bottom
-                ListRef.Items.Item(ListRef.Items.Count - 1).Selected = True
-                ListRef.EnsureVisible(ListRef.Items.Count - 1)
-                ListRef.Update()
-            Else
-                ' Make sure the row is visible
-                ListRef.EnsureVisible(CurrentRow.Index)
-            End If
-
-            ' Show the text box
-            Call ShowEditBox(ListRef)
-        End If
-
-    End Sub
-
-    ' Determines where the previous and next item boxes will be based on what they clicked - used in tab event handling
-    Private Sub SetNextandPreviousCells(ListRef As ListView, Optional CellType As String = "")
-        Dim iSubIndex As Integer = 0
-
-        ' Normal Row
-        If CellType = "Next" Then
-            CurrentRow = NextCellRow
-        ElseIf CellType = "Previous" Then
-            CurrentRow = PreviousCellRow
-        End If
-
-        ' Get index of column
-        iSubIndex = CurrentRow.SubItems.IndexOf(CurrentCell)
-
-        ' Get next and previous rows. If at end, wrap to top. If at top, wrap to bottom
-        If ListRef.Items.Count = 1 Then
-            NextRow = CurrentRow
-            PreviousRow = CurrentRow
-        ElseIf CurrentRow.Index <> ListRef.Items.Count - 1 And CurrentRow.Index <> 0 Then
-            ' Not the last line, so set the next and previous
-            NextRow = ListRef.Items.Item(CurrentRow.Index + 1)
-            PreviousRow = ListRef.Items.Item(CurrentRow.Index - 1)
-        ElseIf CurrentRow.Index = 0 Then
-            NextRow = ListRef.Items.Item(CurrentRow.Index + 1)
-            ' Wrap to bottom
-            PreviousRow = ListRef.Items.Item(ListRef.Items.Count - 1)
-        ElseIf CurrentRow.Index = ListRef.Items.Count - 1 Then
-            ' Need to wrap up to top
-            NextRow = ListRef.Items.Item(0)
-            PreviousRow = ListRef.Items.Item(CurrentRow.Index - 1)
-        End If
-
-        If ListRef.Name <> lstPricesView.Name Then
-
-            ' For the update grids in the Blueprint Tab, only show the box if
-            ' 1 - If the ME is clicked and it has something other than a '-' in it (meaning no BP)
-            ' 2 - If the Price is clicked and the ME box has '-' in it
-
-            ' The next row must be an ME or Price box on the next row 
-            ' or a previous ME or price box on the previous row
-            If iSubIndex = 2 Or iSubIndex = 3 Then
-                ' Set the next and previous ME boxes (subitems)
-                ' If the next row ME box is a '-' then the next row cell is Price
-                If NextRow.SubItems(2).Text = "-" Then
-                    NextCell = NextRow.SubItems.Item(3) ' Next row price box
-                Else ' It can be the ME box in the next row
-                    NextCell = NextRow.SubItems.Item(2) ' Next row ME box
-                End If
-
-                NextCellRow = NextRow
-
-                'If the previous row ME box is a '-' then the previous row is Price
-                If PreviousRow.SubItems(2).Text = "-" Then
-                    PreviousCell = PreviousRow.SubItems.Item(3) ' Next row price box
-                Else ' It can be the ME box in the next row
-                    PreviousCell = PreviousRow.SubItems.Item(2) ' Next row ME box
-                End If
-
-                PreviousCellRow = PreviousRow
-
-                If iSubIndex = 2 Then
-                    MEUpdate = True
-                    PriceUpdate = False
-                Else
-                    MEUpdate = False
-                    PriceUpdate = True
-                End If
-
-            Else
-                NextCell = Nothing
-                PreviousCell = Nothing
-                CurrentCell = Nothing
-            End If
-
-        Else ' Price list 
-            ' For this, just go up and down the rows
-            NextCell = NextRow.SubItems.Item(3)
-            NextCellRow = NextRow
-            PreviousCell = PreviousRow.SubItems.Item(3)
-            PreviousCellRow = PreviousRow
-            PriceUpdate = True
-            MEUpdate = False
-        End If
-
-    End Sub
-
-    ' Shows the text box on the grid where clicked if enabled
-    Private Sub ShowEditBox(ListRef As ListView)
-
-        ' Save the center location of the edit box
-        SavedListClickLoc.X = CurrentCell.Bounds.Left + CInt(CurrentCell.Bounds.Width / 2)
-        SavedListClickLoc.Y = CurrentCell.Bounds.Top + CInt(CurrentCell.Bounds.Height / 2)
-
-        ' Get the boundry data for the control now
-        Dim pTop As Integer = ListRef.Top + CurrentCell.Bounds.Top
-        Dim pLeft As Integer = ListRef.Left + CurrentCell.Bounds.Left + 2 ' pad right by 2 to align better
-        Dim CurrentParent As Control
-
-        CurrentParent = ListRef.Parent
-        ' Look up all locations of parent controls to get the location for the control boundaries when shown
-        Do Until CurrentParent.Name = "frmMain"
-            pTop = pTop + CurrentParent.Top
-            pLeft = pLeft + CurrentParent.Left
-            CurrentParent = CurrentParent.Parent
-        Loop
-
-        If PriceModifierUpdate Then
-            With txtListEdit
-                .Hide()
-                ' Set the bounds of the control
-                .SetBounds(pLeft, pTop, CurrentCell.Bounds.Width, CurrentCell.Bounds.Height)
-                .Text = CurrentCell.Text
-                .Show()
-                If CurrentRow.SubItems(2).Text = txtListEdit.Text Then
-                    .TextAlign = HorizontalAlignment.Center
-                Else
-                    .TextAlign = HorizontalAlignment.Right
-                End If
-
-                .Focus()
-            End With
-            cmbEdit.Visible = False
-        Else ' updates on the price profile grids
-
-            Dim rsData As SQLiteDataReader
-            Dim SQL As String = ""
-
-            With cmbEdit
-                UpdatingCombo = True
-
-                If PriceRegionUpdate Then
-                    Call LoadRegionCombo(cmbEdit, CurrentCell.Text)
-                    ' Set the bounds of the control
-                    .SetBounds(pLeft, pTop, CurrentCell.Bounds.Width, CurrentCell.Bounds.Height)
-                    .Show()
-                    .Focus()
-                Else
-                    .Hide()
-                    .BeginUpdate()
-                    .Items.Clear()
-                    If PriceSystemUpdate Then
-                        ' Base it off the data in the region cell
-                        SQL = "SELECT solarSystemName FROM SOLAR_SYSTEMS, REGIONS "
-                        SQL = SQL & "WHERE SOLAR_SYSTEMS.regionID = REGIONS.regionID "
-                        SQL = SQL & "AND REGIONS.regionName = '" & PreviousCell.Text & "' "
-                        SQL = SQL & "ORDER BY solarSystemName"
-                        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                        rsData = DBCommand.ExecuteReader
-
-                        ' Add all systems if it's the system
-                        .Items.Add(AllSystems)
-                        While rsData.Read
-                            .Items.Add(rsData.GetString(0))
-                        End While
-                    ElseIf PriceTypeUpdate Then
-                        ' Manually enter these
-                        .Items.Add("Min Sell")
-                        .Items.Add("Max Sell")
-                        .Items.Add("Avg Sell")
-                        .Items.Add("Median Sell")
-                        .Items.Add("Percentile Sell")
-                        .Items.Add("Min Buy")
-                        .Items.Add("Max Buy")
-                        .Items.Add("Avg Buy")
-                        .Items.Add("Median Buy")
-                        .Items.Add("Percentile Buy")
-                        .Items.Add("Min Buy & Sell")
-                        .Items.Add("Max Buy & Sell")
-                        .Items.Add("Avg Buy & Sell")
-                        .Items.Add("Median Buy & Sell")
-                        .Items.Add("Percentile Buy & Sell")
-                    End If
-
-                    ' Set the bounds of the control
-                    .SetBounds(pLeft, pTop, CurrentCell.Bounds.Width, CurrentCell.Bounds.Height)
-                    .Text = CurrentCell.Text
-                    .EndUpdate()
-                    .Show()
-                    .Focus()
-                End If
-                DataEntered = False ' We just updated so reset
-                UpdatingCombo = False
-            End With
-            txtListEdit.Visible = False
-        End If
-    End Sub
-
-    ' Processes the tab function in the text box for the grid. This overrides the default tabbing between controls
-    Protected Overrides Function ProcessTabKey(ByVal TabForward As Boolean) As Boolean
-        Dim ac As Control = Me.ActiveControl
-
-        TabPressed = True
-
-        If TabForward Then
-            If ac Is txtListEdit Or ac Is cmbEdit Then
-                Call ProcessKeyDownEdit(Keys.Tab, SelectedGrid)
-                Return True
-            End If
-        Else
-            If ac Is txtListEdit Or ac Is cmbEdit Then
-                ' This is Shift + Tab but just send Shift for ease of processing
-                Call ProcessKeyDownEdit(Keys.ShiftKey, SelectedGrid)
-                Return True
-            End If
-        End If
-
-        Return MyBase.ProcessTabKey(TabForward)
-
-    End Function
-
-    Private Sub cmbEdit_DropDownClosed(sender As Object, e As System.EventArgs) Handles cmbEdit.DropDownClosed
-        If (PriceRegionUpdate And cmbEdit.Text <> PreviousRegion) Or
-            (PriceSystemUpdate And cmbEdit.Text <> PreviousSystem) Or
-            (PriceTypeUpdate And cmbEdit.Text <> PreviousPriceType) And Not UpdatingCombo Then
-            DataEntered = True
-            Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
-        End If
-    End Sub
-
-    Private Sub cmbEdit_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cmbEdit.SelectedIndexChanged
-        If Not DataUpdated Then
-            DataEntered = True
-        End If
-    End Sub
-
-    Private Sub cmbEdit_LostFocus(sender As Object, e As System.EventArgs) Handles cmbEdit.LostFocus
-        ' Lost focus some other way than tabbing
-        If ((PriceRegionUpdate And cmbEdit.Text <> PreviousRegion) Or
-            (PriceSystemUpdate And cmbEdit.Text <> PreviousSystem) Or
-            (PriceTypeUpdate And cmbEdit.Text <> PreviousPriceType)) _
-            And Not TabPressed And Not UpdatingCombo Then
-            DataEntered = True
-            Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
-        End If
-        cmbEdit.Visible = False
-        TabPressed = False
-    End Sub
-
-    Private Sub txtListEdit_GotFocus(sender As Object, e As System.EventArgs) Handles txtListEdit.GotFocus
-        Call txtListEdit.SelectAll()
-    End Sub
-
-    Private Sub txtListEdit_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtListEdit.KeyPress
-        ' Make sure it's the right format for ME or Price update
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If MEUpdate Then
-                If allowedMETEChars.IndexOf(e.KeyChar) = -1 Then
-                    ' Invalid Character
-                    e.Handled = True
-                Else
-                    DataEntered = True
-                End If
-            ElseIf PriceUpdate Then
-                If allowedPriceChars.IndexOf(e.KeyChar) = -1 Then
-                    ' Invalid Character
-                    e.Handled = True
-                Else
-                    DataEntered = True
-                End If
-            ElseIf PriceModifierUpdate Then
-                e.Handled = CheckPercentCharEntry(e, txtListEdit)
-                If e.Handled = False Then
-                    DataEntered = True
-                End If
-            End If
-        End If
-
-    End Sub
-
-    Private Sub txtListEdit_LostFocus(sender As Object, e As System.EventArgs) Handles txtListEdit.LostFocus
-        If Not RefreshingGrid And DataEntered And Not IgnoreFocus And (PriceModifierUpdate And txtListEdit.Text <> PreviousPriceMod) Then
-            Call ProcessKeyDownEdit(Keys.Enter, SelectedGrid)
-        End If
-        txtListEdit.Visible = False
-    End Sub
-
-    ' Sets the variables for price profiles
-    Private Sub SetPriceProfileVariables(Index As Integer)
-        PriceTypeUpdate = False
-        PriceRegionUpdate = False
-        PriceSystemUpdate = False
-        PriceModifierUpdate = False
-
-        Select Case Index
-            Case 1
-                PriceTypeUpdate = True
-                PreviousPriceType = CurrentCell.Text
-            Case 2
-                PriceRegionUpdate = True
-                PreviousRegion = CurrentCell.Text
-            Case 3
-                PriceSystemUpdate = True
-                PreviousSystem = CurrentCell.Text
-            Case 4
-                PriceModifierUpdate = True
-                PreviousPriceMod = CurrentCell.Text
-        End Select
-
-    End Sub
-
-    ' Detects Scroll event and hides boxes
-    Private Sub lstBPComponentMats_ProcMsg(ByVal m As System.Windows.Forms.Message)
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-    End Sub
-
-    ' Detects Scroll event and hides boxes
-    Private Sub lstBPRawMats_ProcMsg(ByVal m As System.Windows.Forms.Message)
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-    End Sub
-
-    ' Detects Scroll event and hides boxes
-    Private Sub lstPricesView_ProcMsg(ByVal m As System.Windows.Forms.Message)
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-    End Sub
-
-    ' Detects Scroll event and hides boxes
-    Private Sub lstRawPriceProfile_ProcMsg(ByVal m As System.Windows.Forms.Message)
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-    End Sub
-
-    ' Detects Scroll event and hides boxes
-    Private Sub lstManufacturedPriceProfile_ProcMsg(ByVal m As System.Windows.Forms.Message)
-        txtListEdit.Hide()
-        cmbEdit.Hide()
-    End Sub
-
-#End Region
-
 #Region "Blueprints Tab"
 
 #Region "Blueprints Tab User Objects (Check boxes, Text, Buttons) Functions/Procedures "
@@ -2644,13 +1950,6 @@ Tabs:
             End If
         End If
 
-    End Sub
-
-    Private Sub lstPricesView_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs)
-        If e.ColumnIndex = 0 Or e.ColumnIndex >= 4 Then
-            e.Cancel = True
-            e.NewWidth = lstPricesView.Columns(e.ColumnIndex).Width
-        End If
     End Sub
 
 #End Region
@@ -3102,7 +2401,6 @@ Tabs:
     Private Sub DisableUpdatePricesTab(Value As Boolean)
         ' Disable tab
         btnDownloadPrices.Enabled = Not Value
-        lstPricesView.Enabled = Not Value
     End Sub
 
     ' Checks or unchecks all the prices
@@ -3196,7 +2494,7 @@ Tabs:
     Private Function ItemsSelected() As Boolean
 
         ' If the prices list doesnt' have any items in it, nothing to update so nothing checked
-        If lstPricesView.Items.Count <> 0 Then
+        If lstPricesView.Count <> 0 Then
             Return True
         Else
             Return False
@@ -3495,12 +2793,6 @@ Tabs:
 
     End Sub
 
-    Private Sub lstPricesView_ColumnClick(sender As System.Object, e As System.Windows.Forms.ColumnClickEventArgs)
-
-        Call ListViewColumnSorter(e.Column, CType(lstPricesView, ListView), UpdatePricesColumnClicked, UpdatePricesColumnSortType)
-
-    End Sub
-
     Private Sub btnRawMaterialsDefaults_Click(sender As System.Object, e As System.EventArgs)
 
         AllSettings.SaveUpdatePricesSettings(UserUpdatePricesTabSettings)
@@ -3753,10 +3045,6 @@ Tabs:
 
     End Sub
 
-    Private Sub lstPricesView_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs)
-        Call ListClicked(lstPricesView, sender, e)
-    End Sub
-
     ' Sets the price profile defaults for anything that has a price profile set
     Private Sub SetPriceProfileDefaults(PriceType As String, PriceRegion As String, PriceSystem As String, PriceMod As String, RawMat As Boolean)
         Dim SQL As String = ""
@@ -3899,17 +3187,17 @@ Tabs:
         End If
 
         ' Build the list of types we want to update and include the type, region/system
-        For i = 0 To lstPricesView.Items.Count - 1
+        For i = 0 To lstPricesView.Count - 1
 
             ' Only include items that are in the market (Market ID not null in Inventory Types)
-            If lstPricesView.Items(i).SubItems(5).Text <> "" Then
+            If lstPricesView(i).SubItems(5).Text <> "" Then
                 TempItem = New PriceItem
-                TempItem.TypeID = CLng(lstPricesView.Items(i).SubItems(0).Text)
+                TempItem.TypeID = CLng(lstPricesView(i).SubItems(0).Text)
                 TempItem.GroupName = GetPriceGroupName(TempItem.TypeID)
 
                 ' If the group name exists, then look it up
                 If TempItem.GroupName <> "" Then
-                    TempItem.Manufacture = CBool(lstPricesView.Items(i).SubItems(4).Text)
+                    TempItem.Manufacture = CBool(lstPricesView(i).SubItems(4).Text)
                     TempItem.RegionID = ""
 
                     If True Then 'Always use single select
@@ -3949,7 +3237,7 @@ Tabs:
                     End If
 
                     ' Add the item to the list if not there and it's not a blueprint (we don't want to query blueprints since it will return bpo price and we are using this for bpc
-                    If Not Items.Contains(TempItem) And Not lstPricesView.Items(i).SubItems(1).Text.Contains("Blueprint") Then
+                    If Not Items.Contains(TempItem) And Not lstPricesView(i).SubItems(1).Text.Contains("Blueprint") Then
                         Items.Add(TempItem)
                     End If
                 End If
@@ -4740,7 +4028,7 @@ ExitSub:
         End If
 
         ' Working
-        'Cursor.Current = Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
         pnlStatus.Text = "Refreshing List..."
         Application.DoEvents()
 
@@ -4753,11 +4041,6 @@ ExitSub:
         SQL = SQL & "ITEM_GROUP = 'Ice Product' OR "
         SQL = SQL & "(ITEM_CATEGORY LIKE 'Planetary%' OR ITEM_NAME IN ('Oxygen','Water')) OR "
         ItemChecked = True
-        'If chkAbyssalMaterials.Checked Then
-        '    SQL = SQL & "ITEM_GROUP LIKE 'Abyssal%' OR "
-        '    ItemChecked = True
-        'End If
-        ' Commodities = Shattered Villard Wheel
         SQL = SQL & "(ITEM_GROUP IN ('General','Livestock','Abyssal Materials','Radioactive','Biohazard','Commodities','Empire Insignia Drops','Criminal Tags','Miscellaneous','Unknown Components','Lease') AND ITEM_NAME NOT IN ('Oxygen','Water', 'Elite Drone AI')) OR "
         SQL = SQL & "ITEM_GROUP = 'Salvaged Materials' OR "
         SQL = SQL & "ITEM_GROUP IN ('Materials and Compounds', 'Artifacts and Prototypes', 'Named Components') OR "
@@ -4789,7 +4072,7 @@ ExitSub:
 
         ' Leave function if no items checked
         If Not ItemChecked Then
-            lstPricesView.Items.Clear()
+            lstPricesView.Clear()
         Else
             ' Take off last OR and add the final )
             SQL = SQL.Substring(0, SQL.Length - 4)
@@ -4801,11 +4084,7 @@ ExitSub:
             readerMats = DBCommand.ExecuteReader
 
             ' Clear List
-            lstPricesView.Items.Clear()
-            ' Disable sorting because it will crawl after we update if there are too many records
-            lstPricesView.ListViewItemSorter = Nothing
-            lstPricesView.BeginUpdate()
-            'Cursor.Current = Cursors.WaitCursor
+            lstPricesView.Clear()
 
             ' Fill list
             While readerMats.Read
@@ -4824,7 +4103,7 @@ ExitSub:
                 ' Price Type - look it up
                 lstViewRow.SubItems.Add(CStr(readerMats.GetString(6)))
 
-                Call lstPricesView.Items.Add(lstViewRow)
+                Call lstPricesView.Add(lstViewRow)
             End While
 
             readerMats.Close()
@@ -4838,10 +4117,8 @@ ExitSub:
             Else
                 TempType = SortOrder.Ascending
             End If
-            Call ListViewColumnSorter(UpdatePricesColumnClicked, CType(lstPricesView, ListView), UpdatePricesColumnClicked, TempType)
 
             Cursor.Current = Cursors.Default
-            lstPricesView.EndUpdate()
         End If
 
         ' Reset
@@ -4919,7 +4196,7 @@ ExitSub:
         Dim OutputText As String
         Dim Price As ListViewItem
 
-        Dim Items As ListView.ListViewItemCollection
+        Dim Items As List(Of ListViewItem)
         Dim i As Integer = 0
 
         ' Show the dialog
@@ -4961,7 +4238,7 @@ ExitSub:
                 If Not (MyStream Is Nothing) Then
 
                     ' Output the buy list first
-                    Items = lstPricesView.Items
+                    Items = lstPricesView
 
                     If Items.Count > 0 Then
                         Cursor.Current = Cursors.WaitCursor
@@ -8270,7 +7547,7 @@ ExitCalc:
     Private Sub lstManufacturing_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs)
         If e.ColumnIndex = 0 Then
             e.Cancel = True
-            e.NewWidth = lstPricesView.Columns(e.ColumnIndex).Width
+            e.NewWidth = lstManufacturing.Columns(e.ColumnIndex).Width
         End If
     End Sub
 

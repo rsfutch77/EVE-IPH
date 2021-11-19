@@ -117,7 +117,6 @@ Partial Class frmMain
         Me.lblCharacterData = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
-        Me.lstPricesView = New EVE_Isk_per_Hour.MyListView()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
@@ -835,20 +834,6 @@ Partial Class frmMain
         Me.lstManufacturing.UseCompatibleStateImageBehavior = False
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
-        'lstPricesView
-        '
-        Me.lstPricesView.FullRowSelect = True
-        Me.lstPricesView.GridLines = True
-        Me.lstPricesView.HideSelection = False
-        Me.lstPricesView.Location = New System.Drawing.Point(1448, 639)
-        Me.lstPricesView.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstPricesView.MultiSelect = False
-        Me.lstPricesView.Name = "lstPricesView"
-        Me.lstPricesView.Size = New System.Drawing.Size(557, 366)
-        Me.lstPricesView.TabIndex = 1
-        Me.lstPricesView.UseCompatibleStateImageBehavior = False
-        Me.lstPricesView.View = System.Windows.Forms.View.Details
-        '
         'CalcBaseFacility
         '
         Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -867,7 +852,6 @@ Partial Class frmMain
         Me.ClientSize = New System.Drawing.Size(2101, 1056)
         Me.Controls.Add(Me.lstManufacturing)
         Me.Controls.Add(Me.gbCalcTextColors)
-        Me.Controls.Add(Me.lstPricesView)
         Me.Controls.Add(Me.autoShopping)
         Me.Controls.Add(Me.chkCalcCanBuild)
         Me.Controls.Add(Me.MetroLabel1)
@@ -984,7 +968,6 @@ Partial Class frmMain
     Friend WithEvents rbtnCalcBPFavorites As MetroFramework.Controls.MetroRadioButton
     Friend WithEvents rbtnCalcAllBPs As MetroFramework.Controls.MetroRadioButton
     Friend WithEvents rbtnCalcBPOwned As MetroFramework.Controls.MetroRadioButton
-    Friend WithEvents lstPricesView As MyListView
     Friend WithEvents gbCalcTextColors As GroupBox
     Friend WithEvents lblCalcColorCode6 As Label
     Friend WithEvents lblCalcText As Label
