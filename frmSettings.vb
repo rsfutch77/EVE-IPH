@@ -363,6 +363,8 @@ Public Class frmSettings
 
     Private Sub LoadFormSettings()
 
+        UserApplicationSettings = AllSettings.LoadApplicationSettings()
+
         With UserApplicationSettings
             ' General Settings
             chkCheckUpdatesStartup.Checked = .CheckforUpdatesonStart
