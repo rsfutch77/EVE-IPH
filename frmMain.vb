@@ -8444,9 +8444,7 @@ NextIteration:
         End If
 
         ' Refresh the data if it's open
-        If frmShop.Visible Then
-            Call frmShop.RefreshLists()
-        End If
+        FrmShoppingList1.RefreshLists()
 
     End Sub
 
