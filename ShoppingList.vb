@@ -109,7 +109,8 @@ Public Class ShoppingList
         Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
 
         'Don't use all of the player's money, just most of it
-        While TotalShoppingList.GetTotalCost > WalletData * 0.75 And iterations < 100
+        Dim iterationLimit As Integer = 100
+        While TotalShoppingList.GetTotalCost > WalletData * 0.75 And iterations < iterationLimit
             iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
@@ -126,7 +127,7 @@ Public Class ShoppingList
         End While
 
         'If we spent a long time on this and it doesn't work, then clear the list
-        If iterations >= 100 Then
+        If iterations >= iterationLimit Then
             TotalItemList.Clear()
         End If
 
@@ -147,7 +148,8 @@ Public Class ShoppingList
         Dim difference As Double = TotalShoppingList.GetTotalVolume - CargoVolume
 
         'Leave some room for error on the cargo volume
-        While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95 And iterations < 100
+        Dim iterationLimit As Integer = 100
+        While TotalShoppingList.GetTotalVolume > CargoVolume * 0.95 And iterations < iterationLimit
             iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.MaterialVolume.CompareTo(x.MaterialVolume))
@@ -168,7 +170,7 @@ Public Class ShoppingList
         End While
 
         'If we spent a long time on this and it doesn't work, then clear the list
-        If iterations >= 100 Then
+        If iterations >= iterationLimit Then
             TotalItemList.Clear()
         End If
 
@@ -185,7 +187,8 @@ Public Class ShoppingList
         Dim difference As Double = TotalShoppingList.GetBuiltItemVolume - CargoVolume
 
         'Leave some room for error on the cargo volume
-        While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95 And iterations < 100
+        Dim iterationLimit As Integer = 100
+        While TotalShoppingList.GetBuiltItemVolume > CargoVolume * 0.95 And iterations < iterationLimit
             iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.BuildVolume.CompareTo(x.BuildVolume))
@@ -202,7 +205,7 @@ Public Class ShoppingList
         End While
 
         'If we spent a long time on this and it doesn't work, then clear the list
-        If iterations >= 100 Then
+        If iterations >= iterationLimit Then
             TotalItemList.Clear()
         End If
 

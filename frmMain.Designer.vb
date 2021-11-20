@@ -49,8 +49,6 @@ Partial Class frmMain
         Me.ttMining = New System.Windows.Forms.ToolTip(Me.components)
         Me.ttPI = New System.Windows.Forms.ToolTip(Me.components)
         Me.CalcImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.txtListEdit = New System.Windows.Forms.TextBox()
-        Me.cmbEdit = New System.Windows.Forms.ComboBox()
         Me.btnCancelUpdate = New MetroFramework.Controls.MetroButton()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
@@ -89,6 +87,7 @@ Partial Class frmMain
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
         Me.FrmAbout1 = New EVE_Isk_per_Hour.frmAbout()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
+        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -105,7 +104,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1664, 28)
+        Me.mnuStripMain.Size = New System.Drawing.Size(2435, 28)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -119,7 +118,7 @@ Partial Class frmMain
         'mnuManageBlueprintsToolStripMenuItem
         '
         Me.mnuManageBlueprintsToolStripMenuItem.Name = "mnuManageBlueprintsToolStripMenuItem"
-        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(216, 26)
         Me.mnuManageBlueprintsToolStripMenuItem.Text = "Manage Blueprints"
         '
         'ViewToolStripMenuItem
@@ -218,30 +217,6 @@ Partial Class frmMain
         Me.CalcImageList.Images.SetKeyName(6, "Blank.bmp")
         Me.CalcImageList.Images.SetKeyName(7, "Green Up Arrow.bmp")
         Me.CalcImageList.Images.SetKeyName(8, "Red Down Arrow.bmp")
-        '
-        'txtListEdit
-        '
-        Me.txtListEdit.Location = New System.Drawing.Point(1300, 4)
-        Me.txtListEdit.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtListEdit.Name = "txtListEdit"
-        Me.txtListEdit.Size = New System.Drawing.Size(59, 22)
-        Me.txtListEdit.TabIndex = 59
-        Me.txtListEdit.TabStop = False
-        Me.txtListEdit.Visible = False
-        '
-        'cmbEdit
-        '
-        Me.cmbEdit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbEdit.FormattingEnabled = True
-        Me.cmbEdit.ItemHeight = 16
-        Me.cmbEdit.Items.AddRange(New Object() {"Yes", "No"})
-        Me.cmbEdit.Location = New System.Drawing.Point(1221, 4)
-        Me.cmbEdit.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbEdit.Name = "cmbEdit"
-        Me.cmbEdit.Size = New System.Drawing.Size(59, 24)
-        Me.cmbEdit.TabIndex = 62
-        Me.cmbEdit.TabStop = False
-        Me.cmbEdit.Visible = False
         '
         'btnCancelUpdate
         '
@@ -531,15 +506,16 @@ Partial Class frmMain
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
-        Me.TabControl1.Location = New System.Drawing.Point(44, 124)
+        Me.TabControl1.Location = New System.Drawing.Point(23, 165)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1625, 846)
+        Me.TabControl1.Size = New System.Drawing.Size(2391, 1001)
         Me.TabControl1.TabIndex = 95
         '
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.Black
+        Me.TabPage1.Controls.Add(Me.FrmShoppingList1)
         Me.TabPage1.Controls.Add(Me.btnAddChar)
         Me.TabPage1.Controls.Add(Me.lblRecommendation)
         Me.TabPage1.Controls.Add(Me.btnCancelUpdate)
@@ -559,7 +535,7 @@ Partial Class frmMain
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1617, 817)
+        Me.TabPage1.Size = New System.Drawing.Size(2383, 972)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
@@ -702,16 +678,23 @@ Partial Class frmMain
         Me.FrmSettings1.TabIndex = 0
         Me.FrmSettings1.Visible = False
         '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(923, 27)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(1364, 852)
+        Me.FrmShoppingList1.TabIndex = 93
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1704, 1034)
+        Me.ClientSize = New System.Drawing.Size(2475, 1182)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.cmbEdit)
-        Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.mnuStripMain)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.mnuStripMain
@@ -764,8 +747,6 @@ Partial Class frmMain
     Friend WithEvents AddToShoppingListToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
-    Friend WithEvents cmbEdit As ComboBox
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
     Friend WithEvents btnCancelUpdate As MetroFramework.Controls.MetroButton
     Friend WithEvents btnDownloadPrices As MetroFramework.Controls.MetroButton
@@ -804,4 +785,5 @@ Partial Class frmMain
     Friend WithEvents FrmSettings1 As frmSettings
     Friend WithEvents FrmAbout2 As frmAbout
     Friend WithEvents FrmSettings2 As frmSettings
+    Friend WithEvents FrmShoppingList1 As frmShoppingList
 End Class

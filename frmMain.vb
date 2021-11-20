@@ -1348,10 +1348,6 @@ Public Class frmMain
         End
     End Sub
 
-    Private Sub mnuSelectionShoppingList_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSelectionShoppingList.Click
-        Call ShowShoppingList()
-    End Sub
-
     Private Sub mnuViewAssets_Click(sender As Object, e As EventArgs)
         ' Make sure it's not disposed
         If IsNothing(frmDefaultAssets) Then
@@ -1381,14 +1377,6 @@ Public Class frmMain
         'End If
     End Sub
 
-    Private Sub pnlShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ShowShoppingList()
-    End Sub
-
-    Private Sub mnuSelectionShoppingList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ShowShoppingList()
-    End Sub
-
     Private Sub mnuCharacterSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCharacterSkills.Click
         Call OpenCharacterSkills()
     End Sub
@@ -1409,25 +1397,6 @@ Public Class frmMain
         Dim f1 = New frmCharacterStandings
         ' Open the character screen
         f1.ShowDialog()
-    End Sub
-
-    Private Sub ShowShoppingList()
-
-        ' Make sure it's not disposed
-        If frmShop.IsDisposed Then
-            ' Make new form
-            frmShop = New frmShoppingList
-        End If
-
-        ' First refresh the lists
-        frmShop.RefreshLists()
-
-        ' Now open the Shopping List
-        frmShop.Show()
-        frmShop.Focus()
-
-        Application.DoEvents()
-
     End Sub
 
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
@@ -3908,7 +3877,6 @@ ExitSub:
         End If
 
         ' Reset
-        txtListEdit.Visible = False
         Cursor.Current = Cursors.Default
         Application.DoEvents()
         pnlStatus.Text = ""
@@ -5958,16 +5926,23 @@ ExitPRocessing:
 
             ' *** Calculate ***
             ' Got all the data, now see if they want to calculate prices
-            If Calculate Then
-                'If TotalItemCount > 1000 Then
-                '    ' Make sure they know this will take a bit to run - unless this is fairly quick
-                '    Response = MsgBox("This may take some time to complete. Do you want to continue?", vbYesNo, Me.Text)
 
-                '    If Response = vbNo Then
-                '        ' Just display the results of the query
-                '        GoTo DisplayResults
-                '    End If
-                'End If
+            ' Make sure they know this will take a bit to run - unless this is fairly quick
+
+            If Calculate Then
+                If TotalItemCount > 200 Then
+
+                    Application.UseWaitCursor = False
+                    Dim ContinueResult As DialogResult
+                    Dim rf As New frmLargeItemCount
+                    ContinueResult = rf.ShowDialog()
+                    If ContinueResult = DialogResult.Cancel Then
+                        ' Just display the results of the query
+                        Application.UseWaitCursor = True
+                        GoTo DisplayResults
+                    End If
+                    Application.UseWaitCursor = True
+                End If
 
                 ListIDIterator = 0 ' Reset the iterator for new list
                 ' Reset the format list and recalc

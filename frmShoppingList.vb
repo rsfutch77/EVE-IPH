@@ -199,8 +199,6 @@ Public Class frmShoppingList
             ttMain.SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
             ttMain.SetToolTip(btnUpdateListwithAssets, "Update the Shopping List based on materials you have in your selected asset location(s).")
             ttMain.SetToolTip(btnShowAssets, "Open the Asset Viewer to set the default location(s) for materials to use for updating the Shopping List.")
-            ttMain.SetToolTip(lblTIC, "Total of all invention materials in the buy list.")
-            ttMain.SetToolTip(lblTCC, "Total of all the copy materials in the buy list.")
             ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
             ttMain.SetToolTip(chkRebuildItemsfromList, "When loading a saved shopping list, if checked IPH will rebuild all items with current prices and items. Otherwise it will load exactly what is in the list with current prices.")
         End If
@@ -231,9 +229,12 @@ Public Class frmShoppingList
 
         CopyPasteMaterialText = ""
 
+        UserShoppingListSettings = AllSettings.LoadShoppingListSettings
+        LoadShoppingSettings()
+
     End Sub
 
-    Private Sub frmShoppingList_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
+    Private Sub LoadShoppingSettings()
         ' Load settings
         chkUsage.Checked = UserShoppingListSettings.Usage
         chkFees.Checked = UserShoppingListSettings.Fees
@@ -313,8 +314,6 @@ Public Class frmShoppingList
         lblTotalCost.Text = "0.00 ISK"
         lblTotalVolume.Text = "0.00 m3"
         lblTotalBuiltVolume.Text = "0.00 m3"
-        lblTotalCopyCost.Text = "0.00 ISK"
-        lblTotalInventionCost.Text = "0.00 ISK"
 
         lblUsage.Text = "0.00"
         lblFees.Text = "0.00"
@@ -622,9 +621,6 @@ Public Class frmShoppingList
             lblAvgIPH.Text = FormatNumber(TotalShoppingList.GetTotalIPH(), 2) & " ISK"
 
             lblTotalBuiltVolume.Text = FormatNumber(TotalShoppingList.GetBuiltItemVolume, 2) & " m3"
-
-            lblTotalInventionCost.Text = FormatNumber(TotalShoppingList.GetTotalInventionCosts, 2) & " ISK"
-            lblTotalCopyCost.Text = FormatNumber(TotalShoppingList.GetTotalCopyCosts, 2) & " ISK"
 
             lblFees.Text = FormatNumber(TotalShoppingList.GetTotalMaterialsBrokersFees)
             lblUsage.Text = FormatNumber(TotalShoppingList.GetTotalUsage)
@@ -942,11 +938,6 @@ Public Class frmShoppingList
 
     ' Close the form
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        Me.Hide()
-    End Sub
-
-    Private Sub frmShoppingList_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Me.Dispose()
         Me.Hide()
     End Sub
 
@@ -1375,14 +1366,6 @@ Public Class frmShoppingList
             Return False
         End If
     End Function
-
-    Private Sub chkAlwaysOnTop_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkAlwaysOnTop.CheckedChanged
-        If chkAlwaysOnTop.Checked Then
-            Me.TopMost = True
-        Else
-            Me.TopMost = False
-        End If
-    End Sub
 
     Private Sub btnCopyPasteAssets_Click(sender As System.Object, e As System.EventArgs) Handles btnCopyPasteAssets.Click
         Dim f1 As New frmCopyandPaste(CopyPasteWindowType.Materials)
