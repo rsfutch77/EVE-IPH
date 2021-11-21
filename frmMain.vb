@@ -284,18 +284,6 @@ Public Class frmMain
             Developer = False
         End If
 
-        ' Covert to new ESI registration system to use my registration and PKCE
-        ' If they registered before, show a pop-up and require registration. Then delete the registration file
-        Dim AppRegistrationFileName As String = Path.ChangeExtension(Path.Combine(DynamicFilePath, "", "AppRegistrationInformation"), ".xml")
-        If File.Exists(AppRegistrationFileName) Then
-            Dim f1 As New frmAppRegistrationNotice
-            f1.ShowDialog()
-
-            ' Now delete the registration file
-            File.Delete(AppRegistrationFileName)
-
-        End If
-
         ' Set test platform
         If File.Exists("Test.txt") Then
             TestingVersion = True
@@ -1339,12 +1327,6 @@ Public Class frmMain
         SkillsUpdated = False
         f1.ShowDialog()
 
-    End Sub
-
-    Private Sub mnuCharacterStandings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim f1 = New frmCharacterStandings
-        ' Open the character screen
-        f1.ShowDialog()
     End Sub
 
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)

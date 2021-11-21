@@ -200,12 +200,6 @@
     <Compile Include="frmAddCharacter.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAppRegistrationNotice.Designer.vb">
-      <DependentUpon>frmAppRegistrationNotice.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAppRegistrationNotice.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmChangeDummyCharacter.Designer.vb">
       <DependentUpon>frmChangeDummyCharacter.vb</DependentUpon>
     </Compile>
@@ -299,12 +293,6 @@
       <DependentUpon>frmCharacterSkills.vb</DependentUpon>
     </Compile>
     <Compile Include="frmCharacterSkills.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmCharacterStandings.Designer.vb">
-      <DependentUpon>frmCharacterStandings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmCharacterStandings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmError.Designer.vb">
@@ -414,9 +402,6 @@
     <EmbeddedResource Include="frmAddCharacter.resx">
       <DependentUpon>frmAddCharacter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAppRegistrationNotice.resx">
-      <DependentUpon>frmAppRegistrationNotice.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmChangeDummyCharacter.resx">
       <DependentUpon>frmChangeDummyCharacter.vb</DependentUpon>
     </EmbeddedResource>
@@ -461,10 +446,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCharacterSkills.resx">
       <DependentUpon>frmCharacterSkills.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCharacterStandings.resx">
-      <DependentUpon>frmCharacterStandings.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmError.resx">

@@ -174,14 +174,8 @@ Public Class frmShoppingList
         lstItems.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
         If UserApplicationSettings.ShowToolTips Then
-            ttMain.SetToolTip(chkFees, "When checked, will total all items listed in buy list as 'Buy Order'.")
-            ttMain.SetToolTip(chkBuyorBuyOrder, "Tri-check, IPH will attempt to determine whether it is better to buy the item directly off of the market or to set up a buy order. Unchecked - buy order, Checked - compare order to market, Tri-check - buy market only")
-            ttMain.SetToolTip(chkUsage, "Estimated Usage Fees to build the items in the Items and Components to Build Lists.")
-            ttMain.SetToolTip(lblAddlCosts, "Addtional costs you want to add to this shopping list (i.e. BPC costs). This value not affected by taxes or fees.")
-            ttMain.SetToolTip(chkUpdateAssetsWhenUsed, "If checked, when updating the list with scanned assets IPH will subtract all used materials from your asset list.")
             ttMain.SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
             ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
-            ttMain.SetToolTip(chkRebuildItemsfromList, "When loading a saved shopping list, if checked IPH will rebuild all items with current prices and items. Otherwise it will load exactly what is in the list with current prices.")
         End If
 
         IgnoreFocusChange = False
@@ -212,24 +206,11 @@ Public Class frmShoppingList
 
     Private Sub LoadShoppingSettings()
         ' Load settings
-        chkUsage.Checked = UserShoppingListSettings.Usage
-        chkFees.Checked = UserShoppingListSettings.Fees
-        Select Case UserShoppingListSettings.CalcBuyBuyOrder
-            Case 2
-                chkBuyorBuyOrder.CheckState = CheckState.Indeterminate
-            Case 1
-                chkBuyorBuyOrder.Checked = True
-            Case 0
-                chkBuyorBuyOrder.Checked = False
-        End Select
-        chkRebuildItemsfromList.Checked = UserShoppingListSettings.ReloadBPsFromFile
-
         If rbtnExportDefault.Text = UserShoppingListSettings.DataExportFormat Then
             rbtnExportDefault.Checked = True
         ElseIf rbtnExportMulitBuy.Text = UserShoppingListSettings.DataExportFormat Then
             rbtnExportMulitBuy.Checked = True
         End If
-        chkUpdateAssetsWhenUsed.Checked = UserShoppingListSettings.UpdateAssetsWhenUsed
 
     End Sub
 
@@ -267,9 +248,6 @@ Public Class frmShoppingList
         lblTotalCost.Text = "0.00 ISK"
         lblTotalVolume.Text = "0.00 m3"
         lblTotalBuiltVolume.Text = "0.00 m3"
-
-        lblUsage.Text = "0.00"
-        lblFees.Text = "0.00"
 
         ' Update the main form notice of no items
         frmMain.pnlShoppingList.Text = "No Items in Shopping List"
@@ -393,41 +371,28 @@ Public Class frmShoppingList
                         MaxBuyUnitPrice = StoredPrice
                     End If
 
-                    If chkBuyorBuyOrder.Checked And chkBuyorBuyOrder.Enabled = True And chkFees.Checked And chkBuyorBuyOrder.CheckState <> CheckState.Indeterminate Then
-                        ' Now that we have the prices, compare the two
-                        If MinSellUnitPrice <> 0 And MaxBuyUnitPrice <> 0 Then
+                    ' Now that we have the prices, compare the two
+                    If MinSellUnitPrice <> 0 And MaxBuyUnitPrice <> 0 Then
 
-                            ' Now look at max buy
-                            TotalPrice = MaxBuyUnitPrice * RawItems.GetMaterialList(i).GetQuantity
-                            BuyOrderPrice = TotalPrice + BuyOrderFees
+                        ' Now look at max buy
+                        TotalPrice = MaxBuyUnitPrice * RawItems.GetMaterialList(i).GetQuantity
+                        BuyOrderPrice = TotalPrice + BuyOrderFees
 
-                            ' Use min sell
-                            SellPrice = MinSellUnitPrice * RawItems.GetMaterialList(i).GetQuantity
+                        ' Use min sell
+                        SellPrice = MinSellUnitPrice * RawItems.GetMaterialList(i).GetQuantity
 
-                            If BuyOrderPrice < SellPrice Then
-                                ' They should do an order
-                                BuyOrderText = BuyOrder
-                            Else
-                                ' Buy from the Market
-                                BuyOrderText = BuyMarket
-                                ' No fees straight off market
-                                BuyOrderFees = 0
-                            End If
+                        If BuyOrderPrice < SellPrice Then
+                            ' They should do an order
+                            BuyOrderText = BuyOrder
                         Else
-                            BuyOrderText = Unknown
+                            ' Buy from the Market
+                            BuyOrderText = BuyMarket
+                            ' No fees straight off market
                             BuyOrderFees = 0
                         End If
-                    ElseIf chkFees.Checked = False Or (chkBuyorBuyOrder.CheckState = CheckState.Indeterminate And chkBuyorBuyOrder.Enabled = True) Then
-                        ' User wants to buy all from market, don't apply broker fees
-                        BuyOrderText = BuyMarket
-                    ElseIf chkFees.Checked = True And chkBuyorBuyOrder.Checked = False Then
-                        ' They want a buy order for all items
-                        BuyOrderText = BuyOrder
-                        If MaxBuyUnitPrice <> 0 Then
-                            BuyOrderFees = GetSalesBrokerFee(MaxBuyUnitPrice * RawItems.GetMaterialList(i).GetQuantity, GetBrokerFeeData())
-                        Else
-                            BuyOrderFees = 0
-                        End If
+                    Else
+                        BuyOrderText = Unknown
+                        BuyOrderFees = 0
                     End If
 
                     ' Add the minsell/maxbuy for reference
@@ -514,13 +479,10 @@ Public Class frmShoppingList
     Private Sub LoadFormStats()
 
         If TotalShoppingList.GetNumShoppingItems <> 0 Then
-            If Trim(txtAddlCosts.Text) <> "" Then
-                Call TotalShoppingList.SetAdditionalCosts(CDbl(txtAddlCosts.Text))
-            End If
 
             Dim BFI As BrokerFeeInfo = GetBrokerFeeData()
 
-            Call TotalShoppingList.SetPriceData(BFI, chkUsage.Checked, ItemBuyTypeList)
+            Call TotalShoppingList.SetPriceData(BFI, True, ItemBuyTypeList)
 
             lblTotalCost.Text = FormatNumber(TotalShoppingList.GetTotalCost, 2) & " ISK"
             lblTotalVolume.Text = FormatNumber(TotalShoppingList.GetTotalVolume, 2) & " m3"
@@ -529,9 +491,6 @@ Public Class frmShoppingList
             lblAvgIPH.Text = FormatNumber(TotalShoppingList.GetTotalIPH(), 2) & " ISK"
 
             lblTotalBuiltVolume.Text = FormatNumber(TotalShoppingList.GetBuiltItemVolume, 2) & " m3"
-
-            lblFees.Text = FormatNumber(TotalShoppingList.GetTotalMaterialsBrokersFees)
-            lblUsage.Text = FormatNumber(TotalShoppingList.GetTotalUsage)
 
         End If
 
@@ -559,19 +518,13 @@ Public Class frmShoppingList
         ElseIf rbtnExportMulitBuy.Checked Then
             TempList.DataExportFormat = rbtnExportMulitBuy.Text
         End If
-        TempList.UpdateAssetsWhenUsed = chkUpdateAssetsWhenUsed.Checked
-        TempList.Usage = chkUsage.Checked
-        TempList.Fees = chkFees.Checked
+        TempList.UpdateAssetsWhenUsed = False
+        TempList.Usage = True
+        TempList.Fees = True
 
-        If chkBuyorBuyOrder.CheckState = CheckState.Indeterminate Then
-            TempList.CalcBuyBuyOrder = 2
-        ElseIf chkBuyorBuyOrder.Checked = True Then
-            TempList.CalcBuyBuyOrder = 1
-        Else
-            TempList.CalcBuyBuyOrder = 0
-        End If
+        TempList.CalcBuyBuyOrder = 1
 
-        TempList.ReloadBPsFromFile = chkRebuildItemsfromList.Checked
+        TempList.ReloadBPsFromFile = False
 
         ' Save the data in the XML file
         Call TempSettings.SaveShoppingListSettings(TempList)
@@ -839,21 +792,7 @@ Public Class frmShoppingList
 
     End Sub
 
-    Private Sub chkFees_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkFees.CheckedChanged
-        If Not FirstLoad Then
-            If chkFees.Checked = False Then
-                ' Disable calc buy order type - since they aren't going to apply fees, we can't calculate it
-                chkBuyorBuyOrder.Enabled = False
-            Else
-                chkBuyorBuyOrder.Enabled = True
-            End If
-            ' Reload the list
-            Call LoadBuyList()
-            Call LoadFormStats()
-        End If
-    End Sub
-
-    Private Sub chkBuyorBuyOrder_Click(sender As System.Object, e As System.EventArgs) Handles chkBuyorBuyOrder.Click
+    Private Sub chkFees_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstLoad Then
             ' Reload the list
             Call LoadBuyList()
@@ -861,63 +800,19 @@ Public Class frmShoppingList
         End If
     End Sub
 
-    Private Sub chkUsage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkUsage.CheckedChanged
+    Private Sub chkBuyorBuyOrder_Click(sender As System.Object, e As System.EventArgs)
+        If Not FirstLoad Then
+            ' Reload the list
+            Call LoadBuyList()
+            Call LoadFormStats()
+        End If
+    End Sub
+
+    Private Sub chkUsage_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If Not FirstLoad Then
             Call LoadFormStats()
         End If
     End Sub
-
-    Private Sub txtAddlCosts_GotFocus(sender As Object, e As System.EventArgs) Handles txtAddlCosts.GotFocus
-        Call txtAddlCosts.SelectAll()
-    End Sub
-
-    Private Sub txtAddlCosts_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtAddlCosts.KeyDown
-
-        If AddlCostsValidEntry() Then
-            If e.KeyCode = Keys.Enter Then
-                Call LoadFormStats()
-                txtAddlCosts.Focus()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtAddlCosts_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtAddlCosts.KeyPress
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedPriceChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
-    Private Sub txtAddlCosts_LostFocus(sender As Object, e As System.EventArgs) Handles txtAddlCosts.LostFocus
-        If Trim(txtAddlCosts.Text) = "" Then
-            txtAddlCosts.Text = "0.00"
-            Call LoadFormStats()
-        ElseIf IsNumeric(txtAddlCosts.Text) Then
-            txtAddlCosts.Text = FormatNumber(txtAddlCosts.Text, 2)
-            Call LoadFormStats()
-        Else
-            MsgBox("Invalid Additional Costs Entry", vbExclamation, Application.ProductName)
-            txtAddlCosts.Focus()
-        End If
-    End Sub
-
-    Private Function AddlCostsValidEntry() As Boolean
-        If Trim(txtAddlCosts.Text) = "" Then
-            ' Reset to 0
-            txtAddlCosts.Text = "0.00"
-        End If
-
-        If IsNumeric(txtAddlCosts.Text) Then
-            Return True
-        Else
-            MsgBox("Invalid Additional Costs Entry", vbExclamation, Application.ProductName)
-            txtAddlCosts.Focus()
-            Return False
-        End If
-    End Function
 
     Private Sub lstItems_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstItems.ColumnClick
         Call ListViewColumnSorter(e.Column, CType(lstItems, ListView), ItemListColumnClicked, ItemListColumnSortOrder)
@@ -978,7 +873,7 @@ Public Class frmShoppingList
                                            UserBPTabSettings.IncludeTaxes, BFI,
                                            lstItems.SelectedItems(0).SubItems(3).Text, lstItems.SelectedItems(0).SubItems(15).Text,
                                            lstItems.SelectedItems(0).SubItems(2).Text, "1", CStr(UserBPTabSettings.LaboratoryLines),
-                                           lstItems.SelectedItems(0).SubItems(4).Text, txtAddlCosts.Text, False)
+                                           lstItems.SelectedItems(0).SubItems(4).Text, "0", False)
     End Sub
 
     Private Sub lstBuy_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstBuy.ColumnClick
@@ -1580,21 +1475,7 @@ Tabs:
         txtListEdit.Hide()
     End Sub
 
-    Private Sub chkFees_Click(sender As Object, e As EventArgs) Handles chkFees.Click
-        If chkFees.Checked And chkFees.CheckState = CheckState.Indeterminate Then ' Show rate box
-            txtBrokerFeeRate.Visible = True
-        Else
-            txtBrokerFeeRate.Visible = False
-        End If
-    End Sub
-
-    Private Sub txtBrokerFeeRate_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBrokerFeeRate.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            txtBrokerFeeRate.Text = GetFormattedPercentEntry(txtBrokerFeeRate)
-        End If
-    End Sub
-
-    Private Sub txtBrokerFeeRate_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtBrokerFeeRate.KeyPress
+    Private Sub txtBrokerFeeRate_KeyPress(sender As Object, e As KeyPressEventArgs)
         ' Only allow numbers, decimal, percent or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedPercentChars.IndexOf(e.KeyChar) = -1 Then
@@ -1602,14 +1483,6 @@ Tabs:
                 e.Handled = True
             End If
         End If
-    End Sub
-
-    Private Sub txtBrokerFeeRate_GotFocus(sender As Object, e As EventArgs) Handles txtBrokerFeeRate.GotFocus
-        Call txtBrokerFeeRate.SelectAll()
-    End Sub
-
-    Private Sub txtBrokerFeeRate_LostFocus(sender As Object, e As EventArgs) Handles txtBrokerFeeRate.LostFocus
-        txtBrokerFeeRate.Text = GetFormattedPercentEntry(txtBrokerFeeRate)
     End Sub
 
 #End Region
