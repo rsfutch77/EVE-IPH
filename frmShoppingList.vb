@@ -145,38 +145,24 @@ Public Class frmShoppingList
         lstBuy.Columns.Add("TypeID", 0, HorizontalAlignment.Left) ' Hidden
         lstBuy.Columns.Add("Material", 245, HorizontalAlignment.Left)
         lstBuy.Columns.Add("Quantity", 94, HorizontalAlignment.Right) ' Min 94
-        lstBuy.Columns.Add("Cost per Item", 90, HorizontalAlignment.Right) ' Min 90
-        lstBuy.Columns.Add("Min Sell", 90, HorizontalAlignment.Right) ' Min 90
-        lstBuy.Columns.Add("Max Buy", 90, HorizontalAlignment.Right) ' Min 90
+        lstBuy.Columns.Add("Cost per Item", 0, HorizontalAlignment.Right) ' Min 90
+        lstBuy.Columns.Add("Min Sell", 0, HorizontalAlignment.Right) ' Min 90
+        lstBuy.Columns.Add("Max Buy", 0, HorizontalAlignment.Right) ' Min 90
         lstBuy.Columns.Add("Buy Type", 66, HorizontalAlignment.Right) ' Min 66
         lstBuy.Columns.Add("Total m3", 100, HorizontalAlignment.Right) ' Min 100
         lstBuy.Columns.Add("Isk/m3", 83, HorizontalAlignment.Right) ' Min 85
-        lstBuy.Columns.Add("Fees", 90, HorizontalAlignment.Right)
+        lstBuy.Columns.Add("Fees", 0, HorizontalAlignment.Right)
         lstBuy.Columns.Add("Total Cost", 112, HorizontalAlignment.Right) ' Min 129
-
-        ' Built Item List for items we are building - width = 371 (21 for verticle scroll bar)
-        lstBuild.Columns.Add("TypeID", 0, HorizontalAlignment.Center) ' always left allignment this column for some reason, so add a dummy
-        lstBuild.Columns.Add("Build Item", 237, HorizontalAlignment.Left)
-        lstBuild.Columns.Add("Quantity", 80, HorizontalAlignment.Right)
-        lstBuild.Columns.Add("ME", 30, HorizontalAlignment.Right)
-        lstBuild.Columns.Add("TE", 0, HorizontalAlignment.Right) ' Hidden
-        lstBuild.Columns.Add("Facility Location", 0, HorizontalAlignment.Left) 'Hidden to help build at component facility
-        lstBuild.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag for pos building
-        lstBuild.Columns.Add("IncludeActivityCost", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
-        lstBuild.Columns.Add("IncludeActivityTime", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
-        lstBuild.Columns.Add("IncludeActivityUsage", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
-        lstBuild.Columns.Add("BPTypeID", 0, HorizontalAlignment.Center) ' Hidden for double click look up
-        lstBuild.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
         ' Item List - What we are building - width = 711 (21 for verticle scroll bar)
         lstItems.Columns.Add("TypeID", 0, HorizontalAlignment.Center) ' always left allignment this column for some reason, so add a dummy, store bpID here though
         lstItems.Columns.Add("Item", 225, HorizontalAlignment.Left) ' 
         lstItems.Columns.Add("Quantity", 67, HorizontalAlignment.Right) ' 51 min text
-        lstItems.Columns.Add("ME", 30, HorizontalAlignment.Right) ' 30 min text
-        lstItems.Columns.Add("Num BPs", 60, HorizontalAlignment.Left) ' 60 min text
-        lstItems.Columns.Add("Build Type", 71, HorizontalAlignment.Left) ' 71 min text
-        lstItems.Columns.Add("Decryptor", 105, HorizontalAlignment.Left) '105 min text
-        lstItems.Columns.Add("Location", 132, HorizontalAlignment.Left) '132 min text
+        lstItems.Columns.Add("ME", 0, HorizontalAlignment.Right) ' 30 min text
+        lstItems.Columns.Add("Num BPs", 0, HorizontalAlignment.Left) ' 60 min text
+        lstItems.Columns.Add("Build Type", 0, HorizontalAlignment.Left) ' 71 min text
+        lstItems.Columns.Add("Decryptor", 0, HorizontalAlignment.Left) '105 min text
+        lstItems.Columns.Add("Location", 0, HorizontalAlignment.Left) '132 min text
         lstItems.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag for pos building
         lstItems.Columns.Add("IgnoredInvention", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
         lstItems.Columns.Add("IgnoredMinerals", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
@@ -188,33 +174,23 @@ Public Class frmShoppingList
         lstItems.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
         If UserApplicationSettings.ShowToolTips Then
-            ttMain.SetToolTip(btnShowAssets, "Show Assets")
             ttMain.SetToolTip(chkFees, "When checked, will total all items listed in buy list as 'Buy Order'.")
             ttMain.SetToolTip(chkBuyorBuyOrder, "Tri-check, IPH will attempt to determine whether it is better to buy the item directly off of the market or to set up a buy order. Unchecked - buy order, Checked - compare order to market, Tri-check - buy market only")
             ttMain.SetToolTip(chkUsage, "Estimated Usage Fees to build the items in the Items and Components to Build Lists.")
             ttMain.SetToolTip(lblAddlCosts, "Addtional costs you want to add to this shopping list (i.e. BPC costs). This value not affected by taxes or fees.")
             ttMain.SetToolTip(chkUpdateAssetsWhenUsed, "If checked, when updating the list with scanned assets IPH will subtract all used materials from your asset list.")
-            ttMain.SetToolTip(rbtnExportCSV, "Exports data in Common Separated Values with periods for decimals")
-            ttMain.SetToolTip(rbtnExportSSV, "Exports data in SemiColon Separated Values with commas for decimals")
             ttMain.SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
-            ttMain.SetToolTip(btnUpdateListwithAssets, "Update the Shopping List based on materials you have in your selected asset location(s).")
-            ttMain.SetToolTip(btnShowAssets, "Open the Asset Viewer to set the default location(s) for materials to use for updating the Shopping List.")
             ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
             ttMain.SetToolTip(chkRebuildItemsfromList, "When loading a saved shopping list, if checked IPH will rebuild all items with current prices and items. Otherwise it will load exactly what is in the list with current prices.")
         End If
 
         IgnoreFocusChange = False
 
-        If rbtnExportCSV.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportCSV.Checked = True
-        ElseIf rbtnExportSSV.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportSSV.Checked = True
-        ElseIf rbtnExportDefault.Text = UserApplicationSettings.DataExportFormat Then
+        If rbtnExportDefault.Text = UserApplicationSettings.DataExportFormat Then
             rbtnExportDefault.Checked = True
         End If
 
         btnCopy.Enabled = False
-        btnSaveListToFile.Enabled = False
 
         ItemListColumnClicked = 0
         ItemListColumnSortOrder = SortOrder.None
@@ -238,7 +214,6 @@ Public Class frmShoppingList
         ' Load settings
         chkUsage.Checked = UserShoppingListSettings.Usage
         chkFees.Checked = UserShoppingListSettings.Fees
-        chkAlwaysOnTop.Checked = UserShoppingListSettings.AlwaysonTop
         Select Case UserShoppingListSettings.CalcBuyBuyOrder
             Case 2
                 chkBuyorBuyOrder.CheckState = CheckState.Indeterminate
@@ -249,25 +224,12 @@ Public Class frmShoppingList
         End Select
         chkRebuildItemsfromList.Checked = UserShoppingListSettings.ReloadBPsFromFile
 
-        If rbtnExportCSV.Text = UserShoppingListSettings.DataExportFormat Then
-            rbtnExportCSV.Checked = True
-        ElseIf rbtnExportSSV.Text = UserShoppingListSettings.DataExportFormat Then
-            rbtnExportSSV.Checked = True
-        ElseIf rbtnExportDefault.Text = UserShoppingListSettings.DataExportFormat Then
+        If rbtnExportDefault.Text = UserShoppingListSettings.DataExportFormat Then
             rbtnExportDefault.Checked = True
         ElseIf rbtnExportMulitBuy.Text = UserShoppingListSettings.DataExportFormat Then
             rbtnExportMulitBuy.Checked = True
         End If
         chkUpdateAssetsWhenUsed.Checked = UserShoppingListSettings.UpdateAssetsWhenUsed
-
-        ' Only enable the clear button when something in the list
-        If TotalShoppingList.GetNumShoppingItems > 0 Then
-            btnClear.Enabled = True
-            gbUpdateList.Enabled = True
-        Else
-            btnClear.Enabled = False
-            gbUpdateList.Enabled = False
-        End If
 
     End Sub
 
@@ -275,20 +237,13 @@ Public Class frmShoppingList
         RefreshingGrid = True
         Call LoadBuyList()
         Call LoadItemList()
-        Call LoadBuildList()
         Call LoadFormStats()
 
         ' Enable the buttons if there are rows
         If lstItems.Items.Count > 0 Then
             btnCopy.Enabled = True
-            btnSaveListToFile.Enabled = True
-            btnClear.Enabled = True
-            gbUpdateList.Enabled = True
         Else
             btnCopy.Enabled = False
-            btnSaveListToFile.Enabled = False
-            btnClear.Enabled = False
-            gbUpdateList.Enabled = False
             ' No more items so clear lists
             Call ClearLists()
         End If
@@ -301,11 +256,9 @@ Public Class frmShoppingList
         TotalShoppingList.Clear()
 
         lstItems.Items.Clear()
-        lstBuild.Items.Clear()
         lstBuy.Items.Clear()
 
         lstItems.Update()
-        lstBuild.Update()
         lstBuy.Update()
 
         lblTotalProfit.Text = "0.00 ISK"
@@ -323,7 +276,6 @@ Public Class frmShoppingList
         frmMain.pnlShoppingList.ForeColor = Color.Black
 
         btnCopy.Enabled = False
-        btnSaveListToFile.Enabled = False
 
         Me.Refresh()
 
@@ -554,51 +506,7 @@ Public Class frmShoppingList
         ' Add the number of item(s) to the label on the shopping list
         Dim ItemCount As Integer = ItemList.Count
 
-        If ItemList.Count <> 1 Then
-            lblTotalItemsInList.Text = FormatNumber(ItemCount, 0) & vbCrLf & "Items in list"
-        Else
-            lblTotalItemsInList.Text = "1" & vbCrLf & "Item in list"
-        End If
-
         lstItems.EndUpdate()
-
-    End Sub
-
-    ' Loads the list of items to build into the items list
-    Private Sub LoadBuildList()
-        Dim i As Integer
-        Dim lstBuildItem As ListViewItem
-        Dim BuildItems As New BuiltItemList
-
-        lstBuild.BeginUpdate()
-        lstBuild.Items.Clear()
-
-        ' TotalShoppingList.GetFullBuildList uses BuildItem for built in pos, and Volume for the facility ME value
-        BuildItems = TotalShoppingList.GetFullBuildList
-
-        ' Now load the grid with all the mats
-        If Not IsNothing(BuildItems) Then
-            If Not IsNothing(BuildItems.GetBuiltItemList) Then
-                For i = 0 To BuildItems.GetBuiltItemList.Count - 1
-
-                    lstBuildItem = lstBuild.Items.Add(CStr(BuildItems.GetBuiltItemList(i).ItemTypeID))
-                    ' The remaining columns are subitems  
-                    lstBuildItem.SubItems.Add(BuildItems.GetBuiltItemList(i).ItemName)
-                    lstBuildItem.SubItems.Add(CStr(FormatNumber(BuildItems.GetBuiltItemList(i).ItemQuantity, 0)))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).BuildME))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).BuildTE))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).ManufacturingFacility.FacilityName))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).ManufacturingFacility.FacilityType))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).IncludeActivityCost))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).IncludeActivityTime))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).IncludeActivityUsage))
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).BPTypeID)) ' Add the bp type id here for double clicking later
-                    lstBuildItem.SubItems.Add(CStr(BuildItems.GetBuiltItemList(i).ManufacturingFacility.FacilityProductionType))
-                Next
-            End If
-        End If
-
-        lstBuild.EndUpdate()
 
     End Sub
 
@@ -629,345 +537,25 @@ Public Class frmShoppingList
 
     End Sub
 
-    ' Update the shopping list with all items we may have. If we have components, update those and then update the number of mats accordingly in the buy list
-    Private Sub btnUpdateListwithAssets_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateListwithAssets.Click
-        Call UpdateShoppingListwithAssets()
-    End Sub
-
-    ' Updates the shopping list values on screen if we are sent materials or if not, looking up in the DB
-    Private Sub UpdateShoppingListwithAssets(Optional PasteMaterialList As Materials = Nothing)
-        Dim ProcessList As New Materials
-        Dim FoundBuildItem As New BuiltItem
-        Dim SQL As String
-        Dim readerAssets As SQLiteDataReader
-        Dim UpdatedQuantity As Long
-        Dim UserQuantity As Long
-        Dim CurrentItemName As String = ""
-
-        Application.UseWaitCursor = True
-        Cursor.Current = Cursors.WaitCursor
-        Application.DoEvents()
-
-        Dim IDString As String = ""
-
-        ' Set the ID string we will use to update
-        If UserAssetWindowShoppingListSettings.AssetType = "Both" Then
-            IDString = CStr(SelectedCharacter.ID) & "," & CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Personal" Then
-            IDString = CStr(SelectedCharacter.ID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Corporation" Then
-            IDString = CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        End If
-
-        ' Build the where clause to look up data
-        Dim AssetLocationFlagList As New List(Of String)
-        ' First look up the location and flagID pairs - unique ID of asset locations
-        SQL = "SELECT LocationID, FlagID FROM ASSET_LOCATIONS WHERE EnumAssetType = " & CStr(AssetWindow.ShoppingList) & " AND ID IN (" & IDString & ")"
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerAssets = DBCommand.ExecuteReader
-
-        While readerAssets.Read
-            If (readerAssets.GetInt32(1) = -4 Or readerAssets.GetInt64(0) > 1000000000000) Then
-                ' If the flag is the base location, then we want all items at the location id
-                AssetLocationFlagList.Add("(LocationID = " & CStr(readerAssets.GetInt64(0)) & ")")
-            Else
-                AssetLocationFlagList.Add("(LocationID = " & CStr(readerAssets.GetInt64(0)) & " AND Flag = " & CStr(readerAssets.GetInt32(1)) & ")")
-            End If
-        End While
-
-        readerAssets.Close()
-
-        If AssetLocationFlagList.Count <> 0 Then
-
-            ' Loop through the lists, starting with the build list first and find quantities in hanger to build
-            For i = 0 To 3 ' 4 lists
-                Application.DoEvents()
-                ' TotalShoppingList.GetFullBuildList.Clone uses BuildItem for built in pos, and Volume for the facility ME value
-                Select Case i
-                    Case 0
-                        ProcessList = CType(TotalShoppingList.GetFullBuildMaterialList.Clone, Materials)
-                    Case 1
-                        ProcessList = CType(TotalShoppingList.GetFullBuyList.Clone, Materials)
-                End Select
-
-                If Not IsNothing(ProcessList) Then
-                    If Not IsNothing(ProcessList.GetMaterialList) Then
-                        For j = 0 To ProcessList.GetMaterialList.Count - 1
-                            Application.DoEvents()
-                            UserQuantity = 0
-                            CurrentItemName = ""
-
-                            ' Look in table or in the paste list
-                            If Not CutPasteUpdate Then
-
-                                ' Look up each item in their assets in their locations stored, and sum up the quantity'
-                                ' Split into groups to run (1000 identifiers max so limit to 900)
-                                Dim Splits As Integer = CInt(Math.Ceiling(AssetLocationFlagList.Count / 900))
-                                For k = 0 To Splits - 1
-                                    Application.DoEvents()
-                                    Dim TempAssetWhereList As String = ""
-                                    ' Build the partial asset location id/flag list
-                                    For z = k * 900 To (k + 1) * 900 - 1
-                                        If z = AssetLocationFlagList.Count Then
-                                            ' exit if we get to the end of the list
-                                            Exit For
-                                        End If
-                                        TempAssetWhereList = TempAssetWhereList & AssetLocationFlagList(z) & " OR "
-                                    Next
-
-                                    ' Strip final OR
-                                    TempAssetWhereList = TempAssetWhereList.Substring(0, Len(TempAssetWhereList) - 4)
-
-                                    SQL = "SELECT typeName, SUM(Quantity) FROM "
-                                    SQL = SQL & "ASSETS, INVENTORY_TYPES "
-                                    SQL = SQL & "WHERE (" & TempAssetWhereList & ") "
-                                    SQL = SQL & " AND INVENTORY_TYPES.typeID = ASSETS.TypeID"
-                                    SQL = SQL & " AND ASSETS.TypeID = " & ProcessList.GetMaterialList(j).GetMaterialTypeID
-                                    SQL = SQL & " AND ID IN (" & IDString & ")"
-
-                                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                                    readerAssets = DBCommand.ExecuteReader
-                                    readerAssets.Read()
-
-                                    If readerAssets.HasRows And Not IsDBNull(readerAssets.GetValue(1)) Then
-                                        CurrentItemName = readerAssets.GetString(0)
-                                        UserQuantity = UserQuantity + CLng(readerAssets.GetValue(1)) ' sum up
-                                    End If
-
-                                Next
-
-                            Else ' Look up in pasted asset list
-                                Dim TempMaterial As Material
-
-                                If Not IsNothing(PasteMaterialList) Then
-                                    ' The names in the pasted materials won't have the runs tag for built items so remove it before searching
-                                    TempMaterial = PasteMaterialList.SearchListbyName(RemoveItemNameRuns(ProcessList.GetMaterialList(j).GetMaterialName), False)
-
-                                    If Not IsNothing(TempMaterial) Then
-                                        ' Found it
-                                        CurrentItemName = TempMaterial.GetMaterialName
-                                        UserQuantity = CLng(TempMaterial.GetQuantity)
-                                    End If
-                                Else
-                                    CurrentItemName = ""
-                                    UserQuantity = 0
-                                End If
-
-                            End If
-
-                            If UserQuantity <> 0 And CurrentItemName <> "" Then
-                                ' Call shoppinglist update numbers with new number
-                                Select Case i
-                                    Case 0
-                                        ' Need to look up the full built item data, however only by name since we don't care how it was built if they already have it
-                                        ' plus we don't have the ME data anyway
-                                        Dim ListQuantity As Long = 0
-                                        Dim TempBuiltList As BuiltItemList
-
-                                        ' We could have multiple items in the list (because of different MEs), so loop through all of them and get the quantities on hand
-                                        TempBuiltList = TotalShoppingList.GetFullBuiltItemList.FindBuiltItems(CurrentItemName)
-
-                                        For k = 0 To TempBuiltList.GetBuiltItemList.Count - 1
-                                            ListQuantity = TempBuiltList.GetBuiltItemList(k).ItemQuantity
-                                            If ListQuantity <= UserQuantity Then
-                                                ' We found enough already to remove all for this built item, need to keep track and update the rest
-                                                UpdatedQuantity = ListQuantity
-                                                Call TotalShoppingList.UpdateShoppingBuiltItemQuantity(TempBuiltList.GetBuiltItemList(k), 0)
-
-                                                ' If the user wants to update the DB with materials they "used" here, update
-                                                If chkUpdateAssetsWhenUsed.Checked Then
-                                                    Call UpdateUsedAssets(ProcessList.GetMaterialList(j).GetMaterialTypeID, UserQuantity, UpdatedQuantity)
-                                                End If
-                                            Else
-                                                ' This list has more, so just remove the difference and leave
-                                                UpdatedQuantity = ListQuantity - UserQuantity
-                                                Call TotalShoppingList.UpdateShoppingBuiltItemQuantity(TempBuiltList.GetBuiltItemList(k), UpdatedQuantity)
-                                                ' If the user wants to update the DB with materials they "used" here, update
-                                                If chkUpdateAssetsWhenUsed.Checked Then
-                                                    Call UpdateUsedAssets(ProcessList.GetMaterialList(j).GetMaterialTypeID, UserQuantity, UpdatedQuantity)
-                                                End If
-
-                                                Exit For
-                                            End If
-                                        Next
-
-                                    Case 1, 2, 3
-
-                                        Dim UsedQuantity As Long
-                                        UsedQuantity = ProcessList.GetMaterialList(j).GetQuantity
-
-                                        ' See what the new value is for setting the shopping list
-                                        UpdatedQuantity = ProcessList.GetMaterialList(j).GetQuantity - UserQuantity
-
-                                        If UpdatedQuantity < 0 Then
-                                            ' We have more than this item requires, so zero out the quantity in the shopping list (delete)
-                                            UpdatedQuantity = 0
-                                        End If
-
-                                        ' Invention and RE are contained in Buy mats list
-                                        Call TotalShoppingList.UpdateShoppingBuyQuantity(ProcessList.GetMaterialList(j).GetMaterialName, UpdatedQuantity)
-
-                                        ' If the user wants to update the DB with materials they "used" here, update
-                                        If chkUpdateAssetsWhenUsed.Checked Then
-                                            Call UpdateUsedAssets(ProcessList.GetMaterialList(j).GetMaterialTypeID, UserQuantity, UsedQuantity)
-                                        End If
-
-                                End Select
-                            End If
-                        Next
-                    End If
-                End If
-            Next
-
-            Application.UseWaitCursor = False
-            Cursor.Current = Cursors.Default
-            Application.DoEvents()
-
-            ' Play notification sound
-            Call PlayNotifySound()
-
-            ' Refresh the updated lists
-            Call RefreshLists()
-
-            ' Refresh the asset list with updated assets
-            If chkUpdateAssetsWhenUsed.Checked Then
-                ' First, need to refresh assets for character and corp if used
-                If Not IsNothing(frmShoppingAssets) Then
-                    If Not frmShoppingAssets.IsDisposed Then
-                        If frmShoppingAssets.rbtnAllAssets.Checked = True Or frmShoppingAssets.rbtnCorpAssets.Checked = True Then
-                            SelectedCharacter.GetAssets.LoadAssets(SelectedCharacter.CharacterCorporation.CorporationID,
-                                                                   SelectedCharacter.CharacterTokenData, UserApplicationSettings.LoadAssetsonStartup)
-                        Else ' Just personal
-                            SelectedCharacter.GetAssets.LoadAssets(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData,
-                                                                   UserApplicationSettings.LoadAssetsonStartup)
-                        End If
-                        frmShoppingAssets.RefreshTree()
-                    End If
-                End If
-
-                If Not IsNothing(frmDefaultAssets) Then
-                    If Not frmDefaultAssets.IsDisposed Then
-                        If frmDefaultAssets.rbtnAllAssets.Checked = True Or frmDefaultAssets.rbtnCorpAssets.Checked = True Then
-                            SelectedCharacter.GetAssets.LoadAssets(SelectedCharacter.CharacterCorporation.CorporationID,
-                                                                   SelectedCharacter.CharacterTokenData, UserApplicationSettings.LoadAssetsonStartup)
-                        Else ' Just personal
-                            SelectedCharacter.GetAssets.LoadAssets(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData,
-                                                                   UserApplicationSettings.LoadAssetsonStartup)
-                        End If
-                        frmDefaultAssets.RefreshTree()
-                    End If
-                End If
-            End If
-            Application.DoEvents()
-        Else
-            MsgBox("You do not have an asset location selected", vbInformation, Application.ProductName)
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
-
-    End Sub
-
-    ' Updates the assets table reflecting that you "used" the materials already in the shopping list
-    Private Sub UpdateUsedAssets(MaterialTypeID As Long, UserQuantity As Long, UsedQuantity As Long)
-        Dim SQL As String
-        Dim IDString As String = ""
-        Dim readerAssets As SQLite.SQLiteDataReader
-        Dim UsedQuantityRemaining As Long = 0
-        Dim LocUserQuantity As Long = 0
-        Dim LocationID As Long = 0
-
-        If UserAssetWindowShoppingListSettings.AssetType = "Both" Then
-            IDString = CStr(SelectedCharacter.ID) & "," & CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Personal" Then
-            IDString = CStr(SelectedCharacter.ID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Corporation" Then
-            IDString = CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        End If
-
-        If UserQuantity <= UsedQuantity Then
-            ' Need to just delete the records because we are using everything we have in all locations
-            SQL = "DELETE FROM ASSETS WHERE TypeID = " & MaterialTypeID & " AND LocationID IN"
-            SQL = SQL & " (SELECT LocationID FROM ASSET_LOCATIONS WHERE EnumAssetType = " & CStr(AssetWindow.ShoppingList) & " AND ID IN (" & IDString & "))"
-            SQL = SQL & " AND ID IN (" & IDString & ")"
-
-            Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-        Else ' Only using part of what we have
-            ' Look up each item in their assets in their locations stored, and loop through them
-            SQL = "SELECT Quantity, LocationID FROM ASSETS, INVENTORY_TYPES WHERE LocationID IN"
-            SQL = SQL & " (SELECT LocationID FROM ASSET_LOCATIONS WHERE EnumAssetType = " & CStr(AssetWindow.ShoppingList) & " AND ID IN (" & IDString & "))"
-            SQL = SQL & " AND ID IN (" & IDString & ")"
-            SQL = SQL & " AND INVENTORY_TYPES.typeID = ASSETS.TypeID"
-            SQL = SQL & " AND ASSETS.TypeID = " & MaterialTypeID
-            SQL = SQL & " ORDER BY Quantity DESC"
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerAssets = DBCommand.ExecuteReader
-
-            UsedQuantityRemaining = UsedQuantity
-
-            While readerAssets.Read
-                LocUserQuantity = readerAssets.GetInt64(0)
-                LocationID = readerAssets.GetInt64(1)
-
-                ' Keep track of what we need to update - we have more than we need to build this item, so need to update that total from our summed mins
-                If LocUserQuantity > UsedQuantityRemaining Then
-                    ' Whatever we have in this location is greater than the quantity remaining, so update this and leave loop
-                    SQL = "UPDATE ASSETS SET Quantity = " & LocUserQuantity - UsedQuantityRemaining
-                    SQL = SQL & " WHERE TypeID = " & MaterialTypeID & " AND LocationID = " & CStr(LocationID) ' Locid set above so it's good
-                    SQL = SQL & " AND ID IN (" & IDString & ")"
-
-                    Call EVEDB.ExecuteNonQuerySQL(SQL)
-                    Exit While
-                Else
-                    ' Its less than or equal to the quantity so we need to delete this location's value and update the used quantity
-                    SQL = "DELETE FROM ASSETS WHERE TypeID = " & MaterialTypeID & " AND LocationID = " & CStr(LocationID)
-                    SQL = SQL & " AND ID IN (" & IDString & ")"
-                    Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                    ' Update used quantity
-                    UsedQuantityRemaining = UsedQuantityRemaining - LocUserQuantity
-
-                End If
-
-            End While
-
-        End If
-
-    End Sub
-
-    ' Close the form
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        Me.Hide()
-    End Sub
-
     ' Clears the lists and variables
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         If MsgBox("Delete all items in the shopping list?", CType(vbYesNo + vbQuestion, MsgBoxStyle), Application.ProductName) = vbYes Then
             Call ClearLists()
-            btnClear.Enabled = False
-            gbUpdateList.Enabled = False
             Call PlayNotifySound()
             frmMain.pnlShoppingList.Text = "No Items in Shopping List"
             frmMain.pnlShoppingList.ForeColor = Color.Black
-            lblTotalItemsInList.Text = "0" & vbCrLf & "Items in list"
         End If
 
     End Sub
 
     ' Save the few settings on the form to xml
-    Private Sub btnSaveSettings_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSettings.Click
+    Public Sub saveSettings()
         Dim TempList As ShoppingListSettings = Nothing
         Dim TempSettings As New ProgramSettings
 
-        TempList.AlwaysonTop = chkAlwaysOnTop.Checked
         If rbtnExportDefault.Checked Then
             TempList.DataExportFormat = rbtnExportDefault.Text
-        ElseIf rbtnExportCSV.Checked Then
-            TempList.DataExportFormat = rbtnExportCSV.Text
-        ElseIf rbtnExportSSV.Checked Then
-            TempList.DataExportFormat = rbtnExportSSV.Text
         ElseIf rbtnExportMulitBuy.Checked Then
             TempList.DataExportFormat = rbtnExportMulitBuy.Text
         End If
@@ -988,13 +576,12 @@ Public Class frmShoppingList
         ' Save the data in the XML file
         Call TempSettings.SaveShoppingListSettings(TempList)
 
-        MsgBox("Shopping List Settings Saved", vbInformation, Application.ProductName)
         Application.UseWaitCursor = False
 
     End Sub
 
     ' Save the lists to file 
-    Private Sub btnSaveListToFile_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveListToFile.Click
+    Private Sub btnSaveListToFile_Click(sender As System.Object, e As System.EventArgs)
         Dim MyStream As StreamWriter
         Dim FileName As String
         Dim OutputText As String
@@ -1010,34 +597,14 @@ Public Class frmShoppingList
         Dim ItemsListHeader As String
         Dim Separator As String
 
-        If rbtnExportCSV.Checked Then
-            ' Save file name with date
-            FileName = "Shopping List - " & Format(Now, "MMddyyyy") & ".csv"
-            ExportTypeString = CSVDataExport
-            Separator = ","
-            BuyListHeader = BuyListHeaderCSV
-            BuildListHeader = BuildListHeaderCSV & BuildListHeaderCSVAdd
-            ItemsListHeader = ItemsListHeaderCSV & ItemsListHeaderCSVAdd
-            SaveFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*"
-        ElseIf rbtnExportSSV.Checked Then
-            ' Save file name with date
-            FileName = "Shopping List - " & Format(Now, "MMddyyyy") & ".ssv"
-            ExportTypeString = SSVDataExport
-            Separator = ";"
-            BuyListHeader = BuyListHeaderSSV
-            BuildListHeader = BuildListHeaderSSV & BuildListHeaderSSVAdd
-            ItemsListHeader = ItemsListHeaderSSV & ItemsListHeaderSSVAdd
-            SaveFileDialog.Filter = "ssv files (*.ssv*)|*.ssv*|All files (*.*)|*.*"
-        Else
-            ' Save file name with date
-            FileName = "Shopping List - " & Format(Now, "MMddyyyy") & ".txt"
-            ExportTypeString = DefaultTextDataExport
-            Separator = "|"
-            BuyListHeader = BuyListHeaderTXT
-            BuildListHeader = BuildListHeaderTXT & BuildListHeaderTXTAdd
-            ItemsListHeader = ItemsListHeaderTXT & ItemsListHeaderTXTAdd
-            SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-        End If
+        ' Save file name with date
+        FileName = "Shopping List - " & Format(Now, "MMddyyyy") & ".txt"
+        ExportTypeString = DefaultTextDataExport
+        Separator = "|"
+        BuyListHeader = BuyListHeaderTXT
+        BuildListHeader = BuildListHeaderTXT & BuildListHeaderTXTAdd
+        ItemsListHeader = ItemsListHeaderTXT & ItemsListHeaderTXTAdd
+        SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 
         SaveFileDialog.FilterIndex = 1
         SaveFileDialog.RestoreDirectory = True
@@ -1095,9 +662,6 @@ Public Class frmShoppingList
                     End If
 
                     MyStream.Write("" & Environment.NewLine)
-
-                    ' Output the build list
-                    Items = lstBuild.Items
 
                     If Items.Count > 0 Then
                         Cursor.Current = Cursors.WaitCursor
@@ -1226,20 +790,12 @@ Public Class frmShoppingList
 
         ' Get the order of the list of items that they set up by clicking on the columns - They could sort on any column so focus on unique columns to sort
         ReDim MatList(lstBuy.Items.Count - 1)
-        ReDim BuildList(lstBuild.Items.Count - 1)
         ReDim ItemList(lstItems.Items.Count - 1)
 
         i = 0
         ' Material sort order - Just Name
         For Each item As ListViewItem In lstBuy.Items
             MatList(i) = item.SubItems(1).Text
-            i += 1
-        Next
-
-        i = 0
-        ' Build item sort order - Name, Quantity, and ME
-        For Each item As ListViewItem In lstBuild.Items
-            BuildList(i) = item.SubItems(1).Text & "|" & item.SubItems(2).Text & "|" & item.SubItems(3).Text
             i += 1
         Next
 
@@ -1252,11 +808,7 @@ Public Class frmShoppingList
 
         Dim ExportTypeString As String
 
-        If rbtnExportCSV.Checked Then
-            ExportTypeString = CSVDataExport
-        ElseIf rbtnExportSSV.Checked Then
-            ExportTypeString = SSVDataExport
-        ElseIf rbtnExportMulitBuy.Checked Then
+        If rbtnExportMulitBuy.Checked Then
             ExportTypeString = MultiBuyDataExport
         Else
             ExportTypeString = DefaultTextDataExport
@@ -1267,7 +819,7 @@ Public Class frmShoppingList
 
     End Sub
 
-    Private Sub btnShowAssets_Click(sender As System.Object, e As System.EventArgs) Handles btnShowAssets.Click
+    Private Sub btnShowAssets_Click(sender As System.Object, e As System.EventArgs)
         ' Make sure it's not disposed
         If IsNothing(frmShoppingAssets) Then
             ' Make new form
@@ -1367,67 +919,6 @@ Public Class frmShoppingList
         End If
     End Function
 
-    Private Sub btnCopyPasteAssets_Click(sender As System.Object, e As System.EventArgs) Handles btnCopyPasteAssets.Click
-        Dim f1 As New frmCopyandPaste(CopyPasteWindowType.Materials)
-
-        f1.ShowDialog()
-
-        ' Update with new materials
-        If CopyPasteMaterialText <> "" Then
-            CutPasteUpdate = True
-            Call UpdateShoppingListwithAssets(ImportCopyPasteText(CopyPasteMaterialText))
-            ' Refresh lists
-            Call RefreshLists()
-        End If
-
-        CutPasteUpdate = False
-
-        f1.Dispose()
-
-    End Sub
-
-    Private Sub lstBuild_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstBuild.ColumnClick
-        Call ListViewColumnSorter(e.Column, CType(lstBuild, ListView), BuildListColumnClicked, BuildListColumnSortOrder)
-    End Sub
-
-    ' Don't allow the first column to show with resize
-    Private Sub lstBuild_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs) Handles lstBuild.ColumnWidthChanging
-        If e.ColumnIndex = 0 Or e.ColumnIndex > 4 Then
-            e.Cancel = True
-            e.NewWidth = lstItems.Columns(e.ColumnIndex).Width
-        End If
-    End Sub
-
-    ' Double Click build and load the blueprint for the component they clicked
-    Private Sub lstBuild_DoubleClick(sender As Object, e As System.EventArgs) Handles lstBuild.DoubleClick
-        Dim rsBPLookup As SQLiteDataReader
-        Dim SQL As String
-
-        If lstBuild.SelectedItems.Count <> 0 Then
-            SQL = "SELECT BLUEPRINT_ID, PORTION_SIZE FROM ALL_BLUEPRINTS WHERE ITEM_ID = " & lstBuild.SelectedItems(0).SubItems(0).Text
-
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            rsBPLookup = DBCommand.ExecuteReader
-            rsBPLookup.Read()
-
-            Dim Runs As Integer = CInt(Math.Ceiling(CInt(lstBuild.SelectedItems(0).SubItems(2).Text) / rsBPLookup.GetInt64(1)))
-
-            Dim BFI As BrokerFeeInfo
-            BFI.IncludeFee = CType(UserBPTabSettings.IncludeFees, BrokerFeeType)
-            BFI.FixedRate = UserBPTabSettings.BrokerFeeRate
-
-            Call frmMain.LoadBPfromEvent(rsBPLookup.GetInt64(0), "Raw", None, SentFromLocation.ShoppingList,
-                                               Nothing, Nothing, Nothing, Nothing, Nothing,
-                                               UserBPTabSettings.IncludeTaxes, BFI,
-                                               lstBuild.SelectedItems(0).SubItems(3).Text, lstBuild.SelectedItems(0).SubItems(4).Text,
-                                               CStr(Runs), "1", CStr(UserBPTabSettings.LaboratoryLines),
-                                               "1", txtAddlCosts.Text, False) ' Any buildable component here is one 1 bp
-
-            rsBPLookup.Close()
-        End If
-
-    End Sub
-
     Private Sub lstItems_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstItems.ColumnClick
         Call ListViewColumnSorter(e.Column, CType(lstItems, ListView), ItemListColumnClicked, ItemListColumnSortOrder)
     End Sub
@@ -1492,12 +983,6 @@ Public Class frmShoppingList
 
     Private Sub lstBuy_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lstBuy.ColumnClick
         Call ListViewColumnSorter(e.Column, CType(lstBuy, ListView), BuyListColumnClicked, BuyListColumnSortOrder)
-    End Sub
-
-    Private Sub lstBuild_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles lstBuild.KeyDown
-        If e.KeyCode = Keys.Delete Then
-            Call DeleteBuilds()
-        End If
     End Sub
 
     ' Don't allow resizing of the first oclumn (hidden)
@@ -1584,31 +1069,12 @@ Public Class frmShoppingList
 
     End Sub
 
-    Private Sub DeleteBuildStrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles DeleteBuildStrip.Opening
-
-        If lstBuild.SelectedItems.Count = 0 Then
-            e.Cancel = True
-        End If
-
-        ' Change the name of the strip to allow for multiple mat selection
-        If lstBuild.SelectedItems.Count > 1 Then
-            DeleteMaterial.Text = "Delete Build Items"
-        Else
-            DeleteMaterial.Text = "Delete Build Item"
-        End If
-
-    End Sub
-
     Private Sub DeleteItemStrip_Click(sender As System.Object, e As System.EventArgs) Handles DeleteItem.Click
         Call DeleteItems()
     End Sub
 
     Private Sub DeleteMaterialStrip_Click(sender As System.Object, e As System.EventArgs) Handles DeleteMaterial.Click
         Call DeleteMaterials()
-    End Sub
-
-    Private Sub DeleteBuildStrip_Click(sender As System.Object, e As System.EventArgs) Handles DeleteBuildItem.Click
-        Call DeleteBuilds()
     End Sub
 
     Private Sub DeleteItems()
@@ -1660,30 +1126,6 @@ Public Class frmShoppingList
             Call RefreshLists()
 
         End If
-    End Sub
-
-    Private Sub DeleteBuilds()
-        Dim TempBuiltItem As New BuiltItem
-        Dim i As Integer
-
-        If lstBuild.SelectedItems.Count > 0 Then
-            For i = 0 To lstBuild.SelectedItems.Count - 1
-                TempBuiltItem.ItemTypeID = CLng(lstBuild.SelectedItems(i).SubItems(0).Text)
-                TempBuiltItem.ItemName = lstBuild.SelectedItems(i).SubItems(1).Text
-                TempBuiltItem.ItemQuantity = CLng(lstBuild.SelectedItems(i).SubItems(2).Text)
-                TempBuiltItem.BuildME = CInt(lstBuild.SelectedItems(i).SubItems(3).Text)
-                TempBuiltItem.ManufacturingFacility.FacilityName = lstBuild.SelectedItems(i).SubItems(5).Text
-
-                ' Remove it from shopping list, sending the grid quantity
-                TotalShoppingList.UpdateShoppingBuiltItemQuantity(TempBuiltItem, 0)
-            Next
-
-        End If
-
-        ' Just updated, so notify
-        Call PlayNotifySound()
-        Call RefreshLists()
-
     End Sub
 
 #End Region
@@ -1925,28 +1367,6 @@ Public Class frmShoppingList
                     ' Update the buy list
                     Call TotalShoppingList.UpdateShoppingBuyQuantity(CurrentRow.SubItems(1).Text, QuantityValue)
 
-                ElseIf ListRef.Name = lstBuild.Name Then ' The components we are building to make the item
-                    ' Check the numbers, if the same then don't update
-                    If QuantityValue = CInt(CurrentRow.SubItems(2).Text) Then
-                        ' Skip down
-                        GoTo Tabs
-                    End If
-
-                    Dim TempBuiltItem As New BuiltItem
-                    TempBuiltItem.ItemTypeID = CLng(CurrentRow.SubItems(0).Text)
-                    TempBuiltItem.ItemName = CurrentRow.SubItems(1).Text
-                    TempBuiltItem.ItemQuantity = CLng(CurrentRow.SubItems(2).Text)
-                    TempBuiltItem.BuildME = CInt(CurrentRow.SubItems(3).Text)
-                    TempBuiltItem.ManufacturingFacility.FacilityName = CurrentRow.SubItems(5).Text
-
-                    ' Save the built components they probably have on hand to make this change - calc from value in grid vs. value entered
-                    Dim OnHandQuantity As Long = CLng(CurrentRow.SubItems(2).Text) - QuantityValue
-                    Dim OnHandMaterial As New Material(0, CurrentRow.SubItems(1).Text, "", OnHandQuantity, 0, 0, 0, "", "")
-                    TotalShoppingList.OnHandComponentList.InsertMaterial(OnHandMaterial)
-
-                    ' Update the build list
-                    Call TotalShoppingList.UpdateShoppingBuiltItemQuantity(TempBuiltItem, QuantityValue)
-
                 ElseIf ListRef.Name = lstItems.Name Then ' The items we are building
                     ' Check the numbers, if the same then don't update
                     If QuantityValue = CInt(CurrentRow.SubItems(2).Text) Then
@@ -2133,13 +1553,6 @@ Tabs:
         txtListEdit.Visible = False
     End Sub
 
-    ' Grid clicks
-    Private Sub lstBuild_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lstBuild.MouseClick
-        If e.Button <> Windows.Forms.MouseButtons.Right And Not (My.Computer.Keyboard.ShiftKeyDown Or My.Computer.Keyboard.CtrlKeyDown) Then
-            Call ListClicked(lstBuild, sender, e)
-        End If
-    End Sub
-
     Private Sub lstBuy_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lstBuy.MouseClick
         If e.Button <> Windows.Forms.MouseButtons.Right And Not (My.Computer.Keyboard.ShiftKeyDown Or My.Computer.Keyboard.CtrlKeyDown) Then
             Call ListClicked(lstBuy, sender, e)
@@ -2153,7 +1566,7 @@ Tabs:
     End Sub
 
     ' Detects Scroll event and hides boxes
-    Private Sub lstBuild_ProcMsg(ByVal m As System.Windows.Forms.Message) Handles lstBuild.ProcMsg
+    Private Sub lstBuild_ProcMsg(ByVal m As System.Windows.Forms.Message)
         txtListEdit.Hide()
     End Sub
 
@@ -2165,46 +1578,6 @@ Tabs:
     ' Detects Scroll event and hides boxes
     Private Sub lstItems_ProcMsg(ByVal m As System.Windows.Forms.Message) Handles lstItems.ProcMsg
         txtListEdit.Hide()
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim AccessTokenOutput As New ESITokenData
-        Dim Success As Boolean = False
-        Dim WC As New WebClient
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-        Dim Response As Byte()
-        Dim Data As String = ""
-        Dim PostParameters As New NameValueCollection
-
-        Try
-
-            ' See if we are in an error limited state
-            If ESIErrorHandler.ErrorLimitReached Then
-                ' Need to wait until we are ready to continue
-                Call Thread.Sleep(ESIErrorHandler.msErrorTimer)
-            End If
-
-            'curl -XPOST "https://evepraisal.com/appraisal/structured.json?market=jita" --data '{"market_name": "jita", "items": [{"name": "Rifter"}, {"type_id": 34}]}'
-
-
-            Response = WC.UploadValues("https://evepraisal.com/appraisal.json?market=dodixie&raw_textarea=basilisk", "POST", PostParameters)
-
-            ' Convert byte data to string
-            Data = Encoding.UTF8.GetString(Response)
-
-            ' Parse the data to the class
-            AccessTokenOutput = JsonConvert.DeserializeObject(Of ESITokenData)(Data)
-            Success = True
-
-        Catch ex As WebException
-
-            Call ESIErrorHandler.ProcessWebException(ex, ESIErrorProcessor.ESIErrorLocation.AccessToken, False, "")
-
-        Catch ex As Exception
-            Call ESIErrorHandler.ProcessException(ex, ESIErrorProcessor.ESIErrorLocation.AccessToken, False)
-        End Try
-
-
     End Sub
 
     Private Sub chkFees_Click(sender As Object, e As EventArgs) Handles chkFees.Click

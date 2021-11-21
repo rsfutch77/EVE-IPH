@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmShoppingList
     Inherits System.Windows.Forms.UserControl
 
@@ -23,13 +23,10 @@ Partial Class frmShoppingList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmShoppingList))
         Me.lblTotalCost = New System.Windows.Forms.Label()
         Me.lblTC = New System.Windows.Forms.Label()
         Me.lblTV = New System.Windows.Forms.Label()
         Me.lblTotalVolume = New System.Windows.Forms.Label()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnClear = New System.Windows.Forms.Button()
         Me.btnCopy = New System.Windows.Forms.Button()
         Me.DeleteBuildStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteBuildItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,51 +39,35 @@ Partial Class frmShoppingList
         Me.lblTotalBuiltVolume = New System.Windows.Forms.Label()
         Me.lblTotalBuiltVolume1 = New System.Windows.Forms.Label()
         Me.ttMain = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnUpdateListwithAssets = New System.Windows.Forms.Button()
-        Me.btnMineThis = New System.Windows.Forms.Button()
         Me.chkUpdateAssetsWhenUsed = New System.Windows.Forms.CheckBox()
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnSaveListToFile = New System.Windows.Forms.Button()
-        Me.btnLoadListFromFile = New System.Windows.Forms.Button()
         Me.gbOptions = New System.Windows.Forms.GroupBox()
         Me.lblFeeRate = New System.Windows.Forms.Label()
         Me.chkBuyorBuyOrder = New System.Windows.Forms.CheckBox()
         Me.txtBrokerFeeRate = New MetroFramework.Controls.MetroTextBox()
-        Me.chkAlwaysOnTop = New System.Windows.Forms.CheckBox()
         Me.lblUsage = New System.Windows.Forms.Label()
         Me.chkUsage = New System.Windows.Forms.CheckBox()
         Me.lblFees = New System.Windows.Forms.Label()
         Me.gbExportOptions = New System.Windows.Forms.GroupBox()
         Me.rbtnExportMulitBuy = New System.Windows.Forms.RadioButton()
-        Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
-        Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
         Me.txtAddlCosts = New System.Windows.Forms.TextBox()
         Me.chkFees = New System.Windows.Forms.CheckBox()
         Me.lblAddlCosts = New System.Windows.Forms.Label()
         Me.chkRebuildItemsfromList = New System.Windows.Forms.CheckBox()
-        Me.btnSaveSettings = New System.Windows.Forms.Button()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblItemstoBuy = New System.Windows.Forms.Label()
         Me.lblItemstoBuild = New System.Windows.Forms.Label()
-        Me.lblComponentstoBuild = New System.Windows.Forms.Label()
-        Me.btnCopyPasteAssets = New System.Windows.Forms.Button()
-        Me.btnShowAssets = New System.Windows.Forms.Button()
-        Me.gbUpdateList = New System.Windows.Forms.GroupBox()
-        Me.lblTotalItemsInList = New System.Windows.Forms.Label()
         Me.lstBuy = New EVE_Isk_per_Hour.MyListView()
         Me.lstItems = New EVE_Isk_per_Hour.MyListView()
-        Me.lstBuild = New EVE_Isk_per_Hour.MyListView()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
         Me.DeleteMaterialStrip.SuspendLayout()
         Me.gbOptions.SuspendLayout()
         Me.gbExportOptions.SuspendLayout()
-        Me.gbUpdateList.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblTotalCost
@@ -135,30 +116,10 @@ Partial Class frmShoppingList
         Me.lblTotalVolume.TabIndex = 29
         Me.lblTotalVolume.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnClose
-        '
-        Me.btnClose.Location = New System.Drawing.Point(134, 806)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(118, 40)
-        Me.btnClose.TabIndex = 7
-        Me.btnClose.Text = "Exit"
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
-        'btnClear
-        '
-        Me.btnClear.Location = New System.Drawing.Point(9, 806)
-        Me.btnClear.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(118, 40)
-        Me.btnClear.TabIndex = 6
-        Me.btnClear.Text = "Clear List"
-        Me.btnClear.UseVisualStyleBackColor = True
-        '
         'btnCopy
         '
         Me.btnCopy.Location = New System.Drawing.Point(9, 679)
-        Me.btnCopy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(118, 40)
         Me.btnCopy.TabIndex = 0
@@ -264,35 +225,13 @@ Partial Class frmShoppingList
         '
         Me.ttMain.IsBalloon = True
         '
-        'btnUpdateListwithAssets
-        '
-        Me.btnUpdateListwithAssets.Location = New System.Drawing.Point(10, 19)
-        Me.btnUpdateListwithAssets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnUpdateListwithAssets.Name = "btnUpdateListwithAssets"
-        Me.btnUpdateListwithAssets.Size = New System.Drawing.Size(145, 60)
-        Me.btnUpdateListwithAssets.TabIndex = 19
-        Me.btnUpdateListwithAssets.Text = "Update with Selected Assets"
-        Me.btnUpdateListwithAssets.UseVisualStyleBackColor = True
-        '
-        'btnMineThis
-        '
-        Me.btnMineThis.ForeColor = System.Drawing.Color.Red
-        Me.btnMineThis.Location = New System.Drawing.Point(134, 721)
-        Me.btnMineThis.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnMineThis.Name = "btnMineThis"
-        Me.btnMineThis.Size = New System.Drawing.Size(118, 40)
-        Me.btnMineThis.TabIndex = 1
-        Me.btnMineThis.Text = "Mine This!"
-        Me.btnMineThis.UseVisualStyleBackColor = True
-        Me.btnMineThis.Visible = False
-        '
         'chkUpdateAssetsWhenUsed
         '
         Me.chkUpdateAssetsWhenUsed.AutoSize = True
         Me.chkUpdateAssetsWhenUsed.Checked = True
         Me.chkUpdateAssetsWhenUsed.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkUpdateAssetsWhenUsed.Location = New System.Drawing.Point(8, 124)
-        Me.chkUpdateAssetsWhenUsed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkUpdateAssetsWhenUsed.Margin = New System.Windows.Forms.Padding(4)
         Me.chkUpdateAssetsWhenUsed.Name = "chkUpdateAssetsWhenUsed"
         Me.chkUpdateAssetsWhenUsed.Size = New System.Drawing.Size(200, 21)
         Me.chkUpdateAssetsWhenUsed.TabIndex = 10
@@ -301,8 +240,8 @@ Partial Class frmShoppingList
         '
         'txtListEdit
         '
-        Me.txtListEdit.Location = New System.Drawing.Point(990, 369)
-        Me.txtListEdit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtListEdit.Location = New System.Drawing.Point(1008, -1)
+        Me.txtListEdit.Margin = New System.Windows.Forms.Padding(4)
         Me.txtListEdit.Name = "txtListEdit"
         Me.txtListEdit.Size = New System.Drawing.Size(59, 22)
         Me.txtListEdit.TabIndex = 40
@@ -322,34 +261,11 @@ Partial Class frmShoppingList
         Me.DeleteMaterial.Size = New System.Drawing.Size(181, 24)
         Me.DeleteMaterial.Text = "Delete Material"
         '
-        'btnSaveListToFile
-        '
-        Me.btnSaveListToFile.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnSaveListToFile.Location = New System.Drawing.Point(9, 721)
-        Me.btnSaveListToFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnSaveListToFile.Name = "btnSaveListToFile"
-        Me.btnSaveListToFile.Size = New System.Drawing.Size(118, 40)
-        Me.btnSaveListToFile.TabIndex = 2
-        Me.btnSaveListToFile.Text = "Save List"
-        Me.btnSaveListToFile.UseVisualStyleBackColor = True
-        '
-        'btnLoadListFromFile
-        '
-        Me.btnLoadListFromFile.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnLoadListFromFile.Location = New System.Drawing.Point(9, 764)
-        Me.btnLoadListFromFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnLoadListFromFile.Name = "btnLoadListFromFile"
-        Me.btnLoadListFromFile.Size = New System.Drawing.Size(118, 40)
-        Me.btnLoadListFromFile.TabIndex = 4
-        Me.btnLoadListFromFile.Text = "Load List"
-        Me.btnLoadListFromFile.UseVisualStyleBackColor = True
-        '
         'gbOptions
         '
         Me.gbOptions.Controls.Add(Me.lblFeeRate)
         Me.gbOptions.Controls.Add(Me.chkBuyorBuyOrder)
         Me.gbOptions.Controls.Add(Me.txtBrokerFeeRate)
-        Me.gbOptions.Controls.Add(Me.chkAlwaysOnTop)
         Me.gbOptions.Controls.Add(Me.lblUsage)
         Me.gbOptions.Controls.Add(Me.chkUsage)
         Me.gbOptions.Controls.Add(Me.lblFees)
@@ -359,9 +275,9 @@ Partial Class frmShoppingList
         Me.gbOptions.Controls.Add(Me.chkUpdateAssetsWhenUsed)
         Me.gbOptions.Controls.Add(Me.lblAddlCosts)
         Me.gbOptions.Location = New System.Drawing.Point(268, 672)
-        Me.gbOptions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.gbOptions.Name = "gbOptions"
-        Me.gbOptions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbOptions.Padding = New System.Windows.Forms.Padding(4)
         Me.gbOptions.Size = New System.Drawing.Size(401, 176)
         Me.gbOptions.TabIndex = 8
         Me.gbOptions.TabStop = False
@@ -384,7 +300,7 @@ Partial Class frmShoppingList
         Me.chkBuyorBuyOrder.Checked = True
         Me.chkBuyorBuyOrder.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBuyorBuyOrder.Location = New System.Drawing.Point(8, 44)
-        Me.chkBuyorBuyOrder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkBuyorBuyOrder.Margin = New System.Windows.Forms.Padding(4)
         Me.chkBuyorBuyOrder.Name = "chkBuyorBuyOrder"
         Me.chkBuyorBuyOrder.Size = New System.Drawing.Size(240, 21)
         Me.chkBuyorBuyOrder.TabIndex = 13
@@ -398,10 +314,10 @@ Partial Class frmShoppingList
         '
         '
         Me.txtBrokerFeeRate.CustomButton.Image = Nothing
-        Me.txtBrokerFeeRate.CustomButton.Location = New System.Drawing.Point(45, 1)
-        Me.txtBrokerFeeRate.CustomButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtBrokerFeeRate.CustomButton.Location = New System.Drawing.Point(36, 1)
+        Me.txtBrokerFeeRate.CustomButton.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBrokerFeeRate.CustomButton.Name = ""
-        Me.txtBrokerFeeRate.CustomButton.Size = New System.Drawing.Size(29, 29)
+        Me.txtBrokerFeeRate.CustomButton.Size = New System.Drawing.Size(23, 23)
         Me.txtBrokerFeeRate.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
         Me.txtBrokerFeeRate.CustomButton.TabIndex = 1
         Me.txtBrokerFeeRate.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
@@ -409,7 +325,7 @@ Partial Class frmShoppingList
         Me.txtBrokerFeeRate.CustomButton.Visible = False
         Me.txtBrokerFeeRate.Lines = New String(-1) {}
         Me.txtBrokerFeeRate.Location = New System.Drawing.Point(311, 16)
-        Me.txtBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtBrokerFeeRate.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBrokerFeeRate.MaxLength = 32767
         Me.txtBrokerFeeRate.Name = "txtBrokerFeeRate"
         Me.txtBrokerFeeRate.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -425,17 +341,6 @@ Partial Class frmShoppingList
         Me.txtBrokerFeeRate.Visible = False
         Me.txtBrokerFeeRate.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.txtBrokerFeeRate.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'chkAlwaysOnTop
-        '
-        Me.chkAlwaysOnTop.AutoSize = True
-        Me.chkAlwaysOnTop.Location = New System.Drawing.Point(8, 146)
-        Me.chkAlwaysOnTop.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.chkAlwaysOnTop.Name = "chkAlwaysOnTop"
-        Me.chkAlwaysOnTop.Size = New System.Drawing.Size(122, 21)
-        Me.chkAlwaysOnTop.TabIndex = 9
-        Me.chkAlwaysOnTop.Text = "Always on Top"
-        Me.chkAlwaysOnTop.UseVisualStyleBackColor = True
         '
         'lblUsage
         '
@@ -454,7 +359,7 @@ Partial Class frmShoppingList
         Me.chkUsage.Checked = True
         Me.chkUsage.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkUsage.Location = New System.Drawing.Point(8, 69)
-        Me.chkUsage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkUsage.Margin = New System.Windows.Forms.Padding(4)
         Me.chkUsage.Name = "chkUsage"
         Me.chkUsage.Size = New System.Drawing.Size(75, 21)
         Me.chkUsage.TabIndex = 14
@@ -475,13 +380,11 @@ Partial Class frmShoppingList
         'gbExportOptions
         '
         Me.gbExportOptions.Controls.Add(Me.rbtnExportMulitBuy)
-        Me.gbExportOptions.Controls.Add(Me.rbtnExportSSV)
-        Me.gbExportOptions.Controls.Add(Me.rbtnExportCSV)
         Me.gbExportOptions.Controls.Add(Me.rbtnExportDefault)
         Me.gbExportOptions.Location = New System.Drawing.Point(240, 62)
-        Me.gbExportOptions.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbExportOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.gbExportOptions.Name = "gbExportOptions"
-        Me.gbExportOptions.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gbExportOptions.Padding = New System.Windows.Forms.Padding(4)
         Me.gbExportOptions.Size = New System.Drawing.Size(154, 108)
         Me.gbExportOptions.TabIndex = 74
         Me.gbExportOptions.TabStop = False
@@ -491,7 +394,7 @@ Partial Class frmShoppingList
         '
         Me.rbtnExportMulitBuy.AutoSize = True
         Me.rbtnExportMulitBuy.Location = New System.Drawing.Point(10, 19)
-        Me.rbtnExportMulitBuy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rbtnExportMulitBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnExportMulitBuy.Name = "rbtnExportMulitBuy"
         Me.rbtnExportMulitBuy.Size = New System.Drawing.Size(151, 21)
         Me.rbtnExportMulitBuy.TabIndex = 3
@@ -499,35 +402,11 @@ Partial Class frmShoppingList
         Me.rbtnExportMulitBuy.Text = "Multi-Buy (Buy List)"
         Me.rbtnExportMulitBuy.UseVisualStyleBackColor = True
         '
-        'rbtnExportSSV
-        '
-        Me.rbtnExportSSV.AutoSize = True
-        Me.rbtnExportSSV.Location = New System.Drawing.Point(10, 82)
-        Me.rbtnExportSSV.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.rbtnExportSSV.Name = "rbtnExportSSV"
-        Me.rbtnExportSSV.Size = New System.Drawing.Size(56, 21)
-        Me.rbtnExportSSV.TabIndex = 2
-        Me.rbtnExportSSV.TabStop = True
-        Me.rbtnExportSSV.Text = "SSV"
-        Me.rbtnExportSSV.UseVisualStyleBackColor = True
-        '
-        'rbtnExportCSV
-        '
-        Me.rbtnExportCSV.AutoSize = True
-        Me.rbtnExportCSV.Location = New System.Drawing.Point(10, 61)
-        Me.rbtnExportCSV.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.rbtnExportCSV.Name = "rbtnExportCSV"
-        Me.rbtnExportCSV.Size = New System.Drawing.Size(56, 21)
-        Me.rbtnExportCSV.TabIndex = 1
-        Me.rbtnExportCSV.TabStop = True
-        Me.rbtnExportCSV.Text = "CSV"
-        Me.rbtnExportCSV.UseVisualStyleBackColor = True
-        '
         'rbtnExportDefault
         '
         Me.rbtnExportDefault.AutoSize = True
         Me.rbtnExportDefault.Location = New System.Drawing.Point(10, 40)
-        Me.rbtnExportDefault.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rbtnExportDefault.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnExportDefault.Name = "rbtnExportDefault"
         Me.rbtnExportDefault.Size = New System.Drawing.Size(74, 21)
         Me.rbtnExportDefault.TabIndex = 0
@@ -538,7 +417,7 @@ Partial Class frmShoppingList
         'txtAddlCosts
         '
         Me.txtAddlCosts.Location = New System.Drawing.Point(79, 94)
-        Me.txtAddlCosts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtAddlCosts.Margin = New System.Windows.Forms.Padding(4)
         Me.txtAddlCosts.MaxLength = 15
         Me.txtAddlCosts.Name = "txtAddlCosts"
         Me.txtAddlCosts.Size = New System.Drawing.Size(139, 22)
@@ -552,7 +431,7 @@ Partial Class frmShoppingList
         Me.chkFees.Checked = True
         Me.chkFees.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkFees.Location = New System.Drawing.Point(8, 19)
-        Me.chkFees.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkFees.Margin = New System.Windows.Forms.Padding(4)
         Me.chkFees.Name = "chkFees"
         Me.chkFees.Size = New System.Drawing.Size(65, 21)
         Me.chkFees.TabIndex = 11
@@ -574,23 +453,12 @@ Partial Class frmShoppingList
         '
         Me.chkRebuildItemsfromList.AutoSize = True
         Me.chkRebuildItemsfromList.Location = New System.Drawing.Point(702, 802)
-        Me.chkRebuildItemsfromList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chkRebuildItemsfromList.Margin = New System.Windows.Forms.Padding(4)
         Me.chkRebuildItemsfromList.Name = "chkRebuildItemsfromList"
         Me.chkRebuildItemsfromList.Size = New System.Drawing.Size(233, 21)
         Me.chkRebuildItemsfromList.TabIndex = 79
         Me.chkRebuildItemsfromList.Text = "Rebuild Items when Loading List"
         Me.chkRebuildItemsfromList.UseVisualStyleBackColor = True
-        '
-        'btnSaveSettings
-        '
-        Me.btnSaveSettings.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnSaveSettings.Location = New System.Drawing.Point(134, 764)
-        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnSaveSettings.Name = "btnSaveSettings"
-        Me.btnSaveSettings.Size = New System.Drawing.Size(118, 40)
-        Me.btnSaveSettings.TabIndex = 5
-        Me.btnSaveSettings.Text = "Save Settings"
-        Me.btnSaveSettings.UseVisualStyleBackColor = True
         '
         'OpenFileDialog
         '
@@ -616,61 +484,6 @@ Partial Class frmShoppingList
         Me.lblItemstoBuild.Text = "Items to Build"
         Me.lblItemstoBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'lblComponentstoBuild
-        '
-        Me.lblComponentstoBuild.Location = New System.Drawing.Point(900, 404)
-        Me.lblComponentstoBuild.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblComponentstoBuild.Name = "lblComponentstoBuild"
-        Me.lblComponentstoBuild.Size = New System.Drawing.Size(460, 18)
-        Me.lblComponentstoBuild.TabIndex = 73
-        Me.lblComponentstoBuild.Text = "Components to Build"
-        Me.lblComponentstoBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'btnCopyPasteAssets
-        '
-        Me.btnCopyPasteAssets.Location = New System.Drawing.Point(10, 81)
-        Me.btnCopyPasteAssets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnCopyPasteAssets.Name = "btnCopyPasteAssets"
-        Me.btnCopyPasteAssets.Size = New System.Drawing.Size(210, 35)
-        Me.btnCopyPasteAssets.TabIndex = 21
-        Me.btnCopyPasteAssets.Text = "Copy and Paste Assets"
-        Me.btnCopyPasteAssets.UseVisualStyleBackColor = True
-        '
-        'btnShowAssets
-        '
-        Me.btnShowAssets.Image = CType(resources.GetObject("btnShowAssets.Image"), System.Drawing.Image)
-        Me.btnShowAssets.Location = New System.Drawing.Point(160, 19)
-        Me.btnShowAssets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.btnShowAssets.Name = "btnShowAssets"
-        Me.btnShowAssets.Size = New System.Drawing.Size(60, 60)
-        Me.btnShowAssets.TabIndex = 20
-        Me.btnShowAssets.UseVisualStyleBackColor = True
-        '
-        'gbUpdateList
-        '
-        Me.gbUpdateList.Controls.Add(Me.btnCopyPasteAssets)
-        Me.gbUpdateList.Controls.Add(Me.btnUpdateListwithAssets)
-        Me.gbUpdateList.Controls.Add(Me.btnShowAssets)
-        Me.gbUpdateList.Location = New System.Drawing.Point(676, 672)
-        Me.gbUpdateList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.gbUpdateList.Name = "gbUpdateList"
-        Me.gbUpdateList.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.gbUpdateList.Size = New System.Drawing.Size(230, 124)
-        Me.gbUpdateList.TabIndex = 18
-        Me.gbUpdateList.TabStop = False
-        Me.gbUpdateList.Text = "Update List Options:"
-        '
-        'lblTotalItemsInList
-        '
-        Me.lblTotalItemsInList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblTotalItemsInList.Location = New System.Drawing.Point(134, 679)
-        Me.lblTotalItemsInList.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTotalItemsInList.Name = "lblTotalItemsInList"
-        Me.lblTotalItemsInList.Size = New System.Drawing.Size(117, 40)
-        Me.lblTotalItemsInList.TabIndex = 77
-        Me.lblTotalItemsInList.Text = "9,999 Items to Build"
-        Me.lblTotalItemsInList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'lstBuy
         '
         Me.lstBuy.ContextMenuStrip = Me.DeleteMaterialStrip
@@ -678,7 +491,7 @@ Partial Class frmShoppingList
         Me.lstBuy.GridLines = True
         Me.lstBuy.HideSelection = False
         Me.lstBuy.Location = New System.Drawing.Point(9, 25)
-        Me.lstBuy.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lstBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.lstBuy.Name = "lstBuy"
         Me.lstBuy.Size = New System.Drawing.Size(1350, 374)
         Me.lstBuy.TabIndex = 37
@@ -692,7 +505,7 @@ Partial Class frmShoppingList
         Me.lstItems.FullRowSelect = True
         Me.lstItems.HideSelection = False
         Me.lstItems.Location = New System.Drawing.Point(8, 424)
-        Me.lstItems.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lstItems.Margin = New System.Windows.Forms.Padding(4)
         Me.lstItems.Name = "lstItems"
         Me.lstItems.Size = New System.Drawing.Size(888, 246)
         Me.lstItems.TabIndex = 38
@@ -700,41 +513,13 @@ Partial Class frmShoppingList
         Me.lstItems.UseCompatibleStateImageBehavior = False
         Me.lstItems.View = System.Windows.Forms.View.Details
         '
-        'lstBuild
-        '
-        Me.lstBuild.ContextMenuStrip = Me.DeleteBuildStrip
-        Me.lstBuild.FullRowSelect = True
-        Me.lstBuild.HideSelection = False
-        Me.lstBuild.Location = New System.Drawing.Point(900, 424)
-        Me.lstBuild.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.lstBuild.Name = "lstBuild"
-        Me.lstBuild.Size = New System.Drawing.Size(459, 246)
-        Me.lstBuild.TabIndex = 39
-        Me.lstBuild.TabStop = False
-        Me.lstBuild.Tag = "20"
-        Me.lstBuild.UseCompatibleStateImageBehavior = False
-        Me.lstBuild.View = System.Windows.Forms.View.Details
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(904, 734)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(141, 35)
-        Me.Button1.TabIndex = 78
-        Me.Button1.Text = "EVEpraisal Test"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
         'frmShoppingList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
+        Me.ClientSize = New System.Drawing.Size(1368, 852)
         Me.Controls.Add(Me.chkRebuildItemsfromList)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.lblTotalItemsInList)
-        Me.Controls.Add(Me.gbUpdateList)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.lblItemstoBuild)
         Me.Controls.Add(Me.lblItemstoBuy)
@@ -744,25 +529,16 @@ Partial Class frmShoppingList
         Me.Controls.Add(Me.gbOptions)
         Me.Controls.Add(Me.lblTotalVolume)
         Me.Controls.Add(Me.lblTotalBuiltVolume)
-        Me.Controls.Add(Me.lblComponentstoBuild)
         Me.Controls.Add(Me.lblTotalBuiltVolume1)
         Me.Controls.Add(Me.lblAvgIPH)
         Me.Controls.Add(Me.lstItems)
-        Me.Controls.Add(Me.btnSaveSettings)
-        Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.lblTC)
         Me.Controls.Add(Me.lblTotalProfit)
-        Me.Controls.Add(Me.btnMineThis)
         Me.Controls.Add(Me.lblTotalProfit1)
         Me.Controls.Add(Me.lblAvgIPH1)
-        Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnCopy)
-        Me.Controls.Add(Me.btnLoadListFromFile)
-        Me.Controls.Add(Me.btnSaveListToFile)
-        Me.Controls.Add(Me.lstBuild)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmShoppingList"
-        Me.Size = New System.Drawing.Size(1368, 852)
         Me.DeleteBuildStrip.ResumeLayout(False)
         Me.DeleteItemStrip.ResumeLayout(False)
         Me.DeleteMaterialStrip.ResumeLayout(False)
@@ -770,7 +546,6 @@ Partial Class frmShoppingList
         Me.gbOptions.PerformLayout()
         Me.gbExportOptions.ResumeLayout(False)
         Me.gbExportOptions.PerformLayout()
-        Me.gbUpdateList.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -779,8 +554,6 @@ End Sub
     Friend WithEvents lblTC As System.Windows.Forms.Label
     Friend WithEvents lblTV As System.Windows.Forms.Label
     Friend WithEvents lblTotalVolume As System.Windows.Forms.Label
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents btnClear As System.Windows.Forms.Button
     Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents lblTotalProfit1 As System.Windows.Forms.Label
     Friend WithEvents lblTotalProfit As System.Windows.Forms.Label
@@ -788,22 +561,16 @@ End Sub
     Friend WithEvents lblAvgIPH1 As System.Windows.Forms.Label
     Friend WithEvents lblTotalBuiltVolume As System.Windows.Forms.Label
     Friend WithEvents lblTotalBuiltVolume1 As System.Windows.Forms.Label
-    Friend WithEvents btnShowAssets As System.Windows.Forms.Button
     Friend WithEvents ttMain As System.Windows.Forms.ToolTip
-    Friend WithEvents btnUpdateListwithAssets As System.Windows.Forms.Button
-    Friend WithEvents btnMineThis As System.Windows.Forms.Button
     Friend WithEvents chkUpdateAssetsWhenUsed As System.Windows.Forms.CheckBox
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents DeleteItemStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeleteItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeleteMaterialStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeleteMaterial As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnSaveListToFile As System.Windows.Forms.Button
-    Friend WithEvents btnLoadListFromFile As System.Windows.Forms.Button
     Friend WithEvents gbOptions As System.Windows.Forms.GroupBox
     Friend WithEvents chkFees As System.Windows.Forms.CheckBox
     Friend WithEvents lblFees As System.Windows.Forms.Label
-    Friend WithEvents btnSaveSettings As System.Windows.Forms.Button
     Friend WithEvents DeleteBuildStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents DeleteBuildItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveFileDialog As System.Windows.Forms.SaveFileDialog
@@ -811,25 +578,16 @@ End Sub
     Friend WithEvents txtAddlCosts As System.Windows.Forms.TextBox
     Friend WithEvents lstBuy As EVE_Isk_per_Hour.MyListView
     Friend WithEvents lstItems As EVE_Isk_per_Hour.MyListView
-    Friend WithEvents lstBuild As EVE_Isk_per_Hour.MyListView
     Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
     Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
-    Friend WithEvents lblComponentstoBuild As System.Windows.Forms.Label
     Friend WithEvents lblAddlCosts As System.Windows.Forms.Label
     Friend WithEvents lblUsage As System.Windows.Forms.Label
     Friend WithEvents chkUsage As System.Windows.Forms.CheckBox
-    Friend WithEvents chkAlwaysOnTop As System.Windows.Forms.CheckBox
-    Friend WithEvents btnCopyPasteAssets As System.Windows.Forms.Button
     Friend WithEvents chkBuyorBuyOrder As System.Windows.Forms.CheckBox
-    Friend WithEvents gbUpdateList As System.Windows.Forms.GroupBox
     Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox
-    Friend WithEvents rbtnExportSSV As System.Windows.Forms.RadioButton
-    Friend WithEvents rbtnExportCSV As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnExportDefault As System.Windows.Forms.RadioButton
-    Friend WithEvents lblTotalItemsInList As System.Windows.Forms.Label
     Friend WithEvents chkRebuildItemsfromList As CheckBox
     Friend WithEvents rbtnExportMulitBuy As RadioButton
-    Friend WithEvents Button1 As Button
     Friend WithEvents txtBrokerFeeRate As MetroFramework.Controls.MetroTextBox
     Friend WithEvents lblFeeRate As Label
 End Class

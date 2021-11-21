@@ -1045,58 +1045,6 @@ Public Class frmMain
 
     End Sub
 
-    ' Loads the popup with all the costs for total raw
-    Private Sub lblBPRawTotalCost_DoubleClick(sender As Object, e As System.EventArgs)
-        Call ShowCostSplitViewer(SelectedBlueprint.GetRawMaterials.GetTotalMaterialsCost, "Raw")
-    End Sub
-
-    ' Loads the popup with all the costs for total components
-    Private Sub lblBPTotalCompCost_DoubleClick(sender As Object, e As System.EventArgs)
-        Call ShowCostSplitViewer(SelectedBlueprint.GetComponentMaterials.GetTotalMaterialsCost, "Component")
-    End Sub
-
-    ' Loads the popup with all the costs for the material cost sent
-    Private Sub ShowCostSplitViewer(MaterialsCost As Double, MaterialType As String)
-        Dim f1 As New frmCostSplitViewer
-        Dim RawCostSplit As CostSplit
-
-        ' Fill up the array to display
-        If Not IsNothing(SelectedBlueprint) Then
-            f1.CostSplitType = "Total " & MaterialType & " Material Cost Split"
-            ' Mat cost
-            RawCostSplit.SplitName = MaterialType & " Materials Cost"
-            RawCostSplit.SplitValue = MaterialsCost
-            f1.CostSplits.Add(RawCostSplit)
-
-            ' Manufacturing Facility usage
-            RawCostSplit.SplitName = "Manufacturing Facilities Usage"
-            RawCostSplit.SplitValue = SelectedBlueprint.GetManufacturingFacilityUsage
-
-            f1.CostSplits.Add(RawCostSplit)
-
-            ' Taxes
-            RawCostSplit.SplitName = "Taxes"
-            RawCostSplit.SplitValue = SelectedBlueprint.GetSalesTaxes
-            f1.CostSplits.Add(RawCostSplit)
-
-            ' Broker fees
-            RawCostSplit.SplitName = "Broker Fees"
-            RawCostSplit.SplitValue = SelectedBlueprint.GetSalesBrokerFees
-            f1.CostSplits.Add(RawCostSplit)
-
-            ' Additional Costs the user added
-            If SelectedBlueprint.GetAdditionalCosts <> 0 Then
-                RawCostSplit.SplitName = "Additional Costs"
-                RawCostSplit.SplitValue = SelectedBlueprint.GetAdditionalCosts
-                f1.CostSplits.Add(RawCostSplit)
-            End If
-
-            f1.Show()
-
-        End If
-
-    End Sub
-
     Private Sub mnuResetPriceData_Click(sender As System.Object, e As System.EventArgs)
         Dim Response As MsgBoxResult
         Dim SQL As String
@@ -8420,6 +8368,7 @@ NextIteration:
 
         ' Refresh the data if it's open
         FrmShoppingList1.RefreshLists()
+        FrmShoppingList1.saveSettings()
 
     End Sub
 

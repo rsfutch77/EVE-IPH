@@ -75,6 +75,7 @@ Partial Class frmMain
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
@@ -87,7 +88,6 @@ Partial Class frmMain
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
         Me.FrmAbout1 = New EVE_Isk_per_Hour.frmAbout()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
-        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -514,7 +514,7 @@ Partial Class frmMain
         '
         'TabPage1
         '
-        Me.TabPage1.BackColor = System.Drawing.Color.Black
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer))
         Me.TabPage1.Controls.Add(Me.FrmShoppingList1)
         Me.TabPage1.Controls.Add(Me.btnAddChar)
         Me.TabPage1.Controls.Add(Me.lblRecommendation)
@@ -532,12 +532,22 @@ Partial Class frmMain
         Me.TabPage1.Controls.Add(Me.btnDownloadPrices)
         Me.TabPage1.Controls.Add(Me.pnlShoppingList)
         Me.TabPage1.Controls.Add(Me.lblCharacterData)
+        Me.TabPage1.ForeColor = System.Drawing.Color.DimGray
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(2383, 972)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
+        '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(923, 27)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(1364, 852)
+        Me.FrmShoppingList1.TabIndex = 93
         '
         'btnAddChar
         '
@@ -567,7 +577,7 @@ Partial Class frmMain
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1617, 817)
+        Me.TabPage2.Size = New System.Drawing.Size(2383, 972)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         '
@@ -600,7 +610,7 @@ Partial Class frmMain
         Me.TabPage3.Controls.Add(Me.btnUpdate)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1617, 817)
+        Me.TabPage3.Size = New System.Drawing.Size(2383, 972)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
@@ -677,15 +687,6 @@ Partial Class frmMain
         Me.FrmSettings1.Size = New System.Drawing.Size(849, 613)
         Me.FrmSettings1.TabIndex = 0
         Me.FrmSettings1.Visible = False
-        '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(923, 27)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(1364, 852)
-        Me.FrmShoppingList1.TabIndex = 93
         '
         'frmMain
         '
