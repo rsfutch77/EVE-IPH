@@ -165,9 +165,7 @@ Public Class Blueprint
         If readerBP.Read Then
             ' Set the variables
             BlueprintID = readerBP.GetInt32(0)
-            If Developer Then ' Really only need BP name for debugging
-                BlueprintName = GetTypeName(readerBP.GetInt32(0))
-            End If
+            BlueprintName = GetTypeName(readerBP.GetInt32(0))
             BlueprintGroupID = readerBP.GetInt32(1)
             ItemID = readerBP.GetInt64(2)
             ItemName = GetTypeName(readerBP.GetInt32(2))
@@ -1335,7 +1333,7 @@ SkipProcessing:
             Return 0
         End If
 
-        'If TestingVersion Then
+        'If Developer Then
         '    ' Simple case 1
         '    If NumberofProductionLines = 1 Then
         '        ' Just sum up the times

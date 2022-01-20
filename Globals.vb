@@ -11,7 +11,6 @@ Public Module Public_Variables
     ' DB name and version
     Public Const SDEVersion As String = "December 2020 Release"
 
-    Public TestingVersion As Boolean ' This flag will test the test downloads from the server for an update
     Public Developer As Boolean ' This is if I'm developing something and only want me to see it instead of public release
 
     Public LocalCulture As CultureInfo
@@ -1429,6 +1428,11 @@ InvalidDate:
 
         ' 1 = Update Available, 0 No Update Available, -1 an error occured and msg box already shown
         UpdateCode = Updater.IsProgramUpdatable
+
+        'Force check in Dev mode
+        If Developer Then
+            UpdateCode = 1
+        End If
 
         Select Case UpdateCode
             Case UpdateCheckResult.UpdateAvailable

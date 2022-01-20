@@ -278,17 +278,10 @@ Public Class frmMain
         Dim ESIData As New ESI
 
         ' Set developer flag
-        If File.Exists("Developer.txt") Then
+        If File.Exists("C:\Developer.txt") Then
             Developer = True
         Else
             Developer = False
-        End If
-
-        ' Set test platform
-        If File.Exists("Test.txt") Then
-            TestingVersion = True
-        Else
-            TestingVersion = False
         End If
 
         Call SetProgress("Initializing...")
@@ -445,14 +438,8 @@ Public Class frmMain
             Application.DoEvents()
         End If
 
-        If TestingVersion Then
-            Me.Text = Me.Text & " - Testing"
-        End If
-
         If Developer Then
             Me.Text = Me.Text & " - Developer"
-        Else
-            ' Hide all the development stuff
         End If
 
         ' Load all the forms' facilities

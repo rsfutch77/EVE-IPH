@@ -26,7 +26,7 @@ Public Class ProgramUpdater
         Directory.CreateDirectory(Path.Combine(DynamicFilePath, UpdatePath))
 
         ' Get the newest updatefile from server
-        If TestingVersion Then
+        If Developer Then
             ServerXMLLastUpdatePath = DownloadFileFromServer(XMLUpdateTestFileURL, Path.Combine(DynamicFilePath, UpdatePath, XMLLatestVersionTest))
         Else
             ServerXMLLastUpdatePath = DownloadFileFromServer(XMLUpdateFileURL, Path.Combine(DynamicFilePath, UpdatePath, XMLLatestVersionFileName))
@@ -106,8 +106,14 @@ Public Class ProgramUpdater
         Proc.StartInfo.Arguments = Path.GetDirectoryName(Application.ExecutablePath)
         Proc.Start()
 
-        ' Close this program
-        End
+        ' Close this program if not in developer mode
+        If Not Developer Then
+            End
+        Else
+            'If you are in development mode you will need to wait here until the updater is done
+            MsgBox("Wait until the updater is done, then click OK.")
+            Exit Sub
+        End If
 
 DownloadError:
 
@@ -171,7 +177,7 @@ DownloadError:
         Dim XMLFile As String = ""
 
         Try
-            If TestingVersion Then
+            If Developer Then
                 XMLFile = XMLLatestVersionTest
             Else
                 XMLFile = XMLLatestVersionFileName

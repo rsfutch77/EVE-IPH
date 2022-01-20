@@ -11,6 +11,11 @@ Download here: https://dotnet.microsoft.com/en-us/download/dotnet-framework/net4
 http://denricdenise.info/2014/09/how-to-use-winforms-modern-ui/
 -Setup the Visual Studio Installer Extension through the extension menu or by download
 https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects
+- You may have to open the NuGet Manager and update the SQLite package
+
+Create a file C:\Developer.txt to:
+- Test the updater
+-???
 
 - More info on ESI here: https://esi.evetech.net/ui
 - and setting up EVEIPHClientID: https://developers.eveonline.com/
@@ -18,3 +23,5 @@ https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.Microsoft
 
 Testing
 - Install the compiled .exe on a Windows 10 or greater VM such as VirtualBox
+
+notes on deployment, latest files, sde builder...

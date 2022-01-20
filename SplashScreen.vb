@@ -4,6 +4,9 @@ Public NotInheritable Class SplashScreen
     Private Sub SplashScreen_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'Application title
+
+
+
         Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor)
         lblUpdate.Parent = PictureBox1
         Version.Parent = PictureBox1
@@ -14,6 +17,11 @@ Public NotInheritable Class SplashScreen
     Public Sub SetProgress(ByVal progress As String)
         Me.lblUpdate.Text = progress
         Application.DoEvents()
+
+        If Developer Then
+            Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor) & " - Developer"
+        End If
+
     End Sub
 
 End Class
