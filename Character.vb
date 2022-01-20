@@ -104,10 +104,12 @@ Public Class Character
                 BloodLineID = 8
                 AncestryLineID = 9
                 Descripton = None
+                WalletData.Wallet = 500000000 'Default dummy wallet
 
                 CharacterTokenData.CharacterID = ID
                 CharacterTokenData.AccessToken = "No Token"
                 CharacterTokenData.TokenExpiration = NoExpiry
+                Dim WalletCacheDate As Date = NoExpiry
                 CharacterTokenData.TokenType = None
                 CharacterTokenData.RefreshToken = "No Token"
                 CharacterTokenData.Scopes = "No Scopes"
@@ -116,8 +118,8 @@ Public Class Character
 
                 If Not rsCheck.HasRows Then
                     With CharacterTokenData
-                        SQL = "INSERT INTO ESI_CHARACTER_DATA VALUES ({0},'{1}',{2},'{3}','{4}',{5},{6},{7},'{8}','{9}','{10}','{11}','{12}','{13}',{14},'{15}','{16}','{17}','{18}','{19}','{20}','{21}',{22})"
-                        SQL = String.Format(SQL, ID, Name, DummyCorporationID, Format(DOB, SQLiteDateFormat), Gender, RaceID, BloodLineID, AncestryLineID, Descripton, .AccessToken, Format(.TokenExpiration, SQLiteDateFormat), .TokenType, .RefreshToken, .Scopes, 0, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, DefaultCharacterCode) ' Dummy is default
+                        SQL = "INSERT INTO ESI_CHARACTER_DATA VALUES ({0},'{1}',{2},'{3}','{4}',{5},{6},{7},'{8}','{9}','{10}','{11}','{12}','{13}',{14},'{15}','{16}','{17}','{18}','{19}','{20}','{21}',{22},{23},'{24}')"
+                        SQL = String.Format(SQL, ID, Name, DummyCorporationID, Format(DOB, SQLiteDateFormat), Gender, RaceID, BloodLineID, AncestryLineID, Descripton, .AccessToken, Format(.TokenExpiration, SQLiteDateFormat), .TokenType, .RefreshToken, .Scopes, 0, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, NoExpireDate, DefaultCharacterCode, WalletData.Wallet, Format(WalletCacheDate, SQLiteDateFormat)) ' Dummy is default
                     End With
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
                 End If

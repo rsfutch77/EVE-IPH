@@ -46,7 +46,7 @@ Public Module Public_Variables
 
     Public Const PatchNotesURL = "https://raw.githubusercontent.com/EVEIPH/LatestFiles/master/Patch%20Notes.txt"
     Public Const XMLUpdateFileURL = "https://raw.githubusercontent.com/EVEIPH/LatestFiles/master/LatestVersionIPH.xml"
-    Public Const XMLUpdateTestFileURL = "https://github.com/EVEIPH/LatestFiles/raw/master/LatestVersionIPH_Test.xml"
+    Public Const XMLUpdateTestFileURL = "https://raw.githubusercontent.com/rsfutch77/LatestFiles/test/LatestVersionIPH_Test.xml"
 
     Public Const DynamicAppDataPath As String = "EVE IPH"
     Public Const UserImagePath As String = "EVEIPH Images"
@@ -61,7 +61,7 @@ Public Module Public_Variables
     Public Const UpdaterFileName As String = "EVEIPH Updater.exe"
     Public Const XMLUpdaterFileName As String = "EVEIPH_Updater.exe" ' For use in the XML files to remove spaces from row names
     Public Const XMLLatestVersionFileName As String = "LatestVersionIPH.xml"
-    Public Const XMLLatestVersionTest As String = "LatestVersionIPH Test.xml"
+    Public Const XMLLatestVersionTest As String = "LatestVersionIPH_Test.xml"
 
     ' Only request ESI scopes I need - if I add a scope, the user will need to re-authorize for the new scopes.
     Public ESIScopesString As String = ""
