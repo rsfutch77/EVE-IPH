@@ -5,8 +5,6 @@ Public NotInheritable Class SplashScreen
 
         'Application title
 
-
-
         Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor)
         lblUpdate.Parent = PictureBox1
         Version.Parent = PictureBox1
@@ -19,7 +17,7 @@ Public NotInheritable Class SplashScreen
         Application.DoEvents()
 
         If Developer Then
-            Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor) & " - Developer"
+            Version.Text = System.String.Format("Version", My.Application.Info.Version.Major, My.Application.Info.Version.Minor) & " - Developer"
         End If
 
     End Sub
