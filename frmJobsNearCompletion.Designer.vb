@@ -60,9 +60,9 @@ Partial Class frmJobsNearCompletion
         Me.MetroLabel1.Name = "MetroLabel1"
         Me.MetroLabel1.Size = New System.Drawing.Size(519, 135)
         Me.MetroLabel1.TabIndex = 3
-        Me.MetroLabel1.Text = "Autoshop will subtract these jobs from your maximum possible jobs if you are look" &
-    "ing for things to manufacture now. If you are just planning ahead, it will not s" &
-    "ubtract these jobs."
+        Me.MetroLabel1.Text = "If you need to manufacture something now, Autoshop will only use your remaining a" &
+    "vailable jobs. If you are just planning ahead, Autoshop will use your maximum po" &
+    "ssible jobs."
         Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel1.UseWaitCursor = True
