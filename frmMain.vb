@@ -8182,15 +8182,31 @@ ExitCalc:
             MetroProgressBar.Maximum = 1
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = True
+
             ' Try to update character data (including jobs and wallet)
-            'If jobs can not update for the selected character,  note the most recent time
-            'Move the below ifthen to within LoadCharacterData so it sets the correct text when the form loads the first time
-            'If currentdate > jobscachedate && currentdate > walletcachedate Then
-            '    lblCharacterData = "Job/Wallet data was recently updated."
-            'Else
-            '    lblCharacterData = "Job/Wallet data cannot be updated until: " & CStr(jobscachedate)
-            'End If
             SelectedCharacter.LoadCharacterData(SelectedCharacter.CharacterTokenData, False, False, True)
+            'If jobs can not update for the selected character,  note the most recent time
+            Dim readerCharacter As SQLiteDataReader
+            Dim SQL As String
+            Dim WalletCacheDate As DateTime
+            SQL = "SELECT WALLET_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
+            DBCommand = New SQLiteCommand(Sql, EVEDB.DBREf)
+            readerCharacter = DBCommand.ExecuteReader
+            If readerCharacter.Read Then
+                WalletCacheDate = readerCharacter.GetDateTime(0)
+            End If
+            Dim JobsCacheDate As DateTime
+            SQL = "SELECT INDUSTRY_JOBS_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
+            DBCommand = New SQLiteCommand(Sql, EVEDB.DBREf)
+            readerCharacter = DBCommand.ExecuteReader
+            If readerCharacter.Read Then
+                JobsCacheDate = readerCharacter.GetDateTime(0)
+            End If
+            If Date.UtcNow.Date <= JobsCacheDate Then
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate)
+            Else
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate)
+            End If
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False

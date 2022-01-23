@@ -2,7 +2,7 @@
 
 Public Class CacheBox
 
-    Private Structure CacheData
+    Public Structure CacheData
         Dim FieldName As String
         Dim TableName As String
         Dim IDName As String
@@ -96,7 +96,7 @@ Public Class CacheBox
 
     End Function
 
-    Private Function GetCacheUpdateInfo(ByVal CacheType As CacheDateType) As CacheData
+    Public Shared Function GetCacheUpdateInfo(ByVal CacheType As CacheDateType) As CacheData
         Dim ReturnData As CacheData
 
         With ReturnData
