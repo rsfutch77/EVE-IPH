@@ -1431,7 +1431,7 @@ InvalidDate:
 
         'Force check in Dev mode
         If Developer Then
-            UpdateCode = 1
+            UpdateCode = UpdateCheckResult.UpdateAvailable
         End If
 
         Select Case UpdateCode
