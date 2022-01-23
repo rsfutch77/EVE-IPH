@@ -100,13 +100,11 @@ Public Class ManufacturingFacility
     ' Before any controls are shown, the control needs to be initilaized by sending the view type.
     Public Sub InitializeControl(ByVal ViewType As FacilityView, ByVal SentSelectedCharacterID As Long, FormLocation As ProgramLocation,
                                  ByVal InitialProductionType As ProductionType, ByRef ControlForm As Form)
-        Const SolarSystemWidthBP As Integer = 142
+
         Const SolarSystemWidthCalc As Integer = 157
 
-        Const RegionWidthBP As Integer = 130
         Const RegionWidthCalc As Integer = 133
 
-        Const FacilityArrayWidthBP As Integer = 274
         Const FacilityArrayWidthCalc As Integer = 295
 
         Const LeftObjectLocation As Integer = 3

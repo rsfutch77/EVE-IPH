@@ -701,9 +701,9 @@ Public Class frmMain
     Private Sub DisplayESIStatusMessage(Status As String, Scope As String, Purpose As String)
         Select Case Status
             Case "yellow"
-                MsgBox("ESI is experincing issues with the " & Scope & " scope " & Purpose & " and you may not have access to certain data until fixed.")
+                MsgBox("ESI is experincing issues with the " & Scope & " scope " & Purpose & " and you may not have access to certain data until the issue is resolved.")
             Case "red"
-                MsgBox("The " & Scope & " ESI scope is down and will not be able to " & Purpose & ". You may not have access to certain data until fixed.")
+                MsgBox("The " & Scope & " ESI scope is down and will not be able to " & Purpose & ". You may not have access to certain data until the issue is resolved.")
             Case Else
                 Application.DoEvents()
         End Select
@@ -2457,8 +2457,6 @@ Public Class frmMain
     End Sub
 
     Private Sub SyncPriceCheckBoxes(ByVal TriggerIndex As Integer)
-        Dim i As Integer
-
         If Not FirstLoad Then
             calcHistoryRegion = "The Forge"
         End If
@@ -2491,7 +2489,6 @@ Public Class frmMain
 
     ' Initalizes all the prices tab boxes, etc
     Private Sub InitUpdatePricesTab()
-        Dim i As Integer
         Dim TempRegion As String = ""
 
         FirstPriceChargeTypesComboLoad = True
@@ -2639,7 +2636,6 @@ Public Class frmMain
 
     ' Save the settings
     Private Sub SaveUpdatePrices()
-        Dim i As Integer
         Dim TempSettings As UpdatePriceTabSettings = Nothing
         Dim TempRegions As New List(Of String)
 

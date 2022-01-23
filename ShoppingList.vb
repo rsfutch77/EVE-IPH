@@ -591,7 +591,6 @@ Public Class ShoppingList
         Dim UpdatedQuantity As Long = 0
         Dim OnHandMats As Long
         Dim ListMatQuantity As Long
-        Dim NumInventionJobs As Integer
         Dim NewMatQuantity As Long = 0
         Dim OldMatQuantity As Long = 0
 
