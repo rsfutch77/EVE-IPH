@@ -451,9 +451,6 @@ Public Class frmMain
             Me.ttBP.IsBalloon = True
         End If
 
-        ' Nothing in shopping List
-        pnlShoppingList.Text = "No Items in Shopping List"
-
         Call SetProgress("Finalizing Forms...")
 
         '****************************************
@@ -8164,7 +8161,7 @@ ExitCalc:
     ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
     Private Sub AutoAddToShoppingList()
 
-        pnlShoppingList.Text = "Calculating Autoshop"
+        pnlStatus.Text = "Calculating Autoshop..."
 
         'Clear the shopping list before we start
         Call TotalShoppingList.Clear()
@@ -8213,7 +8210,7 @@ ExitCalc:
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
+            pnlStatus.Text = "Checking Active Jobs..."
 
             'Subtract any active jobs
             'If any active jobs are far from completion, ask the user if they want to subtract these from the autoshop calculation
@@ -8308,7 +8305,6 @@ NextIteration:
             Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
 
             pnlStatus.Text = "Autoshopping for schedule..."
             MetroProgressBar.Minimum = 0
@@ -8319,7 +8315,6 @@ NextIteration:
             Call TotalShoppingList.ScheduleShoppingItemQuantity()
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
 
             pnlStatus.Text = "Autoshopping for material volume..."
             MetroProgressBar.Minimum = 0
@@ -8330,7 +8325,6 @@ NextIteration:
             Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
 
             pnlStatus.Text = "Autoshopping for built volume..."
             MetroProgressBar.Minimum = 0
@@ -8341,17 +8335,15 @@ NextIteration:
             Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
-            pnlStatus.Text = ""
 
         End If 'End if at least one manufacturing item was calculated
 
         If TotalShoppingList.GetNumShoppingItems > 0 Then
             ' Add the final item and mark as items in list
-            pnlShoppingList.Text = "Autoshop success!"
-            pnlShoppingList.ForeColor = Color.Red
+            pnlStatus.Text = "Autoshop success!"
         Else
-            pnlShoppingList.Text = "Autoshop failed, make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint."
-            pnlShoppingList.ForeColor = Color.Black
+            pnlStatus.Text = "Autoshop failed."
+            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
         End If
 
         ' Refresh the data if it's open
@@ -8423,15 +8415,6 @@ NextIteration:
                     End With
                 End If
             Next
-        End If
-
-        If TotalShoppingList.GetNumShoppingItems > 0 Then
-            ' Add the final item and mark as items in list
-            pnlShoppingList.Text = "Items in Shopping List"
-            pnlShoppingList.ForeColor = Color.Red
-        Else
-            pnlShoppingList.Text = "No Items in Shopping List"
-            pnlShoppingList.ForeColor = Color.Black
         End If
 
         ' Refresh the data if it's open

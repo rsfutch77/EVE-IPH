@@ -249,10 +249,6 @@ Public Class frmShoppingList
         lblTotalVolume.Text = "0.00 m3"
         lblTotalBuiltVolume.Text = "0.00 m3"
 
-        ' Update the main form notice of no items
-        frmMain.pnlShoppingList.Text = "No Items in Shopping List"
-        frmMain.pnlShoppingList.ForeColor = Color.Black
-
         btnCopy.Enabled = False
 
         Me.Refresh()
@@ -502,8 +498,6 @@ Public Class frmShoppingList
         If MsgBox("Delete all items in the shopping list?", CType(vbYesNo + vbQuestion, MsgBoxStyle), Application.ProductName) = vbYes Then
             Call ClearLists()
             Call PlayNotifySound()
-            frmMain.pnlShoppingList.Text = "No Items in Shopping List"
-            frmMain.pnlShoppingList.ForeColor = Color.Black
         End If
 
     End Sub
