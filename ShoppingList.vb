@@ -67,9 +67,16 @@ Public Class ShoppingList
         Const ManufacturingDays = 1
 
         Dim iterations As Integer
+        Dim difference As Double
 
         TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
-        Dim difference As Double = TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60
+        'Make sure there are still items in the list after the previous autshop function
+        If TotalItemList.Count > 0 Then
+            difference = TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60
+        Else
+            'List is already empty
+            Return
+        End If
 
         'Leave some room for error on the cargo volume
         While TotalItemList(0).TotalBuildTime > ManufacturingDays * 24 * 60 * 60 And iterations < 100
@@ -100,10 +107,16 @@ Public Class ShoppingList
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat+
 
-
         Dim iterations As Integer
+        Dim difference As Double
 
-        Dim difference As Double = TotalShoppingList.GetTotalCost - WalletData
+        'Make sure there are still items in the list after the previous autshop function
+        If TotalItemList.Count > 0 Then
+            difference = TotalShoppingList.GetTotalCost - WalletData
+        Else
+            'List is already empty
+            Return
+        End If
 
         'Don't use all of the player's money, just most of it
         Dim iterationLimit As Integer = 100
@@ -112,7 +125,7 @@ Public Class ShoppingList
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
             Dim reducer As Double = 0.25
-            For Each ShopListItem As ShoppingListItem In TotalItemList
+            For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
                 If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
                     UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
                 Else
@@ -141,8 +154,15 @@ Public Class ShoppingList
         Next
 
         Dim iterations As Integer
+        Dim difference As Double
 
-        Dim difference As Double = TotalShoppingList.GetTotalVolume - CargoVolume
+        'Make sure there are still items in the list after the previous autshop function
+        If TotalItemList.Count > 0 Then
+            difference = TotalShoppingList.GetTotalVolume - CargoVolume
+        Else
+            'List is already empty
+            Return
+        End If
 
         'Leave some room for error on the cargo volume
         Dim iterationLimit As Integer = 100
@@ -180,8 +200,15 @@ Public Class ShoppingList
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat
 
         Dim iterations As Integer
+        Dim difference As Double
 
-        Dim difference As Double = TotalShoppingList.GetBuiltItemVolume - CargoVolume
+        'Make sure there are still items in the list after the previous autshop function
+        If TotalItemList.Count > 0 Then
+            difference = TotalShoppingList.GetBuiltItemVolume - CargoVolume
+        Else
+            'List is already empty
+            Return
+        End If
 
         'Leave some room for error on the cargo volume
         Dim iterationLimit As Integer = 100
