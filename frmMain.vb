@@ -8199,10 +8199,17 @@ ExitCalc:
                 JobsCacheDate = readerCharacter.GetDateTime(0)
             End If
             If Date.UtcNow.Date <= JobsCacheDate Then
-                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate)
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate) & " UTC"
             Else
-                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate)
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate) & " UTC"
             End If
+
+            If SelectedCharacter.WalletData.Wallet < 2 Then
+                pnlStatus.Text = "Autoshopping failed."
+                lblRecommendation.Text = "Your wallet data was unable to be read or returned 0 ISK which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
+                Return
+            End If
+
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False

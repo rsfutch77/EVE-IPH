@@ -100,9 +100,6 @@ Public Class ShoppingList
         'Reduce the runs until the total job cost is below the player's wallet amount
         'Cut the most expensive job by 25%, then the second most by 12.5% and so on, then repeat+
 
-        If WalletData = 0 Then
-            Return
-        End If
 
         Dim iterations As Integer
 
