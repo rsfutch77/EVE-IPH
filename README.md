@@ -21,6 +21,9 @@ Create a file C:\Developer.txt to:
 - and setting up EVEIPHClientID: https://developers.eveonline.com/
 - The project will need to be built once before any of the forms can be opened. This builds the User Controls sub-forms. 
 
+Design notes
+- Generally I've used the labels to convey information about success or failure and msgboxes to ask the user to make a choice before continuing. I have avoided using msgboxes to convey failures.
+
 Testing
 - Install the compiled .exe on a Windows 10 or greater VM such as VirtualBox
 

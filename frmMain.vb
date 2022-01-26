@@ -6417,10 +6417,6 @@ ExitCalc:
 
         Application.DoEvents()
 
-        If lstManufacturing.Items.Count = 0 And Not CancelManufacturingTabCalc Then
-            MsgBox("No Blueprints calculated for options selected.", vbExclamation, Application.ProductName)
-        End If
-
         If Not Calculate Or CancelManufacturingTabCalc Then
             Call ResetRefresh()
             CancelManufacturingTabCalc = False
@@ -7959,6 +7955,11 @@ ExitCalc:
             Dim j As Integer
             For i = 0 To (maxJobs + j)
 
+                'If the user has less blueprints than max jobs then we need to skip to the end of iterating and stop adding blueprints
+                If i >= lstManufacturing.Items.Count Then
+                    GoTo NextIteration
+                End If
+
                 ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
                 FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
 
@@ -8055,7 +8056,7 @@ NextIteration:
             pnlStatus.Text = "Autoshop success!"
         Else
             pnlStatus.Text = "Autoshop failed."
-            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
+            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, a T1 (non-ship) blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
         End If
 
         ' Refresh the data if it's open
