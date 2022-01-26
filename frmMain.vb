@@ -9,6 +9,8 @@ Imports GoogleAnalyticsClientDotNet
 
 Public Class frmMain
 
+#Region "Variables"
+
     ' Update Prices Variables
     Private RegionCheckBoxes() As MetroFramework.Controls.MetroRadioButton
     ' For saving the price type that was used in the download
@@ -260,6 +262,8 @@ Public Class frmMain
     Private Const PriceListHeaderCSV As String = "Group Name,Item Name,Price,Price Type,Raw Material,Type ID"
     Private Const PriceListHeaderTXT As String = "Group Name|Item Name|Price|Price Type|Raw Material|Type ID"
     Private Const PriceListHeaderSSV As String = "Group Name;Item Name;Price;Price Type;Raw Material;Type ID"
+
+#End Region
 
 #Region "Initialization Code"
 
@@ -7433,6 +7437,627 @@ ExitCalc:
         End If
     End Function
 
+    Public Structure EVEIPHPricePoint
+        Dim PointDate As Date
+        Dim X_Date_Marker As Integer ' simplifies code for dates
+        Dim Y_Price As Double ' price value
+    End Structure
+
+#Region "List Options Menu"
+
+    ' Allows users to ignore one or more blueprints from the manufacturing tab
+    Private Sub IgnoreBlueprintToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles IgnoreBlueprintToolStripMenuItem.Click
+
+        If lstManufacturing.Items.Count > 0 Then
+            Dim FoundItem As New ManufacturingItem
+            Dim SQL As String
+            Dim RemovedIDs As New List(Of Integer)
+
+            ' Find the each item selected in the list of items then remove each one from the list
+            For i = 0 To lstManufacturing.SelectedItems.Count - 1
+                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
+                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                If FoundItem IsNot Nothing Then
+                    Dim ListIDstoRemove As New List(Of Integer)
+
+                    ' We found it, so set the bp to ignore
+                    With FoundItem
+                        SQL = "UPDATE ALL_BLUEPRINTS_FACT SET IGNORE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID)
+                        Call EVEDB.ExecuteNonQuerySQL(SQL)
+
+                        ' Remove the item from the list in all it's forms plus from the manufacturing list
+                        ' Get all the items with the name to remove
+                        ManufacturingNameToFind = FoundItem.ItemName
+                        FoundItem = Nothing
+
+                        Do
+                            FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItembyName)
+                            If FoundItem IsNot Nothing Then
+                                ' Remove it
+                                FinalManufacturingItemList.Remove(FoundItem)
+                                RemovedIDs.Add(FoundItem.ListID)
+                            End If
+                        Loop Until FoundItem Is Nothing
+
+                    End With
+                End If
+            Next
+
+            ' Now remove all BPs we got rid of from the list
+            lstManufacturing.BeginUpdate()
+            Dim ListCount As Integer = lstManufacturing.Items.Count
+            Dim j As Integer = 0
+            While j < ListCount
+                If RemovedIDs.Contains(CInt(lstManufacturing.Items(j).SubItems(0).Text)) Then
+                    ' Add the indicies to remove
+                    lstManufacturing.Items(j).Remove()
+                    ListCount -= 1
+                    j -= 1 ' make sure we reset since we just removed a line
+                End If
+                j += 1
+            End While
+
+            lstManufacturing.EndUpdate()
+
+            Call PlayNotifySound()
+        End If
+    End Sub
+
+    Private Sub FavoriteBlueprintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FavoriteBlueprintToolStripMenuItem.Click
+
+        If lstManufacturing.Items.Count > 0 Then
+            Dim FoundItem As New ManufacturingItem
+            Dim SQL As String
+
+            ' Find the each item selected in the list of items then remove each one from the list
+            For i = 0 To lstManufacturing.SelectedItems.Count - 1
+                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
+                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                If FoundItem IsNot Nothing Then
+                    ' We found it, so set the bp to a favorite in all_blueprints
+                    SQL = "UPDATE ALL_BLUEPRINTS_FACT SET FAVORITE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID)
+                    Call EVEDB.ExecuteNonQuerySQL(SQL)
+
+                    ' Assume they want to update owned blueprints too if they own it
+                    SQL = "UPDATE OWNED_BLUEPRINTS SET FAVORITE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID) & " AND USER_ID = " & CStr(SelectedCharacter.ID)
+                    Call EVEDB.ExecuteNonQuerySQL(SQL)
+
+                End If
+            Next
+
+            Call PlayNotifySound()
+
+        End If
+
+    End Sub
+
+    'Copy Manufacturing Item to Shopping Item
+    Private Function CopyManufacturingItemToShoppingItem(ManufacturingItem As ManufacturingItem) As ShoppingListItem
+
+        Dim ShopListItem As New ShoppingListItem
+
+        With ManufacturingItem
+            Dim TempName As String = .ItemName
+            If TempName.Contains("(") Then
+                ShopListItem.Name = TempName.Substring(0, InStr(TempName, "(") - 2)
+            Else
+                ShopListItem.Name = TempName
+            End If
+            ShopListItem.ItemME = .BPME
+            ShopListItem.BuildType = "Raw Mats" 'Easy IPH always uses Raw Mats
+            ShopListItem.ManufacturingFacility.FacilityName = .ManufacturingFacility.FacilityName
+
+        End With
+
+        Return ShopListItem
+
+    End Function
+
+    ' Adds one or multiple items to the shopping list from the manufacturing tab
+    Private Sub AddToShoppingListToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles AddToShoppingListToolStripMenuItem.Click
+
+        If lstManufacturing.Items.Count > 0 Then
+            Dim FoundItem As New ManufacturingItem
+
+            ' Find the each item selected in the list of items then remove each one from the list
+            For i = 0 To lstManufacturing.SelectedItems.Count - 1
+
+                ' Find the item clicked in the list of items then just send those values over
+                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
+                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                ' Add it to shopping list
+                If FoundItem IsNot Nothing Then
+                    Dim BuildBuy As Boolean
+                    Dim CopyRaw As Boolean
+
+                    If FoundItem.CalcType = "Build/Buy" Then
+                        BuildBuy = True
+                    End If
+
+                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
+                        CopyRaw = True
+                    Else
+                        CopyRaw = False
+                    End If
+
+                    ' Get the BP variable and send the other settings to shopping list
+                    With FoundItem
+                        If Not IsNothing(.Blueprint) Then
+                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
+                               False, False, False, False)
+                        Else
+                            MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
+                            Exit Sub
+                        End If
+                    End With
+                End If
+            Next
+        End If
+
+        ' Refresh the data if it's open
+        If frmShop.Visible Then
+            Call frmShop.RefreshLists()
+        End If
+
+    End Sub
+
+    Private Sub autoShopping_CheckedChanged(sender As Object, e As EventArgs) Handles autoShopping.CheckedChanged
+        If autoShopping.Checked = True Then
+            chkCalcCanBuild.Checked = True
+            rbtnCalcBPOwned.Checked = True
+            rbtnCalcAllBPs.Checked = False
+            rbtnCalcBPFavorites.Checked = False
+        End If
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Cursor.Current = Cursors.WaitCursor
+        Application.DoEvents()
+        Call CheckForUpdates(True, Me.Icon)
+        Cursor.Current = Cursors.Default
+    End Sub
+
+    Private Sub btnAddChar_Click(sender As Object, e As EventArgs) Handles btnAddChar.Click
+
+        ' Open up the default select box here
+        Dim f1 = New frmAddCharacter
+        f1.ShowDialog()
+
+        Call LoadCharacterNamesinMenu()
+
+        ' Reinit form
+        Call ResetTabs()
+
+    End Sub
+
+    Private Sub btnManageChar_Click(sender As Object, e As EventArgs) Handles btnManageChar.Click
+        Dim f1 As New frmManageAccounts
+
+        Call f1.ShowDialog()
+
+        ' Default character set, now set the panel if it changed
+        If SelectedCharacter.Name <> mnuChar.SelectedText Then
+            ' If we returned, we got a default character set
+            Call ResetTabs()
+            Call LoadCharacterNamesinMenu()
+        End If
+
+    End Sub
+
+    Private Sub btnResetAll_Click(sender As Object, e As EventArgs) Handles btnResetAll.Click
+        Dim Response As MsgBoxResult
+        Dim SQL As String
+
+        Response = MsgBox("This will reset all data for the program including ESI Tokens, Blueprints, Assets, Industry Jobs, and Price data." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
+
+        If Response = vbYes Then
+            Application.UseWaitCursor = True
+            Application.DoEvents()
+
+            SQL = "DELETE FROM ESI_CHARACTER_DATA"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ESI_CORPORATION_DATA"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CHARACTER_STANDINGS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CHARACTER_SKILLS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM OWNED_BLUEPRINTS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ITEM_PRICES_CACHE"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM ASSETS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM INDUSTRY_JOBS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM CURRENT_RESEARCH_AGENTS"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = 0"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM MARKET_HISTORY"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            SQL = "DELETE FROM MARKET_HISTORY_UPDATE_CACHE"
+            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            ' Reset all the cache dates
+            Call ResetESIDates()
+
+            ' Reset ESI data
+            Call ResetESIIndustrySystemIndicies()
+            Call ResetESIAdjustedMarketPrices()
+
+            FirstLoad = True ' Temporarily just to get screen to show correctly
+
+            Application.UseWaitCursor = False
+            Application.DoEvents()
+
+            Call SelectedCharacter.LoadDummyCharacter(True)
+
+            MsgBox("All Data Reset", vbInformation, Application.ProductName)
+
+            Call LoadCharacterNamesinMenu()
+
+            ' Reset the tabs
+            Call ResetTabs()
+
+            FirstLoad = False
+
+        End If
+
+    End Sub
+
+#End Region
+
+#End Region
+
+#Region "EasyIPH Scoring and Autoshop"
+
+    Private Function GetAutoShopVolume(WalletData As Double) As Double
+
+        'Check if the player can fly a freighter and get the amount of space in their cargohold
+        'Check base skills, then check racial skills, then check if they have one already or at least enough money
+        Dim cargoVolume As Double = 5000 '5000 is the default volume if they don't have any other ships
+        Dim transportFreighter As Boolean
+        If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
+            If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
+                'Galente
+                If GetTotalItemsAnywhere(20187) > 0 Then
+                    transportFreighter = True
+                    cargoVolume = EVEAttributes.GetInventoryAttribute("Obelisk", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20527) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                    'Make sure they have some money left over for materials
+                ElseIf WalletData > GetItemPrice(20187) + 500000000 Then
+                    lblRecommendation.Text = "You should buy a freighter."
+                Else
+                    'They can fly one, but they don't have the money
+                    lblRecommendation.Text = "You should save up for a freighter."
+                End If
+            ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 2 And SelectedCharacter.Skills.GetSkillLevel(20528) > 0 Then
+                'Minmatar
+                If GetTotalItemsAnywhere(20190) > 0 Then
+                    transportFreighter = True
+                    cargoVolume = EVEAttributes.GetInventoryAttribute("Fenrir", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20528) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                    'Make sure they have some money left over for materials
+                ElseIf WalletData > GetItemPrice(20190) + 500000000 Then
+                    lblRecommendation.Text = "You should buy a freighter."
+                Else
+                    'They can fly one, but they don't have the money
+                    lblRecommendation.Text = "You should save up for a freighter."
+                End If
+            ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 2 And SelectedCharacter.Skills.GetSkillLevel(20526) > 0 Then
+                'Caldari
+                If GetTotalItemsAnywhere(20186) > 0 Then
+                    transportFreighter = True
+                    cargoVolume = EVEAttributes.GetInventoryAttribute("Charon", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20526) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                    'Make sure they have some money left over for materials
+                ElseIf WalletData > GetItemPrice(20186) + 500000000 Then
+                    lblRecommendation.Text = "You should buy a freighter."
+                Else
+                    'They can fly one, but they don't have the money
+                    lblRecommendation.Text = "You should save up for a freighter."
+                End If
+            ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 2 And SelectedCharacter.Skills.GetSkillLevel(20424) > 0 Then
+                'Amarr
+                If GetTotalItemsAnywhere(20183) > 0 Then
+                    transportFreighter = True
+                    cargoVolume = EVEAttributes.GetInventoryAttribute("Providence", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20424) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
+                    'Make sure they have some money left over for materials
+                ElseIf WalletData > GetItemPrice(20183) + 500000000 Then
+                    lblRecommendation.Text = "You should buy a freighter."
+                Else
+                    'They can fly one, but they don't have the money
+                    lblRecommendation.Text = "You should save up for a freighter."
+                End If
+            Else
+                lblRecommendation.Text = "You should finish training racial skills for a freighter."
+            End If
+        Else
+            lblRecommendation.Text = "You should train for a freighter."
+        End If
+        lblRecommendation.Text = lblRecommendation.Text + " A freighter can make a lot more money transporting ships and making fewer trips. It will also reduce risk of being ganked by pirates. "
+
+        'If they can fly a freighter, allow ship blueprints
+        'If not, recommend training into a freighter
+        If transportFreighter = True Then
+            allowAutoShopShips = True
+        End If
+
+        'Check if they can transport with an industrial
+        Dim transportindustrial As Boolean = False
+        If transportFreighter = False Then
+            If SelectedCharacter.Skills.GetSkillLevel(3327) > 2 Then
+                If SelectedCharacter.Skills.GetSkillLevel(3340) > 0 Then
+                    'Galente
+                    If GetTotalItemsAnywhere(657) > 0 Then
+                        transportindustrial = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Iteron Mark V", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3340) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(657) + 5000000 Then
+                        lblRecommendation.Text = "You should buy an industrial."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for an industrial."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 0 Then
+                    'Minmatar
+                    If GetTotalItemsAnywhere(652) > 0 Then
+                        transportindustrial = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Mammoth", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3341) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(652) + 5000000 Then
+                        lblRecommendation.Text = "You should buy an industrial."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for an industrial."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 0 Then
+                    'Caldari
+                    If GetTotalItemsAnywhere(649) > 0 Then
+                        transportindustrial = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Tayra", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3342) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(649) + 5000000 Then
+                        lblRecommendation.Text = "You should buy an industrial."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for an industrial."
+                    End If
+                ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 0 Then
+                    'Amarr
+                    If GetTotalItemsAnywhere(1944) > 0 Then
+                        transportindustrial = True
+                        cargoVolume = EVEAttributes.GetInventoryAttribute("Bestower", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3343) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
+                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
+                        'Make sure they have some money left over for materials
+                    ElseIf WalletData > GetItemPrice(1944) + 5000000 Then
+                        lblRecommendation.Text = "You should buy an industrial."
+                    Else
+                        'They can fly one, but they don't have the money
+                        lblRecommendation.Text = "You should save up for an industrial."
+                    End If
+                Else
+                    lblRecommendation.Text = "You should finish training racial skills for an industrial."
+                End If
+            Else
+                lblRecommendation.Text = "You should train for an industrial."
+            End If
+            lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
+        End If
+
+        Return cargoVolume
+
+    End Function
+
+    ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
+    Private Sub AutoAddToShoppingList()
+
+        pnlStatus.Text = "Calculating Autoshop..."
+
+        'Clear the shopping list before we start
+        Call TotalShoppingList.Clear()
+
+        'If at least one item was calculated
+        If lstManufacturing.Items.Count > 0 Then
+            Dim FoundItem As New ManufacturingItem
+
+            pnlStatus.Text = "Getting Character Data..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 1
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+
+            ' Try to update character data (including jobs and wallet)
+            SelectedCharacter.LoadCharacterData(SelectedCharacter.CharacterTokenData, False, False, True)
+            'If jobs can not update for the selected character,  note the most recent time
+            Dim readerCharacter As SQLiteDataReader
+            Dim SQL As String
+            Dim WalletCacheDate As DateTime
+            SQL = "SELECT WALLET_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            readerCharacter = DBCommand.ExecuteReader
+            If readerCharacter.Read Then
+                WalletCacheDate = readerCharacter.GetDateTime(0)
+            End If
+            Dim JobsCacheDate As DateTime
+            SQL = "SELECT INDUSTRY_JOBS_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            readerCharacter = DBCommand.ExecuteReader
+            If readerCharacter.Read Then
+                JobsCacheDate = readerCharacter.GetDateTime(0)
+            End If
+            If Date.UtcNow.Date <= JobsCacheDate Then
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate) & " UTC"
+            Else
+                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate) & " UTC"
+            End If
+
+            If SelectedCharacter.WalletData.Wallet < 2 Then
+                pnlStatus.Text = "Autoshopping failed."
+                lblRecommendation.Text = "Your wallet data was unable to be read or returned 0 ISK which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
+                Return
+            End If
+
+            Call IncrementToolStripProgressBar(MetroProgressBar)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+            pnlStatus.Text = "Checking Active Jobs..."
+
+            'Subtract any active jobs
+            'If any active jobs are far from completion, ask the user if they want to subtract these from the autoshop calculation
+            Dim activeJobsFarFromCompletion As Integer = 0
+            For Each Job As IndustryJob In SelectedCharacter.Jobs.JobList
+                If Job.EndDate - DateTime.UtcNow > TimeSpan.FromHours(1) Then
+                    activeJobsFarFromCompletion = activeJobsFarFromCompletion + 1
+                End If
+            Next
+            Dim makeStuffNow As DialogResult
+            If activeJobsFarFromCompletion > 0 Then
+                Dim rf As New frmJobsNearCompletion
+                makeStuffNow = rf.ShowDialog()
+            End If
+            'Get player's max jobs
+            Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
+            If makeStuffNow = DialogResult.OK Then 'Make stuff now
+                maxJobs = maxJobs - activeJobsFarFromCompletion
+            ElseIf makeStuffNow = DialogResult.Cancel Then 'Planning for later
+                'Do nothing
+            End If
+
+            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
+
+            'Get the number of items in production and on the market and in assets And dont build any of these
+            'GetTotalItemsinProduction()
+            'if this shrinks the list to zero then
+            'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
+
+            'Sort the list by Score
+            Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
+
+            ' Find the top items
+            Dim j As Integer
+            For i = 0 To (maxJobs + j)
+
+                ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
+                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
+
+                'Skip this item if we are not allowing ships
+                If allowAutoShopShips = False Then
+                    If FoundItem.ItemCategory = "Ship" Then
+                        j = j + 1
+                        GoTo NextIteration
+                    End If
+                End If
+
+                ' Add it to shopping list
+                If FoundItem IsNot Nothing Then
+                    Dim BuildBuy As Boolean
+                    Dim CopyRaw As Boolean
+
+                    If FoundItem.CalcType = "Build/Buy" Then
+                        BuildBuy = True
+                    End If
+
+                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
+                        CopyRaw = True
+                    Else
+                        CopyRaw = False
+                    End If
+
+                    ' Get the BP variable and send the other settings to shopping list
+                    With FoundItem
+                        If Not IsNothing(.Blueprint) Then
+                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
+                                False, False, False, False)
+
+                            'Calculate how many of each item we can manufacture in 5 days (a little less than a week so the player has time to sell everything and start again)
+                            'Get production time for one run
+                            Dim RuntimeSeconds As Double = .Blueprint.GetTotalProductionTime
+                            Dim ShopListItem As ShoppingListItem = CopyManufacturingItemToShoppingItem(FoundItem)
+                            'Update the quantity
+                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(5 * 24 * 60 * 60 / RuntimeSeconds))
+
+                        Else
+                            MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
+                            Exit Sub
+                        End If
+                    End With
+                End If
+NextIteration:
+            Next
+
+            'Shrink the shopping list until it is feasible for the player
+            pnlStatus.Text = "Autoshopping for cost..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+
+            pnlStatus.Text = "Autoshopping for schedule..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.ScheduleShoppingItemQuantity()
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+
+            pnlStatus.Text = "Autoshopping for material volume..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+
+            pnlStatus.Text = "Autoshopping for built volume..."
+            MetroProgressBar.Minimum = 0
+            MetroProgressBar.Maximum = 100
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = True
+            Application.DoEvents() 'Display the message before we get started
+            Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
+            MetroProgressBar.Value = 0
+            MetroProgressBar.Visible = False
+
+        End If 'End if at least one manufacturing item was calculated
+
+        If TotalShoppingList.GetNumShoppingItems > 0 Then
+            ' Add the final item and mark as items in list
+            pnlStatus.Text = "Autoshop success!"
+        Else
+            pnlStatus.Text = "Autoshop failed."
+            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
+        End If
+
+        ' Refresh the data if it's open
+        FrmShoppingList1.RefreshLists()
+        FrmShoppingList1.saveSettings()
+
+    End Sub
+
     ' Calculates the slope of the trend line for the market history for the sent type id for the last x days sent
     ' Formula and logic from here: http://classroom.synonym.com/calculate-trendline-2709.html
     Private Function CalculatePriceTrend(ByVal TypeID As Long, ByVal RegionID As Long, DaysfromToday As Integer) As Double
@@ -7923,624 +8548,6 @@ ExitCalc:
         Return CSng((SumSq / (Arr.Count - 1)) ^ (0.5))
 
     End Function
-
-    Public Structure EVEIPHPricePoint
-        Dim PointDate As Date
-        Dim X_Date_Marker As Integer ' simplifies code for dates
-        Dim Y_Price As Double ' price value
-    End Structure
-
-#Region "List Options Menu"
-
-    ' Allows users to ignore one or more blueprints from the manufacturing tab
-    Private Sub IgnoreBlueprintToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles IgnoreBlueprintToolStripMenuItem.Click
-
-        If lstManufacturing.Items.Count > 0 Then
-            Dim FoundItem As New ManufacturingItem
-            Dim SQL As String
-            Dim RemovedIDs As New List(Of Integer)
-
-            ' Find the each item selected in the list of items then remove each one from the list
-            For i = 0 To lstManufacturing.SelectedItems.Count - 1
-                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
-                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-                If FoundItem IsNot Nothing Then
-                    Dim ListIDstoRemove As New List(Of Integer)
-
-                    ' We found it, so set the bp to ignore
-                    With FoundItem
-                        SQL = "UPDATE ALL_BLUEPRINTS_FACT SET IGNORE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID)
-                        Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                        ' Remove the item from the list in all it's forms plus from the manufacturing list
-                        ' Get all the items with the name to remove
-                        ManufacturingNameToFind = FoundItem.ItemName
-                        FoundItem = Nothing
-
-                        Do
-                            FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItembyName)
-                            If FoundItem IsNot Nothing Then
-                                ' Remove it
-                                FinalManufacturingItemList.Remove(FoundItem)
-                                RemovedIDs.Add(FoundItem.ListID)
-                            End If
-                        Loop Until FoundItem Is Nothing
-
-                    End With
-                End If
-            Next
-
-            ' Now remove all BPs we got rid of from the list
-            lstManufacturing.BeginUpdate()
-            Dim ListCount As Integer = lstManufacturing.Items.Count
-            Dim j As Integer = 0
-            While j < ListCount
-                If RemovedIDs.Contains(CInt(lstManufacturing.Items(j).SubItems(0).Text)) Then
-                    ' Add the indicies to remove
-                    lstManufacturing.Items(j).Remove()
-                    ListCount -= 1
-                    j -= 1 ' make sure we reset since we just removed a line
-                End If
-                j += 1
-            End While
-
-            lstManufacturing.EndUpdate()
-
-            Call PlayNotifySound()
-        End If
-    End Sub
-
-    Private Sub FavoriteBlueprintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FavoriteBlueprintToolStripMenuItem.Click
-
-        If lstManufacturing.Items.Count > 0 Then
-            Dim FoundItem As New ManufacturingItem
-            Dim SQL As String
-
-            ' Find the each item selected in the list of items then remove each one from the list
-            For i = 0 To lstManufacturing.SelectedItems.Count - 1
-                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
-                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-                If FoundItem IsNot Nothing Then
-                    ' We found it, so set the bp to a favorite in all_blueprints
-                    SQL = "UPDATE ALL_BLUEPRINTS_FACT SET FAVORITE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID)
-                    Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                    ' Assume they want to update owned blueprints too if they own it
-                    SQL = "UPDATE OWNED_BLUEPRINTS SET FAVORITE = 1 WHERE BLUEPRINT_ID = " & CStr(FoundItem.BPID) & " AND USER_ID = " & CStr(SelectedCharacter.ID)
-                    Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                End If
-            Next
-
-            Call PlayNotifySound()
-
-        End If
-
-    End Sub
-
-    Private Function GetAutoShopVolume(WalletData As Double) As Double
-
-        'Check if the player can fly a freighter and get the amount of space in their cargohold
-        'Check base skills, then check racial skills, then check if they have one already or at least enough money
-        Dim cargoVolume As Double = 5000 '5000 is the default volume if they don't have any other ships
-        Dim transportFreighter As Boolean
-        If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
-            If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
-                'Galente
-                If GetTotalItemsAnywhere(20187) > 0 Then
-                    transportFreighter = True
-                    cargoVolume = EVEAttributes.GetInventoryAttribute("Obelisk", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20527) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
-                    'Make sure they have some money left over for materials
-                ElseIf WalletData > GetItemPrice(20187) + 500000000 Then
-                    lblRecommendation.Text = "You should buy a freighter."
-                Else
-                    'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
-                End If
-            ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 2 And SelectedCharacter.Skills.GetSkillLevel(20528) > 0 Then
-                'Minmatar
-                If GetTotalItemsAnywhere(20190) > 0 Then
-                    transportFreighter = True
-                    cargoVolume = EVEAttributes.GetInventoryAttribute("Fenrir", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20528) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
-                    'Make sure they have some money left over for materials
-                ElseIf WalletData > GetItemPrice(20190) + 500000000 Then
-                    lblRecommendation.Text = "You should buy a freighter."
-                Else
-                    'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
-                End If
-            ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 2 And SelectedCharacter.Skills.GetSkillLevel(20526) > 0 Then
-                'Caldari
-                If GetTotalItemsAnywhere(20186) > 0 Then
-                    transportFreighter = True
-                    cargoVolume = EVEAttributes.GetInventoryAttribute("Charon", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20526) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
-                    'Make sure they have some money left over for materials
-                ElseIf WalletData > GetItemPrice(20186) + 500000000 Then
-                    lblRecommendation.Text = "You should buy a freighter."
-                Else
-                    'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
-                End If
-            ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 2 And SelectedCharacter.Skills.GetSkillLevel(20424) > 0 Then
-                'Amarr
-                If GetTotalItemsAnywhere(20183) > 0 Then
-                    transportFreighter = True
-                    cargoVolume = EVEAttributes.GetInventoryAttribute("Providence", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(20424) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 3
-                    'Make sure they have some money left over for materials
-                ElseIf WalletData > GetItemPrice(20183) + 500000000 Then
-                    lblRecommendation.Text = "You should buy a freighter."
-                Else
-                    'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
-                End If
-            Else
-                lblRecommendation.Text = "You should finish training racial skills for a freighter."
-            End If
-        Else
-            lblRecommendation.Text = "You should train for a freighter."
-        End If
-        lblRecommendation.Text = lblRecommendation.Text + " A freighter can make a lot more money transporting ships and making fewer trips. It will also reduce risk of being ganked by pirates. "
-
-        'If they can fly a freighter, allow ship blueprints
-        'If not, recommend training into a freighter
-        If transportFreighter = True Then
-            allowAutoShopShips = True
-        End If
-
-        'Check if they can transport with an industrial
-        Dim transportindustrial As Boolean = False
-        If transportFreighter = False Then
-            If SelectedCharacter.Skills.GetSkillLevel(3327) > 2 Then
-                If SelectedCharacter.Skills.GetSkillLevel(3340) > 0 Then
-                    'Galente
-                    If GetTotalItemsAnywhere(657) > 0 Then
-                        transportindustrial = True
-                        cargoVolume = EVEAttributes.GetInventoryAttribute("Iteron Mark V", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3340) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
-                        'Make sure they have some money left over for materials
-                    ElseIf WalletData > GetItemPrice(657) + 5000000 Then
-                        lblRecommendation.Text = "You should buy an industrial."
-                    Else
-                        'They can fly one, but they don't have the money
-                        lblRecommendation.Text = "You should save up for an industrial."
-                    End If
-                ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 0 Then
-                    'Minmatar
-                    If GetTotalItemsAnywhere(652) > 0 Then
-                        transportindustrial = True
-                        cargoVolume = EVEAttributes.GetInventoryAttribute("Mammoth", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3341) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
-                        'Make sure they have some money left over for materials
-                    ElseIf WalletData > GetItemPrice(652) + 5000000 Then
-                        lblRecommendation.Text = "You should buy an industrial."
-                    Else
-                        'They can fly one, but they don't have the money
-                        lblRecommendation.Text = "You should save up for an industrial."
-                    End If
-                ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 0 Then
-                    'Caldari
-                    If GetTotalItemsAnywhere(649) > 0 Then
-                        transportindustrial = True
-                        cargoVolume = EVEAttributes.GetInventoryAttribute("Tayra", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3342) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
-                        'Make sure they have some money left over for materials
-                    ElseIf WalletData > GetItemPrice(649) + 5000000 Then
-                        lblRecommendation.Text = "You should buy an industrial."
-                    Else
-                        'They can fly one, but they don't have the money
-                        lblRecommendation.Text = "You should save up for an industrial."
-                    End If
-                ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 0 Then
-                    'Amarr
-                    If GetTotalItemsAnywhere(1944) > 0 Then
-                        transportindustrial = True
-                        cargoVolume = EVEAttributes.GetInventoryAttribute("Bestower", "capacity") * 1.05 ^ SelectedCharacter.Skills.GetSkillLevel(3343) * (GetAttribute("cargoCapacityMultiplier", "Reinforced Bulkheads II")) ^ 2 * (GetAttribute("cargoCapacityBonus", "Medium Cargohold Optimization I") / 100 + 1)
-                        cargoVolume = cargoVolume + EVEAttributes.GetInventoryAttribute("Giant Secure Container", "capacity") - EVEAttributes.GetInventoryAttribute("Giant Secure Container", "volume") 'Add one cargo container
-                        'Make sure they have some money left over for materials
-                    ElseIf WalletData > GetItemPrice(1944) + 5000000 Then
-                        lblRecommendation.Text = "You should buy an industrial."
-                    Else
-                        'They can fly one, but they don't have the money
-                        lblRecommendation.Text = "You should save up for an industrial."
-                    End If
-                Else
-                    lblRecommendation.Text = "You should finish training racial skills for an industrial."
-                End If
-            Else
-                lblRecommendation.Text = "You should train for an industrial."
-            End If
-            lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
-        End If
-
-        Return cargoVolume
-
-    End Function
-
-    ' Automatically add the top items to the shopping list as a function of the player's max number of jobs
-    Private Sub AutoAddToShoppingList()
-
-        pnlStatus.Text = "Calculating Autoshop..."
-
-        'Clear the shopping list before we start
-        Call TotalShoppingList.Clear()
-
-        'If at least one item was calculated
-        If lstManufacturing.Items.Count > 0 Then
-            Dim FoundItem As New ManufacturingItem
-
-            pnlStatus.Text = "Getting Character Data..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 1
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-
-            ' Try to update character data (including jobs and wallet)
-            SelectedCharacter.LoadCharacterData(SelectedCharacter.CharacterTokenData, False, False, True)
-            'If jobs can not update for the selected character,  note the most recent time
-            Dim readerCharacter As SQLiteDataReader
-            Dim SQL As String
-            Dim WalletCacheDate As DateTime
-            SQL = "SELECT WALLET_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
-            DBCommand = New SQLiteCommand(Sql, EVEDB.DBREf)
-            readerCharacter = DBCommand.ExecuteReader
-            If readerCharacter.Read Then
-                WalletCacheDate = readerCharacter.GetDateTime(0)
-            End If
-            Dim JobsCacheDate As DateTime
-            SQL = "SELECT INDUSTRY_JOBS_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
-            DBCommand = New SQLiteCommand(Sql, EVEDB.DBREf)
-            readerCharacter = DBCommand.ExecuteReader
-            If readerCharacter.Read Then
-                JobsCacheDate = readerCharacter.GetDateTime(0)
-            End If
-            If Date.UtcNow.Date <= JobsCacheDate Then
-                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate) & " UTC"
-            Else
-                lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate) & " UTC"
-            End If
-
-            If SelectedCharacter.WalletData.Wallet < 2 Then
-                pnlStatus.Text = "Autoshopping failed."
-                lblRecommendation.Text = "Your wallet data was unable to be read or returned 0 ISK which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
-                Return
-            End If
-
-            Call IncrementToolStripProgressBar(MetroProgressBar)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-            pnlStatus.Text = "Checking Active Jobs..."
-
-            'Subtract any active jobs
-            'If any active jobs are far from completion, ask the user if they want to subtract these from the autoshop calculation
-            Dim activeJobsFarFromCompletion As Integer = 0
-            For Each Job As IndustryJob In SelectedCharacter.Jobs.JobList
-                If Job.EndDate - DateTime.UtcNow > TimeSpan.FromHours(1) Then
-                    activeJobsFarFromCompletion = activeJobsFarFromCompletion + 1
-                End If
-            Next
-            Dim makeStuffNow As DialogResult
-            If activeJobsFarFromCompletion > 0 Then
-                Dim rf As New frmJobsNearCompletion
-                makeStuffNow = rf.ShowDialog()
-            End If
-            'Get player's max jobs
-            Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
-            If makeStuffNow = DialogResult.OK Then 'Make stuff now
-                maxJobs = maxJobs - activeJobsFarFromCompletion
-            ElseIf makeStuffNow = DialogResult.Cancel Then 'Planning for later
-                'Do nothing
-            End If
-
-            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
-
-            'Get the number of items in production and on the market and in assets And dont build any of these
-            'GetTotalItemsinProduction()
-            'if this shrinks the list to zero then
-            'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
-
-            'Sort the list by Score
-            Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
-
-            ' Find the top items
-            Dim j As Integer
-            For i = 0 To (maxJobs + j)
-
-                ManufacturingRecordIDToFind = CLng(lstManufacturing.Items(i).SubItems(0).Text)
-                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-                'Skip this item if we are not allowing ships
-                If allowAutoShopShips = False Then
-                    If FoundItem.ItemCategory = "Ship" Then
-                        j = j + 1
-                        GoTo NextIteration
-                    End If
-                End If
-
-                ' Add it to shopping list
-                If FoundItem IsNot Nothing Then
-                    Dim BuildBuy As Boolean
-                    Dim CopyRaw As Boolean
-
-                    If FoundItem.CalcType = "Build/Buy" Then
-                        BuildBuy = True
-                    End If
-
-                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
-                        CopyRaw = True
-                    Else
-                        CopyRaw = False
-                    End If
-
-                    ' Get the BP variable and send the other settings to shopping list
-                    With FoundItem
-                        If Not IsNothing(.Blueprint) Then
-                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
-                                False, False, False, False)
-
-                            'Calculate how many of each item we can manufacture in 5 days (a little less than a week so the player has time to sell everything and start again)
-                            'Get production time for one run
-                            Dim RuntimeSeconds As Double = .Blueprint.GetTotalProductionTime
-                            Dim ShopListItem As ShoppingListItem = CopyManufacturingItemToShoppingItem(FoundItem)
-                            'Update the quantity
-                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(5 * 24 * 60 * 60 / RuntimeSeconds))
-
-                        Else
-                            MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
-                            Exit Sub
-                        End If
-                    End With
-                End If
-NextIteration:
-            Next
-
-            'Shrink the shopping list until it is feasible for the player
-            pnlStatus.Text = "Autoshopping for cost..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 100
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-            Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-
-            pnlStatus.Text = "Autoshopping for schedule..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 100
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-            Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.ScheduleShoppingItemQuantity()
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-
-            pnlStatus.Text = "Autoshopping for material volume..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 100
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-            Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-
-            pnlStatus.Text = "Autoshopping for built volume..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 100
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-            Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-
-        End If 'End if at least one manufacturing item was calculated
-
-        If TotalShoppingList.GetNumShoppingItems > 0 Then
-            ' Add the final item and mark as items in list
-            pnlStatus.Text = "Autoshop success!"
-        Else
-            pnlStatus.Text = "Autoshop failed."
-            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, one blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
-        End If
-
-        ' Refresh the data if it's open
-        FrmShoppingList1.RefreshLists()
-        FrmShoppingList1.saveSettings()
-
-    End Sub
-
-
-    'Copy Manufacturing Item to Shopping Item
-    Private Function CopyManufacturingItemToShoppingItem(ManufacturingItem As ManufacturingItem) As ShoppingListItem
-
-        Dim ShopListItem As New ShoppingListItem
-
-        With ManufacturingItem
-            Dim TempName As String = .ItemName
-            If TempName.Contains("(") Then
-                ShopListItem.Name = TempName.Substring(0, InStr(TempName, "(") - 2)
-            Else
-                ShopListItem.Name = TempName
-            End If
-            ShopListItem.ItemME = .BPME
-            ShopListItem.BuildType = "Raw Mats" 'Easy IPH always uses Raw Mats
-            ShopListItem.ManufacturingFacility.FacilityName = .ManufacturingFacility.FacilityName
-
-        End With
-
-        Return ShopListItem
-
-    End Function
-
-    ' Adds one or multiple items to the shopping list from the manufacturing tab
-    Private Sub AddToShoppingListToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles AddToShoppingListToolStripMenuItem.Click
-
-        If lstManufacturing.Items.Count > 0 Then
-            Dim FoundItem As New ManufacturingItem
-
-            ' Find the each item selected in the list of items then remove each one from the list
-            For i = 0 To lstManufacturing.SelectedItems.Count - 1
-
-                ' Find the item clicked in the list of items then just send those values over
-                ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(i).SubItems(0).Text)
-                FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-                ' Add it to shopping list
-                If FoundItem IsNot Nothing Then
-                    Dim BuildBuy As Boolean
-                    Dim CopyRaw As Boolean
-
-                    If FoundItem.CalcType = "Build/Buy" Then
-                        BuildBuy = True
-                    End If
-
-                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
-                        CopyRaw = True
-                    Else
-                        CopyRaw = False
-                    End If
-
-                    ' Get the BP variable and send the other settings to shopping list
-                    With FoundItem
-                        If Not IsNothing(.Blueprint) Then
-                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
-                               False, False, False, False)
-                        Else
-                            MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
-                            Exit Sub
-                        End If
-                    End With
-                End If
-            Next
-        End If
-
-        ' Refresh the data if it's open
-        If frmShop.Visible Then
-            Call frmShop.RefreshLists()
-        End If
-
-    End Sub
-
-    Private Sub autoShopping_CheckedChanged(sender As Object, e As EventArgs) Handles autoShopping.CheckedChanged
-        If autoShopping.Checked = True Then
-            chkCalcCanBuild.Checked = True
-            rbtnCalcBPOwned.Checked = True
-            rbtnCalcAllBPs.Checked = False
-            rbtnCalcBPFavorites.Checked = False
-        End If
-    End Sub
-
-    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        Cursor.Current = Cursors.WaitCursor
-        Application.DoEvents()
-        Call CheckForUpdates(True, Me.Icon)
-        Cursor.Current = Cursors.Default
-    End Sub
-
-    Private Sub btnAddChar_Click(sender As Object, e As EventArgs) Handles btnAddChar.Click
-
-        ' Open up the default select box here
-        Dim f1 = New frmAddCharacter
-        f1.ShowDialog()
-
-        Call LoadCharacterNamesinMenu()
-
-        ' Reinit form
-        Call ResetTabs()
-
-    End Sub
-
-    Private Sub btnManageChar_Click(sender As Object, e As EventArgs) Handles btnManageChar.Click
-        Dim f1 As New frmManageAccounts
-
-        Call f1.ShowDialog()
-
-        ' Default character set, now set the panel if it changed
-        If SelectedCharacter.Name <> mnuChar.SelectedText Then
-            ' If we returned, we got a default character set
-            Call ResetTabs()
-            Call LoadCharacterNamesinMenu()
-        End If
-
-    End Sub
-
-    Private Sub btnResetAll_Click(sender As Object, e As EventArgs) Handles btnResetAll.Click
-        Dim Response As MsgBoxResult
-        Dim SQL As String
-
-        Response = MsgBox("This will reset all data for the program including ESI Tokens, Blueprints, Assets, Industry Jobs, and Price data." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
-
-        If Response = vbYes Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-
-            SQL = "DELETE FROM ESI_CHARACTER_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ESI_CORPORATION_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CHARACTER_STANDINGS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CHARACTER_SKILLS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM OWNED_BLUEPRINTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ITEM_PRICES_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM ASSETS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM INDUSTRY_JOBS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM CURRENT_RESEARCH_AGENTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = 0"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM MARKET_HISTORY"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            SQL = "DELETE FROM MARKET_HISTORY_UPDATE_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
-
-            ' Reset all the cache dates
-            Call ResetESIDates()
-
-            ' Reset ESI data
-            Call ResetESIIndustrySystemIndicies()
-            Call ResetESIAdjustedMarketPrices()
-
-            FirstLoad = True ' Temporarily just to get screen to show correctly
-
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-
-            Call SelectedCharacter.LoadDummyCharacter(True)
-
-            MsgBox("All Data Reset", vbInformation, Application.ProductName)
-
-            Call LoadCharacterNamesinMenu()
-
-            ' Reset the tabs
-            Call ResetTabs()
-
-            FirstLoad = False
-
-        End If
-
-    End Sub
-
-#End Region
 
 #End Region
 
