@@ -7927,16 +7927,22 @@ ExitCalc:
                 End If
             Next
             Dim makeStuffNow As DialogResult
-            If activeJobsFarFromCompletion > 0 Then
-                Dim rf As New frmJobsNearCompletion
-                makeStuffNow = rf.ShowDialog()
-            End If
             'Get player's max jobs
             Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
-            If makeStuffNow = DialogResult.OK Then 'Make stuff now
-                maxJobs = maxJobs - activeJobsFarFromCompletion
-            ElseIf makeStuffNow = DialogResult.Cancel Then 'Planning for later
-                'Do nothing
+            If maxJobs = 0 Then 'If character has no manufacturing capability, return and warn the player
+                pnlStatus.Text = "Autoshopping failed."
+                lblRecommendation.Text = "Your Job data was unable to be read or returned 0 which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
+                Return
+            ElseIf activeJobsFarFromCompletion = maxJobs Then 'If all jobs are busy then assume the player is planning
+                'Leave maxJobs alone
+            ElseIf activeJobsFarFromCompletion > 0 Then
+                Dim rf As New frmJobsNearCompletion
+                makeStuffNow = rf.ShowDialog()
+                If makeStuffNow = DialogResult.OK Then 'Make stuff now
+                    maxJobs = maxJobs - activeJobsFarFromCompletion 'Subtract active jobs
+                ElseIf makeStuffNow = DialogResult.Cancel Then 'Planning for later
+                    'Leave maxJobs alone
+                End If
             End If
 
             Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
