@@ -835,6 +835,8 @@ Public Class frmMain
 
         Dim Counter As Integer = 1
 
+        mnuChar.Items.Clear()
+
         While rsCharacters.Read And Counter < 21
             ' Add all the character names to the list for the number we have - only load 20 characters
             mnuChar.Items.Add(rsCharacters.GetString(0))

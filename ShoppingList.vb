@@ -90,8 +90,6 @@ Public Class ShoppingList
 
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
-            'Update build time
-            '...
         End While
 
         'If we spent a long time on this and it doesn't work, then clear the list
