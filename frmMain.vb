@@ -8284,12 +8284,17 @@ NextIteration:
         'Setup Normal values for the full score
         '-----------------------------
 
+        '60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
+        'running a small number of low skill, low IPH jobs
+        Dim MIN_IPH As Integer = 60000
+
         '-IPH-------------------------
-        'Eliminate negative IPH and low IPH before IQR
+        'Eliminate negative IPH, ridicilous IPH, and low IPH before IQR
         Dim IPHExcludingNegatives(ManufacturingList.Count) As Double
         For i = 0 To ManufacturingList.Count - 1
-            'See below note regarding 60k IPH
-            If ManufacturingList(i).IPH > 60000 Then
+            If ManufacturingList(i).IPH > 25000000 Then 'Throw out ridiculous IPH numbers that are likely the result of an error
+                IPHExcludingNegatives(i) = 0
+            ElseIf ManufacturingList(i).IPH > MIN_IPH Then
                 IPHExcludingNegatives(i) = ManufacturingList(i).IPH
             Else
                 IPHExcludingNegatives(i) = 0
@@ -8449,9 +8454,7 @@ NextIteration:
             End If
 
             'Give a score of zero to anything that is missing market history or won't result in any profit
-            'The 60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
-            'running a small number of low skill, low IPH jobs
-            If ManufacturingList(i).IPH > 60000 And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
+            If ManufacturingList(i).IPH > MIN_IPH And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
                 'SVR and trend are not as important as volatility and risk
                 ManufacturingList(i).Score = IPHNormal(i) * 1.5 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
 
