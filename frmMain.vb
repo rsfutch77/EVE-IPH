@@ -871,15 +871,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub SetCharToolStripImage(ByRef TS As ToolStripMenuItem, ByVal Gender As String)
-        If Gender = Male Then
-            TS.Image = My.Resources._46_64_1
-        Else
-            TS.Image = My.Resources._46_64_2
-        End If
-        TS.ImageTransparentColor = Color.White
-    End Sub
-
     Private Sub LoadSelectedCharacter(ToolStripText As String)
         Cursor.Current = Cursors.WaitCursor
         Call LoadCharacter(ToolStripText)
@@ -8558,4 +8549,19 @@ NextIteration:
 
 #End Region
 
+#Region "Settings Tab"
+
+    Private Sub btnDonate_Click(sender As Object, e As EventArgs) Handles btnDonate.Click
+        Call Process.Start("http://eveiph.github.io/")
+    End Sub
+
+    Private Sub btnVisitweb_Click(sender As Object, e As EventArgs) Handles btnVisitweb.Click
+        Call Process.Start("https://www.easyiph.org/")
+    End Sub
+
+    Private Sub btnReportbug_Click(sender As Object, e As EventArgs) Handles btnReportbug.Click
+        Call Process.Start("https://github.com/rsfutch77/EasyIPH/issues")
+    End Sub
+
+#End Region
 End Class

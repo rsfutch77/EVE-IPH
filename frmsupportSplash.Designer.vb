@@ -40,16 +40,6 @@ Partial Class frmsupportSplash
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
-        'pbPaypal
-        '
-        Me.pbPaypal.BackColor = System.Drawing.Color.Transparent
-        Me.pbPaypal.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.PayPalButton
-        Me.pbPaypal.Location = New System.Drawing.Point(132, 215)
-        Me.pbPaypal.Name = "pbPaypal"
-        Me.pbPaypal.Size = New System.Drawing.Size(124, 35)
-        Me.pbPaypal.TabIndex = 6
-        Me.pbPaypal.TabStop = False
-        '
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

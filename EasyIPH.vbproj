@@ -200,12 +200,6 @@
     <Compile Include="frmAddCharacter.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmChangeDummyCharacter.Designer.vb">
-      <DependentUpon>frmChangeDummyCharacter.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmChangeDummyCharacter.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmSupportSplash.Designer.vb">
       <DependentUpon>frmSupportSplash.vb</DependentUpon>
     </Compile>
@@ -265,12 +259,6 @@
     <Compile Include="EVESkillList.vb" />
     <Compile Include="Corporation.vb" />
     <Compile Include="DecryptorList.vb" />
-    <Compile Include="frmAbout.Designer.vb">
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmAbout.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="frmAPIError.Designer.vb">
       <DependentUpon>frmAPIError.vb</DependentUpon>
     </Compile>
@@ -403,9 +391,6 @@
     <EmbeddedResource Include="frmAddCharacter.resx">
       <DependentUpon>frmAddCharacter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmChangeDummyCharacter.resx">
-      <DependentUpon>frmChangeDummyCharacter.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmLargeItemCount.resx">
       <DependentUpon>frmLargeItemCount.vb</DependentUpon>
     </EmbeddedResource>
@@ -427,10 +412,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCopyandPaste.resx">
       <DependentUpon>frmCopyandPaste.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAbout.resx">
-      <DependentUpon>frmAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAPIError.resx">
@@ -511,12 +492,13 @@
   <ItemGroup>
     <Content Include="desktop icon.ico" />
     <Content Include="icon07_02.ico" />
+    <Content Include="Resources\Digital-Patreon-Logo_Black.png" />
+    <Content Include="Resources\Digital-Patreon-Logo_White.png" />
+    <Content Include="Resources\ReportBugIcon.png" />
     <Content Include="Resources\Splash.png" />
-    <None Include="Resources\PayPalButton.png" />
+    <Content Include="Resources\VisitWebIcon.png" />
     <None Include="PayPalDonate.jpg" />
     <None Include="XImage.png" />
-    <None Include="Resources\46_64_1.png" />
-    <None Include="Resources\46_64_2.png" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
