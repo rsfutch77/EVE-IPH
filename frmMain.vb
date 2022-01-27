@@ -893,6 +893,12 @@ Public Class frmMain
     ' Set all the tool strips for characters since I can't process them if they aren't set at runtime
     Private Sub mnuChar_SelectedIndexChanged(sender As Object, e As EventArgs) Handles mnuChar.SelectedIndexChanged
         Call LoadSelectedCharacter(mnuChar.Text)
+
+        If mnuChar.Text = "Dummy Character" Then
+            rbtnCalcAllBPs.Checked = True
+            rbtnCalcAllBPs_CheckedChanged()
+        End If
+
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -984,14 +990,14 @@ Public Class frmMain
                 SQL = SQL & "And typeID = blueprintTypeID And activityID = 8 And typeName Like '%" & TempRelic & "%'"
 
                 DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                readerRelic = DBCommand.ExecuteReader
-                readerRelic.Read()
-                LoadingRelics = False
-                RelicsLoaded = False ' Allow reload on drop down
+            readerRelic = DBCommand.ExecuteReader
+            readerRelic.Read()
+            LoadingRelics = False
+            RelicsLoaded = False ' Allow reload on drop down
 
-            Else ' T2
-                ' Check the include cost/time
-                If Inputs <> "Unknown" Then ' Unknown inputs is T2 BPO or pre-industry patch
+        Else ' T2
+            ' Check the include cost/time
+            If Inputs <> "Unknown" Then ' Unknown inputs is T2 BPO or pre-industry patch
                     LoadingInventionDecryptors = True
                     LoadingInventionDecryptors = False
                 End If
@@ -4538,7 +4544,7 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub rbtnCalcAllBPs_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rbtnCalcAllBPs.CheckedChanged
+    Private Sub rbtnCalcAllBPs_CheckedChanged() Handles rbtnCalcAllBPs.CheckedChanged
 
         If rbtnCalcAllBPs.Checked = True Then
             autoShopping.Checked = False
