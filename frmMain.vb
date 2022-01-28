@@ -7897,7 +7897,7 @@ ExitCalc:
             SQL = "SELECT INDUSTRY_JOBS_CACHE_DATE FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(SelectedCharacter.CharacterTokenData.CharacterID) & " "
             DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
             readerCharacter = DBCommand.ExecuteReader
-            If readerCharacter.Read Then
+            If readerCharacter.Read And Not SelectedCharacter.Name = "Dummy Character" Then
                 JobsCacheDate = readerCharacter.GetDateTime(0)
             End If
             If Date.UtcNow.Date <= JobsCacheDate Then
