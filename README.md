@@ -26,5 +26,14 @@ Design notes
 
 Testing
 - Install the compiled .exe on a Windows 10 or greater VM such as VirtualBox
+- test each msgbox
+- test each status label (flowchart to show each path?)
+- add a character
+- test the dummy character
+- for each character, inlcuding dummy, try each calcuation mode (all, auto, ...)
+- close the software and re-run the all test cases right after, identifies things that only update -once every few minutes
+- also run all test cases again while keeping the program open, identifies things that break when run twice in succession
+- low dpi through high dpi (resolution scaling settings)
+- test on a character with no blueprints
 
 notes on deployment, latest files, sde builder...
