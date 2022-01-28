@@ -1578,6 +1578,8 @@ Public Class ManufacturingFacility
                     Return DefaultManufacturingFacility
                 End If
             Case Else
+                MsgBox("Error in ManufacturingFacility.VB, GetFacility()", vbInformation, "Error")
+                End
                 Return Nothing
         End Select
 

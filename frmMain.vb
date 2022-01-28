@@ -5811,6 +5811,10 @@ ExitPRocessing:
                         BuildType = TempFacility.GetProductionType(InsertItem.ItemGroupID, InsertItem.ItemCategoryID, ManufacturingFacility.ActivityManufacturing)
                 End Select
 
+                If BuildType = ProductionType.ComponentManufacturing Then
+                    Continue While
+                End If
+
                 InsertItem.ManufacturingFacility = CalcBaseFacility.GetFacility(BuildType)
 
                 ' Now determine how many copies of the base item we need with different data changed
