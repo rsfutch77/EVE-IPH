@@ -990,7 +990,7 @@ Public Class frmMain
                 SQL = SQL & "And typeID = blueprintTypeID And activityID = 8 And typeName Like '%" & TempRelic & "%'"
 
                 DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            readerRelic = DBCommand.ExecuteReader
+                readerRelic = DBCommand.ExecuteReader
             readerRelic.Read()
             LoadingRelics = False
             RelicsLoaded = False ' Allow reload on drop down

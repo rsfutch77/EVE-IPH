@@ -75,6 +75,8 @@ Partial Class frmMain
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
+        Me.VisitWebIcon = New System.Windows.Forms.PictureBox()
         Me.PateronIcon = New System.Windows.Forms.PictureBox()
         Me.LabelVersion = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
@@ -85,8 +87,6 @@ Partial Class frmMain
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
-        Me.VisitWebIcon = New System.Windows.Forms.PictureBox()
-        Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
         Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
@@ -100,9 +100,9 @@ Partial Class frmMain
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'mnuStripMain
@@ -111,7 +111,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1882, 28)
+        Me.mnuStripMain.Size = New System.Drawing.Size(1882, 30)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -132,30 +132,30 @@ Partial Class frmMain
         '
         Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCharacterSkills, Me.ToolStripSeparator5, Me.mnuCurrentIndustryJobs, Me.ToolStripSeparator3})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(55, 26)
         Me.ViewToolStripMenuItem.Text = "View"
         '
         'mnuCharacterSkills
         '
         Me.mnuCharacterSkills.Name = "mnuCharacterSkills"
-        Me.mnuCharacterSkills.Size = New System.Drawing.Size(253, 26)
+        Me.mnuCharacterSkills.Size = New System.Drawing.Size(229, 26)
         Me.mnuCharacterSkills.Text = "Character Skills"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(250, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(226, 6)
         '
         'mnuCurrentIndustryJobs
         '
         Me.mnuCurrentIndustryJobs.Name = "mnuCurrentIndustryJobs"
-        Me.mnuCurrentIndustryJobs.Size = New System.Drawing.Size(253, 26)
+        Me.mnuCurrentIndustryJobs.Size = New System.Drawing.Size(229, 26)
         Me.mnuCurrentIndustryJobs.Text = "Current Industry Jobs"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(250, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(226, 6)
         '
         'ttBP
         '
@@ -559,15 +559,37 @@ Partial Class frmMain
         Me.TabPage3.Controls.Add(Me.btnVisitweb)
         Me.TabPage3.Controls.Add(Me.btnDonate)
         Me.TabPage3.Controls.Add(Me.Label1)
-        Me.TabPage3.Controls.Add(Me.FrmSettings2)
         Me.TabPage3.Controls.Add(Me.btnResetAll)
         Me.TabPage3.Controls.Add(Me.btnManageChar)
         Me.TabPage3.Controls.Add(Me.btnUpdate)
+        Me.TabPage3.Controls.Add(Me.FrmSettings2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Size = New System.Drawing.Size(1869, 868)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
+        '
+        'ReportBugIcon
+        '
+        Me.ReportBugIcon.ErrorImage = Nothing
+        Me.ReportBugIcon.Image = CType(resources.GetObject("ReportBugIcon.Image"), System.Drawing.Image)
+        Me.ReportBugIcon.Location = New System.Drawing.Point(82, 648)
+        Me.ReportBugIcon.Name = "ReportBugIcon"
+        Me.ReportBugIcon.Size = New System.Drawing.Size(57, 65)
+        Me.ReportBugIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.ReportBugIcon.TabIndex = 106
+        Me.ReportBugIcon.TabStop = False
+        '
+        'VisitWebIcon
+        '
+        Me.VisitWebIcon.ErrorImage = Nothing
+        Me.VisitWebIcon.Image = CType(resources.GetObject("VisitWebIcon.Image"), System.Drawing.Image)
+        Me.VisitWebIcon.Location = New System.Drawing.Point(82, 574)
+        Me.VisitWebIcon.Name = "VisitWebIcon"
+        Me.VisitWebIcon.Size = New System.Drawing.Size(57, 65)
+        Me.VisitWebIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.VisitWebIcon.TabIndex = 105
+        Me.VisitWebIcon.TabStop = False
         '
         'PateronIcon
         '
@@ -681,28 +703,6 @@ Partial Class frmMain
         Me.btnUpdate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnUpdate.UseSelectable = True
         '
-        'VisitWebIcon
-        '
-        Me.VisitWebIcon.ErrorImage = Nothing
-        Me.VisitWebIcon.Image = CType(resources.GetObject("VisitWebIcon.Image"), System.Drawing.Image)
-        Me.VisitWebIcon.Location = New System.Drawing.Point(82, 574)
-        Me.VisitWebIcon.Name = "VisitWebIcon"
-        Me.VisitWebIcon.Size = New System.Drawing.Size(57, 65)
-        Me.VisitWebIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.VisitWebIcon.TabIndex = 105
-        Me.VisitWebIcon.TabStop = False
-        '
-        'ReportBugIcon
-        '
-        Me.ReportBugIcon.ErrorImage = Nothing
-        Me.ReportBugIcon.Image = CType(resources.GetObject("ReportBugIcon.Image"), System.Drawing.Image)
-        Me.ReportBugIcon.Location = New System.Drawing.Point(82, 648)
-        Me.ReportBugIcon.Name = "ReportBugIcon"
-        Me.ReportBugIcon.Size = New System.Drawing.Size(57, 65)
-        Me.ReportBugIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.ReportBugIcon.TabIndex = 106
-        Me.ReportBugIcon.TabStop = False
-        '
         'FrmShoppingList1
         '
         Me.FrmShoppingList1.AutoSize = True
@@ -724,6 +724,7 @@ Partial Class frmMain
         'lstManufacturing
         '
         Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.AllowSorting = True
         Me.lstManufacturing.BackColor = System.Drawing.Color.Gray
         Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
         Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
@@ -790,9 +791,9 @@ Partial Class frmMain
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
-        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
