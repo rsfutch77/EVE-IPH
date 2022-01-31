@@ -24,6 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -77,6 +79,8 @@ Partial Class frmMain
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
         Me.VisitWebIcon = New System.Windows.Forms.PictureBox()
@@ -92,8 +96,7 @@ Partial Class frmMain
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New EVE_Isk_per_Hour.frmSettings()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -572,12 +575,13 @@ Partial Class frmMain
         Me.lstManufacturing.AllowColumnReorder = True
         Me.lstManufacturing.AllowSorting = True
         Me.lstManufacturing.BackColor = System.Drawing.Color.Gray
-        Me.lstManufacturing.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.lstManufacturing.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
         Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
         Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
@@ -872,4 +876,5 @@ Partial Class frmMain
     Friend WithEvents ReportBugIcon As PictureBox
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
 End Class

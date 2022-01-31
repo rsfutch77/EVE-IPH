@@ -7952,7 +7952,7 @@ ExitCalc:
             'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
 
             'Sort the list by Score
-            Call ListViewColumnSorter(3, CType(lstManufacturing, ListView), ManufacturingColumnClicked, SortOrder.Ascending)
+            Call ListViewColumnSorter(13, CType(lstManufacturing, ListView), 13, SortOrder.Ascending)
 
             ' Find the top items
             Dim j As Integer
