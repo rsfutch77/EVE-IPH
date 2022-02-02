@@ -64,7 +64,7 @@ Public Class ShoppingList
     Public Sub ScheduleShoppingItemQuantity()
         'Reduce the biggest run by a small quantity, sort and repeat until all runs are below one week
 
-        Const ManufacturingDays = 1
+        Const ManufacturingDays = 5
 
         Dim iterations As Integer
         Dim difference As Double
