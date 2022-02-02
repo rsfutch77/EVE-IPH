@@ -174,15 +174,10 @@ Public Class frmShoppingList
         lstItems.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
         If UserApplicationSettings.ShowToolTips Then
-            ttMain.SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
             ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
         End If
 
         IgnoreFocusChange = False
-
-        If rbtnExportDefault.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportDefault.Checked = True
-        End If
 
         btnCopy.Enabled = False
 
@@ -205,13 +200,7 @@ Public Class frmShoppingList
     End Sub
 
     Private Sub LoadShoppingSettings()
-        ' Load settings
-        If rbtnExportDefault.Text = UserShoppingListSettings.DataExportFormat Then
-            rbtnExportDefault.Checked = True
-        ElseIf rbtnExportMulitBuy.Text = UserShoppingListSettings.DataExportFormat Then
-            rbtnExportMulitBuy.Checked = True
-        End If
-
+        rbtnExportMulitBuy.Checked = True
     End Sub
 
     Public Sub RefreshLists()
@@ -507,11 +496,7 @@ Public Class frmShoppingList
         Dim TempList As ShoppingListSettings = Nothing
         Dim TempSettings As New ProgramSettings
 
-        If rbtnExportDefault.Checked Then
-            TempList.DataExportFormat = rbtnExportDefault.Text
-        ElseIf rbtnExportMulitBuy.Checked Then
-            TempList.DataExportFormat = rbtnExportMulitBuy.Text
-        End If
+        TempList.DataExportFormat = rbtnExportMulitBuy.Text
         TempList.UpdateAssetsWhenUsed = False
         TempList.Usage = True
         TempList.Fees = True

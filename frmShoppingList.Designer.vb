@@ -44,7 +44,6 @@ Partial Class frmShoppingList
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.gbExportOptions = New System.Windows.Forms.GroupBox()
         Me.rbtnExportMulitBuy = New System.Windows.Forms.RadioButton()
-        Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblItemstoBuy = New System.Windows.Forms.Label()
@@ -75,7 +74,7 @@ Partial Class frmShoppingList
         Me.lblTC.Location = New System.Drawing.Point(645, 477)
         Me.lblTC.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTC.Name = "lblTC"
-        Me.lblTC.Size = New System.Drawing.Size(76, 17)
+        Me.lblTC.Size = New System.Drawing.Size(71, 16)
         Me.lblTC.TabIndex = 22
         Me.lblTC.Text = "Total Cost:"
         Me.lblTC.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -86,7 +85,7 @@ Partial Class frmShoppingList
         Me.lblTV.Location = New System.Drawing.Point(628, 549)
         Me.lblTV.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTV.Name = "lblTV"
-        Me.lblTV.Size = New System.Drawing.Size(95, 17)
+        Me.lblTV.Size = New System.Drawing.Size(90, 16)
         Me.lblTV.TabIndex = 28
         Me.lblTV.Text = "Total Volume:"
         Me.lblTV.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -145,7 +144,7 @@ Partial Class frmShoppingList
         Me.lblTotalProfit1.Location = New System.Drawing.Point(593, 620)
         Me.lblTotalProfit1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalProfit1.Name = "lblTotalProfit1"
-        Me.lblTotalProfit1.Size = New System.Drawing.Size(133, 17)
+        Me.lblTotalProfit1.Size = New System.Drawing.Size(123, 16)
         Me.lblTotalProfit1.TabIndex = 34
         Me.lblTotalProfit1.Text = "Approx. Total Profit:"
         Me.lblTotalProfit1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -180,7 +179,7 @@ Partial Class frmShoppingList
         Me.lblAvgIPH1.Location = New System.Drawing.Point(603, 596)
         Me.lblAvgIPH1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAvgIPH1.Name = "lblAvgIPH1"
-        Me.lblAvgIPH1.Size = New System.Drawing.Size(118, 17)
+        Me.lblAvgIPH1.Size = New System.Drawing.Size(111, 16)
         Me.lblAvgIPH1.TabIndex = 32
         Me.lblAvgIPH1.Text = "Approx. Avg. IPH:"
         Me.lblAvgIPH1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -203,7 +202,7 @@ Partial Class frmShoppingList
         Me.lblTotalBuiltVolume1.Location = New System.Drawing.Point(557, 572)
         Me.lblTotalBuiltVolume1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalBuiltVolume1.Name = "lblTotalBuiltVolume1"
-        Me.lblTotalBuiltVolume1.Size = New System.Drawing.Size(173, 17)
+        Me.lblTotalBuiltVolume1.Size = New System.Drawing.Size(161, 16)
         Me.lblTotalBuiltVolume1.TabIndex = 30
         Me.lblTotalBuiltVolume1.Text = "Total Built Item(s) Volume:"
         Me.lblTotalBuiltVolume1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -238,7 +237,6 @@ Partial Class frmShoppingList
         'gbExportOptions
         '
         Me.gbExportOptions.Controls.Add(Me.rbtnExportMulitBuy)
-        Me.gbExportOptions.Controls.Add(Me.rbtnExportDefault)
         Me.gbExportOptions.Location = New System.Drawing.Point(168, 702)
         Me.gbExportOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.gbExportOptions.Name = "gbExportOptions"
@@ -251,26 +249,15 @@ Partial Class frmShoppingList
         'rbtnExportMulitBuy
         '
         Me.rbtnExportMulitBuy.AutoSize = True
+        Me.rbtnExportMulitBuy.Checked = True
         Me.rbtnExportMulitBuy.Location = New System.Drawing.Point(10, 19)
         Me.rbtnExportMulitBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnExportMulitBuy.Name = "rbtnExportMulitBuy"
-        Me.rbtnExportMulitBuy.Size = New System.Drawing.Size(151, 21)
+        Me.rbtnExportMulitBuy.Size = New System.Drawing.Size(139, 20)
         Me.rbtnExportMulitBuy.TabIndex = 3
         Me.rbtnExportMulitBuy.TabStop = True
         Me.rbtnExportMulitBuy.Text = "Multi-Buy (Buy List)"
         Me.rbtnExportMulitBuy.UseVisualStyleBackColor = True
-        '
-        'rbtnExportDefault
-        '
-        Me.rbtnExportDefault.AutoSize = True
-        Me.rbtnExportDefault.Location = New System.Drawing.Point(10, 40)
-        Me.rbtnExportDefault.Margin = New System.Windows.Forms.Padding(4)
-        Me.rbtnExportDefault.Name = "rbtnExportDefault"
-        Me.rbtnExportDefault.Size = New System.Drawing.Size(74, 21)
-        Me.rbtnExportDefault.TabIndex = 0
-        Me.rbtnExportDefault.TabStop = True
-        Me.rbtnExportDefault.Text = "Default"
-        Me.rbtnExportDefault.UseVisualStyleBackColor = True
         '
         'OpenFileDialog
         '
@@ -385,6 +372,5 @@ End Sub
     Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
     Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
     Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox
-    Friend WithEvents rbtnExportDefault As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnExportMulitBuy As RadioButton
 End Class

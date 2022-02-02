@@ -1185,42 +1185,6 @@ Public Class ShoppingList
             End If
         End If
 
-        ' Sort the Build List by order sent (this is based on how they sorted in the grid)        
-        ' Build item sort order - Name, Quantity, and ME
-        If ExportFormat <> MultiBuyDataExport Then
-            For i = 0 To BuildItemsSortOrder.Count - 1
-                ' For each item, find it in the current buy list and replace
-                For j = 0 To FullBuildList.GetMaterialList.Count - 1
-                    ' Parse the sort order fields
-                    Dim ItemColumns As String() = BuildItemsSortOrder(i).Split(New [Char]() {"|"c})
-
-                    With FullBuildList.GetMaterialList(j) ' Mat group stores the build type and meta is in item type
-                        If ItemColumns(0) = .GetMaterialName And CLng(ItemColumns(1)) = .GetQuantity And ItemColumns(2) = .GetItemME Then
-                            ' Found it, so insert into temp list
-                            TempMatList.InsertMaterial(FullBuildList.GetMaterialList(j))
-                            Exit For
-                        End If
-                    End With
-                Next
-            Next
-
-            FullBuildList = CType(TempMatList.Clone, Materials)
-            TempMatList = New Materials
-
-            ' Output the Build List - list the ME for each - assume no decryptor or relic
-            If Not IsNothing(FullBuildList) Then
-                TempListText = FullBuildList.GetClipboardList(ExportFormat, True, True, False, UserApplicationSettings.IncludeInGameLinksinCopyText)
-                If TempListText <> "No items in List" And ExportFormat <> MultiBuyDataExport Then
-                    OutputText = OutputText & "Build Items List: " & vbCrLf
-                    OutputText = OutputText & TempListText
-                    ' Spacer
-                    OutputText = OutputText & vbCrLf
-                ElseIf ExportFormat = MultiBuyDataExport Then
-                    OutputText = OutputText & TempListText
-                End If
-            End If
-        End If
-
         ' Now sort the buy material list by the order sent in the grid
         ' Material sort order - Just Name
         For i = 0 To MaterialNamesSortOrder.Count - 1
