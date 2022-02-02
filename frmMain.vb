@@ -6937,6 +6937,13 @@ ExitCalc:
     ' Reads through the manufacturing blueprint list and calculates the isk per hour for all that are selected, then sorts them and displays
     Private Sub btnCalculate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalcCalculate.Click
 
+        'Reset the settings if using the dummy character
+        If mnuChar.Text = "Dummy Character" Then
+            autoShopping.Checked = True
+            autoShopping_CheckedChanged()
+            trkTrips.Value = 2
+        End If
+
         btnCalcSaveSettings()
 
         If btnCalcCalculate.Text = "Cancel" Then
