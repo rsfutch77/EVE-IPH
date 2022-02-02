@@ -7908,10 +7908,22 @@ ExitCalc:
             If readerCharacter.Read And Not SelectedCharacter.Name = "Dummy Character" Then
                 JobsCacheDate = readerCharacter.GetDateTime(0)
             End If
-            If Date.UtcNow.Date <= JobsCacheDate Then
+            If mnuChar.Text = "Dummy Character" Then
+                lblCharacterData.Text = "Calculation options changed to Dummy Mode"
+            ElseIf Date.UtcNow.Date <= JobsCacheDate Then
                 lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate) & " UTC"
             Else
                 lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(WalletCacheDate) & " UTC"
+            End If
+
+            Dim cargoVolume As Double
+            If mnuChar.Text = "Dummy Character" Then 'Default dummy character stats and autoshop settings
+                trkTrips.Value = 2
+                allowAutoShopShips = True
+                SelectedCharacter.WalletData.Wallet = 2000000000 'Default wallet for dummy character
+                cargoVolume = 500000 'Default to typical freighter volume
+            Else
+                cargoVolume = trkTrips.Value * GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
             End If
 
             If SelectedCharacter.WalletData.Wallet < 2 Then
@@ -7951,8 +7963,6 @@ ExitCalc:
                     'Leave maxJobs alone
                 End If
             End If
-
-            Dim cargoVolume As Double = trkTrips.Value * GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
