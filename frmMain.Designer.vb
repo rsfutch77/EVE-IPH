@@ -74,13 +74,14 @@ Partial Class frmMain
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
+        Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lstManufacturing = New EVE_Isk_per_Hour.ManufacturingListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
         Me.VisitWebIcon = New System.Windows.Forms.PictureBox()
@@ -96,7 +97,7 @@ Partial Class frmMain
         Me.btnUpdate = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New EVE_Isk_per_Hour.frmSettings()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -506,6 +507,7 @@ Partial Class frmMain
         '
         Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer))
         Me.TabPage1.Controls.Add(Me.FrmShoppingList1)
+        Me.TabPage1.Controls.Add(Me.trkTrips)
         Me.TabPage1.Controls.Add(Me.btnAddChar)
         Me.TabPage1.Controls.Add(Me.lblRecommendation)
         Me.TabPage1.Controls.Add(Me.btnCancelUpdate)
@@ -529,14 +531,17 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
-        'FrmShoppingList1
+        'trkTrips
         '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(923, 27)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(1364, 852)
-        Me.FrmShoppingList1.TabIndex = 93
+        Me.trkTrips.BackColor = System.Drawing.Color.Transparent
+        Me.trkTrips.Location = New System.Drawing.Point(539, 168)
+        Me.trkTrips.Maximum = 6
+        Me.trkTrips.Minimum = 2
+        Me.trkTrips.Name = "trkTrips"
+        Me.trkTrips.Size = New System.Drawing.Size(227, 62)
+        Me.trkTrips.TabIndex = 94
+        Me.trkTrips.Text = "Trips"
+        Me.trkTrips.Value = 6
         '
         'btnAddChar
         '
@@ -555,7 +560,7 @@ Partial Class frmMain
         Me.CalcBaseFacility.Location = New System.Drawing.Point(35, 277)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(1065, 58)
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(787, 58)
         Me.CalcBaseFacility.TabIndex = 0
         '
         'TabPage2
@@ -768,6 +773,15 @@ Partial Class frmMain
         Me.FrmSettings1.TabIndex = 0
         Me.FrmSettings1.Visible = False
         '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 30)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(927, 814)
+        Me.FrmShoppingList1.TabIndex = 95
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -864,7 +878,6 @@ Partial Class frmMain
     Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton
     Friend WithEvents FrmSettings1 As frmSettings
     Friend WithEvents FrmSettings2 As frmSettings
-    Friend WithEvents FrmShoppingList1 As frmShoppingList
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelVersion As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
@@ -876,5 +889,7 @@ Partial Class frmMain
     Friend WithEvents ReportBugIcon As PictureBox
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents trkTrips As MetroFramework.Controls.MetroTrackBar
     Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents FrmShoppingList1 As frmShoppingList
 End Class

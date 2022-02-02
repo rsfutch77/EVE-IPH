@@ -895,8 +895,9 @@ Public Class frmMain
         Call LoadSelectedCharacter(mnuChar.Text)
 
         If mnuChar.Text = "Dummy Character" Then
-            rbtnCalcAllBPs.Checked = True
-            rbtnCalcAllBPs_CheckedChanged()
+            autoShopping.Checked = True
+            autoShopping_CheckedChanged()
+            trkTrips.Value = 2
         End If
 
     End Sub
@@ -7603,7 +7604,7 @@ ExitCalc:
 
     End Sub
 
-    Private Sub autoShopping_CheckedChanged(sender As Object, e As EventArgs) Handles autoShopping.CheckedChanged
+    Private Sub autoShopping_CheckedChanged() Handles autoShopping.CheckedChanged
         If autoShopping.Checked = True Then
             chkCalcCanBuild.Checked = True
             rbtnCalcBPOwned.Checked = True
@@ -7944,12 +7945,11 @@ ExitCalc:
                 End If
             End If
 
-            Dim cargoVolume As Double = GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
+            Dim cargoVolume As Double = trkTrips.Value * GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
 
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
-            'if this shrinks the list to zero then
-            'lblRecommendation.Text = lblRecommendation.Text + " Autoshop has no recommendations because you already have a bunch of the only kind of items you can produce. Sell these before making more of the same or buy more blueprints to diversify."
+            'if this shrinks the list to zero then recommend they buy more blueprints, but go back and redo shopping without this rule in case they want to use the same old blueprints
 
             'Sort the list by Score
             Call ListViewColumnSorter(13, CType(lstManufacturing, ListView), 13, SortOrder.Ascending)
