@@ -533,6 +533,7 @@ Public Class frmSettings
         Dim OldMaxAlphaSkillsSetting As Boolean = UserApplicationSettings.LoadMaxAlphaSkills
 
         Dim Settings As New ProgramSettings
+        Dim ReloadFacilties As Boolean = False
 
         If btnSave.Text = "Save" Then
 
@@ -598,6 +599,10 @@ Public Class frmSettings
                 ' Now set these
                 .LoadAssetsonStartup = CBool(chkRefreshAssetsonStartup.Checked)
                 .LoadBPsonStartup = CBool(chkRefreshBPsonStartup.Checked)
+
+                If UserApplicationSettings.SaveFacilitiesbyChar <> CBool(chkSaveFacilitiesbyChar.Checked) Then
+                    ReloadFacilties = True
+                End If
                 .SaveFacilitiesbyChar = CBool(chkSaveFacilitiesbyChar.Checked)
 
                 If UserApplicationSettings.LoadBPsbyChar <> CBool(chkLoadBPsbyChar.Checked) Then
@@ -705,6 +710,12 @@ Public Class frmSettings
                 ' Set the flag first
                 Call SelectedCharacter.Skills.SetActiveSkillFlagValue(UserApplicationSettings.UseActiveSkillLevels)
                 Call SelectedCharacter.Skills.LoadCharacterSkills(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
+            End If
+
+            ' If they changed what the original value was for the shared facilities, reload them
+            If ReloadFacilties Then
+                ' Load all the forms' facilities 
+                Call frmMain.LoadFacilities()
             End If
 
             ' Re-init any tabs that have settings changes before displaying dialog

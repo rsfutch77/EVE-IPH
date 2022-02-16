@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Data.SQLite
+
 Public Class frmAddCharacter
 
     Public Sub New()
@@ -15,7 +16,7 @@ Public Class frmAddCharacter
         chkReadBlueprints.Checked = True
         chkReadCharacterJobs.Checked = True
         chkReadStructures.Checked = True
-        chkStructureMarkets.Checked = True
+        chkReadStructureMarkets.Checked = True
         'chkManagePlanets.Checked = True
 
         ' Set the tool tips for api
@@ -26,7 +27,7 @@ Public Class frmAddCharacter
             .SetToolTip(chkReadCharacterJobs, "Reads a list of the character's industry jobs")
 
             .SetToolTip(chkReadStructures, "Reads information about specific structures")
-            .SetToolTip(chkStructureMarkets, "Reads market orders from a specific structure")
+            .SetToolTip(chkReadStructureMarkets, "Reads market orders from a specific structure")
 
         End With
 
@@ -34,8 +35,11 @@ Public Class frmAddCharacter
 
     Private Sub btnEVESSOLogin_Click(sender As Object, e As EventArgs) Handles btnEVESSOLogin.Click
         Dim ESIConnection As New ESI
+        Dim CharacterData As New SavedTokenData
 
-        btnEVESSOLogin.Enabled = False ' Disable until we return
+        Me.Cursor = Cursors.WaitCursor
+        Call EnableDisableForm(False) ' Disable until we return
+        Application.DoEvents()
 
         ' Strip the last space
         ESIScopesString = ESIScopesString.Substring(0, Len(ESIScopesString) - 1)
@@ -44,7 +48,7 @@ Public Class frmAddCharacter
         ESIScopesString = "esi-skills.read_skills.v1 " & ESIScopesString
 
         ' Set the new character data first. This will load the data in the table or update it if they choose a character already loaded
-        If ESIConnection.SetCharacterData() Then
+        If ESIConnection.SetCharacterData(CharacterData, "", False, True) Then
 
             ' Refresh the token data to get new scopes list if they added/removed
             Cursor.Current = Cursors.WaitCursor
@@ -52,7 +56,33 @@ Public Class frmAddCharacter
                 Call SelectedCharacter.RefreshTokenData()
             End If
             Cursor.Current = Cursors.Default
-            Application.DoEvents()
+            If SelectedCharacter.ID <> DummyCharacterID And SelectedCharacter.ID > 0 Then
+                Call SelectedCharacter.RefreshTokenData()
+            End If
+
+            ' If they loaded a character for the first time, set it from Dummy to this character as the default
+            If SelectedCharacter.ID = DummyCharacterID Then
+                ' See if only one other character exists in db (the one we just added)
+                Dim rsCheck As SQLiteDataReader
+                DBCommand = New SQLiteCommand("SELECT COUNT(*) FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID <> " & DummyCharacterID, EVEDB.DBREf)
+                rsCheck = DBCommand.ExecuteReader
+                rsCheck.Read()
+
+                If rsCheck.GetInt32(0) = 1 Then
+                    ' They only have one other character in the db and the selected is dummy, so set this to the default
+                    rsCheck.Close()
+                    DBCommand = New SQLiteCommand("SELECT CHARACTER_NAME FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID <> " & DummyCharacterID, EVEDB.DBREf)
+                    rsCheck = DBCommand.ExecuteReader
+                    rsCheck.Read()
+                    Cursor.Current = Cursors.WaitCursor
+                    Application.DoEvents()
+                    Call SetDefaultCharacter(rsCheck.GetString(0))
+            		Cursor.Current = Cursors.Default
+                    Application.DoEvents()
+                End If
+            Else
+                MsgBox("Character successfully added to IPH", vbInformation, Application.ProductName)
+            End If
         Else
             ' Didn't load, so show the re-enter info button
             If Not CancelESISSOLogin Then
@@ -60,7 +90,9 @@ Public Class frmAddCharacter
             End If
         End If
 
-        btnEVESSOLogin.Enabled = True ' Enable for another try if they want
+        Cursor.Current = Cursors.Default
+        Call EnableDisableForm(True)
+        Application.DoEvents()
 
         ' Close the form - users will have to select what one to set as default
         Me.Hide()
@@ -110,8 +142,8 @@ Public Class frmAddCharacter
         End With
     End Sub
 
-    Private Sub chkStructureMarkets_CheckedChanged(sender As Object, e As EventArgs) Handles chkStructureMarkets.CheckedChanged
-        With chkStructureMarkets
+    Private Sub chkReadStructureMarkets_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadStructureMarkets.CheckedChanged
+        With chkReadStructureMarkets
             Call UpdateScopesString(.Text, .Checked)
         End With
     End Sub
@@ -120,5 +152,14 @@ Public Class frmAddCharacter
         With chkReadWallet
             Call UpdateScopesString(.Text, .Checked)
         End With
+    End Sub
+        
+    Private Sub EnableDisableForm(Setting As Boolean)
+        btnEVESSOLogin.Enabled = False
+        chkReadAssets.Enabled = Setting
+        chkReadBlueprints.Enabled = Setting
+        chkReadCharacterJobs.Enabled = Setting
+        chkReadStructures.Enabled = Setting
+        chkReadStructureMarkets.Enabled = Setting
     End Sub
 End Class

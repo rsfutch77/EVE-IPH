@@ -959,8 +959,9 @@ Public Class frmBlueprintManagement
 
         ' Add not Ignored if checked
         If chkNotIgnored.Checked Then
+            TempClause = "IGNORE = 0 "
             If WhereClause = "" Then
-                WhereClause = "WHERE IGNORE = 0 "
+                WhereClause = "WHERE " & TempClause
             Else
                 WhereClause = WhereClause & "AND " & TempClause
             End If
@@ -1060,11 +1061,11 @@ Public Class frmBlueprintManagement
 
         ' See if they want BPOs, Copies, or Invented BPCs
         If rbtnOnlyBPO.Checked Then
-            Copies = " AND BP_TYPE = " & CStr(BPType.Original) & " " ' Only BPO's
+            Copies = " AND BP_TYPE IN (" & CStr(BPType.Original) & ",0) " ' Only BPO's
         ElseIf rbtnOnlyCopies.Checked Then
-            Copies = " AND BP_TYPE = " & CStr(BPType.Copy) & " " ' Only Copies
+            Copies = " AND BP_TYPE IN (" & CStr(BPType.Copy) & ",0) " ' Only Copies
         ElseIf rbtnOnlyInventedBPCs.Checked Then
-            Copies = " AND BP_TYPE = " & CStr(BPType.InventedBPC) & " " ' Only invented bpcs
+            Copies = " AND BP_TYPE IN (" & CStr(BPType.InventedBPC) & ",0) " ' Only invented bpcs
         End If
 
         SizesClause = ""
@@ -1508,7 +1509,7 @@ your developer scopes.", vbExclamation, Application.ProductName)
                 TempTE = CInt(txtBPTE.Text)
             End If
 
-            Call UpdateBPinDB(CInt(CDbl(item.SubItems(1).Text)), item.SubItems(2).Text, TempME, TempTE, TempBPType,
+            Call UpdateBPinDB(CInt(CDbl(item.SubItems(1).Text)), TempME, TempTE, TempBPType,
                               CInt(item.SubItems(5).Text), CInt(item.SubItems(6).Text), chkMarkasFavorite.Checked,
                               chkMarkasIgnored.Checked, 0, rbtnRemoveAllSettings.Checked)
 
@@ -1977,7 +1978,7 @@ your developer scopes.", vbExclamation, Application.ProductName)
 
             Dim TempRuns As Integer
 
-            UpdatedBPType = UpdateBPinDB(CLng(CurrentRow.SubItems(1).Text), CurrentRow.SubItems(3).Text, MEValue, TEValue, TempBPType,
+            UpdatedBPType = UpdateBPinDB(CLng(CurrentRow.SubItems(1).Text), MEValue, TEValue, TempBPType,
                               CInt(CurrentRow.SubItems(5).Text), CInt(CurrentRow.SubItems(6).Text), SetasFavorite, SetasIgnore)
 
             Call PlayNotifySound()
@@ -1989,7 +1990,7 @@ your developer scopes.", vbExclamation, Application.ProductName)
 
             ' Update the data in the current row
             CurrentRow.SubItems(8).Text = GetBPTypeString(UpdatedBPType)
-            If UpdatedBPType = BPType.NotOwned Then
+            If UpdatedBPType = BPType.NotOwned Or CurrentRow.SubItems(2).Text.Contains("Reaction Formulas") Then ' Reactions are always set to 0
                 ' Update the ME/TE to 0 
                 CurrentRow.SubItems(5).Text = "0"
                 CurrentRow.SubItems(6).Text = "0"

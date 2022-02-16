@@ -1,5 +1,4 @@
 ﻿Imports System.Net
-Imports System.Web
 Imports System.IO
 Imports System.Net.Sockets
 Imports System.Text
@@ -8,6 +7,7 @@ Imports System.Collections.Specialized
 Imports System.Threading
 Imports System.Security.Cryptography
 Imports Newtonsoft.Json
+Imports System.IdentityModel.Tokens.Jwt
 
 Public Module ESIGlobals
     Public ESICharacterSkillsScope As String = "esi-skills.read_skills" ' only required scope to use IPH
@@ -17,7 +17,6 @@ Public Class ESI
     'More info on how to use ESI here: https://esi.evetech.net/ui
     Private Const ESIAuthorizeURL As String = "https://login.eveonline.com/v2/oauth/authorize"
     Private Const ESITokenURL As String = "https://login.eveonline.com/v2/oauth/token"
-    Private Const ESIVerifyURL As String = "https://login.eveonline.com/oauth/verify"
     Private Const ESIURL As String = "https://esi.evetech.net/latest/"
     Private Const ESIStatusURL As String = "https://esi.evetech.net/status.json?version=latest"
     Private Const TranquilityDataSource As String = "?datasource=tranquility"
@@ -86,6 +85,7 @@ Public Class ESI
     Public Sub New()
         AuthorizationToken = ""
         CodeVerifier = ""
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
     End Sub
 
     ''' <summary>
@@ -105,6 +105,9 @@ Public Class ESI
 
             AuthThreadReference = New Thread(AddressOf GetAuthorizationfromWeb)
             AuthThreadReference.Start()
+
+            ' Reset this to make sure it only comes up if they hit the button
+            CancelESISSOLogin = False
 
             ' Now loop until thread is done, 60 seconds goes by, or cancel clicked
             Do
@@ -234,19 +237,18 @@ Public Class ESI
     ''' <param name="Token">An Authorization or Refresh Token</param>
     ''' <param name="Refresh">If the token is Authorization or Refresh</param>
     ''' <returns>Access Token Data object</returns>
-    Private Function GetAccessToken(ByVal Token As String, ByVal Refresh As Boolean) As ESITokenData
+    Private Function GetAccessToken(ByVal Token As String, ByVal Refresh As Boolean, ByRef TokenCharacterID As Long, ByRef TokenScopes As String) As ESITokenData
 
         If Token = "No Token" Or Token = "" Then
             Return Nothing
         End If
 
-        Dim AccessTokenOutput As New ESITokenData
+        Dim Output As New ESITokenData
         Dim Success As Boolean = False
         Dim WC As New WebClient
         Dim Response As Byte()
         Dim Data As String = ""
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         WC.Headers(HttpRequestHeader.ContentType) = "application/x-www-form-urlencoded"
         WC.Headers(HttpRequestHeader.Host) = "login.eveonline.com"
         WC.Proxy = GetProxyData()
@@ -277,7 +279,17 @@ Public Class ESI
             Data = Encoding.UTF8.GetString(Response)
 
             ' Parse the data to the class
-            AccessTokenOutput = JsonConvert.DeserializeObject(Of ESITokenData)(Data)
+            Output = JsonConvert.DeserializeObject(Of ESITokenData)(Data)
+            Dim JWToken As New JwtSecurityTokenHandler
+            Dim TokenData As JwtSecurityToken = JWToken.ReadJwtToken(Output.access_token)
+            Dim ScopeList As List(Of String) = JsonConvert.DeserializeObject(Of List(Of String))(TokenData.Payload("scp").ToString)
+
+            ' Get the character ID from the JWT
+            TokenCharacterID = CLng(TokenData.Subject.Substring(14))
+            For Each entry In ScopeList
+                TokenScopes &= entry & " "
+            Next
+            TokenScopes = Trim(TokenScopes)
             Success = True
 
         Catch ex As WebException
@@ -289,7 +301,7 @@ Public Class ESI
                 ESIErrorHandler.RetriedCall = True
                 ' Try this call again after waiting a second
                 Thread.Sleep(1000)
-                AccessTokenOutput = GetAccessToken(Token, Refresh)
+                Output = GetAccessToken(Token, Refresh, TokenCharacterID, TokenScopes)
             End If
 
         Catch ex As Exception
@@ -297,7 +309,7 @@ Public Class ESI
         End Try
 
         If Success Then
-            Return AccessTokenOutput
+            Return Output
         Else
             Return Nothing
         End If
@@ -312,7 +324,6 @@ Public Class ESI
     Private Function GetPublicData(ByVal URL As String, ByRef CacheDate As Date, Optional BodyData As String = "") As String
         Dim Response As String = ""
         Dim WC As New WebClient
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
         Dim myWebHeaderCollection As New WebHeaderCollection
         Dim Expires As String = Nothing
         Dim Pages As Integer = Nothing
@@ -395,16 +406,15 @@ Public Class ESI
                                               ByVal CharacterID As Long, Optional ByVal SupressErrorMsgs As Boolean = False,
                                               Optional SinglePage As Boolean = False) As String
         Dim WC As New WebClient
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-
         Dim Response As String = ""
+        Dim TokenExpireDate As Date
 
         Try
             ' See if we update the token data first
             If TokenExpiration <= DateTime.UtcNow Then
 
                 ' Update the token
-                TokenData = GetAccessToken(TokenData.refresh_token, True)
+                TokenData = GetAccessToken(TokenData.refresh_token, True, Nothing, Nothing)
 
                 If IsNothing(TokenData) Then
                     Return Nothing
@@ -417,8 +427,9 @@ Public Class ESI
                 SQL &= "TOKEN_TYPE = '{2}', REFRESH_TOKEN = '{3}' WHERE CHARACTER_ID = {4}"
 
                 With TokenData
+                    TokenExpireDate = DateAdd(DateInterval.Second, .expires_in, DateTime.UtcNow)
                     SQL = String.Format(SQL, FormatDBString(.access_token),
-                    Format(DateAdd(DateInterval.Second, .expires_in, DateTime.UtcNow), SQLiteDateFormat),
+                    Format(TokenExpireDate, SQLiteDateFormat),
                     FormatDBString(.token_type), FormatDBString(.refresh_token), CharacterID)
                 End With
 
@@ -434,7 +445,7 @@ Public Class ESI
                 ' Now update the copy used in IPH so we don't re-query
                 SelectedCharacter.CharacterTokenData.AccessToken = TokenData.access_token
                 SelectedCharacter.CharacterTokenData.RefreshToken = TokenData.refresh_token
-                SelectedCharacter.CharacterTokenData.TokenExpiration = DateAdd(DateInterval.Second, TokenData.expires_in, DateTime.UtcNow)
+                SelectedCharacter.CharacterTokenData.TokenExpiration = TokenExpireDate
 
             End If
 
@@ -540,10 +551,12 @@ Public Class ESI
     ''' <returns>Returns boolean if the function was successful in setting character data.</returns>    
     Public Function SetCharacterData(Optional ByRef CharacterTokenData As SavedTokenData = Nothing,
                                      Optional ByVal ManualAuthToken As String = "",
-                                     Optional ByVal IgnoreCacheDate As Boolean = False) As Boolean
+                                     Optional ByVal IgnoreCacheDate As Boolean = False,
+                                     Optional ByVal SupressMessages As Boolean = False) As Boolean
         Dim TokenData As ESITokenData
-        Dim CharacterData As New ESICharacterData
+        Dim CharacterData As New ESICharacterPublicData
         Dim CharacterID As Long
+        Dim Scopes As String = ""
         Dim CB As New CacheBox
         Dim CacheDate As Date
 
@@ -558,15 +571,15 @@ Public Class ESI
                 If CharacterID = 0 Then
                     ' We need to get the token data from the authorization
                     If ManualAuthToken <> "" Then
-                        TokenData = GetAccessToken(ManualAuthToken, False)
+                        TokenData = GetAccessToken(ManualAuthToken, False, CharacterID, Scopes)
                     Else
-                        TokenData = GetAccessToken(GetAuthorizationToken(), False)
+                        TokenData = GetAccessToken(GetAuthorizationToken(), False, CharacterID, Scopes)
                     End If
 
                     CharacterTokenData = New SavedTokenData
                 Else
                     ' We need to refresh the token data
-                    TokenData = GetAccessToken(CharacterTokenData.RefreshToken, True)
+                    TokenData = GetAccessToken(CharacterTokenData.RefreshToken, True, CharacterID, Scopes)
                 End If
 
                 If IsNothing(TokenData) Then
@@ -577,18 +590,14 @@ Public Class ESI
                 CharacterTokenData.AccessToken = TokenData.access_token
                 CharacterTokenData.RefreshToken = TokenData.refresh_token
                 CharacterTokenData.TokenType = TokenData.token_type
+                CharacterTokenData.CharacterID = CharacterID
+                CharacterTokenData.Scopes = Scopes
 
                 ' Set the expiration date to pass
                 CharacterTokenData.TokenExpiration = DateAdd(DateInterval.Second, TokenData.expires_in, DateTime.UtcNow)
 
-                ' Now with the token data, look up the character data
-                CharacterData.VerificationData = GetCharacterVerificationData(CharacterTokenData, CharacterTokenData.TokenExpiration)
-                If IsNothing(CharacterData.VerificationData) Then
-                    Return False
-                End If
-
-                CharacterData.PublicData = GetCharacterPublicData(CharacterData.VerificationData.CharacterID, CacheDate)
-                If IsNothing(CharacterData.PublicData) Then
+                CharacterData = GetCharacterPublicData(CharacterTokenData.CharacterID, CacheDate)
+                If IsNothing(CharacterData) Then
                     Return False
                 End If
 
@@ -596,7 +605,7 @@ Public Class ESI
                 Dim rsCheck As SQLiteDataReader
                 Dim SQL As String
 
-                SQL = "SELECT * FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(CharacterData.VerificationData.CharacterID)
+                SQL = "SELECT * FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CStr(CharacterTokenData.CharacterID)
 
                 DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
                 rsCheck = DBCommand.ExecuteReader
@@ -608,15 +617,14 @@ Public Class ESI
                     SQL &= "WHERE CHARACTER_ID = {7}"
 
                     With CharacterData
-                        SQL = String.Format(SQL, .PublicData.corporation_id,
-                        FormatDBString(FormatNullString(.PublicData.description)),
-                        FormatDBString(.VerificationData.Scopes),
+                        SQL = String.Format(SQL, .corporation_id,
+                        FormatDBString(FormatNullString(.description)),
+                        FormatDBString(CharacterTokenData.Scopes),
                         FormatDBString(TokenData.access_token),
                         Format(CharacterTokenData.TokenExpiration, SQLiteDateFormat),
                         FormatDBString(TokenData.token_type),
                         FormatDBString(TokenData.refresh_token),
-                        .VerificationData.CharacterID)
-
+                        CharacterTokenData.CharacterID)
                     End With
                 Else
                     ' Insert new data
@@ -625,36 +633,38 @@ Public Class ESI
                     SQL &= "SCOPES, OVERRIDE_SKILLS, IS_DEFAULT)"
                     SQL &= "VALUES ({0},'{1}',{2},'{3}','{4}',{5},{6},{7},'{8}','{9}','{10}','{11}','{12}','{13}',{14},{15})"
                     With CharacterData
-                        SQL = String.Format(SQL, .VerificationData.CharacterID,
-                        FormatDBString(.VerificationData.CharacterName),
-                        .PublicData.corporation_id,
-                        Format(CDate(.PublicData.birthday.Replace("T", " ")), SQLiteDateFormat),
-                        FormatDBString(.PublicData.gender),
-                        .PublicData.race_id,
-                        .PublicData.bloodline_id,
-                        FormatNullInteger(.PublicData.ancestry_id),
-                        FormatDBString(FormatNullString(.PublicData.description)),
+                        SQL = String.Format(SQL, CharacterTokenData.CharacterID,
+                        FormatDBString(.name),
+                        .corporation_id,
+                        Format(CDate(.birthday.Replace("T", " ")), SQLiteDateFormat),
+                        FormatDBString(.gender),
+                        .race_id,
+                        .bloodline_id,
+                        FormatNullInteger(.ancestry_id),
+                        FormatDBString(FormatNullString(.description)),
                         FormatDBString(TokenData.access_token),
                         Format(CharacterTokenData.TokenExpiration, SQLiteDateFormat),
                         FormatDBString(TokenData.token_type),
                         FormatDBString(TokenData.refresh_token),
-                        FormatDBString(.VerificationData.Scopes),
+                        FormatDBString(CharacterTokenData.Scopes),
                         0, 0) ' Don't set default yet or override skills
                     End With
                 End If
 
                 EVEDB.ExecuteNonQuerySQL(SQL)
 
+                rsCheck.Close()
+
                 ' Update public cachedate for character now that we have a record
-                Call CB.UpdateCacheDate(CacheDateType.PublicCharacterData, CacheDate, CLng(CharacterData.VerificationData.CharacterID))
+                Call CB.UpdateCacheDate(CacheDateType.PublicCharacterData, CacheDate, CLng(CharacterTokenData.CharacterID))
 
                 ' While we are here, load the public information of the corporation too
-                Call SetCorporationData(CharacterData.PublicData.corporation_id, CacheDate)
+                Call SetCorporationData(CharacterData.corporation_id, CacheDate)
 
                 ' Update after we update/insert the record
-                Call CB.UpdateCacheDate(CacheDateType.PublicCorporationData, CacheDate, CharacterData.PublicData.corporation_id)
+                Call CB.UpdateCacheDate(CacheDateType.PublicCorporationData, CacheDate, CharacterData.corporation_id)
 
-                If CharacterID = 0 Then
+                If CharacterID = 0 And Not SupressMessages Then
                     MsgBox("Character successfully added to IPH", vbInformation, Application.ProductName)
                 End If
 
@@ -678,7 +688,7 @@ Public Class ESI
     ''' </summary>
     ''' <param name="CharacterID">CharacterID you want public data for</param>
     ''' <returns>Returns data in the ESICharacterPublicData JSON property class</returns>
-    Public Function GetCharacterPublicData(ByVal CharacterID As String, ByRef DataCacheDate As Date) As ESICharacterPublicData
+    Public Function GetCharacterPublicData(ByVal CharacterID As Long, ByRef DataCacheDate As Date) As ESICharacterPublicData
         Dim CharacterData As ESICharacterPublicData
         Dim PublicData As String
 
@@ -690,85 +700,6 @@ Public Class ESI
         Else
             Return Nothing
         End If
-
-    End Function
-
-    ''' <summary>
-    ''' Gets the character verification data when sent the token
-    ''' </summary>
-    ''' <param name="TokenData"></param>
-    ''' <param name="TokenExpirationDate"></param>
-    ''' <returns>Character Verification Data object</returns>
-    Public Function GetCharacterVerificationData(ByVal TokenData As SavedTokenData, ByVal TokenExpirationDate As Date) As ESICharacterVerificationData
-        Dim CacheDate As Date
-        Dim WC As New WebClient
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-        Dim Response As String = ""
-
-        WC.Proxy = GetProxyData()
-
-        If IsNothing(TokenData) Then
-            Return Nothing
-        End If
-
-        Try
-
-            ' See if we are in an error limited state
-            If ESIErrorHandler.ErrorLimitReached Then
-                ' Need to wait until we are ready to continue
-                Call Thread.Sleep(ESIErrorHandler.msErrorTimer)
-            End If
-
-            Dim Auth_header As String = $"Bearer {TokenData.AccessToken}"
-
-            WC.Headers(HttpRequestHeader.Authorization) = Auth_header
-            Response = WC.DownloadString(ESIVerifyURL)
-
-            ' Get the expiration date for the cache date
-            Dim myWebHeaderCollection As WebHeaderCollection = WC.ResponseHeaders
-            Dim Expires As String = myWebHeaderCollection.Item("Expires")
-            Dim Pages As Integer = CInt(myWebHeaderCollection.Item("X-Pages"))
-
-            If Not IsNothing(Expires) Then
-                If Expires <> "-1" Then
-                    CacheDate = CDate(Expires.Replace("GMT", "").Substring(InStr(Expires, ",") + 1)) ' Expiration date is in GMT
-                Else
-                    CacheDate = NoExpiry
-                End If
-            Else
-                CacheDate = NoExpiry
-            End If
-
-            If Not IsNothing(Pages) Then
-                If Pages > 1 Then
-                    Dim TempResponse As String = ""
-                    For i = 2 To Pages
-                        TempResponse = WC.DownloadString(ESIVerifyURL & "&page=" & CStr(i))
-                        ' Combine with the original response - strip the end and leading brackets
-                        Response = Response.Substring(0, Len(Response) - 1) & "," & TempResponse.Substring(1)
-                    Next
-                End If
-            End If
-
-            Return JsonConvert.DeserializeObject(Of ESICharacterVerificationData)(Response)
-
-        Catch ex As WebException
-
-            Call ESIErrorHandler.ProcessWebException(ex, ESIErrorProcessor.ESIErrorLocation.CharacterVerification, False, "")
-
-            ' Retry call
-            If ESIErrorHandler.ErrorCode >= 500 And Not ESIErrorHandler.RetriedCall Then
-                ESIErrorHandler.RetriedCall = True
-                ' Try this call again after waiting a second
-                Thread.Sleep(1000)
-                Return GetCharacterVerificationData(TokenData, TokenExpirationDate)
-            End If
-
-        Catch ex As Exception
-            Call ESIErrorHandler.ProcessException(ex, ESIErrorProcessor.ESIErrorLocation.CharacterVerification, False)
-        End Try
-
-        Return Nothing
 
     End Function
 
@@ -847,6 +778,7 @@ Public Class ESI
                     TempBlueprint.TypeName = Unknown
                 End If
                 rsLookup.Close()
+
                 TempBlueprint.LocationID = BP.location_id
                 ' Get the flag id for this location
                 DBCommand = New SQLiteCommand("SELECT flagID FROM INVENTORY_FLAGS WHERE flagName = '" & BP.location_flag & "'", EVEDB.DBREf)
@@ -857,6 +789,7 @@ Public Class ESI
                     TempBlueprint.FlagID = 0
                 End If
                 rsLookup.Close()
+
                 TempBlueprint.Quantity = BP.quantity
                 TempBlueprint.MaterialEfficiency = BP.material_efficiency
                 TempBlueprint.TimeEfficiency = BP.time_efficiency
@@ -938,6 +871,7 @@ Public Class ESI
         If Not IsNothing(ReturnData) Then
             Return JsonConvert.DeserializeObject(Of List(Of ESICorporationRoles))(ReturnData)
         Else
+            ' No corp roles returned
             Return Nothing
         End If
 
@@ -1008,7 +942,7 @@ Public Class ESI
 
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
 
-                DBCommand = Nothing
+                rsCheck.Close()
 
             End If
         End If
@@ -1031,7 +965,7 @@ Public Class ESI
     End Function
 
     ' Updates the db with orders from structures for the items and region sent
-    Public Function UpdateStructureMarketOrders(RegionIDs As List(Of String), ByVal Tokendata As SavedTokenData, ByRef refPG As MetroFramework.Controls.MetroProgressBar) As Boolean
+    Public Function UpdateStructureMarketOrders(RegionIDs As List(Of String), PriceSystem As String, ByVal Tokendata As SavedTokenData, ByRef refPG As MetroFramework.Controls.MetroProgressBar) As Boolean
         Dim SQL As String
         Dim rsCheck As SQLiteDataReader
         Dim CacheDate As Date = NoDate
@@ -1044,17 +978,19 @@ Public Class ESI
             Return True
         End If
 
-        For Each ID In RegionIDs
-            RegionList &= ID & ","
-        Next
-        ' Strip last comma
-        RegionList = RegionList.Substring(0, Len(RegionList) - 1)
+        If PriceSystem <> "" Then
+            ' Only look up structures in this system
+            SQL = "SELECT DISTINCT STATION_ID FROM STATIONS WHERE SOLAR_SYSTEM_ID =" & PriceSystem & " AND STATION_ID >70000000"
+        Else
+            For Each ID In RegionIDs
+                RegionList &= ID & ","
+            Next
+            ' Strip last comma
+            RegionList = RegionList.Substring(0, Len(RegionList) - 1)
 
-        ' First, get all the structures in that region
-        SQL = "SELECT DISTINCT STATION_ID FROM STATIONS WHERE REGION_ID IN (" & RegionList & ") "
-        SQL &= "AND STATION_TYPE_ID IN "
-        SQL &= "(SELECT TYPEID FROM INVENTORY_TYPES AS IT, INVENTORY_GROUPS AS IG, INVENTORY_CATEGORIES AS IC "
-        SQL &= "WHERE IT.groupID = IG.groupID AND IG.categoryID = IC.categoryID AND IG.categoryID = 65 AND IT.published <> 0) "
+            ' Get all the structures in that region
+            SQL = "SELECT DISTINCT STATION_ID FROM STATIONS WHERE REGION_ID IN (" & RegionList & ") AND STATION_ID >70000000"
+        End If
 
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         rsCheck = DBCommand.ExecuteReader
@@ -1130,6 +1066,7 @@ Public Class ESI
                         Call Threads.StopAllThreads()
                         ' Reset the error handler
                         ESIErrorHandler = New ESIErrorProcessor
+                        Call EVEDB.RollbackSQLiteTransaction()
                         If CancelUpdatePrices Then
                             Return True ' They wanted this so don't error
                         Else
@@ -1191,12 +1128,8 @@ Public Class ESI
         SQL = "SELECT CACHE_DATE FROM STRUCTURE_MARKET_ORDERS_UPDATE_CACHE WHERE STRUCTURE_ID = " & CStr(QueryInfo.StructureID)
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         rsCache = DBCommand.ExecuteReader
-
         CacheDate = ProcessCacheDate(rsCache)
-
         rsCache.Close()
-        rsCache = Nothing
-        DBCommand = Nothing
 
         ' For each structure, update the total record count for the progressbar on frmMain regardless of whether we do anything with it
         StructureCount += 1
@@ -1260,9 +1193,6 @@ Public Class ESI
                 ' Set the Cache Date for everything queried 
                 Call EVEDB.ExecuteNonQuerySQL("DELETE FROM STRUCTURE_MARKET_ORDERS_UPDATE_CACHE WHERE STRUCTURE_ID = " & CStr(.StructureID))
                 Call EVEDB.ExecuteNonQuerySQL("INSERT INTO STRUCTURE_MARKET_ORDERS_UPDATE_CACHE VALUES (" & CStr(.StructureID) & ",'" & Format(CacheDate, SQLiteDateFormat) & "')")
-
-                rsCache = Nothing
-                DBCommand = Nothing
 
                 Return True
 
@@ -1377,7 +1307,6 @@ Public Class ESI
         Dim MarketOrdersOutput As List(Of ESIMarketOrder)
         Dim SQL As String
         Dim rsCache As SQLiteDataReader
-        Dim rsCheck As SQLiteDataReader
         Dim CacheDate As Date = NoDate
         Dim PublicData As String = ""
 
@@ -1390,8 +1319,6 @@ Public Class ESI
             CacheDate = ProcessCacheDate(rsCache)
 
             rsCache.Close()
-            rsCache = Nothing
-            DBCommand = Nothing
         Else
             CacheDate = NoDate
         End If
@@ -1451,10 +1378,6 @@ Public Class ESI
             ' Set the Cache Date for everything queried 
             Call MHDB.ExecuteNonQuerySQL("DELETE FROM MARKET_ORDERS_UPDATE_CACHE WHERE TYPE_ID = " & CStr(TypeID) & " AND REGION_ID = " & CStr(RegionID))
             Call MHDB.ExecuteNonQuerySQL("INSERT INTO MARKET_ORDERS_UPDATE_CACHE VALUES (" & CStr(TypeID) & "," & CStr(RegionID) & "," & "'" & Format(CacheDate, SQLiteDateFormat) & "')")
-
-            rsCache = Nothing
-            rsCheck = Nothing
-            DBCommand = Nothing
 
             Return True
 
@@ -1714,6 +1637,7 @@ Public Class ESI
                                     End If
 
                                     Call EVEDB.ExecuteNonQuerySQL(SQL)
+                                    rsLookup.Close()
                                 End With
                             Next
 
@@ -1844,6 +1768,7 @@ Public Class ESI
 
         Catch ex As Exception
             MsgBox("Failed to update public structure data: " & ex.Message, vbInformation, Application.ProductName)
+            Call EVEDB.CommitSQLiteTransaction()
 
             Return False
 
@@ -1854,25 +1779,6 @@ Public Class ESI
 #End Region
 
 #Region "Supporting Functions"
-
-    Private Sub SetProgressBar(ByRef PB As ProgressBar, ByVal SQLCount As String)
-        Dim rsCount As SQLiteDataReader
-        DBCommand = New SQLiteCommand(SQLCount, EVEDB.DBREf)
-        rsCount = DBCommand.ExecuteReader
-
-        PB.Visible = False
-        If rsCount.Read Then
-            If rsCount.GetInt32(0) > 0 Then
-                PB.Minimum = 0
-                PB.Value = 0
-                PB.Maximum = rsCount.GetInt32(0) - 1
-                PB.Visible = True
-            End If
-        End If
-
-        Application.DoEvents()
-
-    End Sub
 
     Public Function GetFactionData() As List(Of ESIFactionData)
         Dim PublicData As String
@@ -1932,6 +1838,7 @@ Public Class ESI
     End Function
 
     Private Function GetURLSafeCode(SentCode As Byte()) As String
+        ' Note, says on jwt that we can't pad with "=" https://tools.ietf.org/html/rfc7515#section-2
         Return Convert.ToBase64String(SentCode).Replace("+", "-").Replace("/", "_").TrimEnd(CChar("="))
     End Function
 
@@ -2011,6 +1918,22 @@ Public Class ESIErrorProcessor
 
         ' Ignore these for now
         If ErrorCode = 304 Or ErrorCode = -1 Or ErrorCode > 500 Then
+            Exit Sub
+        End If
+
+        If ErrorCode = 403 And ErrorResponse = "The given character doesn't have the required role(s)" And URL.Contains("/corporations/") Then
+            'This is a call to corporation roles that now errors if you don't have any roles. The response will return all roles for the characters in the corp and you 
+            ' need personel manager or director to really do it so don't error if it's just a character with those roles only
+            Exit Sub
+        End If
+
+        If ErrorCode = 404 And ErrorResponse = "Type not found!" Then
+            Exit Sub
+        End If
+
+        ' This is the error we get if you switch corps and the old corp id is attached to your account info, which may not need to be updated
+        ' The change in corp number seems to take a bit to complete, so they will have to wait until this info is refereshed in ESI - so we will supress this error
+        If ErrorResponse = "Received bad session variable(s): ""corporation_id"" " And URL.Contains("/corporations/") Then
             Exit Sub
         End If
 
@@ -2302,11 +2225,6 @@ Public Class SavedTokenData
     End Sub
 
 End Class
-
-Public Structure ESICharacterData
-    Dim VerificationData As ESICharacterVerificationData
-    Dim PublicData As ESICharacterPublicData
-End Structure
 
 Public Class ESITokenData
     <JsonProperty("access_token")> Public access_token As String

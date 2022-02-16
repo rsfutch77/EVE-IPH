@@ -4,7 +4,6 @@ Imports System.IO
 Imports System.Net
 Imports System.Text
 Imports System.Collections.Specialized
-Imports System.Threading
 Imports Newtonsoft.Json
 
 Public Class frmShoppingList
@@ -154,6 +153,7 @@ Public Class frmShoppingList
         lstBuy.Columns.Add("Fees", 0, HorizontalAlignment.Right)
         lstBuy.Columns.Add("Total Cost", 112, HorizontalAlignment.Right) ' Min 129
 
+        lstBuild.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag 
         ' Item List - What we are building - width = 711 (21 for verticle scroll bar)
         lstItems.Columns.Add("TypeID", 0, HorizontalAlignment.Center) ' always left allignment this column for some reason, so add a dummy, store bpID here though
         lstItems.Columns.Add("Item", 225, HorizontalAlignment.Left) ' 
@@ -163,7 +163,7 @@ Public Class frmShoppingList
         lstItems.Columns.Add("Build Type", 0, HorizontalAlignment.Left) ' 71 min text
         lstItems.Columns.Add("Decryptor", 0, HorizontalAlignment.Left) '105 min text
         lstItems.Columns.Add("Location", 0, HorizontalAlignment.Left) '132 min text
-        lstItems.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag for pos building
+        lstItems.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag
         lstItems.Columns.Add("IgnoredInvention", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
         lstItems.Columns.Add("IgnoredMinerals", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
         lstItems.Columns.Add("IgnoredT1BaseItem", 0, HorizontalAlignment.Left) 'Hidden flag for ignore variables
@@ -1486,4 +1486,13 @@ Public Class eprasialItems
     <JsonProperty("route")> Public route As String
     <JsonProperty("status")> Public status As String
     <JsonProperty("tags")> Public tags As List(Of String)
+End Class
+
+Public Class EAItem
+    Public market_name As String
+    Public items As List(Of typeIDs)
+End Class
+
+Public Class typeIDs
+    Public type_id As Integer
 End Class

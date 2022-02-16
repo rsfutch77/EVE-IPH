@@ -9,7 +9,7 @@ Imports System.Security.Cryptography
 ' Place to store all public variables and functions
 Public Module Public_Variables
     ' DB name and version
-    Public Const SDEVersion As String = "December 2020 Release"
+    Public Const SDEVersion As String = "December 7, 2021 Release"
 
     Public Developer As Boolean ' This is if I'm developing something and only want me to see it instead of public release
 
@@ -155,9 +155,7 @@ Public Module Public_Variables
 
     ' For update prices
     Public Const DefaultSystemPriceCombo As String = "Select System"
-
-    ' For getting mining ammount attribute
-    Public Const MiningAmountBonus As String = "miningAmountBonus"
+    Public Const DefaultRegionPriceCombo As String = "Select Region"
 
     Public Const AllSystems As String = "All Systems"
 
@@ -190,6 +188,8 @@ Public Module Public_Variables
 
     Public NoPOSCategoryIDs As List(Of Long) ' For facilities
 
+    Public Const DefaultStructureTaxRate = 0.0 ' 0% to start for structures
+    Public Const DefaultStationTaxRate = 0.1 ' 10% for all stations
     ' Mining Ship Name constants
     Public Const Procurer As String = "Procurer"
     Public Const Retriever As String = "Retriever"
@@ -204,6 +204,7 @@ Public Module Public_Variables
     Public Const Porpoise As String = "Porpoise"
     Public Const Orca As String = "Orca"
     Public Const Drake As String = "Drake"
+    Public Const Gnosis As String = "Gnosis"
     Public Const Rokh As String = "Rokh"
 
     ' For exporting Data
@@ -231,15 +232,6 @@ Public Module Public_Variables
         Original = -1
         Copy = -2
         InventedBPC = -3
-    End Enum
-
-    ' Types of Asset windows
-    Public Enum AssetWindow
-        DefaultView = 0
-        ManufacturingTab = 1
-        ShoppingList = 2
-        RefiningOre = 3
-        RefiningItems = 4
     End Enum
 
     ' For scanning assets
@@ -287,6 +279,11 @@ Public Module Public_Variables
     Public Enum CopyPasteWindowType
         Materials = 1
         Blueprints = 2
+    End Enum
+
+    Public Enum CopyPasteWindowLocation
+        Assets = 1
+        RefineMaterials = 2
     End Enum
 
     ' To play ding sound without box
@@ -367,11 +364,30 @@ Public Module Public_Variables
 
 #Region "Taxes/Fees"
 
+    Public Function AdjustPriceforTaxesandFees(ByVal OriginalPrice As Double, ByVal SetTax As Boolean, ByVal BrokerFeeData As BrokerFeeInfo) As Double
+        If OriginalPrice <= 0 Then
+            Return 0
+        End If
+
+        Dim NewPrice As Double = 0
+
+        ' Apply taxes and fees
+        If SetTax Then
+            NewPrice = OriginalPrice - GetSalesTax(OriginalPrice) - GetSalesBrokerFee(OriginalPrice, BrokerFeeData)
+        Else
+            NewPrice = OriginalPrice - GetSalesBrokerFee(OriginalPrice, BrokerFeeData)
+        End If
+
+        Return NewPrice
+
+    End Function
+
     ' Returns the tax on an item price only
     Public Function GetSalesTax(ByVal ItemMarketCost As Double) As Double
         Dim Accounting As Integer = SelectedCharacter.Skills.GetSkillLevel(16622)
-        ' Each level of accounting reduces tax by 11%, Max Sales Tax: 5%, Min Sales Tax: 2.25%
-        Return (5.0 - (Accounting * 0.11 * 5.0)) / 100 * ItemMarketCost
+        ' Each level of accounting reduces tax by 11%, Max/Base Sales Tax: 8%, Min Sales Tax: 3.6%
+        ' Latest info: https://www.eveonline.com/news/view/restructuring-taxes-after-relief
+        Return (8 - (Accounting * 0.11 * 8)) / 100 * ItemMarketCost
     End Function
 
     ' Returns the tax on setting up a sell order for an item price only
@@ -380,9 +396,10 @@ Public Module Public_Variables
         Dim TempFee As Double
 
         If BrokerFee.IncludeFee = BrokerFeeType.Fee Then
-            ' 5%-(0.3%*BrokerRelationsLevel)-(0.03%*FactionStanding)-(0.02%*CorpStanding) - uses unmodified standings
-            ' https://support.eveonline.com/hc/en-us/articles/203218962-Broker-Fee-and-Sales-Tax
-            Dim BrokerTax = 5.0 - (0.3 * BrokerRelations) - (0.03 * UserApplicationSettings.BrokerFactionStanding) - (0.02 * UserApplicationSettings.BrokerCorpStanding)
+            ' 3%-(0.3%*BrokerRelationsLevel)-(0.03%*FactionStanding)-(0.02%*CorpStanding) - uses unmodified standings
+            ' Base broker fee - 3%, Min broker fees: 1.0%
+            ' Latest info: https://www.eveonline.com/news/view/restructuring-taxes-after-relief
+            Dim BrokerTax = 3 - (0.3 * BrokerRelations) - (0.03 * UserApplicationSettings.BrokerFactionStanding) - (0.02 * UserApplicationSettings.BrokerCorpStanding)
             TempFee = (BrokerTax / 100) * ItemMarketCost
         ElseIf BrokerFee.IncludeFee = BrokerFeeType.SpecialFee Then
             ' use a flat rate to set the fee
@@ -426,7 +443,6 @@ Public Module Public_Variables
                 ' No characters loaded yet so load dummy for all
                 Call SelectedCharacter.LoadDummyCharacter(True)
             End If
-
         End If
 
     End Sub
@@ -436,8 +452,6 @@ Public Module Public_Variables
 
         ' Load only if a new character
         If SelectedCharacter.Name <> CharacterName Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
             ' Update them all to 0 first
             Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET IS_DEFAULT = 0")
             Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET IS_DEFAULT = " & CStr(DefaultCharacterCode) & " WHERE CHARACTER_NAME = '" & FormatDBString(CharacterName) & "'")
@@ -447,8 +461,6 @@ Public Module Public_Variables
             If PlaySound Then
                 Call PlayNotifySound()
             End If
-
-            Application.UseWaitCursor = False
         End If
 
     End Sub
@@ -844,6 +856,7 @@ InvalidDate:
         End If
 
         readerCost.Close()
+
         Return ItemPrice
 
     End Function
@@ -936,7 +949,11 @@ InvalidDate:
         Dim ItemLines As String() = Nothing
         Dim ItemColumns As String() = Nothing
 
-        ' Format of imported text for items will always be: Name, Quantity, Group, Category, Size, Slot, Volume, Tech Level
+        Dim TempString As String = ""
+        Dim TempNumber As String = ""
+        Dim FoundQuantity As Boolean = False
+
+        ' Format of imported text for items will always be: Name, Quantity, Group, Category, Size, Slot, Volume, Meta Level, Tech Level, Est. Price
         ' Users can remove columns but the general rule is Name and quantity first, they can separate lines by three ways
         If SentText.Contains(vbCrLf) Then
             ItemLines = SentText.Split(New [Char]() {CChar(vbCrLf)}, StringSplitOptions.RemoveEmptyEntries) ' Get all the item lines
@@ -964,14 +981,21 @@ InvalidDate:
                     ItemColumns = ItemLines(i).Split(New [Char]() {" "c}, StringSplitOptions.RemoveEmptyEntries)
                     ' After importing a space, make sure we have a full name and then a number before processing. 
                     ' For example, Capital Armor Plates 33 would be a 4 index array but we want to combine the first 3
-                    Dim TempString As String = ""
-                    Dim TempNumber As String = ""
+                    TempString = ""
+                    TempNumber = ""
+                    FoundQuantity = False
 
                     For j = 0 To ItemColumns.Count - 1
                         If Not IsNumeric(ItemColumns(j)) Then
-                            TempString = TempString & ItemColumns(j) & " "
+                            If Not FoundQuantity Then
+                                TempString = TempString & ItemColumns(j) & " "
+                            Else
+                                ' We found the full quanitity and name, so exit
+                                Exit For
+                            End If
                         Else
-                            TempNumber = ItemColumns(j)
+                            FoundQuantity = True
+                            TempNumber = TempNumber & ItemColumns(j)
                         End If
                     Next
 
@@ -980,11 +1004,16 @@ InvalidDate:
                     ItemColumns(0) = Trim(TempString)
                     ItemColumns(1) = Trim(TempNumber)
 
-                ElseIf ItemLines(i).Contains(",") Then
+                ElseIf ItemLines(i).Contains(",") Then ' Keep this to final case
                     ItemColumns = ItemLines(i).Split(New [Char]() {","c})
                 Else
-                    Exit For ' Don't process
+                    GoTo SkipItem ' Don't process
                     'Dim itemcolumns As String() = ItemLines(i).Split(New String() {"   "}, StringSplitOptions.RemoveEmptyEntries)
+                End If
+
+                ' If the item has a comma after it, strip it off
+                If ItemColumns(0).Substring(Len(ItemColumns(0)) - 1, 1) = "," Then
+                    ItemColumns(0) = ItemColumns(0).Substring(0, Len(ItemColumns(0)) - 1)
                 End If
 
                 SQL = "SELECT typeID FROM INVENTORY_TYPES WHERE typeName = '" & FormatDBString(ItemColumns(0)) & "'"
@@ -993,11 +1022,18 @@ InvalidDate:
                 readerItem = DBCommand.ExecuteReader
                 readerItem.Read()
 
-                If ItemColumns(0).Contains("Tripped") Then
-                    Application.DoEvents()
-                End If
-
                 If readerItem.HasRows Then
+                    ' If the itemcolumns doesn't have a number, add it
+                    If ItemColumns.Count = 1 Then
+                        TempString = ItemColumns(0)
+                        ReDim ItemColumns(1)
+                        ItemColumns(0) = TempString
+                        ItemColumns(1) = ""
+                    End If
+
+                    ItemColumns(0) = Trim(ItemColumns(0))
+                    ItemColumns(1) = Trim(ItemColumns(1))
+
                     ' Format number first if needed
                     If ItemColumns(1).Contains(".") Then
                         ' EU number format - quantity is always an integer (27.070)
@@ -1015,7 +1051,8 @@ InvalidDate:
                         Call CopyPasteMaterials.InsertMaterial(TempMaterial)
                     End If
                 End If
-
+                readerItem.Close()
+SkipItem:
                 readerItem = Nothing
 
             Next
@@ -1174,6 +1211,42 @@ InvalidDate:
         End If
     End Function
 
+    Public Function BPHasProcRawMats(BPID As Integer, MatType As BuildMatType) As Boolean
+        Dim SQL As String
+        Dim readerBP As SQLiteDataReader
+
+        If MatType = BuildMatType.AdvMaterials Then
+            ' Don't process for advanced since they don't want to drill down for reactions, etc.
+            Return False
+        End If
+
+        SQL = "SELECT 'X' FROM ALL_BLUEPRINT_MATERIALS_FACT WHERE PRODUCT_ID IN "
+        SQL &= "(SELECT ITEM_ID FROM ALL_BLUEPRINTS_FACT WHERE ITEM_ID IN "
+        SQL &= "(SELECT MATERIAL_ID FROM ALL_BLUEPRINT_MATERIALS_FACT WHERE BLUEPRINT_ID = {0})) "
+
+        If MatType = BuildMatType.ProcessedMaterials Then
+            SQL &= "AND MATERIAL_GROUP_ID IN (429,712)"
+        ElseIf MatType = BuildMatType.RawMaterials Then
+            SQL &= "AND MATERIAL_GROUP_ID IN (428,429,711,712,974)"
+        End If
+
+        Try
+            DBCommand = New SQLiteCommand(String.Format(SQL, BPID), EVEDB.DBREf)
+            readerBP = DBCommand.ExecuteReader
+
+            If readerBP.Read Then
+                readerBP.Close()
+                Return True
+            End If
+
+            readerBP.Close()
+            Return False
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
     ' After a price update in any location that updates prices, we want to refresh all the prices and grids on every tab 
     Public Sub UpdateProgramPrices(Optional ByVal RefreshUpdatePriceList As Boolean = True)
 
@@ -1187,6 +1260,11 @@ InvalidDate:
 
         ' Reset manufacturing calc button
         Call frmMain.ResetRefresh()
+
+        ' Reload the prices on the reprocessing plant if open
+        If Application.OpenForms().OfType(Of frmReprocessingPlant).Any Then
+            frmRepoPlant.RefreshMaterialList()
+        End If
 
     End Sub
 
@@ -1206,7 +1284,6 @@ InvalidDate:
         End If
 
         readerRegion.Close()
-        DBCommand = Nothing
 
         Return ReturnID
 
@@ -1228,11 +1305,27 @@ InvalidDate:
         End If
 
         readerRegion.Close()
-        DBCommand = Nothing
 
         Return ReturnID
 
     End Function
+
+    ' Sets the default character to the character name sent
+    Public Sub SetDefaultCharacter(ByVal CharacterName As String)
+        ' If we get here, just clear out the old default and set the new one
+        Call LoadCharacter(CharacterName, False)
+        ' Refresh all screens
+        If Application.OpenForms().OfType(Of frmMain).Any Then
+            Call frmMain.ResetTabs()
+        End If
+
+        ' Reset any of the characterids
+        Call frmMain.ResetCharacterIDonFacilties()
+
+        DefaultCharSelected = True
+        MsgBox(CharacterName & " selected as Default Character", vbInformation, Application.ProductName)
+
+    End Sub
 
     ' Function to get the regionID from the name sent
     Public Function GetRegionName(ByVal RegionID As Integer) As String
@@ -1250,9 +1343,301 @@ InvalidDate:
         End If
 
         readerRegion.Close()
-        DBCommand = Nothing
 
         Return ReturnName
+
+    End Function
+
+    ' Returns the SQL for getting item price typeids = and empty string if nothing selected
+    Public Function GetItemPriceGroupListSQL(AdvancedComponents As CheckBox, AdvancedMats As CheckBox, AdvancedProtectiveTechnology As CheckBox, AncientRelics As CheckBox,
+                                             BoosterMats As CheckBox, Boosters As CheckBox, BPCs As CheckBox, CapitalShipComponents As CheckBox,
+                                             CapT2ShipComponents As CheckBox, Celestials As CheckBox, Charges As CheckBox,
+                                             Datacores As CheckBox, Decryptors As CheckBox, Deployables As CheckBox, Drones As CheckBox,
+                                             FactionMaterials As CheckBox, FuelBlocks As CheckBox, Gas As CheckBox, IceProducts As CheckBox,
+                                             Implants As CheckBox, Minerals As CheckBox, Misc As CheckBox, Modules As CheckBox, MolecularForgedMaterials As CheckBox,
+                                             MolecularForgingTools As CheckBox, NamedComponents As CheckBox, Planetary As CheckBox,
+                                             Polymers As CheckBox, ProcessedMats As CheckBox, ProtectiveComponents As CheckBox, RAM As CheckBox,
+                                             RawMaterials As CheckBox, RawMoonMats As CheckBox, RDb As CheckBox, Rigs As CheckBox, Salvage As CheckBox,
+                                             Ships As CheckBox, StructureComponents As CheckBox, StructureModules As CheckBox, StructureRigs As CheckBox,
+                                             Structures As CheckBox, SubsystemComponents As CheckBox, Subsystems As CheckBox,
+                                             ChargeTypes As ComboBox, ShipTypes As ComboBox,
+                                             PricesT1 As CheckBox, PriceCheckT1Enabled As Boolean,
+                                             PricesT2 As CheckBox, PriceCheckT2Enabled As Boolean,
+                                             PricesT3 As CheckBox, PriceCheckT3Enabled As Boolean,
+                                             PricesT4 As CheckBox, PriceCheckT4Enabled As Boolean,
+                                             PricesT5 As CheckBox, PriceCheckT5Enabled As Boolean,
+                                             PricesT6 As CheckBox, PriceCheckT6Enabled As Boolean, NoBuildItems As CheckBox) As String
+
+        Dim SQL As String = ""
+        Dim TechSQL As String = ""
+        Dim ItemChecked As Boolean = False
+        Dim TechChecked As Boolean = False
+
+        ' Materials & Research Equipment Grid
+        ' Materials First
+        If AdvancedProtectiveTechnology.Checked Then
+            SQL &= "ITEM_GROUP = 'Advanced Protective Technology' OR "
+            ItemChecked = True
+        End If
+        If FactionMaterials.Checked Then
+            SQL &= "(ITEM_GROUP IN ('Materials and Compounds','Artifacts and Prototypes','Rogue Drone Components') OR ITEM_GROUP LIKE 'Decryptors -%') OR "
+            ItemChecked = True
+        End If
+        If Gas.Checked Then
+            SQL &= "ITEM_GROUP = 'Harvestable Cloud' OR "
+            ItemChecked = True
+        End If
+        If IceProducts.Checked Then
+            SQL &= "ITEM_GROUP = 'Ice Product' OR "
+            ItemChecked = True
+        End If
+        If Minerals.Checked Then
+            SQL &= "ITEM_GROUP = 'Mineral' OR "
+            ItemChecked = True
+        End If
+        If MolecularForgingTools.Checked Then
+            SQL &= "ITEM_GROUP = 'Molecular-Forging Tools' OR "
+            ItemChecked = True
+        End If
+        If NamedComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Named Components' OR "
+            ItemChecked = True
+        End If
+        If Planetary.Checked Then
+            SQL &= "ITEM_CATEGORY LIKE 'Planetary%' OR "
+            ItemChecked = True
+        End If
+
+        ' Raw Materials (Ores)
+        If RawMaterials.Checked Then
+            SQL &= "(ITEM_CATEGORY = 'Asteroid' OR ITEM_GROUP = 'Abyssal Materials') OR "
+            ItemChecked = True
+        End If
+
+        ' Reaction Materials
+        If AdvancedMats.Checked Then
+            SQL &= "ITEM_GROUP = 'Composite' OR "
+            ItemChecked = True
+        End If
+        If BoosterMats.Checked Then
+            SQL &= "ITEM_GROUP = 'Biochemical Material' OR "
+            ItemChecked = True
+        End If
+        If MolecularForgedMaterials.Checked Then
+            SQL &= "ITEM_GROUP = 'Molecular-Forged Materials' OR "
+            ItemChecked = True
+        End If
+        If Polymers.Checked Then
+            SQL &= "ITEM_GROUP = 'Hybrid Polymers' OR "
+            ItemChecked = True
+        End If
+        If ProcessedMats.Checked Then
+            SQL &= "ITEM_GROUP = 'Intermediate Materials' OR "
+            ItemChecked = True
+        End If
+        If RawMoonMats.Checked Then
+            SQL &= "ITEM_GROUP = 'Moon Materials' OR "
+            ItemChecked = True
+        End If
+
+        If Salvage.Checked Then
+            SQL &= "ITEM_GROUP IN ('Salvaged Materials','Ancient Salvage') OR "
+            ItemChecked = True
+        End If
+
+        ' Research Equipment
+        If AncientRelics.Checked Then
+            SQL &= "ITEM_CATEGORY = 'Ancient Relics' OR "
+            ItemChecked = True
+        End If
+        If Datacores.Checked Then
+            SQL &= "ITEM_GROUP = 'Datacores' OR "
+            ItemChecked = True
+        End If
+        If Decryptors.Checked Then
+            SQL &= "ITEM_CATEGORY = 'Decryptors' OR "
+            ItemChecked = True
+        End If
+        If RDb.Checked Then
+            SQL &= "ITEM_NAME LIKE 'R.Db%' OR "
+            ItemChecked = True
+        End If
+
+        ' Misc and Blueprints
+        If BPCs.Checked Then
+            SQL &= "ITEM_CATEGORY = 'Blueprint' OR "
+            ItemChecked = True
+        End If
+        If Misc.Checked Then ' Commodities = Shattered Villard Wheel
+            SQL &= "ITEM_GROUP IN ('General','Livestock','Radioactive','Biohazard','Commodities','Empire Insignia Drops','Criminal Tags','Miscellaneous','Unknown Components','Lease') OR "
+            ItemChecked = True
+        End If
+
+        ' Other Manufacturables
+        If CapT2ShipComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Advanced Capital Construction Components' OR "
+            ItemChecked = True
+        End If
+        If AdvancedComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Construction Components' OR "
+            ItemChecked = True
+        End If
+        If FuelBlocks.Checked Then
+            SQL &= "ITEM_GROUP = 'Fuel Block' OR "
+            ItemChecked = True
+        End If
+        If ProtectiveComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Protective Components' OR "
+            ItemChecked = True
+        End If
+        If RAM.Checked Then
+            SQL &= "ITEM_NAME LIKE 'R.A.M.%' OR "
+            ItemChecked = True
+        End If
+        If NoBuildItems.Checked Then
+            SQL &= "MANUFACTURE = -1 OR "
+            ItemChecked = True
+        End If
+        If CapitalShipComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Capital Construction Components' OR "
+            ItemChecked = True
+        End If
+        If StructureComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Structure Components' OR "
+            ItemChecked = True
+        End If
+        If SubsystemComponents.Checked Then
+            SQL &= "ITEM_GROUP = 'Hybrid Tech Components' OR "
+            ItemChecked = True
+        End If
+        If Boosters.Checked Then
+            SQL &= "ITEM_GROUP = 'Booster' OR "
+            ItemChecked = True
+        End If
+
+        ' All other manufactured items
+        If Implants.Checked Then
+            SQL &= "(ITEM_GROUP = 'Cyberimplant' OR (ITEM_CATEGORY = 'Implant' AND ITEM_GROUP <> 'Booster')) OR "
+            ItemChecked = True
+        End If
+        If Deployables.Checked Then
+            SQL &= "ITEM_CATEGORY = 'Deployable' OR "
+            ItemChecked = True
+        End If
+        If StructureModules.Checked Then
+            SQL &= "(ITEM_CATEGORY = 'Structure Module' AND ITEM_GROUP NOT LIKE '%Rig%') OR "
+            ItemChecked = True
+        End If
+        If Celestials.Checked Then
+            SQL &= "(ITEM_CATEGORY IN ('Celestial','Orbitals','Sovereignty Structures','Station','Accessories','Infrastructure Upgrades')  AND ITEM_GROUP <> 'Harvestable Cloud') OR "
+            ItemChecked = True
+        End If
+
+        ' Manufactured Items
+        If Ships.Checked Or Modules.Checked Or Drones.Checked Or Rigs.Checked Or Subsystems.Checked Or Structures.Checked Or Charges.Checked Or StructureRigs.Checked Then
+
+            ' If they choose a tech level, then build this part of the SQL query
+            If PriceCheckT1Enabled Then
+                If PricesT1.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 1 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            If PriceCheckT2Enabled Then
+                If PricesT2.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 2 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            If PriceCheckT3Enabled Then
+                If PricesT3.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 14 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            ' Add the Pirate, Storyline, Navy search string
+            ' Storyline
+            If PriceCheckT4Enabled Then
+                If PricesT4.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 3 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            ' Navy
+            If PriceCheckT5Enabled Then
+                If PricesT5.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 16 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            ' Pirate
+            If PriceCheckT6Enabled Then
+                If PricesT6.Checked Then
+                    ' Add to SQL query for tech level
+                    TechSQL = TechSQL & "ITEM_TYPE = 15 OR "
+                    TechChecked = True
+                End If
+            End If
+
+            If Not TechChecked And Not ItemChecked Then
+                ' There isn't an item checked before this and these items all require tech, so exit
+                Return ""
+            End If
+
+            ' Format TechSQL - Add on Meta codes - 21,22,23,24 are T3
+            If TechSQL <> "" Then
+                TechSQL = "(" & TechSQL.Substring(0, TechSQL.Length - 3) & "OR ITEM_TYPE IN (21,22,23,24)) "
+            End If
+
+            ' Build Tech 1,2,3 Manufactured Items
+            If Charges.Checked Then
+                SQL &= "(ITEM_CATEGORY = 'Charge' AND " & TechSQL
+                If ChargeTypes.Text <> "All Charge Types" Then
+                    SQL &= " AND ITEM_GROUP = '" & ChargeTypes.Text & "'"
+                End If
+                SQL &= ") OR "
+            End If
+            If Drones.Checked Then
+                SQL &= "(ITEM_CATEGORY IN ('Drone', 'Fighter') AND " & TechSQL & ") OR "
+            End If
+            If Modules.Checked Then ' Not rigs but Modules
+                SQL &= "(ITEM_CATEGORY = 'Module' AND ITEM_GROUP NOT LIKE 'Rig%' AND " & TechSQL & ") OR "
+            End If
+            If Ships.Checked Then
+                SQL &= "(ITEM_CATEGORY = 'Ship' AND " & TechSQL
+                If ShipTypes.Text <> "All Ship Types" Then
+                    SQL &= " AND ITEM_GROUP = '" & ShipTypes.Text & "'"
+                End If
+                SQL &= ") OR "
+            End If
+            If Subsystems.Checked Then
+                SQL &= "(ITEM_CATEGORY = 'Subsystem' AND " & TechSQL & ") OR "
+            End If
+            If StructureRigs.Checked Then
+                SQL &= "(ITEM_CATEGORY = 'Structure Rigs' AND " & TechSQL & ") OR "
+            End If
+            If Rigs.Checked Then ' Rigs
+                SQL &= "((ITEM_CATEGORY = 'Module' AND ITEM_GROUP LIKE 'Rig%' AND " & TechSQL & ") OR (ITEM_CATEGORY = 'Structure Module' AND ITEM_GROUP LIKE '%Rig%')) OR "
+            End If
+            If Structures.Checked Then
+                SQL &= "((ITEM_CATEGORY IN ('Starbase','Structure') AND " & TechSQL & ") OR ITEM_GROUP = 'Station Components') OR "
+            End If
+        End If
+
+        ' Take off last OR and add the final )
+        SQL = SQL.Substring(0, SQL.Length - 4)
+
+        Return SQL
 
     End Function
 
@@ -1271,13 +1656,12 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return SSID
 
     End Function
 
-    Public Function GetSolarSystemName(ByVal SystemID As Integer) As String
+    Public Function GetSolarSystemName(ByVal SystemID As Long) As String
         ' Look up Solar System Name
         Dim rsSystem As SQLiteDataReader
         Dim SSName As String
@@ -1292,7 +1676,6 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return SSName
 
@@ -1313,13 +1696,12 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return security
 
     End Function
 
-    Public Function GetSolarSystemSecurityLevel(ByVal SystemID As Integer) As Double
+    Public Function GetSolarSystemSecurityLevel(ByVal SystemID As Long) As Double
         ' Look up Solar System ID
         Dim rsSystem As SQLiteDataReader
         Dim security As Double
@@ -1334,7 +1716,6 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return security
 
@@ -1345,7 +1726,7 @@ InvalidDate:
         Dim rsSystem As SQLiteDataReader
         Dim AID As Integer
 
-        DBCommand = New SQLiteCommand("SELECT activityID FROM RAM_ACTIVITIES WHERE UPPER(activityName) = '" & UCase(ActivityName) & "'", EVEDB.DBREf)
+        DBCommand = New SQLiteCommand("SELECT activityID FROM INDUSTRY_ACTIVITIES WHERE UPPER(activityName) = '" & UCase(ActivityName) & "'", EVEDB.DBREf)
         rsSystem = DBCommand.ExecuteReader
 
         If rsSystem.Read() Then
@@ -1355,7 +1736,6 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return AID
 
@@ -1366,7 +1746,7 @@ InvalidDate:
         Dim rsSystem As SQLiteDataReader
         Dim AName As String
 
-        DBCommand = New SQLiteCommand("SELECT activityName FROM RAM_ACTIVITIES WHERE activityID = " & CStr(ActivityID), EVEDB.DBREf)
+        DBCommand = New SQLiteCommand("SELECT activityName FROM INDUSTRY_ACTIVITIES WHERE activityID = " & CStr(ActivityID), EVEDB.DBREf)
         rsSystem = DBCommand.ExecuteReader
 
         If rsSystem.Read() Then
@@ -1376,7 +1756,6 @@ InvalidDate:
         End If
 
         rsSystem.Close()
-        DBCommand = Nothing
 
         Return AName
 
@@ -1387,7 +1766,8 @@ InvalidDate:
         Dim SQL As String = ""
         Dim rsData As SQLiteDataReader
 
-        SQL = "SELECT regionName FROM REGIONS WHERE regionName NOT LIKE '%-R%' OR regionName = 'G-R00031' GROUP BY regionName "
+        SQL = "SELECT regionName FROM REGIONS WHERE (regionName NOT LIKE '%-R%' OR regionName = 'G-R00031') "
+        SQL &= "AND regionName NOT IN ('A821-A','J7HZ-F','PR-01','UUA-F4') AND regionName NOT LIKE 'ADR%' GROUP BY regionName "
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
         rsData = DBCommand.ExecuteReader
         RegionCombo.BeginUpdate()
@@ -1395,8 +1775,9 @@ InvalidDate:
         While rsData.Read
             RegionCombo.Items.Add(rsData.GetString(0))
         End While
-        RegionCombo.Text = DefaultRegionName
         RegionCombo.EndUpdate()
+        RegionCombo.Text = DefaultRegionName
+
         rsData.Close()
 
     End Sub
@@ -1552,7 +1933,7 @@ InvalidDate:
         ' This is an easier way to get all of the strings in the file.
         AllText = File.ReadAllLines(FilePath)
         ' This will append the string to the end of the file.
-        My.Computer.FileSystem.WriteAllText(FilePath, CStr(Now) & ", " & ErrorMsg & Environment.NewLine, True)
+        My.Computer.FileSystem.WriteAllText(FilePath, CStr(Now) & ", " & ErrorMsg & Environment.NewLine & Environment.NewLine & "---" & Environment.NewLine, True)
 
     End Sub
 
@@ -1670,10 +2051,9 @@ InvalidDate:
             readerLookup.Close()
 
         Else
+            readerLookup.Close()
             Return Nothing
         End If
-
-        readerLookup.Close()
 
         Return TempMat
 
@@ -1682,7 +2062,7 @@ InvalidDate:
     ' Takes the BP ID and relic name (if sent) and returns the TypeID for the item to invent that BP
     Public Function GetInventItemTypeID(ByVal BlueprintTypeID As Long, ByVal RelicName As String) As Long
         Dim SQL As String
-        Dim rsCheck As SQLite.SQLiteDataReader
+        Dim rsCheck As SQLiteDataReader
         Dim InventItemTypeID As Long = 0
 
         ' What is the item we are using to invent?
@@ -1701,13 +2081,15 @@ InvalidDate:
             InventItemTypeID = rsCheck.GetInt64(0)
         End If
 
+        rsCheck.Close()
+
         Return InventItemTypeID
 
     End Function
 
     ' Returns the text race for the ID sent
     Public Function GetRace(ByVal RaceID As Integer) As String
-        Dim rsLookup As SQLite.SQLiteDataReader
+        Dim rsLookup As SQLiteDataReader
 
         DBCommand = New SQLiteCommand("SELECT RACE FROM RACE_IDS WHERE ID = " & CStr(RaceID), EVEDB.DBREf)
         rsLookup = DBCommand.ExecuteReader
@@ -1717,6 +2099,8 @@ InvalidDate:
         Else
             Return ""
         End If
+
+        rsLookup.Close()
 
     End Function
 
@@ -1736,8 +2120,10 @@ InvalidDate:
         readerAttribute = DBCommand.ExecuteReader
 
         If readerAttribute.Read Then
+            readerAttribute.Close()
             Return readerAttribute.GetDouble(0)
         Else
+            readerAttribute.Close()
             Return Nothing
         End If
 
@@ -1755,10 +2141,7 @@ InvalidDate:
 
     ' Deletes all the public structures from the stations table
     Public Sub ResetPublicStructureData()
-        Dim SQL As String = "DELETE FROM STATIONS WHERE STATION_TYPE_ID IN "
-        SQL &= "(SELECT TYPEID FROM INVENTORY_TYPES AS IT, INVENTORY_GROUPS AS IG, INVENTORY_CATEGORIES AS IC "
-        SQL &= "WHERE IT.groupID = IG.groupID AND IG.categoryID = IC.categoryID AND IG.categoryID = 65) "
-        SQL &= "AND MANUAL_ENTRY = 0"
+        Dim SQL As String = "DELETE FROM STATIONS WHERE STATION_ID > 70000000 AND MANUAL_ENTRY = 0"
         Call EVEDB.ExecuteNonQuerySQL(SQL)
     End Sub
 
@@ -1801,7 +2184,7 @@ InvalidDate:
     End Sub
 
     ' Sets an existing bp in the DB to the ME/TE or adds it if not in DB as a new owned blueprint - this is always due to user input, not API
-    Public Function UpdateBPinDB(ByVal BPID As Long, ByVal BPName As String, ByVal bpME As Integer, ByVal bpTE As Integer, ByVal SentBPType As BPType,
+    Public Function UpdateBPinDB(ByVal BPID As Long, ByVal bpME As Integer, ByVal bpTE As Integer, ByVal SentBPType As BPType,
                                 ByVal OriginalME As Integer, ByVal OriginalTE As Integer,
                                 Optional Favorite As Boolean = False,
                                 Optional Ignore As Boolean = False,
@@ -1814,7 +2197,8 @@ InvalidDate:
         Dim TempIgnore As String
         Dim TempOwned As String
         Dim UpdatedBPType As BPType
-        Dim TempBPName As String = BPName
+        Dim BPName As String = ""
+        Dim BPGroup As Integer = 0
         Dim UserRuns As Integer
 
         If SentBPType = BPType.NotOwned And (bpME <> OriginalME Or bpTE <> OriginalTE) Then
@@ -1834,17 +2218,17 @@ InvalidDate:
             Else
                 UserRuns = 0
             End If
+            rsMaxRuns.Close()
         End If
 
-        If BPName = "" Then
-            ' Look it up
-            DBCommand = New SQLiteCommand("SELECT typeName FROM INVENTORY_TYPES WHERE typeID = " & CStr(BPID), EVEDB.DBREf)
-            readerBP = DBCommand.ExecuteReader
-            If readerBP.Read() Then
-                TempBPName = readerBP.GetString(0)
-            End If
-            readerBP.Close()
+        ' Look BP Name and group up
+        DBCommand = New SQLiteCommand("SELECT typeName, groupID FROM INVENTORY_TYPES WHERE typeID = " & CStr(BPID), EVEDB.DBREf)
+        readerBP = DBCommand.ExecuteReader
+        If readerBP.Read() Then
+            BPName = readerBP.GetString(0)
+            BPGroup = readerBP.GetInt32(1)
         End If
+        readerBP.Close()
 
         ' See what ID we use for character bps
         Dim CharID As Long = 0
@@ -1872,7 +2256,7 @@ InvalidDate:
             ' If Found then update then just reset the owned flag - might be scanned
             If readerBP.HasRows Then
                 ' Update it
-                SQL = "UPDATE OWNED_BLUEPRINTS Set OWNED = 0, Me = 0, TE = 0, FAVORITE = 0, BP_TYPE = 0 "
+                SQL = "UPDATE OWNED_BLUEPRINTS Set OWNED = 0, ME = 0, TE = 0, FAVORITE = 0, BP_TYPE = 0 "
                 SQL = SQL & "WHERE (USER_ID =" & CStr(CharID) & " Or USER_ID =" & SelectedCharacter.CharacterCorporation.CorporationID & ") "
                 SQL = SQL & "And BLUEPRINT_ID =" & CStr(BPID)
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
@@ -1908,6 +2292,12 @@ InvalidDate:
                 TempOwned = "-1" ' User updated, user owned (not API)
             End If
 
+            ' For reactions, always set bpME and bpTE to zero because they can't be researched
+            If BPGroup = 1888 Or BPGroup = 1889 Or BPGroup = 1890 Or BPGroup = 4097 Then
+                bpME = 0
+                bpTE = 0
+            End If
+
             ' See if the BP is in the DB
             SQL = "SELECT TE FROM OWNED_BLUEPRINTS WHERE (USER_ID =" & CStr(CharID) & " OR USER_ID =" & SelectedCharacter.CharacterCorporation.CorporationID & ") "
             SQL = SQL & "AND BLUEPRINT_ID =" & CStr(BPID)
@@ -1920,7 +2310,7 @@ InvalidDate:
                 ' No record, So add it and mark as owned (code 2) - save the scanned data if it was scanned - no item id or location id (from API), so set to 0 on manual saves
                 SQL = "INSERT INTO OWNED_BLUEPRINTS (USER_ID, ITEM_ID, LOCATION_ID, BLUEPRINT_ID, BLUEPRINT_NAME, QUANTITY, FLAG_ID, "
                 SQL = SQL & "ME, TE, RUNS, BP_TYPE, OWNED, SCANNED, FAVORITE, ADDITIONAL_COSTS) "
-                SQL = SQL & "VALUES (" & CharID & ",0,0," & BPID & ",'" & FormatDBString(TempBPName) & "',1,0,"
+                SQL = SQL & "VALUES (" & CharID & ",0,0," & BPID & ",'" & FormatDBString(BPName) & "',1,0,"
                 SQL = SQL & CStr(bpME) & "," & CStr(bpTE) & "," & CStr(UserRuns) & "," & CStr(UpdatedBPType) & "," & TempOwned & ",0," & TempFavorite & "," & CStr(AdditionalCosts) & ")"
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
 
@@ -1940,8 +2330,6 @@ InvalidDate:
         End If
 
         readerBP.Close()
-        readerBP = Nothing
-        DBCommand = Nothing
 
         EVEDB.CommitSQLiteTransaction()
 
@@ -2045,7 +2433,6 @@ InvalidDate:
         End If
 
         readerBP.Close()
-        readerBP = Nothing
 
         Return ReturnString
 
@@ -2167,7 +2554,6 @@ InvalidDate:
         End If
 
         readerIT.Close()
-        readerIT = Nothing
 
         Return ReturnString
 
@@ -2191,7 +2577,6 @@ InvalidDate:
         End If
 
         readerIT.Close()
-        readerIT = Nothing
 
         Return ReturnString
 
@@ -2215,7 +2600,6 @@ InvalidDate:
         End If
 
         readerIT.Close()
-        readerIT = Nothing
 
         Return ReturnString
 
@@ -2239,7 +2623,6 @@ InvalidDate:
         End If
 
         readerIT.Close()
-        readerIT = Nothing
 
         Return ReturnID
 
@@ -2270,7 +2653,6 @@ InvalidDate:
         End If
 
         readerBonus.Close()
-        readerBonus = Nothing
 
         Return ReturnBonus
 

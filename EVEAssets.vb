@@ -54,7 +54,11 @@ Public Class EVEAssets
         readerData = DBCommand.ExecuteReader
 
         If readerData.Read Then
-            CacheDate = CDate(readerData.GetString(0))
+            If IsDBNull(readerData.GetValue(0)) Then
+                CacheDate = NoDate
+            Else
+                CacheDate = CDate(readerData.GetString(0))
+            End If
         Else
             CacheDate = NoDate
         End If
@@ -134,8 +138,6 @@ Public Class EVEAssets
         End While
 
         readerAssets.Close()
-        DBCommand = Nothing
-        readerAssets = Nothing
 
         AssetList = Assets
 
@@ -920,6 +922,8 @@ Public Class EVEAssets
 
             ReturnLocations.Add(TempLocation)
         End While
+
+        readerLocations.Close()
 
         Return ReturnLocations
 

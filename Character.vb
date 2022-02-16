@@ -124,6 +124,8 @@ Public Class Character
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
                 End If
 
+                rsCheck.Close()
+
                 ' Load dummy corp
                 CharacterCorporation = New Corporation()
                 CharacterCorporation.LoadDummyCorporationData()
@@ -304,8 +306,6 @@ Public Class Character
                 StructureMarketsAccess = True
             End If
 
-            readerCharacter.Close()
-
             Return True
         Else
             Return False
@@ -343,6 +343,8 @@ Public Class Character
             CharacterTokenData.TokenType = rsToken.GetString(3)
             CharacterTokenData.Scopes = rsToken.GetString(4)
         End If
+
+        rsToken.Close()
 
         ' Reset the corporation data to set the role flags - set reset data flag to false and don't reload jobs, bps, and assets
         CharacterCorporation.LoadCorporationData(CharacterCorporation.CorporationID, ID, CharacterTokenData, False, False, False)

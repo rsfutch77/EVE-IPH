@@ -180,8 +180,6 @@ Public Class EVEIndustryJobs
                         End With
                     Next
 
-                    DBCommand = Nothing
-
                     ' Now look up distinct location ids to find any public upwell structures to update
                     Dim rsStructure As SQLiteDataReader
                     Dim StructureIDList As New List(Of Long)
@@ -204,10 +202,8 @@ Public Class EVEIndustryJobs
                         Call SP.UpdateStructureData(StructureID, SelectedCharacter.CharacterTokenData, False, True)
                     Next
 
-                    DBCommand = Nothing
-                    rsStructure = Nothing
-
                     Call EVEDB.CommitSQLiteTransaction()
+
                 End If
 
                 ' Update cache date now that it's all set

@@ -189,9 +189,9 @@ Public Class ProgramSettings
     Public DefaultBPSellExcessItems As Boolean = True
 
     ' Update Prices Default Settings
-    Public DefaultPriceChecks As Boolean = False
+    Public DefaultPriceChecks As Boolean = True
     Public DefaultPriceSystem As String = "Jita"
-    Public DefaultPriceRegion As String = ""
+    Public DefaultPriceRegion As String = "The Forge"
     Public DefaultPriceRawMatsCombo As String = "Min Sell"
     Public DefaultPriceItemsCombo As String = "Min Sell"
     Public DefaultUPColumnSort As Integer = 1
@@ -353,123 +353,123 @@ Public Class ProgramSettings
     Public Const JobTypeColumn As String = "Job Type"
 
     ' Manufacturing Tab column settings - index 0 is for hidden id column
-    Public DefaultMTItemCategory As Integer = 1
-    Public DefaultMTItemName As Integer = 2
-    Public DefaultMTOwned As Integer = 3
-    Public DefaultMTBPME As Integer = 4
-    Public DefaultMTBPTE As Integer = 5
-    Public DefaultMTIskperHour As Integer = 6
-    Public DefaultMTSVR As Integer = 7
-    Public DefaultMTRiskIPH As Integer = 8
-    Public DefaultMTVolatility As Integer = 9
-    Public DefaultMTPriceTrend As Integer = 10
-    Public DefaultMTCurrentSellOrders As Integer = 11
-    Public DefaultMTItemsinProduction As Integer = 12
-    Public DefaultMTItemsinStock As Integer = 13
-    Public DefaultMTScore As Integer = 14
+    Dim DefaultMTItemCategory As Integer = 1
+    Dim DefaultMTItemName As Integer = 2
+    Dim DefaultMTOwned As Integer = 3
+    Dim DefaultMTBPME As Integer = 4
+    Dim DefaultMTBPTE As Integer = 5
+    Dim DefaultMTIskperHour As Integer = 6
+    Dim DefaultMTSVR As Integer = 7
+    Dim DefaultMTRiskIPH As Integer = 8
+    Dim DefaultMTVolatility As Integer = 9
+    Dim DefaultMTPriceTrend As Integer = 10
+    Dim DefaultMTCurrentSellOrders As Integer = 11
+    Dim DefaultMTItemsinProduction As Integer = 12
+    Dim DefaultMTItemsinStock As Integer = 13
+    Dim DefaultMTScore As Integer = 14
 
-    Public DefaultMTItemGroup As Integer = 0
-    Public DefaultMTTech As Integer = 0
-    Public DefaultMTInputs As Integer = 0
-    Public DefaultMTCompared As Integer = 0
-    Public DefaultMTTotalRuns As Integer = 0
-    Public DefaultMTSingleInventedBPCRuns As Integer = 0
-    Public DefaultMTProductionLines As Integer = 0
-    Public DefaultMTLaboratoryLines As Integer = 0
-    Public DefaultMTTotalInventionCost As Integer = 0
-    Public DefaultMTTotalCopyCost As Integer = 0
-    Public DefaultMTTaxes As Integer = 0
-    Public DefaultMTBrokerFees As Integer = 0
-    Public DefaultMTBPProductionTime As Integer = 0
-    Public DefaultMTTotalProductionTime As Integer = 0
-    Public DefaultMTCopyTime As Integer = 0
-    Public DefaultMTInventionTime As Integer = 0
-    Public DefaultMTItemMarketPrice As Integer = 0
-    Public DefaultMTProfit As Integer = 9
-    Public DefaultMTProfitPercentage As Integer = 0
-    Public DefaultMTSVRxIPH As Integer = 0
-    Public DefaultMTRiskPrice As Integer = 0
-    Public DefaultMTRiskProfit As Integer = 0
-    Public DefaultMTTotalItemsSold As Integer = 0
-    Public DefaultMTTotalOrdersFilled As Integer = 0
-    Public DefaultMTAvgItemsperOrder As Integer = 0
-    Public DefaultMTCurrentBuyOrders As Integer = 0
-    Public DefaultMTTotalCost As Integer = 0
-    Public DefaultMTBaseJobCost As Integer = 0
-    Public DefaultMTNumBPs As Integer = 0
-    Public DefaultMTInventionChance As Integer = 0
-    Public DefaultMTBPType As Integer = 0
-    Public DefaultMTRace As Integer = 0
-    Public DefaultMTVolumeperItem As Integer = 0
-    Public DefaultMTTotalVolume As Integer = 0
-    Public DefaultMTPortionSize As Integer = 0
-    Public DefaultMTManufacturingJobFee As Integer = 0
-    Public DefaultMTManufacturingFacilityName As Integer = 0
-    Public DefaultMTManufacturingFacilitySystem As Integer = 0
-    Public DefaultMTManufacturingFacilityRegion As Integer = 0
-    Public DefaultMTManufacturingFacilitySystemIndex As Integer = 0
-    Public DefaultMTManufacturingFacilityTax As Integer = 0
-    Public DefaultMTManufacturingFacilityMEBonus As Integer = 0
-    Public DefaultMTManufacturingFacilityTEBonus As Integer = 0
-    Public DefaultMTManufacturingFacilityUsage As Integer = 0
-    Public DefaultMTManufacturingFacilityFWSystemLevel As Integer = 0
-    Public DefaultMTComponentFacilityName As Integer = 0
-    Public DefaultMTComponentFacilitySystem As Integer = 0
-    Public DefaultMTComponentFacilityRegion As Integer = 0
-    Public DefaultMTComponentFacilitySystemIndex As Integer = 0
-    Public DefaultMTComponentFacilityTax As Integer = 0
-    Public DefaultMTComponentFacilityMEBonus As Integer = 0
-    Public DefaultMTComponentFacilityTEBonus As Integer = 0
-    Public DefaultMTComponentFacilityUsage As Integer = 0
-    Public DefaultMTComponentFacilityFWSystemLevel As Integer = 0
-    Public DefaultMTCapComponentFacilityName As Integer = 0
-    Public DefaultMTCapComponentFacilitySystem As Integer = 0
-    Public DefaultMTCapComponentFacilityRegion As Integer = 0
-    Public DefaultMTCapComponentFacilitySystemIndex As Integer = 0
-    Public DefaultMTCapComponentFacilityTax As Integer = 0
-    Public DefaultMTCapComponentFacilityMEBonus As Integer = 0
-    Public DefaultMTCapComponentFacilityTEBonus As Integer = 0
-    Public DefaultMTCapComponentFacilityUsage As Integer = 0
-    Public DefaultMTCapComponentFacilityFWSystemLevel As Integer = 0
-    Public DefaultMTCopyingFacilityName As Integer = 0
-    Public DefaultMTCopyingFacilitySystem As Integer = 0
-    Public DefaultMTCopyingFacilityRegion As Integer = 0
-    Public DefaultMTCopyingFacilitySystemIndex As Integer = 0
-    Public DefaultMTCopyingFacilityTax As Integer = 0
-    Public DefaultMTCopyingFacilityMEBonus As Integer = 0
-    Public DefaultMTCopyingFacilityTEBonus As Integer = 0
-    Public DefaultMTCopyingFacilityUsage As Integer = 0
-    Public DefaultMTCopyingFacilityFWSystemLevel As Integer = 0
-    Public DefaultMTInventionFacilityName As Integer = 0
-    Public DefaultMTInventionFacilitySystem As Integer = 0
-    Public DefaultMTInventionFacilityRegion As Integer = 0
-    Public DefaultMTInventionFacilitySystemIndex As Integer = 0
-    Public DefaultMTInventionFacilityTax As Integer = 0
-    Public DefaultMTInventionFacilityMEBonus As Integer = 0
-    Public DefaultMTInventionFacilityTEBonus As Integer = 0
-    Public DefaultMTInventionFacilityUsage As Integer = 0
-    Public DefaultMTInventionFacilityFWSystemLevel As Integer = 0
-    Public DefaultMTReactionFacilityName As Integer = 0
-    Public DefaultMTReactionFacilitySystem As Integer = 0
-    Public DefaultMTReactionFacilityRegion As Integer = 0
-    Public DefaultMTReactionFacilitySystemIndex As Integer = 0
-    Public DefaultMTReactionFacilityTax As Integer = 0
-    Public DefaultMTReactionFacilityMEBonus As Integer = 0
-    Public DefaultMTReactionFacilityTEBonus As Integer = 0
-    Public DefaultMTReactionFacilityUsage As Integer = 0
-    Public DefaultMTReactionFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTItemGroup As Integer = 0
+    Dim DefaultMTTech As Integer = 0
+    Dim DefaultMTInputs As Integer = 0
+    Dim DefaultMTCompared As Integer = 0
+    Dim DefaultMTTotalRuns As Integer = 0
+    Dim DefaultMTSingleInventedBPCRuns As Integer = 0
+    Dim DefaultMTProductionLines As Integer = 0
+    Dim DefaultMTLaboratoryLines As Integer = 0
+    Dim DefaultMTTotalInventionCost As Integer = 0
+    Dim DefaultMTTotalCopyCost As Integer = 0
+    Dim DefaultMTTaxes As Integer = 0
+    Dim DefaultMTBrokerFees As Integer = 0
+    Dim DefaultMTBPProductionTime As Integer = 0
+    Dim DefaultMTTotalProductionTime As Integer = 0
+    Dim DefaultMTCopyTime As Integer = 0
+    Dim DefaultMTInventionTime As Integer = 0
+    Dim DefaultMTItemMarketPrice As Integer = 0
+    Dim DefaultMTProfit As Integer = 9
+    Dim DefaultMTProfitPercentage As Integer = 0
+    Dim DefaultMTSVRxIPH As Integer = 0
+    Dim DefaultMTRiskPrice As Integer = 0
+    Dim DefaultMTRiskProfit As Integer = 0
+    Dim DefaultMTTotalItemsSold As Integer = 0
+    Dim DefaultMTTotalOrdersFilled As Integer = 0
+    Dim DefaultMTAvgItemsperOrder As Integer = 0
+    Dim DefaultMTCurrentBuyOrders As Integer = 0
+    Dim DefaultMTTotalCost As Integer = 0
+    Dim DefaultMTBaseJobCost As Integer = 0
+    Dim DefaultMTNumBPs As Integer = 0
+    Dim DefaultMTInventionChance As Integer = 0
+    Dim DefaultMTBPType As Integer = 0
+    Dim DefaultMTRace As Integer = 0
+    Dim DefaultMTVolumeperItem As Integer = 0
+    Dim DefaultMTTotalVolume As Integer = 0
+    Dim DefaultMTPortionSize As Integer = 0
+    Dim DefaultMTManufacturingJobFee As Integer = 0
+    Dim DefaultMTManufacturingFacilityName As Integer = 0
+    Dim DefaultMTManufacturingFacilitySystem As Integer = 0
+    Dim DefaultMTManufacturingFacilityRegion As Integer = 0
+    Dim DefaultMTManufacturingFacilitySystemIndex As Integer = 0
+    Dim DefaultMTManufacturingFacilityTax As Integer = 0
+    Dim DefaultMTManufacturingFacilityMEBonus As Integer = 0
+    Dim DefaultMTManufacturingFacilityTEBonus As Integer = 0
+    Dim DefaultMTManufacturingFacilityUsage As Integer = 0
+    Dim DefaultMTManufacturingFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTComponentFacilityName As Integer = 0
+    Dim DefaultMTComponentFacilitySystem As Integer = 0
+    Dim DefaultMTComponentFacilityRegion As Integer = 0
+    Dim DefaultMTComponentFacilitySystemIndex As Integer = 0
+    Dim DefaultMTComponentFacilityTax As Integer = 0
+    Dim DefaultMTComponentFacilityMEBonus As Integer = 0
+    Dim DefaultMTComponentFacilityTEBonus As Integer = 0
+    Dim DefaultMTComponentFacilityUsage As Integer = 0
+    Dim DefaultMTComponentFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTCapComponentFacilityName As Integer = 0
+    Dim DefaultMTCapComponentFacilitySystem As Integer = 0
+    Dim DefaultMTCapComponentFacilityRegion As Integer = 0
+    Dim DefaultMTCapComponentFacilitySystemIndex As Integer = 0
+    Dim DefaultMTCapComponentFacilityTax As Integer = 0
+    Dim DefaultMTCapComponentFacilityMEBonus As Integer = 0
+    Dim DefaultMTCapComponentFacilityTEBonus As Integer = 0
+    Dim DefaultMTCapComponentFacilityUsage As Integer = 0
+    Dim DefaultMTCapComponentFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTCopyingFacilityName As Integer = 0
+    Dim DefaultMTCopyingFacilitySystem As Integer = 0
+    Dim DefaultMTCopyingFacilityRegion As Integer = 0
+    Dim DefaultMTCopyingFacilitySystemIndex As Integer = 0
+    Dim DefaultMTCopyingFacilityTax As Integer = 0
+    Dim DefaultMTCopyingFacilityMEBonus As Integer = 0
+    Dim DefaultMTCopyingFacilityTEBonus As Integer = 0
+    Dim DefaultMTCopyingFacilityUsage As Integer = 0
+    Dim DefaultMTCopyingFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTInventionFacilityName As Integer = 0
+    Dim DefaultMTInventionFacilitySystem As Integer = 0
+    Dim DefaultMTInventionFacilityRegion As Integer = 0
+    Dim DefaultMTInventionFacilitySystemIndex As Integer = 0
+    Dim DefaultMTInventionFacilityTax As Integer = 0
+    Dim DefaultMTInventionFacilityMEBonus As Integer = 0
+    Dim DefaultMTInventionFacilityTEBonus As Integer = 0
+    Dim DefaultMTInventionFacilityUsage As Integer = 0
+    Dim DefaultMTInventionFacilityFWSystemLevel As Integer = 0
+    Dim DefaultMTReactionFacilityName As Integer = 0
+    Dim DefaultMTReactionFacilitySystem As Integer = 0
+    Dim DefaultMTReactionFacilityRegion As Integer = 0
+    Dim DefaultMTReactionFacilitySystemIndex As Integer = 0
+    Dim DefaultMTReactionFacilityTax As Integer = 0
+    Dim DefaultMTReactionFacilityMEBonus As Integer = 0
+    Dim DefaultMTReactionFacilityTEBonus As Integer = 0
+    Dim DefaultMTReactionFacilityUsage As Integer = 0
+    Dim DefaultMTReactionFacilityFWSystemLevel As Integer = 0
 
-    Public DefaultMTItemCategoryWidth As Integer = 100
-    Public DefaultMTItemGroupWidth As Integer = 100
-    Public DefaultMTItemNameWidth As Integer = 225
-    Public DefaultMTOwnedWidth As Integer = 50
-    Public DefaultMTTechWidth As Integer = 37
-    Public DefaultMTBPMEWidth As Integer = 28
-    Public DefaultMTBPTEWidth As Integer = 28
-    Public DefaultMTInputsWidth As Integer = 150
-    Public DefaultMTComparedWidth As Integer = 80
-    Public DefaultMTTotalRunsWidth As Integer = 64
-    Public DefaultMTSingleInventedBPCRunsWidth As Integer = 138
+    Dim DefaultMTItemCategoryWidth As Integer = 100
+    Dim DefaultMTItemGroupWidth As Integer = 100
+    Dim DefaultMTItemNameWidth As Integer = 225
+    Dim DefaultMTOwnedWidth As Integer = 50
+    Dim DefaultMTTechWidth As Integer = 37
+    Dim DefaultMTBPMEWidth As Integer = 28
+    Dim DefaultMTBPTEWidth As Integer = 28
+    Dim DefaultMTInputsWidth As Integer = 150
+    Dim DefaultMTComparedWidth As Integer = 80
+    Dim DefaultMTTotalRunsWidth As Integer = 64
+    Dim DefaultMTSingleInventedBPCRunsWidth As Integer = 138
     Public DefaultMTProductionLinesWidth As Integer = 92
     Public DefaultMTLaboratoryLinesWidth As Integer = 92
     Public DefaultMTTaxesWidth As Integer = 91
@@ -1425,28 +1425,7 @@ Public Class ProgramSettings
                     .StructureModules = CBool(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeBoolean, UpdatePricesFileName, "StructureModules", DefaultPriceChecks))
                     .AbyssalMaterials = CBool(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeBoolean, UpdatePricesFileName, "AbyssalMaterials", DefaultPriceChecks))
 
-                    Dim TempRegions As String = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedRegions", DefaultPriceRegion))
-                    Dim RegionList As New List(Of String)
-                    Dim RegionCount As Integer
-
-                    If TempRegions <> "0" Then
-                        RegionCount = Regex.Matches(TempRegions, Regex.Escape(",")).Count + 1 ' Add one for last item + 1 ' Add one for last item
-                    End If
-
-                    Dim ReaderStartPosition As Integer = 0
-                    Dim CommaLoc As Integer
-
-                    For i = 0 To RegionCount - 1
-                        CommaLoc = InStr(TempRegions.Substring(ReaderStartPosition), ",")
-                        If CommaLoc <> 0 Then
-                            RegionList.Add(TempRegions.Substring(ReaderStartPosition, CommaLoc - 1))
-                        Else ' At the end
-                            RegionList.Add(TempRegions.Substring(ReaderStartPosition))
-                        End If
-                        ReaderStartPosition = ReaderStartPosition + CommaLoc
-                    Next
-
-                    .SelectedRegions = RegionList
+					.SelectedRegion = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedRegion", DefaultPriceRegion))
                     .SelectedSystem = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedSystem", DefaultPriceSystem))
                     .ItemsCombo = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "ItemsCombo", DefaultPriceItemsCombo))
                     .RawMatsCombo = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "RawMatsCombo", DefaultPriceRawMatsCombo))
@@ -1534,19 +1513,8 @@ Public Class ProgramSettings
             UpdatePricesSettingsList(36) = New Setting("Faction", CStr(PriceSettings.Faction))
             UpdatePricesSettingsList(37) = New Setting("Pirate", CStr(PriceSettings.Pirate))
             UpdatePricesSettingsList(38) = New Setting("Storyline", CStr(PriceSettings.Storyline))
-            Dim RegionList As String = ""
-            If Not IsNothing(PriceSettings.SelectedRegions) Then
-                For i = 0 To PriceSettings.SelectedRegions.Count - 1
-                    RegionList = RegionList & PriceSettings.SelectedRegions(i) & ","
-                Next
-                If RegionList <> "" Then
-                    ' Strip last comma
-                    RegionList = RegionList.Substring(0, Len(RegionList) - 1)
-                End If
-            Else
-                RegionList = "0"
-            End If
-            UpdatePricesSettingsList(39) = New Setting("SelectedRegions", RegionList)
+            
+			UpdatePricesSettingsList(39) = New Setting("SelectedRegion", PriceSettings.SelectedRegion)
             UpdatePricesSettingsList(40) = New Setting("SelectedSystem", CStr(PriceSettings.SelectedSystem))
             UpdatePricesSettingsList(41) = New Setting("ItemsCombo", CStr(PriceSettings.ItemsCombo))
             UpdatePricesSettingsList(42) = New Setting("RawMatsCombo", CStr(PriceSettings.RawMatsCombo))
@@ -1642,7 +1610,7 @@ Public Class ProgramSettings
             .Faction = DefaultPriceChecks
             .Pirate = DefaultPriceChecks
             .Storyline = DefaultPriceChecks
-            .SelectedRegions = Nothing
+            .SelectedRegion = DefaultPriceRegion
             .SelectedSystem = DefaultPriceSystem
             .ItemsCombo = DefaultPriceItemsCombo
             .RawMatsCombo = DefaultPriceRawMatsCombo
@@ -3538,7 +3506,7 @@ Public Structure UpdatePriceTabSettings
     Dim Pirate As Boolean
     Dim Storyline As Boolean
 
-    Dim SelectedRegions As List(Of String) ' Could have several
+    Dim SelectedRegion As String
     Dim SelectedSystem As String
 
     ' The default price profile settings

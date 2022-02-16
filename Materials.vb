@@ -297,11 +297,11 @@ Public Class Materials
                     MatName = RemoveItemNameRuns(MaterialList(i).GetMaterialName)
                 End If
 
-                If MaterialList(i).GetMaterialGroup.Contains("|") Then
+                If MaterialList(i).GroupName.Contains("|") Then
                     ' We have a material from the shopping list, with three values in the material group
                     '.BuildType & "|" & .DecryptorRelic & "|" & .NumBPs & "|" & .Location
                     ' Parse the fields
-                    Dim ItemColumns As String() = MaterialList(i).GetMaterialGroup.Split(New [Char]() {"|"c})
+                    Dim ItemColumns As String() = MaterialList(i).GroupName.Split(New [Char]() {"|"c})
 
                     If ItemColumns(1) <> None And ItemColumns(1) <> "" Then
                         RelicDecryptorText = ItemColumns(1)
@@ -497,7 +497,7 @@ SkipFormat:
                     If Matlist1(i).GetMaterialTypeID <> Matlist2(j).GetMaterialTypeID Then
                         Return False
                     End If
-                    If Matlist1(i).GetMaterialGroup <> Matlist2(j).GetMaterialGroup Then
+                    If Matlist1(i).GroupName <> Matlist2(j).GroupName Then
                         Return False
                     End If
                     If Matlist1(i).GetQuantity <> Matlist2(j).GetQuantity Then
@@ -545,7 +545,7 @@ SkipFormat:
     ' Predicate for finding an item in the profit list
     Private Function FindMaterial(ByVal Mat As Material) As Boolean
         If Mat.GetMaterialName = MaterialtoFind.GetMaterialName And _
-            Mat.GetMaterialGroup = MaterialtoFind.GetMaterialGroup And _
+            Mat.GroupName = MaterialtoFind.GroupName And _
             Mat.GetItemME = MaterialtoFind.GetItemME Then
             Return True
         Else
