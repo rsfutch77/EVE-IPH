@@ -394,10 +394,6 @@ Public Class frmMain
         UserMHViewerSettings = AllSettings.LoadMarketHistoryViewerSettingsSettings
         UserBPViewerSettings = AllSettings.LoadBPViewerSettings
 
-        UserAssetWindowManufacturingTabSettings = AllSettings.LoadAssetWindowSettings(AssetWindow.ManufacturingTab)
-        UserAssetWindowShoppingListSettings = AllSettings.LoadAssetWindowSettings(AssetWindow.ShoppingList)
-        UserAssetWindowDefaultSettings = AllSettings.LoadAssetWindowSettings(AssetWindow.DefaultView)
-
         ' Display to the user any issues with ESI endpoints
         Call SetProgress("Checking Status of ESI...")
         Call ESIData.GetESIStatus()
@@ -1270,25 +1266,6 @@ Public Class frmMain
 
     Private Sub mnuSelectionExit_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         End
-    End Sub
-
-    Private Sub mnuViewAssets_Click(sender As Object, e As EventArgs)
-        ' Make sure it's not disposed
-        If IsNothing(frmDefaultAssets) Then
-            ' Make new form
-            frmDefaultAssets = New frmAssetsViewer(AssetWindow.DefaultView)
-        Else
-            If frmDefaultAssets.IsDisposed Then
-                ' Make new form
-                frmDefaultAssets = New frmAssetsViewer(AssetWindow.DefaultView)
-            End If
-        End If
-
-        ' Now open the Asset List
-        frmDefaultAssets.Show()
-        frmDefaultAssets.Focus()
-
-        Application.DoEvents()
     End Sub
 
     Private Sub mnuManageBlueprintsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuManageBlueprintsToolStripMenuItem.Click
@@ -4110,25 +4087,6 @@ ExitPRocessing:
             Next
         End If
 
-    End Sub
-
-    Private Sub btnCalcShowAssets_Click(sender As System.Object, e As System.EventArgs)
-        ' Make sure it's not disposed
-        If IsNothing(frmDefaultAssets) Then
-            ' Make new form
-            frmDefaultAssets = New frmAssetsViewer(AssetWindow.ManufacturingTab)
-        Else
-            If frmDefaultAssets.IsDisposed Then
-                ' Make new form
-                frmDefaultAssets = New frmAssetsViewer(AssetWindow.ManufacturingTab)
-            End If
-        End If
-
-        ' Now open the Asset List
-        frmDefaultAssets.Show()
-        frmDefaultAssets.Focus()
-
-        Application.DoEvents()
     End Sub
 
     Private Sub cmbCalcFWManufUpgradeLevel_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)

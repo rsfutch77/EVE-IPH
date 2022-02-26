@@ -16,7 +16,6 @@ Public Class frmAddCharacter
         chkReadBlueprints.Checked = True
         chkReadCharacterJobs.Checked = True
         chkReadStructures.Checked = True
-        chkReadStructureMarkets.Checked = True
         'chkManagePlanets.Checked = True
 
         ' Set the tool tips for api
@@ -27,7 +26,6 @@ Public Class frmAddCharacter
             .SetToolTip(chkReadCharacterJobs, "Reads a list of the character's industry jobs")
 
             .SetToolTip(chkReadStructures, "Reads information about specific structures")
-            .SetToolTip(chkReadStructureMarkets, "Reads market orders from a specific structure")
 
         End With
 
@@ -142,12 +140,6 @@ Public Class frmAddCharacter
         End With
     End Sub
 
-    Private Sub chkReadStructureMarkets_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadStructureMarkets.CheckedChanged
-        With chkReadStructureMarkets
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-
     Private Sub chkReadWallet_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadWallet.CheckedChanged
         With chkReadWallet
             Call UpdateScopesString(.Text, .Checked)
@@ -160,6 +152,5 @@ Public Class frmAddCharacter
         chkReadBlueprints.Enabled = Setting
         chkReadCharacterJobs.Enabled = Setting
         chkReadStructures.Enabled = Setting
-        chkReadStructureMarkets.Enabled = Setting
     End Sub
 End Class

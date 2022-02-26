@@ -136,8 +136,6 @@ Public Class Blueprint
     Private InventionFacility As IndustryFacility
     Private ReprocessingFacility As IndustryFacility
 
-    Private OreConversionSettings As ConversionToOreSettings
-
     ' This is to save the entire chain of blueprints on each line we have used and runs for each one
     Private ProductionChain As List(Of List(Of Integer))
 
@@ -155,8 +153,7 @@ Public Class Blueprint
                 ByVal BPCapComponentProductionFacility As IndustryFacility, ByVal BPReactionFacility As IndustryFacility,
                 ByVal BPSellExcessItems As Boolean, ByVal BuildT2T3MaterialType As BuildMatType, ByVal OriginalBlueprint As Boolean,
                 Optional ByRef BuildBuyList As List(Of BuildBuyItem) = Nothing,
-                Optional ByRef BPReprocessingFacility As IndustryFacility = Nothing,
-                Optional CompressedOreSettings As ConversionToOreSettings = Nothing)
+                Optional ByRef BPReprocessingFacility As IndustryFacility = Nothing)
 
         Dim readerBP As SQLiteDataReader
         Dim SQL As String = ""
@@ -268,7 +265,6 @@ Public Class Blueprint
         CapitalComponentManufacturingFacility = BPCapComponentProductionFacility
         ReactionFacility = BPReactionFacility
 
-        OreConversionSettings = CompressedOreSettings
         ReprocessingFacility = BPReprocessingFacility
 
         ' See if we want to include the costs
@@ -317,10 +313,6 @@ Public Class Blueprint
         ProductionChain = New List(Of List(Of Integer))
 
     End Sub
-
-        ' Refresh the data on these for blueprints - categoryID = 9
-        CopyFacility.RefreshMMTMCMBonuses(0, 9)
-        InventionFacility.RefreshMMTMCMBonuses(0, 9)
 
     ' Base build function that takes a look at the number of blueprints the user wants to use and then builts each blueprint batch
     Public Sub BuildItems(ByVal SetTaxes As Boolean, ByVal BrokerFeeData As BrokerFeeInfo, ByVal SetProductionCosts As Boolean,
@@ -1885,11 +1877,6 @@ SkipProcessing:
         Dim CheapertoBuild As Boolean = False
         Dim ExcessAmount As Double = 0
 
-        ' First, check the overrides based on settings
-        If (BPUserSettings.AlwaysBuyFuelBlocks And ItemBlueprint.BlueprintName.Contains("Fuel Block")) Or (BPUserSettings.AlwaysBuyRAMs And ItemBlueprint.BlueprintName.Contains("R.A.M.")) Then
-            Return False
-        End If
-
         ' Get the excess amount cost of the build item for checking build/buy
         If SellExcessItems Then
             ExcessAmount = ItemBlueprint.BPExcessMaterials.GetTotalMaterialsCost
@@ -1929,8 +1916,6 @@ SkipProcessing:
             Return False
         End If
     End Function
-
-#End Region
 
 #Region "Get Functions"
 

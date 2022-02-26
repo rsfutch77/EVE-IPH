@@ -102,9 +102,6 @@ Public Module Public_Variables
 
     ' For a new shopping list, so we can upate it when it's open
     Public frmShop As frmShoppingList = New frmShoppingList
-    ' Same with assets
-    Public frmDefaultAssets As frmAssetsViewer
-    Public frmShoppingAssets As frmAssetsViewer
 
     ' The only allowed characters for text entry
     Public Const allowedPriceChars As String = "0123456789.,"
@@ -1260,11 +1257,6 @@ SkipItem:
 
         ' Reset manufacturing calc button
         Call frmMain.ResetRefresh()
-
-        ' Reload the prices on the reprocessing plant if open
-        If Application.OpenForms().OfType(Of frmReprocessingPlant).Any Then
-            frmRepoPlant.RefreshMaterialList()
-        End If
 
     End Sub
 

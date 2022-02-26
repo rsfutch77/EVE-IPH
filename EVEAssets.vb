@@ -900,35 +900,6 @@ Public Class EVEAssets
         End If
     End Function
 
-    ' Gets the user's saved location IDs from the table
-    Public Function GetAssetLocationIDs(Location As AssetWindow, ID As Long, CharacterCorporation As Corporation) As List(Of LocationInfo)
-        Dim TempLocation As LocationInfo
-        Dim ReturnLocations As New List(Of LocationInfo)
-        Dim SQL As String
-        Dim readerLocations As SQLiteDataReader
-
-        ' Since a lot of locations will bog down the settings loading, load locations from a table
-        SQL = "SELECT ID, LocationID, FlagID FROM ASSET_LOCATIONS WHERE EnumAssetType = " & CStr(Location)
-        SQL = SQL & " AND ID IN (" & CStr(ID) & "," & CStr(CharacterCorporation.CorporationID) & ")"
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerLocations = DBCommand.ExecuteReader
-
-        While readerLocations.Read
-            TempLocation = New LocationInfo
-            TempLocation.AccountID = readerLocations.GetInt64(0)
-            TempLocation.LocationID = readerLocations.GetInt64(1)
-            TempLocation.FlagID = readerLocations.GetInt32(2)
-
-            ReturnLocations.Add(TempLocation)
-        End While
-
-        readerLocations.Close()
-
-        Return ReturnLocations
-
-    End Function
-
     ReadOnly Property CachedUntil() As Date
         Get
             Return CacheDate
