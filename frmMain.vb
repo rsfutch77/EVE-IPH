@@ -4,7 +4,6 @@ Imports System.Globalization
 Imports System.Threading
 Imports System.IO
 Imports System.Net
-Imports MoreLinq.MoreEnumerable
 Imports GoogleAnalyticsClientDotNet
 
 Public Class frmMain
@@ -59,15 +58,17 @@ Public Class frmMain
 
     ' For letting manual check/override of build/buy calculations
     Private IgnoreListViewItemChecks As Boolean
-    Private BPBBItems As New List(Of BPBBItem)
+    ' New version of BB items - if checked, then use it for all blueprints not just the one selected on
+    Private BBItems As New List(Of BuildBuyItem)
+    Private BBItemToFind As New Long
 
-    Private BPBBItemtoFind As New Integer
-    Private BBItemtoFind As New BuildBuyItem
+    'Private BPBBItems As New List(Of BPBBItem)
+    'Private BPBBItemtoFind As New Integer
 
-    Public Structure BPBBItem
-        Dim BPID As Integer
-        Dim BBItems As List(Of BuildBuyItem)
-    End Structure
+    'Public Structure BPBBItem
+    '    Dim BPID As Integer
+    '    Dim BBItems As List(Of BuildBuyItem)
+    'End Structure
 
     Private Structure BPHistoryItem
         Dim BPID As Long
@@ -296,6 +297,8 @@ Public Class frmMain
         InitializeComponent()
 
         FirstLoad = True
+
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
 
         ' See if they've disabled GA tracking
         If Not UserApplicationSettings.DisableGATracking Then
@@ -538,6 +541,8 @@ Public Class frmMain
     End Sub
 
     Protected Overrides Sub Finalize()
+
+        Application.DoEvents()
         MyBase.Finalize()
         On Error Resume Next
         EVEDB.CloseDB()
@@ -545,6 +550,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Application.DoEvents()
         If ShowSupportSplash() Then
             Dim f1 As New frmsupportSplash
             f1.ShowDialog()
@@ -878,8 +884,8 @@ Public Class frmMain
     End Sub
 
     ' Predicate for finding the BPBuildBuyItem in full list
-    Public Function FindBPBBItem(ByVal Item As BPBBItem) As Boolean
-        If BPBBItemtoFind = Item.BPID Then
+    Public Function FindBBItem(ByVal Item As BuildBuyItem) As Boolean
+        If BBItemToFind = Item.ItemID Then
             Return True
         Else
             Return False
@@ -1295,6 +1301,9 @@ Public Class frmMain
     End Sub
 
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
+
+        Me.Enabled = False
+        Application.DoEvents()
         ' Init all forms
         Cursor.Current = Cursors.WaitCursor
         Call InitBPTab(ResetBPTab)
@@ -1302,6 +1311,9 @@ Public Class frmMain
         Call InitUpdatePricesTab()
 
         Cursor.Current = Cursors.Default
+
+        Me.Enabled = True
+        Application.DoEvents()
 
     End Sub
 
@@ -1693,20 +1705,6 @@ Public Class frmMain
 
         readerBP.Close()
 
-        ' Set for max production lines 
-        If SentFrom = SentFromLocation.None Then ' We might have different values there and they set on double click
-        ElseIf SentFrom <> SentFromLocation.None Then  ' Sent from manufacturing tab, bp tab, history, or shopping list
-            ' Set up for Reloading the decryptor combo on T2/T3
-            ' Allow reloading of Decryptors
-            InventionDecryptorsLoaded = False
-            T3DecryptorsLoaded = False
-            ' Allow loading decryptors on drop down
-            LoadingInventionDecryptors = False
-            LoadingT3Decryptors = False
-            ' Allow reloading of relics
-            RelicsLoaded = False
-        End If
-
         Reaction = IsReaction(ItemGroupID)
 
         ' If the previous bp was loaded from history and the current bp isn't loaded from history or event, then reset the facilities to default
@@ -1714,25 +1712,10 @@ Public Class frmMain
             PreviousBPfromHistory = False
         End If
 
-        ' See if it has moon/gas mats
-        SQL = "SELECT DISTINCT 'X' FROM ALL_BLUEPRINT_MATERIALS "
-        SQL &= "WHERE BLUEPRINT_ID = " & CStr(BPID) & " "
-        SQL &= "AND MATERIAL_GROUP IN ('Intermediate Materials', 'Composite','Hybrid Polymers')"
-
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerMat = DBCommand.ExecuteReader()
-        readerMat.Read()
-
-        readerMat.Close()
-
         ' Make sure everything is enabled on first BP load
         If ResetBPTab Then
             ResetBPTab = False ' Reset
         End If
-
-        readerBP.Close()
-        readerBP = Nothing
-        DBCommand = Nothing
 
         Application.DoEvents()
 
@@ -2862,8 +2845,13 @@ Public Class frmMain
                         ' Using price profiles, so look up all the data per group name
                         Dim rsPP As SQLiteDataReader
                         SQL = "SELECT PRICE_TYPE, regionID, SOLAR_SYSTEM_NAME, PRICE_MODIFIER FROM PRICE_PROFILES, REGIONS "
-                        SQL = SQL & "WHERE REGIONS.regionName = PRICE_PROFILES.REGION_NAME "
-                        SQL = SQL & "AND (ID = " & CStr(SelectedCharacter.ID) & " OR ID = 0) AND GROUP_NAME = '" & TempItem.GroupName & "' ORDER BY ID DESC"
+                        SQL &= "WHERE REGIONS.regionName = PRICE_PROFILES.REGION_NAME "
+                        SQL &= "AND (ID = " & CStr(SelectedCharacter.ID) & " OR ID = 0) AND GROUP_NAME = '" & TempItem.GroupName & "' "
+                        If SelectedCharacter.ID <> DummyCharacterID Then
+                            SQL &= "ORDER BY ID DESC"
+                        Else
+                            SQL &= "ORDER BY ID"
+                        End If
 
                         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
                         rsPP = DBCommand.ExecuteReader
@@ -2930,6 +2918,7 @@ ExitSub:
         Dim ItemTypeIDs = New List(Of String)
         Dim RegionID As String = ""
         Dim PriceRegions As New List(Of String)
+        Dim PriceSystem As String = ""
         Dim PriceType As String = "" ' Default
         Dim Items As New List(Of TypeIDRegion)
 
@@ -2948,6 +2937,7 @@ ExitSub:
                     RegionID = CStr(readerPrices.GetInt64(0))
                     readerPrices.Close()
                     DBCommand = Nothing
+                    PriceSystem = SentItems(i).SystemID
                 Else
                     ' for ESI, only one region per update
                     RegionID = SentItems(i).RegionID
@@ -2994,7 +2984,7 @@ ExitSub:
                 ' First, make sure we have structures in the table to query
                 Call ESIData.UpdatePublicStructureswithMarkets()
 
-                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
+                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, PriceSystem, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
                     ' Update Failed, don't reload everything
                     Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
                     pnlStatus.Text = ""
@@ -3191,7 +3181,7 @@ ExitSub:
                     End If
 
                     ' Now Update the ITEM_PRICES table, set price and price type
-                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(SelectedPrice) & ", PRICE_TYPE = '" & PriceType & "' WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
+                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(CDbl(txtListEdit.Text)) & ", PRICE_TYPE = 'User' WHERE ITEM_ID = " & GetTypeID(RemoveItemNameRuns(CurrentRow.SubItems(0).Text))
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                 End If
@@ -5980,6 +5970,10 @@ ExitPRocessing:
                                 InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
+                                InsertItem.MaterialCost = ManufacturingBlueprint.GetRawMaterials.GetTotalMaterialsCost
+                                InsertItem.SellExcess = ManufacturingBlueprint.GetExcessMaterials.GetTotalMaterialsCost
+                                InsertItem.ROI = ManufacturingBlueprint.GetTotalComponentProfit / ManufacturingBlueprint.GetTotalComponentCost
+
 
                                 InsertItem.DivideUnits = 1
                                 InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
@@ -6013,7 +6007,7 @@ ExitPRocessing:
                             Else
                                 InsertItem.SVRxIPH = FormatNumber(CType(InsertItem.SVR, Double) * InsertItem.IPH, 2)
                             End If
-                            InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
+                            InsertItem.TotalCost = ManufacturingBlueprint.GetTotalBuildCost
                             InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                             InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
                             InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
@@ -6022,6 +6016,10 @@ ExitPRocessing:
                             InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
+                            InsertItem.MaterialCost = ManufacturingBlueprint.GetRawMaterials.GetTotalMaterialsCost
+                            InsertItem.SellExcess = ManufacturingBlueprint.GetExcessMaterials.GetTotalMaterialsCost
+                            InsertItem.ROI = ManufacturingBlueprint.GetTotalComponentProfit / ManufacturingBlueprint.GetTotalComponentCost
+
 
                             InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
                             InsertItem.PortionSize = 1
@@ -6065,7 +6063,7 @@ ExitPRocessing:
                                 Else
                                     InsertItem.SVRxIPH = FormatNumber(CType(InsertItem.SVR, Double) * InsertItem.IPH, 2)
                                 End If
-                                InsertItem.TotalCost = ManufacturingBlueprint.GetTotalRawCost
+                                InsertItem.TotalCost = ManufacturingBlueprint.GetTotalBuildCost
                                 InsertItem.Taxes = ManufacturingBlueprint.GetSalesTaxes
                                 InsertItem.BrokerFees = ManufacturingBlueprint.GetSalesBrokerFees
                                 InsertItem.BaseJobCost = ManufacturingBlueprint.GetBaseJobCost
@@ -6074,6 +6072,10 @@ ExitPRocessing:
                                 InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                                 InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                                 InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
+                                InsertItem.MaterialCost = ManufacturingBlueprint.GetRawMaterials.GetTotalMaterialsCost
+                                InsertItem.SellExcess = ManufacturingBlueprint.GetExcessMaterials.GetTotalMaterialsCost
+                                InsertItem.ROI = ManufacturingBlueprint.GetTotalComponentProfit / ManufacturingBlueprint.GetTotalComponentCost
+
 
                                 InsertItem.DivideUnits = CInt(ManufacturingBlueprint.GetTotalUnits)
                                 InsertItem.PortionSize = 1
@@ -6105,6 +6107,10 @@ ExitPRocessing:
                             InsertItem.Race = GetRace(ManufacturingBlueprint.GetRaceID)
                             InsertItem.VolumeperItem = ManufacturingBlueprint.GetItemVolume
                             InsertItem.TotalVolume = ManufacturingBlueprint.GetTotalItemVolume
+                            InsertItem.MaterialCost = ManufacturingBlueprint.GetRawMaterials.GetTotalMaterialsCost
+                            InsertItem.SellExcess = ManufacturingBlueprint.GetExcessMaterials.GetTotalMaterialsCost
+                            InsertItem.ROI = ManufacturingBlueprint.GetTotalComponentProfit / ManufacturingBlueprint.GetTotalComponentCost
+
 
                             InsertItem.DivideUnits = 1
                             InsertItem.PortionSize = CInt(ManufacturingBlueprint.GetTotalUnits)
@@ -7247,6 +7253,7 @@ ExitCalc:
         Public Profit As Double
         Public ProfitPercent As Double
         Public IPH As Double
+        Public MaterialCost As Double
         Public TotalCost As Double
         Public TotalRiskCost As Double
         Public CalcType As String ' Type of calculation to get the profit - either Components, Raw Mats or Build/Buy
@@ -7300,6 +7307,9 @@ ExitCalc:
         Public PortionSize As Integer
         Public DivideUnits As Integer
 
+        Public SellExcess As Double
+        Public ROI As Double
+
         Public JobFee As Double
 
         Public Function Clone() As Object Implements System.ICloneable.Clone
@@ -7325,6 +7335,7 @@ ExitCalc:
             CopyofMe.ProfitPercent = ProfitPercent
             CopyofMe.IPH = IPH
             CopyofMe.TotalCost = TotalCost
+            CopyofMe.MaterialCost = MaterialCost
             CopyofMe.TotalRiskCost = TotalRiskCost
             CopyofMe.CalcType = CalcType
             CopyofMe.BlueprintType = BlueprintType
@@ -7373,6 +7384,8 @@ ExitCalc:
             CopyofMe.TotalVolume = TotalVolume
             CopyofMe.PortionSize = PortionSize
             CopyofMe.DivideUnits = DivideUnits
+            CopyofMe.SellExcess = SellExcess
+            CopyofMe.ROI = ROI
 
             CopyofMe.JobFee = JobFee
 
@@ -7614,7 +7627,6 @@ ExitCalc:
 
     Private Sub btnResetAll_Click(sender As Object, e As EventArgs) Handles btnResetAll.Click
         Dim Response As MsgBoxResult
-        Dim SQL As String
 
         Response = MsgBox("This will reset all data for the program including ESI Tokens, Blueprints, Assets, Industry Jobs, and Price data." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
 
@@ -7622,41 +7634,48 @@ ExitCalc:
             Application.UseWaitCursor = True
             Application.DoEvents()
 
-            SQL = "DELETE FROM ESI_CHARACTER_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM ESI_CHARACTER_DATA")
 
-            SQL = "DELETE FROM ESI_CORPORATION_DATA"
-            EVEDB.ExecuteNonQuerySQL(SQL)
 
-            SQL = "DELETE FROM CHARACTER_STANDINGS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM ESI_CORPORATION_DATA")
 
-            SQL = "DELETE FROM CHARACTER_SKILLS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
 
-            SQL = "DELETE FROM OWNED_BLUEPRINTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM CHARACTER_STANDINGS")
 
-            SQL = "DELETE FROM ITEM_PRICES_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
 
-            SQL = "DELETE FROM ASSETS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM CHARACTER_SKILLS")
 
-            SQL = "DELETE FROM INDUSTRY_JOBS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
 
-            SQL = "DELETE FROM CURRENT_RESEARCH_AGENTS"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM OWNED_BLUEPRINTS")
 
-            SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = 0"
-            EVEDB.ExecuteNonQuerySQL(SQL)
 
-            SQL = "DELETE FROM MARKET_HISTORY"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM ITEM_PRICES_CACHE")
 
-            SQL = "DELETE FROM MARKET_HISTORY_UPDATE_CACHE"
-            EVEDB.ExecuteNonQuerySQL(SQL)
+
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM ASSETS")
+
+
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM INDUSTRY_JOBS")
+
+
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM CURRENT_RESEARCH_AGENTS")
+
+
+            EVEDB.ExecuteNonQuerySQL("UPDATE ITEM_PRICES_FACT SET PRICE = 0")
+
+
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM MARKET_HISTORY")
+
+
+            EVEDB.ExecuteNonQuerySQL("DELETE FROM MARKET_HISTORY_UPDATE_CACHE")
+
+            Call EVEDB.ExecuteNonQuerySQL("DELETE FROM SAVED_FACILTIES WHERE CHARACTER_ID <> 0")
+
+            ' Load the dummy char
+            Call SelectedCharacter.LoadDummyCharacter(True)
+
+            ' Re-load all the forms' facilities
+            Call LoadFacilities()
 
             ' Reset all the cache dates
             Call ResetESIDates()
@@ -7670,7 +7689,10 @@ ExitCalc:
             Application.UseWaitCursor = False
             Application.DoEvents()
 
-            Call SelectedCharacter.LoadDummyCharacter(True)
+            ' Reset the tabs
+            Call ResetTabs()
+
+            FirstLoad = False
 
             MsgBox("All Data Reset", vbInformation, Application.ProductName)
 
