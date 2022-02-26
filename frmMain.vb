@@ -59,16 +59,14 @@ Public Class frmMain
     ' For letting manual check/override of build/buy calculations
     Private IgnoreListViewItemChecks As Boolean
     ' New version of BB items - if checked, then use it for all blueprints not just the one selected on
-    Private BBItems As New List(Of BuildBuyItem)
-    Private BBItemToFind As New Long
 
-    'Private BPBBItems As New List(Of BPBBItem)
-    'Private BPBBItemtoFind As New Integer
+    Private BBItems As New List(Of BuildBuyItem) ' Just the list of itemid and preference for check
+    Private BBItemtoFind As New Long
 
-    'Public Structure BPBBItem
-    '    Dim BPID As Integer
-    '    Dim BBItems As List(Of BuildBuyItem)
-    'End Structure
+    Public Structure BPBBItem
+        Dim BPID As Integer
+        Dim BBItems As List(Of BuildBuyItem)
+    End Structure
 
     Private Structure BPHistoryItem
         Dim BPID As Long
@@ -356,7 +354,7 @@ Public Class frmMain
         ' Initialize stuff
         Call SetProgress("Initializing Database...")
         Application.DoEvents()
-        EVEDB = New DBConnection(Path.Combine(DBFilePath, SQLiteDBFileName))
+        EVEDB = New DBConnection(DBFilePath, SQLiteDBFileName)
 
         ' Add a column for risk prices
         Dim riskStatus As SQLiteDataReader
@@ -699,6 +697,8 @@ Public Class frmMain
 
         End While
 
+        rsStatus.Close()
+
     End Sub
 
     Private Sub DisplayESIStatusMessage(Status As String, Scope As String, Purpose As String)
@@ -795,6 +795,8 @@ Public Class frmMain
             Return "-"
         End If
 
+        readerAverage.Close()
+
     End Function
 
     ' Updates the SVR value and then returns it as a string for the item associated with the Selected BP
@@ -844,6 +846,8 @@ Public Class frmMain
             mnuChar.Items.Add(rsCharacters.GetString(0))
             Counter += 1 ' increment
         End While
+
+        rsCharacters.Close()
 
         Dim rsCharacter As SQLiteDataReader
 
@@ -942,7 +946,6 @@ Public Class frmMain
         Dim DecryptorName As String = None
         Dim BPDecryptor As New Decryptor
         Dim readerBP As SQLiteDataReader
-        Dim readerRelic As SQLiteDataReader
         Dim SQL As String
         Dim AdjustedRuns As Integer = 0
 
@@ -2792,8 +2795,6 @@ Public Class frmMain
                 End If
 
                 readerSystems.Close()
-                readerSystems = Nothing
-                DBCommand = Nothing
 
             ElseIf SystemChecked Then
                 ' Get the system list string
@@ -2810,8 +2811,6 @@ Public Class frmMain
                 End If
 
                 readerSystems.Close()
-                readerSystems = Nothing
-                DBCommand = Nothing
             End If
         End If
 
@@ -2868,6 +2867,7 @@ Public Class frmMain
                             End If
                             TempItem.PriceModifier = rsPP.GetDouble(3)
                         End If
+                        rsPP.Close()
                     End If
 
                     ' Add the item to the list if not there and it's not a blueprint (we don't want to query blueprints since it will return bpo price and we are using this for bpc
@@ -3186,8 +3186,6 @@ ExitSub:
 
                 End If
                 readerPrices.Close()
-                readerPrices = Nothing
-                DBCommand = Nothing
             End If
 
             ' Grab the first record, which will be the latest one, if no record just leave what is already in item prices
@@ -3249,6 +3247,8 @@ ExitSub:
                 MinSellPrice = rsData.GetDouble(0)
             End If
         End If
+
+        rsData.Close()
 
         SQL = "SELECT MAX(PRICE) FROM (SELECT * FROM MARKET_ORDERS UNION ALL SELECT * FROM STRUCTURE_MARKET_ORDERS) WHERE TYPE_ID = " & CStr(TypeID) & " "
         If SystemID <> "" Then
@@ -3348,6 +3348,8 @@ ExitSub:
         While rsData.Read
             PriceList.Add(rsData.GetDouble(0))
         End While
+
+        rsData.Close()
 
         Return PriceList
 
@@ -3528,13 +3530,8 @@ ExitSub:
             If Not readerPriceCheck.HasRows Then
                 ' Not found
                 InsertRecord = True
-                readerPriceCheck.Close()
-                readerPriceCheck = Nothing
-                DBCommand = Nothing
             Else
                 readerPriceCheck.Close()
-                readerPriceCheck = Nothing
-                DBCommand = Nothing
 
                 ' There is a record, see if it needs to be updated (only update every 6 hours)
                 SQL = "SELECT UPDATEDATE FROM ITEM_PRICES_CACHE WHERE TYPEID = " & CStr(CacheItems(i).TypeID) & " AND RegionOrSystem = '" & RegionSystem & "'"
@@ -3549,11 +3546,9 @@ ExitSub:
                     End If
                 End If
 
-                readerPriceCheck.Close()
-                readerPriceCheck = Nothing
-                DBCommand = Nothing
-
             End If
+
+            readerPriceCheck.Close()
 
             ' Add to query item list for EVE Central
             If InsertRecord Then
@@ -5785,8 +5780,6 @@ ExitPRocessing:
             Application.DoEvents()
 
             readerBPs.Close()
-            readerBPs = Nothing
-            DBCommand = Nothing
 
             TotalItemCount = BaseItems.Count
 
@@ -6399,6 +6392,7 @@ ExitCalc:
     Private Function CalculateTotalItemsSold(ByVal TypeID As Long, ByVal RegionID As Long, DaysfromToday As Integer) As Long
         Dim SQL As String
         Dim rsItems As SQLiteDataReader
+        Dim Volume As Long = 0
 
         SQL = "SELECT SUM(TOTAL_VOLUME_FILLED) FROM MARKET_HISTORY WHERE TYPE_ID = " & CStr(TypeID) & " AND REGION_ID = " & CStr(RegionID) & " "
         SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) >= " & " DateTime('" & Format(DateAdd(DateInterval.Day, -(DaysfromToday + 1), Date.UtcNow.Date), SQLiteDateFormat) & "') "
@@ -6407,10 +6401,12 @@ ExitCalc:
         rsItems = DBCommand.ExecuteReader
 
         If rsItems.Read() And Not IsDBNull(rsItems.GetValue(0)) Then
-            Return rsItems.GetInt64(0)
-        Else
-            Return 0
+            Volume = rsItems.GetInt64(0)
         End If
+
+        rsItems.Close()
+
+        Return Volume
 
     End Function
 
@@ -6418,6 +6414,7 @@ ExitCalc:
     Private Function CalculateTotalOrdersFilled(ByVal TypeID As Long, ByVal RegionID As Long, DaysfromToday As Integer) As Long
         Dim SQL As String
         Dim rsItems As SQLiteDataReader
+        Dim Volume As Long = 0
 
         SQL = "SELECT SUM(TOTAL_ORDERS_FILLED) FROM MARKET_HISTORY WHERE TYPE_ID = " & CStr(TypeID) & " AND REGION_ID = " & CStr(RegionID) & " "
         SQL = SQL & "AND DATETIME(PRICE_HISTORY_DATE) >= " & " DateTime('" & Format(DateAdd(DateInterval.Day, -(DaysfromToday + 1), Date.UtcNow.Date), SQLiteDateFormat) & "') "
@@ -6426,10 +6423,12 @@ ExitCalc:
         rsItems = DBCommand.ExecuteReader
 
         If rsItems.Read() And Not IsDBNull(rsItems.GetValue(0)) Then
-            Return rsItems.GetInt64(0)
-        Else
-            Return 0
+            Volume = rsItems.GetInt64(0)
         End If
+
+        rsItems.Close()
+
+        Return Volume
 
     End Function
 
@@ -6451,6 +6450,8 @@ ExitCalc:
                 BuyOrders = rsItems.GetInt64(1)
             End If
         End While
+
+        rsItems.Close()
 
     End Sub
 
@@ -6522,7 +6523,7 @@ ExitCalc:
             If readerAssets.HasRows And Not IsDBNull(readerAssets.GetValue(0)) Then
                 ItemQuantity += readerAssets.GetInt32(0) ' sum up
             End If
-
+            readerAssets.Close()
         Next
 
         Return ItemQuantity
@@ -6563,6 +6564,7 @@ ExitCalc:
     Private Function GetTotalItemsinProduction(ByVal TypeID As Long) As Integer
         Dim SQL As String
         Dim rsItems As SQLiteDataReader
+        Dim Volume As Integer = 0
 
         SQL = "SELECT SUM(runs * PORTION_SIZE) FROM INDUSTRY_JOBS, ALL_BLUEPRINTS WHERE INDUSTRY_JOBS.productTypeID = ALL_BLUEPRINTS.ITEM_ID "
         SQL = SQL & "And productTypeID = " & CStr(TypeID) & " And status = 'active' And activityID IN (1,11) "
@@ -6572,10 +6574,12 @@ ExitCalc:
         rsItems = DBCommand.ExecuteReader
 
         If rsItems.Read() And Not IsDBNull(rsItems.GetValue(0)) Then
-            Return rsItems.GetInt32(0)
-        Else
-            Return 0
+            Volume = rsItems.GetInt32(0)
         End If
+
+        rsItems.Close()
+
+        Return Volume
 
     End Function
 
@@ -8113,6 +8117,8 @@ NextIteration:
                 TempPoint.Y_Price = rsMarketHistory.GetDouble(1)
             End If
 
+            rsMarketHistory.Close()
+
             ' Since we are looping through the data, just do the summation calcs now
             a_value += (counter * TempPoint.Y_Price)
             ' Grab the sum here too
@@ -8202,6 +8208,8 @@ NextIteration:
             y_sum += TempPoint.Y_Price
         End While
 
+        rsMarketHistory.Close()
+
         ' Set the n_value from the loop
         If counter <= 1 Then
             ' If it's 0 or 1, then we can't do a slope calculation 
@@ -8243,6 +8251,8 @@ NextIteration:
 
             GraphData.Add(TempPoint)
         End While
+
+        rsMarketHistory.Close()
 
         ' Set the n_value from the loop
         If counter <= 1 Or GraphData.Count < DaysfromToday Then
