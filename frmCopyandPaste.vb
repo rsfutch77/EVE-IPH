@@ -34,8 +34,6 @@
         If SentWindowType = CopyPasteWindowType.Materials Then
             If SentLocation = CopyPasteWindowLocation.Assets Then
                 frmShop.CopyPasteMaterialText = txtPaste.Text
-            Else
-                CopyPasteRefineryMaterialText = txtPaste.Text
             End If
         ElseIf SentWindowType = CopyPasteWindowType.Blueprints Then
             ' TODO

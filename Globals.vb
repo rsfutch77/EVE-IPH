@@ -1311,9 +1311,6 @@ SkipItem:
             Call frmMain.ResetTabs()
         End If
 
-        ' Reset any of the characterids
-        Call frmMain.ResetCharacterIDonFacilties()
-
         DefaultCharSelected = True
         MsgBox(CharacterName & " selected as Default Character", vbInformation, Application.ProductName)
 

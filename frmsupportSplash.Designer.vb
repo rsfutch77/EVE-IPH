@@ -47,7 +47,7 @@ Partial Class frmsupportSplash
         'pbPaypal
         '
         Me.pbPaypal.BackColor = System.Drawing.Color.Transparent
-        Me.pbPaypal.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.PayPalButton
+        Me.pbPaypal.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.Digital_Patreon_Logo_Black
         Me.pbPaypal.Location = New System.Drawing.Point(132, 264)
         Me.pbPaypal.Name = "pbPaypal"
         Me.pbPaypal.Size = New System.Drawing.Size(124, 35)
@@ -99,7 +99,7 @@ Partial Class frmsupportSplash
         'pbPaetron
         '
         Me.pbPaetron.BackColor = System.Drawing.Color.Transparent
-        Me.pbPaetron.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.patreon_sm
+        Me.pbPaetron.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.Digital_Patreon_Logo_Black
         Me.pbPaetron.Location = New System.Drawing.Point(132, 223)
         Me.pbPaetron.Name = "pbPaetron"
         Me.pbPaetron.Size = New System.Drawing.Size(124, 35)

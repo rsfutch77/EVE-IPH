@@ -134,10 +134,7 @@ Public Class ManufacturingFacility
                     rsBP.Close()
                 End If
 
-                ' Load all the facilities for full controls tab 
-                Call InitializeFacilities(FacilityView.FullControls)
-
-            Case FacilityView.LimitedControls
+            Case ProgramLocation.ManufacturingTab
 
 
                 cmbFacilityRegion.Text = InitialRegionComboText
@@ -160,7 +157,7 @@ Public Class ManufacturingFacility
                 Call GetFacilityBPItemData(InitialProductionType, SelectedBPGroupID, SelectedBPCategoryID, SelectedBPTech, ActivityManufacturing)
 
                 ' Load the defaults
-                Call InitializeFacilities(FacilityView.LimitedControls, InitialProductionType)
+                Call InitializeFacilities(ProgramLocation.ManufacturingTab, InitialProductionType)
 
             Case Else
                 ' Leave, no valid option sent
@@ -177,15 +174,15 @@ Public Class ManufacturingFacility
 
         If FacilityLocation = ProgramLocation.BlueprintTab And Not RefreshSelectedOnly Then
             ' Load all the facilities for  tab - always start with manufacturing
-            Call SelectedFacility.InitalizeFacility(ProductionType.Manufacturing, ViewType, SelectedControlForm)
+            Call SelectedFacility.InitalizeFacility(ProductionType.Manufacturing, FacilityLocation, SelectedControlForm)
             SelectedManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
             DefaultManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
         ElseIf FacilityLocation = ProgramLocation.ManufacturingTab Or RefreshSelectedOnly Then
 
             ' Select what facility to load based on the industry type
-            Call SelectedFacility.InitalizeFacility(InitialProductionType, ViewType, SelectedControlForm)
+            Call SelectedFacility.InitalizeFacility(InitialProductionType, FacilityLocation, SelectedControlForm)
 
-            Call SetSelectedFacility(InitialProductionType, ViewType)
+            Call SetSelectedFacility(InitialProductionType, FacilityLocation)
 
         Else
             ' Leave, no valid option sent
@@ -217,7 +214,7 @@ Public Class ManufacturingFacility
 
     End Sub
 
-    Public Sub SetSelectedFacility(BuildType As ProductionType, ViewType As FacilityView, Optional LoadDualFacilities As Boolean = True)
+    Public Sub SetSelectedFacility(BuildType As ProductionType, FacilityLocation As ProgramLocation, Optional LoadDualFacilities As Boolean = True)
 
         'Now save the default and selected facility to the appropriate variable
         SelectedManufacturingFacility = CType(SelectedFacility.Clone, IndustryFacility)
@@ -300,15 +297,14 @@ Public Class ManufacturingFacility
 
         ' Facility is loaded, so save it to default and dynamic variable
         If LoadDefault Then
-            Call SetSelectedFacility(SelectedProductionType, SelectedView, False)
+            Call SetSelectedFacility(SelectedProductionType, SelectedLocation, False)
         End If
         Call SetFacility(SelectedFacility, SelectedProductionType, False, False)
 
     End Sub
 
     ' Loads the facility activity combo - checks group and category ID's if it has components to set component activities
-    Public Sub LoadFacilityActivities(BPGroupID As Long, BPCategoryID As Long, BlueprintTech As Integer, BPID As Integer,
-                                      BuildMatTypeSelection As BuildMatType)
+    Public Sub LoadFacilityActivities(BPGroupID As Long, BPCategoryID As Long, BlueprintTech As Integer, BPID As Integer)
 
         LoadingActivities = True
         Dim HasComponents As Boolean = False
@@ -352,18 +348,6 @@ Public Class ManufacturingFacility
 
                 readerBP.Close()
             End If
-        End If
-
-        ' If we are on the blueprint tab and the blueprint sent has products from refined ore or ice, then add reprocessing
-        If SelectedLocation = ProgramLocation.BlueprintTab Then
-            ' 18 is Minerals and 423 is Ice Products
-            DBCommand = New SQLiteCommand(String.Format("SELECT 'X' FROM ALL_BLUEPRINT_MATERIALS_FACT WHERE BLUEPRINT_ID = {0} AND MATERIAL_GROUP_ID IN (18, 423)", BPID), EVEDB.DBREf)
-            readerBP = DBCommand.ExecuteReader
-            If readerBP.Read Then
-                cmbFacilityActivities.Items.Add(ActivityReprocessing)
-            End If
-
-            readerBP.Close()
         End If
 
         LoadingActivities = False
@@ -1040,7 +1024,7 @@ Public Class ManufacturingFacility
             ' Now look up if they manually saved the value and override whatever we calculated
             SQL = "SELECT MATERIAL_MULTIPLIER, TIME_MULTIPLIER, COST_MULTIPLIER, FACILITY_TAX FROM SAVED_FACILITIES "
             SQL &= String.Format("WHERE CHARACTER_ID = {0} AND PRODUCTION_TYPE = {1} AND FACILITY_VIEW = {2} AND FACILITY_ID = {3} AND SOLAR_SYSTEM_ID = {4}" _
-                                 , CStr(SelectedCharacterID), CStr(BuildType), CStr(SelectedView), CStr(.FacilityID), CStr(.SolarSystemID))
+                                 , CStr(SelectedCharacterID), CStr(BuildType), CStr(SelectedLocation), CStr(.FacilityID), CStr(.SolarSystemID))
             DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
             rsLoader = DBCommand.ExecuteReader
 
@@ -1118,11 +1102,7 @@ Public Class ManufacturingFacility
         ' Facility is loaded, so save it to default and dynamic variable
         Call SetFacility(SelectedFacility, BuildType, False, False)
 
-            Call SetSelectedFacility(SelectedProductionType, SelectedLocation)
-                    Case ProgramLocation.SovBelts
-                        Call CType(SelectedControlForm, frmIndustryBeltFlip).LoadAllTables()
-                    Case ProgramLocation.IceBelts
-                        Call CType(SelectedControlForm, frmIceBeltFlip).RefreshGrids()
+        Call SetSelectedFacility(SelectedProductionType, SelectedLocation)
         Application.DoEvents()
 
     End Sub
@@ -1234,7 +1214,7 @@ Public Class ManufacturingFacility
     Public Sub FacilitySave()
         If DoneInitialzing Then
 
-            If SelectedFacility.SaveFacility(SelectedView, SelectedCharacterID, SelectedLocation) Then
+            If SelectedFacility.SaveFacility(SelectedCharacterID, SelectedLocation) Then
             Else
                 Exit Sub
             End If
@@ -1964,12 +1944,8 @@ Public Class IndustryFacility
                 RegionID = .GetInt64(5)
                 ' Paste the cost index to the solar system name
                 CostIndex = .GetFloat(10)
-                If InitialProductionType <> ProductionType.Refinery Then
-                    SolarSystemName = .GetString(6) & " (" & FormatNumber(CostIndex, 4) & ")"
-                Else
-                    SolarSystemName = .GetString(6)
-                End If
-                SolarSystemID = .GetInt64(7)
+                SolarSystemName = .GetString(6) & " (" & FormatNumber(CostIndex, 4) & ")"
+                    SolarSystemID = .GetInt64(7)
                 SolarSystemSecurity = .GetDouble(18)
                 FWUpgradeLevel = .GetInt32(8)
                 ActivityCostPerSecond = .GetFloat(9)
@@ -2134,7 +2110,8 @@ ExitBlock:
                     SQL = String.Format("INSERT INTO SAVED_FACILITIES VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14});",
                                         CharacterID, CInt(FacilityProductionType), LID, FacilityID, CInt(FacilityType), RegionID, SolarSystemID, ActivityCostPerSecond,
                                         CInt(IncludeActivityCost), CInt(IncludeActivityTime), CInt(IncludeActivityUsage), TaxRate, MEValue, TEValue, CostValue)
-				End If
+                End If
+                rsCheck.Close()
 
                 ' Save it
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
@@ -2166,7 +2143,6 @@ ExitBlock:
                 End If
             Next
 
-                rsCheck.Close()
 
             ' Refresh the main facilites if sharing facility saves
             If (Location = ProgramLocation.BlueprintTab Or Location = ProgramLocation.ManufacturingTab) And UserApplicationSettings.ShareSavedFacilities Then
@@ -2237,5 +2213,10 @@ ExitBlock:
                 Return None
         End Select
     End Function
+
+    ' Refreshes the MM/TM/CM bonuses for all three for the information sent
+    Public Sub RefreshMMTMCMBonuses(ItemGroupID As Integer, ItemCategoryID As Integer)
+
+    End Sub
 
 End Class

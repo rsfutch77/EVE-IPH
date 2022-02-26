@@ -153,7 +153,6 @@ Public Class frmShoppingList
         lstBuy.Columns.Add("Fees", 0, HorizontalAlignment.Right)
         lstBuy.Columns.Add("Total Cost", 112, HorizontalAlignment.Right) ' Min 129
 
-        lstBuild.Columns.Add("Facility Type", 0, HorizontalAlignment.Left) 'Hidden flag 
         ' Item List - What we are building - width = 711 (21 for verticle scroll bar)
         lstItems.Columns.Add("TypeID", 0, HorizontalAlignment.Center) ' always left allignment this column for some reason, so add a dummy, store bpID here though
         lstItems.Columns.Add("Item", 225, HorizontalAlignment.Left) ' 
@@ -715,7 +714,6 @@ Public Class frmShoppingList
     Private Sub btnCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopy.Click
         Dim ClipboardData As New DataObject
         Dim MatList() As String
-        Dim BuildList() As String
         Dim ItemList() As String
 
         Dim i As Integer
@@ -747,27 +745,7 @@ Public Class frmShoppingList
         End If
 
         ' Paste to clipboard
-        Call CopyTextToClipboard(TotalShoppingList.GetClipboardList(ExportTypeString, True, MatList, ItemList, BuildList, UserApplicationSettings.IncludeInGameLinksinCopyText))
-
-    End Sub
-
-    Private Sub btnShowAssets_Click(sender As System.Object, e As System.EventArgs)
-        ' Make sure it's not disposed
-        If IsNothing(frmShoppingAssets) Then
-            ' Make new form
-            frmShoppingAssets = New frmAssetsViewer(AssetWindow.ShoppingList)
-        Else
-            If frmShoppingAssets.IsDisposed Then
-                ' Make new form
-                frmShoppingAssets = New frmAssetsViewer(AssetWindow.ShoppingList)
-            End If
-        End If
-
-        ' Now open the Asset List
-        frmShoppingAssets.Show()
-        frmShoppingAssets.Focus()
-
-        Application.DoEvents()
+        Call CopyTextToClipboard(TotalShoppingList.GetClipboardList(ExportTypeString, True, MatList, ItemList, UserApplicationSettings.IncludeInGameLinksinCopyText))
 
     End Sub
 

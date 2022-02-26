@@ -618,7 +618,7 @@ Public Class frmMain
 
         If FacilityType = ProductionType.None Then
             ' Load up the Manufacturing tab facilities
-            Call CalcBaseFacility.InitializeControl(FacilityView.LimitedControls, CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
+            Call CalcBaseFacility.InitializeControl(CharID, ProgramLocation.ManufacturingTab, ProductionType.Manufacturing, Me)
         End If
 
     End Sub
@@ -963,53 +963,6 @@ Public Class frmMain
             AdjustedRuns = CInt(Math.Ceiling(CInt(SentRuns) / readerBP.GetInt64(2)))
         Else
             AdjustedRuns = CInt(SentRuns)
-        End If
-
-        If BPTech = BPTechLevel.T2 Or BPTech = BPTechLevel.T3 Then
-            ' Set the decryptor
-            If Inputs <> None Then
-                If Not CBool(InStr(Inputs, "No Decryptor")) Then
-                    If BPTech = 2 Then
-                        DecryptorName = Inputs
-                    ElseIf InStr(Inputs, "|") <> 0 Then ' For T3
-                        DecryptorName = Inputs.Substring(0, InStr(Inputs, "|") - 1)
-                    ElseIf InStr(Inputs, " - ") <> 0 Then
-                        DecryptorName = Inputs.Substring(0, InStr(Inputs, "-") - 2)
-                    End If
-                End If
-            End If
-
-            If BPTech = 3 Then
-                LoadingT3Decryptors = True
-                LoadingT3Decryptors = False
-
-                ' Also load the relic
-                LoadingRelics = True
-                Dim TempRelic As String = ""
-                If InStr(Inputs, "|") <> 0 Then ' For T3
-                    TempRelic = Inputs.Substring(InStr(Inputs, "|")) ' Removed the -1 in the substring it was including | in the SQL Query
-                ElseIf InStr(Inputs, " - ") <> 0 Then
-                    TempRelic = Inputs.Substring(InStr(Inputs, "-") + 1)
-                End If
-
-                SQL = "SELECT typeName FROM INVENTORY_TYPES, INDUSTRY_ACTIVITY_PRODUCTS WHERE productTypeID =" & BPID & " "
-                SQL = SQL & "And typeID = blueprintTypeID And activityID = 8 And typeName Like '%" & TempRelic & "%'"
-
-                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                readerRelic = DBCommand.ExecuteReader
-            readerRelic.Read()
-            LoadingRelics = False
-            RelicsLoaded = False ' Allow reload on drop down
-
-        Else ' T2
-            ' Check the include cost/time
-            If Inputs <> "Unknown" Then ' Unknown inputs is T2 BPO or pre-industry patch
-                    LoadingInventionDecryptors = True
-                    LoadingInventionDecryptors = False
-                End If
-
-            End If
-
         End If
 
         UpdatingCheck = True
@@ -1677,7 +1630,6 @@ Public Class frmMain
     Private Sub SelectBlueprint(Optional ByVal NewBP As Boolean = True, Optional SentFrom As SentFromLocation = 0, Optional FromEvent As Boolean = False)
         Dim SQL As String
         Dim readerBP As SQLiteDataReader
-        Dim readerMat As SQLiteDataReader
         Dim BPID As Integer
         Dim TempTech As Integer
         Dim ItemType As Integer
@@ -3181,7 +3133,7 @@ ExitSub:
                     End If
 
                     ' Now Update the ITEM_PRICES table, set price and price type
-                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(CDbl(txtListEdit.Text)) & ", PRICE_TYPE = 'User' WHERE ITEM_ID = " & GetTypeID(RemoveItemNameRuns(CurrentRow.SubItems(0).Text))
+                    SQL = "UPDATE ITEM_PRICES_FACT SET PRICE = " & CStr(SelectedPrice) & ", PRICE_TYPE = '" & PriceType & "' WHERE ITEM_ID = " & CStr(SentItems(i).TypeID)
                     Call EVEDB.ExecuteNonQuerySQL(SQL)
 
                 End If
@@ -5565,7 +5517,7 @@ ExitPRocessing:
 
         ' Make sure they have a facility loaded - if not, load the default for the type
         If Not CalcBaseFacility.GetFacility(ProductionType.Manufacturing).FullyLoaded Then
-            CalcBaseFacility.InitializeFacilities(FacilityView.LimitedControls, ProductionType.Manufacturing)
+            CalcBaseFacility.InitializeFacilities(ProgramLocation.ManufacturingTab, ProductionType.Manufacturing)
         End If
 
         If Not SavedRefreshValue Then

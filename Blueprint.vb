@@ -625,8 +625,7 @@ Public Class Blueprint
                     End If
 
                     ' Figure out if we build or buy
-                    Dim BuildRiskFlag As Boolean = GetBuildBuyFlag(OneItemMarketRiskPrice, ComponentBlueprint.GetPortionSize, BuildQuantity, ComponentBlueprint.GetTotalRawCost,
-                                                               ComponentBlueprint.BPExcessMaterials, OwnedBP, ComponentBlueprint.ItemID, SetTaxes, BrokerFeeData)
+                    Dim BuildRiskFlag As Boolean = GetBuildFlag(ComponentBlueprint, OneItemMarketRiskPrice, BuildQuantity, OwnedBP, SetTaxes, BrokerFeeData)
 
                     If (BuildBuy And BuildRiskFlag) Then
                         ItemRiskPrice = ComponentBlueprint.GetRawMaterials.GetTotalRiskMaterialsCost / .ItemQuantity
@@ -844,37 +843,7 @@ Public Class Blueprint
                     ComponentBPPortionSize = 1
                 End If
 
-                Dim UsesReactions As Boolean = False
-
-                ' See what material type this is and if we want to build it (reactions)
-                Select Case CurrentMaterialGroupID
-                    Case ItemIDs.ReactionCompositesGroupID
-                        If T2T3MaterialType = BuildMatType.ProcessedMaterials Or T2T3MaterialType = BuildMatType.RawMaterials Then
-                            UsesReactions = True
-                        End If
-                    Case ItemIDs.ReactionsIntermediateGroupID, ItemIDs.ReactionPolymersGroupID
-                        If T2T3MaterialType = BuildMatType.RawMaterials Then ' Or (ItemGroupID = ItemIDs.ReactionCompositesGroupID And T2T3MaterialType = BuildMatType.AdvMaterials) Then
-                            UsesReactions = True
-                        End If
-                    Case ItemIDs.ReactionBiochmeicalsGroupID
-                        ' Special processing for boosters
-                        If CurrentMaterial.GetMaterialName.Contains("Improved") Or CurrentMaterial.GetMaterialName.Contains("Strong") Then
-                            ' This has intermediate material types
-                            UsesReactions = True
-                        ElseIf (CurrentMaterial.GetMaterialName.Contains("Standard") Or CurrentMaterial.GetMaterialName.Contains("Synth")) And T2T3MaterialType = BuildMatType.ProcessedMaterials Then
-                            UsesReactions = True
-                        Else ' Only builds one level
-                            If T2T3MaterialType = BuildMatType.RawMaterials Then
-                                UsesReactions = True
-                            End If
-                        End If
-                End Select
-
-                If Not UsesReactions Then
-                    SQLAdd = " AND BLUEPRINT_GROUP_ID NOT IN (1888,1889,1890)"
-                Else
-                    SQLAdd = ""
-                End If
+                SQLAdd = " AND BLUEPRINT_GROUP_ID NOT IN (1888,1889,1890)"
 
                 ' If it has a value in the main bp table, then the item can be built from it's own BP - do a check if they want to use reactions to drill down to raw mats
                 SQL = "SELECT BLUEPRINT_ID, TECH_LEVEL FROM ALL_BLUEPRINTS_FACT WHERE ITEM_ID =" & CurrentMaterial.GetMaterialTypeID & SQLAdd
