@@ -23,22 +23,22 @@ Partial Class ManufacturingFacility
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.cmbFacilityorArray = New System.Windows.Forms.ComboBox()
+        Me.cmbFacility = New System.Windows.Forms.ComboBox()
         Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
         Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
         Me.mainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
-        'cmbFacilityorArray
+        'cmbFacility
         '
-        Me.cmbFacilityorArray.FormattingEnabled = True
-        Me.cmbFacilityorArray.ItemHeight = 16
-        Me.cmbFacilityorArray.Location = New System.Drawing.Point(398, 13)
-        Me.cmbFacilityorArray.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbFacilityorArray.Name = "cmbFacilityorArray"
-        Me.cmbFacilityorArray.Size = New System.Drawing.Size(387, 24)
-        Me.cmbFacilityorArray.TabIndex = 14
-        Me.cmbFacilityorArray.Text = "Select Facility / Array"
+        Me.cmbFacility.FormattingEnabled = True
+        Me.cmbFacility.ItemHeight = 16
+        Me.cmbFacility.Location = New System.Drawing.Point(398, 13)
+        Me.cmbFacility.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmbFacility.Name = "cmbFacility"
+        Me.cmbFacility.Size = New System.Drawing.Size(387, 24)
+        Me.cmbFacility.TabIndex = 14
+        Me.cmbFacility.Text = "Select Facility / Array"
         '
         'cmbFacilitySystem
         '
@@ -66,7 +66,7 @@ Partial Class ManufacturingFacility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.cmbFacilityorArray)
+        Me.Controls.Add(Me.cmbFacility)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -75,7 +75,7 @@ Partial Class ManufacturingFacility
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents cmbFacilityorArray As ComboBox
+    Friend WithEvents cmbFacility As ComboBox
     Friend WithEvents cmbFacilitySystem As ComboBox
     Friend WithEvents cmbFacilityRegion As ComboBox
     Friend WithEvents mainToolTip As ToolTip
