@@ -74,6 +74,7 @@ Partial Class frmMain
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
         Me.CalcBaseFacility = New EVE_Isk_per_Hour.ManufacturingFacility()
@@ -94,10 +95,8 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
-        Me.btnUpdate = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New EVE_Isk_per_Hour.frmSettings()
         Me.FrmSettings1 = New EVE_Isk_per_Hour.frmSettings()
-        Me.FrmShoppingList1 = New EVE_Isk_per_Hour.frmShoppingList()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -531,6 +530,15 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 30)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(927, 814)
+        Me.FrmShoppingList1.TabIndex = 95
+        '
         'trkTrips
         '
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
@@ -612,7 +620,6 @@ Partial Class frmMain
         Me.TabPage3.Controls.Add(Me.Label1)
         Me.TabPage3.Controls.Add(Me.btnResetAll)
         Me.TabPage3.Controls.Add(Me.btnManageChar)
-        Me.TabPage3.Controls.Add(Me.btnUpdate)
         Me.TabPage3.Controls.Add(Me.FrmSettings2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
@@ -743,17 +750,6 @@ Partial Class frmMain
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
         '
-        'btnUpdate
-        '
-        Me.btnUpdate.Location = New System.Drawing.Point(785, 748)
-        Me.btnUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(120, 36)
-        Me.btnUpdate.TabIndex = 22
-        Me.btnUpdate.Text = "Check for Updates"
-        Me.btnUpdate.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnUpdate.UseSelectable = True
-        '
         'FrmSettings2
         '
         Me.FrmSettings2.AutoSize = True
@@ -772,15 +768,6 @@ Partial Class frmMain
         Me.FrmSettings1.Size = New System.Drawing.Size(849, 613)
         Me.FrmSettings1.TabIndex = 0
         Me.FrmSettings1.Visible = False
-        '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 30)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(927, 814)
-        Me.FrmShoppingList1.TabIndex = 95
         '
         'frmMain
         '
@@ -872,7 +859,6 @@ Partial Class frmMain
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents btnUpdate As MetroFramework.Controls.MetroButton
     Friend WithEvents btnAddChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnManageChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton

@@ -7524,13 +7524,6 @@ ExitCalc:
         End If
     End Sub
 
-    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        Cursor.Current = Cursors.WaitCursor
-        Application.DoEvents()
-        Call CheckForUpdates(True, Me.Icon)
-        Cursor.Current = Cursors.Default
-    End Sub
-
     Private Sub btnAddChar_Click(sender As Object, e As EventArgs) Handles btnAddChar.Click
 
         ' Open up the default select box here
