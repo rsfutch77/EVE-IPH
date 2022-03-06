@@ -7817,6 +7817,7 @@ ExitCalc:
             End If
             If mnuChar.Text = "Dummy Character" Then
                 lblCharacterData.Text = "Calculation options changed to Dummy Mode"
+                lblRecommendation.Text = "The Dummy character is capable of flying a freighter and has one in their hangar. They also have a variety of ship and module blueprints. It is recommended to make at least 2 Trips between Jita and your Manufacturing Station. More Trips means more Profit."
             ElseIf Date.UtcNow.Date <= JobsCacheDate Then
                 lblCharacterData.Text = "Job/Wallet data was last updated: " & CStr(JobsCacheDate) & " UTC"
             Else

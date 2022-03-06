@@ -364,11 +364,12 @@ Partial Class frmMain
         '
         'facilityPicker
         '
-        Me.facilityPicker.Location = New System.Drawing.Point(35, 225)
+        Me.facilityPicker.Location = New System.Drawing.Point(35, 223)
         Me.facilityPicker.Name = "facilityPicker"
-        Me.facilityPicker.Size = New System.Drawing.Size(423, 34)
+        Me.facilityPicker.Size = New System.Drawing.Size(423, 49)
         Me.facilityPicker.TabIndex = 89
-        Me.facilityPicker.Text = "Pick a nearby system to manufacture in (lower taxes is better)"
+        Me.facilityPicker.Text = "Manufacturing Station:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Pick a nearby system to manufacture in (lower taxes is be" &
+    "tter)"
         Me.facilityPicker.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'lblCharacterData
