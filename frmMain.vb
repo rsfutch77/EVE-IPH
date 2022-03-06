@@ -8047,8 +8047,6 @@ NextIteration:
                 TempPoint.Y_Price = rsMarketHistory.GetDouble(1)
             End If
 
-            rsMarketHistory.Close()
-
             ' Since we are looping through the data, just do the summation calcs now
             a_value += (counter * TempPoint.Y_Price)
             ' Grab the sum here too
@@ -8058,6 +8056,8 @@ NextIteration:
 
             GraphData.Add(TempPoint)
         End While
+
+        rsMarketHistory.Close()
 
         ' Set the n_value from the loop
         If counter <= 1 Then
