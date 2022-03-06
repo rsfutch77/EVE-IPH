@@ -356,29 +356,6 @@ Public Class frmMain
         Application.DoEvents()
         EVEDB = New DBConnection(DBFilePath, SQLiteDBFileName)
 
-        ' Add a column for risk prices
-        Dim riskStatus As SQLiteDataReader
-        Dim SQL As String = ""
-        ' Check if the risk price column exists already
-        SQL = "pragma table_info(ITEM_PRICES_FACT)"
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        riskStatus = DBCommand.ExecuteReader
-        Dim columnName As String
-        Dim riskColumnFound As Boolean
-        While (riskStatus.Read())
-            columnName = riskStatus.GetString(1)
-            If String.Equals(columnName, "RISK_PRICE") Then
-                riskColumnFound = True
-            End If
-        End While
-        ' If not found, add it
-        If Not riskColumnFound Then
-            ' Add the risk price column
-            SQL = "ALTER TABLE ITEM_PRICES_FACT ADD RISK_PRICE float"
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            riskStatus = DBCommand.ExecuteReader
-        End If
-
         ' For speed on ESI calls
         ServicePointManager.DefaultConnectionLimit = 20
         ServicePointManager.UseNagleAlgorithm = False
