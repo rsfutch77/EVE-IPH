@@ -7788,6 +7788,7 @@ ExitCalc:
     Private Sub AutoAddToShoppingList()
 
         pnlStatus.Text = "Calculating Autoshop..."
+        lblRecommendation.Text = "Recommendations will appear here"
 
         'Clear the shopping list before we start
         Call TotalShoppingList.Clear()
