@@ -35,5 +35,10 @@ Testing
 - also run all test cases again while keeping the program open, identifies things that break when run twice in succession
 - low dpi through high dpi (resolution scaling settings)
 - test on a character with no blueprints
+- ...just ships
+- ...just modules
+- ...too much money
+- ...not enough money
+- Make sure the all the recommend text fits
 
 notes on deployment, latest files, sde builder...
