@@ -7656,7 +7656,7 @@ ExitCalc:
                     lblRecommendation.Text = "You should buy a freighter."
                 Else
                     'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
+                    lblRecommendation.Text = "You should save more money before buying a freighter."
                 End If
             ElseIf SelectedCharacter.Skills.GetSkillLevel(3341) > 2 And SelectedCharacter.Skills.GetSkillLevel(20528) > 0 Then
                 'Minmatar
@@ -7668,7 +7668,7 @@ ExitCalc:
                     lblRecommendation.Text = "You should buy a freighter."
                 Else
                     'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
+                    lblRecommendation.Text = "You should save more money before buying a freighter."
                 End If
             ElseIf SelectedCharacter.Skills.GetSkillLevel(3342) > 2 And SelectedCharacter.Skills.GetSkillLevel(20526) > 0 Then
                 'Caldari
@@ -7680,7 +7680,7 @@ ExitCalc:
                     lblRecommendation.Text = "You should buy a freighter."
                 Else
                     'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
+                    lblRecommendation.Text = "You should save more money before buying a freighter."
                 End If
             ElseIf SelectedCharacter.Skills.GetSkillLevel(3343) > 2 And SelectedCharacter.Skills.GetSkillLevel(20424) > 0 Then
                 'Amarr
@@ -7692,7 +7692,7 @@ ExitCalc:
                     lblRecommendation.Text = "You should buy a freighter."
                 Else
                     'They can fly one, but they don't have the money
-                    lblRecommendation.Text = "You should save up for a freighter."
+                    lblRecommendation.Text = "You should save more money before buying a freighter."
                 End If
             Else
                 lblRecommendation.Text = "You should finish training racial skills for a freighter."
@@ -7836,7 +7836,7 @@ ExitCalc:
 
             If SelectedCharacter.WalletData.Wallet < 2 Then
                 pnlStatus.Text = "Autoshopping failed."
-                lblRecommendation.Text = "Your wallet data was unable to be read or returned 0 ISK which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
+                lblRecommendation.Text = "Your wallet was unable to be read or returned 0 ISK which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
                 Return
             End If
 
@@ -7858,7 +7858,7 @@ ExitCalc:
             Dim maxJobs As Integer = SelectedCharacter.MaximumProductionLines
             If maxJobs = 0 Then 'If character has no manufacturing capability, return and warn the player
                 pnlStatus.Text = "Autoshopping failed."
-                lblRecommendation.Text = "Your Job data was unable to be read or returned 0 which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
+                lblRecommendation.Text = "Your maximum number of Jobs was unable to be read or returned 0 which prevents Autoshop from working. You can still manually add items to your shopping list or try Autoshop on the Dummy Character."
                 Return
             ElseIf activeJobsFarFromCompletion = maxJobs Then 'If all jobs are busy then assume the player is planning
                 'Leave maxJobs alone
