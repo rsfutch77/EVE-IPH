@@ -107,10 +107,11 @@ Public Class ShoppingList
 
         Dim iterations As Integer
         Dim difference As Double
+        Const maxWalletToUse = 0.75 'Maximum percentage of the player's wallet to use
 
         'Make sure there are still items in the list after the previous autshop function
         If TotalItemList.Count > 0 Then
-            difference = TotalShoppingList.GetTotalCost - WalletData
+            difference = TotalShoppingList.GetTotalCost - WalletData * maxWalletToUse
         Else
             'List is already empty
             Return
@@ -118,7 +119,7 @@ Public Class ShoppingList
 
         'Don't use all of the player's money, just most of it
         Dim iterationLimit As Integer = 100
-        While TotalShoppingList.GetTotalCost > WalletData * 0.75 And iterations < iterationLimit
+        While TotalShoppingList.GetTotalCost > WalletData * maxWalletToUse And iterations < iterationLimit
             iterations = iterations + 1
             'Sort descending
             TotalItemList.Sort(Function(x, y) y.TotalItemMarketCost.CompareTo(x.TotalItemMarketCost))
