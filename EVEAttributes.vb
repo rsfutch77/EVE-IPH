@@ -14,8 +14,9 @@ Public Class EVEAttributes
         readerSearch = DBCommand.ExecuteReader
 
         If readerSearch.Read Then
+            Dim reader As Double = readerSearch.GetDouble(0)
             readerSearch.Close()
-            Return readerSearch.GetDouble(0)
+            Return reader
         Else
             readerSearch.Close()
             Return Nothing

@@ -2109,8 +2109,9 @@ SkipItem:
         readerAttribute = DBCommand.ExecuteReader
 
         If readerAttribute.Read Then
+            Dim reader As Double = readerAttribute.GetDouble(0)
             readerAttribute.Close()
-            Return readerAttribute.GetDouble(0)
+            Return reader
         Else
             readerAttribute.Close()
             Return Nothing
