@@ -13,10 +13,10 @@ Public Class frmAddCharacter
         ESIScopesString = ""
         chkReadAssets.Checked = True
         chkReadWallet.Checked = True
+        chkStructureMarkets.Checked = True
         chkReadBlueprints.Checked = True
         chkReadCharacterJobs.Checked = True
         chkReadStructures.Checked = True
-        'chkManagePlanets.Checked = True
 
         ' Set the tool tips for api
         With ttAPI
@@ -24,8 +24,8 @@ Public Class frmAddCharacter
             .SetToolTip(chkReadWallet, "Reads the total value of the character's wallet")
             .SetToolTip(chkReadBlueprints, "Reads a list of blueprints the character owns")
             .SetToolTip(chkReadCharacterJobs, "Reads a list of the character's industry jobs")
-
-            .SetToolTip(chkReadStructures, "Reads information about specific structures")
+            .SetToolTip(chkReadStructures, "Reads manufacturing information for structures")
+            .SetToolTip(chkStructureMarkets, "Reads market data from structures including price and volume")
 
         End With
 
