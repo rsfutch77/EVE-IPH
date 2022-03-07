@@ -4634,9 +4634,6 @@ ExitPRocessing:
             End If
         Next
 
-        ' Hack to get around the scroll bar not showing
-        lstManufacturing.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.None)
-
         AddingColumns = False
 
     End Sub
