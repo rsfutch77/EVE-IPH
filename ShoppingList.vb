@@ -60,46 +60,6 @@ Public Class ShoppingList
 
 #Region "Update Shopping List Functions"
 
-    'Reduce quantities of items until the player can manufacture all these items in one week
-    Public Sub ScheduleShoppingItemQuantity()
-        'Reduce the biggest run by a small quantity, sort and repeat until all runs are below one week
-
-        Const ManufacturingDays = 5
-
-        Dim iterations As Integer
-        Dim difference As Double
-
-        TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
-        'Make sure there are still items in the list after the previous autshop function
-        If TotalItemList.Count > 0 Then
-            difference = TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60
-        Else
-            'List is already empty
-            Return
-        End If
-
-        'Leave some room for error on the cargo volume
-        While TotalItemList(0).TotalBuildTime > ManufacturingDays * 24 * 60 * 60 And iterations < 100
-            iterations = iterations + 1
-            If CLng(TotalItemList(0).Runs * (1 - 0.25)) = TotalItemList(0).Runs Then
-                UpdateShoppingItemQuantity(TotalItemList(0), 0) ' Get rid of this item if we get near zero runs
-            Else
-                UpdateShoppingItemQuantity(TotalItemList(0), CLng(TotalItemList(0).Runs * (1 - 0.25)))
-            End If
-            frmMain.MetroProgressBar.Value = CInt(100 * ((difference - (TotalItemList(0).TotalBuildTime - ManufacturingDays * 24 * 60 * 60)) / difference))
-
-            'Sort descending
-            TotalItemList.Sort(Function(x, y) y.TotalBuildTime.CompareTo(x.TotalBuildTime))
-        End While
-
-        'If we spent a long time on this and it doesn't work, then clear the list
-        If iterations >= 100 Then
-            TotalItemList.Clear()
-        End If
-
-
-    End Sub
-
     'Reduce quantities of items until the player can afford to manufacture the whole shopping list
     Public Sub AffordableShoppingItemQuantity(WalletData As Double)
         'Reduce the runs until the total job cost is below the player's wallet amount

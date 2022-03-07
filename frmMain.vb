@@ -7924,8 +7924,8 @@ ExitCalc:
                             'Get production time for one run
                             Dim RuntimeSeconds As Double = .Blueprint.GetTotalProductionTime
                             Dim ShopListItem As ShoppingListItem = CopyManufacturingItemToShoppingItem(FoundItem)
-                            'Update the quantity
-                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(5 * 24 * 60 * 60 / RuntimeSeconds))
+                            'Update the quantity. Maximum build time is 5 days minus 2 hours so they can come back next weekend, with a couple hours to spare
+                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(((5 * 24) - 2) * 3600 / RuntimeSeconds))
 
                         Else
                             MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
@@ -7944,16 +7944,6 @@ NextIteration:
             MetroProgressBar.Visible = True
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
-
-            pnlStatus.Text = "Autoshopping for schedule..."
-            MetroProgressBar.Minimum = 0
-            MetroProgressBar.Maximum = 100
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
-            Application.DoEvents() 'Display the message before we get started
-            Call TotalShoppingList.ScheduleShoppingItemQuantity()
             MetroProgressBar.Value = 0
             MetroProgressBar.Visible = False
 
