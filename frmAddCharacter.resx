@@ -177,6 +177,13 @@
         281dYSpWWh0AAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="lblKeyType.Text" xml:space="preserve">
+    <value>The following character scopes will be requested:
+- Read Character Jobs: To make sure we don't duplicate something you are already manufacturing
+- Read Character Assets: To make sure we don't try to manufacturing something that doesn't fit in your ship
+- Read Blueprints: To make sure we only manufacture things you have the blueprint for
+- Read Wallet: To make sure we don't try to manufacture something over your budget</value>
+  </data>
   <metadata name="ttAPI.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

@@ -11,23 +11,12 @@ Public Class frmAddCharacter
 
         ' Always check all
         ESIScopesString = ""
-        chkReadAssets.Checked = True
-        chkReadWallet.Checked = True
-        chkStructureMarkets.Checked = True
-        chkReadBlueprints.Checked = True
-        chkReadCharacterJobs.Checked = True
-        chkReadStructures.Checked = True
-
-        ' Set the tool tips for api
-        With ttAPI
-            .SetToolTip(chkReadAssets, "Reads a list of the character's assets")
-            .SetToolTip(chkReadWallet, "Reads the total value of the character's wallet")
-            .SetToolTip(chkReadBlueprints, "Reads a list of blueprints the character owns")
-            .SetToolTip(chkReadCharacterJobs, "Reads a list of the character's industry jobs")
-            .SetToolTip(chkReadStructures, "Reads manufacturing information for structures")
-            .SetToolTip(chkStructureMarkets, "Reads market data from structures including price and volume")
-
-        End With
+        Call UpdateScopesString("esi-industry.read_character_jobs.v1", True)
+        Call UpdateScopesString("esi-assets.read_assets.v1", True)
+        Call UpdateScopesString("esi-characters.read_blueprints.v1", True)
+        Call UpdateScopesString("esi-universe.read_structures.v1", True)
+        Call UpdateScopesString("esi-markets.structure_markets.v1", True)
+        Call UpdateScopesString("esi-wallet.read_character_wallet.v1", True)
 
     End Sub
 
@@ -116,41 +105,7 @@ Public Class frmAddCharacter
 
     End Sub
 
-    Private Sub chkReadCharacterJobs_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadCharacterJobs.CheckedChanged
-        With chkReadCharacterJobs
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-
-    Private Sub chkReadAssets_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadAssets.CheckedChanged
-        With chkReadAssets
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-
-    Private Sub chkReadBlueprints_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadBlueprints.CheckedChanged
-        With chkReadBlueprints
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-
-    Private Sub chkReadStructures_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadStructures.CheckedChanged
-        With chkReadStructures
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-
-    Private Sub chkReadWallet_CheckedChanged(sender As Object, e As EventArgs) Handles chkReadWallet.CheckedChanged
-        With chkReadWallet
-            Call UpdateScopesString(.Text, .Checked)
-        End With
-    End Sub
-        
     Private Sub EnableDisableForm(Setting As Boolean)
         btnEVESSOLogin.Enabled = False
-        chkReadAssets.Enabled = Setting
-        chkReadBlueprints.Enabled = Setting
-        chkReadCharacterJobs.Enabled = Setting
-        chkReadStructures.Enabled = Setting
     End Sub
 End Class
