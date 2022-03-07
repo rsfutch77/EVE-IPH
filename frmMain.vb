@@ -7107,15 +7107,8 @@ ExitCalc:
 
     End Function
 
-    Private DecryptorItemToFind As OptimalDecryptorItem
+        Return ItemList
 
-    ' Predicate for finding an in the list of decryptors
-    Private Function FindDecryptorItem(ByVal Item As OptimalDecryptorItem) As Boolean
-        If Item.CalcType = DecryptorItemToFind.CalcType And Item.ItemTypeID = DecryptorItemToFind.ItemTypeID Then
-            Return True
-        Else
-            Return False
-        End If
     End Function
 
     Private Sub lstManufacturing_ColumnWidthChanging(sender As Object, e As System.Windows.Forms.ColumnWidthChangingEventArgs)
@@ -7123,39 +7116,6 @@ ExitCalc:
             e.Cancel = True
             e.NewWidth = lstManufacturing.Columns(e.ColumnIndex).Width
         End If
-    End Sub
-
-    ' On double click of the item, it will open up the bp window with the item 
-    Private Sub lstManufacturing_Click(ByVal sender As Object, ByVal e As System.EventArgs)
-        Dim FoundItem As New ManufacturingItem
-        Dim CompareType As String
-
-        ' Find the item clicked in the list of items then just send those values over
-        ManufacturingRecordIDToFind = CLng(lstManufacturing.SelectedItems(0).SubItems(0).Text)
-        FoundItem = FinalManufacturingItemList.Find(AddressOf FindManufacturingItem)
-
-        SelectedBlueprint = FoundItem.Blueprint
-
-        UpdateBPPriceLabels()
-
-        ' Set the build facility we are sending to the proper facility type for this item. 
-        If FoundItem IsNot Nothing Then
-            ' We found it, so load the current bp
-            With FoundItem
-                CompareType = "Components"
-
-                Dim T2T3Type As BuildMatType
-                T2T3Type = Nothing
-
-                Call LoadBPfromEvent(.BPID, .CalcType, .Inputs, SentFromLocation.ManufacturingTab,
-                                     .ManufacturingFacility, New IndustryFacility, New IndustryFacility,
-                                     New IndustryFacility, New IndustryFacility,
-                                     True, GetBrokerFeeData(),
-                                     CStr(.BPME), CStr(.BPTE), "1", "1", "1",
-                                     "1", FormatNumber(.AddlCosts, 2), False, CompareType, T2T3Type)
-            End With
-        End If
-
     End Sub
 
     ' The manufacturing item to load the grid
