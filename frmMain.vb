@@ -6061,6 +6061,11 @@ ExitPRocessing:
 
                 'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
                 FinalItemList = DeleteManufacturingListDuplicates(ManufacturingList)
+
+                'Remove battleships from the list
+                FinalManufacturingItemList = FinalItemList
+                FinalItemList = DeleteManufacturingListBattleships(FinalManufacturingItemList)
+
                 'Once the blue prints have all been processed, calculate the score for each blueprint
                 CalculateScore(ManufacturingList)
 
@@ -6085,32 +6090,9 @@ DisplayResults:
         ' Reset the columns before processing data
         Call RefreshManufacturingTabColumns()
 
-        Dim NumManufacturingItems As Integer
-
         ' If no records first, then don't let them try and refresh nothing
         If IsNothing(FinalManufacturingItemList) And SavedRefreshValue Then
             Exit Sub
-        End If
-
-        If Not SavedRefreshValue Then
-            ' Calc or new display data
-            NumManufacturingItems = ManufacturingList.Count
-
-            If NumManufacturingItems = 0 Then
-                If Not Calculate Then
-                    FinalManufacturingItemList = BaseItems ' Save for later use, this was just display
-                Else
-                    FinalManufacturingItemList = Nothing ' It didn't calculate anything, so just clear the grid and exit
-                    lstManufacturing.Items.Clear()
-                    GoTo ExitCalc
-                End If
-            Else
-                ' Use Current data lists and save
-                FinalManufacturingItemList = ManufacturingList
-            End If
-        Else
-            ' Use pre-calc'd or loaded list
-            NumManufacturingItems = FinalManufacturingItemList.Count
         End If
 
         MetroProgressBar.Minimum = 0
@@ -7075,6 +7057,27 @@ ExitCalc:
 
             End If
 
+        Next
+
+        ' Finally, remove all the ID's in the remove list
+        For i = 0 To RemoveLocations.Count - 1
+            ManufacturingRecordIDToFind = RemoveLocations(i)
+            ItemList.Remove(ItemList.Find(AddressOf FindManufacturingItem))
+        Next
+
+        Return ItemList
+
+    End Function
+
+    'Delete Battleships in the manufacturing list
+    Private Function DeleteManufacturingListBattleships(ByVal ItemList As List(Of ManufacturingItem)) As List(Of ManufacturingItem)
+        Dim RemoveLocations As New List(Of Integer)
+
+        'For each item
+        For i = 0 To ItemList.Count - 1
+            If ItemList(i).ItemGroup = "Battleship" Then
+                RemoveLocations.Add(ItemList(i).ListID)
+            End If
         Next
 
         ' Finally, remove all the ID's in the remove list
