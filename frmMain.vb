@@ -6111,8 +6111,8 @@ DisplayResults:
             NumManufacturingItems = FinalManufacturingItemList.Count
         End If
 
-        ' Remove only but the optimal decryptor items before final display, and set the final list
-        FinalItemList = SetOptimalDecryptorList(FinalManufacturingItemList, OptimalDecryptorItems)
+        'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
+        FinalItemList = DeleteManufacturingListDuplicates(FinalManufacturingItemList)
 
         MetroProgressBar.Minimum = 0
         MetroProgressBar.Maximum = FinalItemList.Count
@@ -7057,55 +7057,32 @@ ExitCalc:
 
     End Sub
 
-    ' Reads optimal decryptor list and removes only but the most optimal decryptor from the item list
-    Private Function SetOptimalDecryptorList(ByVal ItemList As List(Of ManufacturingItem), OptimalItemList As List(Of OptimalDecryptorItem)) As List(Of ManufacturingItem)
-        Dim TempDecryptorItem As New OptimalDecryptorItem
-        Dim TempList As New List(Of OptimalDecryptorItem)
-        Dim CompareValue As Double = 0
-        Dim OptimalLocationID As Integer = 0
+    'Search the list for duplicates and remove duplicate build/buy and components
+    Private Function DeleteManufacturingListDuplicates(ByVal ItemList As List(Of ManufacturingItem)) As List(Of ManufacturingItem)
         Dim RemoveLocations As New List(Of Integer)
 
-        If OptimalItemList.Count <> 0 Then
-            For i = 0 To ItemList.Count - 1
-                ' Get all the items in the decryptor list (if they exist)
-                DecryptorItemToFind.CalcType = ItemList(i).CalcType
-                DecryptorItemToFind.ItemTypeID = ItemList(i).ItemTypeID
-                ' Find all the items
-                TempList = OptimalItemList.FindAll(AddressOf FindDecryptorItem)
-                If TempList IsNot Nothing Then
-                    ' Loop through each one and get the Location ID for the most optimal item
-                    For j = 0 To TempList.Count - 1
-                        If CompareValue = 0 Or CompareValue <= TempList(j).CompareValue Then
-                            CompareValue = TempList(j).CompareValue
-                            ' Save/reset the location for the optimal
-                            OptimalLocationID = TempList(j).ListLocationID
-                        End If
-                    Next
+        'For each item
+        For i = 0 To ItemList.Count - 1
 
-                    ' Reset
-                    CompareValue = 0
+            If ItemList(i).CalcType Is "Raw Materials" Then 'If this one is component type
 
-                    ' Insert the location ID into the list to remove later
-                    For j = 0 To TempList.Count - 1
-                        If TempList(j).ListLocationID <> OptimalLocationID Then
-                            ' Remove this one
-                            RemoveLocations.Add(TempList(j).ListLocationID)
-                        End If
-                    Next
+                'Search for and mark any raw types, build types will be marked later
+                For j = 0 To ItemList.Count - 1
+                    If ItemList(i).ItemName = ItemList(j).ItemName And (ItemList(j).CalcType Is "Components" Or ItemList(j).CalcType Is "Build/Buy") Then
+                        ' Insert the location ID into the list to remove later
+                        RemoveLocations.Add(ItemList(j).ListID)
+                    End If
+                Next
 
-                End If
-            Next
+            End If
 
-            ' Finally, remove all the ID's in the remove list
-            For i = 0 To RemoveLocations.Count - 1
-                ManufacturingRecordIDToFind = RemoveLocations(i)
-                ItemList.Remove(ItemList.Find(AddressOf FindManufacturingItem))
-            Next
-        End If
+        Next
 
-        Return ItemList
-
-    End Function
+        ' Finally, remove all the ID's in the remove list
+        For i = 0 To RemoveLocations.Count - 1
+            ManufacturingRecordIDToFind = RemoveLocations(i)
+            ItemList.Remove(ItemList.Find(AddressOf FindManufacturingItem))
+        Next
 
         Return ItemList
 
