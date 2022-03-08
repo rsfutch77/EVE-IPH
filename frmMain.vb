@@ -6059,6 +6059,8 @@ ExitPRocessing:
 
                 Next
 
+                'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
+                FinalItemList = DeleteManufacturingListDuplicates(ManufacturingList)
                 'Once the blue prints have all been processed, calculate the score for each blueprint
                 CalculateScore(ManufacturingList)
 
@@ -6110,9 +6112,6 @@ DisplayResults:
             ' Use pre-calc'd or loaded list
             NumManufacturingItems = FinalManufacturingItemList.Count
         End If
-
-        'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
-        FinalItemList = DeleteManufacturingListDuplicates(FinalManufacturingItemList)
 
         MetroProgressBar.Minimum = 0
         MetroProgressBar.Maximum = FinalItemList.Count
