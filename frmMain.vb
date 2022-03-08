@@ -4005,18 +4005,6 @@ ExitPRocessing:
 
     End Sub
 
-    Private Sub cmbCalcFWManufUpgradeLevel_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcFWCopyUpgradeLevel_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcFWInventionUpgradeLevel_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
     Private Sub cmbCalcFWUpgrade_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         e.Handled = True
     End Sub
@@ -4033,10 +4021,6 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcProdLines_TextChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
     Private Sub txtCalcBPs_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
@@ -4047,14 +4031,6 @@ ExitPRocessing:
                 Call ResetRefresh()
             End If
         End If
-    End Sub
-
-    Private Sub txtCalcBPs_TextChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub txtCalcRuns_TextChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
     End Sub
 
     Private Sub txtCalcLabLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
@@ -4069,14 +4045,6 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub txtCalcLabLines_TextChanged(sender As Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreLowSVR_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
     Private Sub cmbCalcAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
@@ -4089,62 +4057,6 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub cmbCalcAvgPriceDuration_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreMinerals_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreT1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcTaxes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcFees_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcSellExessItems_CheckedChanged(sender As Object, e As EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcUsage_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreRAMS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreInvention_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcEstimateCopyCost_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreInvention_CheckedChanged_1(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreMinerals_CheckedChanged_1(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcIgnoreT1Item_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub rbtnCalcCompareAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
     Private Sub txtCalcSVRThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers, decimal, negative or backspace
         If e.KeyChar <> ControlChars.Back Then
@@ -4155,54 +4067,6 @@ ExitPRocessing:
                 Call ResetRefresh()
             End If
         End If
-    End Sub
-
-    Private Sub txtCalcSVRThreshold_TextChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcSVRIncludeNull_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub rbtnCalcCompareBuildBuy_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub rbtnCalcCompareRawMats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub rbtnCalcCompareComponents_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcPPU_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcShipBPCNoD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcShipBPCD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcNonShipBPCNoD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub cmbCalcNonShipBPCD_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcCanBuild_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
-    End Sub
-
-    Private Sub chkCalcCanInvent_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call ResetRefresh()
     End Sub
 
     Private Sub txtTempME_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
