@@ -368,11 +368,8 @@ Public Class frmMain
         UserBPTabSettings = AllSettings.LoadBPSettings
         UserUpdatePricesTabSettings = AllSettings.LoadUpdatePricesSettings
         UserManufacturingTabSettings = AllSettings.LoadManufacturingSettings
-        UserIndustryJobsColumnSettings = AllSettings.LoadIndustryJobsColumnSettings
         UserManufacturingTabColumnSettings = AllSettings.LoadManufacturingTabColumnSettings
         UserShoppingListSettings = AllSettings.LoadShoppingListSettings
-        UserMHViewerSettings = AllSettings.LoadMarketHistoryViewerSettingsSettings
-        UserBPViewerSettings = AllSettings.LoadBPViewerSettings
 
         ' Display to the user any issues with ESI endpoints
         Call SetProgress("Checking Status of ESI...")
@@ -1186,19 +1183,6 @@ Public Class frmMain
             MsgBox("Assets reset", vbInformation, Application.ProductName)
         End If
 
-    End Sub
-
-    Private Sub mnuCurrentIndustryJobs_Click(sender As System.Object, e As System.EventArgs) Handles mnuCurrentIndustryJobs.Click
-        Dim f1 As New frmIndustryJobsViewer
-        f1.Show()
-    End Sub
-
-    Private Sub mnuResetESIMarketPrices_Click(sender As System.Object, e As System.EventArgs)
-        Call ResetESIAdjustedMarketPrices()
-    End Sub
-
-    Private Sub mnuResetESIIndustryFacilities_Click(sender As System.Object, e As System.EventArgs)
-        Call ResetESIIndustrySystemIndicies()
     End Sub
 
     Private Sub btnCancelUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelUpdate.Click
@@ -4404,22 +4388,6 @@ ExitPRocessing:
         End If
     End Sub
 
-    Private Sub btnCalcSelectColumns_Click(sender As System.Object, e As System.EventArgs)
-        Dim f1 As New frmSelectManufacturingTabColumns
-        ManufacturingTabColumnsChanged = False
-        f1.ShowDialog()
-
-        ' Now Refresh the grid if it changed
-        If ManufacturingTabColumnsChanged Then
-            If lstManufacturing.Items.Count <> 0 Then
-                RefreshCalcData = True
-                Call DisplayManufacturingResults(False)
-            Else
-                Call RefreshManufacturingTabColumns()
-            End If
-        End If
-    End Sub
-
     Private Sub chkCalcAutoCalcT2NumBPs_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Call ResetRefresh()
     End Sub
@@ -5182,9 +5150,6 @@ ExitPRocessing:
     Private Sub btnCalcSaveSettings()
         Dim TempSettings As ManufacturingTabSettings = Nothing
         Dim Settings As New ProgramSettings
-
-        ' Save the column order and width first
-        AllSettings.SaveManufacturingTabColumnSettings(UserManufacturingTabColumnSettings)
 
         With TempSettings
             .CheckBPTypeNPCBPOs = True
@@ -6240,15 +6205,6 @@ ExitCalc:
         Application.DoEvents()
 
         Dim IDString As String = ""
-
-        ' Set the ID string we will use to update
-        If UserAssetWindowShoppingListSettings.AssetType = "Both" Then
-            IDString = CStr(SelectedCharacter.ID) & "," & CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Personal" Then
-            IDString = CStr(SelectedCharacter.ID)
-        ElseIf UserAssetWindowShoppingListSettings.AssetType = "Corporation" Then
-            IDString = CStr(SelectedCharacter.CharacterCorporation.CorporationID)
-        End If
 
         ' Build the where clause to look up data
         Dim AssetLocationFlagList As New List(Of String)
@@ -8012,7 +7968,7 @@ NextIteration:
         'Setup Normal values for the full score
         '-----------------------------
 
-        '60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
+        'More than 60kIPH represents the transition point where mining high security belts or running missions would be less profitable than 
         'running a small number of low skill, low IPH jobs
         Dim MIN_IPH As Integer = 60000
 
@@ -8181,7 +8137,7 @@ NextIteration:
                 SVR = 0
             End If
 
-            'Give a score of zero to anything that is missing market history or won't result in any profit
+            'Give a score of zero to anything that is missing market history or won't result in any profit or a very low profit
             If ManufacturingList(i).IPH > MIN_IPH And SVR > 0 And ManufacturingList(i).Volatility > 0 And ManufacturingList(i).PriceTrend <> 0 Then
                 'SVR and trend are not as important as volatility and risk
                 ManufacturingList(i).Score = IPHNormal(i) * 1.5 + SVRNormal(i) + PriceTrendNormal(i) * 0.5 - VolatilityNormal(i) - RiskNormal(i)
