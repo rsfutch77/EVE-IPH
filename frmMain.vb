@@ -5805,13 +5805,6 @@ ExitPRocessing:
 
                 Next
 
-                'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
-                FinalItemList = DeleteManufacturingListDuplicates(ManufacturingList)
-
-                'Remove battleships from the list
-                FinalManufacturingItemList = FinalItemList
-                FinalItemList = DeleteManufacturingListBattleships(FinalManufacturingItemList)
-
                 'Once the blue prints have all been processed, calculate the score for each blueprint
                 CalculateScore(ManufacturingList)
 
@@ -5836,10 +5829,17 @@ DisplayResults:
         ' Reset the columns before processing data
         Call RefreshManufacturingTabColumns()
 
-        ' If no records first, then don't let them try and refresh nothing
-        If IsNothing(FinalManufacturingItemList) And SavedRefreshValue Then
-            Exit Sub
-        End If
+        ManufacturingList = ManufacturingList.OrderByDescending(Function(x) x.Score).ToList()
+
+        'Search the list for duplicates and remove duplicate build/buy and raw materials (does not account for situations where building components is cheaper, this would be rare with T1 modules)
+        ManufacturingList = DeleteManufacturingListDuplicates(ManufacturingList)
+
+        'Remove battleships from the list
+        ManufacturingList = DeleteManufacturingListBattleships(ManufacturingList)
+
+        'Set update the final list after all the changes
+        FinalManufacturingItemList = ManufacturingList
+        FinalItemList = FinalManufacturingItemList
 
         MetroProgressBar.Minimum = 0
         MetroProgressBar.Maximum = FinalItemList.Count
@@ -5990,28 +5990,8 @@ DisplayResults:
 
         Next
 
-        Dim TempType As SortOrder
-
-        ' Now sort this
-        If ManufacturingColumnSortType = SortOrder.Ascending Then
-            TempType = SortOrder.Descending
-        Else
-            TempType = SortOrder.Ascending
-        End If
-
-        ' Sort the list based on the saved column, if they change the number of columns below value, then find IPH, if not there, use column 0
-        If ManufacturingColumnClicked > lstManufacturing.Columns.Count Then
-            ' Find the IPH column
-            If UserManufacturingTabColumnSettings.IskperHour <> 0 Then
-                ManufacturingColumnClicked = UserManufacturingTabColumnSettings.IskperHour
-            Else
-                ManufacturingColumnClicked = 0 ' Default, will always be there
-            End If
-
-        End If
-
         ' Sort away
-        Call ListViewColumnSorter(ManufacturingColumnClicked, CType(lstManufacturing, ListView), ManufacturingColumnClicked, TempType)
+        Call ListViewColumnSorter(UserManufacturingTabColumnSettings.Score, CType(lstManufacturing, ListView), UserManufacturingTabColumnSettings.Score, SortOrder.Ascending)
 
         lstManufacturing.EndUpdate()
 
@@ -7548,9 +7528,6 @@ ExitCalc:
             'Get the number of items in production and on the market and in assets And dont build any of these
             'GetTotalItemsinProduction()
             'if this shrinks the list to zero then recommend they buy more blueprints, but go back and redo shopping without this rule in case they want to use the same old blueprints
-
-            'Sort the list by Score
-            Call ListViewColumnSorter(13, CType(lstManufacturing, ListView), 13, SortOrder.Ascending)
 
             ' Find the top items
             Dim j As Integer
