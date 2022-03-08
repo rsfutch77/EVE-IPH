@@ -262,6 +262,8 @@ Public Class frmMain
     Private Const PriceListHeaderTXT As String = "Group Name|Item Name|Price|Price Type|Raw Material|Type ID"
     Private Const PriceListHeaderSSV As String = "Group Name;Item Name;Price;Price Type;Raw Material;Type ID"
 
+    Private Const ScoreError As Double = -2.0
+
 #End Region
 
 #Region "Initialization Code"
@@ -8341,7 +8343,7 @@ NextIteration:
                 End If
 
             Else
-                ManufacturingList(i).Score = -2.0
+                ManufacturingList(i).Score = ScoreError
             End If
 
         Next
