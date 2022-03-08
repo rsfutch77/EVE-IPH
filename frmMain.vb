@@ -7835,25 +7835,18 @@ ExitCalc:
                     End If
                 End If
 
+                ''If this item had a score error, we have reached the bottom of the list, stop adding
+                If FoundItem.Score = ScoreError Then
+                    'Go to next until we get to the bottom of the list, exit didn't work here for some reason
+                    GoTo NextIteration
+                End If
+
                 ' Add it to shopping list
                 If FoundItem IsNot Nothing Then
-                    Dim BuildBuy As Boolean
-                    Dim CopyRaw As Boolean
-
-                    If FoundItem.CalcType = "Build/Buy" Then
-                        BuildBuy = True
-                    End If
-
-                    If FoundItem.CalcType = "Raw Materials" Or BuildBuy = True Then
-                        CopyRaw = True
-                    Else
-                        CopyRaw = False
-                    End If
-
                     ' Get the BP variable and send the other settings to shopping list
                     With FoundItem
                         If Not IsNothing(.Blueprint) Then
-                            Call AddToShoppingList(.Blueprint, BuildBuy, CopyRaw, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
+                            Call AddToShoppingList(.Blueprint, False, True, CalcBaseFacility.GetFacility(CalcBaseFacility.GetCurrentFacilityProductionType()),
                                 False, False, False, False)
 
                             'Calculate how many of each item we can manufacture in 5 days (a little less than a week so the player has time to sell everything and start again)
