@@ -25,7 +25,7 @@ Partial Class frmUsageViewer
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmUsageViewer))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.btnCopyMats = New System.Windows.Forms.Button()
-        Me.lstCosts = New EVE_Isk_per_Hour.MyListView()
+        Me.lstCosts = New Easy_IPH.MyListView()
         Me.gbExportOptions = New System.Windows.Forms.GroupBox()
         Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
@@ -133,7 +133,7 @@ Partial Class frmUsageViewer
     End Sub
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents btnCopyMats As System.Windows.Forms.Button
-    Friend WithEvents lstCosts As EVE_Isk_per_Hour.MyListView
+    Friend WithEvents lstCosts As Easy_IPH.MyListView
     Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox
     Friend WithEvents rbtnExportSSV As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnExportCSV As System.Windows.Forms.RadioButton

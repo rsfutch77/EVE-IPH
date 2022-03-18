@@ -25,10 +25,10 @@ Partial Class TimePicker
         Me.lblDays = New System.Windows.Forms.Label()
         Me.lblHourMinColon = New System.Windows.Forms.Label()
         Me.lblMinSecColon = New System.Windows.Forms.Label()
-        Me.Seconds = New EVE_Isk_per_Hour.MyDomainUpDown()
-        Me.Minutes = New EVE_Isk_per_Hour.MyDomainUpDown()
-        Me.Hours = New EVE_Isk_per_Hour.MyDomainUpDown()
-        Me.Days = New EVE_Isk_per_Hour.MyDomainUpDown()
+        Me.Seconds = New Easy_IPH.MyDomainUpDown()
+        Me.Minutes = New Easy_IPH.MyDomainUpDown()
+        Me.Hours = New Easy_IPH.MyDomainUpDown()
+        Me.Days = New Easy_IPH.MyDomainUpDown()
         Me.SuspendLayout()
         '
         'lblDays
@@ -119,10 +119,10 @@ Partial Class TimePicker
     End Sub
     Friend WithEvents lblDays As System.Windows.Forms.Label
     Friend WithEvents lblHourMinColon As System.Windows.Forms.Label
-    Friend WithEvents Days As EVE_Isk_per_Hour.MyDomainUpDown
-    Friend WithEvents Hours As EVE_Isk_per_Hour.MyDomainUpDown
+    Friend WithEvents Days As Easy_IPH.MyDomainUpDown
+    Friend WithEvents Hours As Easy_IPH.MyDomainUpDown
     Friend WithEvents lblMinSecColon As System.Windows.Forms.Label
-    Friend WithEvents Minutes As EVE_Isk_per_Hour.MyDomainUpDown
-    Friend WithEvents Seconds As EVE_Isk_per_Hour.MyDomainUpDown
+    Friend WithEvents Minutes As Easy_IPH.MyDomainUpDown
+    Friend WithEvents Seconds As Easy_IPH.MyDomainUpDown
 
 End Class

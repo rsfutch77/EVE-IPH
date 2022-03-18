@@ -42,8 +42,8 @@ Partial Class frmShoppingList
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblItemstoBuy = New System.Windows.Forms.Label()
         Me.lblItemstoBuild = New System.Windows.Forms.Label()
-        Me.lstBuy = New EVE_Isk_per_Hour.MyListView()
-        Me.lstItems = New EVE_Isk_per_Hour.MyListView()
+        Me.lstBuy = New Easy_IPH.MyListView()
+        Me.lstItems = New Easy_IPH.MyListView()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
         Me.DeleteMaterialStrip.SuspendLayout()
@@ -262,9 +262,9 @@ Partial Class frmShoppingList
         Me.gbExportOptions.ResumeLayout(False)
         Me.gbExportOptions.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
-End Sub
+    End Sub
     Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents lblTotalProfit1 As System.Windows.Forms.Label
     Friend WithEvents lblTotalProfit As System.Windows.Forms.Label
@@ -280,8 +280,8 @@ End Sub
     Friend WithEvents DeleteBuildItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SaveFileDialog As System.Windows.Forms.SaveFileDialog
     Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents lstBuy As EVE_Isk_per_Hour.MyListView
-    Friend WithEvents lstItems As EVE_Isk_per_Hour.MyListView
+    Friend WithEvents lstBuy As Easy_IPH.MyListView
+    Friend WithEvents lstItems As Easy_IPH.MyListView
     Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
     Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
     Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox

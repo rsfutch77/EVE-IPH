@@ -112,7 +112,7 @@ Partial Class frmBlueprintManagement
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.cmbEdit = New System.Windows.Forms.ComboBox()
-        Me.lstBPs = New EVE_Isk_per_Hour.MyListView()
+        Me.lstBPs = New Easy_IPH.MyListView()
         Me.gbBPFilter.SuspendLayout()
         Me.gbBlueprintTech.SuspendLayout()
         Me.gbBackup.SuspendLayout()
@@ -1188,7 +1188,7 @@ Partial Class frmBlueprintManagement
     Friend WithEvents txtBPEdit As System.Windows.Forms.TextBox
     Friend WithEvents rbtnFavorites As System.Windows.Forms.RadioButton
     Friend WithEvents chkMarkasFavorite As System.Windows.Forms.CheckBox
-    Friend WithEvents lstBPs As EVE_Isk_per_Hour.MyListView
+    Friend WithEvents lstBPs As Easy_IPH.MyListView
     Friend WithEvents cmbEdit As System.Windows.Forms.ComboBox
     Friend WithEvents chkNotOwned As System.Windows.Forms.CheckBox
     Friend WithEvents gbSize As System.Windows.Forms.GroupBox

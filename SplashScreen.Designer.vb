@@ -58,7 +58,7 @@ Partial Class SplashScreen
         'PictureBox1
         '
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox1.Image = Global.EVE_Isk_per_Hour.My.Resources.Resources.Splash
+        Me.PictureBox1.Image = Global.Easy_IPH.My.Resources.Resources.Splash
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(830, 430)

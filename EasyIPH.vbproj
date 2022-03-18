@@ -8,8 +8,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{51FD6CD9-84DB-4892-800F-4E45B7E79D57}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>EVE_Isk_per_Hour.My.MyApplication</StartupObject>
-    <RootNamespace>EVE_Isk_per_Hour</RootNamespace>
+    <StartupObject>Easy_IPH.My.MyApplication</StartupObject>
+    <RootNamespace>Easy_IPH</RootNamespace>
     <AssemblyName>EasyIPH</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>

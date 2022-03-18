@@ -96,9 +96,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.EVE_Isk_per_Hour.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Easy_IPH.My.MySettings
             Get
-                Return Global.EVE_Isk_per_Hour.My.MySettings.Default
+                Return Global.Easy_IPH.My.MySettings.Default
             End Get
         End Property
     End Module

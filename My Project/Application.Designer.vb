@@ -32,12 +32,12 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.EVE_Isk_per_Hour.frmMain
+            Me.MainForm = Global.Easy_IPH.frmMain
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateSplashScreen()
-            Me.SplashScreen = Global.EVE_Isk_per_Hour.SplashScreen
+            Me.SplashScreen = Global.Easy_IPH.SplashScreen
         End Sub
     End Class
 End Namespace
