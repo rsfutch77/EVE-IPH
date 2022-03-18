@@ -99,21 +99,23 @@ Public Class ProgramUpdater
         ' Perserve the old XML file until we finish the updater - if only the updater needs to be updated, 
         ' then it will copy over the new xml file when it closes
 
+        If Not Developer Then
+            ' Leave updater path the same
+        Else
+            'Select Updater path
+            Dim FolderBrowserDialog1 As New System.Windows.Forms.FolderBrowserDialog
+            FolderBrowserDialog1.Description = "Select Updater folder"
+            FolderBrowserDialog1.ShowDialog()
+            DynamicFilePath = FolderBrowserDialog1.SelectedPath
+        End If
+
         ' Open the updater
         Dim Proc As New Process
         Proc.StartInfo.FileName = Path.Combine(DynamicFilePath, UpdaterFileName)
         Proc.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Proc.StartInfo.Arguments = Path.GetDirectoryName(Application.ExecutablePath)
         Proc.Start()
-
-        ' Close this program if not in developer mode
-        If Not Developer Then
-            End
-        Else
-            'If you are in development mode you will need to wait here until the updater is done
-            MsgBox("Wait until the updater is done, then click OK.")
-            Exit Sub
-        End If
+        End
 
 DownloadError:
 
