@@ -48,9 +48,8 @@ Public Module Public_Variables
     Public Const XMLUpdateFileURL = "https://raw.githubusercontent.com/EVEIPH/LatestFiles/master/LatestVersionIPH.xml"
     Public Const XMLUpdateTestFileURL = "https://raw.githubusercontent.com/rsfutch77/LatestFiles/test/LatestVersionIPH_Test.xml"
 
-    Public Const DynamicAppDataPath As String = "EVE IPH"
-    Public Const UserImagePath As String = "EVEIPH Images"
-    Public Const UpdatePath As String = "EVE IPH Updates"
+    Public Const DynamicAppDataPath As String = "EasyIPH"
+    Public Const UpdatePath As String = "EasyIPH Updates"
     Public Const SettingsFolder As String = "Settings" ' For saving all settings
 
     Public Const SQLiteDBFileName As String = "EVEIPH DB.sqlite"
