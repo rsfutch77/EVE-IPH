@@ -23,10 +23,6 @@ Partial Class frmShoppingList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.lblTotalCost = New System.Windows.Forms.Label()
-        Me.lblTC = New System.Windows.Forms.Label()
-        Me.lblTV = New System.Windows.Forms.Label()
-        Me.lblTotalVolume = New System.Windows.Forms.Label()
         Me.btnCopy = New System.Windows.Forms.Button()
         Me.DeleteBuildStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteBuildItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -36,8 +32,6 @@ Partial Class frmShoppingList
         Me.lblTotalProfit = New System.Windows.Forms.Label()
         Me.lblAvgIPH = New System.Windows.Forms.Label()
         Me.lblAvgIPH1 = New System.Windows.Forms.Label()
-        Me.lblTotalBuiltVolume = New System.Windows.Forms.Label()
-        Me.lblTotalBuiltVolume1 = New System.Windows.Forms.Label()
         Me.ttMain = New System.Windows.Forms.ToolTip(Me.components)
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -55,52 +49,6 @@ Partial Class frmShoppingList
         Me.DeleteMaterialStrip.SuspendLayout()
         Me.gbExportOptions.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'lblTotalCost
-        '
-        Me.lblTotalCost.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblTotalCost.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblTotalCost.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTotalCost.Location = New System.Drawing.Point(719, 475)
-        Me.lblTotalCost.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTotalCost.Name = "lblTotalCost"
-        Me.lblTotalCost.Size = New System.Drawing.Size(204, 20)
-        Me.lblTotalCost.TabIndex = 23
-        Me.lblTotalCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblTC
-        '
-        Me.lblTC.AutoSize = True
-        Me.lblTC.Location = New System.Drawing.Point(645, 477)
-        Me.lblTC.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTC.Name = "lblTC"
-        Me.lblTC.Size = New System.Drawing.Size(71, 16)
-        Me.lblTC.TabIndex = 22
-        Me.lblTC.Text = "Total Cost:"
-        Me.lblTC.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblTV
-        '
-        Me.lblTV.AutoSize = True
-        Me.lblTV.Location = New System.Drawing.Point(628, 549)
-        Me.lblTV.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTV.Name = "lblTV"
-        Me.lblTV.Size = New System.Drawing.Size(90, 16)
-        Me.lblTV.TabIndex = 28
-        Me.lblTV.Text = "Total Volume:"
-        Me.lblTV.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblTotalVolume
-        '
-        Me.lblTotalVolume.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblTotalVolume.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblTotalVolume.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTotalVolume.Location = New System.Drawing.Point(719, 546)
-        Me.lblTotalVolume.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTotalVolume.Name = "lblTotalVolume"
-        Me.lblTotalVolume.Size = New System.Drawing.Size(204, 20)
-        Me.lblTotalVolume.TabIndex = 29
-        Me.lblTotalVolume.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnCopy
         '
@@ -183,29 +131,6 @@ Partial Class frmShoppingList
         Me.lblAvgIPH1.TabIndex = 32
         Me.lblAvgIPH1.Text = "Approx. Avg. IPH:"
         Me.lblAvgIPH1.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'lblTotalBuiltVolume
-        '
-        Me.lblTotalBuiltVolume.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.lblTotalBuiltVolume.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblTotalBuiltVolume.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTotalBuiltVolume.Location = New System.Drawing.Point(719, 570)
-        Me.lblTotalBuiltVolume.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTotalBuiltVolume.Name = "lblTotalBuiltVolume"
-        Me.lblTotalBuiltVolume.Size = New System.Drawing.Size(204, 20)
-        Me.lblTotalBuiltVolume.TabIndex = 31
-        Me.lblTotalBuiltVolume.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblTotalBuiltVolume1
-        '
-        Me.lblTotalBuiltVolume1.AutoSize = True
-        Me.lblTotalBuiltVolume1.Location = New System.Drawing.Point(557, 572)
-        Me.lblTotalBuiltVolume1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblTotalBuiltVolume1.Name = "lblTotalBuiltVolume1"
-        Me.lblTotalBuiltVolume1.Size = New System.Drawing.Size(161, 16)
-        Me.lblTotalBuiltVolume1.TabIndex = 30
-        Me.lblTotalBuiltVolume1.Text = "Total Built Item(s) Volume:"
-        Me.lblTotalBuiltVolume1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'ttMain
         '
@@ -322,14 +247,8 @@ Partial Class frmShoppingList
         Me.Controls.Add(Me.lblItemstoBuild)
         Me.Controls.Add(Me.lblItemstoBuy)
         Me.Controls.Add(Me.lstBuy)
-        Me.Controls.Add(Me.lblTV)
-        Me.Controls.Add(Me.lblTotalCost)
-        Me.Controls.Add(Me.lblTotalVolume)
-        Me.Controls.Add(Me.lblTotalBuiltVolume)
-        Me.Controls.Add(Me.lblTotalBuiltVolume1)
         Me.Controls.Add(Me.lblAvgIPH)
         Me.Controls.Add(Me.lstItems)
-        Me.Controls.Add(Me.lblTC)
         Me.Controls.Add(Me.lblTotalProfit)
         Me.Controls.Add(Me.lblTotalProfit1)
         Me.Controls.Add(Me.lblAvgIPH1)
@@ -346,17 +265,11 @@ Partial Class frmShoppingList
         Me.PerformLayout
 
 End Sub
-    Friend WithEvents lblTotalCost As System.Windows.Forms.Label
-    Friend WithEvents lblTC As System.Windows.Forms.Label
-    Friend WithEvents lblTV As System.Windows.Forms.Label
-    Friend WithEvents lblTotalVolume As System.Windows.Forms.Label
     Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents lblTotalProfit1 As System.Windows.Forms.Label
     Friend WithEvents lblTotalProfit As System.Windows.Forms.Label
     Friend WithEvents lblAvgIPH As System.Windows.Forms.Label
     Friend WithEvents lblAvgIPH1 As System.Windows.Forms.Label
-    Friend WithEvents lblTotalBuiltVolume As System.Windows.Forms.Label
-    Friend WithEvents lblTotalBuiltVolume1 As System.Windows.Forms.Label
     Friend WithEvents ttMain As System.Windows.Forms.ToolTip
     Friend WithEvents txtListEdit As System.Windows.Forms.TextBox
     Friend WithEvents DeleteItemStrip As System.Windows.Forms.ContextMenuStrip

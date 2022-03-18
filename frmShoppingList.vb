@@ -233,10 +233,6 @@ Public Class frmShoppingList
         lblTotalProfit.Text = "0.00 ISK"
         lblAvgIPH.Text = "0.00 ISK"
 
-        lblTotalCost.Text = "0.00 ISK"
-        lblTotalVolume.Text = "0.00 m3"
-        lblTotalBuiltVolume.Text = "0.00 m3"
-
         btnCopy.Enabled = False
 
         Me.Refresh()
@@ -277,9 +273,6 @@ Public Class frmShoppingList
         ' Set to 0 first
         lblTotalProfit.Text = "0.00 ISK"
         lblAvgIPH.Text = "0.00 ISK"
-        lblTotalBuiltVolume.Text = "0.00 m3"
-        lblTotalVolume.Text = "0.00 m3"
-        lblTotalCost.Text = "0.00 ISK"
 
         If Not IsNothing(RawItems) Then
             If Not IsNothing(RawItems.GetMaterialList) Then
@@ -468,13 +461,8 @@ Public Class frmShoppingList
 
             Call TotalShoppingList.SetPriceData(BFI, True, ItemBuyTypeList)
 
-            lblTotalCost.Text = FormatNumber(TotalShoppingList.GetTotalCost, 2) & " ISK"
-            lblTotalVolume.Text = FormatNumber(TotalShoppingList.GetTotalVolume, 2) & " m3"
-
             lblTotalProfit.Text = FormatNumber(TotalShoppingList.GetTotalProfit(), 2) & " ISK"
             lblAvgIPH.Text = FormatNumber(TotalShoppingList.GetTotalIPH(), 2) & " ISK"
-
-            lblTotalBuiltVolume.Text = FormatNumber(TotalShoppingList.GetBuiltItemVolume, 2) & " m3"
 
         End If
 
