@@ -58,8 +58,8 @@ Public Module Public_Variables
     Public ReactionTypes As New List(Of String)(New String() {"Composite", "Intermediate Materials", "Hybrid Polymers"})
 
     ' For updates
-    Public Const UpdaterFileName As String = "EVEIPH Updater.exe"
-    Public Const XMLUpdaterFileName As String = "EVEIPH_Updater.exe" ' For use in the XML files to remove spaces from row names
+    Public Const UpdaterFileName As String = "EasyIPH-Updater.exe"
+    Public Const XMLUpdaterFileName As String = "EasyIPH-Updater.exe" ' For use in the XML files to remove spaces from row names
     Public Const XMLLatestVersionFileName As String = "LatestVersionIPH.xml"
     Public Const XMLLatestVersionTest As String = "LatestVersionIPH_Test.xml"
 
