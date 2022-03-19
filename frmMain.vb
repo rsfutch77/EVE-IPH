@@ -7478,14 +7478,8 @@ ExitCalc:
             End If
 
             Dim cargoVolume As Double
-            If mnuChar.Text = "Dummy Character" Then 'Default dummy character stats and autoshop settings
-                trkTrips.Value = 2
-                allowAutoShopShips = True
-                SelectedCharacter.WalletData.Wallet = 2000000000 'Default wallet for dummy character
-                cargoVolume = 500000 'Default to typical freighter volume
-            Else
-                cargoVolume = trkTrips.Value * GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
-            End If
+            cargoVolume = trkTrips.Value * GetAutoShopVolume(SelectedCharacter.WalletData.Wallet)
+
 
             If SelectedCharacter.WalletData.Wallet < 2 Then
                 pnlStatus.Text = "Autoshopping failed."

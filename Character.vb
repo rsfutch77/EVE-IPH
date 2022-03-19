@@ -265,9 +265,8 @@ Public Class Character
             End If
 
 
-            ' Load the character's industry jobs
-            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterIndustryJobsScope) Then
-                IndustryJobsAccess = True
+            ' Load the character's wallet
+            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterIndustryJobsScope) Or SelectedCharacter.ID = -1 Then
                 Call WalletData.LoadWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
             End If
 
