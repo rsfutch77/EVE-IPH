@@ -879,7 +879,6 @@ Public Class frmMain
         If mnuChar.Text = "Dummy Character" Then
             autoShopping.Checked = True
             autoShopping_CheckedChanged()
-            trkTrips.Value = 2
         End If
 
     End Sub
@@ -6533,7 +6532,6 @@ ExitCalc:
         If mnuChar.Text = "Dummy Character" Then
             autoShopping.Checked = True
             autoShopping_CheckedChanged()
-            trkTrips.Value = 2
         End If
 
         btnCalcSaveSettings()
