@@ -15,30 +15,8 @@ Public Class EVEWallet
     Public Sub LoadWallet(ByVal ID As Long, ByVal TokenData As SavedTokenData)
 
         Dim SQL As String
-        Dim readerJobs As SQLiteDataReader
+        Dim readerWallet As SQLiteDataReader
         Dim TempWallet As Double
-
-        ' Add a column
-        Dim walletCheck As SQLiteDataReader
-        ' Check if the risk price column exists already
-        SQL = "pragma table_info(ESI_CHARACTER_DATA)"
-        DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        walletCheck = DBCommand.ExecuteReader
-        Dim columnName As String
-        Dim ColumnFound As Boolean
-        While (walletCheck.Read())
-            columnName = walletCheck.GetString(1)
-            If String.Equals(columnName, "WALLET") Then
-                ColumnFound = True
-            End If
-        End While
-        ' If not found, add it
-        If Not ColumnFound Then
-            ' Add the column
-            SQL = "ALTER TABLE ESI_CHARACTER_DATA ADD WALLET float"
-            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-            walletCheck = DBCommand.ExecuteReader
-        End If
 
         ' Update Industry jobs first
         TempWallet = UpdateWallet(ID, TokenData)
@@ -57,15 +35,15 @@ Public Class EVEWallet
         SQL = SQL & "FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID = " & CharID
 
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-        readerJobs = DBCommand.ExecuteReader
+        readerWallet = DBCommand.ExecuteReader
 
-        While readerJobs.Read
-            TempWallet = readerJobs.GetDouble(0)
+        While readerWallet.Read
+            TempWallet = readerWallet.GetDouble(0)
         End While
 
-        readerJobs.Close()
+        readerWallet.Close()
         DBCommand = Nothing
-        readerJobs = Nothing
+        readerWallet = Nothing
 
         Wallet = TempWallet
 
