@@ -7832,7 +7832,7 @@ NextIteration:
 
         'If there are less than 5 items in the list it may be hard to find outliers, use the simple score calculator
         If ManufacturingList.Count < 5 Then
-            Dim ScoreNormal(ManufacturingList.Count) As Double
+            Dim ScoreNormal(ManufacturingList.Count - 1) As Double
             For i = 0 To ManufacturingList.Count - 1
                 If ManufacturingList(i).SVR IsNot "-" Then
                     SVR = CDbl(ManufacturingList(i).SVR)
