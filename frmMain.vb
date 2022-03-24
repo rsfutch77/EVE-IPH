@@ -7609,7 +7609,7 @@ NextIteration:
             pnlStatus.Text = "Autoshop success!"
         Else
             pnlStatus.Text = "Autoshop failed."
-            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, a T1 (non-ship) blueprint, and enough money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
+            lblRecommendation.Text = "Autoshop failed. Make sure you have at least one transport ship, a T1 (non-ship) blueprint, and enough skills/money to manufacture that blueprint. You can also test Autoshop using the Dummy Character."
         End If
 
         ' Refresh the data if it's open
