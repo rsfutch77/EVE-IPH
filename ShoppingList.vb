@@ -86,7 +86,7 @@ Public Class ShoppingList
             Dim reducer As Double = 0.25
             For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
                 If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
-                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                    UpdateShoppingItemQuantity(ShopListItem, ShopListItem.Runs - 1) ' Get rid of this item if we get near zero runs
                 Else
                     UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 End If
@@ -132,7 +132,7 @@ Public Class ShoppingList
             Dim reducer As Double = 0.25
             For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
                 If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
-                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                    UpdateShoppingItemQuantity(ShopListItem, ShopListItem.Runs - 1) ' Get rid of this item if we get near zero runs
                 Else
                     UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 End If
@@ -178,7 +178,7 @@ Public Class ShoppingList
             Dim reducer As Double = 0.25
             For Each ShopListItem As ShoppingListItem In TotalItemList.ToList()
                 If CLng(ShopListItem.Runs * (1 - reducer)) = ShopListItem.Runs Then
-                    UpdateShoppingItemQuantity(ShopListItem, 0) ' Get rid of this item if we get near zero runs
+                    UpdateShoppingItemQuantity(ShopListItem, ShopListItem.Runs - 1) ' Get rid of this item if we get near zero runs
                 Else
                     UpdateShoppingItemQuantity(ShopListItem, CLng(ShopListItem.Runs * (1 - reducer)))
                 End If
