@@ -44,15 +44,15 @@ Public Module Public_Variables
     Public DynamicFilePath As String = "" ' Where the update and settings files are stored that we can write, create, delete, etc.
     Public DBFilePath As String = "" ' Where the DB is stored for updates
 
-    Public Const PatchNotesURL = "https://raw.githubusercontent.com/EVEIPH/LatestFiles/master/Patch%20Notes.txt"
-    Public Const XMLUpdateFileURL = "https://raw.githubusercontent.com/EVEIPH/LatestFiles/master/LatestVersionIPH.xml"
+    Public Const PatchNotesURL = "https://raw.githubusercontent.com/rsfutch77/LatestFiles/master/Patch%20Notes.txt"
+    Public Const XMLUpdateFileURL = "https://raw.githubusercontent.com/rsfutch77/LatestFiles/master/LatestVersionIPH.xml"
     Public Const XMLUpdateTestFileURL = "https://raw.githubusercontent.com/rsfutch77/LatestFiles/test/LatestVersionIPH_Test.xml"
 
     Public Const DynamicAppDataPath As String = "EasyIPH"
-    Public Const UpdatePath As String = "EasyIPH Updates"
+    Public Const UpdatePath As String = "EasyIPH_Updates"
     Public Const SettingsFolder As String = "Settings" ' For saving all settings
 
-    Public Const SQLiteDBFileName As String = "EVEIPH DB.sqlite"
+    Public Const SQLiteDBFileName As String = "EasyIPH_DB.sqlite"
 
     Public ReactionTypes As New List(Of String)(New String() {"Composite", "Intermediate Materials", "Hybrid Polymers"})
 
@@ -1910,7 +1910,7 @@ SkipItem:
 
     ' Writes a sent message to a log file
     Public Sub WriteMsgToLog(ByVal ErrorMsg As String)
-        Dim FilePath As String = Path.Combine(DynamicFilePath, "EVEIPH.log")
+        Dim FilePath As String = Path.Combine(DynamicFilePath, "EasyIPH.log")
         Dim AllText() As String
 
         If Not File.Exists(FilePath) Then

@@ -72,7 +72,7 @@ Public Class ProgramUpdater
 
         'Load the server XML file
         m_xmld.Load(ServerXMLLastUpdatePath)
-        m_nodelist = m_xmld.SelectNodes("/EVEIPH/result/rowset/row")
+        m_nodelist = m_xmld.SelectNodes("/EasyIPH/result/rowset/row")
 
         ' Loop through the nodes and find the MD5 and download URL for the updater and any other files necessary to load and run the updater program
         For Each m_node In m_nodelist
