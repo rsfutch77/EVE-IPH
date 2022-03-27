@@ -97,7 +97,6 @@ Partial Class frmMain
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New Easy_IPH.frmSettings()
         Me.FrmSettings1 = New Easy_IPH.frmSettings()
-        Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
