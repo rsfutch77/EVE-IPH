@@ -7356,6 +7356,7 @@ NextIteration:
         If CalculateCancelled = True Then
             pnlStatus.Text = "Calculation cancelled."
             lblRecommendation.Text = "Calculation cancelled."
+            ResetRefresh()
         ElseIf TotalShoppingList.GetNumShoppingItems > 0 Then
             ' Add the final item and mark as items in list
             pnlStatus.Text = "Autoshop success!"
