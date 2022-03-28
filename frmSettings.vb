@@ -27,32 +27,6 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub chkBeanCounterRefining_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBeanCounterRefining.CheckedChanged
-        If Not FirstLoad Then
-            If chkBeanCounterRefining.Checked Then
-                cmbBeanCounterRefining.Enabled = True
-                cmbBeanCounterRefining.Text = "Zainou 'Beancounter' Reprocessing RX-802"
-            Else
-                cmbBeanCounterRefining.Enabled = False
-                cmbBeanCounterRefining.Text = ""
-            End If
-        End If
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkBeanCounterCopy_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBeanCounterCopy.CheckedChanged
-        If Not FirstLoad Then
-            If chkBeanCounterCopy.Checked Then
-                cmbBeanCounterCopy.Enabled = True
-                cmbBeanCounterCopy.Text = "Zainou 'Beancounter' Science SC-803"
-            Else
-                cmbBeanCounterCopy.Enabled = False
-                cmbBeanCounterCopy.Text = ""
-            End If
-        End If
-        btnSave.Text = "Save"
-    End Sub
-
     Private Sub chkBrokerCorpStanding_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBrokerCorpStanding.CheckedChanged
         If chkBrokerCorpStanding.Checked = True Then
             txtBrokerCorpStanding.Enabled = True
@@ -75,17 +49,6 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub txtEVEMarketerInterval_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtEVEMarketerInterval.KeyPress
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            ' Only integer values
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
     Private Sub txtBrokerFactionStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBrokerFactionStanding.KeyPress
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
@@ -97,16 +60,6 @@ Public Class frmSettings
     End Sub
 
     Private Sub txtBrokerCorpStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBrokerCorpStanding.KeyPress
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
-    Private Sub txtRefineCorpStanding_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
@@ -139,17 +92,6 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub chkEVEMarketerInterval_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkEVEMarketerInterval.CheckedChanged
-        If chkEVEMarketerInterval.Checked = True Then
-            txtEVEMarketerInterval.Enabled = True
-            txtEVEMarketerInterval.Focus()
-        Else
-            txtEVEMarketerInterval.Enabled = False
-            txtEVEMarketerInterval.Text = FormatNumber(Defaults.DefaultEVEMarketerRefreshInterval, 0)
-        End If
-        btnSave.Text = "Save"
-    End Sub
-
     Private Sub chkDefaultPE_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDefaultTE.CheckedChanged
         If chkDefaultTE.Checked = True Then
             txtDefaultTE.Enabled = True
@@ -161,30 +103,12 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub chkDisableSVR_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDisableSVR.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkDisableSound_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableSound.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
     Private Sub chkSaveFacilitiesbyChar_CheckedChanged(sender As Object, e As EventArgs) Handles chkSaveFacilitiesbyChar.CheckedChanged
         btnSave.Text = "Save"
     End Sub
 
     Private Sub chkLoadBPsbyChar_CheckedChanged(sender As Object, e As EventArgs) Handles chkLoadBPsbyChar.CheckedChanged
         btnSave.Text = "Save"
-    End Sub
-
-    Private Sub cmbRefineTax_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers, period or percent and backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedPercentChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
     End Sub
 
     Private Sub chkRefreshMarketDataonStartup_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkRefreshMarketDataonStartup.CheckedChanged
@@ -204,22 +128,6 @@ Public Class frmSettings
     End Sub
 
     Private Sub rbtnExportSSV_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnExportSSV.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkSaveBPRelicsDecryptors_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSaveBPRelicsDecryptors.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub rbtnBuildT2T3AdvancedMats_CheckedChanged(sender As Object, e As EventArgs)
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub rbtnBuildT2ProcessedMats_CheckedChanged(sender As Object, e As EventArgs)
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub rbtnBuildT2T3RawMats_CheckedChanged(sender As Object, e As EventArgs)
         btnSave.Text = "Save"
     End Sub
 
@@ -276,7 +184,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub txtProxyPort_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtProxyPort.KeyPress
+    Private Sub txtProxyPort_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -288,7 +196,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub txtProxyAddress_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtProxyAddress.TextChanged
+    Private Sub txtProxyAddress_TextChanged(sender As System.Object, e As System.EventArgs)
         btnSave.Text = "Save"
     End Sub
 
@@ -312,10 +220,7 @@ Public Class frmSettings
             With ToolTip1
                 ' General
                 .SetToolTip(chkShowToolTips, "Toogles tool tips through out IPH")
-                .SetToolTip(chkLinksInCopyText, "Copying data to the clipboard will contain formatted text that enables in-game links to show when pasted in game")
-                .SetToolTip(chkDisableSVR, "If you have issues with SVR updates on the Manufacturing Tab (ie website down, etc), you can disable those queries here")
                 .SetToolTip(rbtnExportCSV, "Exports data in Common Separated Values with periods for decimals")
-                .SetToolTip(chkDisableSound, "Disables sound functions in IPH")
                 .SetToolTip(chkSaveFacilitiesbyChar, "When checked, saved facilities will only apply to the selected character. If unchecked, all characters will share saved facilities")
                 .SetToolTip(chkLoadBPsbyChar, "When checked, blueprints loaded into IPH will be different for each character. If unchecked, all characters share the same BPs")
                 .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
@@ -328,7 +233,6 @@ Public Class frmSettings
                 .SetToolTip(chkRefreshMarketDataonStartup, "When checked, IPH will refresh average and adjusted market prices (if cache date has past) on startup for use in industry calcuations")
                 .SetToolTip(chkRefreshSystemCostIndiciesDataonStartup, "When checked, IPH will refresh the system industry indicies on startup (if cache date has past) for use in industry calculations")
                 .SetToolTip(chkRefreshPublicStructureDataonStartup, "When checked, IPH will refresh data on public structures (if cache date has past) for use in price updates")
-                .SetToolTip(chkSupressESImsgs, "When checked, supresses messages if there are ESI Status errors.")
 
                 ' SVR Settings
                 .SetToolTip(lblSVRThreshold, "When set, this will be the default threshold for Sales to Volume Ratio on the BP and Manufacturing tabs")
@@ -343,16 +247,10 @@ Public Class frmSettings
 
                 ' Character Options
                 .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
-                .SetToolTip(chkUseActiveSkills, "When checked, IPH will use active skills instead of trained skills for calculations (useful for unsubscribed Omega accounts in Alpha)")
-                .SetToolTip(chkLoadMaxAlphaSkills, "When checked, IPH will load the maximum trainable alpha skills for a dummy character.")
 
                 ' Tips by Group box
-                .SetToolTip(gbImplants, "Select implants to use with selected characters for industry calculations")
                 .SetToolTip(gbDefaultMEPE, "On the BP and Manufacturing tabs, these default ME and TE values will be used for non-owned blueprints")
-                .SetToolTip(gbShoppingList, "If checked, then IPH will send invention or copy materials needed to the shopping list when saving the build information for a blueprint")
-                .SetToolTip(gbEVEMarketer, "The value stored here is the cache date (how often IPH will update) for EVE Marketer prices")
                 .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
-                .SetToolTip(gbProxySettings, "When proxy information is in both the port and address, IPH will use this to connect to CCP servers. Note this information will also be used with the EVE IPH updater")
 
             End With
         End If
@@ -380,8 +278,6 @@ Public Class frmSettings
             chkShowToolTips.Checked = .ShowToolTips
             chkRefreshAssetsonStartup.Checked = .LoadAssetsonStartup
             chkRefreshBPsonStartup.Checked = .LoadBPsonStartup
-            chkDisableSound.Checked = .DisableSound
-
             chkLoadBPsbyChar.Checked = .LoadBPsbyChar
             chkSaveFacilitiesbyChar.Checked = .SaveFacilitiesbyChar
 
@@ -389,7 +285,6 @@ Public Class frmSettings
             chkRefreshSystemCostIndiciesDataonStartup.Checked = .LoadESISystemCostIndiciesDataonStartup
             chkRefreshMarketDataonStartup.Checked = .LoadESIMarketDataonStartup
             chkRefreshPublicStructureDataonStartup.Checked = .LoadESIPublicStructuresonStartup
-            chkSupressESImsgs.Checked = .SupressESIStatusMessages
 
             If .BrokerCorpStanding = Defaults.DefaultBrokerCorpStanding Then
                 ' Default
@@ -430,52 +325,14 @@ Public Class frmSettings
                 cmbBeanCounterManufacturing.Enabled = False
             End If
 
-            If .RefiningImplantValue > 0 Then
-                chkBeanCounterRefining.Checked = True
-                Select Case .RefiningImplantValue
-                    Case (GetAttribute("refiningYieldMutator", Defaults.RBeanCounterName & "1") / 100)
-                        cmbBeanCounterRefining.Text = Defaults.RBeanCounterName & "1"
-                    Case (GetAttribute("refiningYieldMutator", Defaults.RBeanCounterName & "2") / 100)
-                        cmbBeanCounterRefining.Text = Defaults.RBeanCounterName & "2"
-                    Case (GetAttribute("refiningYieldMutator", Defaults.RBeanCounterName & "4") / 100)
-                        cmbBeanCounterRefining.Text = Defaults.RBeanCounterName & "4"
-                End Select
-            Else
-                cmbBeanCounterRefining.Enabled = False
-            End If
-
-            If .CopyImplantValue > 0 Then
-                chkBeanCounterCopy.Checked = True
-                Select Case .CopyImplantValue
-                    Case (-1 * GetAttribute("copySpeedBonus", Defaults.CBeanCounterName & "1") / 100)
-                        cmbBeanCounterCopy.Text = Defaults.CBeanCounterName & "1"
-                    Case (-1 * GetAttribute("copySpeedBonus", Defaults.CBeanCounterName & "3") / 100)
-                        cmbBeanCounterCopy.Text = Defaults.CBeanCounterName & "3"
-                    Case (-1 * GetAttribute("copySpeedBonus", Defaults.CBeanCounterName & "5") / 100)
-                        cmbBeanCounterCopy.Text = Defaults.CBeanCounterName & "5"
-                End Select
-            Else
-                cmbBeanCounterCopy.Enabled = False
-            End If
-
             ' For Build/Buy
             chkBuildBuyDefault.Checked = .CheckBuildBuy
             chkSuggestBuildwhenBPnotOwned.Checked = .SuggestBuildBPNotOwned
-            chkSaveBPRelicsDecryptors.Checked = .SaveBPRelicsDecryptors
 
-            chkDisableSVR.Checked = .DisableSVR
             chkDisableTracking.Checked = .DisableGATracking
             chkShareFacilities.Checked = .ShareSavedFacilities
 
             chkAlphaAccount.Checked = .AlphaAccount
-            chkUseActiveSkills.Checked = .UseActiveSkillLevels
-            chkLoadMaxAlphaSkills.Checked = .LoadMaxAlphaSkills
-
-            chkLinksInCopyText.Checked = .IncludeInGameLinksinCopyText
-
-            ' ShoppingList
-            chkIncludeShopListInventMats.Checked = .ShopListIncludeInventMats
-            chkIncludeShopListCopyMats.Checked = .ShopListIncludeCopyMats
 
             If .DefaultBPME = 0 Then
                 txtDefaultME.Text = CStr(Defaults.DefaultSettingME)
@@ -497,23 +354,11 @@ Public Class frmSettings
                 txtDefaultTE.Enabled = True
             End If
 
-            If .EVEMarketerRefreshInterval <> Defaults.DefaultEVEMarketerRefreshInterval Then
-                chkEVEMarketerInterval.Checked = True
-                txtEVEMarketerInterval.Enabled = True
-                txtEVEMarketerInterval.Text = CStr(.EVEMarketerRefreshInterval)
-            Else
-                chkEVEMarketerInterval.Checked = False
-                txtEVEMarketerInterval.Enabled = False
-                txtEVEMarketerInterval.Text = CStr(Defaults.DefaultEVEMarketerRefreshInterval)
-            End If
-
             cmbSVRRegion.Text = .SVRAveragePriceRegion
             cmbSVRAvgPriceDuration.Text = .SVRAveragePriceDuration
             txtSVRThreshold.Text = CStr(.IgnoreSVRThresholdValue)
             chkAutoUpdateSVRBPTab.Checked = .AutoUpdateSVRonBPTab
 
-            txtProxyAddress.Text = .ProxyAddress
-            txtProxyPort.Text = CStr(.ProxyPort)
         End With
 
         FirstLoad = False
@@ -550,14 +395,6 @@ Public Class frmSettings
                 ManufacturingImplantValue = -1 * GetAttribute("manufacturingTimeBonus", cmbBeanCounterManufacturing.Text) / 100
             End If
 
-            If chkBeanCounterRefining.Checked Then
-                RefineImplantValue = GetAttribute("refiningYieldMutator", cmbBeanCounterRefining.Text) / 100
-            End If
-
-            If chkBeanCounterCopy.Checked Then
-                CopyImplantValue = -1 * GetAttribute("copySpeedBonus", cmbBeanCounterCopy.Text) / 100
-            End If
-
             With TempSettings
 
                 .CheckforUpdatesonStart = CBool(chkCheckUpdatesStartup.Checked)
@@ -569,8 +406,6 @@ Public Class frmSettings
                     .DataExportFormat = rbtnExportSSV.Text
                 End If
                 .ShowToolTips = CBool(chkShowToolTips.Checked)
-                ' Disable sound here - only works for update dings, not all sound
-                .DisableSound = CBool(chkDisableSound.Checked)
 
                 .RefiningImplantValue = RefineImplantValue
                 .ManufacturingImplantValue = ManufacturingImplantValue
@@ -654,41 +489,17 @@ Public Class frmSettings
                 .DefaultBPME = CInt(txtDefaultME.Text)
                 .DefaultBPTE = CInt(txtDefaultTE.Text)
 
-                .DisableSVR = chkDisableSVR.Checked
                 .DisableGATracking = chkDisableTracking.Checked
                 .ShareSavedFacilities = chkShareFacilities.Checked
 
                 .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
-                .SaveBPRelicsDecryptors = chkSaveBPRelicsDecryptors.Checked
 
                 .AlphaAccount = chkAlphaAccount.Checked
-                .UseActiveSkillLevels = chkUseActiveSkills.Checked
-                .LoadMaxAlphaSkills = chkLoadMaxAlphaSkills.Checked
-
-                .ShopListIncludeInventMats = chkIncludeShopListInventMats.Checked
-                .ShopListIncludeCopyMats = chkIncludeShopListCopyMats.Checked
-
-                .EVEMarketerRefreshInterval = CInt(txtEVEMarketerInterval.Text)
-
-                .IncludeInGameLinksinCopyText = chkLinksInCopyText.Checked
-
                 ' SVR
                 .IgnoreSVRThresholdValue = CDbl(txtSVRThreshold.Text)
                 .SVRAveragePriceRegion = cmbSVRRegion.Text
                 .SVRAveragePriceDuration = cmbSVRAvgPriceDuration.Text
                 .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
-
-                If txtProxyAddress.Text <> "" Then
-                    .ProxyAddress = txtProxyAddress.Text
-                Else
-                    .ProxyAddress = ""
-                End If
-
-                If Trim(txtProxyPort.Text) <> "" Then
-                    .ProxyPort = CInt(txtProxyPort.Text)
-                Else
-                    .ProxyPort = 0
-                End If
 
             End With
 
@@ -697,13 +508,6 @@ Public Class frmSettings
 
             ' Save the data to the local variable
             UserApplicationSettings = TempSettings
-
-            ' If they selected to load max alpha skills for dummy character or reset it, then reload them if it changed
-            If SelectedCharacter.ID = DummyCharacterID Then
-                If OldMaxAlphaSkillsSetting <> chkLoadMaxAlphaSkills.Checked Then
-                    Call SelectedCharacter.LoadDummyCharacter(True, True)
-                End If
-            End If
 
             ' They changed the active skill levels, update skills now with new application settings
             If ReloadSkills Then
@@ -770,22 +574,6 @@ Public Class frmSettings
             GoTo InvalidData
         End If
 
-        If (Not IsNumeric(txtEVEMarketerInterval.Text) Or Trim(txtEVEMarketerInterval.Text) = "") And chkEVEMarketerInterval.Checked Then
-            TempTextBox = txtEVEMarketerInterval
-            TempCheckBox = chkEVEMarketerInterval
-            GoTo InvalidData
-        ElseIf CInt(txtEVEMarketerInterval.Text) <= 0 Then
-            MsgBox("Cannot set EVE Central Update Interval less than 1 Hour", vbExclamation, Application.ProductName)
-            txtEVEMarketerInterval.Focus()
-            Call txtEVEMarketerInterval.SelectAll()
-            Return False
-        ElseIf CInt(txtEVEMarketerInterval.Text) > 99 Then
-            MsgBox("Cannot set EVE Central Update Interval greater than 99 hours", vbExclamation, Application.ProductName)
-            txtEVEMarketerInterval.Focus()
-            Call txtEVEMarketerInterval.SelectAll()
-            Return False
-        End If
-
         Return True
 
 InvalidData:
@@ -822,17 +610,7 @@ InvalidData:
 
     End Sub
 
-    Private Sub chkAlphaAccount_CheckedChanged(sender As Object, e As EventArgs) Handles chkAlphaAccount.CheckedChanged
-        If chkAlphaAccount.Checked Then
-            ' Force them to use active skills in this case
-            chkUseActiveSkills.Checked = True
-            chkUseActiveSkills.Enabled = False
-        Else
-            chkUseActiveSkills.Enabled = True
-        End If
-    End Sub
-
-    Private Sub chkUseActiveSkills_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseActiveSkills.CheckedChanged
+    Private Sub chkUseActiveSkills_CheckedChanged(sender As Object, e As EventArgs)
         ' They changed active skills, so reload character skills on exit
         ReloadSkills = True
     End Sub

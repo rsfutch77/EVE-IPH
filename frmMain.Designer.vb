@@ -24,8 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -96,7 +96,6 @@ Partial Class frmMain
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New Easy_IPH.frmSettings()
-        Me.FrmSettings1 = New Easy_IPH.frmSettings()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -595,7 +594,7 @@ Partial Class frmMain
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem3, ListViewItem4})
         Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
@@ -760,16 +759,6 @@ Partial Class frmMain
         Me.FrmSettings2.Size = New System.Drawing.Size(828, 566)
         Me.FrmSettings2.TabIndex = 25
         '
-        'FrmSettings1
-        '
-        Me.FrmSettings1.AutoSize = True
-        Me.FrmSettings1.Location = New System.Drawing.Point(1295, 389)
-        Me.FrmSettings1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmSettings1.Name = "FrmSettings1"
-        Me.FrmSettings1.Size = New System.Drawing.Size(849, 613)
-        Me.FrmSettings1.TabIndex = 0
-        Me.FrmSettings1.Visible = False
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -863,7 +852,6 @@ Partial Class frmMain
     Friend WithEvents btnAddChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnManageChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton
-    Friend WithEvents FrmSettings1 As frmSettings
     Friend WithEvents FrmSettings2 As frmSettings
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelVersion As MetroFramework.Controls.MetroLabel

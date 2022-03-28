@@ -1682,17 +1682,13 @@ Public Structure ApplicationSettings
     Dim AllowSkillOverride As Boolean
     Dim ShowToolTips As Boolean
 
-    Dim RefiningImplantValue As Double
     Dim ManufacturingImplantValue As Double
-    Dim CopyImplantValue As Double
 
     Dim LoadAssetsonStartup As Boolean
     Dim LoadBPsonStartup As Boolean
     Dim LoadESIMarketDataonStartup As Boolean
     Dim LoadESISystemCostIndiciesDataonStartup As Boolean
     Dim LoadESIPublicStructuresonStartup As Boolean
-    Dim SupressESIStatusMessages As Boolean
-    Dim DisableSound As Boolean
     Dim IncludeInGameLinksinCopyText As Boolean
 
     Dim SaveFacilitiesbyChar As Boolean
@@ -1709,33 +1705,19 @@ Public Structure ApplicationSettings
     ' For Build/Buy 
     Dim CheckBuildBuy As Boolean ' Default for setting the check box for build/buy on the blueprints screen
     Dim SuggestBuildBPNotOwned As Boolean ' For Build/Buy suggestions
-    Dim SaveBPRelicsDecryptors As Boolean ' For auto-loading relics and decryptor types
 
-    Dim DisableSVR As Boolean ' For disabling SVR updates
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
 
     Dim ShareSavedFacilities As Boolean ' to use the same facility everywhere
 
     ' Character options
     Dim AlphaAccount As Boolean ' Check to determine if they are using an alpha account or not
-    Dim UseActiveSkillLevels As Boolean ' Use active skill levels instead of trained - useful for omega on alpha currently
-    Dim LoadMaxAlphaSkills As Boolean ' Load the max alpha skills for dummy accounts
-
-    ' For shopping list
-    Dim ShopListIncludeInventMats As Boolean
-    Dim ShopListIncludeCopyMats As Boolean
-
-    ' The interval for allowing refresh of prices from EVE Central - no less than 1 hour
-    Dim EVEMarketerRefreshInterval As Integer
 
     ' Filter variables for svr
     Dim IgnoreSVRThresholdValue As Double
     Dim SVRAveragePriceRegion As String
     Dim SVRAveragePriceDuration As String
     Dim AutoUpdateSVRonBPTab As Boolean
-
-    Dim ProxyAddress As String
-    Dim ProxyPort As Integer
 
 End Structure
 
