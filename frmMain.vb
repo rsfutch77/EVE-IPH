@@ -256,6 +256,7 @@ Public Class frmMain
 
     Private Const AveragePriceDays As Integer = 15
     Public DefaultSVRAveragePriceRegion As String = "The Forge"
+    Private CalculateCancelled As Boolean
 
     ' Column width consts - may change depending on Ore, Ice or Gas so change the widths of the columns based on these and use them to add and move
     Private Const MineOreNameColumnWidth As Integer = 120
@@ -389,7 +390,7 @@ Public Class frmMain
         Application.UseWaitCursor = False
         Application.DoEvents()
 
-            DBCommand = Nothing
+        DBCommand = Nothing
 
         ' ESI Market Data
         Application.UseWaitCursor = True
@@ -5209,6 +5210,7 @@ ExitPRocessing:
             ' Got all the data, now see if they want to calculate prices
 
             ' Make sure they know this will take a bit to run - unless this is fairly quick
+            CalculateCancelled = False
 
             If Calculate Then
                 If TotalItemCount > 200 Then
@@ -5220,6 +5222,7 @@ ExitPRocessing:
                     If ContinueResult = DialogResult.Cancel Then
                         ' Just display the results of the query
                         Application.UseWaitCursor = True
+                        CalculateCancelled = True
                         GoTo DisplayResults
                     End If
                     Application.UseWaitCursor = True
@@ -7350,7 +7353,10 @@ NextIteration:
 
         End If 'End if at least one manufacturing item was calculated
 
-        If TotalShoppingList.GetNumShoppingItems > 0 Then
+        If CalculateCancelled = True Then
+            pnlStatus.Text = "Calculation cancelled."
+            lblRecommendation.Text = "Calculation cancelled."
+        ElseIf TotalShoppingList.GetNumShoppingItems > 0 Then
             ' Add the final item and mark as items in list
             pnlStatus.Text = "Autoshop success!"
         Else
