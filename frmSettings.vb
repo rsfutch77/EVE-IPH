@@ -415,7 +415,7 @@ Public Class frmSettings
                 .LoadESISystemCostIndiciesDataonStartup = chkRefreshSystemCostIndiciesDataonStartup.Checked
                 .LoadESIMarketDataonStartup = chkRefreshMarketDataonStartup.Checked
                 .LoadESIPublicStructuresonStartup = chkRefreshPublicStructureDataonStartup.Checked
-                .SupressESIStatusMessages = chkSupressESImsgs.Checked
+                .SupressESIStatusMessages = False
 
                 ' If they didn't have this checked before, refresh assets
                 If SelectedCharacter.ID <> DummyCharacterID Then

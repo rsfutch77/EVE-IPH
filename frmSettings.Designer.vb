@@ -51,7 +51,6 @@ Partial Class frmSettings
         Me.chkDefaultME = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.gbStartupOptions = New System.Windows.Forms.GroupBox()
-        Me.chkSupressESImsgs = New System.Windows.Forms.CheckBox()
         Me.chkRefreshPublicStructureDataonStartup = New System.Windows.Forms.CheckBox()
         Me.chkRefreshSystemCostIndiciesDataonStartup = New System.Windows.Forms.CheckBox()
         Me.chkRefreshMarketDataonStartup = New System.Windows.Forms.CheckBox()
@@ -380,7 +379,6 @@ Partial Class frmSettings
         '
         'gbStartupOptions
         '
-        Me.gbStartupOptions.Controls.Add(Me.chkSupressESImsgs)
         Me.gbStartupOptions.Controls.Add(Me.chkRefreshPublicStructureDataonStartup)
         Me.gbStartupOptions.Controls.Add(Me.chkRefreshSystemCostIndiciesDataonStartup)
         Me.gbStartupOptions.Controls.Add(Me.chkRefreshMarketDataonStartup)
@@ -395,17 +393,6 @@ Partial Class frmSettings
         Me.gbStartupOptions.TabIndex = 39
         Me.gbStartupOptions.TabStop = False
         Me.gbStartupOptions.Text = "Startup Options"
-        '
-        'chkSupressESImsgs
-        '
-        Me.chkSupressESImsgs.AutoSize = True
-        Me.chkSupressESImsgs.Location = New System.Drawing.Point(21, 174)
-        Me.chkSupressESImsgs.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkSupressESImsgs.Name = "chkSupressESImsgs"
-        Me.chkSupressESImsgs.Size = New System.Drawing.Size(210, 20)
-        Me.chkSupressESImsgs.TabIndex = 31
-        Me.chkSupressESImsgs.Text = "Supress ESI Status Messages"
-        Me.chkSupressESImsgs.UseVisualStyleBackColor = True
         '
         'chkRefreshPublicStructureDataonStartup
         '
@@ -678,6 +665,5 @@ Partial Class frmSettings
     Friend WithEvents chkRefreshPublicStructureDataonStartup As CheckBox
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents chkAlphaAccount As CheckBox
-    Friend WithEvents chkSupressESImsgs As CheckBox
     Friend WithEvents chkShareFacilities As CheckBox
 End Class
