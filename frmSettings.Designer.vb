@@ -23,17 +23,10 @@ Partial Class frmSettings
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.chkCheckUpdatesStartup = New System.Windows.Forms.CheckBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.gbGeneral = New System.Windows.Forms.GroupBox()
-        Me.chkShareFacilities = New System.Windows.Forms.CheckBox()
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
-        Me.chkLoadBPsbyChar = New System.Windows.Forms.CheckBox()
-        Me.chkSaveFacilitiesbyChar = New System.Windows.Forms.CheckBox()
-        Me.chkShowToolTips = New System.Windows.Forms.CheckBox()
-        Me.chkRefreshBPsonStartup = New System.Windows.Forms.CheckBox()
-        Me.chkRefreshAssetsonStartup = New System.Windows.Forms.CheckBox()
         Me.chkBeanCounterManufacturing = New System.Windows.Forms.CheckBox()
         Me.cmbBeanCounterManufacturing = New System.Windows.Forms.ComboBox()
         Me.gbStationStandings = New System.Windows.Forms.GroupBox()
@@ -51,9 +44,6 @@ Partial Class frmSettings
         Me.chkDefaultME = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.gbStartupOptions = New System.Windows.Forms.GroupBox()
-        Me.chkRefreshPublicStructureDataonStartup = New System.Windows.Forms.CheckBox()
-        Me.chkRefreshSystemCostIndiciesDataonStartup = New System.Windows.Forms.CheckBox()
-        Me.chkRefreshMarketDataonStartup = New System.Windows.Forms.CheckBox()
         Me.gbExportOptions = New System.Windows.Forms.GroupBox()
         Me.rbtnExportSSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
@@ -70,23 +60,9 @@ Partial Class frmSettings
         Me.gbGeneral.SuspendLayout()
         Me.gbStationStandings.SuspendLayout()
         Me.gbDefaultMEPE.SuspendLayout()
-        Me.gbStartupOptions.SuspendLayout()
         Me.gbExportOptions.SuspendLayout()
         Me.gbCalcAvgPrice.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'chkCheckUpdatesStartup
-        '
-        Me.chkCheckUpdatesStartup.AutoSize = True
-        Me.chkCheckUpdatesStartup.Checked = True
-        Me.chkCheckUpdatesStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCheckUpdatesStartup.Location = New System.Drawing.Point(21, 24)
-        Me.chkCheckUpdatesStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkCheckUpdatesStartup.Name = "chkCheckUpdatesStartup"
-        Me.chkCheckUpdatesStartup.Size = New System.Drawing.Size(195, 20)
-        Me.chkCheckUpdatesStartup.TabIndex = 0
-        Me.chkCheckUpdatesStartup.Text = "Check for Program Updates"
-        Me.chkCheckUpdatesStartup.UseVisualStyleBackColor = True
         '
         'btnSave
         '
@@ -110,11 +86,7 @@ Partial Class frmSettings
         '
         'gbGeneral
         '
-        Me.gbGeneral.Controls.Add(Me.chkShareFacilities)
         Me.gbGeneral.Controls.Add(Me.chkDisableTracking)
-        Me.gbGeneral.Controls.Add(Me.chkLoadBPsbyChar)
-        Me.gbGeneral.Controls.Add(Me.chkSaveFacilitiesbyChar)
-        Me.gbGeneral.Controls.Add(Me.chkShowToolTips)
         Me.gbGeneral.Location = New System.Drawing.Point(6, 15)
         Me.gbGeneral.Margin = New System.Windows.Forms.Padding(4)
         Me.gbGeneral.Name = "gbGeneral"
@@ -123,19 +95,6 @@ Partial Class frmSettings
         Me.gbGeneral.TabIndex = 4
         Me.gbGeneral.TabStop = False
         Me.gbGeneral.Text = "General:"
-        '
-        'chkShareFacilities
-        '
-        Me.chkShareFacilities.AutoSize = True
-        Me.chkShareFacilities.Checked = True
-        Me.chkShareFacilities.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkShareFacilities.Location = New System.Drawing.Point(21, 174)
-        Me.chkShareFacilities.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkShareFacilities.Name = "chkShareFacilities"
-        Me.chkShareFacilities.Size = New System.Drawing.Size(164, 20)
-        Me.chkShareFacilities.TabIndex = 42
-        Me.chkShareFacilities.Text = "Share Saved Facilities"
-        Me.chkShareFacilities.UseVisualStyleBackColor = True
         '
         'chkDisableTracking
         '
@@ -147,71 +106,6 @@ Partial Class frmSettings
         Me.chkDisableTracking.TabIndex = 41
         Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
         Me.chkDisableTracking.UseVisualStyleBackColor = True
-        '
-        'chkLoadBPsbyChar
-        '
-        Me.chkLoadBPsbyChar.AutoSize = True
-        Me.chkLoadBPsbyChar.Checked = True
-        Me.chkLoadBPsbyChar.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkLoadBPsbyChar.Location = New System.Drawing.Point(21, 149)
-        Me.chkLoadBPsbyChar.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkLoadBPsbyChar.Name = "chkLoadBPsbyChar"
-        Me.chkLoadBPsbyChar.Size = New System.Drawing.Size(201, 20)
-        Me.chkLoadBPsbyChar.TabIndex = 40
-        Me.chkLoadBPsbyChar.Text = "Load Blueprints by Character"
-        Me.chkLoadBPsbyChar.UseVisualStyleBackColor = True
-        '
-        'chkSaveFacilitiesbyChar
-        '
-        Me.chkSaveFacilitiesbyChar.AutoSize = True
-        Me.chkSaveFacilitiesbyChar.Checked = True
-        Me.chkSaveFacilitiesbyChar.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSaveFacilitiesbyChar.Location = New System.Drawing.Point(21, 124)
-        Me.chkSaveFacilitiesbyChar.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkSaveFacilitiesbyChar.Name = "chkSaveFacilitiesbyChar"
-        Me.chkSaveFacilitiesbyChar.Size = New System.Drawing.Size(229, 20)
-        Me.chkSaveFacilitiesbyChar.TabIndex = 39
-        Me.chkSaveFacilitiesbyChar.Text = "Save Facilities for each Character"
-        Me.chkSaveFacilitiesbyChar.UseVisualStyleBackColor = True
-        '
-        'chkShowToolTips
-        '
-        Me.chkShowToolTips.AutoSize = True
-        Me.chkShowToolTips.Checked = True
-        Me.chkShowToolTips.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkShowToolTips.Location = New System.Drawing.Point(21, 24)
-        Me.chkShowToolTips.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkShowToolTips.Name = "chkShowToolTips"
-        Me.chkShowToolTips.Size = New System.Drawing.Size(123, 20)
-        Me.chkShowToolTips.TabIndex = 2
-        Me.chkShowToolTips.Text = "Show Tool Tips"
-        Me.chkShowToolTips.UseVisualStyleBackColor = True
-        '
-        'chkRefreshBPsonStartup
-        '
-        Me.chkRefreshBPsonStartup.AutoSize = True
-        Me.chkRefreshBPsonStartup.Checked = True
-        Me.chkRefreshBPsonStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRefreshBPsonStartup.Location = New System.Drawing.Point(21, 74)
-        Me.chkRefreshBPsonStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRefreshBPsonStartup.Name = "chkRefreshBPsonStartup"
-        Me.chkRefreshBPsonStartup.Size = New System.Drawing.Size(104, 20)
-        Me.chkRefreshBPsonStartup.TabIndex = 26
-        Me.chkRefreshBPsonStartup.Text = "Refresh BPs"
-        Me.chkRefreshBPsonStartup.UseVisualStyleBackColor = True
-        '
-        'chkRefreshAssetsonStartup
-        '
-        Me.chkRefreshAssetsonStartup.AutoSize = True
-        Me.chkRefreshAssetsonStartup.Checked = True
-        Me.chkRefreshAssetsonStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRefreshAssetsonStartup.Location = New System.Drawing.Point(21, 49)
-        Me.chkRefreshAssetsonStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRefreshAssetsonStartup.Name = "chkRefreshAssetsonStartup"
-        Me.chkRefreshAssetsonStartup.Size = New System.Drawing.Size(120, 20)
-        Me.chkRefreshAssetsonStartup.TabIndex = 23
-        Me.chkRefreshAssetsonStartup.Text = "Refresh Assets"
-        Me.chkRefreshAssetsonStartup.UseVisualStyleBackColor = True
         '
         'chkBeanCounterManufacturing
         '
@@ -379,12 +273,6 @@ Partial Class frmSettings
         '
         'gbStartupOptions
         '
-        Me.gbStartupOptions.Controls.Add(Me.chkRefreshPublicStructureDataonStartup)
-        Me.gbStartupOptions.Controls.Add(Me.chkRefreshSystemCostIndiciesDataonStartup)
-        Me.gbStartupOptions.Controls.Add(Me.chkRefreshMarketDataonStartup)
-        Me.gbStartupOptions.Controls.Add(Me.chkRefreshBPsonStartup)
-        Me.gbStartupOptions.Controls.Add(Me.chkCheckUpdatesStartup)
-        Me.gbStartupOptions.Controls.Add(Me.chkRefreshAssetsonStartup)
         Me.gbStartupOptions.Location = New System.Drawing.Point(6, 250)
         Me.gbStartupOptions.Margin = New System.Windows.Forms.Padding(4)
         Me.gbStartupOptions.Name = "gbStartupOptions"
@@ -393,45 +281,6 @@ Partial Class frmSettings
         Me.gbStartupOptions.TabIndex = 39
         Me.gbStartupOptions.TabStop = False
         Me.gbStartupOptions.Text = "Startup Options"
-        '
-        'chkRefreshPublicStructureDataonStartup
-        '
-        Me.chkRefreshPublicStructureDataonStartup.AutoSize = True
-        Me.chkRefreshPublicStructureDataonStartup.Checked = True
-        Me.chkRefreshPublicStructureDataonStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRefreshPublicStructureDataonStartup.Location = New System.Drawing.Point(21, 149)
-        Me.chkRefreshPublicStructureDataonStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRefreshPublicStructureDataonStartup.Name = "chkRefreshPublicStructureDataonStartup"
-        Me.chkRefreshPublicStructureDataonStartup.Size = New System.Drawing.Size(203, 20)
-        Me.chkRefreshPublicStructureDataonStartup.TabIndex = 30
-        Me.chkRefreshPublicStructureDataonStartup.Text = "Refresh Public Structure Data"
-        Me.chkRefreshPublicStructureDataonStartup.UseVisualStyleBackColor = True
-        '
-        'chkRefreshSystemCostIndiciesDataonStartup
-        '
-        Me.chkRefreshSystemCostIndiciesDataonStartup.AutoSize = True
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Checked = True
-        Me.chkRefreshSystemCostIndiciesDataonStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Location = New System.Drawing.Point(21, 124)
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Name = "chkRefreshSystemCostIndiciesDataonStartup"
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Size = New System.Drawing.Size(222, 20)
-        Me.chkRefreshSystemCostIndiciesDataonStartup.TabIndex = 29
-        Me.chkRefreshSystemCostIndiciesDataonStartup.Text = "Refresh System Industry Indicies"
-        Me.chkRefreshSystemCostIndiciesDataonStartup.UseVisualStyleBackColor = True
-        '
-        'chkRefreshMarketDataonStartup
-        '
-        Me.chkRefreshMarketDataonStartup.AutoSize = True
-        Me.chkRefreshMarketDataonStartup.Checked = True
-        Me.chkRefreshMarketDataonStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRefreshMarketDataonStartup.Location = New System.Drawing.Point(21, 99)
-        Me.chkRefreshMarketDataonStartup.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkRefreshMarketDataonStartup.Name = "chkRefreshMarketDataonStartup"
-        Me.chkRefreshMarketDataonStartup.Size = New System.Drawing.Size(152, 20)
-        Me.chkRefreshMarketDataonStartup.TabIndex = 28
-        Me.chkRefreshMarketDataonStartup.Text = "Refresh Market Data"
-        Me.chkRefreshMarketDataonStartup.UseVisualStyleBackColor = True
         '
         'gbExportOptions
         '
@@ -612,8 +461,6 @@ Partial Class frmSettings
         Me.gbStationStandings.PerformLayout()
         Me.gbDefaultMEPE.ResumeLayout(False)
         Me.gbDefaultMEPE.PerformLayout()
-        Me.gbStartupOptions.ResumeLayout(False)
-        Me.gbStartupOptions.PerformLayout()
         Me.gbExportOptions.ResumeLayout(False)
         Me.gbExportOptions.PerformLayout()
         Me.gbCalcAvgPrice.ResumeLayout(False)
@@ -622,11 +469,9 @@ Partial Class frmSettings
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents chkCheckUpdatesStartup As System.Windows.Forms.CheckBox
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents gbGeneral As System.Windows.Forms.GroupBox
-    Friend WithEvents chkShowToolTips As System.Windows.Forms.CheckBox
     Friend WithEvents chkBeanCounterManufacturing As System.Windows.Forms.CheckBox
     Friend WithEvents cmbBeanCounterManufacturing As System.Windows.Forms.ComboBox
     Friend WithEvents gbStationStandings As System.Windows.Forms.GroupBox
@@ -643,11 +488,7 @@ Partial Class frmSettings
     Friend WithEvents chkDefaultME As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents chkSuggestBuildwhenBPnotOwned As System.Windows.Forms.CheckBox
-    Friend WithEvents chkRefreshAssetsonStartup As System.Windows.Forms.CheckBox
-    Friend WithEvents chkRefreshBPsonStartup As System.Windows.Forms.CheckBox
     Friend WithEvents gbStartupOptions As System.Windows.Forms.GroupBox
-    Friend WithEvents chkRefreshSystemCostIndiciesDataonStartup As System.Windows.Forms.CheckBox
-    Friend WithEvents chkRefreshMarketDataonStartup As System.Windows.Forms.CheckBox
     Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox
     Friend WithEvents rbtnExportDefault As System.Windows.Forms.RadioButton
     Friend WithEvents rbtnExportSSV As System.Windows.Forms.RadioButton
@@ -660,10 +501,6 @@ Partial Class frmSettings
     Friend WithEvents lblSVRThreshold As System.Windows.Forms.Label
     Friend WithEvents cmbSVRAvgPriceDuration As System.Windows.Forms.ComboBox
     Friend WithEvents chkAutoUpdateSVRBPTab As System.Windows.Forms.CheckBox
-    Friend WithEvents chkLoadBPsbyChar As CheckBox
-    Friend WithEvents chkSaveFacilitiesbyChar As CheckBox
-    Friend WithEvents chkRefreshPublicStructureDataonStartup As CheckBox
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents chkAlphaAccount As CheckBox
-    Friend WithEvents chkShareFacilities As CheckBox
 End Class

@@ -518,45 +518,21 @@ Public Class ProgramSettings
 
                 'Get the settings
                 With TempSettings
-                    .CheckforUpdatesonStart = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckforUpdatesonStart", DefaultCheckUpdatesOnStart))
-                    .LoadAssetsonStartup = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadAssetsonStartup", DefaultLoadAssetsonStartup))
-                    .LoadBPsonStartup = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadbpsonStartup", DefaultLoadBPsonStartup))
-                    .LoadESIMarketDataonStartup = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadESIMarketDataonStartup", DefaultRefreshMarketESIDataonStartup))
-                    .LoadESISystemCostIndiciesDataonStartup = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadESISystemCostIndiciesDataonStartup", DefaultRefreshFacilityESIDataonStartup))
-                    .LoadESIPublicStructuresonStartup = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadESISystemCostIndiciesDataonStartup", DefaultRefreshPublicStructureDataonStartup))
-                    .SupressESIStatusMessages = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SupressESIStatusMessages", DefaultSupressESIStatusMessages))
                     .DataExportFormat = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "DataExportFormat", DefaultDataExportFormat))
                     .AllowSkillOverride = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AllowSkillOverride", DefaultAllowSkillOverride))
-                    .ShowToolTips = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "ShowToolTips", DefaultShowToolTips))
-                    .RefiningImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "RefiningImplantValue", DefaultImplantValues))
                     .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
-                    .CopyImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "CopyImplantValue", DefaultImplantValues))
                     .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
-                    .IncludeInGameLinksinCopyText = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "IncludeInGameLinksinCopyText", DefaultIncludeInGameLinksinCopyText))
                     .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
                     .DefaultBPME = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "DefaultBPME", DefaultSettingME))
                     .DefaultBPTE = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "DefaultBPTE", DefaultSettingTE))
                     .CheckBuildBuy = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckBuildBuy", DefaultCheckBuildBuy))
-                    .DisableSVR = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableSVR", DefaultDisableSVR))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
-                    .ShopListIncludeInventMats = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "ShopListIncludeInventMats", DefaultShopListIncludeInventMats))
-                    .ShopListIncludeCopyMats = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "ShopListIncludeCopyMats", DefaultShopListIncludeCopyMats))
                     .SuggestBuildBPNotOwned = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SuggestBuildBPNotOwned", DefaultSuggestBuildBPNotOwned))
-                    .EVEMarketerRefreshInterval = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "EVEMarketerRefreshInterval", DefaultEVEMarketerRefreshInterval))
-                    .DisableSound = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableSound", DefaultDisableSound))
-                    .SaveBPRelicsDecryptors = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SaveBPRelicsDecryptors", DefaultSaveBPRelicsDecryptors))
                     .IgnoreSVRThresholdValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "IgnoreSVRThresholdValue", DefaultIgnoreSVRThresholdValue))
                     .SVRAveragePriceRegion = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "SVRAveragePriceRegion", DefaultSVRAveragePriceRegion))
                     .SVRAveragePriceDuration = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "SVRAveragePriceDuration", DefaultSVRAveragePriceDuration))
                     .AutoUpdateSVRonBPTab = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AutoUpdateSVRonBPTab", DefaultAutoUpdateSVRonBPTab))
-                    .ProxyAddress = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "ProxyAddress", DefaultProxyAddress))
-                    .ProxyPort = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "ProxyPort", DefaultProxyPort))
-                    .SaveFacilitiesbyChar = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SaveFacilitiesbyChar", DefaultSaveFacilitiesbyChar))
-                    .LoadBPsbyChar = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadBPsbyChar", DefaultLoadBPsbyChar))
                     .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
-                    .UseActiveSkillLevels = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "UseActiveSkillLevels", DefaultUseActiveSkills))
-                    .LoadMaxAlphaSkills = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "LoadMaxAlphaSkills", DefaultLoadMaxAlphaSkills))
-                    .ShareSavedFacilities = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "ShareSavedFacilities", DefaultDisableGATracking))
                 End With
 
             Else
@@ -583,19 +559,8 @@ Public Class ProgramSettings
 
         With TempSettings
             ' Load default settings
-            .CheckforUpdatesonStart = DefaultCheckUpdatesOnStart
             .DataExportFormat = DefaultDataExportFormat
-            .ShowToolTips = DefaultShowToolTips
-            .LoadAssetsonStartup = DefaultLoadAssetsonStartup
-            .LoadBPsonStartup = DefaultLoadBPsonStartup
-            .LoadESIMarketDataonStartup = DefaultRefreshMarketESIDataonStartup
-            .SupressESIStatusMessages = DefaultSupressESIStatusMessages
-            .LoadESISystemCostIndiciesDataonStartup = DefaultRefreshFacilityESIDataonStartup
-            .LoadESIPublicStructuresonStartup = DefaultRefreshPublicStructureDataonStartup
-            .DisableSound = DefaultDisableSound
             .ManufacturingImplantValue = DefaultImplantValues
-            .RefiningImplantValue = DefaultImplantValues
-            .CopyImplantValue = DefaultImplantValues
 
             ' Station Standings for building and selling
             .BrokerCorpStanding = DefaultBrokerCorpStanding
@@ -607,30 +572,14 @@ Public Class ProgramSettings
             .DefaultBPTE = DefaultSettingTE
 
             .AlphaAccount = DefaultAlphaAccount
-            .UseActiveSkillLevels = DefaultUseActiveSkills
-            .LoadMaxAlphaSkills = DefaultLoadMaxAlphaSkills
 
-            .DisableSVR = DefaultDisableSVR
             .DisableGATracking = DefaultDisableGATracking
-            .ShareSavedFacilities = DefaultShareSavedFacilities
             .SuggestBuildBPNotOwned = DefaultSuggestBuildBPNotOwned
-            .SaveBPRelicsDecryptors = DefaultSaveBPRelicsDecryptors
-
-            .ShopListIncludeInventMats = DefaultShopListIncludeInventMats
-            .ShopListIncludeCopyMats = DefaultShopListIncludeCopyMats
-
-            .EVEMarketerRefreshInterval = DefaultEVEMarketerRefreshInterval
-
             .IgnoreSVRThresholdValue = DefaultIgnoreSVRThresholdValue
             .SVRAveragePriceRegion = DefaultSVRAveragePriceRegion
             .SVRAveragePriceDuration = DefaultSVRAveragePriceDuration
             .AutoUpdateSVRonBPTab = DefaultAutoUpdateSVRonBPTab
 
-            .ProxyAddress = DefaultProxyAddress
-            .ProxyPort = DefaultProxyPort
-
-            .LoadBPsbyChar = DefaultLoadBPsbyChar
-            .SaveFacilitiesbyChar = DefaultSaveFacilitiesbyChar
         End With
 
         ' Save locally
@@ -644,44 +593,21 @@ Public Class ProgramSettings
         Dim ApplicationSettingsList(37) As Setting
 
         Try
-            ApplicationSettingsList(0) = New Setting("CheckforUpdatesonStart", CStr(SentSettings.CheckforUpdatesonStart))
             ApplicationSettingsList(1) = New Setting("DataExportFormat", CStr(SentSettings.DataExportFormat))
             ApplicationSettingsList(2) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(3) = New Setting("ShowToolTips", CStr(SentSettings.ShowToolTips))
-            ApplicationSettingsList(4) = New Setting("RefiningImplantValue", CStr(SentSettings.RefiningImplantValue))
             ApplicationSettingsList(5) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(6) = New Setting("CopyImplantValue", CStr(SentSettings.CopyImplantValue))
             ApplicationSettingsList(7) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
             ApplicationSettingsList(8) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
             ApplicationSettingsList(9) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
             ApplicationSettingsList(10) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
             ApplicationSettingsList(11) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(12) = New Setting("IncludeInGameLinksinCopyText", CStr(SentSettings.IncludeInGameLinksinCopyText))
-            ApplicationSettingsList(13) = New Setting("ShopListIncludeInventMats", CStr(SentSettings.ShopListIncludeInventMats))
-            ApplicationSettingsList(14) = New Setting("ShopListIncludeCopyMats", CStr(SentSettings.ShopListIncludeCopyMats))
             ApplicationSettingsList(15) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
-            ApplicationSettingsList(16) = New Setting("EVEMarketerRefreshInterval", CStr(SentSettings.EVEMarketerRefreshInterval))
-            ApplicationSettingsList(17) = New Setting("LoadAssetsonStartup", CStr(SentSettings.LoadAssetsonStartup))
-            ApplicationSettingsList(18) = New Setting("DisableSound", CStr(SentSettings.DisableSound))
-            ApplicationSettingsList(19) = New Setting("LoadbpsonStartup", CStr(SentSettings.LoadBPsonStartup))
-            ApplicationSettingsList(20) = New Setting("LoadESISystemCostIndiciesDataonStartup", CStr(SentSettings.LoadESISystemCostIndiciesDataonStartup))
-            ApplicationSettingsList(21) = New Setting("LoadESIMarketDataonStartup", CStr(SentSettings.LoadESIMarketDataonStartup))
-            ApplicationSettingsList(22) = New Setting("SaveBPRelicsDecryptors", CStr(SentSettings.SaveBPRelicsDecryptors))
             ApplicationSettingsList(23) = New Setting("IgnoreSVRThresholdValue", CStr(SentSettings.IgnoreSVRThresholdValue))
             ApplicationSettingsList(24) = New Setting("SVRAveragePriceRegion", CStr(SentSettings.SVRAveragePriceRegion))
             ApplicationSettingsList(25) = New Setting("SVRAveragePriceDuration", CStr(SentSettings.SVRAveragePriceDuration))
             ApplicationSettingsList(26) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
-            ApplicationSettingsList(27) = New Setting("ProxyAddress", CStr(SentSettings.ProxyAddress))
-            ApplicationSettingsList(28) = New Setting("ProxyPort", CStr(SentSettings.ProxyPort))
-            ApplicationSettingsList(29) = New Setting("SaveFacilitiesbyChar", CStr(SentSettings.SaveFacilitiesbyChar))
-            ApplicationSettingsList(30) = New Setting("LoadBPsbyChar", CStr(SentSettings.LoadBPsbyChar))
-            ApplicationSettingsList(31) = New Setting("LoadESIPublicStructuresonStartup", CStr(SentSettings.LoadESIPublicStructuresonStartup))
             ApplicationSettingsList(32) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
             ApplicationSettingsList(33) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
-            ApplicationSettingsList(34) = New Setting("UseActiveSkillLevels", CStr(SentSettings.UseActiveSkillLevels))
-            ApplicationSettingsList(35) = New Setting("SupressESIStatusMessages", CStr(SentSettings.SupressESIStatusMessages))
-            ApplicationSettingsList(36) = New Setting("LoadMaxAlphaSkills", CStr(SentSettings.LoadMaxAlphaSkills))
-            ApplicationSettingsList(37) = New Setting("ShareSavedFacilities", CStr(SentSettings.ShareSavedFacilities))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1677,22 +1603,10 @@ End Class
 
 ' For general program settings
 Public Structure ApplicationSettings
-    Dim CheckforUpdatesonStart As Boolean
     Dim DataExportFormat As String
     Dim AllowSkillOverride As Boolean
-    Dim ShowToolTips As Boolean
 
     Dim ManufacturingImplantValue As Double
-
-    Dim LoadAssetsonStartup As Boolean
-    Dim LoadBPsonStartup As Boolean
-    Dim LoadESIMarketDataonStartup As Boolean
-    Dim LoadESISystemCostIndiciesDataonStartup As Boolean
-    Dim LoadESIPublicStructuresonStartup As Boolean
-    Dim IncludeInGameLinksinCopyText As Boolean
-
-    Dim SaveFacilitiesbyChar As Boolean
-    Dim LoadBPsbyChar As Boolean
 
     ' Station Standings for building and selling
     Dim BrokerCorpStanding As Double
@@ -1707,8 +1621,6 @@ Public Structure ApplicationSettings
     Dim SuggestBuildBPNotOwned As Boolean ' For Build/Buy suggestions
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
-
-    Dim ShareSavedFacilities As Boolean ' to use the same facility everywhere
 
     ' Character options
     Dim AlphaAccount As Boolean ' Check to determine if they are using an alpha account or not

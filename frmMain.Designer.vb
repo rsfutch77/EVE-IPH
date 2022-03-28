@@ -24,8 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -96,6 +96,7 @@ Partial Class frmMain
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.FrmSettings2 = New Easy_IPH.frmSettings()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcBPSelect.SuspendLayout()
@@ -107,6 +108,7 @@ Partial Class frmMain
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuStripMain
@@ -594,7 +596,7 @@ Partial Class frmMain
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem3, ListViewItem4})
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
         Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
@@ -609,14 +611,7 @@ Partial Class frmMain
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.Color.Gray
-        Me.TabPage3.Controls.Add(Me.ReportBugIcon)
-        Me.TabPage3.Controls.Add(Me.VisitWebIcon)
-        Me.TabPage3.Controls.Add(Me.PateronIcon)
-        Me.TabPage3.Controls.Add(Me.LabelVersion)
-        Me.TabPage3.Controls.Add(Me.MetroLabel2)
-        Me.TabPage3.Controls.Add(Me.btnReportbug)
-        Me.TabPage3.Controls.Add(Me.btnVisitweb)
-        Me.TabPage3.Controls.Add(Me.btnDonate)
+        Me.TabPage3.Controls.Add(Me.Panel1)
         Me.TabPage3.Controls.Add(Me.Label1)
         Me.TabPage3.Controls.Add(Me.btnResetAll)
         Me.TabPage3.Controls.Add(Me.btnManageChar)
@@ -631,7 +626,7 @@ Partial Class frmMain
         '
         Me.ReportBugIcon.ErrorImage = Nothing
         Me.ReportBugIcon.Image = CType(resources.GetObject("ReportBugIcon.Image"), System.Drawing.Image)
-        Me.ReportBugIcon.Location = New System.Drawing.Point(82, 648)
+        Me.ReportBugIcon.Location = New System.Drawing.Point(17, 380)
         Me.ReportBugIcon.Name = "ReportBugIcon"
         Me.ReportBugIcon.Size = New System.Drawing.Size(57, 65)
         Me.ReportBugIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -642,7 +637,7 @@ Partial Class frmMain
         '
         Me.VisitWebIcon.ErrorImage = Nothing
         Me.VisitWebIcon.Image = CType(resources.GetObject("VisitWebIcon.Image"), System.Drawing.Image)
-        Me.VisitWebIcon.Location = New System.Drawing.Point(82, 574)
+        Me.VisitWebIcon.Location = New System.Drawing.Point(17, 306)
         Me.VisitWebIcon.Name = "VisitWebIcon"
         Me.VisitWebIcon.Size = New System.Drawing.Size(57, 65)
         Me.VisitWebIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -653,7 +648,7 @@ Partial Class frmMain
         '
         Me.PateronIcon.ErrorImage = Nothing
         Me.PateronIcon.Image = CType(resources.GetObject("PateronIcon.Image"), System.Drawing.Image)
-        Me.PateronIcon.Location = New System.Drawing.Point(82, 501)
+        Me.PateronIcon.Location = New System.Drawing.Point(17, 233)
         Me.PateronIcon.Name = "PateronIcon"
         Me.PateronIcon.Size = New System.Drawing.Size(57, 65)
         Me.PateronIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -663,7 +658,7 @@ Partial Class frmMain
         'LabelVersion
         '
         Me.LabelVersion.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.LabelVersion.Location = New System.Drawing.Point(146, 270)
+        Me.LabelVersion.Location = New System.Drawing.Point(14, 10)
         Me.LabelVersion.Name = "LabelVersion"
         Me.LabelVersion.Size = New System.Drawing.Size(181, 35)
         Me.LabelVersion.TabIndex = 103
@@ -675,7 +670,7 @@ Partial Class frmMain
         'MetroLabel2
         '
         Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel2.Location = New System.Drawing.Point(146, 321)
+        Me.MetroLabel2.Location = New System.Drawing.Point(14, 50)
         Me.MetroLabel2.Name = "MetroLabel2"
         Me.MetroLabel2.Size = New System.Drawing.Size(409, 174)
         Me.MetroLabel2.TabIndex = 102
@@ -685,7 +680,7 @@ Partial Class frmMain
         '
         'btnReportbug
         '
-        Me.btnReportbug.Location = New System.Drawing.Point(146, 648)
+        Me.btnReportbug.Location = New System.Drawing.Point(81, 380)
         Me.btnReportbug.Margin = New System.Windows.Forms.Padding(4)
         Me.btnReportbug.Name = "btnReportbug"
         Me.btnReportbug.Size = New System.Drawing.Size(266, 52)
@@ -696,7 +691,7 @@ Partial Class frmMain
         '
         'btnVisitweb
         '
-        Me.btnVisitweb.Location = New System.Drawing.Point(146, 574)
+        Me.btnVisitweb.Location = New System.Drawing.Point(81, 306)
         Me.btnVisitweb.Margin = New System.Windows.Forms.Padding(4)
         Me.btnVisitweb.Name = "btnVisitweb"
         Me.btnVisitweb.Size = New System.Drawing.Size(266, 52)
@@ -707,7 +702,7 @@ Partial Class frmMain
         '
         'btnDonate
         '
-        Me.btnDonate.Location = New System.Drawing.Point(146, 514)
+        Me.btnDonate.Location = New System.Drawing.Point(81, 246)
         Me.btnDonate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDonate.Name = "btnDonate"
         Me.btnDonate.Size = New System.Drawing.Size(266, 52)
@@ -759,6 +754,21 @@ Partial Class frmMain
         Me.FrmSettings2.Size = New System.Drawing.Size(828, 566)
         Me.FrmSettings2.TabIndex = 25
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.LabelVersion)
+        Me.Panel1.Controls.Add(Me.ReportBugIcon)
+        Me.Panel1.Controls.Add(Me.MetroLabel2)
+        Me.Panel1.Controls.Add(Me.VisitWebIcon)
+        Me.Panel1.Controls.Add(Me.btnDonate)
+        Me.Panel1.Controls.Add(Me.PateronIcon)
+        Me.Panel1.Controls.Add(Me.btnVisitweb)
+        Me.Panel1.Controls.Add(Me.btnReportbug)
+        Me.Panel1.Location = New System.Drawing.Point(55, 38)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(647, 746)
+        Me.Panel1.TabIndex = 107
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -793,6 +803,7 @@ Partial Class frmMain
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -867,4 +878,5 @@ Partial Class frmMain
     Friend WithEvents trkTrips As MetroFramework.Controls.MetroTrackBar
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents FrmShoppingList1 As frmShoppingList
+    Friend WithEvents Panel1 As Panel
 End Class

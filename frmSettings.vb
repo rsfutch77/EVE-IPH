@@ -69,14 +69,6 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub chkShowToolTips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowToolTips.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkCheckUpdatesStartup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkCheckUpdatesStartup.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
     Private Sub chkBuildBuyDefault_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBuildBuyDefault.CheckedChanged
         btnSave.Text = "Save"
     End Sub
@@ -100,22 +92,6 @@ Public Class frmSettings
             txtDefaultTE.Enabled = False
             txtDefaultTE.Text = FormatNumber(Defaults.DefaultSettingTE, 0)
         End If
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkSaveFacilitiesbyChar_CheckedChanged(sender As Object, e As EventArgs) Handles chkSaveFacilitiesbyChar.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkLoadBPsbyChar_CheckedChanged(sender As Object, e As EventArgs) Handles chkLoadBPsbyChar.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkRefreshMarketDataonStartup_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkRefreshMarketDataonStartup.CheckedChanged
-        btnSave.Text = "Save"
-    End Sub
-
-    Private Sub chkRefreshFacilityDataonStartup_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkRefreshSystemCostIndiciesDataonStartup.CheckedChanged
         btnSave.Text = "Save"
     End Sub
 
@@ -184,22 +160,6 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub txtProxyPort_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                btnSave.Text = "Save"
-            End If
-        End If
-    End Sub
-
-    Private Sub txtProxyAddress_TextChanged(sender As System.Object, e As System.EventArgs)
-        btnSave.Text = "Save"
-    End Sub
-
 #End Region
 
     Public Sub New()
@@ -216,44 +176,30 @@ Public Class frmSettings
         SVRComboLoaded = False
         ReloadSkills = False
 
-        If UserApplicationSettings.ShowToolTips Then
-            With ToolTip1
-                ' General
-                .SetToolTip(chkShowToolTips, "Toogles tool tips through out IPH")
-                .SetToolTip(rbtnExportCSV, "Exports data in Common Separated Values with periods for decimals")
-                .SetToolTip(chkSaveFacilitiesbyChar, "When checked, saved facilities will only apply to the selected character. If unchecked, all characters will share saved facilities")
-                .SetToolTip(chkLoadBPsbyChar, "When checked, blueprints loaded into IPH will be different for each character. If unchecked, all characters share the same BPs")
-                .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
-                .SetToolTip(chkShareFacilities, "When checked, IPH will use the same facility type saved on any form when used on any other form. If unchecked, IPH will save each facility uniquely")
+        With ToolTip1
+            ' General
+            .SetToolTip(rbtnExportCSV, "Exports data in Common Separated Values with periods for decimals")
+            .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
 
-                ' Startup Options
-                .SetToolTip(chkCheckUpdatesStartup, "IPH will check for program updates when the program starts")
-                .SetToolTip(chkRefreshAssetsonStartup, "When checked, IPH will refresh assets (if cache date has past) for the selected character")
-                .SetToolTip(chkRefreshBPsonStartup, "When checked, IPH will refresh blueprints (if cache date has past) for the selected character")
-                .SetToolTip(chkRefreshMarketDataonStartup, "When checked, IPH will refresh average and adjusted market prices (if cache date has past) on startup for use in industry calcuations")
-                .SetToolTip(chkRefreshSystemCostIndiciesDataonStartup, "When checked, IPH will refresh the system industry indicies on startup (if cache date has past) for use in industry calculations")
-                .SetToolTip(chkRefreshPublicStructureDataonStartup, "When checked, IPH will refresh data on public structures (if cache date has past) for use in price updates")
+            ' SVR Settings
+            .SetToolTip(lblSVRThreshold, "When set, this will be the default threshold for Sales to Volume Ratio on the BP and Manufacturing tabs")
+            .SetToolTip(lblSVRAvgPrice, "When set, this will be the default days the Sales to Volume Ratio will be averaged over for the BP and Manufacturing tabs")
+            .SetToolTip(lblSVRRegion, "When set, this will be the default region for Sales to Volume Ratio calcuations on the BP and Manufacturing tabs")
+            .SetToolTip(chkAutoUpdateSVRBPTab, "When set, the Sales to Volume Ratio will be updated on the BP tab when a Blueprint is selected")
 
-                ' SVR Settings
-                .SetToolTip(lblSVRThreshold, "When set, this will be the default threshold for Sales to Volume Ratio on the BP and Manufacturing tabs")
-                .SetToolTip(lblSVRAvgPrice, "When set, this will be the default days the Sales to Volume Ratio will be averaged over for the BP and Manufacturing tabs")
-                .SetToolTip(lblSVRRegion, "When set, this will be the default region for Sales to Volume Ratio calcuations on the BP and Manufacturing tabs")
-                .SetToolTip(chkAutoUpdateSVRBPTab, "When set, the Sales to Volume Ratio will be updated on the BP tab when a Blueprint is selected")
+            ' Export Data
+            .SetToolTip(rbtnExportSSV, "Exports data in SemiColon Separated Values with commas for decimals")
+            .SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
+            .SetToolTip(rbtnExportCSV, "Exports data in Comma Separated Values")
 
-                ' Export Data
-                .SetToolTip(rbtnExportSSV, "Exports data in SemiColon Separated Values with commas for decimals")
-                .SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
-                .SetToolTip(rbtnExportCSV, "Exports data in Comma Separated Values")
+            ' Character Options
+            .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
 
-                ' Character Options
-                .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
+            ' Tips by Group box
+            .SetToolTip(gbDefaultMEPE, "On the BP and Manufacturing tabs, these default ME and TE values will be used for non-owned blueprints")
+            .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
 
-                ' Tips by Group box
-                .SetToolTip(gbDefaultMEPE, "On the BP and Manufacturing tabs, these default ME and TE values will be used for non-owned blueprints")
-                .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
-
-            End With
-        End If
+        End With
 
         Call LoadFormSettings()
 
@@ -264,9 +210,6 @@ Public Class frmSettings
         UserApplicationSettings = AllSettings.LoadApplicationSettings()
 
         With UserApplicationSettings
-            ' General Settings
-            chkCheckUpdatesStartup.Checked = .CheckforUpdatesonStart
-
             If rbtnExportCSV.Text = .DataExportFormat Then
                 rbtnExportCSV.Checked = True
             ElseIf rbtnExportSSV.Text = .DataExportFormat Then
@@ -274,17 +217,6 @@ Public Class frmSettings
             ElseIf rbtnExportDefault.Text = .DataExportFormat Then
                 rbtnExportDefault.Checked = True
             End If
-
-            chkShowToolTips.Checked = .ShowToolTips
-            chkRefreshAssetsonStartup.Checked = .LoadAssetsonStartup
-            chkRefreshBPsonStartup.Checked = .LoadBPsonStartup
-            chkLoadBPsbyChar.Checked = .LoadBPsbyChar
-            chkSaveFacilitiesbyChar.Checked = .SaveFacilitiesbyChar
-
-            ' ESI
-            chkRefreshSystemCostIndiciesDataonStartup.Checked = .LoadESISystemCostIndiciesDataonStartup
-            chkRefreshMarketDataonStartup.Checked = .LoadESIMarketDataonStartup
-            chkRefreshPublicStructureDataonStartup.Checked = .LoadESIPublicStructuresonStartup
 
             If .BrokerCorpStanding = Defaults.DefaultBrokerCorpStanding Then
                 ' Default
@@ -330,7 +262,6 @@ Public Class frmSettings
             chkSuggestBuildwhenBPnotOwned.Checked = .SuggestBuildBPNotOwned
 
             chkDisableTracking.Checked = .DisableGATracking
-            chkShareFacilities.Checked = .ShareSavedFacilities
 
             chkAlphaAccount.Checked = .AlphaAccount
 
@@ -375,8 +306,6 @@ Public Class frmSettings
         Dim ManufacturingImplantValue As Double = 0
         Dim CopyImplantValue As Double = 0
 
-        Dim OldMaxAlphaSkillsSetting As Boolean = UserApplicationSettings.LoadMaxAlphaSkills
-
         Dim Settings As New ProgramSettings
         Dim ReloadFacilties As Boolean = False
 
@@ -397,7 +326,6 @@ Public Class frmSettings
 
             With TempSettings
 
-                .CheckforUpdatesonStart = CBool(chkCheckUpdatesStartup.Checked)
                 If rbtnExportDefault.Checked Then
                     .DataExportFormat = rbtnExportDefault.Text
                 ElseIf rbtnExportCSV.Checked Then
@@ -405,79 +333,6 @@ Public Class frmSettings
                 ElseIf rbtnExportSSV.Checked Then
                     .DataExportFormat = rbtnExportSSV.Text
                 End If
-                .ShowToolTips = CBool(chkShowToolTips.Checked)
-
-                .RefiningImplantValue = RefineImplantValue
-                .ManufacturingImplantValue = ManufacturingImplantValue
-                .CopyImplantValue = CopyImplantValue
-
-                ' ESI
-                .LoadESISystemCostIndiciesDataonStartup = chkRefreshSystemCostIndiciesDataonStartup.Checked
-                .LoadESIMarketDataonStartup = chkRefreshMarketDataonStartup.Checked
-                .LoadESIPublicStructuresonStartup = chkRefreshPublicStructureDataonStartup.Checked
-                .SupressESIStatusMessages = False
-
-                ' If they didn't have this checked before, refresh assets
-                If SelectedCharacter.ID <> DummyCharacterID Then
-                    If UserApplicationSettings.LoadAssetsonStartup = False And chkRefreshAssetsonStartup.Checked Then
-                        Call SelectedCharacter.GetAssets.LoadAssets(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, True)
-                        Call SelectedCharacter.CharacterCorporation.GetAssets.LoadAssets(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, True)
-                    End If
-
-                    ' Same with blueprints
-                    If UserApplicationSettings.LoadBPsonStartup = False And chkRefreshBPsonStartup.Checked Then
-                        Call SelectedCharacter.GetBlueprints.LoadBlueprints(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, ScanType.Personal, True)
-                        Call SelectedCharacter.CharacterCorporation.GetBlueprints.LoadBlueprints(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, ScanType.Corporation, True)
-                    End If
-                End If
-
-                ' Now set these
-                .LoadAssetsonStartup = CBool(chkRefreshAssetsonStartup.Checked)
-                .LoadBPsonStartup = CBool(chkRefreshBPsonStartup.Checked)
-
-                If UserApplicationSettings.SaveFacilitiesbyChar <> CBool(chkSaveFacilitiesbyChar.Checked) Then
-                    ReloadFacilties = True
-                End If
-                .SaveFacilitiesbyChar = CBool(chkSaveFacilitiesbyChar.Checked)
-
-                If UserApplicationSettings.LoadBPsbyChar <> CBool(chkLoadBPsbyChar.Checked) Then
-                    Dim Response As MsgBoxResult
-                    Response = MsgBox("This will reset all Blueprint Data for the program." & Environment.NewLine & "Are you sure you want to do this?", vbYesNo, Application.ProductName)
-
-                    If Response = vbYes Then
-                        ' Delete all bps
-                        Call EVEDB.ExecuteNonQuerySQL("DELETE FROM OWNED_BLUEPRINTS")
-                        ' Also reset all BP cache dates incase they just updated the character or loaded it
-                        Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET BLUEPRINTS_CACHE_DATE = NULL")
-
-                        ' Set the current setting to what they want so the BP's load per the setting
-                        UserApplicationSettings.LoadBPsbyChar = CBool(chkLoadBPsbyChar.Checked)
-
-                        ' Need to reload the blueprints for all characters
-                        Dim rsChar As SQLiteDataReader
-                        DBCommand = New SQLiteCommand("SELECT CHARACTER_ID, ACCESS_TOKEN, TOKEN_TYPE, ACCESS_TOKEN_EXPIRE_DATE_TIME, REFRESH_TOKEN, SCOPES FROM ESI_CHARACTER_DATA WHERE CHARACTER_ID <> " & CStr(DummyCharacterID), EVEDB.DBREf)
-                        rsChar = DBCommand.ExecuteReader
-                        While rsChar.Read
-                            Dim TempToken As New SavedTokenData
-                            With TempToken
-                                .CharacterID = rsChar.GetInt32(0)
-                                .AccessToken = rsChar.GetString(1)
-                                .TokenType = rsChar.GetString(2)
-                                .TokenExpiration = CDate(rsChar.GetString(3))
-                                .RefreshToken = rsChar.GetString(4)
-                                .Scopes = rsChar.GetString(5)
-                                Call SelectedCharacter.GetBlueprints.LoadBlueprints(.CharacterID, TempToken, ScanType.Personal, True)
-                            End With
-                        End While
-                        rsChar.Close()
-                    Else
-                        ' Switch back
-                        chkLoadBPsbyChar.Checked = .LoadBPsbyChar
-                    End If
-                End If
-
-                ' Save change
-                .LoadBPsbyChar = CBool(chkLoadBPsbyChar.Checked)
 
                 ' Standings
                 .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
@@ -490,7 +345,6 @@ Public Class frmSettings
                 .DefaultBPTE = CInt(txtDefaultTE.Text)
 
                 .DisableGATracking = chkDisableTracking.Checked
-                .ShareSavedFacilities = chkShareFacilities.Checked
 
                 .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
 
@@ -512,7 +366,6 @@ Public Class frmSettings
             ' They changed the active skill levels, update skills now with new application settings
             If ReloadSkills Then
                 ' Set the flag first
-                Call SelectedCharacter.Skills.SetActiveSkillFlagValue(UserApplicationSettings.UseActiveSkillLevels)
                 Call SelectedCharacter.Skills.LoadCharacterSkills(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
             End If
 

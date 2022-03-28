@@ -158,7 +158,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACc
-        GAAAAk1TRnQBSQFMAgEBCQEAAdgBHQHYAR0BEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        GAAAAk1TRnQBSQFMAgEBCQEAAeABHQHgAR0BEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABMAMAAQEBAAEgBgABMCoAA/sB/wPyAf8D8QH/A/sB/+wAA/wB/wPmAf8DvAH/A7kB/wPkAf8D/AH/
         5AAD/QH/A+sB/wEAAbUBAAH/AQABmAEAAf8DAAH/A68B/wPoAf8D/QH/4AAD7gH/AZEBvQGRAf8CAAGs
         Af8CAAHAAf8DAAH/AwAB/wO3Af8D7AH/3AAD8gH/AaIBwAGiAf8CAAGxAf8CAAL/AgAC/wIAAasB/wMA
@@ -347,6 +347,9 @@
         hNAjiyGEHlkMIfTIYgihRxZDCD2yGELokcUQQo8shhB6ZDGE0COLIYQeWQwh0Oz5/g+JcQE/4U9wRgAA
         AABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="MetroLabel2.Text" xml:space="preserve">
+    <value>Orginally created by Zifrian. EasyIPH fork by Robert. Underlying data and images in EasyIPH are owned by © 2016 CCP hf. All rights reserved. "EVE", "EVE Online", "CCP", and all related logos and images are trademarks or registered trademarks of CCP hf.</value>
   </data>
   <data name="VisitWebIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1511,9 +1514,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu+6//Jf/
         D5WXEJC8rciAAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="MetroLabel2.Text" xml:space="preserve">
-    <value>Orginally created by Zifrian. EasyIPH fork by Robert. Underlying data and images in EasyIPH are owned by © 2016 CCP hf. All rights reserved. "EVE", "EVE Online", "CCP", and all related logos and images are trademarks or registered trademarks of CCP hf.</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>

@@ -344,14 +344,11 @@ Public Class frmMain
         UserApplicationSettings = AllSettings.LoadApplicationSettings
 
         ' Check for program updates first
-        If UserApplicationSettings.CheckforUpdatesonStart Then
-            ' Check for program updates
-            Application.UseWaitCursor = True
-            Me.Activate()
-            Call CheckForUpdates(False, Me.Icon)
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
+        Application.UseWaitCursor = True
+        Me.Activate()
+        Call CheckForUpdates(False, Me.Icon)
+        Application.UseWaitCursor = False
+        Application.DoEvents()
 
         ' Initialize stuff
         Call SetProgress("Initializing Database...")
@@ -374,39 +371,33 @@ Public Class frmMain
         ' Display to the user any issues with ESI endpoints
         Call SetProgress("Checking Status of ESI...")
         Call ESIData.GetESIStatus()
-        If Not UserApplicationSettings.SupressESIStatusMessages Then
-            Call DisplayESIStatusMessages()
-        End If
+        Call DisplayESIStatusMessages()
 
         ' Load the default character data
         Call SetProgress("Loading Character Data from ESI...")
-        Call LoadCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
+        Call LoadCharacter(True, True)
         Call LoadCharacterNamesinMenu()
 
         ' Update System Cost Indicies
-        If UserApplicationSettings.LoadESISystemCostIndiciesDataonStartup Then
-            Application.UseWaitCursor = True
-            Call SetProgress("Updating Industry System Indicies...")
+        Application.UseWaitCursor = True
+        Call SetProgress("Updating Industry System Indicies...")
             Application.DoEvents()
             Call ESIData.UpdateIndustrySystemsCostIndex()
             Application.UseWaitCursor = False
             Application.DoEvents()
-        End If
 
-        DBCommand = Nothing
+            DBCommand = Nothing
 
         ' ESI Market Data
-        If UserApplicationSettings.LoadESIMarketDataonStartup Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-            Call SetProgress("Updating Avg/Adj Market Prices...")
-            Call ESIData.UpdateAdjAvgMarketPrices()
-            Application.UseWaitCursor = False
-            Application.DoEvents()
-        End If
+        Application.UseWaitCursor = True
+        Application.DoEvents()
+        Call SetProgress("Updating Avg/Adj Market Prices...")
+        Call ESIData.UpdateAdjAvgMarketPrices()
+        Application.UseWaitCursor = False
+        Application.DoEvents()
 
         ' Refresh Public Structures
-        If UserApplicationSettings.LoadESIPublicStructuresonStartup And SelectedCharacter.PublicStructuresAccess Then
+        If SelectedCharacter.PublicStructuresAccess Then
             Application.UseWaitCursor = True
             Application.DoEvents()
             Call SetProgress("Updating Public Structures Data...")
@@ -423,10 +414,8 @@ Public Class frmMain
         Call LoadFacilities()
 
         ' Init Tool tips
-        If UserApplicationSettings.ShowToolTips Then
-            Me.ttBP = New ToolTip(Me.components)
-            Me.ttBP.IsBalloon = True
-        End If
+        Me.ttBP = New ToolTip(Me.components)
+        Me.ttBP.IsBalloon = True
 
         Call SetProgress("Finalizing Forms...")
 
@@ -585,12 +574,7 @@ Public Class frmMain
 
         ' See what ID we use for the facilities
         Dim CharID As Long = 0
-        If UserApplicationSettings.SaveFacilitiesbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
+        CharID = SelectedCharacter.ID
 
         If FacilityType = ProductionType.None Then
             ' Load up the Manufacturing tab facilities
@@ -691,47 +675,6 @@ Public Class frmMain
 #End Region
 
 #Region "Form Functions/Procedures"
-
-#Region "Tool Tip Processing"
-
-    ' Manufacturing Tab
-    Private Sub lblCalcColorCode1_MouseEnter(sender As Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode1, "Beige Background: Owned Blueprint")
-        End If
-    End Sub
-
-    Private Sub lblCalcColorCode2_MouseEnter(sender As System.Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode2, "Light Blue Background: T2 item with Owned T1 Blueprint (for invention)")
-        End If
-    End Sub
-
-    Private Sub lblCalcColorCode3_MouseEnter(sender As System.Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode3, "Green Text: Unable to T3 Invent Item")
-        End If
-    End Sub
-
-    Private Sub lblCalcColorCode4_MouseEnter(sender As System.Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode4, "Orange Text: Unable to Invent Item")
-        End If
-    End Sub
-
-    Private Sub lblCalcColorCode5_MouseEnter(sender As System.Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode5, "Red Text: Unable to Build Item")
-        End If
-    End Sub
-
-    Private Sub lblCalcColorCode6_MouseEnter(sender As System.Object, e As System.EventArgs)
-        If UserApplicationSettings.ShowToolTips Then
-            ttBP.SetToolTip(lblCalcColorCode6, "Green Background: Corp Owned Blueprint")
-        End If
-    End Sub
-
-#End Region
 
 #Region "SVR Functions"
 
@@ -1173,8 +1116,8 @@ Public Class frmMain
             EVEDB.ExecuteNonQuerySQL(SQL)
 
             ' Reload the asset variables for the character, which will load nothing but clear the assets out
-            Call SelectedCharacter.GetAssets().LoadAssets(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, UserApplicationSettings.LoadAssetsonStartup)
-            Call SelectedCharacter.CharacterCorporation.GetAssets().LoadAssets(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, UserApplicationSettings.LoadAssetsonStartup)
+            Call SelectedCharacter.GetAssets().LoadAssets(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData, True)
+            Call SelectedCharacter.CharacterCorporation.GetAssets().LoadAssets(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, True)
 
             Application.UseWaitCursor = False
             Application.DoEvents()
@@ -3455,7 +3398,7 @@ ExitSub:
                 ' If no record or the max date
                 If readerPriceCheck.Read Then
                     ' If older than the interval, add a new record
-                    If DateTime.ParseExact(readerPriceCheck.GetString(0), SQLiteDateFormat, LocalCulture) < DateAdd(DateInterval.Hour, -1 * UserApplicationSettings.EVEMarketerRefreshInterval, Now) Then
+                    If DateTime.ParseExact(readerPriceCheck.GetString(0), SQLiteDateFormat, LocalCulture) < DateAdd(DateInterval.Hour, -1 * 0, Now) Then
                         InsertRecord = True
                     End If
                 End If
@@ -5483,53 +5426,51 @@ ExitPRocessing:
                 gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
 
-                If Not UserApplicationSettings.DisableSVR Then
+                Dim MH As New MarketPriceInterface(MetroProgressBar)
 
-                    Dim MH As New MarketPriceInterface(MetroProgressBar)
+                ' First thing we want to do is update the manufactured item prices
+                pnlStatus.Text = "Updating Market History..."
+                MetroProgressBar.Visible = False
+                Application.DoEvents()
 
-                    ' First thing we want to do is update the manufactured item prices
-                    pnlStatus.Text = "Updating Market History..."
-                    MetroProgressBar.Visible = False
-                    Application.DoEvents()
+                ' First find out which of the typeIDs in BaseItems have MarketID's
+                For i = 0 To BaseItems.Count - 1
+                    TypeIDCheck = TypeIDCheck & BaseItems(i).ItemTypeID & ","
+                Next
 
-                    ' First find out which of the typeIDs in BaseItems have MarketID's
-                    For i = 0 To BaseItems.Count - 1
-                        TypeIDCheck = TypeIDCheck & BaseItems(i).ItemTypeID & ","
-                    Next
+                ' Format string
+                TypeIDCheck = "(" & TypeIDCheck.Substring(0, Len(TypeIDCheck) - 1) & ")"
+                SQL = "SELECT typeID FROM INVENTORY_TYPES WHERE typeID IN " & TypeIDCheck & " AND marketGroupID IS NOT NULL"
+                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+                readerIDs = DBCommand.ExecuteReader
 
-                    ' Format string
-                    TypeIDCheck = "(" & TypeIDCheck.Substring(0, Len(TypeIDCheck) - 1) & ")"
-                    SQL = "SELECT typeID FROM INVENTORY_TYPES WHERE typeID IN " & TypeIDCheck & " AND marketGroupID IS NOT NULL"
-                    DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                    readerIDs = DBCommand.ExecuteReader
-
-                    ' Now add these to the list
-                    While readerIDs.Read()
-                        If Not UpdateTypeIDs.Contains(readerIDs.GetInt64(0)) Then
-                            UpdateTypeIDs.Add(readerIDs.GetInt64(0))
-                        End If
-                    End While
-                    readerIDs.Close()
-
-                    ' Get the region ID
-                    MarketRegionID = GetRegionID(calcHistoryRegion)
-
-                    If MarketRegionID = 0 Then
-                        MarketRegionID = TheForgeTypeID ' The Forge as default
-                        calcHistoryRegion = "The Forge"
+                ' Now add these to the list
+                While readerIDs.Read()
+                    If Not UpdateTypeIDs.Contains(readerIDs.GetInt64(0)) Then
+                        UpdateTypeIDs.Add(readerIDs.GetInt64(0))
                     End If
+                End While
+                readerIDs.Close()
 
-                    ' Update the prices
-                    If Not MH.UpdateESIPriceHistory(UpdateTypeIDs, MarketRegionID) Then
-                        ' Update Failed, don't reload everything
-                        Call MsgBox("Price update timed out for some items. Please try again.", vbInformation, Application.ProductName)
-                    End If
-                    If CancelThreading Then
-                        ' They had a ton of errors
-                        Call MsgBox("You had an excessive amount of errors while attempting to update price history and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
-                        CancelThreading = False
-                    End If
+                ' Get the region ID
+                MarketRegionID = GetRegionID(calcHistoryRegion)
+
+                If MarketRegionID = 0 Then
+                    MarketRegionID = TheForgeTypeID ' The Forge as default
+                    calcHistoryRegion = "The Forge"
                 End If
+
+                ' Update the prices
+                If Not MH.UpdateESIPriceHistory(UpdateTypeIDs, MarketRegionID) Then
+                    ' Update Failed, don't reload everything
+                    Call MsgBox("Price update timed out for some items. Please try again.", vbInformation, Application.ProductName)
+                End If
+                If CancelThreading Then
+                    ' They had a ton of errors
+                    Call MsgBox("You had an excessive amount of errors while attempting to update price history and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                    CancelThreading = False
+                End If
+
 
                 pnlStatus.Text = "Calculating..."
                 MetroProgressBar.Minimum = 0
