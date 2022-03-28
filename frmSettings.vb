@@ -107,7 +107,7 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub cmbSVRAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbSVRAvgPriceDuration.KeyPress
+    Private Sub cmbSVRAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -126,13 +126,6 @@ Public Class frmSettings
             Else
                 btnSave.Text = "Save"
             End If
-        End If
-    End Sub
-
-    Private Sub cmbSVRRegion_DropDown(sender As System.Object, e As System.EventArgs) Handles cmbSVRRegion.DropDown
-        If Not SVRComboLoaded Then
-            Call LoadRegionCombo(cmbSVRRegion, UserApplicationSettings.SVRAveragePriceRegion)
-            SVRComboLoaded = True
         End If
     End Sub
 
@@ -183,7 +176,6 @@ Public Class frmSettings
 
             ' SVR Settings
             .SetToolTip(lblSVRThreshold, "When set, this will be the default threshold for Sales to Volume Ratio on the BP and Manufacturing tabs")
-            .SetToolTip(lblSVRAvgPrice, "When set, this will be the default days the Sales to Volume Ratio will be averaged over for the BP and Manufacturing tabs")
             .SetToolTip(lblSVRRegion, "When set, this will be the default region for Sales to Volume Ratio calcuations on the BP and Manufacturing tabs")
             .SetToolTip(chkAutoUpdateSVRBPTab, "When set, the Sales to Volume Ratio will be updated on the BP tab when a Blueprint is selected")
 
@@ -285,8 +277,6 @@ Public Class frmSettings
                 txtDefaultTE.Enabled = True
             End If
 
-            cmbSVRRegion.Text = .SVRAveragePriceRegion
-            cmbSVRAvgPriceDuration.Text = .SVRAveragePriceDuration
             txtSVRThreshold.Text = CStr(.IgnoreSVRThresholdValue)
             chkAutoUpdateSVRBPTab.Checked = .AutoUpdateSVRonBPTab
 
@@ -351,8 +341,6 @@ Public Class frmSettings
                 .AlphaAccount = chkAlphaAccount.Checked
                 ' SVR
                 .IgnoreSVRThresholdValue = CDbl(txtSVRThreshold.Text)
-                .SVRAveragePriceRegion = cmbSVRRegion.Text
-                .SVRAveragePriceDuration = cmbSVRAvgPriceDuration.Text
                 .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
 
             End With

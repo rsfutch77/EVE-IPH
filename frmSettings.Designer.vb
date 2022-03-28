@@ -49,10 +49,8 @@ Partial Class frmSettings
         Me.rbtnExportCSV = New System.Windows.Forms.RadioButton()
         Me.rbtnExportDefault = New System.Windows.Forms.RadioButton()
         Me.gbCalcAvgPrice = New System.Windows.Forms.GroupBox()
-        Me.cmbSVRAvgPriceDuration = New System.Windows.Forms.ComboBox()
         Me.chkAutoUpdateSVRBPTab = New System.Windows.Forms.CheckBox()
         Me.lblSVRRegion = New System.Windows.Forms.Label()
-        Me.lblSVRAvgPrice = New System.Windows.Forms.Label()
         Me.cmbSVRRegion = New System.Windows.Forms.ComboBox()
         Me.txtSVRThreshold = New System.Windows.Forms.TextBox()
         Me.lblSVRThreshold = New System.Windows.Forms.Label()
@@ -335,10 +333,8 @@ Partial Class frmSettings
         '
         'gbCalcAvgPrice
         '
-        Me.gbCalcAvgPrice.Controls.Add(Me.cmbSVRAvgPriceDuration)
         Me.gbCalcAvgPrice.Controls.Add(Me.chkAutoUpdateSVRBPTab)
         Me.gbCalcAvgPrice.Controls.Add(Me.lblSVRRegion)
-        Me.gbCalcAvgPrice.Controls.Add(Me.lblSVRAvgPrice)
         Me.gbCalcAvgPrice.Controls.Add(Me.cmbSVRRegion)
         Me.gbCalcAvgPrice.Controls.Add(Me.txtSVRThreshold)
         Me.gbCalcAvgPrice.Controls.Add(Me.lblSVRThreshold)
@@ -350,17 +346,6 @@ Partial Class frmSettings
         Me.gbCalcAvgPrice.TabIndex = 40
         Me.gbCalcAvgPrice.TabStop = False
         Me.gbCalcAvgPrice.Text = "SVR Settings:"
-        '
-        'cmbSVRAvgPriceDuration
-        '
-        Me.cmbSVRAvgPriceDuration.FormattingEnabled = True
-        Me.cmbSVRAvgPriceDuration.Items.AddRange(New Object() {"7", "15", "30", "60", "90", "180", "365"})
-        Me.cmbSVRAvgPriceDuration.Location = New System.Drawing.Point(235, 18)
-        Me.cmbSVRAvgPriceDuration.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmbSVRAvgPriceDuration.MaxLength = 3
-        Me.cmbSVRAvgPriceDuration.Name = "cmbSVRAvgPriceDuration"
-        Me.cmbSVRAvgPriceDuration.Size = New System.Drawing.Size(50, 24)
-        Me.cmbSVRAvgPriceDuration.TabIndex = 3
         '
         'chkAutoUpdateSVRBPTab
         '
@@ -382,16 +367,6 @@ Partial Class frmSettings
         Me.lblSVRRegion.Size = New System.Drawing.Size(54, 16)
         Me.lblSVRRegion.TabIndex = 4
         Me.lblSVRRegion.Text = "Region:"
-        '
-        'lblSVRAvgPrice
-        '
-        Me.lblSVRAvgPrice.Location = New System.Drawing.Point(139, 12)
-        Me.lblSVRAvgPrice.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblSVRAvgPrice.Name = "lblSVRAvgPrice"
-        Me.lblSVRAvgPrice.Size = New System.Drawing.Size(98, 35)
-        Me.lblSVRAvgPrice.TabIndex = 2
-        Me.lblSVRAvgPrice.Text = "Average Days:"
-        Me.lblSVRAvgPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbSVRRegion
         '
@@ -495,11 +470,9 @@ Partial Class frmSettings
     Friend WithEvents rbtnExportCSV As System.Windows.Forms.RadioButton
     Friend WithEvents gbCalcAvgPrice As System.Windows.Forms.GroupBox
     Friend WithEvents lblSVRRegion As System.Windows.Forms.Label
-    Friend WithEvents lblSVRAvgPrice As System.Windows.Forms.Label
     Friend WithEvents cmbSVRRegion As System.Windows.Forms.ComboBox
     Friend WithEvents txtSVRThreshold As System.Windows.Forms.TextBox
     Friend WithEvents lblSVRThreshold As System.Windows.Forms.Label
-    Friend WithEvents cmbSVRAvgPriceDuration As System.Windows.Forms.ComboBox
     Friend WithEvents chkAutoUpdateSVRBPTab As System.Windows.Forms.CheckBox
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents chkAlphaAccount As CheckBox

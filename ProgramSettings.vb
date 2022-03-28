@@ -99,8 +99,6 @@ Public Class ProgramSettings
 
     ' SVR Stuff
     Public DefaultIgnoreSVRThresholdValue As Double = 0.0
-    Public DefaultSVRAveragePriceRegion As String = "The Forge"
-    Public Shared DefaultSVRAveragePriceDuration As String = "15"
     Public DefaultAutoUpdateSVRonBPTab As Boolean = True
 
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False
@@ -529,8 +527,6 @@ Public Class ProgramSettings
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                     .SuggestBuildBPNotOwned = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SuggestBuildBPNotOwned", DefaultSuggestBuildBPNotOwned))
                     .IgnoreSVRThresholdValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "IgnoreSVRThresholdValue", DefaultIgnoreSVRThresholdValue))
-                    .SVRAveragePriceRegion = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "SVRAveragePriceRegion", DefaultSVRAveragePriceRegion))
-                    .SVRAveragePriceDuration = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "SVRAveragePriceDuration", DefaultSVRAveragePriceDuration))
                     .AutoUpdateSVRonBPTab = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AutoUpdateSVRonBPTab", DefaultAutoUpdateSVRonBPTab))
                     .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
                 End With
@@ -576,8 +572,6 @@ Public Class ProgramSettings
             .DisableGATracking = DefaultDisableGATracking
             .SuggestBuildBPNotOwned = DefaultSuggestBuildBPNotOwned
             .IgnoreSVRThresholdValue = DefaultIgnoreSVRThresholdValue
-            .SVRAveragePriceRegion = DefaultSVRAveragePriceRegion
-            .SVRAveragePriceDuration = DefaultSVRAveragePriceDuration
             .AutoUpdateSVRonBPTab = DefaultAutoUpdateSVRonBPTab
 
         End With
@@ -590,24 +584,22 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(37) As Setting
+        Dim ApplicationSettingsList(12) As Setting
 
         Try
+            ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
             ApplicationSettingsList(1) = New Setting("DataExportFormat", CStr(SentSettings.DataExportFormat))
             ApplicationSettingsList(2) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(5) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(7) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
-            ApplicationSettingsList(8) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(9) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
-            ApplicationSettingsList(10) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
-            ApplicationSettingsList(11) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(15) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
-            ApplicationSettingsList(23) = New Setting("IgnoreSVRThresholdValue", CStr(SentSettings.IgnoreSVRThresholdValue))
-            ApplicationSettingsList(24) = New Setting("SVRAveragePriceRegion", CStr(SentSettings.SVRAveragePriceRegion))
-            ApplicationSettingsList(25) = New Setting("SVRAveragePriceDuration", CStr(SentSettings.SVRAveragePriceDuration))
-            ApplicationSettingsList(26) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
-            ApplicationSettingsList(32) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
-            ApplicationSettingsList(33) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
+            ApplicationSettingsList(3) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
+            ApplicationSettingsList(4) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
+            ApplicationSettingsList(5) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
+            ApplicationSettingsList(6) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
+            ApplicationSettingsList(7) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
+            ApplicationSettingsList(8) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
+            ApplicationSettingsList(9) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
+            ApplicationSettingsList(10) = New Setting("IgnoreSVRThresholdValue", CStr(SentSettings.IgnoreSVRThresholdValue))
+            ApplicationSettingsList(11) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
+            ApplicationSettingsList(12) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1627,8 +1619,6 @@ Public Structure ApplicationSettings
 
     ' Filter variables for svr
     Dim IgnoreSVRThresholdValue As Double
-    Dim SVRAveragePriceRegion As String
-    Dim SVRAveragePriceDuration As String
     Dim AutoUpdateSVRonBPTab As Boolean
 
 End Structure
