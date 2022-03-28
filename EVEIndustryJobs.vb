@@ -23,15 +23,11 @@ Public Class EVEIndustryJobs
 
         ' See what ID we use
         Dim CharID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        CharID = SelectedCharacter.ID
 
-        ' Load the blueprints
-        SQL = "SELECT jobID, installerID, facilityID, locationID, activityID, blueprintID, blueprintTypeID, blueprintLocationID, outputLocationID, runs, cost, licensedRuns, probability, productTypeID, status, duration, startDate, endDate, pauseDate, completedDate, completedCharacterID, successfulRuns, JobType "
+            ' Load the blueprints
+            SQL = "SELECT jobID, installerID, facilityID, locationID, activityID, blueprintID, blueprintTypeID, blueprintLocationID, outputLocationID, runs, cost, licensedRuns, probability, productTypeID, status, duration, startDate, endDate, pauseDate, completedDate, completedCharacterID, successfulRuns, JobType "
         SQL = SQL & "FROM INDUSTRY_JOBS WHERE installerID = " & CharID
 
         DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)

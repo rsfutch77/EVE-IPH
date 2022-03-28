@@ -983,7 +983,7 @@ Public Class ProgramSettings
                     .StructureModules = CBool(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeBoolean, UpdatePricesFileName, "StructureModules", DefaultPriceChecks))
                     .AbyssalMaterials = CBool(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeBoolean, UpdatePricesFileName, "AbyssalMaterials", DefaultPriceChecks))
 
-					.SelectedRegion = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedRegion", DefaultPriceRegion))
+                    .SelectedRegion = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedRegion", DefaultPriceRegion))
                     .SelectedSystem = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "SelectedSystem", DefaultPriceSystem))
                     .ItemsCombo = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "ItemsCombo", DefaultPriceItemsCombo))
                     .RawMatsCombo = CStr(GetSettingValue(SettingsFolder, UpdatePricesFileName, SettingTypes.TypeString, UpdatePricesFileName, "RawMatsCombo", DefaultPriceRawMatsCombo))
@@ -1071,8 +1071,8 @@ Public Class ProgramSettings
             UpdatePricesSettingsList(36) = New Setting("Faction", CStr(PriceSettings.Faction))
             UpdatePricesSettingsList(37) = New Setting("Pirate", CStr(PriceSettings.Pirate))
             UpdatePricesSettingsList(38) = New Setting("Storyline", CStr(PriceSettings.Storyline))
-            
-			UpdatePricesSettingsList(39) = New Setting("SelectedRegion", PriceSettings.SelectedRegion)
+
+            UpdatePricesSettingsList(39) = New Setting("SelectedRegion", PriceSettings.SelectedRegion)
             UpdatePricesSettingsList(40) = New Setting("SelectedSystem", CStr(PriceSettings.SelectedSystem))
             UpdatePricesSettingsList(41) = New Setting("ItemsCombo", CStr(PriceSettings.ItemsCombo))
             UpdatePricesSettingsList(42) = New Setting("RawMatsCombo", CStr(PriceSettings.RawMatsCombo))

@@ -251,7 +251,6 @@ Public Class ESI
 
         WC.Headers(HttpRequestHeader.ContentType) = "application/x-www-form-urlencoded"
         WC.Headers(HttpRequestHeader.Host) = "login.eveonline.com"
-        WC.Proxy = GetProxyData()
 
         Dim PostParameters As New NameValueCollection
         If Not Refresh Then
@@ -336,8 +335,6 @@ Public Class ESI
                 Call Thread.Sleep(ESIErrorHandler.msErrorTimer)
             End If
 
-            WC.Proxy = GetProxyData()
-
             If BodyData <> "" Then
                 Response = Encoding.UTF8.GetString(WC.UploadData(URL, Encoding.UTF8.GetBytes(BodyData)))
             Else
@@ -370,7 +367,7 @@ Public Class ESI
 
         Catch ex As WebException
 
-            Call ESIErrorHandler.ProcessWebException(ex, ESIErrorProcessor.ESIErrorLocation.PublicData, UserApplicationSettings.SupressESIStatusMessages, URL)
+            Call ESIErrorHandler.ProcessWebException(ex, ESIErrorProcessor.ESIErrorLocation.PublicData, False, URL)
 
             ' Retry call
             If ESIErrorHandler.ErrorCode >= 500 And Not ESIErrorHandler.RetriedCall Then
@@ -381,7 +378,7 @@ Public Class ESI
             End If
 
         Catch ex As Exception
-            Call ESIErrorHandler.ProcessException(ex, ESIErrorProcessor.ESIErrorLocation.PublicData, UserApplicationSettings.SupressESIStatusMessages)
+            Call ESIErrorHandler.ProcessException(ex, ESIErrorProcessor.ESIErrorLocation.PublicData, False)
         End Try
 
         If Not IsNothing(Response) Then
@@ -457,7 +454,6 @@ Public Class ESI
 
             Dim Auth_header As String = $"Bearer {TokenData.access_token}"
 
-            WC.Proxy = GetProxyData()
             WC.Headers(HttpRequestHeader.Authorization) = Auth_header
 
             Response = WC.DownloadString(URL)
@@ -710,7 +706,7 @@ Public Class ESI
     Public Function GetCharacterSkills(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef SkillsCacheDate As Date) As EVESkillList
         Dim SkillData As New ESICharacterSkillsBase
         Dim ReturnData As String
-        Dim ReturnSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        Dim ReturnSkills As New EVESkillList(False)
         Dim TempSkill As New EVESkill
 
         ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/skills/" & TranquilityDataSource,

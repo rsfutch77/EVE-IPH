@@ -172,7 +172,7 @@ Public Class frmManageAccounts
             Call EVEDB.CommitSQLiteTransaction()
 
             ' Reload the characters - this will do the default selection, etc
-            Call LoadCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
+            Call LoadCharacter(True, True)
 
             MsgBox("Character Deleted", vbInformation, Application.ProductName)
 

@@ -909,12 +909,8 @@ Public Class frmBlueprintManagement
             End If
         ElseIf rbtnScannedPersonalBPs.Checked Then
             Dim CharID As Long = 0
-            If UserApplicationSettings.LoadBPsbyChar Then
-                ' Use the ID sent
-                CharID = SelectedCharacter.ID
-            Else
-                CharID = CommonLoadBPsID
-            End If
+            ' Use the ID sent
+            CharID = SelectedCharacter.ID
             TempClause = "USER_ID = " & CharID & " AND SCANNED <> 0 "
             If WhereClause = "" Then
                 WhereClause = "WHERE " & TempClause
@@ -1674,12 +1670,8 @@ your developer scopes.", vbExclamation, Application.ProductName)
                         ' Start the session and delete all the records out of the table for this user
                         ' See what ID we use for character bps
                         Dim TempID As Long = 0
-                        If UserApplicationSettings.LoadBPsbyChar Then
-                            ' Use the ID sent
-                            TempID = SelectedCharacter.ID
-                        Else
-                            TempID = CommonLoadBPsID
-                        End If
+                        ' Use the ID sent
+                        TempID = SelectedCharacter.ID
                         Call EVEDB.ExecuteNonQuerySQL("DELETE FROM OWNED_BLUEPRINTS WHERE USER_ID IN (" & TempID & "," & SelectedCharacter.CharacterCorporation.CorporationID & ")")
                     Else
                         ' Leave loop
@@ -1704,12 +1696,8 @@ your developer scopes.", vbExclamation, Application.ProductName)
                             SQL = "INSERT INTO OWNED_BLUEPRINTS VALUES ("
                             ' See what ID we use for character bps
                             Dim TempID As Long = 0
-                            If UserApplicationSettings.LoadBPsbyChar Then
-                                ' Use the ID sent
-                                SQL = SQL & ParsedLine(0) & "," ' API ID
-                            Else
-                                SQL = SQL & CommonLoadBPsID & "," ' API ID
-                            End If
+                            ' Use the ID sent
+                            SQL = SQL & ParsedLine(0) & "," ' API ID
 
                             SQL = SQL & ParsedLine(1) & "," ' Location ID
                             SQL = SQL & ParsedLine(2) & "," ' Item ID

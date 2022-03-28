@@ -172,9 +172,7 @@ Public Class frmShoppingList
         lstItems.Columns.Add("TE", 0, HorizontalAlignment.Right) ' Hidden
         lstItems.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
-        If UserApplicationSettings.ShowToolTips Then
-            ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
-        End If
+        ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
 
         IgnoreFocusChange = False
 
@@ -733,7 +731,7 @@ Public Class frmShoppingList
         End If
 
         ' Paste to clipboard
-        Call CopyTextToClipboard(TotalShoppingList.GetClipboardList(ExportTypeString, True, MatList, ItemList, UserApplicationSettings.IncludeInGameLinksinCopyText))
+        Call CopyTextToClipboard(TotalShoppingList.GetClipboardList(ExportTypeString, True, MatList, ItemList, False))
 
     End Sub
 

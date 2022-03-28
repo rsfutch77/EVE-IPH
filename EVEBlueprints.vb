@@ -23,12 +23,8 @@ Public Class EVEBlueprints
 
         ' See what ID we use for character bps
         Dim CharID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        CharID = SelectedCharacter.ID
 
         ' Load the blueprints
         SQL = "SELECT ITEM_ID, LOCATION_ID, BLUEPRINT_ID, BLUEPRINT_NAME, FLAG_ID, QUANTITY, ME, TE, "
@@ -99,12 +95,8 @@ Public Class EVEBlueprints
 
         ' See what ID we save for character bps
         Dim TempID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Or BlueprintType = ScanType.Corporation Then
-            ' Use the ID sent
-            TempID = ID
-        Else
-            TempID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        TempID = ID
 
         ' Look up the industry Blueprints cache date first      
         If CB.DataUpdateable(CDType, ID) Then

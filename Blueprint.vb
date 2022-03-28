@@ -88,8 +88,8 @@ Public Class Blueprint
     Private BPRawMats As Materials ' Saves all the raw materials on the bp that are not built
 
     ' Skills required to make it
-    Private ReqBuildSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' Just this BP
-    Private ReqBuildComponentSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' All the skills to build just the components
+    Private ReqBuildSkills As New EVESkillList(False) ' Just this BP
+    Private ReqBuildComponentSkills As New EVESkillList(False) ' All the skills to build just the components
 
     ' Invention variables
     Private MaxRunsPerBP As Integer ' The max runs for a copy or invented bpc. Zero is unlimited runs
@@ -700,7 +700,7 @@ Public Class Blueprint
 
         ' Recursion variables
         Dim ComponentBlueprint As Blueprint = Nothing
-        Dim TempSkills As New EVESkillList(BPUserSettings.UseActiveSkillLevels)
+        Dim TempSkills As New EVESkillList(False)
 
         ' The current material we are working with
         Dim CurrentMaterial As Material
@@ -1684,12 +1684,8 @@ SkipProcessing:
 
         ' See what ID we use for character bps
         Dim UserID As String
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            UserID = CStr(SelectedCharacter.ID)
-        Else
-            UserID = CStr(CommonLoadBPsID)
-        End If
+        ' Use the ID sent
+        UserID = CStr(SelectedCharacter.ID)
 
         ' The user can't define an ME or TE for this blueprint, so just look it up
         SQL = "Select ME, TE, OWNED FROM OWNED_BLUEPRINTS WHERE USER_ID In (" & UserID & "," & BPCharacter.CharacterCorporation.CorporationID & ") "

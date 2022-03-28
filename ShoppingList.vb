@@ -1126,7 +1126,7 @@ Public Class ShoppingList
 
         ' Get the Shopping list for items
         If Not IsNothing(FullItemList) And ExportFormat <> MultiBuyDataExport Then
-            TempListText = FullItemList.GetClipboardList(ExportFormat, IgnorePriceVolume, True, True, UserApplicationSettings.IncludeInGameLinksinCopyText)
+            TempListText = FullItemList.GetClipboardList(ExportFormat, IgnorePriceVolume, True, True, False)
             If TempListText <> "No items in List" Then
                 OutputText = "Shopping List for: " & vbCrLf
                 OutputText = OutputText & TempListText
@@ -1138,7 +1138,7 @@ Public Class ShoppingList
         ' RE Materials (If they exist)
         If IncludeREMats Then
             ' Add RE mats if there are any
-            TempListText = REMatList.GetClipboardList(ExportFormat, False, False, False, UserApplicationSettings.IncludeInGameLinksinCopyText)
+            TempListText = REMatList.GetClipboardList(ExportFormat, False, False, False, False)
             If TempListText <> "No items in List" And ExportFormat <> MultiBuyDataExport Then
                 OutputText = OutputText & "Estimated RE Materials: " & vbCrLf
                 OutputText = OutputText & TempListText
@@ -1167,7 +1167,7 @@ Public Class ShoppingList
 
         ' Output the Buy list, add the price and volume to it - in Buy lists don't list ME
         If Not IsNothing(FullBuyList) Then
-            TempListText = FullBuyList.GetClipboardList(ExportFormat, False, False, False, UserApplicationSettings.IncludeInGameLinksinCopyText)
+            TempListText = FullBuyList.GetClipboardList(ExportFormat, False, False, False, False)
             If TempListText <> "No materials in List" And ExportFormat <> MultiBuyDataExport Then
                 OutputText = OutputText & "Buy Materials List: " & vbCrLf
                 OutputText = OutputText & TempListText

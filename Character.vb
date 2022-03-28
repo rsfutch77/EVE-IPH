@@ -59,7 +59,7 @@ Public Class Character
         PublicStructuresAccess = False
         StructureMarketsAccess = False
 
-        Skills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        Skills = New EVESkillList(False)
         Jobs = New EVEIndustryJobs
         Assets = New EVEAssets
 
@@ -131,11 +131,7 @@ Public Class Character
                 CharacterCorporation.LoadDummyCorporationData()
 
                 ' Load the skills depending on settings
-                If UserApplicationSettings.LoadMaxAlphaSkills Then
-                    Skills.LoadMaxAlphaSkills()
-                Else
-                    Skills.LoadDummySkills()
-                End If
+                Skills.LoadDummySkills()
 
                 ' No Assets
                 Assets = New EVEAssets
@@ -253,7 +249,7 @@ Public Class Character
             readerCharacter.Close()
 
             ' Load the character skills - Reset first
-            Skills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+            Skills = New EVESkillList(False)
             Call Skills.LoadCharacterSkills(ID, CharacterTokenData)
 
             If Not IsNothing(SelectedCharacter.Skills) Then ' 3387 mass production, 24625 adv mass production, 3406 laboratory efficiency, 24524 adv laboratory operation

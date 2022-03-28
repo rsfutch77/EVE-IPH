@@ -284,9 +284,7 @@ Public Module Public_Variables
 
     ' To play ding sound without box
     Public Sub PlayNotifySound()
-        If Not UserApplicationSettings.DisableSound Then
-            My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
-        End If
+        My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Asterisk)
     End Sub
 
     Public Class LocationInfo
@@ -453,7 +451,7 @@ Public Module Public_Variables
             Call EVEDB.ExecuteNonQuerySQL("UPDATE ESI_CHARACTER_DATA SET IS_DEFAULT = " & CStr(DefaultCharacterCode) & " WHERE CHARACTER_NAME = '" & FormatDBString(CharacterName) & "'")
 
             ' Load the character as default for program and reload additional API data
-            Call SelectedCharacter.LoadDefaultCharacter(UserApplicationSettings.LoadAssetsonStartup, UserApplicationSettings.LoadBPsonStartup)
+            Call SelectedCharacter.LoadDefaultCharacter(True, True)
             If PlaySound Then
                 Call PlayNotifySound()
             End If
@@ -1081,14 +1079,10 @@ SkipItem:
     Public Function GetBPUserID(SentUserID As Long) As Long
         Dim BPUserID As Long
 
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            BPUserID = SentUserID
-        Else
-            BPUserID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        BPUserID = SentUserID
 
-        Return BPUserID
+            Return BPUserID
 
     End Function
 
@@ -2221,12 +2215,8 @@ SkipItem:
 
         ' See what ID we use for character bps
         Dim CharID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        CharID = SelectedCharacter.ID
 
         EVEDB.BeginSQLiteTransaction()
 
@@ -2343,7 +2333,6 @@ SkipItem:
 
         Try 'Checks if the file exist
             Request = DirectCast(HttpWebRequest.Create(DownloadURL), HttpWebRequest)
-            Request.Proxy = GetProxyData()
             Request.Credentials = CredentialCache.DefaultCredentials ' Added 9/27 to attempt to fix error: (407) Proxy Authentication Required.
             Request.Timeout = 50000
             Response = CType(Request.GetResponse, HttpWebResponse)
@@ -2378,26 +2367,6 @@ SkipItem:
         End If
 
         Return FileName
-
-    End Function
-
-    Public Function GetProxyData() As WebProxy
-        Dim ReturnProxy As WebProxy
-
-        If UserApplicationSettings.ProxyAddress <> "" Then
-            If UserApplicationSettings.ProxyPort <> 0 Then
-                ReturnProxy = New WebProxy(UserApplicationSettings.ProxyAddress, UserApplicationSettings.ProxyPort)
-            Else
-                ReturnProxy = New WebProxy(UserApplicationSettings.ProxyAddress)
-            End If
-
-            ReturnProxy = New WebProxy(UserApplicationSettings.ProxyAddress, UserApplicationSettings.ProxyPort)
-            ReturnProxy.Credentials = CredentialCache.DefaultCredentials
-
-            Return ReturnProxy
-        Else
-            Return Nothing
-        End If
 
     End Function
 
@@ -2667,7 +2636,6 @@ SkipItem:
             request = DirectCast(WebRequest.Create(myUri), HttpWebRequest)
             ' Settings for speed
             request.Method = "GET"
-            request.Proxy = GetProxyData()
             request.PreAuthenticate = True
             request.Timeout = 10000
             request.UnsafeAuthenticatedConnectionSharing = True

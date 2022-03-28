@@ -381,10 +381,10 @@ Public Class frmMain
         ' Update System Cost Indicies
         Application.UseWaitCursor = True
         Call SetProgress("Updating Industry System Indicies...")
-            Application.DoEvents()
-            Call ESIData.UpdateIndustrySystemsCostIndex()
-            Application.UseWaitCursor = False
-            Application.DoEvents()
+        Application.DoEvents()
+        Call ESIData.UpdateIndustrySystemsCostIndex()
+        Application.UseWaitCursor = False
+        Application.DoEvents()
 
             DBCommand = Nothing
 
@@ -808,7 +808,7 @@ Public Class frmMain
 
     ' Predicate for finding the BPBuildBuyItem in full list
     Public Function FindBBItem(ByVal Item As BuildBuyItem) As Boolean
-        If BBItemToFind = Item.ItemID Then
+        If BBItemtoFind = Item.ItemID Then
             Return True
         Else
             Return False

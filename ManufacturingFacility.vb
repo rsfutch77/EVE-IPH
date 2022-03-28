@@ -1051,11 +1051,7 @@ Public Class ManufacturingFacility
         Dim CharID As String = ""
 
         ' See what type of character ID
-        If UserApplicationSettings.SaveFacilitiesbyChar Then
-            CharID = CStr(SelectedCharacter.ID)
-        Else
-            CharID = CStr(CommonSavedFacilitiesID)
-        End If
+        CharID = CStr(SelectedCharacter.ID)
 
         ' Process system if needed
         Dim SystemName As String
@@ -2025,11 +2021,7 @@ Public Class IndustryFacility
         Dim CharID As String = ""
 
         ' See what type of character ID
-        If UserApplicationSettings.SaveFacilitiesbyChar Then
-            CharID = CStr(SelectedCharacter.ID)
-        Else
-            CharID = CStr(CommonSavedFacilitiesID)
-        End If
+        CharID = CStr(SelectedCharacter.ID)
 
         ' First look up the character to see if it's saved there first (initially only do one set of facilities then allow by character via a setting)
         DBCommand = New SQLiteCommand("SELECT SF.FACILITY_ID, SF.FACILITY_TYPE, FACILITY_PRODUCTION_TYPES.ACTIVITY_ID, INDUSTRY_ACTIVITIES.activityName, REGIONS.regionName, REGIONS.regionID, SOLAR_SYSTEMS.solarSystemName, SOLAR_SYSTEMS.solarSystemID, CASE WHEN UPGRADE_LEVEL IS NULL THEN 0 ELSE UPGRADE_LEVEL END AS FW_UPGRADE_LEVEL, SF.ACTIVITY_COST_PER_SECOND, CASE WHEN COST_INDEX IS NULL THEN 0 ELSE COST_INDEX END AS COST_INDEX,SF.INCLUDE_ACTIVITY_COST, SF.INCLUDE_ACTIVITY_TIME, SF.INCLUDE_ACTIVITY_USAGE, SF.FACILITY_TAX, SF.MATERIAL_MULTIPLIER, SF.TIME_MULTIPLIER, SF.COST_MULTIPLIER, security, CONVERT_TO_ORE FROM SAVED_FACILITIES AS SF, FACILITY_PRODUCTION_TYPES, REGIONS, SOLAR_SYSTEMS, FACILITY_TYPES, INDUSTRY_ACTIVITIES LEFT JOIN FW_SYSTEM_UPGRADES ON FW_SYSTEM_UPGRADES.SOLAR_SYSTEM_ID = SF.SOLAR_SYSTEM_ID LEFT JOIN INDUSTRY_SYSTEMS_COST_INDICIES ON INDUSTRY_SYSTEMS_COST_INDICIES.SOLAR_SYSTEM_ID = SF.SOLAR_SYSTEM_ID AND INDUSTRY_SYSTEMS_COST_INDICIES.ACTIVITY_ID = FACILITY_PRODUCTION_TYPES.ACTIVITY_ID WHERE SF.PRODUCTION_TYPE = FACILITY_PRODUCTION_TYPES.PRODUCTION_TYPE AND SF.REGION_ID = REGIONS.regionID AND SF.SOLAR_SYSTEM_ID = SOLAR_SYSTEMS.solarSystemID AND SF.FACILITY_TYPE = FACILITY_TYPES.FACILITY_TYPE_ID AND FACILITY_PRODUCTION_TYPES.ACTIVITY_ID = INDUSTRY_ACTIVITIES.activityID AND SF.PRODUCTION_TYPE = 1 AND SF.FACILITY_VIEW = 1 AND CHARACTER_ID = -1;", EVEDB.DBREf)
@@ -2175,15 +2167,10 @@ ExitBlock:
 
         Try
 
-            If UserApplicationSettings.ShareSavedFacilities Then
-                ' Need to get each location for saving
-                For Each LID In System.Enum.GetValues(GetType(ProgramLocation))
-                    Call LocationList.Add(LID)
-                Next
-            Else
-                ' Just use the one sent
-                Call LocationList.Add(Location)
-            End If
+            ' Need to get each location for saving
+            For Each LID In System.Enum.GetValues(GetType(ProgramLocation))
+                Call LocationList.Add(LID)
+            Next
 
             For Each LID In LocationList
                 ' See if the record exists - only save one set of facilities for now
@@ -2206,8 +2193,8 @@ ExitBlock:
                     TempSQL &= "CONVERT_TO_ORE = {8},"
 
                     TempSQL &= "MATERIAL_MULTIPLIER = NULL, "
-                        TempSQL &= "TIME_MULTIPLIER = NULL, "
-                        TempSQL &= "COST_MULTIPLIER = NULL, "
+                    TempSQL &= "TIME_MULTIPLIER = NULL, "
+                    TempSQL &= "COST_MULTIPLIER = NULL, "
                     TempSQL &= "FACILITY_TAX = NULL "
 
                     TempSQL &= "WHERE PRODUCTION_TYPE = {9} AND CHARACTER_ID = {10} "
@@ -2264,7 +2251,7 @@ ExitBlock:
             Next
 
             ' If this is an upwell, and we are saving multiple structures (shared) then we need to update all the shared structure modules as well
-            If FacilityType = FacilityTypes.UpwellStructure And UserApplicationSettings.ShareSavedFacilities Then
+            If FacilityType = FacilityTypes.UpwellStructure Then
                 Dim InstalledModules As New List(Of Integer)
                 ' Look up all the installed modules for the location sent
                 SQL = String.Format("SELECT INSTALLED_MODULE_ID FROM UPWELL_STRUCTURES_INSTALLED_MODULES WHERE PRODUCTION_TYPE = {0} AND FACILITY_VIEW = {1} AND CHARACTER_ID = {2} AND FACILITY_ID = {3} AND SOLAR_SYSTEM_ID = {4}",
@@ -2298,18 +2285,16 @@ ExitBlock:
 
 
             ' Refresh the main facilites if sharing facility saves
-            If UserApplicationSettings.ShareSavedFacilities Then
-                ' Refresh the facilities - except the one I just saved it on
+            ' Refresh the facilities - except the one I just saved it on
 
-                ' non- reprocessing is just limited to bp and manufacturing tab
-                If Location = ProgramLocation.BlueprintTab Then
+            ' non- reprocessing is just limited to bp and manufacturing tab
+            If Location = ProgramLocation.BlueprintTab Then
                     Call frmMain.LoadFacilities(ProgramLocation.ManufacturingTab, FacilityProductionType)
                 Else
                     Call frmMain.LoadFacilities(ProgramLocation.BlueprintTab, FacilityProductionType)
                 End If
-            End If
 
-            If Not SupressNotice Then
+                If Not SupressNotice Then
                 Call MsgBox("Facility Saved", vbInformation, Application.ProductName)
             End If
 

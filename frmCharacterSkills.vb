@@ -2,8 +2,8 @@
 Public Class frmCharacterSkills
 
     Private AllowSkillOverride As Boolean
-    Private OverrideSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' To save all the skills we are working with here
-    Private UpdateSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels) ' The list of the ones we want to update only
+    Private OverrideSkills As New EVESkillList(False) ' To save all the skills we are working with here
+    Private UpdateSkills As New EVESkillList(False) ' The list of the ones we want to update only
     'Private SelectedNode As TreeNode
     Private SelectedSkill As EVESkill
 
@@ -246,7 +246,7 @@ Public Class frmCharacterSkills
 
     ' Loads the tree with the skills
     Private Sub LoadSkillsInTree(ByVal LoadAllSkillsforOverride As Boolean)
-        Dim TempSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        Dim TempSkills As New EVESkillList(False)
         Dim SkillGroup As String = ""
         Dim CurrentNode As TreeNode = Nothing
         Dim CurrentSubNode As TreeNode = Nothing
@@ -258,8 +258,8 @@ Public Class frmCharacterSkills
         Cursor.Current = Cursors.WaitCursor
 
         ' Reset these every new load
-        OverrideSkills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
-        UpdateSkills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        OverrideSkills = New EVESkillList(False)
+        UpdateSkills = New EVESkillList(False)
 
         lblCharacterName.Text = SelectedCharacter.Name
 

@@ -79,7 +79,7 @@ Public Class EVESkillList
         Dim SQL As String = ""
         Dim readerCharacter As SQLiteDataReader
         Dim SkillList As String = ""
-        Dim TempCharacterSkills As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        Dim TempCharacterSkills As New EVESkillList(False)
 
         ' Get the skills for this character first
         Dim ESIData As New ESI
@@ -410,7 +410,7 @@ Public Class EVESkillList
                 ' Check for skill and update if there
 
                 Dim SkillType As String
-                If UserApplicationSettings.UseActiveSkillLevels Then
+                If False Then
                     SkillType = "ACTIVE_SKILL_LEVEL"
                 Else
                     SkillType = "TRAINED_SKILL_LEVEL"
@@ -704,12 +704,12 @@ Public Class EVESkill
         Level = 0
         Overridden = False
         OverriddenLevel = 0
-        PreReqSkills = New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        PreReqSkills = New EVESkillList(False)
     End Sub
 
     Public Sub SetPreReqSkills()
         Dim SQL As String
-        Dim PreReqs As New EVESkillList(UserApplicationSettings.UseActiveSkillLevels)
+        Dim PreReqs As New EVESkillList(False)
         Dim TempSkill As New EVESkill
         Dim readerSkills As SQLiteDataReader
 

@@ -23,12 +23,8 @@ Public Class EVEWallet
 
         ' See what ID we use
         Dim CharID As Long = 0
-        If UserApplicationSettings.LoadBPsbyChar Then
-            ' Use the ID sent
-            CharID = SelectedCharacter.ID
-        Else
-            CharID = CommonLoadBPsID
-        End If
+        ' Use the ID sent
+        CharID = SelectedCharacter.ID
 
         ' Load
         SQL = "SELECT WALLET "
