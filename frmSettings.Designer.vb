@@ -104,6 +104,7 @@ Partial Class frmSettings
         Me.txtBrokerCorpStanding.Name = "txtBrokerCorpStanding"
         Me.txtBrokerCorpStanding.Size = New System.Drawing.Size(50, 22)
         Me.txtBrokerCorpStanding.TabIndex = 26
+        Me.txtBrokerCorpStanding.Text = "5"
         Me.txtBrokerCorpStanding.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'chkBrokerCorpStanding
@@ -124,6 +125,7 @@ Partial Class frmSettings
         Me.txtBrokerFactionStanding.Name = "txtBrokerFactionStanding"
         Me.txtBrokerFactionStanding.Size = New System.Drawing.Size(50, 22)
         Me.txtBrokerFactionStanding.TabIndex = 28
+        Me.txtBrokerFactionStanding.Text = "5"
         Me.txtBrokerFactionStanding.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'chkBrokerFactionStanding
@@ -182,6 +184,7 @@ Partial Class frmSettings
         Me.txtDefaultTE.Name = "txtDefaultTE"
         Me.txtDefaultTE.Size = New System.Drawing.Size(50, 22)
         Me.txtDefaultTE.TabIndex = 26
+        Me.txtDefaultTE.Text = "10"
         Me.txtDefaultTE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'chkDefaultTE
@@ -201,6 +204,7 @@ Partial Class frmSettings
         Me.txtDefaultME.Name = "txtDefaultME"
         Me.txtDefaultME.Size = New System.Drawing.Size(50, 22)
         Me.txtDefaultME.TabIndex = 22
+        Me.txtDefaultME.Text = "5"
         Me.txtDefaultME.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'chkDefaultME
