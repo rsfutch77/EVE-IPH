@@ -7044,7 +7044,7 @@ ExitCalc:
         'Check if the player can fly a freighter and get the amount of space in their cargohold
         'Check base skills, then check racial skills, then check if they have one already or at least enough money
         Dim cargoVolume As Double = 5000 '5000 is the default volume if they don't have any other ships
-        Dim transportFreighter As Boolean
+        Dim transportFreighter As Boolean = False
         If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
             If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
                 'Galente
@@ -7104,6 +7104,7 @@ ExitCalc:
 
         'If they can fly a freighter, allow ship blueprints
         'If not, recommend training into a freighter
+        allowAutoShopShips = False
         If transportFreighter = True Then
             allowAutoShopShips = True
         End If
