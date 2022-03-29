@@ -23,7 +23,6 @@ Partial Class frmSettings
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.btnSave = New System.Windows.Forms.Button()
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         Me.chkBeanCounterManufacturing = New System.Windows.Forms.CheckBox()
         Me.cmbBeanCounterManufacturing = New System.Windows.Forms.ComboBox()
@@ -48,16 +47,6 @@ Partial Class frmSettings
         Me.gbStationStandings.SuspendLayout()
         Me.gbDefaultMEPE.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(365, 62)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(126, 38)
-        Me.btnSave.TabIndex = 29
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
         '
         'chkDisableTracking
         '
@@ -290,7 +279,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.chkSuggestBuildwhenBPnotOwned)
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
-        Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.gbStationStandings)
         Me.Controls.Add(Me.gbDefaultMEPE)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -304,7 +292,6 @@ Partial Class frmSettings
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents chkBeanCounterManufacturing As System.Windows.Forms.CheckBox
     Friend WithEvents cmbBeanCounterManufacturing As System.Windows.Forms.ComboBox
     Friend WithEvents gbStationStandings As System.Windows.Forms.GroupBox
