@@ -40,7 +40,6 @@ Public Class ProgramSettings
 
     Public DefaultCheckUpdatesOnStart As Boolean = True
     Public DefaultAllowSkillOverride As Boolean = False
-    Public DefaultDataExportFormat As String = "Default"
     Public DefaultShowToolTips As Boolean = True
     Public DefaultLoadAssetsonStartup As Boolean = True
     Public DefaultLoadBPsonStartup As Boolean = True
@@ -98,7 +97,6 @@ Public Class ProgramSettings
     Public DefaultLoadMaxAlphaSkills As Boolean = False
 
     ' SVR Stuff
-    Public DefaultIgnoreSVRThresholdValue As Double = 0.0
     Public DefaultAutoUpdateSVRonBPTab As Boolean = True
 
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False
@@ -516,7 +514,6 @@ Public Class ProgramSettings
 
                 'Get the settings
                 With TempSettings
-                    .DataExportFormat = CStr(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeString, AppSettingsFileName, "DataExportFormat", DefaultDataExportFormat))
                     .AllowSkillOverride = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AllowSkillOverride", DefaultAllowSkillOverride))
                     .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
                     .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
@@ -526,7 +523,6 @@ Public Class ProgramSettings
                     .CheckBuildBuy = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckBuildBuy", DefaultCheckBuildBuy))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                     .SuggestBuildBPNotOwned = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SuggestBuildBPNotOwned", DefaultSuggestBuildBPNotOwned))
-                    .IgnoreSVRThresholdValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "IgnoreSVRThresholdValue", DefaultIgnoreSVRThresholdValue))
                     .AutoUpdateSVRonBPTab = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AutoUpdateSVRonBPTab", DefaultAutoUpdateSVRonBPTab))
                     .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
                 End With
@@ -555,7 +551,6 @@ Public Class ProgramSettings
 
         With TempSettings
             ' Load default settings
-            .DataExportFormat = DefaultDataExportFormat
             .ManufacturingImplantValue = DefaultImplantValues
 
             ' Station Standings for building and selling
@@ -571,7 +566,6 @@ Public Class ProgramSettings
 
             .DisableGATracking = DefaultDisableGATracking
             .SuggestBuildBPNotOwned = DefaultSuggestBuildBPNotOwned
-            .IgnoreSVRThresholdValue = DefaultIgnoreSVRThresholdValue
             .AutoUpdateSVRonBPTab = DefaultAutoUpdateSVRonBPTab
 
         End With
@@ -584,22 +578,20 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(12) As Setting
+        Dim ApplicationSettingsList(10) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
-            ApplicationSettingsList(1) = New Setting("DataExportFormat", CStr(SentSettings.DataExportFormat))
-            ApplicationSettingsList(2) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(3) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(4) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
-            ApplicationSettingsList(5) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(6) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
-            ApplicationSettingsList(7) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
-            ApplicationSettingsList(8) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(9) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
-            ApplicationSettingsList(10) = New Setting("IgnoreSVRThresholdValue", CStr(SentSettings.IgnoreSVRThresholdValue))
-            ApplicationSettingsList(11) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
-            ApplicationSettingsList(12) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(1) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
+            ApplicationSettingsList(2) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
+            ApplicationSettingsList(3) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
+            ApplicationSettingsList(4) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
+            ApplicationSettingsList(5) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
+            ApplicationSettingsList(6) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
+            ApplicationSettingsList(7) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
+            ApplicationSettingsList(8) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
+            ApplicationSettingsList(9) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
+            ApplicationSettingsList(10) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -626,7 +618,6 @@ Public Class ProgramSettings
             If FileExists(SettingsFolder, ShoppingListSettingsFileName) Then
                 'Get the settings
                 With TempSettings
-                    .DataExportFormat = CStr(GetSettingValue(SettingsFolder, ShoppingListSettingsFileName, SettingTypes.TypeString, ShoppingListSettingsFileName, "DataExportFormat", DefaultDataExportFormat))
                     .AlwaysonTop = CBool(GetSettingValue(SettingsFolder, ShoppingListSettingsFileName, SettingTypes.TypeBoolean, ShoppingListSettingsFileName, "AlwaysonTop", DefaultAlwaysonTop))
                     .UpdateAssetsWhenUsed = CBool(GetSettingValue(SettingsFolder, ShoppingListSettingsFileName, SettingTypes.TypeBoolean, ShoppingListSettingsFileName, "UpdateAssetsWhenUsed", DefaultUpdateAssetsWhenUsed))
                     .Fees = CBool(GetSettingValue(SettingsFolder, ShoppingListSettingsFileName, SettingTypes.TypeBoolean, ShoppingListSettingsFileName, "Fees", DefaultFees))
@@ -656,8 +647,7 @@ Public Class ProgramSettings
     Public Function SetDefaultShopingListSettings() As ShoppingListSettings
         Dim TempSettings As ShoppingListSettings = Nothing
 
-        ' Load defaults 
-        TempSettings.DataExportFormat = DefaultDataExportFormat
+        ' Load defaults
         TempSettings.AlwaysonTop = DefaultAlwaysonTop
         TempSettings.UpdateAssetsWhenUsed = DefaultUpdateAssetsWhenUsed
         TempSettings.UpdateAssetsWhenUsed = DefaultUpdateAssetsWhenUsed
@@ -674,16 +664,15 @@ Public Class ProgramSettings
 
     ' Saves the Shopping List Settings to XML
     Public Sub SaveShoppingListSettings(SentSettings As ShoppingListSettings)
-        Dim ShoppingListSettingsList(6) As Setting
+        Dim ShoppingListSettingsList(5) As Setting
 
         Try
-            ShoppingListSettingsList(0) = New Setting("DataExportFormat", CStr(SentSettings.DataExportFormat))
-            ShoppingListSettingsList(1) = New Setting("AlwaysonTop", CStr(SentSettings.AlwaysonTop))
-            ShoppingListSettingsList(2) = New Setting("UpdateAssetsWhenUsed", CStr(SentSettings.UpdateAssetsWhenUsed))
-            ShoppingListSettingsList(3) = New Setting("Fees", CStr(SentSettings.Fees))
-            ShoppingListSettingsList(4) = New Setting("CalcBuyBuyOrder", CStr(SentSettings.CalcBuyBuyOrder))
-            ShoppingListSettingsList(5) = New Setting("Usage", CStr(SentSettings.Usage))
-            ShoppingListSettingsList(6) = New Setting("ReloadBPsFromFile", CStr(SentSettings.ReloadBPsFromFile))
+            ShoppingListSettingsList(0) = New Setting("AlwaysonTop", CStr(SentSettings.AlwaysonTop))
+            ShoppingListSettingsList(1) = New Setting("UpdateAssetsWhenUsed", CStr(SentSettings.UpdateAssetsWhenUsed))
+            ShoppingListSettingsList(2) = New Setting("Fees", CStr(SentSettings.Fees))
+            ShoppingListSettingsList(3) = New Setting("CalcBuyBuyOrder", CStr(SentSettings.CalcBuyBuyOrder))
+            ShoppingListSettingsList(4) = New Setting("Usage", CStr(SentSettings.Usage))
+            ShoppingListSettingsList(5) = New Setting("ReloadBPsFromFile", CStr(SentSettings.ReloadBPsFromFile))
 
             Call WriteSettingsToFile(SettingsFolder, ShoppingListSettingsFileName, ShoppingListSettingsList, ShoppingListSettingsFileName)
 
@@ -1595,7 +1584,6 @@ End Class
 
 ' For general program settings
 Public Structure ApplicationSettings
-    Dim DataExportFormat As String
     Dim AllowSkillOverride As Boolean
 
     Dim ManufacturingImplantValue As Double
@@ -1618,7 +1606,6 @@ Public Structure ApplicationSettings
     Dim AlphaAccount As Boolean ' Check to determine if they are using an alpha account or not
 
     ' Filter variables for svr
-    Dim IgnoreSVRThresholdValue As Double
     Dim AutoUpdateSVRonBPTab As Boolean
 
 End Structure
@@ -2026,7 +2013,6 @@ End Structure
 
 ' For the Shopping List
 Public Structure ShoppingListSettings
-    Dim DataExportFormat As String
     Dim AlwaysonTop As Boolean
     Dim UpdateAssetsWhenUsed As Boolean
     Dim Fees As Boolean

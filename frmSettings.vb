@@ -95,52 +95,16 @@ Public Class frmSettings
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub rbtnExportDefault_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnExportDefault.CheckedChanged
+    Private Sub rbtnExportDefault_CheckedChanged(sender As System.Object, e As System.EventArgs)
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub rbtnExportCSV_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnExportCSV.CheckedChanged
+    Private Sub rbtnExportCSV_CheckedChanged(sender As System.Object, e As System.EventArgs)
         btnSave.Text = "Save"
     End Sub
 
-    Private Sub rbtnExportSSV_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbtnExportSSV.CheckedChanged
+    Private Sub rbtnExportSSV_CheckedChanged(sender As System.Object, e As System.EventArgs)
         btnSave.Text = "Save"
-    End Sub
-
-    Private Sub cmbSVRAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
-    Private Sub txtSVRThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtSVRThreshold.KeyPress
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                btnSave.Text = "Save"
-            End If
-        End If
-    End Sub
-
-    Private Sub cmbSVRRegion_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles cmbSVRRegion.KeyPress
-        e.Handled = True
-    End Sub
-
-    Private Sub txtDefaultME_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtDefaultME.KeyPress
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            End If
-        End If
     End Sub
 
     Private Sub txtDefaultTE_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtDefaultTE.KeyPress
@@ -171,18 +135,10 @@ Public Class frmSettings
 
         With ToolTip1
             ' General
-            .SetToolTip(rbtnExportCSV, "Exports data in Common Separated Values with periods for decimals")
             .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
 
             ' SVR Settings
-            .SetToolTip(lblSVRThreshold, "When set, this will be the default threshold for Sales to Volume Ratio on the BP and Manufacturing tabs")
-            .SetToolTip(lblSVRRegion, "When set, this will be the default region for Sales to Volume Ratio calcuations on the BP and Manufacturing tabs")
             .SetToolTip(chkAutoUpdateSVRBPTab, "When set, the Sales to Volume Ratio will be updated on the BP tab when a Blueprint is selected")
-
-            ' Export Data
-            .SetToolTip(rbtnExportSSV, "Exports data in SemiColon Separated Values with commas for decimals")
-            .SetToolTip(rbtnExportDefault, "Exports data in basic space or dashes to separate data for easy readability")
-            .SetToolTip(rbtnExportCSV, "Exports data in Comma Separated Values")
 
             ' Character Options
             .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
@@ -202,14 +158,6 @@ Public Class frmSettings
         UserApplicationSettings = AllSettings.LoadApplicationSettings()
 
         With UserApplicationSettings
-            If rbtnExportCSV.Text = .DataExportFormat Then
-                rbtnExportCSV.Checked = True
-            ElseIf rbtnExportSSV.Text = .DataExportFormat Then
-                rbtnExportSSV.Checked = True
-            ElseIf rbtnExportDefault.Text = .DataExportFormat Then
-                rbtnExportDefault.Checked = True
-            End If
-
             If .BrokerCorpStanding = Defaults.DefaultBrokerCorpStanding Then
                 ' Default
                 chkBrokerCorpStanding.Checked = False
@@ -277,7 +225,6 @@ Public Class frmSettings
                 txtDefaultTE.Enabled = True
             End If
 
-            txtSVRThreshold.Text = CStr(.IgnoreSVRThresholdValue)
             chkAutoUpdateSVRBPTab.Checked = .AutoUpdateSVRonBPTab
 
         End With
@@ -316,14 +263,6 @@ Public Class frmSettings
 
             With TempSettings
 
-                If rbtnExportDefault.Checked Then
-                    .DataExportFormat = rbtnExportDefault.Text
-                ElseIf rbtnExportCSV.Checked Then
-                    .DataExportFormat = rbtnExportCSV.Text
-                ElseIf rbtnExportSSV.Checked Then
-                    .DataExportFormat = rbtnExportSSV.Text
-                End If
-
                 ' Standings
                 .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
                 .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
@@ -340,7 +279,6 @@ Public Class frmSettings
 
                 .AlphaAccount = chkAlphaAccount.Checked
                 ' SVR
-                .IgnoreSVRThresholdValue = CDbl(txtSVRThreshold.Text)
                 .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
 
             End With
@@ -432,24 +370,6 @@ InvalidData:
         Return False
 
     End Function
-
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
-        If SelectedReset Then
-            ' If we hit reset, then we need to get the current list of settings, not just what is loaded (might be defaults)
-            ' So just reload the settings
-            UserApplicationSettings = AllSettings.LoadApplicationSettings()
-        End If
-        Me.Hide()
-    End Sub
-
-    Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
-        SelectedReset = True
-        ' Load default settings
-        UserApplicationSettings = AllSettings.SetDefaultApplicationSettings()
-        ' Reload the form
-        Call LoadFormSettings()
-
-    End Sub
 
     Private Sub chkUseActiveSkills_CheckedChanged(sender As Object, e As EventArgs)
         ' They changed active skills, so reload character skills on exit

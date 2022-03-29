@@ -257,6 +257,8 @@ Public Class frmMain
     Private Const AveragePriceDays As Integer = 15
     Public DefaultSVRAveragePriceRegion As String = "The Forge"
     Private CalculateCancelled As Boolean
+    Public DefaultIgnoreSVRThresholdValue As Double = 0.0
+    Public DefaultDataExportFormat As String = "Default"
 
     ' Column width consts - may change depending on Ore, Ice or Gas so change the widths of the columns based on these and use them to add and move
     Private Const MineOreNameColumnWidth As Integer = 120
@@ -3502,28 +3504,12 @@ ExitSub:
         Dim Separator As String
         Dim FileHeader As String
 
-        If UserApplicationSettings.DataExportFormat = CSVDataExport Then
-            ' Save file name with date
-            FileName = "Price List - " & Format(Now, "MMddyyyy") & ".csv"
-            ExportTypeString = CSVDataExport
-            Separator = ","
-            FileHeader = PriceListHeaderCSV
-            SaveFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*"
-        ElseIf UserApplicationSettings.DataExportFormat = SSVDataExport Then
-            ' Save file name with date
-            FileName = "Price List - " & Format(Now, "MMddyyyy") & ".ssv"
-            ExportTypeString = SSVDataExport
-            Separator = ";"
-            FileHeader = PriceListHeaderSSV
-            SaveFileDialog.Filter = "ssv files (*.ssv*)|*.ssv*|All files (*.*)|*.*"
-        Else
-            ' Save file name with date
-            FileName = "Price List - " & Format(Now, "MMddyyyy") & ".txt"
-            ExportTypeString = DefaultTextDataExport
-            Separator = "|"
-            FileHeader = PriceListHeaderTXT
-            SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-        End If
+        ' Save file name with date
+        FileName = "Price List - " & Format(Now, "MMddyyyy") & ".txt"
+        ExportTypeString = DefaultTextDataExport
+        Separator = "|"
+        FileHeader = PriceListHeaderTXT
+        SaveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 
         SaveFileDialog.FilterIndex = 1
         SaveFileDialog.RestoreDirectory = True
@@ -3599,25 +3585,12 @@ ExitSub:
         Dim Separator As String = ""
         Dim FileType As String
 
-        If UserApplicationSettings.DataExportFormat = CSVDataExport Then
-            FileType = CSVDataExport
-            openFileDialog1.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*"
-            openFileDialog1.FileName = "*.csv"
-            openFileDialog1.FilterIndex = 2
-            openFileDialog1.RestoreDirectory = True
-        ElseIf UserApplicationSettings.DataExportFormat = SSVDataExport Then
-            FileType = SSVDataExport
-            openFileDialog1.Filter = "ssv files (*.ssv*)|*.ssv*|All files (*.*)|*.*"
-            openFileDialog1.FileName = "*.ssv"
-            openFileDialog1.FilterIndex = 2
-            openFileDialog1.RestoreDirectory = True
-        Else
-            FileType = DefaultTextDataExport
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-            openFileDialog1.FileName = "*.txt"
-            openFileDialog1.FilterIndex = 2
-            openFileDialog1.RestoreDirectory = True
-        End If
+
+        FileType = DefaultTextDataExport
+        openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        openFileDialog1.FileName = "*.txt"
+        openFileDialog1.FilterIndex = 2
+        openFileDialog1.RestoreDirectory = True
 
         If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             Try
@@ -3740,70 +3713,6 @@ ExitPRocessing:
             Next
         End If
 
-    End Sub
-
-    Private Sub cmbCalcFWUpgrade_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        e.Handled = True
-    End Sub
-
-    Private Sub txtCalcProdLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                Call ResetRefresh()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtCalcBPs_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                Call ResetRefresh()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtCalcLabLines_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                Call ResetRefresh()
-            End If
-        End If
-    End Sub
-
-    Private Sub cmbCalcAvgPriceDuration_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                Call ResetRefresh()
-            End If
-        End If
-    End Sub
-
-    Private Sub txtCalcSVRThreshold_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
-        ' Only allow numbers, decimal, negative or backspace
-        If e.KeyChar <> ControlChars.Back Then
-            If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
-                ' Invalid Character
-                e.Handled = True
-            Else
-                Call ResetRefresh()
-            End If
-        End If
     End Sub
 
     Private Sub txtTempME_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
@@ -4898,11 +4807,6 @@ ExitPRocessing:
             .ProfitThresholdCheck = CheckState.Unchecked
             .ProfitThreshold = 0
 
-            ' Save these here as well as in settings
-            With UserApplicationSettings
-                .IgnoreSVRThresholdValue = 0
-            End With
-
             Call Settings.SaveApplicationSettings(UserApplicationSettings)
 
         End With
@@ -4967,7 +4871,7 @@ ExitPRocessing:
         Dim T1BPCMaxRuns As Integer = 0
 
         ' SVR Threshold
-        Dim SVRThresholdValue As Double
+        Dim SVRThresholdValue As Double = DefaultIgnoreSVRThresholdValue
         Dim TypeIDCheck As String = ""
 
         ' Number of blueprints used
@@ -6122,21 +6026,13 @@ ExitCalc:
         Dim ExportColumns As New List(Of String)
         Dim NumItems As Integer = 0
 
-        If UserApplicationSettings.DataExportFormat = SSVDataExport Then
-            ' Save file name with date
-            FileName = "Manufacturing Calculations Export - " & Format(Now, "MMddyyyy") & ".ssv"
+        ' All others in CSV for now
+        ' Save file name with date
+        FileName = "Manufacturing Calculations Export - " & Format(Now, "MMddyyyy") & ".csv"
 
-            ' Show the dialog
-            SaveFileDialog.Filter = "ssv files (*.ssv)|*.ssv|All files (*.*)|*.*"
-            Separator = ";"
-        Else ' All others in CSV for now
-            ' Save file name with date
-            FileName = "Manufacturing Calculations Export - " & Format(Now, "MMddyyyy") & ".csv"
-
-            ' Show the dialog
-            SaveFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*"
-            Separator = ","
-        End If
+        ' Show the dialog
+        SaveFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*"
+        Separator = ","
 
         SaveFileDialog.FilterIndex = 1
         SaveFileDialog.RestoreDirectory = True
@@ -6174,7 +6070,7 @@ ExitCalc:
                             OutputText = ""
                             For j = 0 To ExportColumns.Count - 1
                                 ' Format each column value and save
-                                OutputText = OutputText & GetOutputText(ExportColumns(j), Price.SubItems(j + 1).Text, Separator, UserApplicationSettings.DataExportFormat)
+                                OutputText = OutputText & GetOutputText(ExportColumns(j), Price.SubItems(j + 1).Text, Separator, DefaultDataExportFormat)
                             Next
 
                             ' For each record, update the progress bar

@@ -481,7 +481,6 @@ Public Class frmShoppingList
         Dim TempList As ShoppingListSettings = Nothing
         Dim TempSettings As New ProgramSettings
 
-        TempList.DataExportFormat = rbtnExportMulitBuy.Text
         TempList.UpdateAssetsWhenUsed = False
         TempList.Usage = True
         TempList.Fees = True

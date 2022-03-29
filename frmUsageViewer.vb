@@ -10,15 +10,6 @@ Public Class frmUsageViewer
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
-        If rbtnExportCSV.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportCSV.Checked = True
-        ElseIf rbtnExportSSV.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportSSV.Checked = True
-        ElseIf rbtnExportDefault.Text = UserApplicationSettings.DataExportFormat Then
-            rbtnExportDefault.Checked = True
-        End If
-
         UsageSplits = New List(Of UsageSplit)
 
     End Sub
