@@ -14,79 +14,6 @@ Public Class frmSettings
 
 #Region "Click object Functions"
 
-    Private Sub btnSave_Click()
-        Dim TempSettings As ApplicationSettings = Nothing
-
-        ' Default values are 0 for implants in settings, since the value stored will get added later. This is the value bonus of the implant
-        Dim RefineImplantValue As Double = 0
-        Dim ManufacturingImplantValue As Double = 0
-        Dim CopyImplantValue As Double = 0
-
-        Dim Settings As New ProgramSettings
-        Dim ReloadFacilties As Boolean = False
-
-        ' Make sure accurate data is entered
-        If Not CheckEntries() Then
-            Exit Sub
-        End If
-
-        Cursor.Current = Cursors.WaitCursor
-        Me.Enabled = False
-
-        ' Get the implant values if set
-        If chkBeanCounterManufacturing.Checked Then
-            ManufacturingImplantValue = -1 * GetAttribute("manufacturingTimeBonus", cmbBeanCounterManufacturing.Text) / 100
-        End If
-
-        With TempSettings
-
-            ' Standings
-            .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
-            .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
-
-            ' Default build/buy
-            .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
-
-            .DefaultBPME = CInt(txtDefaultME.Text)
-            .DefaultBPTE = CInt(txtDefaultTE.Text)
-
-            .DisableGATracking = chkDisableTracking.Checked
-
-            .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
-
-            .AlphaAccount = chkAlphaAccount.Checked
-            ' SVR
-            .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
-
-        End With
-
-        ' Save the data in the XML file
-        Call Settings.SaveApplicationSettings(TempSettings)
-
-        ' Save the data to the local variable
-        UserApplicationSettings = TempSettings
-
-        ' They changed the active skill levels, update skills now with new application settings
-        If ReloadSkills Then
-            ' Set the flag first
-            Call SelectedCharacter.Skills.LoadCharacterSkills(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
-        End If
-
-        ' If they changed what the original value was for the shared facilities, reload them
-        If ReloadFacilties Then
-            ' Load all the forms' facilities 
-            Call frmMain.LoadFacilities()
-        End If
-
-        ' Re-init any tabs that have settings changes before displaying dialog
-        Call frmMain.ResetTabs(False)
-        Call frmMain.ResetRefresh()
-
-        Me.Enabled = True
-        Cursor.Current = Cursors.Default
-
-    End Sub
-
     Private Sub chkBeanCounterManufacturing_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBeanCounterManufacturing.CheckedChanged
         If Not FirstLoad Then
             If chkBeanCounterManufacturing.Checked Then
@@ -97,7 +24,7 @@ Public Class frmSettings
                 cmbBeanCounterManufacturing.Text = ""
             End If
         End If
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub chkBrokerCorpStanding_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBrokerCorpStanding.CheckedChanged
@@ -108,7 +35,7 @@ Public Class frmSettings
             txtBrokerCorpStanding.Enabled = False
             txtBrokerCorpStanding.Text = FormatNumber(Defaults.DefaultBrokerCorpStanding, 2)
         End If
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub chkBrokerFactionStanding_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBrokerFactionStanding.CheckedChanged
@@ -119,7 +46,7 @@ Public Class frmSettings
             txtBrokerFactionStanding.Enabled = False
             txtBrokerFactionStanding.Text = FormatNumber(Defaults.DefaultBrokerFactionStanding, 2)
         End If
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub txtBrokerFactionStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBrokerFactionStanding.KeyPress
@@ -143,7 +70,7 @@ Public Class frmSettings
     End Sub
 
     Private Sub chkBuildBuyDefault_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBuildBuyDefault.CheckedChanged
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub chkDefaultME_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDefaultME.CheckedChanged
@@ -154,7 +81,7 @@ Public Class frmSettings
             txtDefaultME.Enabled = False
             txtDefaultME.Text = FormatNumber(Defaults.DefaultSettingME, 0)
         End If
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub chkDefaultPE_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDefaultTE.CheckedChanged
@@ -165,19 +92,19 @@ Public Class frmSettings
             txtDefaultTE.Enabled = False
             txtDefaultTE.Text = FormatNumber(Defaults.DefaultSettingTE, 0)
         End If
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub rbtnExportDefault_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub rbtnExportCSV_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub rbtnExportSSV_CheckedChanged(sender As System.Object, e As System.EventArgs)
-        btnSave_Click()
+        'btnSave.Text = "Save"
     End Sub
 
     Private Sub txtDefaultTE_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtDefaultTE.KeyPress
@@ -200,7 +127,7 @@ Public Class frmSettings
         ' Add any initialization after the InitializeComponent() call.
         SSLoaded = False
         RegionLoaded = False
-        btnSave_Click()
+        'btnSave.Text = "Save"
         FirstLoad = True
         SelectedReset = False
         SVRComboLoaded = False
@@ -303,6 +230,92 @@ Public Class frmSettings
         End With
 
         FirstLoad = False
+
+        'btnSave.Focus()
+
+    End Sub
+
+    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim TempSettings As ApplicationSettings = Nothing
+
+        ' Default values are 0 for implants in settings, since the value stored will get added later. This is the value bonus of the implant
+        Dim RefineImplantValue As Double = 0
+        Dim ManufacturingImplantValue As Double = 0
+        Dim CopyImplantValue As Double = 0
+
+        Dim Settings As New ProgramSettings
+        Dim ReloadFacilties As Boolean = False
+
+        If True Then 'btnSave.Text = "Save" Then
+
+            ' Make sure accurate data is entered
+            If Not CheckEntries() Then
+                Exit Sub
+            End If
+
+            Cursor.Current = Cursors.WaitCursor
+            Me.Enabled = False
+
+            ' Get the implant values if set
+            If chkBeanCounterManufacturing.Checked Then
+                ManufacturingImplantValue = -1 * GetAttribute("manufacturingTimeBonus", cmbBeanCounterManufacturing.Text) / 100
+            End If
+
+            With TempSettings
+
+                ' Standings
+                .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
+                .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
+
+                ' Default build/buy
+                .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
+
+                .DefaultBPME = CInt(txtDefaultME.Text)
+                .DefaultBPTE = CInt(txtDefaultTE.Text)
+
+                .DisableGATracking = chkDisableTracking.Checked
+
+                .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
+
+                .AlphaAccount = chkAlphaAccount.Checked
+                ' SVR
+                .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
+
+            End With
+
+            ' Save the data in the XML file
+            Call Settings.SaveApplicationSettings(TempSettings)
+
+            ' Save the data to the local variable
+            UserApplicationSettings = TempSettings
+
+            ' They changed the active skill levels, update skills now with new application settings
+            If ReloadSkills Then
+                ' Set the flag first
+                Call SelectedCharacter.Skills.LoadCharacterSkills(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
+            End If
+
+            ' If they changed what the original value was for the shared facilities, reload them
+            If ReloadFacilties Then
+                ' Load all the forms' facilities 
+                Call frmMain.LoadFacilities()
+            End If
+
+            ' Re-init any tabs that have settings changes before displaying dialog
+            Call frmMain.ResetTabs(False)
+            Call frmMain.ResetRefresh()
+
+            MsgBox("Settings Saved", vbInformation, Application.ProductName)
+
+            'btnSave.Text = "OK"
+            Me.Enabled = True
+            Cursor.Current = Cursors.Default
+        Else
+            ' Just exit
+            Me.Hide()
+        End If
+
+        'btnSave.Focus()
 
     End Sub
 
