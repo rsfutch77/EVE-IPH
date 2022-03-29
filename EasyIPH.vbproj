@@ -247,12 +247,6 @@
     <Compile Include="frmReqSkills.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmUsageViewer.Designer.vb">
-      <DependentUpon>frmUsageViewer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmUsageViewer.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="EVEBlueprints.vb" />
     <Compile Include="frmCopyandPaste.Designer.vb">
       <DependentUpon>frmCopyandPaste.vb</DependentUpon>
@@ -389,10 +383,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmReqSkills.resx">
       <DependentUpon>frmReqSkills.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmUsageViewer.resx">
-      <DependentUpon>frmUsageViewer.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCopyandPaste.resx">
       <DependentUpon>frmCopyandPaste.vb</DependentUpon>
