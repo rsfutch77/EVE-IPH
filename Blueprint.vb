@@ -4,6 +4,9 @@ Imports System.Data.SQLite
 
 Public Class Blueprint
 
+    Public DefaultSettingME As Integer = 5
+    Public DefaultSettingTE As Integer = 10
+
     ' Base variables
     Private BlueprintID As Integer
     Private BaseBP As Boolean ' for knowing the base bp opposed to component bps
@@ -603,7 +606,7 @@ Public Class Blueprint
                     Dim ItemRiskPrice As Double = 0
                     Dim OwnedBP As Boolean
 
-                    Call GetMETEforBP(ComponentBlueprint.BlueprintID, ComponentBlueprint.TechLevel, BPUserSettings.DefaultBPME, BPUserSettings.DefaultBPTE, OwnedBP)
+                    Call GetMETEforBP(ComponentBlueprint.BlueprintID, ComponentBlueprint.TechLevel, DefaultSettingME, DefaultSettingTE, OwnedBP)
 
                     ' Reset item name
                     If .ItemName.Contains("(") Then
@@ -1705,8 +1708,8 @@ SkipProcessing:
                 RefTE = BaseT2T3TE
             Else
                 If Not IsReaction(ItemGroupID) Then
-                    RefME = BPUserSettings.DefaultBPME
-                    RefTE = BPUserSettings.DefaultBPTE
+                    RefME = DefaultSettingME
+                    RefTE = DefaultSettingTE
                 Else
                     RefME = 0
                     RefTE = 0

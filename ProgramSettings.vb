@@ -84,9 +84,6 @@ Public Class ProgramSettings
     Public DefaultIgnoreRareandShipSkinBPs As Boolean = True
     Public DefaultSaveBPRelicsDecryptors As Boolean = False
 
-    Public DefaultSettingME As Integer = 0
-    Public DefaultSettingTE As Integer = 0
-
     Public DefaultDisableSVR As Boolean = False
     Public DefaultDisableGATracking As Boolean = False
     Public DefaultShareSavedFacilities As Boolean = True
@@ -518,8 +515,6 @@ Public Class ProgramSettings
                     .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
                     .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
                     .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
-                    .DefaultBPME = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "DefaultBPME", DefaultSettingME))
-                    .DefaultBPTE = CInt(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeInteger, AppSettingsFileName, "DefaultBPTE", DefaultSettingTE))
                     .CheckBuildBuy = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckBuildBuy", DefaultCheckBuildBuy))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                     .SuggestBuildBPNotOwned = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SuggestBuildBPNotOwned", DefaultSuggestBuildBPNotOwned))
@@ -559,9 +554,6 @@ Public Class ProgramSettings
 
             .CheckBuildBuy = DefaultCheckBuildBuy
 
-            .DefaultBPME = DefaultSettingME
-            .DefaultBPTE = DefaultSettingTE
-
             .AlphaAccount = DefaultAlphaAccount
 
             .DisableGATracking = DefaultDisableGATracking
@@ -578,7 +570,7 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(10) As Setting
+        Dim ApplicationSettingsList(8) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
@@ -586,12 +578,10 @@ Public Class ProgramSettings
             ApplicationSettingsList(2) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
             ApplicationSettingsList(3) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
             ApplicationSettingsList(4) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(5) = New Setting("DefaultBPME", CStr(SentSettings.DefaultBPME))
-            ApplicationSettingsList(6) = New Setting("DefaultBPTE", CStr(SentSettings.DefaultBPTE))
-            ApplicationSettingsList(7) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(8) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
-            ApplicationSettingsList(9) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
-            ApplicationSettingsList(10) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(5) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
+            ApplicationSettingsList(6) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
+            ApplicationSettingsList(7) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
+            ApplicationSettingsList(8) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1591,10 +1581,6 @@ Public Structure ApplicationSettings
     ' Station Standings for building and selling
     Dim BrokerCorpStanding As Double
     Dim BrokerFactionStanding As Double
-
-    ' ME/TE for BP's we don't own or haven't entered info for
-    Dim DefaultBPME As Integer
-    Dim DefaultBPTE As Integer
 
     ' For Build/Buy 
     Dim CheckBuildBuy As Boolean ' Default for setting the check box for build/buy on the blueprints screen

@@ -33,11 +33,6 @@ Partial Class frmSettings
         Me.chkBrokerFactionStanding = New System.Windows.Forms.CheckBox()
         Me.chkBuildBuyDefault = New System.Windows.Forms.CheckBox()
         Me.chkSuggestBuildwhenBPnotOwned = New System.Windows.Forms.CheckBox()
-        Me.gbDefaultMEPE = New System.Windows.Forms.GroupBox()
-        Me.txtDefaultTE = New System.Windows.Forms.TextBox()
-        Me.chkDefaultTE = New System.Windows.Forms.CheckBox()
-        Me.txtDefaultME = New System.Windows.Forms.TextBox()
-        Me.chkDefaultME = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.chkAutoUpdateSVRBPTab = New System.Windows.Forms.CheckBox()
         Me.chkAlphaAccount = New System.Windows.Forms.CheckBox()
@@ -45,7 +40,6 @@ Partial Class frmSettings
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.gbStationStandings.SuspendLayout()
-        Me.gbDefaultMEPE.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkDisableTracking
@@ -162,61 +156,6 @@ Partial Class frmSettings
         Me.chkSuggestBuildwhenBPnotOwned.Text = "Suggest Build option when BP not owned"
         Me.chkSuggestBuildwhenBPnotOwned.UseVisualStyleBackColor = True
         '
-        'gbDefaultMEPE
-        '
-        Me.gbDefaultMEPE.Controls.Add(Me.txtDefaultTE)
-        Me.gbDefaultMEPE.Controls.Add(Me.chkDefaultTE)
-        Me.gbDefaultMEPE.Controls.Add(Me.txtDefaultME)
-        Me.gbDefaultMEPE.Controls.Add(Me.chkDefaultME)
-        Me.gbDefaultMEPE.Location = New System.Drawing.Point(14, 285)
-        Me.gbDefaultMEPE.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbDefaultMEPE.Name = "gbDefaultMEPE"
-        Me.gbDefaultMEPE.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbDefaultMEPE.Size = New System.Drawing.Size(200, 79)
-        Me.gbDefaultMEPE.TabIndex = 34
-        Me.gbDefaultMEPE.TabStop = False
-        Me.gbDefaultMEPE.Text = "Default ME/TE:"
-        '
-        'txtDefaultTE
-        '
-        Me.txtDefaultTE.Location = New System.Drawing.Point(138, 46)
-        Me.txtDefaultTE.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtDefaultTE.Name = "txtDefaultTE"
-        Me.txtDefaultTE.Size = New System.Drawing.Size(50, 22)
-        Me.txtDefaultTE.TabIndex = 26
-        Me.txtDefaultTE.Text = "10"
-        Me.txtDefaultTE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'chkDefaultTE
-        '
-        Me.chkDefaultTE.Location = New System.Drawing.Point(11, 49)
-        Me.chkDefaultTE.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDefaultTE.Name = "chkDefaultTE"
-        Me.chkDefaultTE.Size = New System.Drawing.Size(106, 21)
-        Me.chkDefaultTE.TabIndex = 25
-        Me.chkDefaultTE.Text = "Default TE:"
-        Me.chkDefaultTE.UseVisualStyleBackColor = True
-        '
-        'txtDefaultME
-        '
-        Me.txtDefaultME.Location = New System.Drawing.Point(138, 19)
-        Me.txtDefaultME.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtDefaultME.Name = "txtDefaultME"
-        Me.txtDefaultME.Size = New System.Drawing.Size(50, 22)
-        Me.txtDefaultME.TabIndex = 22
-        Me.txtDefaultME.Text = "5"
-        Me.txtDefaultME.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'chkDefaultME
-        '
-        Me.chkDefaultME.Location = New System.Drawing.Point(11, 20)
-        Me.chkDefaultME.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDefaultME.Name = "chkDefaultME"
-        Me.chkDefaultME.Size = New System.Drawing.Size(106, 21)
-        Me.chkDefaultME.TabIndex = 21
-        Me.chkDefaultME.Text = "Default ME:"
-        Me.chkDefaultME.UseVisualStyleBackColor = True
-        '
         'chkAutoUpdateSVRBPTab
         '
         Me.chkAutoUpdateSVRBPTab.AutoSize = True
@@ -253,7 +192,7 @@ Partial Class frmSettings
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(22, 254)
+        Me.Label2.Location = New System.Drawing.Point(22, 348)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 16)
         Me.Label2.TabIndex = 43
@@ -284,14 +223,11 @@ Partial Class frmSettings
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
         Me.Controls.Add(Me.gbStationStandings)
-        Me.Controls.Add(Me.gbDefaultMEPE)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSettings"
         Me.Size = New System.Drawing.Size(831, 566)
         Me.gbStationStandings.ResumeLayout(False)
         Me.gbStationStandings.PerformLayout()
-        Me.gbDefaultMEPE.ResumeLayout(False)
-        Me.gbDefaultMEPE.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -304,11 +240,6 @@ Partial Class frmSettings
     Friend WithEvents txtBrokerFactionStanding As System.Windows.Forms.TextBox
     Friend WithEvents chkBrokerFactionStanding As System.Windows.Forms.CheckBox
     Friend WithEvents chkBuildBuyDefault As System.Windows.Forms.CheckBox
-    Friend WithEvents gbDefaultMEPE As System.Windows.Forms.GroupBox
-    Friend WithEvents txtDefaultTE As System.Windows.Forms.TextBox
-    Friend WithEvents chkDefaultTE As System.Windows.Forms.CheckBox
-    Friend WithEvents txtDefaultME As System.Windows.Forms.TextBox
-    Friend WithEvents chkDefaultME As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents chkSuggestBuildwhenBPnotOwned As System.Windows.Forms.CheckBox
     Friend WithEvents chkAutoUpdateSVRBPTab As System.Windows.Forms.CheckBox

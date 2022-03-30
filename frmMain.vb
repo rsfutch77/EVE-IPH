@@ -1181,65 +1181,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub mnuRestoreDefaultBP_Click(sender As System.Object, e As System.EventArgs)
-        Call AllSettings.SetDefaultBPSettings()
-
-        ' Also need to reset the shared variables
-        UserApplicationSettings.CheckBuildBuy = DefaultSettings.DefaultCheckBuildBuy
-
-        ' Save them
-        Call AllSettings.SaveBPSettings(AllSettings.GetBPSettings)
-        Call AllSettings.SaveApplicationSettings(UserApplicationSettings)
-
-        ' Load them again
-        UserBPTabSettings = AllSettings.LoadBPSettings()
-        UserApplicationSettings = AllSettings.LoadApplicationSettings()
-
-        ' Reload the tab
-        Call InitBPTab()
-
-        MsgBox("BP Tab Default Settings Restored", vbInformation, Application.ProductName)
-
-    End Sub
-
-    Private Sub mnuRestoreDefaultUpdatePrices_Click(sender As System.Object, e As System.EventArgs)
-        Call AllSettings.SetDefaultUpdatePriceSettings()
-        ' Save them
-        Call AllSettings.SaveUpdatePricesSettings(AllSettings.GetUpdatePricesSettings)
-        ' Load them again
-        UserUpdatePricesTabSettings = AllSettings.LoadUpdatePricesSettings()
-
-        ' Reload the tab
-        Call InitUpdatePricesTab()
-
-        MsgBox("Update Prices Tab Default Settings Restored", vbInformation, Application.ProductName)
-
-    End Sub
-
-    Private Sub mnuRestoreDefaultManufacturing_Click(sender As System.Object, e As System.EventArgs)
-        Call AllSettings.SetDefaultManufacturingSettings()
-
-        ' Also need to reset the shared variables
-        UserApplicationSettings.DefaultBPME = DefaultSettings.DefaultSettingME
-        UserApplicationSettings.DefaultBPTE = DefaultSettings.DefaultSettingTE
-
-        ' Save them
-        Call AllSettings.SaveManufacturingSettings(AllSettings.GetManufacturingSettings)
-        Call AllSettings.SaveApplicationSettings(UserApplicationSettings)
-
-        ' Load them again
-        UserManufacturingTabSettings = AllSettings.LoadManufacturingSettings()
-        UserApplicationSettings = AllSettings.LoadApplicationSettings()
-
-        ' Reload the tab
-        Call InitManufacturingTab()
-        ' Also update these shared form variables
-        'cmbBPBuildMod.Text = DefaultSettings.DefaultBuildSlotModifier
-
-        MsgBox("Manufacturing Tab Default Settings Restored", vbInformation, Application.ProductName)
-
-    End Sub
-
     Private Sub UpdateIndustryFacilitiesToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
         Dim ESIData As New ESI
         Dim f1 As New frmStatus

@@ -27,9 +27,6 @@ Public Class frmSettings
             ' Default build/buy
             .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
 
-            .DefaultBPME = CInt(txtDefaultME.Text)
-            .DefaultBPTE = CInt(txtDefaultTE.Text)
-
             .DisableGATracking = chkDisableTracking.Checked
 
             .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
@@ -107,28 +104,6 @@ Public Class frmSettings
         AutoSave()
     End Sub
 
-    Private Sub chkDefaultME_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDefaultME.CheckedChanged
-        If chkDefaultME.Checked = True Then
-            txtDefaultME.Enabled = True
-            txtDefaultME.Focus()
-        Else
-            txtDefaultME.Enabled = False
-            txtDefaultME.Text = FormatNumber(Defaults.DefaultSettingME, 0)
-        End If
-        AutoSave()
-    End Sub
-
-    Private Sub chkDefaultPE_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDefaultTE.CheckedChanged
-        If chkDefaultTE.Checked = True Then
-            txtDefaultTE.Enabled = True
-            txtDefaultTE.Focus()
-        Else
-            txtDefaultTE.Enabled = False
-            txtDefaultTE.Text = FormatNumber(Defaults.DefaultSettingTE, 0)
-        End If
-        AutoSave()
-    End Sub
-
     Private Sub rbtnExportDefault_CheckedChanged(sender As System.Object, e As System.EventArgs)
         AutoSave()
     End Sub
@@ -141,7 +116,7 @@ Public Class frmSettings
         AutoSave()
     End Sub
 
-    Private Sub txtDefaultTE_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtDefaultTE.KeyPress
+    Private Sub txtDefaultTE_KeyPress(sender As System.Object, e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedRunschars.IndexOf(e.KeyChar) = -1 Then
@@ -178,7 +153,6 @@ Public Class frmSettings
             .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
 
             ' Tips by Group box
-            .SetToolTip(gbDefaultMEPE, "On the BP and Manufacturing tabs, these default ME and TE values will be used for non-owned blueprints")
             .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
 
         End With
@@ -239,26 +213,6 @@ Public Class frmSettings
 
             chkAlphaAccount.Checked = .AlphaAccount
 
-            If .DefaultBPME = 0 Then
-                txtDefaultME.Text = CStr(Defaults.DefaultSettingME)
-                chkDefaultME.Checked = False
-                txtDefaultME.Enabled = False
-            Else
-                txtDefaultME.Text = CStr(.DefaultBPME)
-                chkDefaultME.Checked = True
-                txtDefaultME.Enabled = True
-            End If
-
-            If .DefaultBPTE = 0 Then
-                txtDefaultTE.Text = CStr(Defaults.DefaultSettingTE)
-                chkDefaultTE.Checked = False
-                txtDefaultTE.Enabled = False
-            Else
-                txtDefaultTE.Text = CStr(.DefaultBPTE)
-                chkDefaultTE.Checked = True
-                txtDefaultTE.Enabled = True
-            End If
-
             chkAutoUpdateSVRBPTab.Checked = .AutoUpdateSVRonBPTab
 
         End With
@@ -282,9 +236,6 @@ Public Class frmSettings
 
             ' Default build/buy
             .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
-
-            .DefaultBPME = CInt(txtDefaultME.Text)
-            .DefaultBPTE = CInt(txtDefaultTE.Text)
 
             .DisableGATracking = chkDisableTracking.Checked
 
@@ -327,19 +278,6 @@ Public Class frmSettings
             GoTo InvalidData
         ElseIf CDbl(txtBrokerFactionStanding.Text) > 10 Then
             txtBrokerFactionStanding.Text = "10.0"
-        End If
-
-        ' ME/TE
-        If (Not IsNumeric(txtDefaultME.Text) Or Trim(txtDefaultME.Text) = "") And chkDefaultME.Checked Then
-            TempTextBox = txtDefaultME
-            TempCheckBox = chkDefaultME
-            GoTo InvalidData
-        End If
-
-        If (Not IsNumeric(txtDefaultTE.Text) Or Trim(txtDefaultTE.Text) = "") And chkDefaultTE.Checked Then
-            TempTextBox = txtDefaultTE
-            TempCheckBox = chkDefaultTE
-            GoTo InvalidData
         End If
 
         Return True
