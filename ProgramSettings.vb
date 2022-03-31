@@ -68,8 +68,6 @@ Public Class ProgramSettings
     Public DefaultShareSavedFacilities As Boolean = True
     Public DefaultSuggestBuildBPNotOwned As Boolean = True ' If the bp is not owned, default to suggesting they build the item anyway
 
-    Public DefaultAlphaAccount As Boolean = False
-
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False
 
     ' If the user has no implants
@@ -482,7 +480,6 @@ Public Class ProgramSettings
                     .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
                     .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
-                    .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
                 End With
 
             Else
@@ -515,8 +512,6 @@ Public Class ProgramSettings
             .BrokerCorpStanding = DefaultBrokerCorpStanding
             .BrokerFactionStanding = DefaultBrokerFactionStanding
 
-            .AlphaAccount = DefaultAlphaAccount
-
             .DisableGATracking = DefaultDisableGATracking
 
         End With
@@ -529,15 +524,14 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(5) As Setting
+        Dim ApplicationSettingsList(4) As Setting
 
         Try
-            ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
-            ApplicationSettingsList(1) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(2) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(3) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
-            ApplicationSettingsList(4) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(5) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(0) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
+            ApplicationSettingsList(1) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
+            ApplicationSettingsList(2) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
+            ApplicationSettingsList(3) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
+            ApplicationSettingsList(4) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1539,9 +1533,6 @@ Public Structure ApplicationSettings
     Dim BrokerFactionStanding As Double
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
-
-    ' Character options
-    Dim AlphaAccount As Boolean ' Check to determine if they are using an alpha account or not
 
 End Structure
 

@@ -32,7 +32,6 @@ Partial Class frmSettings
         Me.txtBrokerFactionStanding = New System.Windows.Forms.TextBox()
         Me.chkBrokerFactionStanding = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkAlphaAccount = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.gbStationStandings.SuspendLayout()
@@ -128,17 +127,6 @@ Partial Class frmSettings
         Me.chkBrokerFactionStanding.Text = "Broker Faction:"
         Me.chkBrokerFactionStanding.UseVisualStyleBackColor = True
         '
-        'chkAlphaAccount
-        '
-        Me.chkAlphaAccount.AutoSize = True
-        Me.chkAlphaAccount.Location = New System.Drawing.Point(603, 360)
-        Me.chkAlphaAccount.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAlphaAccount.Name = "chkAlphaAccount"
-        Me.chkAlphaAccount.Size = New System.Drawing.Size(165, 20)
-        Me.chkAlphaAccount.TabIndex = 31
-        Me.chkAlphaAccount.Text = "Alpha Account (2% tax)"
-        Me.chkAlphaAccount.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -165,7 +153,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chkDisableTracking)
-        Me.Controls.Add(Me.chkAlphaAccount)
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
         Me.Controls.Add(Me.gbStationStandings)
@@ -187,7 +174,6 @@ Partial Class frmSettings
     Friend WithEvents chkBrokerFactionStanding As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents chkDisableTracking As CheckBox
-    Friend WithEvents chkAlphaAccount As CheckBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
 End Class

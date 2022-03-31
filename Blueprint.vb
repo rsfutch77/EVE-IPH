@@ -1776,16 +1776,57 @@ SkipProcessing:
         Dim TempFacilityUsage As Double = 0
 
         If IncludeManufacturingUsage Then
-            ' baseJobCost = Sum(eachmaterialquantity * adjustedPrice) - set in build function
-            ' jobFee = baseJobCost * systemCostIndex * runs
+
             JobFee = CLng(BaseJobCost * UserRuns) * MainManufacturingFacility.CostIndex
             JobFee = JobFee * MainManufacturingFacility.CostMultiplier
 
-            ' facilityUsage = jobFee * taxRate
-            If BPUserSettings.AlphaAccount Then
-                FacilityUsage = JobFee * (MainManufacturingFacility.TaxRate + AlphaAccountTaxRate)
-            Else
+            'If active Then skill level > 0 In any Of these EasyIPH Plan omega skills, assume Omega
+            'Infomorph Synchonizing
+            'Advanced Industry
+            'Laboratory Operation
+            'Research
+            'Supply Chain Management
+            'Scientific Networking
+            'Metallurgy
+            'Nanite Engineering
+            'Advanced Mass Production
+            'Retail
+            'Daytrading
+            'Procurement
+            'Advanced Spaceship Command
+            Dim ActiveOmegaLevels As Long
+
+            'Add up all the active skill levels
+            Dim SQL As String
+            Dim rsData As SQLiteDataReader
+
+            ' Get all skills and set skill to 0 if they don't have it
+            SQL = "SELECT ACTIVE_SKILL_LEVEL FROM CHARACTER_SKILLS "
+            SQL = SQL & "WHERE (SKILL_NAME = ""Infomorph Synchonizing"" OR SKILL_NAME = ""Advanced Industry"" OR SKILL_NAME = ""Laboratory Operation"" OR SKILL_NAME = ""Research"" OR SKILL_NAME = ""Supply Chain Management"" OR SKILL_NAME = ""Scientific Networking"" OR SKILL_NAME = ""Metallurgy"" OR SKILL_NAME = ""Nanite Engineering"" OR SKILL_NAME = ""Advanced Mass Production"" OR SKILL_NAME = ""Retail"" OR SKILL_NAME = ""Daytrading"" OR SKILL_NAME = ""Procurement"" OR SKILL_NAME = ""Advanced Spaceship Command"")  "
+            SQL = SQL & "AND CHARACTER_ID =" & SelectedCharacter.ID
+
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            rsData = DBCommand.ExecuteReader
+
+            Dim SelectedSkillLevel As Integer = 0
+
+            While rsData.Read
+
+                ActiveOmegaLevels = ActiveOmegaLevels + rsData.GetInt64(0)
+
+            End While
+
+            rsData.Close()
+
+            'Default the Dummy to Omega
+            If SelectedCharacter.ID = DummyCharacterID Then
+                ActiveOmegaLevels = 1
+            End If
+
+            If ActiveOmegaLevels > 0 Then
                 FacilityUsage = JobFee * MainManufacturingFacility.TaxRate
+            Else
+                FacilityUsage = JobFee * (MainManufacturingFacility.TaxRate + AlphaAccountTaxRate)
             End If
 
             ' totalInstallationCost = jobFee + facilityUsage

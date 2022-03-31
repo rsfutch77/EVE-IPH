@@ -26,8 +26,6 @@ Public Class frmSettings
 
             .DisableGATracking = chkDisableTracking.Checked
 
-            .AlphaAccount = chkAlphaAccount.Checked
-
         End With
 
         ' Save the data in the XML file
@@ -139,9 +137,6 @@ Public Class frmSettings
             ' General
             .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
 
-            ' Character Options
-            .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
-
             ' Tips by Group box
             .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
 
@@ -197,8 +192,6 @@ Public Class frmSettings
 
             chkDisableTracking.Checked = .DisableGATracking
 
-            chkAlphaAccount.Checked = .AlphaAccount
-
         End With
 
         FirstLoad = False
@@ -219,8 +212,6 @@ Public Class frmSettings
             .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
 
             .DisableGATracking = chkDisableTracking.Checked
-
-            .AlphaAccount = chkAlphaAccount.Checked
 
         End With
 
