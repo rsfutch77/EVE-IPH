@@ -32,9 +32,7 @@ Partial Class frmSettings
         Me.txtBrokerFactionStanding = New System.Windows.Forms.TextBox()
         Me.chkBrokerFactionStanding = New System.Windows.Forms.CheckBox()
         Me.chkBuildBuyDefault = New System.Windows.Forms.CheckBox()
-        Me.chkSuggestBuildwhenBPnotOwned = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkAutoUpdateSVRBPTab = New System.Windows.Forms.CheckBox()
         Me.chkAlphaAccount = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -143,32 +141,6 @@ Partial Class frmSettings
         Me.chkBuildBuyDefault.Text = "Default Build/Buy"
         Me.chkBuildBuyDefault.UseVisualStyleBackColor = True
         '
-        'chkSuggestBuildwhenBPnotOwned
-        '
-        Me.chkSuggestBuildwhenBPnotOwned.AutoSize = True
-        Me.chkSuggestBuildwhenBPnotOwned.Checked = True
-        Me.chkSuggestBuildwhenBPnotOwned.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSuggestBuildwhenBPnotOwned.Location = New System.Drawing.Point(14, 386)
-        Me.chkSuggestBuildwhenBPnotOwned.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkSuggestBuildwhenBPnotOwned.Name = "chkSuggestBuildwhenBPnotOwned"
-        Me.chkSuggestBuildwhenBPnotOwned.Size = New System.Drawing.Size(271, 20)
-        Me.chkSuggestBuildwhenBPnotOwned.TabIndex = 37
-        Me.chkSuggestBuildwhenBPnotOwned.Text = "Suggest Build option when BP not owned"
-        Me.chkSuggestBuildwhenBPnotOwned.UseVisualStyleBackColor = True
-        '
-        'chkAutoUpdateSVRBPTab
-        '
-        Me.chkAutoUpdateSVRBPTab.AutoSize = True
-        Me.chkAutoUpdateSVRBPTab.Checked = True
-        Me.chkAutoUpdateSVRBPTab.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkAutoUpdateSVRBPTab.Location = New System.Drawing.Point(4, 470)
-        Me.chkAutoUpdateSVRBPTab.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkAutoUpdateSVRBPTab.Name = "chkAutoUpdateSVRBPTab"
-        Me.chkAutoUpdateSVRBPTab.Size = New System.Drawing.Size(252, 20)
-        Me.chkAutoUpdateSVRBPTab.TabIndex = 39
-        Me.chkAutoUpdateSVRBPTab.Text = "Automatically update SVR on BP Tab"
-        Me.chkAutoUpdateSVRBPTab.UseVisualStyleBackColor = True
-        '
         'chkAlphaAccount
         '
         Me.chkAlphaAccount.AutoSize = True
@@ -215,11 +187,9 @@ Partial Class frmSettings
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.chkAutoUpdateSVRBPTab)
         Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.chkBuildBuyDefault)
         Me.Controls.Add(Me.chkAlphaAccount)
-        Me.Controls.Add(Me.chkSuggestBuildwhenBPnotOwned)
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
         Me.Controls.Add(Me.gbStationStandings)
@@ -241,8 +211,6 @@ Partial Class frmSettings
     Friend WithEvents chkBrokerFactionStanding As System.Windows.Forms.CheckBox
     Friend WithEvents chkBuildBuyDefault As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
-    Friend WithEvents chkSuggestBuildwhenBPnotOwned As System.Windows.Forms.CheckBox
-    Friend WithEvents chkAutoUpdateSVRBPTab As System.Windows.Forms.CheckBox
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents chkAlphaAccount As CheckBox
     Friend WithEvents Label1 As Label

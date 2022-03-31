@@ -29,11 +29,7 @@ Public Class frmSettings
 
             .DisableGATracking = chkDisableTracking.Checked
 
-            .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
-
             .AlphaAccount = chkAlphaAccount.Checked
-            ' SVR
-            .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
 
         End With
 
@@ -146,9 +142,6 @@ Public Class frmSettings
             ' General
             .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
 
-            ' SVR Settings
-            .SetToolTip(chkAutoUpdateSVRBPTab, "When set, the Sales to Volume Ratio will be updated on the BP tab when a Blueprint is selected")
-
             ' Character Options
             .SetToolTip(chkAlphaAccount, "When checked, IPH will calculate costs adding the 2% industry tax on industry and science jobs")
 
@@ -207,13 +200,10 @@ Public Class frmSettings
 
             ' For Build/Buy
             chkBuildBuyDefault.Checked = .CheckBuildBuy
-            chkSuggestBuildwhenBPnotOwned.Checked = .SuggestBuildBPNotOwned
 
             chkDisableTracking.Checked = .DisableGATracking
 
             chkAlphaAccount.Checked = .AlphaAccount
-
-            chkAutoUpdateSVRBPTab.Checked = .AutoUpdateSVRonBPTab
 
         End With
 
@@ -239,11 +229,7 @@ Public Class frmSettings
 
             .DisableGATracking = chkDisableTracking.Checked
 
-            .SuggestBuildBPNotOwned = chkSuggestBuildwhenBPnotOwned.Checked
-
             .AlphaAccount = chkAlphaAccount.Checked
-            ' SVR
-            .AutoUpdateSVRonBPTab = chkAutoUpdateSVRBPTab.Checked
 
         End With
 

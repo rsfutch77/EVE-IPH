@@ -93,9 +93,6 @@ Public Class ProgramSettings
     Public DefaultUseActiveSkills As Boolean = False
     Public DefaultLoadMaxAlphaSkills As Boolean = False
 
-    ' SVR Stuff
-    Public DefaultAutoUpdateSVRonBPTab As Boolean = True
-
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False
 
     ' Proxy
@@ -517,8 +514,6 @@ Public Class ProgramSettings
                     .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
                     .CheckBuildBuy = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckBuildBuy", DefaultCheckBuildBuy))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
-                    .SuggestBuildBPNotOwned = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "SuggestBuildBPNotOwned", DefaultSuggestBuildBPNotOwned))
-                    .AutoUpdateSVRonBPTab = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AutoUpdateSVRonBPTab", DefaultAutoUpdateSVRonBPTab))
                     .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
                 End With
 
@@ -557,8 +552,6 @@ Public Class ProgramSettings
             .AlphaAccount = DefaultAlphaAccount
 
             .DisableGATracking = DefaultDisableGATracking
-            .SuggestBuildBPNotOwned = DefaultSuggestBuildBPNotOwned
-            .AutoUpdateSVRonBPTab = DefaultAutoUpdateSVRonBPTab
 
         End With
 
@@ -570,7 +563,7 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(8) As Setting
+        Dim ApplicationSettingsList(6) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
@@ -579,9 +572,7 @@ Public Class ProgramSettings
             ApplicationSettingsList(3) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
             ApplicationSettingsList(4) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
             ApplicationSettingsList(5) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(6) = New Setting("SuggestBuildBPNotOwned", CStr(SentSettings.SuggestBuildBPNotOwned))
-            ApplicationSettingsList(7) = New Setting("AutoUpdateSVRonBPTab", CStr(SentSettings.AutoUpdateSVRonBPTab))
-            ApplicationSettingsList(8) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(6) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1584,15 +1575,11 @@ Public Structure ApplicationSettings
 
     ' For Build/Buy 
     Dim CheckBuildBuy As Boolean ' Default for setting the check box for build/buy on the blueprints screen
-    Dim SuggestBuildBPNotOwned As Boolean ' For Build/Buy suggestions
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
 
     ' Character options
     Dim AlphaAccount As Boolean ' Check to determine if they are using an alpha account or not
-
-    ' Filter variables for svr
-    Dim AutoUpdateSVRonBPTab As Boolean
 
 End Structure
 

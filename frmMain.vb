@@ -1556,11 +1556,9 @@ Public Class frmMain
         End If
 
         ' SVR Values
-        If UserApplicationSettings.AutoUpdateSVRonBPTab Then
-            Dim TempRawSVR As String = GetBPItemSVR(SelectedBlueprint.GetTotalProductionTime)
-            Dim TempBPSVR As String
-            TempBPSVR = GetBPItemSVR(SelectedBlueprint.GetProductionTime)
-        End If
+        Dim TempRawSVR As String = GetBPItemSVR(SelectedBlueprint.GetTotalProductionTime)
+        Dim TempBPSVR As String
+        TempBPSVR = GetBPItemSVR(SelectedBlueprint.GetProductionTime)
 
     End Sub
 

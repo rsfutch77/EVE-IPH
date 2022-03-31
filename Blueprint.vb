@@ -1866,7 +1866,7 @@ SkipProcessing:
 
         ' First time you run the bp, just use the base check 
         If NewBPRequest Then
-            BuildItem = (OneItemMarketCost = 0) Or (CheapertoBuild And ((BPUserSettings.SuggestBuildBPNotOwned) Or (OwnedBP And Not BPUserSettings.SuggestBuildBPNotOwned)))
+            BuildItem = (OneItemMarketCost = 0) Or (CheapertoBuild And (OwnedBP And Not True))
         Else
             ' Look up the override value and if not found, use the default
             BuildItem = ManualBuildBuyValue(ItemBlueprint.ItemID, CheapertoBuild)
