@@ -31,11 +31,9 @@ Partial Class frmSettings
         Me.chkBrokerCorpStanding = New System.Windows.Forms.CheckBox()
         Me.txtBrokerFactionStanding = New System.Windows.Forms.TextBox()
         Me.chkBrokerFactionStanding = New System.Windows.Forms.CheckBox()
-        Me.chkBuildBuyDefault = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.chkAlphaAccount = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.gbStationStandings.SuspendLayout()
         Me.SuspendLayout()
@@ -130,17 +128,6 @@ Partial Class frmSettings
         Me.chkBrokerFactionStanding.Text = "Broker Faction:"
         Me.chkBrokerFactionStanding.UseVisualStyleBackColor = True
         '
-        'chkBuildBuyDefault
-        '
-        Me.chkBuildBuyDefault.AutoSize = True
-        Me.chkBuildBuyDefault.Location = New System.Drawing.Point(14, 423)
-        Me.chkBuildBuyDefault.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBuildBuyDefault.Name = "chkBuildBuyDefault"
-        Me.chkBuildBuyDefault.Size = New System.Drawing.Size(131, 20)
-        Me.chkBuildBuyDefault.TabIndex = 32
-        Me.chkBuildBuyDefault.Text = "Default Build/Buy"
-        Me.chkBuildBuyDefault.UseVisualStyleBackColor = True
-        '
         'chkAlphaAccount
         '
         Me.chkAlphaAccount.AutoSize = True
@@ -161,15 +148,6 @@ Partial Class frmSettings
         Me.Label1.TabIndex = 42
         Me.Label1.Text = "Keep"
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(22, 348)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 16)
-        Me.Label2.TabIndex = 43
-        Me.Label2.Text = "pick default"
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -185,10 +163,8 @@ Partial Class frmSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.chkDisableTracking)
-        Me.Controls.Add(Me.chkBuildBuyDefault)
         Me.Controls.Add(Me.chkAlphaAccount)
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
@@ -209,11 +185,9 @@ Partial Class frmSettings
     Friend WithEvents chkBrokerCorpStanding As System.Windows.Forms.CheckBox
     Friend WithEvents txtBrokerFactionStanding As System.Windows.Forms.TextBox
     Friend WithEvents chkBrokerFactionStanding As System.Windows.Forms.CheckBox
-    Friend WithEvents chkBuildBuyDefault As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents chkAlphaAccount As CheckBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
 End Class

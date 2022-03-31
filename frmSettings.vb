@@ -24,9 +24,6 @@ Public Class frmSettings
             .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
             .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
 
-            ' Default build/buy
-            .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
-
             .DisableGATracking = chkDisableTracking.Checked
 
             .AlphaAccount = chkAlphaAccount.Checked
@@ -96,7 +93,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub chkBuildBuyDefault_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBuildBuyDefault.CheckedChanged
+    Private Sub chkBuildBuyDefault_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         AutoSave()
     End Sub
 
@@ -198,9 +195,6 @@ Public Class frmSettings
                 cmbBeanCounterManufacturing.Enabled = False
             End If
 
-            ' For Build/Buy
-            chkBuildBuyDefault.Checked = .CheckBuildBuy
-
             chkDisableTracking.Checked = .DisableGATracking
 
             chkAlphaAccount.Checked = .AlphaAccount
@@ -223,9 +217,6 @@ Public Class frmSettings
             ' Standings
             .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
             .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
-
-            ' Default build/buy
-            .CheckBuildBuy = CBool(chkBuildBuyDefault.Checked)
 
             .DisableGATracking = chkDisableTracking.Checked
 

@@ -35,8 +35,6 @@ Public Class ProgramSettings
 
     ' Application Setting Defaults
     Public MBeanCounterName As String = "Zainou 'Beancounter' Industry BX-80" ' Manufacturing time
-    Public RBeanCounterName As String = "Zainou 'Beancounter' Reprocessing RX-80" ' Refining waste
-    Public CBeanCounterName As String = "Zainou 'Beancounter' Science SC-80" ' Copy time
 
     Public DefaultCheckUpdatesOnStart As Boolean = True
     Public DefaultAllowSkillOverride As Boolean = False
@@ -57,32 +55,13 @@ Public Class ProgramSettings
     Public DefaultBuildStandingDiscount As Double = 0.015
     Public DefaultBuildStandingSurcharge As Double = 0.005
 
-    Public DefaultInventBaseInstall As Double = 10000
-    Public DefaultInventBaseHourly As Double = 416.67
-    Public DefaultInventStandingDiscount As Double = 0.015
-    Public DefaultInventStandingSurcharge As Double = 0.005
-
     Public DefaultBuildCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be made
     Public DefaultInventCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be invented
     Public DefaultBrokerCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be sold
     Public DefaultBrokerFactionStanding As Double = 5.0 ' Faction standing of where this blueprint will be sold (for Broker calc)
     Public DefaultRefineCorpStanding As Double = 6.67 ' Corp standing for use of refining
 
-    Public DefaultIncludeCopyTimes As Boolean = False ' If we include copy times in IPH calcs for invention
-    Public DefaultIncludeInventionTimes As Boolean = False ' If we include invention times in IPH calcs for invention
-    Public DefaultIncludeRETimes As Boolean = False ' If we include RE times in IPH calcs for RE
-
-    Public DefaultEstimateCopyCost As Boolean = False ' Estimate copy costs for invention BPC's
-    Public DefaultCopySlotModifier As String = "1.0" ' The default copy slot modifier for T1 BPC copies to use in invention
-    Public DefaultInventionSlotModifier As String = "1.0" ' Default invention time
-    Public DefaultBuildSlotModifier As String = "1.0" ' Default build time for production
-    Public DefaultRefiningEfficency As Double = 0.5 ' Default refining equipment
-
     Public DefaultRefineTax As Double = 0.05 ' Default tax rate
-
-    Public DefaultCheckBuildBuy As Boolean = False
-    Public DefaultIgnoreRareandShipSkinBPs As Boolean = True
-    Public DefaultSaveBPRelicsDecryptors As Boolean = False
 
     Public DefaultDisableSVR As Boolean = False
     Public DefaultDisableGATracking As Boolean = False
@@ -90,18 +69,8 @@ Public Class ProgramSettings
     Public DefaultSuggestBuildBPNotOwned As Boolean = True ' If the bp is not owned, default to suggesting they build the item anyway
 
     Public DefaultAlphaAccount As Boolean = False
-    Public DefaultUseActiveSkills As Boolean = False
-    Public DefaultLoadMaxAlphaSkills As Boolean = False
 
     Public DefaultIncludeInGameLinksinCopyText As Boolean = False
-
-    ' Proxy
-    Public DefaultProxyAddress As String = ""
-    Public DefaultProxyPort As Integer = 0
-
-    ' For shopping list
-    Public DefaultShopListIncludeInventMats As Boolean = True
-    Public DefaultShopListIncludeCopyMats As Boolean = True
 
     ' If the user has no implants
     Public DefaultImplantValues As Double = 0
@@ -512,7 +481,6 @@ Public Class ProgramSettings
                     .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
                     .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
                     .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
-                    .CheckBuildBuy = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "CheckBuildBuy", DefaultCheckBuildBuy))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                     .AlphaAccount = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AlphaAccount", DefaultAlphaAccount))
                 End With
@@ -547,8 +515,6 @@ Public Class ProgramSettings
             .BrokerCorpStanding = DefaultBrokerCorpStanding
             .BrokerFactionStanding = DefaultBrokerFactionStanding
 
-            .CheckBuildBuy = DefaultCheckBuildBuy
-
             .AlphaAccount = DefaultAlphaAccount
 
             .DisableGATracking = DefaultDisableGATracking
@@ -563,7 +529,7 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(6) As Setting
+        Dim ApplicationSettingsList(5) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AlphaAccount", CStr(SentSettings.AlphaAccount))
@@ -571,8 +537,7 @@ Public Class ProgramSettings
             ApplicationSettingsList(2) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
             ApplicationSettingsList(3) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
             ApplicationSettingsList(4) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(5) = New Setting("CheckBuildBuy", CStr(SentSettings.CheckBuildBuy))
-            ApplicationSettingsList(6) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(5) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1572,9 +1537,6 @@ Public Structure ApplicationSettings
     ' Station Standings for building and selling
     Dim BrokerCorpStanding As Double
     Dim BrokerFactionStanding As Double
-
-    ' For Build/Buy 
-    Dim CheckBuildBuy As Boolean ' Default for setting the check box for build/buy on the blueprints screen
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
 
