@@ -20,10 +20,6 @@ Public Class frmSettings
 
         With TempSettings
 
-            ' Standings
-            .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
-            .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
-
             .DisableGATracking = chkDisableTracking.Checked
 
         End With
@@ -49,29 +45,7 @@ Public Class frmSettings
         AutoSave()
     End Sub
 
-    Private Sub chkBrokerCorpStanding_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBrokerCorpStanding.CheckedChanged
-        If chkBrokerCorpStanding.Checked = True Then
-            txtBrokerCorpStanding.Enabled = True
-            txtBrokerCorpStanding.Focus()
-        Else
-            txtBrokerCorpStanding.Enabled = False
-            txtBrokerCorpStanding.Text = FormatNumber(Defaults.DefaultBrokerCorpStanding, 2)
-        End If
-        AutoSave()
-    End Sub
-
-    Private Sub chkBrokerFactionStanding_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBrokerFactionStanding.CheckedChanged
-        If chkBrokerFactionStanding.Checked = True Then
-            txtBrokerFactionStanding.Enabled = True
-            txtBrokerFactionStanding.Focus()
-        Else
-            txtBrokerFactionStanding.Enabled = False
-            txtBrokerFactionStanding.Text = FormatNumber(Defaults.DefaultBrokerFactionStanding, 2)
-        End If
-        AutoSave()
-    End Sub
-
-    Private Sub txtBrokerFactionStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBrokerFactionStanding.KeyPress
+    Private Sub txtBrokerFactionStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
@@ -81,7 +55,7 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub txtBrokerCorpStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBrokerCorpStanding.KeyPress
+    Private Sub txtBrokerCorpStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
             If allowedDecimalChars.IndexOf(e.KeyChar) = -1 Then
@@ -137,9 +111,6 @@ Public Class frmSettings
             ' General
             .SetToolTip(chkDisableTracking, "When checked, IPH will not send anonymous useage data to Google Analytics")
 
-            ' Tips by Group box
-            .SetToolTip(gbStationStandings, "Station standings affect broker fees and some other industry related fees based on standing. These values here will be used in those calculations.")
-
         End With
 
         Call LoadFormSettings()
@@ -151,29 +122,6 @@ Public Class frmSettings
         UserApplicationSettings = AllSettings.LoadApplicationSettings()
 
         With UserApplicationSettings
-            If .BrokerCorpStanding = Defaults.DefaultBrokerCorpStanding Then
-                ' Default
-                chkBrokerCorpStanding.Checked = False
-                txtBrokerCorpStanding.Enabled = False
-                txtBrokerCorpStanding.Text = FormatNumber(Defaults.DefaultBrokerCorpStanding, 2)
-            Else
-                ' User
-                chkBrokerCorpStanding.Checked = True
-                txtBrokerCorpStanding.Enabled = True
-                txtBrokerCorpStanding.Text = FormatNumber(.BrokerCorpStanding, 2)
-            End If
-
-            If .BrokerFactionStanding = Defaults.DefaultBrokerFactionStanding Then
-                ' Default
-                chkBrokerFactionStanding.Checked = False
-                txtBrokerFactionStanding.Enabled = False
-                txtBrokerFactionStanding.Text = FormatNumber(Defaults.DefaultBrokerFactionStanding, 2)
-            Else
-                ' User
-                chkBrokerFactionStanding.Checked = True
-                txtBrokerFactionStanding.Enabled = True
-                txtBrokerFactionStanding.Text = FormatNumber(.BrokerFactionStanding, 2)
-            End If
 
             ' Implants
             If .ManufacturingImplantValue > 0 Then
@@ -207,10 +155,6 @@ Public Class frmSettings
 
         With TempSettings
 
-            ' Standings
-            .BrokerCorpStanding = CDbl(txtBrokerCorpStanding.Text)
-            .BrokerFactionStanding = CDbl(txtBrokerFactionStanding.Text)
-
             .DisableGATracking = chkDisableTracking.Checked
 
         End With
@@ -231,22 +175,6 @@ Public Class frmSettings
         Dim TempTextBox As TextBox = Nothing
         Dim TempCheckBox As CheckBox = Nothing
         Dim TempComboBox As ComboBox = Nothing
-
-        If (Not IsNumeric(txtBrokerCorpStanding.Text) Or Trim(txtBrokerCorpStanding.Text) = "") And chkBrokerCorpStanding.Checked Then
-            TempTextBox = txtBrokerCorpStanding
-            TempCheckBox = chkBrokerCorpStanding
-            GoTo InvalidData
-        ElseIf CDbl(txtBrokerCorpStanding.Text) > 10 Then
-            txtBrokerCorpStanding.Text = "10.0"
-        End If
-
-        If (Not IsNumeric(txtBrokerFactionStanding.Text) Or Trim(txtBrokerFactionStanding.Text) = "") And chkBrokerFactionStanding.Checked Then
-            TempTextBox = txtBrokerFactionStanding
-            TempCheckBox = chkBrokerFactionStanding
-            GoTo InvalidData
-        ElseIf CDbl(txtBrokerFactionStanding.Text) > 10 Then
-            txtBrokerFactionStanding.Text = "10.0"
-        End If
 
         Return True
 

@@ -1395,27 +1395,6 @@ Public Class frmBlueprintManagement
 
     End Sub
 
-    ' Will use CAK and scan for bps in the corps items and store a temp table of these bps for loading in the grid
-    Private Sub btnScanCorpBPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScanCorpBPs.Click
-
-        If SelectedCharacter.CharacterCorporation.BlueprintsAccess Then
-            Application.UseWaitCursor = True
-            Application.DoEvents()
-            Cursor.Current = Cursors.WaitCursor
-            Call SelectedCharacter.CharacterCorporation.GetBlueprints.LoadBlueprints(SelectedCharacter.CharacterCorporation.CorporationID, SelectedCharacter.CharacterTokenData, ScanType.Corporation, True)
-            MsgBox("Blueprints Loaded", vbInformation, Application.ProductName)
-            rbtnScannedCorpBPs.Checked = True ' Auto load
-            Cursor.Current = Cursors.Default
-            Application.UseWaitCursor = False
-            Me.Refresh()
-            Application.DoEvents()
-        Else
-            MsgBox("You do not have the scope: " & ESI.ESICorporationBlueprintsScope & " registered for this application. Please 
-your developer scopes.", vbExclamation, Application.ProductName)
-        End If
-
-    End Sub
-
     ' Clears all the checked items in grid
     Private Sub btnReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReset.Click
         Call InitForm()

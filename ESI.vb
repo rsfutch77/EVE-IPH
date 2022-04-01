@@ -29,17 +29,11 @@ Public Class ESI
     Private CodeVerifier As String ' For PKCE - generated code we send to ESI for access codes after sending the hashed version of this for authorization code
 
     Public Const ESICharacterAssetScope As String = "esi-assets.read_assets"
-    Public Const ESICharacterResearchAgentsScope As String = "esi-characters.read_agents_research"
     Public Const ESICharacterBlueprintsScope As String = "esi-characters.read_blueprints"
     Public Const ESICharacterStandingsScope As String = "esi-characters.read_standings"
     Public Const ESICharacterIndustryJobsScope As String = "esi-industry.read_character_jobs"
     Public Const ESICharacterSkillsScope As String = "esi-skills.read_skill"
-    Public Const ESICharacterWalletScope As String = "esi-skills.read_skill"
-
-    Public Const ESICorporationAssetScope As String = "esi-assets.read_corporation_assets"
-    Public Const ESICorporationBlueprintsScope As String = "esi-corporations.read_blueprints"
-    Public Const ESICorporationIndustryJobsScope As String = "esi-industry.read_corporation_jobs"
-    Public Const ESICorporationMembership As String = "esi-corporations.read_corporation_membership"
+    Public Const ESICharacterWalletScope As String = "esi-wallet.read_character_wallet"
 
     Public Const ESIUniverseStructuresScope As String = "esi-universe.read_structures"
     Public Const ESIStructureMarketsScope As String = "esi-markets.structure_markets"
@@ -69,7 +63,6 @@ Public Class ESI
 
     ' Character
     ' esi-assets.read_assets.v1: Allows reading a list of assets that the character owns
-    ' esi-characters.read_agents_research.v1: Allows reading a character's research status with agents
     ' esi-characters.read_blueprints.v1: Allows reading a character's blueprints
     ' esi-characters.read_standings.v1: Allows reading a character's standings
     ' esi-industry.read_character_jobs.v1: Allows reading a character's industry jobs
@@ -739,6 +732,51 @@ Public Class ESI
                                               FormatTokenData(TokenData), TokenData.TokenExpiration, WalletCacheDate, CharacterID)
 
         Return CDbl(ReturnData)
+
+    End Function
+
+    Public Function GetCharacterStandings(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef StandingsCacheDate As Date) As EVENPCStandings
+        Dim TempStandingsList As New EVENPCStandings
+        Dim StandingsData As List(Of ESICharacterStandingsData)
+        Dim ReturnData As String = ""
+        Dim StandingType As String = ""
+
+        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/standings/" & TranquilityDataSource,
+                                              FormatTokenData(TokenData), TokenData.TokenExpiration, StandingsCacheDate, CharacterID)
+
+        If Not IsNothing(ReturnData) Then
+            StandingsData = JsonConvert.DeserializeObject(Of List(Of ESICharacterStandingsData))(ReturnData)
+
+            For Each entry In StandingsData
+                Select Case entry.from_type
+                    Case "agents"
+                        StandingType = "Agent"
+                    Case "faction"
+                        StandingType = "Faction"
+                    Case "npc_corp"
+                        StandingType = "Corporation"
+                End Select
+                TempStandingsList.InsertStanding(entry.from_id, StandingType, "", entry.standing)
+            Next
+
+            Return TempStandingsList
+        Else
+            Return Nothing
+        End If
+
+    End Function
+
+    Public Function GetCurrentResearchAgents(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef AgentsCacheDate As Date) As List(Of ESIResearchAgent)
+        Dim ReturnData As String
+
+        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/agents_research/" & TranquilityDataSource,
+                                              FormatTokenData(TokenData), TokenData.TokenExpiration, AgentsCacheDate, CharacterID)
+
+        If Not IsNothing(ReturnData) Then
+            Return JsonConvert.DeserializeObject(Of List(Of ESIResearchAgent))(ReturnData)
+        Else
+            Return Nothing
+        End If
 
     End Function
 

@@ -55,14 +55,6 @@ Public Class ProgramSettings
     Public DefaultBuildStandingDiscount As Double = 0.015
     Public DefaultBuildStandingSurcharge As Double = 0.005
 
-    Public DefaultBuildCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be made
-    Public DefaultInventCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be invented
-    Public DefaultBrokerCorpStanding As Double = 5.0 ' Corp standing of where this blueprint will be sold
-    Public DefaultBrokerFactionStanding As Double = 5.0 ' Faction standing of where this blueprint will be sold (for Broker calc)
-    Public DefaultRefineCorpStanding As Double = 6.67 ' Corp standing for use of refining
-
-    Public DefaultRefineTax As Double = 0.05 ' Default tax rate
-
     Public DefaultDisableSVR As Boolean = False
     Public DefaultDisableGATracking As Boolean = False
     Public DefaultShareSavedFacilities As Boolean = True
@@ -477,8 +469,6 @@ Public Class ProgramSettings
                 With TempSettings
                     .AllowSkillOverride = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AllowSkillOverride", DefaultAllowSkillOverride))
                     .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
-                    .BrokerCorpStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerCorpStanding", DefaultBrokerCorpStanding))
-                    .BrokerFactionStanding = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "BrokerFactionStanding", DefaultBrokerFactionStanding))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                 End With
 
@@ -508,10 +498,6 @@ Public Class ProgramSettings
             ' Load default settings
             .ManufacturingImplantValue = DefaultImplantValues
 
-            ' Station Standings for building and selling
-            .BrokerCorpStanding = DefaultBrokerCorpStanding
-            .BrokerFactionStanding = DefaultBrokerFactionStanding
-
             .DisableGATracking = DefaultDisableGATracking
 
         End With
@@ -524,14 +510,12 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(4) As Setting
+        Dim ApplicationSettingsList(2) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
             ApplicationSettingsList(1) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(2) = New Setting("BrokerCorpStanding", CStr(SentSettings.BrokerCorpStanding))
-            ApplicationSettingsList(3) = New Setting("BrokerFactionStanding", CStr(SentSettings.BrokerFactionStanding))
-            ApplicationSettingsList(4) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(2) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
@@ -1527,10 +1511,6 @@ Public Structure ApplicationSettings
     Dim AllowSkillOverride As Boolean
 
     Dim ManufacturingImplantValue As Double
-
-    ' Station Standings for building and selling
-    Dim BrokerCorpStanding As Double
-    Dim BrokerFactionStanding As Double
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
 

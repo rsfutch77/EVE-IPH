@@ -621,32 +621,11 @@ Public Class frmMain
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If
 
-                If .Contains(ESI.ESICharacterResearchAgentsScope) And rsStatus.GetString(0) = ESI.ESICharacterResearchAgentsScope And rsStatus.GetString(1) <> "green" Then
-                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
-                End If
-
                 If .Contains(ESI.ESICharacterBlueprintsScope) And rsStatus.GetString(0) = ESI.ESICharacterBlueprintsScope And rsStatus.GetString(1) <> "green" Then
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If
 
                 If .Contains(ESI.ESICharacterAssetScope) And rsStatus.GetString(0) = ESI.ESICharacterAssetScope And rsStatus.GetString(1) <> "green" Then
-                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
-                End If
-
-                ' Corporation scopes
-                If .Contains(ESI.ESICorporationMembership) And rsStatus.GetString(0) = ESI.ESICorporationMembership And rsStatus.GetString(1) <> "green" Then
-                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
-                End If
-
-                If .Contains(ESI.ESICorporationIndustryJobsScope) And rsStatus.GetString(0) = ESI.ESICorporationIndustryJobsScope And rsStatus.GetString(1) <> "green" Then
-                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
-                End If
-
-                If .Contains(ESI.ESICorporationBlueprintsScope) And rsStatus.GetString(0) = ESI.ESICorporationBlueprintsScope And rsStatus.GetString(1) <> "green" Then
-                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
-                End If
-
-                If .Contains(ESI.ESICorporationAssetScope) And rsStatus.GetString(0) = ESI.ESICorporationAssetScope And rsStatus.GetString(1) <> "green" Then
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If
 

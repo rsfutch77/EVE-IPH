@@ -393,7 +393,34 @@ Public Module Public_Variables
             ' 3%-(0.3%*BrokerRelationsLevel)-(0.03%*FactionStanding)-(0.02%*CorpStanding) - uses unmodified standings
             ' Base broker fee - 3%, Min broker fees: 1.0%
             ' Latest info: https://www.eveonline.com/news/view/restructuring-taxes-after-relief
-            Dim BrokerTax = 3 - (0.3 * BrokerRelations) - (0.03 * UserApplicationSettings.BrokerFactionStanding) - (0.02 * UserApplicationSettings.BrokerCorpStanding)
+
+            'Add up all the active skill levels
+            Dim SQL As String
+            Dim rsData As SQLiteDataReader
+
+            SQL = "SELECT STANDING FROM CHARACTER_STANDINGS "
+            SQL = SQL & "WHERE NPC_NAME = ""Caldari Navy"" "
+            SQL = SQL & "AND CHARACTER_ID =" & SelectedCharacter.ID
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            rsData = DBCommand.ExecuteReader
+            Dim CorporationStanding As Double
+            While rsData.Read
+                CorporationStanding = rsData.GetDouble(0)
+            End While
+            rsData.Close()
+
+            SQL = "SELECT STANDING FROM CHARACTER_STANDINGS "
+            SQL = SQL & "WHERE NPC_NAME = ""Caldari State"" "
+            SQL = SQL & "AND CHARACTER_ID =" & SelectedCharacter.ID
+            DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
+            rsData = DBCommand.ExecuteReader
+            Dim FactionStanding As Double
+            While rsData.Read
+                FactionStanding = rsData.GetDouble(0)
+            End While
+            rsData.Close()
+
+            Dim BrokerTax = 3 - (0.3 * BrokerRelations) - (0.03 * FactionStanding) - (0.02 * CorporationStanding)
             TempFee = (BrokerTax / 100) * ItemMarketCost
         ElseIf BrokerFee.IncludeFee = BrokerFeeType.SpecialFee Then
             ' use a flat rate to set the fee

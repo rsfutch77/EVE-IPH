@@ -26,15 +26,9 @@ Partial Class frmSettings
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         Me.chkBeanCounterManufacturing = New System.Windows.Forms.CheckBox()
         Me.cmbBeanCounterManufacturing = New System.Windows.Forms.ComboBox()
-        Me.gbStationStandings = New System.Windows.Forms.GroupBox()
-        Me.txtBrokerCorpStanding = New System.Windows.Forms.TextBox()
-        Me.chkBrokerCorpStanding = New System.Windows.Forms.CheckBox()
-        Me.txtBrokerFactionStanding = New System.Windows.Forms.TextBox()
-        Me.chkBrokerFactionStanding = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.gbStationStandings.SuspendLayout()
         Me.SuspendLayout()
         '
         'chkDisableTracking
@@ -70,63 +64,6 @@ Partial Class frmSettings
         Me.cmbBeanCounterManufacturing.Size = New System.Drawing.Size(293, 24)
         Me.cmbBeanCounterManufacturing.TabIndex = 4
         '
-        'gbStationStandings
-        '
-        Me.gbStationStandings.Controls.Add(Me.txtBrokerCorpStanding)
-        Me.gbStationStandings.Controls.Add(Me.chkBrokerCorpStanding)
-        Me.gbStationStandings.Controls.Add(Me.txtBrokerFactionStanding)
-        Me.gbStationStandings.Controls.Add(Me.chkBrokerFactionStanding)
-        Me.gbStationStandings.Location = New System.Drawing.Point(578, 254)
-        Me.gbStationStandings.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbStationStandings.Name = "gbStationStandings"
-        Me.gbStationStandings.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbStationStandings.Size = New System.Drawing.Size(200, 79)
-        Me.gbStationStandings.TabIndex = 7
-        Me.gbStationStandings.TabStop = False
-        Me.gbStationStandings.Text = "Station (base) Standings:"
-        '
-        'txtBrokerCorpStanding
-        '
-        Me.txtBrokerCorpStanding.Location = New System.Drawing.Point(138, 19)
-        Me.txtBrokerCorpStanding.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtBrokerCorpStanding.MaxLength = 5
-        Me.txtBrokerCorpStanding.Name = "txtBrokerCorpStanding"
-        Me.txtBrokerCorpStanding.Size = New System.Drawing.Size(50, 22)
-        Me.txtBrokerCorpStanding.TabIndex = 26
-        Me.txtBrokerCorpStanding.Text = "5"
-        Me.txtBrokerCorpStanding.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'chkBrokerCorpStanding
-        '
-        Me.chkBrokerCorpStanding.Location = New System.Drawing.Point(11, 21)
-        Me.chkBrokerCorpStanding.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBrokerCorpStanding.Name = "chkBrokerCorpStanding"
-        Me.chkBrokerCorpStanding.Size = New System.Drawing.Size(106, 21)
-        Me.chkBrokerCorpStanding.TabIndex = 25
-        Me.chkBrokerCorpStanding.Text = "Broker Corp:"
-        Me.chkBrokerCorpStanding.UseVisualStyleBackColor = True
-        '
-        'txtBrokerFactionStanding
-        '
-        Me.txtBrokerFactionStanding.Location = New System.Drawing.Point(138, 46)
-        Me.txtBrokerFactionStanding.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtBrokerFactionStanding.MaxLength = 5
-        Me.txtBrokerFactionStanding.Name = "txtBrokerFactionStanding"
-        Me.txtBrokerFactionStanding.Size = New System.Drawing.Size(50, 22)
-        Me.txtBrokerFactionStanding.TabIndex = 28
-        Me.txtBrokerFactionStanding.Text = "5"
-        Me.txtBrokerFactionStanding.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'chkBrokerFactionStanding
-        '
-        Me.chkBrokerFactionStanding.Location = New System.Drawing.Point(11, 49)
-        Me.chkBrokerFactionStanding.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkBrokerFactionStanding.Name = "chkBrokerFactionStanding"
-        Me.chkBrokerFactionStanding.Size = New System.Drawing.Size(122, 21)
-        Me.chkBrokerFactionStanding.TabIndex = 27
-        Me.chkBrokerFactionStanding.Text = "Broker Faction:"
-        Me.chkBrokerFactionStanding.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -155,23 +92,15 @@ Partial Class frmSettings
         Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.chkBeanCounterManufacturing)
         Me.Controls.Add(Me.cmbBeanCounterManufacturing)
-        Me.Controls.Add(Me.gbStationStandings)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSettings"
         Me.Size = New System.Drawing.Size(831, 566)
-        Me.gbStationStandings.ResumeLayout(False)
-        Me.gbStationStandings.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents chkBeanCounterManufacturing As System.Windows.Forms.CheckBox
     Friend WithEvents cmbBeanCounterManufacturing As System.Windows.Forms.ComboBox
-    Friend WithEvents gbStationStandings As System.Windows.Forms.GroupBox
-    Friend WithEvents txtBrokerCorpStanding As System.Windows.Forms.TextBox
-    Friend WithEvents chkBrokerCorpStanding As System.Windows.Forms.CheckBox
-    Friend WithEvents txtBrokerFactionStanding As System.Windows.Forms.TextBox
-    Friend WithEvents chkBrokerFactionStanding As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents Label1 As Label

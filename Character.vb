@@ -21,6 +21,9 @@ Public Class Character
 
     ' Skill Tree - Required Scope
     Public Skills As EVESkillList
+    ' Standings
+    Public StandingsAccess As Boolean
+    Public Standings As EVENPCStandings ' Base Standings
     ' Industry jobs
     Public IndustryJobsAccess As Boolean
     Public Jobs As EVEIndustryJobs
@@ -53,6 +56,7 @@ Public Class Character
         CharacterTokenData = New SavedTokenData
 
         ' To store the scope access they give us when registering
+        StandingsAccess = False
         AssetsAccess = False
         IndustryJobsAccess = False
         BlueprintsAccess = False
@@ -60,6 +64,7 @@ Public Class Character
         StructureMarketsAccess = False
 
         Skills = New EVESkillList(False)
+        Standings = New EVENPCStandings
         Jobs = New EVEIndustryJobs
         Assets = New EVEAssets
 
@@ -133,6 +138,9 @@ Public Class Character
                 ' Load the skills depending on settings
                 Skills.LoadDummySkills()
 
+                ' No standings
+                Standings = New EVENPCStandings
+
                 ' No Assets
                 Assets = New EVEAssets
 
@@ -198,6 +206,7 @@ Public Class Character
         If readerCharacter.Read Then
             ' Initialize the different character data classes
             Jobs = New EVEIndustryJobs()
+            Standings = New EVENPCStandings()
             Blueprints = New EVEBlueprints()
             Assets = New EVEAssets(ScanType.Personal)
 
@@ -226,10 +235,6 @@ Public Class Character
                     ' Only ignore the cache date if we aren't updating industry jobs
                     If TempESI.SetCharacterData(CharacterTokenData) Then
                         CharacterCorporation = New Corporation()
-                        ' Character corporations have ID's greater than 2 million, so only run if a char corporation not npc
-                        If .GetInt64(2) > 2000000 Then
-                            CharacterCorporation.LoadCorporationData(.GetInt64(2), ID, CharacterTokenData, LoadAssets, LoadBPs)
-                        End If
 
                         UserApplicationSettings.AllowSkillOverride = CBool(.GetInt32(14))
                         IsDefault = CBool(.GetInt32(15))
@@ -275,6 +280,12 @@ Public Class Character
             If IndustryJobsUpdate Then
                 ' Only refresh skills and industry jobs for update calls from industry jobs
                 Return True
+            End If
+
+            ' Load the standings for this character
+            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterStandingsScope) Then
+                StandingsAccess = True
+                Call Standings.LoadCharacterStandings(ID, CharacterTokenData)
             End If
 
             ' Load the Blueprints but don't load if they don't have selected
@@ -340,9 +351,6 @@ Public Class Character
         End If
 
         rsToken.Close()
-
-        ' Reset the corporation data to set the role flags - set reset data flag to false and don't reload jobs, bps, and assets
-        CharacterCorporation.LoadCorporationData(CharacterCorporation.CorporationID, ID, CharacterTokenData, False, False, False)
 
     End Sub
 
