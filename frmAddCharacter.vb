@@ -18,6 +18,7 @@ Public Class frmAddCharacter
         Call UpdateScopesString("esi-markets.structure_markets.v1", True)
         Call UpdateScopesString("esi-wallet.read_character_wallet.v1", True)
         Call UpdateScopesString("esi-characters.read_standings.v1", True)
+        Call UpdateScopesString("esi-clones.read_implants.v1", True)
 
     End Sub
 

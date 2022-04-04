@@ -183,7 +183,8 @@ Public Enum CacheDateType
     PublicStructures = 15
     ESIStatus = 16
 
-
     Wallet = 17
+
+    Implants = 18
 
 End Enum

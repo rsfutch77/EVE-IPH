@@ -31,6 +31,7 @@ Public Class ESI
     Public Const ESICharacterAssetScope As String = "esi-assets.read_assets"
     Public Const ESICharacterBlueprintsScope As String = "esi-characters.read_blueprints"
     Public Const ESICharacterStandingsScope As String = "esi-characters.read_standings"
+    Public Const ESICharacterImplantsScope As String = "esi-clones.read_implants"
     Public Const ESICharacterIndustryJobsScope As String = "esi-industry.read_character_jobs"
     Public Const ESICharacterSkillsScope As String = "esi-skills.read_skill"
     Public Const ESICharacterWalletScope As String = "esi-wallet.read_character_wallet"
@@ -68,6 +69,7 @@ Public Class ESI
     ' esi-industry.read_character_jobs.v1: Allows reading a character's industry jobs
     ' esi-skills.read_skills.v1: Allows reading of a character's currently known skills.
     ' esi-wallet.read_character_wallet.v1: Allows reading character wallet amount
+    ' esi-clones.read_implants.v1: Allows reading character implants
     '
     ' esi-universe.read_structure.v1: Allows reading of all public structures in the universe
     ' esi-markets.structure_markets.v1: Allows reading of markets for structures the character can use
@@ -647,9 +649,6 @@ Public Class ESI
                 ' Update public cachedate for character now that we have a record
                 Call CB.UpdateCacheDate(CacheDateType.PublicCharacterData, CacheDate, CLng(CharacterTokenData.CharacterID))
 
-                ' While we are here, load the public information of the corporation too
-                Call SetCorporationData(CharacterData.corporation_id, CacheDate)
-
                 ' Update after we update/insert the record
                 Call CB.UpdateCacheDate(CacheDateType.PublicCorporationData, CacheDate, CharacterData.corporation_id)
 
@@ -766,14 +765,23 @@ Public Class ESI
 
     End Function
 
-    Public Function GetCurrentResearchAgents(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef AgentsCacheDate As Date) As List(Of ESIResearchAgent)
-        Dim ReturnData As String
+    Public Function GetCharacterImplants(ByVal CharacterID As Long, ByVal TokenData As SavedTokenData, ByRef ImplantsCacheDate As Date) As EVEImplants
+        Dim TempImplantsList As New EVEImplants
+        Dim ImplantsData As List(Of ESICharacterImplantsData)
+        Dim ReturnData As String = ""
+        Dim ImplantType As String = ""
 
-        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/agents_research/" & TranquilityDataSource,
-                                              FormatTokenData(TokenData), TokenData.TokenExpiration, AgentsCacheDate, CharacterID)
+        ReturnData = GetPrivateAuthorizedData(ESIURL & "characters/" & CStr(CharacterID) & "/implants/" & TranquilityDataSource,
+                                              FormatTokenData(TokenData), TokenData.TokenExpiration, ImplantsCacheDate, CharacterID)
 
         If Not IsNothing(ReturnData) Then
-            Return JsonConvert.DeserializeObject(Of List(Of ESIResearchAgent))(ReturnData)
+            ImplantsData = JsonConvert.DeserializeObject(Of List(Of ESICharacterImplantsData))(ReturnData)
+
+            For Each entry In ImplantsData
+                TempImplantsList.InsertImplant(entry.from_id, ImplantType, "", entry.implant)
+            Next
+
+            Return TempImplantsList
         Else
             Return Nothing
         End If
@@ -896,92 +904,6 @@ Public Class ESI
         End If
 
     End Function
-
-    Public Function GetCorporationRoles(ByVal CharacterID As Long, ByVal CorporationID As Long, ByVal TokenData As SavedTokenData, ByRef RolesCacheDate As Date) As List(Of ESICorporationRoles)
-        Dim ReturnData As String
-
-        ReturnData = GetPrivateAuthorizedData(ESIURL & "corporations/" & CStr(CorporationID) & "/roles/" & TranquilityDataSource, FormatTokenData(TokenData), TokenData.TokenExpiration, RolesCacheDate, CharacterID)
-
-        If Not IsNothing(ReturnData) Then
-            Return JsonConvert.DeserializeObject(Of List(Of ESICorporationRoles))(ReturnData)
-        Else
-            ' No corp roles returned
-            Return Nothing
-        End If
-
-    End Function
-
-    Public Sub SetCorporationData(ByVal ID As Long, ByRef DataCacheDate As Date)
-        Dim ReturnData As String = ""
-        Dim SQL As String = ""
-        Dim CorpData As ESICorporation = Nothing
-
-        ' Set up query string
-        ReturnData = GetPublicData(ESIURL & "corporations/" & CStr(ID) & TranquilityDataSource, DataCacheDate)
-
-        If Not IsNothing(ReturnData) Then
-            CorpData = JsonConvert.DeserializeObject(Of ESICorporation)(ReturnData)
-
-            If Not IsNothing(CorpData) Then
-
-                ' See if we insert or update
-                Dim rsCheck As SQLiteDataReader
-                ' Load up all the data for the corporation
-                SQL = "SELECT * FROM ESI_CORPORATION_DATA WHERE CORPORATION_ID = " & ID
-
-                DBCommand = New SQLiteCommand(SQL, EVEDB.DBREf)
-                rsCheck = DBCommand.ExecuteReader
-
-                If rsCheck.Read Then
-                    ' Found a record, so update the data
-                    With CorpData
-                        SQL = "UPDATE ESI_CORPORATION_DATA SET "
-                        SQL &= "CORPORATION_NAME = " & BuildInsertFieldString(.name) & ","
-                        SQL &= "TICKER = " & BuildInsertFieldString(.ticker) & ","
-                        SQL &= "MEMBER_COUNT = " & BuildInsertFieldString(.member_count) & ","
-                        SQL &= "FACTION_ID = " & BuildInsertFieldString(.faction_id) & ","
-                        SQL &= "ALLIANCE_ID = " & BuildInsertFieldString(.alliance_id) & ","
-                        SQL &= "CEO_ID = " & BuildInsertFieldString(.ceo_id) & ","
-                        SQL &= "CREATOR_ID = " & BuildInsertFieldString(.creator_id) & ","
-                        SQL &= "HOME_STATION_ID = " & BuildInsertFieldString(.home_station_id) & ","
-                        SQL &= "SHARES = " & BuildInsertFieldString(.shares) & ","
-                        SQL &= "TAX_RATE = " & BuildInsertFieldString(.tax_rate) & ","
-                        SQL &= "DESCRIPTION = " & BuildInsertFieldString(.description) & ","
-                        SQL &= "DATE_FOUNDED = " & BuildInsertFieldString(.date_founded) & ","
-                        SQL &= "URL = " & BuildInsertFieldString(.date_founded) & " "
-                        SQL &= "WHERE CORPORATION_ID = " & CStr(ID)
-                    End With
-                Else
-                    ' New record
-                    With CorpData
-                        SQL = "INSERT INTO ESI_CORPORATION_DATA VALUES ("
-                        SQL &= BuildInsertFieldString(ID) & ","
-                        SQL &= BuildInsertFieldString(.name) & ","
-                        SQL &= BuildInsertFieldString(.ticker) & ","
-                        SQL &= BuildInsertFieldString(.member_count) & ","
-                        SQL &= BuildInsertFieldString(.faction_id) & ","
-                        SQL &= BuildInsertFieldString(.alliance_id) & ","
-                        SQL &= BuildInsertFieldString(.ceo_id) & ","
-                        SQL &= BuildInsertFieldString(.creator_id) & ","
-                        SQL &= BuildInsertFieldString(.home_station_id) & ","
-                        SQL &= BuildInsertFieldString(.shares) & ","
-                        SQL &= BuildInsertFieldString(.tax_rate) & ","
-                        SQL &= BuildInsertFieldString(.description) & ","
-                        SQL &= BuildInsertFieldString(.date_founded) & ","
-                        SQL &= BuildInsertFieldString(.url) & ","
-                        SQL &= "NULL,NULL,NULL,NULL,NULL)"
-                    End With
-
-                End If
-
-                Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-                rsCheck.Close()
-
-            End If
-        End If
-
-    End Sub
 
     Public Function GetStructureData(ByVal ID As Long, ByVal TokenData As SavedTokenData, ByRef StructureCacheDate As Date, ByVal SuppressErrors As Boolean) As ESIUniverseStructure
         Dim ReturnData As String = ""
@@ -2301,6 +2223,12 @@ Public Class ESICharacterStandingsData
     <JsonProperty("standing")> Public standing As Double
 End Class
 
+Public Class ESICharacterImplantsData
+    <JsonProperty("from_id")> Public from_id As Long
+    <JsonProperty("from_type")> Public from_type As String
+    <JsonProperty("implant")> Public implant As Double
+End Class
+
 Public Class ESICharacterSkillsBase
     <JsonProperty("skills")> Public skills() As ESICharacterSkillsData
     <JsonProperty("total_sp")> Public total_sp As Integer
@@ -2312,26 +2240,6 @@ Public Class ESICharacterSkillsData
     <JsonProperty("skillpoints_in_skill")> Public skillpoints_in_skill As Integer
     <JsonProperty("trained_skill_level")> Public trained_skill_level As Integer
     <JsonProperty("active_skill_level")> Public active_skill_level As Integer
-End Class
-
-Public Class ESIResearchAgent
-    <JsonProperty("agent_id")> Public agent_id As Long
-    <JsonProperty("skill_type_id")> Public skill_type_id As Integer
-    <JsonProperty("started_at")> Public started_at As String
-    <JsonProperty("points_per_day")> Public points_per_day As Double
-    <JsonProperty("remainder_points")> Public remainder_points As Double
-End Class
-
-Public Class ESICorporationRoles
-    <JsonProperty("character_id")> Public character_id As Long
-    <JsonProperty("grantable_roles")> Public grantable_roles As List(Of String)
-    <JsonProperty("grantable_roles_at_base")> Public grantable_roles_at_base As List(Of String)
-    <JsonProperty("grantable_roles_at_hq")> Public grantable_roles_at_hq As List(Of String)
-    <JsonProperty("grantable_roles_at_other")> Public grantable_roles_at_other As List(Of String)
-    <JsonProperty("roles")> Public roles As List(Of String)
-    <JsonProperty("roles_at_base")> Public roles_at_base As List(Of String)
-    <JsonProperty("roles_at_hq")> Public roles_at_hq As List(Of String)
-    <JsonProperty("roles_at_other")> Public roles_at_other As List(Of String)
 End Class
 
 Public Class ESIBlueprint
@@ -2379,22 +2287,6 @@ Public Class ESIAsset
     <JsonProperty("item_id")> Public item_id As Double
     <JsonProperty("location_type")> Public location_type As String
     <JsonProperty("quantity")> Public quantity As Integer
-End Class
-
-Public Class ESICorporation
-    <JsonProperty("alliance_id")> Public alliance_id As Integer
-    <JsonProperty("ceo_id")> Public ceo_id As Integer
-    <JsonProperty("creator_id")> Public creator_id As Integer
-    <JsonProperty("date_founded")> Public date_founded As String
-    <JsonProperty("description")> Public description As String
-    <JsonProperty("faction_id")> Public faction_id As Integer
-    <JsonProperty("home_station_id")> Public home_station_id As Integer
-    <JsonProperty("member_count")> Public member_count As Integer
-    <JsonProperty("name")> Public name As String
-    <JsonProperty("shares")> Public shares As Long
-    <JsonProperty("tax_rate")> Public tax_rate As Double
-    <JsonProperty("ticker")> Public ticker As String
-    <JsonProperty("url")> Public url As String
 End Class
 
 Public Class ESIUniverseStructure

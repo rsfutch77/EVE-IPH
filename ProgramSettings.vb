@@ -468,7 +468,6 @@ Public Class ProgramSettings
                 'Get the settings
                 With TempSettings
                     .AllowSkillOverride = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AllowSkillOverride", DefaultAllowSkillOverride))
-                    .ManufacturingImplantValue = CDbl(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeDouble, AppSettingsFileName, "ManufacturingImplantValue", DefaultImplantValues))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                 End With
 
@@ -495,8 +494,6 @@ Public Class ProgramSettings
         Dim TempSettings As ApplicationSettings
 
         With TempSettings
-            ' Load default settings
-            .ManufacturingImplantValue = DefaultImplantValues
 
             .DisableGATracking = DefaultDisableGATracking
 
@@ -510,12 +507,11 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(2) As Setting
+        Dim ApplicationSettingsList(1) As Setting
 
         Try
             ApplicationSettingsList(0) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(1) = New Setting("ManufacturingImplantValue", CStr(SentSettings.ManufacturingImplantValue))
-            ApplicationSettingsList(2) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(1) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
             Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 

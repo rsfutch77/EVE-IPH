@@ -24,6 +24,9 @@ Public Class Character
     ' Standings
     Public StandingsAccess As Boolean
     Public Standings As EVENPCStandings ' Base Standings
+    ' Implants
+    Public ImplantsAccess As Boolean
+    Public Implants As EVEImplants
     ' Industry jobs
     Public IndustryJobsAccess As Boolean
     Public Jobs As EVEIndustryJobs
@@ -267,7 +270,7 @@ Public Class Character
 
 
             ' Load the character's wallet
-            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterIndustryJobsScope) Or SelectedCharacter.ID = -1 Then
+            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterWalletScope) Or SelectedCharacter.ID = -1 Then
                 Call WalletData.LoadWallet(SelectedCharacter.ID, SelectedCharacter.CharacterTokenData)
             End If
 
@@ -286,6 +289,13 @@ Public Class Character
             If CharacterTokenData.Scopes.Contains(ESI.ESICharacterStandingsScope) Then
                 StandingsAccess = True
                 Call Standings.LoadCharacterStandings(ID, CharacterTokenData)
+            End If
+
+            ' Load the Implants for this character
+            If CharacterTokenData.Scopes.Contains(ESI.ESICharacterImplantsScope) Then
+                ImplantsAccess = True
+                'TODO #7: Implant detection crashes
+                'Call Implants.LoadCharacterImplants(ID, CharacterTokenData)
             End If
 
             ' Load the Blueprints but don't load if they don't have selected

@@ -625,6 +625,10 @@ Public Class frmMain
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If
 
+                If .Contains(ESI.ESICharacterImplantsScope) And rsStatus.GetString(0) = ESI.ESICharacterImplantsScope And rsStatus.GetString(1) <> "green" Then
+                    Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
+                End If
+
                 If .Contains(ESI.ESICharacterAssetScope) And rsStatus.GetString(0) = ESI.ESICharacterAssetScope And rsStatus.GetString(1) <> "green" Then
                     Call DisplayESIStatusMessage(rsStatus.GetString(1), rsStatus.GetString(0), rsStatus.GetString(2))
                 End If

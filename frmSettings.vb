@@ -32,19 +32,6 @@ Public Class frmSettings
 
     End Sub
 
-    Private Sub chkBeanCounterManufacturing_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkBeanCounterManufacturing.CheckedChanged
-        If Not FirstLoad Then
-            If chkBeanCounterManufacturing.Checked Then
-                cmbBeanCounterManufacturing.Enabled = True
-                cmbBeanCounterManufacturing.Text = "Zainou 'Beancounter' Industry BX-802"
-            Else
-                cmbBeanCounterManufacturing.Enabled = False
-                cmbBeanCounterManufacturing.Text = ""
-            End If
-        End If
-        AutoSave()
-    End Sub
-
     Private Sub txtBrokerFactionStandings_keypress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         ' Only allow numbers or backspace
         If e.KeyChar <> ControlChars.Back Then
@@ -123,21 +110,6 @@ Public Class frmSettings
 
         With UserApplicationSettings
 
-            ' Implants
-            If .ManufacturingImplantValue > 0 Then
-                chkBeanCounterManufacturing.Checked = True
-                Select Case .ManufacturingImplantValue
-                    Case (-1 * GetAttribute("manufacturingTimeBonus", Defaults.MBeanCounterName & "1") / 100)
-                        cmbBeanCounterManufacturing.Text = Defaults.MBeanCounterName & "1"
-                    Case (-1 * GetAttribute("manufacturingTimeBonus", Defaults.MBeanCounterName & "2") / 100)
-                        cmbBeanCounterManufacturing.Text = Defaults.MBeanCounterName & "2"
-                    Case (-1 * GetAttribute("manufacturingTimeBonus", Defaults.MBeanCounterName & "4") / 100)
-                        cmbBeanCounterManufacturing.Text = Defaults.MBeanCounterName & "4"
-                End Select
-            Else
-                cmbBeanCounterManufacturing.Enabled = False
-            End If
-
             chkDisableTracking.Checked = .DisableGATracking
 
         End With
@@ -170,29 +142,6 @@ Public Class frmSettings
         Call frmMain.ResetRefresh()
 
     End Sub
-
-    Private Function CheckEntries() As Boolean
-        Dim TempTextBox As TextBox = Nothing
-        Dim TempCheckBox As CheckBox = Nothing
-        Dim TempComboBox As ComboBox = Nothing
-
-        Return True
-
-InvalidData:
-
-        If Not IsNothing(TempComboBox) Then
-            MsgBox("Invalid " & TempComboBox.Name & " Value", vbExclamation, Application.ProductName)
-            TempComboBox.Focus()
-            Call TempComboBox.SelectAll()
-        Else
-            MsgBox("Invalid " & TempCheckBox.Name & " Value", vbExclamation, Application.ProductName)
-            TempTextBox.Focus()
-            Call TempTextBox.SelectAll()
-        End If
-
-        Return False
-
-    End Function
 
     Private Sub chkUseActiveSkills_CheckedChanged(sender As Object, e As EventArgs)
         ' They changed active skills, so reload character skills on exit

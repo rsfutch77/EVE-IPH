@@ -33,29 +33,32 @@ Partial Class frmAddCharacter
         '
         Me.btnEVESSOLogin.BackgroundImage = CType(resources.GetObject("btnEVESSOLogin.BackgroundImage"), System.Drawing.Image)
         Me.btnEVESSOLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.btnEVESSOLogin.Location = New System.Drawing.Point(147, 137)
+        Me.btnEVESSOLogin.Location = New System.Drawing.Point(196, 169)
+        Me.btnEVESSOLogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnEVESSOLogin.Name = "btnEVESSOLogin"
-        Me.btnEVESSOLogin.Size = New System.Drawing.Size(270, 46)
+        Me.btnEVESSOLogin.Size = New System.Drawing.Size(360, 57)
         Me.btnEVESSOLogin.TabIndex = 2
         Me.btnEVESSOLogin.UseVisualStyleBackColor = True
         '
         'lblKeyType
         '
-        Me.lblKeyType.Location = New System.Drawing.Point(12, 9)
+        Me.lblKeyType.Location = New System.Drawing.Point(16, 11)
+        Me.lblKeyType.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblKeyType.Name = "lblKeyType"
-        Me.lblKeyType.Size = New System.Drawing.Size(611, 92)
+        Me.lblKeyType.Size = New System.Drawing.Size(815, 113)
         Me.lblKeyType.TabIndex = 13
         Me.lblKeyType.Text = resources.GetString("lblKeyType.Text")
         '
         'frmAddCharacter
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(635, 288)
+        Me.ClientSize = New System.Drawing.Size(847, 354)
         Me.Controls.Add(Me.lblKeyType)
         Me.Controls.Add(Me.btnEVESSOLogin)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAddCharacter"
