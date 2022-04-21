@@ -60,13 +60,8 @@ Public Class EVESkillList
                 SelectedSkillLevel = rsData.GetInt32(1)
             End If
 
-            ' Insert skill
-            If UserApplicationSettings.AllowSkillOverride And CBool(rsData.GetInt32(4)) And LoadAllSkillsforOverride Then
-                ' Use the override skill if set, save the old skill level in the override so we can reference it later if needed
-                InsertSkill(rsData.GetInt64(0), rsData.GetInt32(5), rsData.GetInt32(1), rsData.GetInt32(2), rsData.GetInt64(3), CBool(rsData.GetInt32(4)), SelectedSkillLevel)
-            Else ' Just normal skills
-                InsertSkill(rsData.GetInt64(0), SelectedSkillLevel, rsData.GetInt32(1), rsData.GetInt32(2), rsData.GetInt64(3), CBool(rsData.GetInt32(4)), rsData.GetInt32(5))
-            End If
+            InsertSkill(rsData.GetInt64(0), SelectedSkillLevel, rsData.GetInt32(1), rsData.GetInt32(2), rsData.GetInt64(3), CBool(rsData.GetInt32(4)), rsData.GetInt32(5))
+
 
         End While
 
@@ -440,8 +435,6 @@ Public Class EVESkillList
 
                 Call EVEDB.ExecuteNonQuerySQL(SQL)
 
-                UserApplicationSettings.AllowSkillOverride = True
-
             Next
 
             Call EVEDB.CommitSQLiteTransaction()
@@ -462,8 +455,6 @@ Public Class EVESkillList
             ' Update all skills to base
             SQL = "UPDATE CHARACTER_SKILLS SET OVERRIDE_LEVEL = 0, OVERRIDE_SKILL = 0 WHERE CHARACTER_ID = " & SelectedCharacter.ID
             Call EVEDB.ExecuteNonQuerySQL(SQL)
-
-            UserApplicationSettings.AllowSkillOverride = False
 
         End If
 

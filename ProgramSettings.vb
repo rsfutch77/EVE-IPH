@@ -467,7 +467,6 @@ Public Class ProgramSettings
 
                 'Get the settings
                 With TempSettings
-                    .AllowSkillOverride = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "AllowSkillOverride", DefaultAllowSkillOverride))
                     .DisableGATracking = CBool(GetSettingValue(SettingsFolder, AppSettingsFileName, SettingTypes.TypeBoolean, AppSettingsFileName, "DisableGATracking", DefaultDisableGATracking))
                 End With
 
@@ -507,13 +506,12 @@ Public Class ProgramSettings
 
     ' Saves the application settings to XML
     Public Sub SaveApplicationSettings(SentSettings As ApplicationSettings)
-        Dim ApplicationSettingsList(1) As Setting
+        Dim ApplicationSettingsList(0) As Setting
 
         Try
-            ApplicationSettingsList(0) = New Setting("AllowSkillOverride", CStr(SentSettings.AllowSkillOverride))
-            ApplicationSettingsList(1) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
+            ApplicationSettingsList(0) = New Setting("DisableGATracking", CStr(SentSettings.DisableGATracking))
 
-            Call WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
+            WriteSettingsToFile(SettingsFolder, AppSettingsFileName, ApplicationSettingsList, AppSettingsFileName)
 
         Catch ex As Exception
             MsgBox("An error occured when saving Application Settings. Error: " & Err.Description & vbCrLf & "Settings not saved.", vbExclamation, Application.ProductName)
@@ -1504,9 +1502,6 @@ End Class
 
 ' For general program settings
 Public Structure ApplicationSettings
-    Dim AllowSkillOverride As Boolean
-
-    Dim ManufacturingImplantValue As Double
 
     Dim DisableGATracking As Boolean ' for disabling tracking app usage through Google Analytics
 

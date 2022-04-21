@@ -260,7 +260,8 @@ Public Class Blueprint
         ScienceSkill = BPCharacter.Skills.GetSkillLevel(3402)
 
         ' Add production implant from settings
-        AIImplantValue = 1 - UserSettings.ManufacturingImplantValue
+        'TODO #7: Implant detection crashes
+        'AIImplantValue = 1 - UserSettings.ManufacturingImplantValue
 
         ' Production facilities
         MainManufacturingFacility = BPProductionFacility

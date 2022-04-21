@@ -133,16 +133,11 @@ Public Class frmCharacterSkills
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
-        AllowSkillOverride = UserApplicationSettings.AllowSkillOverride
-        FullOverrideChange = UserApplicationSettings.AllowSkillOverride ' Save this for checking
-
     End Sub
 
     Private Sub frmCharacterSkills_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Me.Refresh()
         CheckLoadsTree = False
-        chkSkillOverride.Checked = UserApplicationSettings.AllowSkillOverride
         CheckLoadsTree = True
         Call LoadSkillsInTree(AllowSkillOverride)
         CheckSaveBeforeExit = False

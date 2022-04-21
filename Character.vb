@@ -239,7 +239,6 @@ Public Class Character
                     If TempESI.SetCharacterData(CharacterTokenData) Then
                         CharacterCorporation = New Corporation()
 
-                        UserApplicationSettings.AllowSkillOverride = CBool(.GetInt32(14))
                         IsDefault = CBool(.GetInt32(15))
                     Else
                         ' Check the error that caused this not to update
