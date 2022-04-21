@@ -306,6 +306,8 @@ Public Class frmMain
 
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
 
+        Call LoadFormSettings()
+
         ' See if they've disabled GA tracking
         If Not UserApplicationSettings.DisableGATracking Then
             ' Use google analytics to track number of users using IPH (no user information passed except MAC address for Client ID)
@@ -7704,6 +7706,29 @@ NextIteration:
 
     Private Sub btnReportbug_Click(sender As Object, e As EventArgs) Handles btnReportbug.Click
         Call Process.Start("https://github.com/rsfutch77/EasyIPH/issues")
+    End Sub
+
+    Private Sub LoadFormSettings()
+
+        UserApplicationSettings = AllSettings.LoadApplicationSettings()
+
+        chkDisableTracking.Checked = UserApplicationSettings.DisableGATracking
+
+    End Sub
+
+    Private Sub AutoSave()
+
+        Dim Settings As New ProgramSettings
+
+        UserApplicationSettings.DisableGATracking = chkDisableTracking.Checked
+
+        ' Save the data in the XML file
+        Call Settings.SaveApplicationSettings(UserApplicationSettings)
+
+    End Sub
+
+    Private Sub chkDisableTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableTracking.CheckedChanged
+        AutoSave()
     End Sub
 
 #End Region
