@@ -7091,6 +7091,8 @@ ExitCalc:
             'GetTotalItemsinProduction()
             'if this shrinks the list to zero then recommend they buy more blueprints, but go back and redo shopping without this rule in case they want to use the same old blueprints
 
+            Dim ProductionTimeError As Boolean = False 'Notifies user of error when calculating production time instead of dividing by zero
+
             ' Find the top items
             Dim j As Integer
             For i = 0 To (maxJobs + j)
@@ -7130,7 +7132,13 @@ ExitCalc:
                             Dim RuntimeSeconds As Double = .Blueprint.GetTotalProductionTime
                             Dim ShopListItem As ShoppingListItem = CopyManufacturingItemToShoppingItem(FoundItem)
                             'Update the quantity. Maximum build time is 5 days minus 2 hours so they can come back next weekend, with a couple hours to spare
-                            Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(((5 * 24) - 2) * 3600 / RuntimeSeconds))
+                            If RuntimeSeconds > 0 Then
+                                Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, CLng(((5 * 24) - 2) * 3600 / RuntimeSeconds))
+                            Else
+                                'Drop this item if we calculated a <1 runtime
+                                ProductionTimeError = True
+                                Call TotalShoppingList.UpdateShoppingItemQuantity(ShopListItem, 0)
+                            End If
 
                         Else
                             MsgBox("You must calculate an item before adding it to the shopping list.", MsgBoxStyle.Information, Application.ProductName)
@@ -7140,6 +7148,10 @@ ExitCalc:
                 End If
 NextIteration:
             Next
+
+            If ProductionTimeError Then
+                MsgBox("Production Time Error", MsgBoxStyle.Information, Application.ProductName)
+            End If
 
             'Shrink the shopping list until it is feasible for the player
             pnlStatus.Text = "Autoshopping for cost..."
