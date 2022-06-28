@@ -262,6 +262,7 @@ Public Class Blueprint
         ' Add production implant from settings
         'TODO #7: Implant detection crashes
         'AIImplantValue = 1 - UserSettings.ManufacturingImplantValue
+        AIImplantValue = 1
 
         ' Production facilities
         MainManufacturingFacility = BPProductionFacility
