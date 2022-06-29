@@ -331,21 +331,6 @@ Public Class frmShoppingList
 
                     readerItemPrices.Close()
 
-                    ' Four cases - None or error, set to zero. If they had a user entered price, assume min sell. Otherwise, use stored values
-                    If PriceType = None Then
-                        ' Price isn't set yet or an error. Either way they are zero 
-                        MinSellUnitPrice = 0
-                        MaxBuyUnitPrice = 0
-
-                    ElseIf PriceType = "User" Or PriceType.Contains("sell") Then
-                        ' The updated a price, so no matter what they intended - I'm assuming they meant minSell (50/50 chance)
-                        ' or they stored some sell price, so set that and compare to the stored maxbuy price
-                        MinSellUnitPrice = StoredPrice
-                    ElseIf PriceType.Contains("buy") Or PriceType.Contains("all") Then
-                        ' They stored a buy price...so set that and we'll compare it to the stored minsell price - also use average here too
-                        MaxBuyUnitPrice = StoredPrice
-                    End If
-
                     ' Now that we have the prices, compare the two
                     If MinSellUnitPrice <> 0 And MaxBuyUnitPrice <> 0 Then
 
