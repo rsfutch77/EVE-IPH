@@ -2516,92 +2516,89 @@ ExitSub:
         Dim PriceType As String = "" ' Default
         Dim Items As New List(Of TypeIDRegion)
 
-        ' Use CCP Data
-        If True Then 'Always use CCP Data
+        ' Use Eve Marketer Data unless it fails, then use CCP data
+
+        ' Update the EVE Marketer cache
+        If Not UpdatePricesCache(SentItems) Then
+            ' Update Failed, try CCP Data
+            'TODO #8: Notify the user that eve marketer update failed and buy order/market decision will not be available
             ' Loop through each item and set it's pair for query
             For i = 0 To SentItems.Count - 1
-                Dim Temp As New TypeIDRegion
-                Temp.TypeIDs.Add(CStr(SentItems(i).TypeID))
+                    Dim Temp As New TypeIDRegion
+                    Temp.TypeIDs.Add(CStr(SentItems(i).TypeID))
 
-                ' Look up regionID since we can only look up regions in ESI
-                If SentItems(i).SystemID <> "" Then
-                    DBCommand = New SQLiteCommand("SELECT regionID FROM SOLAR_SYSTEMS WHERE solarsystemID = '" & SentItems(i).SystemID & "'", EVEDB.DBREf)
-                    readerPrices = DBCommand.ExecuteReader
-                    readerPrices.Read()
-                    RegionID = CStr(readerPrices.GetInt64(0))
-                    readerPrices.Close()
-                    DBCommand = Nothing
-                    PriceSystem = SentItems(i).SystemID
-                Else
-                    ' for ESI, only one region per update
-                    RegionID = SentItems(i).RegionID
-                End If
+                    ' Look up regionID since we can only look up regions in ESI
+                    If SentItems(i).SystemID <> "" Then
+                        DBCommand = New SQLiteCommand("SELECT regionID FROM SOLAR_SYSTEMS WHERE solarsystemID = '" & SentItems(i).SystemID & "'", EVEDB.DBREf)
+                        readerPrices = DBCommand.ExecuteReader
+                        readerPrices.Read()
+                        RegionID = CStr(readerPrices.GetInt64(0))
+                        readerPrices.Close()
+                        DBCommand = Nothing
+                        PriceSystem = SentItems(i).SystemID
+                    Else
+                        ' for ESI, only one region per update
+                        RegionID = SentItems(i).RegionID
+                    End If
 
-                ' Set the region
-                Temp.RegionString = RegionID
+                    ' Set the region
+                    Temp.RegionString = RegionID
 
-                ' Save the ItemID in the list
-                ItemTypeIDs.Add(CStr(SentItems(i).TypeID))
-                ' Save the regionID in the list
-                If Not PriceRegions.Contains(RegionID) Then
-                    PriceRegions.Add(RegionID)
-                End If
+                    ' Save the ItemID in the list
+                    ItemTypeIDs.Add(CStr(SentItems(i).TypeID))
+                    ' Save the regionID in the list
+                    If Not PriceRegions.Contains(RegionID) Then
+                        PriceRegions.Add(RegionID)
+                    End If
 
-                ' Save the item with the region on it
-                Items.Add(Temp)
-            Next
+                    ' Save the item with the region on it
+                    Items.Add(Temp)
+                Next
 
-            pnlStatus.Text = "Downloading Station Prices..."
+                pnlStatus.Text = "Downloading Station Prices..."
 
-            ' Update the ESI prices cache
-            If Not MP.UpdateESIMarketOrders(Items) Then
-                ' Update Failed, don't reload everything
-                Call MsgBox("Some prices did not update from stations. Please try again.", vbInformation, Application.ProductName)
-                pnlStatus.Text = ""
-                Exit Sub
-            End If
-
-            If CancelThreading Then
-                ' They had a ton of errors
-                Call MsgBox("You had an excessive amount of errors while attempting to update station orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
-                CancelThreading = False
-                Exit Sub
-            End If
-
-            pnlStatus.Text = ""
-            Application.DoEvents()
-
-            ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
-            If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
-                pnlStatus.Text = "Downloading Public Structure Prices..."
-
-                ' First, make sure we have structures in the table to query
-                Call ESIData.UpdatePublicStructureswithMarkets()
-
-                If Not ESIData.UpdateStructureMarketOrders(PriceRegions, PriceSystem, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
+                ' Update the ESI prices cache
+                If Not MP.UpdateESIMarketOrders(Items) Then
                     ' Update Failed, don't reload everything
-                    Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
+                    Call MsgBox("Some prices did not update from stations. Please try again.", vbInformation, Application.ProductName)
                     pnlStatus.Text = ""
                     Exit Sub
                 End If
 
                 If CancelThreading Then
                     ' They had a ton of errors
-                    Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                    Call MsgBox("You had an excessive amount of errors while attempting to update station orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
                     CancelThreading = False
                     Exit Sub
                 End If
 
                 pnlStatus.Text = ""
-            End If
-        Else
-            ' Update the EVE Marketer cache
-            If Not UpdatePricesCache(SentItems) Then
-                ' Update Failed, don't reload everything
-                Exit Sub
-            End If
+                Application.DoEvents()
 
-        End If
+                ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
+                If SelectedCharacter.StructureMarketsAccess And SelectedCharacter.PublicStructuresAccess And Not CancelUpdatePrices Then
+                    pnlStatus.Text = "Downloading Public Structure Prices..."
+
+                    ' First, make sure we have structures in the table to query
+                    Call ESIData.UpdatePublicStructureswithMarkets()
+
+                    If Not ESIData.UpdateStructureMarketOrders(PriceRegions, PriceSystem, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
+                        ' Update Failed, don't reload everything
+                        Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
+                        pnlStatus.Text = ""
+                        Exit Sub
+                    End If
+
+                    If CancelThreading Then
+                        ' They had a ton of errors
+                        Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                        CancelThreading = False
+                        Exit Sub
+                    End If
+
+                    pnlStatus.Text = ""
+                End If
+            End If
 
         ' Working
         pnlStatus.Text = "Updating Item Prices..."
