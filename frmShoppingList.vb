@@ -289,12 +289,6 @@ Public Class frmShoppingList
                     RawmatList.SubItems.Add(FormatNumber(RawItems.GetMaterialList(i).GetQuantity, 0))
                     RawmatList.SubItems.Add(FormatNumber(RawItems.GetMaterialList(i).GetCostPerItem, 2)) ' Cost per item (as the user has it stored)
 
-                    ' See if we want to determine if we compare prices for Buy Order / Buy Market
-                    ' The rules are:
-                    ' - If Fees is checked and CalcBuyType then calculate for buy order or buy market
-                    ' - If Fees is not checked, then CalcBuyType will be disabled, and the user wants to buy all from market
-                    ' - If Fees is checked, and CalcBuyType is not, then you want to buy all from a buy order
-
                     ' Look up the price of buying directly off the market (min sell - no tax, no broker fee) and compare it to the price
                     ' of max buy (buy order) plus the brokers fees to set up that order (no tax). Then show the value in the grid of what they should do
                     ' First find out what price and type we have stored
@@ -330,6 +324,13 @@ Public Class frmShoppingList
                     End If
 
                     readerItemPrices.Close()
+
+                    'Calucate buy order fees
+                    If MaxBuyUnitPrice <> 0 Then
+                        BuyOrderFees = GetSalesBrokerFee(MaxBuyUnitPrice * RawItems.GetMaterialList(i).GetQuantity, GetBrokerFeeData())
+                    Else
+                        BuyOrderFees = 0
+                    End If
 
                     ' Now that we have the prices, compare the two
                     If MinSellUnitPrice <> 0 And MaxBuyUnitPrice <> 0 Then
