@@ -172,8 +172,6 @@ Public Class frmShoppingList
         lstItems.Columns.Add("TE", 0, HorizontalAlignment.Right) ' Hidden
         lstItems.Columns.Add("Facility Build type", 0, HorizontalAlignment.Center) ' Hidden for saving
 
-        ttMain.SetToolTip(rbtnExportMulitBuy, "When checked, this will copy the list into a format that will work with Multi-Buy when pressing the Copy button.")
-
         IgnoreFocusChange = False
 
         btnCopy.Enabled = False
@@ -192,12 +190,7 @@ Public Class frmShoppingList
         CopyPasteMaterialText = ""
 
         UserShoppingListSettings = AllSettings.LoadShoppingListSettings
-        LoadShoppingSettings()
 
-    End Sub
-
-    Private Sub LoadShoppingSettings()
-        rbtnExportMulitBuy.Checked = True
     End Sub
 
     Public Sub RefreshLists()
@@ -709,11 +702,7 @@ Public Class frmShoppingList
 
         Dim ExportTypeString As String
 
-        If rbtnExportMulitBuy.Checked Then
-            ExportTypeString = MultiBuyDataExport
-        Else
-            ExportTypeString = DefaultTextDataExport
-        End If
+        ExportTypeString = MultiBuyDataExport
 
         ' Paste to clipboard
         Call CopyTextToClipboard(TotalShoppingList.GetClipboardList(ExportTypeString, True, MatList, ItemList, False))

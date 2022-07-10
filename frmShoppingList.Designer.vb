@@ -3,7 +3,7 @@ Partial Class frmShoppingList
     Inherits System.Windows.Forms.UserControl
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmShoppingList
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.btnCopy = New System.Windows.Forms.Button()
@@ -36,8 +36,6 @@ Partial Class frmShoppingList
         Me.txtListEdit = New System.Windows.Forms.TextBox()
         Me.DeleteMaterialStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
-        Me.gbExportOptions = New System.Windows.Forms.GroupBox()
-        Me.rbtnExportMulitBuy = New System.Windows.Forms.RadioButton()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblItemstoBuy = New System.Windows.Forms.Label()
@@ -47,7 +45,6 @@ Partial Class frmShoppingList
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
         Me.DeleteMaterialStrip.SuspendLayout()
-        Me.gbExportOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnCopy
@@ -159,31 +156,6 @@ Partial Class frmShoppingList
         Me.DeleteMaterial.Size = New System.Drawing.Size(181, 24)
         Me.DeleteMaterial.Text = "Delete Material"
         '
-        'gbExportOptions
-        '
-        Me.gbExportOptions.Controls.Add(Me.rbtnExportMulitBuy)
-        Me.gbExportOptions.Location = New System.Drawing.Point(168, 702)
-        Me.gbExportOptions.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbExportOptions.Name = "gbExportOptions"
-        Me.gbExportOptions.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbExportOptions.Size = New System.Drawing.Size(154, 108)
-        Me.gbExportOptions.TabIndex = 74
-        Me.gbExportOptions.TabStop = False
-        Me.gbExportOptions.Text = "Export Data in:"
-        '
-        'rbtnExportMulitBuy
-        '
-        Me.rbtnExportMulitBuy.AutoSize = True
-        Me.rbtnExportMulitBuy.Checked = True
-        Me.rbtnExportMulitBuy.Location = New System.Drawing.Point(10, 19)
-        Me.rbtnExportMulitBuy.Margin = New System.Windows.Forms.Padding(4)
-        Me.rbtnExportMulitBuy.Name = "rbtnExportMulitBuy"
-        Me.rbtnExportMulitBuy.Size = New System.Drawing.Size(139, 20)
-        Me.rbtnExportMulitBuy.TabIndex = 3
-        Me.rbtnExportMulitBuy.TabStop = True
-        Me.rbtnExportMulitBuy.Text = "Multi-Buy (Buy List)"
-        Me.rbtnExportMulitBuy.UseVisualStyleBackColor = True
-        '
         'OpenFileDialog
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
@@ -242,7 +214,6 @@ Partial Class frmShoppingList
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.Controls.Add(Me.gbExportOptions)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.lblItemstoBuild)
         Me.Controls.Add(Me.lblItemstoBuy)
@@ -259,8 +230,6 @@ Partial Class frmShoppingList
         Me.DeleteBuildStrip.ResumeLayout(False)
         Me.DeleteItemStrip.ResumeLayout(False)
         Me.DeleteMaterialStrip.ResumeLayout(False)
-        Me.gbExportOptions.ResumeLayout(False)
-        Me.gbExportOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -284,6 +253,4 @@ Partial Class frmShoppingList
     Friend WithEvents lstItems As Easy_IPH.MyListView
     Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
     Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
-    Friend WithEvents gbExportOptions As System.Windows.Forms.GroupBox
-    Friend WithEvents rbtnExportMulitBuy As RadioButton
 End Class
