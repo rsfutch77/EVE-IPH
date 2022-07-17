@@ -26,14 +26,6 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
-        Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCharacterSkills = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuCurrentIndustryJobs = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ttBP = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
@@ -94,7 +86,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
-        Me.mnuStripMain.SuspendLayout()
+        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -106,58 +98,6 @@ Partial Class frmMain
         CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'mnuStripMain
-        '
-        Me.mnuStripMain.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
-        Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
-        Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1621, 28)
-        Me.mnuStripMain.TabIndex = 0
-        Me.mnuStripMain.Text = "MainMenu"
-        '
-        'mnuEdit
-        '
-        Me.mnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuManageBlueprintsToolStripMenuItem})
-        Me.mnuEdit.Name = "mnuEdit"
-        Me.mnuEdit.Size = New System.Drawing.Size(49, 24)
-        Me.mnuEdit.Text = "Edit"
-        '
-        'mnuManageBlueprintsToolStripMenuItem
-        '
-        Me.mnuManageBlueprintsToolStripMenuItem.Name = "mnuManageBlueprintsToolStripMenuItem"
-        Me.mnuManageBlueprintsToolStripMenuItem.Size = New System.Drawing.Size(216, 26)
-        Me.mnuManageBlueprintsToolStripMenuItem.Text = "Manage Blueprints"
-        '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCharacterSkills, Me.ToolStripSeparator5, Me.mnuCurrentIndustryJobs, Me.ToolStripSeparator3})
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
-        Me.ViewToolStripMenuItem.Text = "View"
-        '
-        'mnuCharacterSkills
-        '
-        Me.mnuCharacterSkills.Name = "mnuCharacterSkills"
-        Me.mnuCharacterSkills.Size = New System.Drawing.Size(229, 26)
-        Me.mnuCharacterSkills.Text = "Character Skills"
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(226, 6)
-        '
-        'mnuCurrentIndustryJobs
-        '
-        Me.mnuCurrentIndustryJobs.Name = "mnuCurrentIndustryJobs"
-        Me.mnuCurrentIndustryJobs.Size = New System.Drawing.Size(229, 26)
-        Me.mnuCurrentIndustryJobs.Text = "Current Industry Jobs"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(226, 6)
         '
         'ttBP
         '
@@ -223,7 +163,7 @@ Partial Class frmMain
         Me.btnDownloadPrices.Name = "btnDownloadPrices"
         Me.btnDownloadPrices.Size = New System.Drawing.Size(156, 56)
         Me.btnDownloadPrices.TabIndex = 12
-        Me.btnDownloadPrices.Text = "Download" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Prices"
+        Me.btnDownloadPrices.Text = "Update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Prices"
         Me.btnDownloadPrices.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnDownloadPrices.UseSelectable = True
         '
@@ -241,9 +181,9 @@ Partial Class frmMain
         '
         'MetroProgressBar
         '
-        Me.MetroProgressBar.Location = New System.Drawing.Point(395, 465)
+        Me.MetroProgressBar.Location = New System.Drawing.Point(395, 495)
         Me.MetroProgressBar.Name = "MetroProgressBar"
-        Me.MetroProgressBar.Size = New System.Drawing.Size(442, 56)
+        Me.MetroProgressBar.Size = New System.Drawing.Size(442, 26)
         Me.MetroProgressBar.TabIndex = 76
         Me.MetroProgressBar.Theme = MetroFramework.MetroThemeStyle.Dark
         '
@@ -324,7 +264,7 @@ Partial Class frmMain
         '
         Me.pnlStatus.BackColor = System.Drawing.Color.Transparent
         Me.pnlStatus.ForeColor = System.Drawing.Color.Transparent
-        Me.pnlStatus.Location = New System.Drawing.Point(441, 477)
+        Me.pnlStatus.Location = New System.Drawing.Point(441, 457)
         Me.pnlStatus.Name = "pnlStatus"
         Me.pnlStatus.Size = New System.Drawing.Size(354, 35)
         Me.pnlStatus.TabIndex = 86
@@ -340,6 +280,7 @@ Partial Class frmMain
         Me.lblCharacterData.Size = New System.Drawing.Size(815, 37)
         Me.lblCharacterData.TabIndex = 90
         Me.lblCharacterData.Text = "Market/Wallet/Job data not updated yet, click Calculate to begin..."
+        Me.lblCharacterData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblCharacterData.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.lblCharacterData.WrapToLine = True
         '
@@ -474,6 +415,7 @@ Partial Class frmMain
         Me.TabPage1.Controls.Add(Me.lblCharacterData)
         Me.TabPage1.Controls.Add(Me.MetroLabel4)
         Me.TabPage1.Controls.Add(Me.MetroLabel3)
+        Me.TabPage1.Controls.Add(Me.MetroLabel1)
         Me.TabPage1.ForeColor = System.Drawing.Color.DimGray
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
@@ -523,10 +465,10 @@ Partial Class frmMain
         '
         Me.CalcBaseFacility.BackColor = System.Drawing.Color.Transparent
         Me.CalcBaseFacility.ForeColor = System.Drawing.Color.Transparent
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(67, 285)
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(59, 285)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(707, 58)
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(780, 58)
         Me.CalcBaseFacility.TabIndex = 0
         '
         'MetroLabel4
@@ -753,6 +695,19 @@ Partial Class frmMain
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
         '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel1.Location = New System.Drawing.Point(131, 8)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(566, 113)
+        Me.MetroLabel1.TabIndex = 98
+        Me.MetroLabel1.Text = "Select or add a character"
+        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel1.WrapToLine = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -762,11 +717,9 @@ Partial Class frmMain
         Me.ClientSize = New System.Drawing.Size(1661, 927)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
-        Me.Controls.Add(Me.mnuStripMain)
         Me.Controls.Add(Me.chkCalcCanBuild)
         Me.ForeColor = System.Drawing.Color.White
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MainMenuStrip = Me.mnuStripMain
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "frmMain"
@@ -775,8 +728,6 @@ Partial Class frmMain
         Me.Text = "EasyIPH"
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.TransparencyKey = System.Drawing.Color.LightBlue
-        Me.mnuStripMain.ResumeLayout(False)
-        Me.mnuStripMain.PerformLayout()
         Me.ListOptionsMenu.ResumeLayout(False)
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
@@ -793,17 +744,10 @@ Partial Class frmMain
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents mnuStripMain As System.Windows.Forms.MenuStrip
-    Friend WithEvents mnuEdit As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuManageBlueprintsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gbSystems As System.Windows.Forms.GroupBox
     Friend WithEvents ttBP As System.Windows.Forms.ToolTip
-    Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuCharacterSkills As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents SaveFileDialog As System.Windows.Forms.SaveFileDialog
-    Friend WithEvents mnuCurrentIndustryJobs As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ListOptionsMenu As MetroFramework.Controls.MetroContextMenu
     Friend WithEvents IgnoreBlueprintToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ttUpdatePrices As System.Windows.Forms.ToolTip
@@ -814,7 +758,6 @@ Partial Class frmMain
     Friend WithEvents ttPI As System.Windows.Forms.ToolTip
     Friend WithEvents CalcImageList As System.Windows.Forms.ImageList
     Friend WithEvents AddToShoppingListToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
     Friend WithEvents btnDownloadPrices As MetroFramework.Controls.MetroButton
@@ -861,4 +804,5 @@ Partial Class frmMain
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
 End Class

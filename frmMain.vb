@@ -1123,7 +1123,7 @@ Public Class frmMain
         End
     End Sub
 
-    Private Sub mnuManageBlueprintsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuManageBlueprintsToolStripMenuItem.Click
+    Private Sub mnuManageBlueprintsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f1 = New frmBlueprintManagement
         f1.Show()
         Call ResetRefresh()
@@ -1131,22 +1131,6 @@ Public Class frmMain
         'If Not IsNothing(SelectedBlueprint) Then
         '    Call SelectBlueprint(False)
         'End If
-    End Sub
-
-    Private Sub mnuCharacterSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCharacterSkills.Click
-        Call OpenCharacterSkills()
-    End Sub
-
-    Private Sub pnlSkills_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Call OpenCharacterSkills()
-    End Sub
-
-    Private Sub OpenCharacterSkills()
-        Dim f1 = New frmCharacterSkills
-        ' Open the character screen
-        SkillsUpdated = False
-        f1.ShowDialog()
-
     End Sub
 
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
@@ -7721,10 +7705,6 @@ NextIteration:
 
     Private Sub chkDisableTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableTracking.CheckedChanged
         AutoSave()
-    End Sub
-
-    Private Sub FrmShoppingList1_Load(sender As Object, e As EventArgs) Handles FrmShoppingList1.Load
-
     End Sub
 
 #End Region

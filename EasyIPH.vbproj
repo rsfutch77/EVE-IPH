@@ -272,12 +272,6 @@
     <Compile Include="frmBlueprintManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCharacterSkills.Designer.vb">
-      <DependentUpon>frmCharacterSkills.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmCharacterSkills.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmError.Designer.vb">
       <DependentUpon>frmError.vb</DependentUpon>
     </Compile>
@@ -390,10 +384,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBlueprintManagement.resx">
       <DependentUpon>frmBlueprintManagement.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCharacterSkills.resx">
-      <DependentUpon>frmCharacterSkills.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmError.resx">
