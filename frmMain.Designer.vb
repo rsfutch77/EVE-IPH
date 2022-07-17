@@ -59,9 +59,9 @@ Partial Class frmMain
         Me.lblCharacter = New MetroFramework.Controls.MetroLabel()
         Me.btnHelp = New MetroFramework.Controls.MetroButton()
         Me.pnlFacility = New MetroFramework.Controls.MetroPanel()
+        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.lbltrips = New System.Windows.Forms.Label()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
-        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -351,16 +351,52 @@ Partial Class frmMain
         Me.btnHelp.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnHelp.UseSelectable = True
         '
+        'pnlFacility
+        '
+        Me.pnlFacility.Controls.Add(Me.CalcBaseFacility)
+        Me.pnlFacility.HorizontalScrollbarBarColor = True
+        Me.pnlFacility.HorizontalScrollbarHighlightOnWheel = False
+        Me.pnlFacility.HorizontalScrollbarSize = 10
+        Me.pnlFacility.Location = New System.Drawing.Point(14, 286)
+        Me.pnlFacility.Name = "pnlFacility"
+        Me.pnlFacility.Size = New System.Drawing.Size(815, 76)
+        Me.pnlFacility.TabIndex = 110
+        Me.pnlFacility.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.pnlFacility.VerticalScrollbarBarColor = True
+        Me.pnlFacility.VerticalScrollbarHighlightOnWheel = False
+        Me.pnlFacility.VerticalScrollbarSize = 10
         '
         'CalcBaseFacility
         '
         Me.CalcBaseFacility.BackColor = System.Drawing.Color.Transparent
         Me.CalcBaseFacility.ForeColor = System.Drawing.Color.Transparent
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(6, 11)
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(6, 4)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
         Me.CalcBaseFacility.Size = New System.Drawing.Size(780, 58)
         Me.CalcBaseFacility.TabIndex = 0
+        '
+        'lbltrips
+        '
+        Me.lbltrips.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbltrips.Font = New System.Drawing.Font("Impact", 25.0!)
+        Me.lbltrips.Location = New System.Drawing.Point(592, 156)
+        Me.lbltrips.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbltrips.Name = "lbltrips"
+        Me.lbltrips.Size = New System.Drawing.Size(144, 107)
+        Me.lbltrips.TabIndex = 111
+        Me.lbltrips.Text = "4"
+        Me.lbltrips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(842, 12)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
+        Me.FrmShoppingList1.TabIndex = 95
         '
         'lstManufacturing
         '
@@ -385,21 +421,6 @@ Partial Class frmMain
         Me.lstManufacturing.UseSelectable = True
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
         Me.lstManufacturing.Visible = False
-        '
-        'pnlFacility
-        '
-        Me.pnlFacility.Controls.Add(Me.CalcBaseFacility)
-        Me.pnlFacility.HorizontalScrollbarBarColor = True
-        Me.pnlFacility.HorizontalScrollbarHighlightOnWheel = False
-        Me.pnlFacility.HorizontalScrollbarSize = 10
-        Me.pnlFacility.Location = New System.Drawing.Point(14, 286)
-        Me.pnlFacility.Name = "pnlFacility"
-        Me.pnlFacility.Size = New System.Drawing.Size(815, 76)
-        Me.pnlFacility.TabIndex = 110
-        Me.pnlFacility.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.pnlFacility.VerticalScrollbarBarColor = True
-        Me.pnlFacility.VerticalScrollbarHighlightOnWheel = False
-        Me.pnlFacility.VerticalScrollbarSize = 10
         '
         'MetroPanel1
         '
@@ -431,28 +452,6 @@ Partial Class frmMain
         Me.MetroPanel1.VerticalScrollbarBarColor = True
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
-        '
-        'lbltrips
-        '
-        Me.lbltrips.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lbltrips.Font = New System.Drawing.Font("Impact", 25.0!)
-        Me.lbltrips.Location = New System.Drawing.Point(592, 156)
-        Me.lbltrips.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lbltrips.Name = "lbltrips"
-        Me.lbltrips.Size = New System.Drawing.Size(144, 107)
-        Me.lbltrips.TabIndex = 111
-        Me.lbltrips.Text = "4"
-        Me.lbltrips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(842, 12)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
-        Me.FrmShoppingList1.TabIndex = 95
         '
         'MetroPanel2
         '

@@ -23,54 +23,57 @@ Partial Class ManufacturingFacility
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.cmbFacility = New MetroFramework.Controls.MetroComboBox()
-        Me.cmbFacilitySystem = New MetroFramework.Controls.MetroComboBox()
-        Me.cmbFacilityRegion = New MetroFramework.Controls.MetroComboBox()
+        Me.cmbFacility = New System.Windows.Forms.ComboBox()
+        Me.cmbFacilitySystem = New System.Windows.Forms.ComboBox()
+        Me.cmbFacilityRegion = New System.Windows.Forms.ComboBox()
         Me.mainToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.lblRegion = New MetroFramework.Controls.MetroLabel()
         Me.SuspendLayout()
         '
         'cmbFacility
         '
+        Me.cmbFacility.BackColor = System.Drawing.Color.Black
+        Me.cmbFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.cmbFacility.ForeColor = System.Drawing.Color.DarkGray
         Me.cmbFacility.FormattingEnabled = True
-        Me.cmbFacility.ItemHeight = 24
+        Me.cmbFacility.ItemHeight = 20
         Me.cmbFacility.Items.AddRange(New Object() {"default"})
         Me.cmbFacility.Location = New System.Drawing.Point(400, 33)
         Me.cmbFacility.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacility.Name = "cmbFacility"
-        Me.cmbFacility.Size = New System.Drawing.Size(387, 30)
+        Me.cmbFacility.Size = New System.Drawing.Size(387, 28)
         Me.cmbFacility.TabIndex = 14
-        Me.cmbFacility.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.cmbFacility.UseSelectable = True
         '
         'cmbFacilitySystem
         '
+        Me.cmbFacilitySystem.BackColor = System.Drawing.Color.Black
+        Me.cmbFacilitySystem.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.cmbFacilitySystem.ForeColor = System.Drawing.Color.DarkGray
         Me.cmbFacilitySystem.FormattingEnabled = True
-        Me.cmbFacilitySystem.ItemHeight = 24
+        Me.cmbFacilitySystem.ItemHeight = 20
         Me.cmbFacilitySystem.Location = New System.Drawing.Point(184, 33)
         Me.cmbFacilitySystem.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilitySystem.Name = "cmbFacilitySystem"
-        Me.cmbFacilitySystem.Size = New System.Drawing.Size(208, 30)
+        Me.cmbFacilitySystem.Size = New System.Drawing.Size(208, 28)
         Me.cmbFacilitySystem.TabIndex = 13
-        Me.cmbFacilitySystem.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.cmbFacilitySystem.UseSelectable = True
         '
         'cmbFacilityRegion
         '
         Me.cmbFacilityRegion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbFacilityRegion.BackColor = System.Drawing.Color.Black
+        Me.cmbFacilityRegion.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.cmbFacilityRegion.ForeColor = System.Drawing.Color.DarkGray
         Me.cmbFacilityRegion.FormattingEnabled = True
-        Me.cmbFacilityRegion.ItemHeight = 24
+        Me.cmbFacilityRegion.ItemHeight = 20
         Me.cmbFacilityRegion.Location = New System.Drawing.Point(4, 33)
         Me.cmbFacilityRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilityRegion.Name = "cmbFacilityRegion"
-        Me.cmbFacilityRegion.Size = New System.Drawing.Size(172, 30)
+        Me.cmbFacilityRegion.Size = New System.Drawing.Size(172, 28)
         Me.cmbFacilityRegion.TabIndex = 12
-        Me.cmbFacilityRegion.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.cmbFacilityRegion.UseSelectable = True
         '
         'lblRegion
         '
-        Me.lblRegion.Location = New System.Drawing.Point(20, 10)
+        Me.lblRegion.Location = New System.Drawing.Point(20, 4)
         Me.lblRegion.Name = "lblRegion"
         Me.lblRegion.Size = New System.Drawing.Size(759, 26)
         Me.lblRegion.TabIndex = 113
@@ -93,9 +96,9 @@ Partial Class ManufacturingFacility
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents cmbFacility As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents cmbFacilitySystem As MetroFramework.Controls.MetroComboBox
-    Friend WithEvents cmbFacilityRegion As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents cmbFacility As ComboBox
+    Friend WithEvents cmbFacilitySystem As ComboBox
+    Friend WithEvents cmbFacilityRegion As ComboBox
     Friend WithEvents mainToolTip As ToolTip
     Friend WithEvents lblRegion As MetroFramework.Controls.MetroLabel
 End Class
