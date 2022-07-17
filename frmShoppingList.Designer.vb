@@ -42,6 +42,8 @@ Partial Class frmShoppingList
         Me.lblItemstoBuild = New System.Windows.Forms.Label()
         Me.lstBuy = New Easy_IPH.MyListView()
         Me.lstItems = New Easy_IPH.MyListView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
         Me.DeleteMaterialStrip.SuspendLayout()
@@ -86,10 +88,11 @@ Partial Class frmShoppingList
         'lblTotalProfit1
         '
         Me.lblTotalProfit1.AutoSize = True
-        Me.lblTotalProfit1.Location = New System.Drawing.Point(593, 620)
+        Me.lblTotalProfit1.Font = New System.Drawing.Font("Impact", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalProfit1.Location = New System.Drawing.Point(419, 545)
         Me.lblTotalProfit1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalProfit1.Name = "lblTotalProfit1"
-        Me.lblTotalProfit1.Size = New System.Drawing.Size(123, 16)
+        Me.lblTotalProfit1.Size = New System.Drawing.Size(213, 32)
         Me.lblTotalProfit1.TabIndex = 34
         Me.lblTotalProfit1.Text = "Approx. Total Profit:"
         Me.lblTotalProfit1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -98,33 +101,38 @@ Partial Class frmShoppingList
         '
         Me.lblTotalProfit.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.lblTotalProfit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblTotalProfit.Font = New System.Drawing.Font("Impact", 20.0!)
         Me.lblTotalProfit.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTotalProfit.Location = New System.Drawing.Point(719, 617)
+        Me.lblTotalProfit.Location = New System.Drawing.Point(425, 577)
         Me.lblTotalProfit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalProfit.Name = "lblTotalProfit"
-        Me.lblTotalProfit.Size = New System.Drawing.Size(204, 20)
+        Me.lblTotalProfit.Size = New System.Drawing.Size(310, 92)
         Me.lblTotalProfit.TabIndex = 35
+        Me.lblTotalProfit.Text = "250,000,000 ISK"
         Me.lblTotalProfit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblAvgIPH
         '
         Me.lblAvgIPH.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.lblAvgIPH.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblAvgIPH.Font = New System.Drawing.Font("Impact", 20.0!)
         Me.lblAvgIPH.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblAvgIPH.Location = New System.Drawing.Point(719, 593)
+        Me.lblAvgIPH.Location = New System.Drawing.Point(422, 441)
         Me.lblAvgIPH.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAvgIPH.Name = "lblAvgIPH"
-        Me.lblAvgIPH.Size = New System.Drawing.Size(204, 20)
+        Me.lblAvgIPH.Size = New System.Drawing.Size(310, 88)
         Me.lblAvgIPH.TabIndex = 33
+        Me.lblAvgIPH.Text = "2,000,000 ISK"
         Me.lblAvgIPH.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblAvgIPH1
         '
         Me.lblAvgIPH1.AutoSize = True
-        Me.lblAvgIPH1.Location = New System.Drawing.Point(603, 596)
+        Me.lblAvgIPH1.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.lblAvgIPH1.Location = New System.Drawing.Point(419, 408)
         Me.lblAvgIPH1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAvgIPH1.Name = "lblAvgIPH1"
-        Me.lblAvgIPH1.Size = New System.Drawing.Size(111, 16)
+        Me.lblAvgIPH1.Size = New System.Drawing.Size(177, 32)
         Me.lblAvgIPH1.TabIndex = 32
         Me.lblAvgIPH1.Text = "Approx. Avg. IPH:"
         Me.lblAvgIPH1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -189,7 +197,7 @@ Partial Class frmShoppingList
         Me.lstBuy.Location = New System.Drawing.Point(9, 25)
         Me.lstBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.lstBuy.Name = "lstBuy"
-        Me.lstBuy.Size = New System.Drawing.Size(884, 374)
+        Me.lstBuy.Size = New System.Drawing.Size(622, 374)
         Me.lstBuy.TabIndex = 37
         Me.lstBuy.TabStop = False
         Me.lstBuy.UseCompatibleStateImageBehavior = False
@@ -209,11 +217,39 @@ Partial Class frmShoppingList
         Me.lstItems.UseCompatibleStateImageBehavior = False
         Me.lstItems.View = System.Windows.Forms.View.Details
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Impact", 10.0!)
+        Me.Label1.Location = New System.Drawing.Point(420, 680)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 21)
+        Me.Label1.TabIndex = 73
+        Me.Label1.Text = "Monthly Profit:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label2.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label2.Location = New System.Drawing.Point(425, 700)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(310, 51)
+        Me.Label2.TabIndex = 74
+        Me.Label2.Text = "1,250,000,000 ISK"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmShoppingList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.lblItemstoBuild)
         Me.Controls.Add(Me.lblItemstoBuy)
@@ -226,7 +262,7 @@ Partial Class frmShoppingList
         Me.Controls.Add(Me.btnCopy)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmShoppingList"
-        Me.Size = New System.Drawing.Size(978, 824)
+        Me.Size = New System.Drawing.Size(804, 760)
         Me.DeleteBuildStrip.ResumeLayout(False)
         Me.DeleteItemStrip.ResumeLayout(False)
         Me.DeleteMaterialStrip.ResumeLayout(False)
@@ -253,4 +289,6 @@ Partial Class frmShoppingList
     Friend WithEvents lstItems As Easy_IPH.MyListView
     Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
     Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class

@@ -145,12 +145,7 @@ Public Class frmShoppingList
         lstBuy.Columns.Add("Material", 245, HorizontalAlignment.Left)
         lstBuy.Columns.Add("Quantity", 94, HorizontalAlignment.Right) ' Min 94
         lstBuy.Columns.Add("Cost per Item", 0, HorizontalAlignment.Right) ' Min 90
-        lstBuy.Columns.Add("Min Sell", 0, HorizontalAlignment.Right) ' Min 90
-        lstBuy.Columns.Add("Max Buy", 0, HorizontalAlignment.Right) ' Min 90
         lstBuy.Columns.Add("Buy Type", 66, HorizontalAlignment.Right) ' Min 66
-        lstBuy.Columns.Add("Total m3", 100, HorizontalAlignment.Right) ' Min 100
-        lstBuy.Columns.Add("Isk/m3", 83, HorizontalAlignment.Right) ' Min 85
-        lstBuy.Columns.Add("Fees", 0, HorizontalAlignment.Right)
         lstBuy.Columns.Add("Total Cost", 112, HorizontalAlignment.Right) ' Min 129
 
         ' Item List - What we are building - width = 711 (21 for verticle scroll bar)
