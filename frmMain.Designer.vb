@@ -54,41 +54,24 @@ Partial Class frmMain
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
-        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
+        Me.btnHelp = New MetroFramework.Controls.MetroButton()
+        Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
+        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
-        Me.LabelVersion = New MetroFramework.Controls.MetroLabel()
-        Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
-        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
-        Me.VisitWebIcon = New System.Windows.Forms.PictureBox()
-        Me.btnDonate = New MetroFramework.Controls.MetroButton()
-        Me.PateronIcon = New System.Windows.Forms.PictureBox()
-        Me.btnVisitweb = New MetroFramework.Controls.MetroButton()
-        Me.btnReportbug = New MetroFramework.Controls.MetroButton()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnResetAll = New MetroFramework.Controls.MetroButton()
-        Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.ListOptionsMenu.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.TabPage3.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ttBP
@@ -292,7 +275,6 @@ Partial Class frmMain
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Location = New System.Drawing.Point(20, 91)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -326,16 +308,6 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 8)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
-        Me.FrmShoppingList1.TabIndex = 95
-        '
         'trkTrips
         '
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
@@ -362,16 +334,6 @@ Partial Class frmMain
         Me.btnAddChar.Text = "Add Character"
         Me.btnAddChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnAddChar.UseSelectable = True
-        '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.BackColor = System.Drawing.Color.Transparent
-        Me.CalcBaseFacility.ForeColor = System.Drawing.Color.Transparent
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(59, 285)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(780, 58)
-        Me.CalcBaseFacility.TabIndex = 0
         '
         'MetroLabel4
         '
@@ -423,6 +385,51 @@ Partial Class frmMain
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         '
+        'chkDisableTracking
+        '
+        Me.chkDisableTracking.AutoSize = True
+        Me.chkDisableTracking.Location = New System.Drawing.Point(575, 30)
+        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDisableTracking.Name = "chkDisableTracking"
+        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
+        Me.chkDisableTracking.TabIndex = 108
+        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
+        Me.chkDisableTracking.UseVisualStyleBackColor = True
+        '
+        'btnHelp
+        '
+        Me.btnHelp.BackColor = System.Drawing.Color.Red
+        Me.btnHelp.FontSize = MetroFramework.MetroButtonSize.Tall
+        Me.btnHelp.ForeColor = System.Drawing.Color.DarkRed
+        Me.btnHelp.Location = New System.Drawing.Point(1587, 46)
+        Me.btnHelp.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnHelp.Name = "btnHelp"
+        Me.btnHelp.Size = New System.Drawing.Size(50, 50)
+        Me.btnHelp.TabIndex = 109
+        Me.btnHelp.Text = "?"
+        Me.btnHelp.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.btnHelp.UseSelectable = True
+        '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 8)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
+        Me.FrmShoppingList1.TabIndex = 95
+        '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.BackColor = System.Drawing.Color.Transparent
+        Me.CalcBaseFacility.ForeColor = System.Drawing.Color.Transparent
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(59, 285)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(780, 58)
+        Me.CalcBaseFacility.TabIndex = 0
+        '
         'lstManufacturing
         '
         Me.lstManufacturing.AllowColumnReorder = True
@@ -435,7 +442,7 @@ Partial Class frmMain
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
         Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
-        Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
+        Me.lstManufacturing.Location = New System.Drawing.Point(7, 36)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
         Me.lstManufacturing.OwnerDraw = True
@@ -446,169 +453,6 @@ Partial Class frmMain
         Me.lstManufacturing.UseSelectable = True
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
-        'TabPage3
-        '
-        Me.TabPage3.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.TabPage3.Controls.Add(Me.Panel1)
-        Me.TabPage3.Controls.Add(Me.Label1)
-        Me.TabPage3.Controls.Add(Me.btnResetAll)
-        Me.TabPage3.Controls.Add(Me.btnManageChar)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1612, 782)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "TabPage3"
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.chkDisableTracking)
-        Me.Panel1.Controls.Add(Me.LabelVersion)
-        Me.Panel1.Controls.Add(Me.ReportBugIcon)
-        Me.Panel1.Controls.Add(Me.MetroLabel2)
-        Me.Panel1.Controls.Add(Me.VisitWebIcon)
-        Me.Panel1.Controls.Add(Me.btnDonate)
-        Me.Panel1.Controls.Add(Me.PateronIcon)
-        Me.Panel1.Controls.Add(Me.btnVisitweb)
-        Me.Panel1.Controls.Add(Me.btnReportbug)
-        Me.Panel1.Location = New System.Drawing.Point(55, 38)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(647, 651)
-        Me.Panel1.TabIndex = 107
-        '
-        'chkDisableTracking
-        '
-        Me.chkDisableTracking.AutoSize = True
-        Me.chkDisableTracking.Location = New System.Drawing.Point(17, 452)
-        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDisableTracking.Name = "chkDisableTracking"
-        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
-        Me.chkDisableTracking.TabIndex = 108
-        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
-        Me.chkDisableTracking.UseVisualStyleBackColor = True
-        '
-        'LabelVersion
-        '
-        Me.LabelVersion.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.LabelVersion.Location = New System.Drawing.Point(14, 10)
-        Me.LabelVersion.Name = "LabelVersion"
-        Me.LabelVersion.Size = New System.Drawing.Size(181, 35)
-        Me.LabelVersion.TabIndex = 103
-        Me.LabelVersion.Text = "Version X.X.XXXXXX"
-        Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.LabelVersion.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.LabelVersion.WrapToLine = True
-        '
-        'ReportBugIcon
-        '
-        Me.ReportBugIcon.ErrorImage = Nothing
-        Me.ReportBugIcon.Image = CType(resources.GetObject("ReportBugIcon.Image"), System.Drawing.Image)
-        Me.ReportBugIcon.Location = New System.Drawing.Point(17, 380)
-        Me.ReportBugIcon.Name = "ReportBugIcon"
-        Me.ReportBugIcon.Size = New System.Drawing.Size(57, 65)
-        Me.ReportBugIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.ReportBugIcon.TabIndex = 106
-        Me.ReportBugIcon.TabStop = False
-        '
-        'MetroLabel2
-        '
-        Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel2.Location = New System.Drawing.Point(14, 50)
-        Me.MetroLabel2.Name = "MetroLabel2"
-        Me.MetroLabel2.Size = New System.Drawing.Size(409, 174)
-        Me.MetroLabel2.TabIndex = 102
-        Me.MetroLabel2.Text = resources.GetString("MetroLabel2.Text")
-        Me.MetroLabel2.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel2.WrapToLine = True
-        '
-        'VisitWebIcon
-        '
-        Me.VisitWebIcon.ErrorImage = Nothing
-        Me.VisitWebIcon.Image = CType(resources.GetObject("VisitWebIcon.Image"), System.Drawing.Image)
-        Me.VisitWebIcon.Location = New System.Drawing.Point(17, 306)
-        Me.VisitWebIcon.Name = "VisitWebIcon"
-        Me.VisitWebIcon.Size = New System.Drawing.Size(57, 65)
-        Me.VisitWebIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.VisitWebIcon.TabIndex = 105
-        Me.VisitWebIcon.TabStop = False
-        '
-        'btnDonate
-        '
-        Me.btnDonate.Location = New System.Drawing.Point(81, 246)
-        Me.btnDonate.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnDonate.Name = "btnDonate"
-        Me.btnDonate.Size = New System.Drawing.Size(266, 52)
-        Me.btnDonate.TabIndex = 96
-        Me.btnDonate.Text = "Donate to the original creator of EVEIPH"
-        Me.btnDonate.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnDonate.UseSelectable = True
-        '
-        'PateronIcon
-        '
-        Me.PateronIcon.ErrorImage = Nothing
-        Me.PateronIcon.Image = CType(resources.GetObject("PateronIcon.Image"), System.Drawing.Image)
-        Me.PateronIcon.Location = New System.Drawing.Point(17, 233)
-        Me.PateronIcon.Name = "PateronIcon"
-        Me.PateronIcon.Size = New System.Drawing.Size(57, 65)
-        Me.PateronIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PateronIcon.TabIndex = 104
-        Me.PateronIcon.TabStop = False
-        '
-        'btnVisitweb
-        '
-        Me.btnVisitweb.Location = New System.Drawing.Point(81, 306)
-        Me.btnVisitweb.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnVisitweb.Name = "btnVisitweb"
-        Me.btnVisitweb.Size = New System.Drawing.Size(266, 52)
-        Me.btnVisitweb.TabIndex = 100
-        Me.btnVisitweb.Text = "Visit EasyIPH.com for Tips and Tricks"
-        Me.btnVisitweb.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnVisitweb.UseSelectable = True
-        '
-        'btnReportbug
-        '
-        Me.btnReportbug.Location = New System.Drawing.Point(81, 380)
-        Me.btnReportbug.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnReportbug.Name = "btnReportbug"
-        Me.btnReportbug.Size = New System.Drawing.Size(266, 52)
-        Me.btnReportbug.TabIndex = 101
-        Me.btnReportbug.Text = "Report a Bug or Suggest a Feature"
-        Me.btnReportbug.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnReportbug.UseSelectable = True
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(133, 284)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(8, 0, 4, 0)
-        Me.Label1.MaximumSize = New System.Drawing.Size(0, 21)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 21)
-        Me.Label1.TabIndex = 98
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'btnResetAll
-        '
-        Me.btnResetAll.BackColor = System.Drawing.Color.Red
-        Me.btnResetAll.ForeColor = System.Drawing.Color.DarkRed
-        Me.btnResetAll.Location = New System.Drawing.Point(1040, 418)
-        Me.btnResetAll.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnResetAll.Name = "btnResetAll"
-        Me.btnResetAll.Size = New System.Drawing.Size(120, 36)
-        Me.btnResetAll.TabIndex = 24
-        Me.btnResetAll.Text = "Reset All Data"
-        Me.btnResetAll.UseSelectable = True
-        '
-        'btnManageChar
-        '
-        Me.btnManageChar.Location = New System.Drawing.Point(815, 418)
-        Me.btnManageChar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnManageChar.Name = "btnManageChar"
-        Me.btnManageChar.Size = New System.Drawing.Size(120, 36)
-        Me.btnManageChar.TabIndex = 23
-        Me.btnManageChar.Text = "Manage Characters"
-        Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnManageChar.UseSelectable = True
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -616,6 +460,8 @@ Partial Class frmMain
         Me.AutoScroll = True
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1661, 927)
+        Me.Controls.Add(Me.chkDisableTracking)
+        Me.Controls.Add(Me.btnHelp)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
         Me.Controls.Add(Me.chkCalcCanBuild)
@@ -634,12 +480,6 @@ Partial Class frmMain
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage3.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -675,27 +515,15 @@ Partial Class frmMain
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents TabPage3 As TabPage
     Friend WithEvents btnAddChar As MetroFramework.Controls.MetroButton
-    Friend WithEvents btnManageChar As MetroFramework.Controls.MetroButton
-    Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton
-    Friend WithEvents Label1 As Label
-    Friend WithEvents LabelVersion As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents btnReportbug As MetroFramework.Controls.MetroButton
-    Friend WithEvents btnVisitweb As MetroFramework.Controls.MetroButton
-    Friend WithEvents btnDonate As MetroFramework.Controls.MetroButton
-    Friend WithEvents PateronIcon As PictureBox
-    Friend WithEvents VisitWebIcon As PictureBox
-    Friend WithEvents ReportBugIcon As PictureBox
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents trkTrips As MetroFramework.Controls.MetroTrackBar
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents FrmShoppingList1 As frmShoppingList
-    Friend WithEvents Panel1 As Panel
     Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents btnHelp As MetroFramework.Controls.MetroButton
 End Class
