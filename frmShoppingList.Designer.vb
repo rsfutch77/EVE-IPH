@@ -23,7 +23,7 @@ Partial Class frmShoppingList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.btnCopy = New MetroFramework.Controls.MetroButton()
         Me.DeleteBuildStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.DeleteBuildItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteItemStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -52,15 +52,16 @@ Partial Class frmShoppingList
         'btnCopy
         '
         Me.btnCopy.BackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.btnCopy.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.btnCopy.FontSize = MetroFramework.MetroButtonSize.Tall
         Me.btnCopy.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnCopy.Location = New System.Drawing.Point(9, 679)
+        Me.btnCopy.Location = New System.Drawing.Point(9, 423)
         Me.btnCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(396, 72)
+        Me.btnCopy.Size = New System.Drawing.Size(726, 61)
         Me.btnCopy.TabIndex = 0
-        Me.btnCopy.Text = "Copy List"
-        Me.btnCopy.UseVisualStyleBackColor = False
+        Me.btnCopy.Text = "Copy Buy List"
+        Me.btnCopy.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.btnCopy.UseSelectable = True
         '
         'DeleteBuildStrip
         '
@@ -92,7 +93,7 @@ Partial Class frmShoppingList
         '
         Me.lblTotalProfit1.AutoSize = True
         Me.lblTotalProfit1.Font = New System.Drawing.Font("Impact", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalProfit1.Location = New System.Drawing.Point(419, 545)
+        Me.lblTotalProfit1.Location = New System.Drawing.Point(419, 581)
         Me.lblTotalProfit1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalProfit1.Name = "lblTotalProfit1"
         Me.lblTotalProfit1.Size = New System.Drawing.Size(213, 32)
@@ -106,10 +107,10 @@ Partial Class frmShoppingList
         Me.lblTotalProfit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblTotalProfit.Font = New System.Drawing.Font("Impact", 20.0!)
         Me.lblTotalProfit.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblTotalProfit.Location = New System.Drawing.Point(425, 577)
+        Me.lblTotalProfit.Location = New System.Drawing.Point(422, 613)
         Me.lblTotalProfit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalProfit.Name = "lblTotalProfit"
-        Me.lblTotalProfit.Size = New System.Drawing.Size(310, 92)
+        Me.lblTotalProfit.Size = New System.Drawing.Size(310, 56)
         Me.lblTotalProfit.TabIndex = 35
         Me.lblTotalProfit.Text = "250,000,000 ISK"
         Me.lblTotalProfit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -120,10 +121,10 @@ Partial Class frmShoppingList
         Me.lblAvgIPH.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblAvgIPH.Font = New System.Drawing.Font("Impact", 20.0!)
         Me.lblAvgIPH.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblAvgIPH.Location = New System.Drawing.Point(422, 441)
+        Me.lblAvgIPH.Location = New System.Drawing.Point(422, 528)
         Me.lblAvgIPH.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAvgIPH.Name = "lblAvgIPH"
-        Me.lblAvgIPH.Size = New System.Drawing.Size(310, 88)
+        Me.lblAvgIPH.Size = New System.Drawing.Size(310, 56)
         Me.lblAvgIPH.TabIndex = 33
         Me.lblAvgIPH.Text = "2,000,000 ISK"
         Me.lblAvgIPH.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -132,7 +133,7 @@ Partial Class frmShoppingList
         '
         Me.lblAvgIPH1.AutoSize = True
         Me.lblAvgIPH1.Font = New System.Drawing.Font("Impact", 15.0!)
-        Me.lblAvgIPH1.Location = New System.Drawing.Point(419, 408)
+        Me.lblAvgIPH1.Location = New System.Drawing.Point(419, 495)
         Me.lblAvgIPH1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblAvgIPH1.Name = "lblAvgIPH1"
         Me.lblAvgIPH1.Size = New System.Drawing.Size(177, 32)
@@ -177,10 +178,10 @@ Partial Class frmShoppingList
         Me.lstBuy.FullRowSelect = True
         Me.lstBuy.GridLines = True
         Me.lstBuy.HideSelection = False
-        Me.lstBuy.Location = New System.Drawing.Point(9, 47)
+        Me.lstBuy.Location = New System.Drawing.Point(9, 35)
         Me.lstBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.lstBuy.Name = "lstBuy"
-        Me.lstBuy.Size = New System.Drawing.Size(726, 352)
+        Me.lstBuy.Size = New System.Drawing.Size(726, 380)
         Me.lstBuy.TabIndex = 37
         Me.lstBuy.TabStop = False
         Me.lstBuy.UseCompatibleStateImageBehavior = False
@@ -191,10 +192,10 @@ Partial Class frmShoppingList
         Me.lstItems.ContextMenuStrip = Me.DeleteItemStrip
         Me.lstItems.FullRowSelect = True
         Me.lstItems.HideSelection = False
-        Me.lstItems.Location = New System.Drawing.Point(8, 441)
+        Me.lstItems.Location = New System.Drawing.Point(8, 517)
         Me.lstItems.Margin = New System.Windows.Forms.Padding(4)
         Me.lstItems.Name = "lstItems"
-        Me.lstItems.Size = New System.Drawing.Size(397, 229)
+        Me.lstItems.Size = New System.Drawing.Size(397, 237)
         Me.lstItems.TabIndex = 38
         Me.lstItems.TabStop = False
         Me.lstItems.UseCompatibleStateImageBehavior = False
@@ -203,11 +204,11 @@ Partial Class frmShoppingList
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Impact", 10.0!)
-        Me.Label1.Location = New System.Drawing.Point(420, 680)
+        Me.Label1.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.Label1.Location = New System.Drawing.Point(419, 670)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(112, 21)
+        Me.Label1.Size = New System.Drawing.Size(163, 32)
         Me.Label1.TabIndex = 73
         Me.Label1.Text = "Monthly Profit:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -216,12 +217,12 @@ Partial Class frmShoppingList
         '
         Me.lblMonthlyProfit.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.lblMonthlyProfit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyProfit.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.lblMonthlyProfit.Font = New System.Drawing.Font("Impact", 20.0!)
         Me.lblMonthlyProfit.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.lblMonthlyProfit.Location = New System.Drawing.Point(425, 700)
+        Me.lblMonthlyProfit.Location = New System.Drawing.Point(422, 699)
         Me.lblMonthlyProfit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblMonthlyProfit.Name = "lblMonthlyProfit"
-        Me.lblMonthlyProfit.Size = New System.Drawing.Size(310, 51)
+        Me.lblMonthlyProfit.Size = New System.Drawing.Size(310, 56)
         Me.lblMonthlyProfit.TabIndex = 74
         Me.lblMonthlyProfit.Text = "1,250,000,000 ISK"
         Me.lblMonthlyProfit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -230,7 +231,7 @@ Partial Class frmShoppingList
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Impact", 15.0!)
-        Me.Label2.Location = New System.Drawing.Point(130, 403)
+        Me.Label2.Location = New System.Drawing.Point(130, 485)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(160, 32)
@@ -242,7 +243,7 @@ Partial Class frmShoppingList
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Impact", 15.0!)
-        Me.Label3.Location = New System.Drawing.Point(278, 11)
+        Me.Label3.Location = New System.Drawing.Point(278, 1)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(144, 32)
@@ -255,10 +256,9 @@ Partial Class frmShoppingList
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
+        Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.lblMonthlyProfit)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtListEdit)
         Me.Controls.Add(Me.lstBuy)
         Me.Controls.Add(Me.lblAvgIPH)
@@ -266,10 +266,11 @@ Partial Class frmShoppingList
         Me.Controls.Add(Me.lblTotalProfit)
         Me.Controls.Add(Me.lblTotalProfit1)
         Me.Controls.Add(Me.lblAvgIPH1)
-        Me.Controls.Add(Me.btnCopy)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.Label2)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmShoppingList"
-        Me.Size = New System.Drawing.Size(750, 760)
+        Me.Size = New System.Drawing.Size(750, 765)
         Me.DeleteBuildStrip.ResumeLayout(False)
         Me.DeleteItemStrip.ResumeLayout(False)
         Me.DeleteMaterialStrip.ResumeLayout(False)
@@ -277,7 +278,7 @@ Partial Class frmShoppingList
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnCopy As System.Windows.Forms.Button
+    Friend WithEvents btnCopy As MetroFramework.Controls.MetroButton
     Friend WithEvents lblTotalProfit1 As System.Windows.Forms.Label
     Friend WithEvents lblTotalProfit As System.Windows.Forms.Label
     Friend WithEvents lblAvgIPH As System.Windows.Forms.Label

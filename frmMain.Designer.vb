@@ -72,6 +72,7 @@ Partial Class frmMain
         Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
@@ -96,7 +97,6 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
@@ -116,7 +116,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1613, 28)
+        Me.mnuStripMain.Size = New System.Drawing.Size(1613, 30)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -332,13 +332,13 @@ Partial Class frmMain
         '
         'pnlStatus
         '
-        Me.pnlStatus.AutoSize = True
         Me.pnlStatus.BackColor = System.Drawing.Color.Transparent
-        Me.pnlStatus.Location = New System.Drawing.Point(492, 498)
+        Me.pnlStatus.Location = New System.Drawing.Point(346, 501)
         Me.pnlStatus.Name = "pnlStatus"
-        Me.pnlStatus.Size = New System.Drawing.Size(45, 20)
+        Me.pnlStatus.Size = New System.Drawing.Size(354, 20)
         Me.pnlStatus.TabIndex = 86
-        Me.pnlStatus.Text = "Status"
+        Me.pnlStatus.Text = "Calculation status will appear here..."
+        Me.pnlStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.pnlStatus.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'facilityPicker
@@ -357,7 +357,7 @@ Partial Class frmMain
         Me.lblCharacterData.Name = "lblCharacterData"
         Me.lblCharacterData.Size = New System.Drawing.Size(805, 37)
         Me.lblCharacterData.TabIndex = 90
-        Me.lblCharacterData.Text = "Character Data"
+        Me.lblCharacterData.Text = "Market/Wallet/Job data not updated yet, click Calculate to begin..."
         Me.lblCharacterData.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.lblCharacterData.WrapToLine = True
         '
@@ -377,7 +377,7 @@ Partial Class frmMain
         Me.lblRecommendation.Name = "lblRecommendation"
         Me.lblRecommendation.Size = New System.Drawing.Size(815, 175)
         Me.lblRecommendation.TabIndex = 88
-        Me.lblRecommendation.Text = "Recommendations will appear here"
+        Me.lblRecommendation.Text = "Recommendations will appear here..."
         Me.lblRecommendation.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.lblRecommendation.WrapToLine = True
         '
@@ -511,6 +511,17 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.Location = New System.Drawing.Point(35, 376)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(360, 68)
+        Me.MetroLabel4.TabIndex = 97
+        Me.MetroLabel4.Text = "Find new profitable blueprints or find out which of your existing blueprints is m" &
+    "ost profitable"
+        Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel4.WrapToLine = True
+        '
         'MetroLabel3
         '
         Me.MetroLabel3.Location = New System.Drawing.Point(35, 118)
@@ -541,7 +552,7 @@ Partial Class frmMain
         Me.trkTrips.TabIndex = 94
         Me.trkTrips.Text = "Trips"
         Me.trkTrips.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.trkTrips.Value = 6
+        Me.trkTrips.Value = 4
         '
         'btnAddChar
         '
@@ -607,7 +618,7 @@ Partial Class frmMain
         Me.TabPage3.Controls.Add(Me.btnManageChar)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1654, 782)
+        Me.TabPage3.Size = New System.Drawing.Size(1612, 782)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
@@ -760,17 +771,6 @@ Partial Class frmMain
         Me.btnManageChar.Text = "Manage Characters"
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
-        '
-        'MetroLabel4
-        '
-        Me.MetroLabel4.Location = New System.Drawing.Point(35, 376)
-        Me.MetroLabel4.Name = "MetroLabel4"
-        Me.MetroLabel4.Size = New System.Drawing.Size(360, 68)
-        Me.MetroLabel4.TabIndex = 97
-        Me.MetroLabel4.Text = "Find new profitable blueprints or find out which of your existing blueprints is m" &
-    "ost profitable"
-        Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel4.WrapToLine = True
         '
         'frmMain
         '
