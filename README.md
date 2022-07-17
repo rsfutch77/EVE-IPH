@@ -27,6 +27,7 @@ Design notes
 Testing
 - Install the compiled .exe on a Windows 10 or greater VM such as VirtualBox
 - test each msgbox and each option
+- test each write to the char data and recommendation labels
 - test each status label (flowchart to show each path?)
 - add a character
 - test the dummy character

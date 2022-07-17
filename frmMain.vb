@@ -6232,12 +6232,7 @@ ExitCalc:
 
         NPCBPOsClause = " AND NPC_BPO = 1 AND ITEM_TYPE = 1 " ' only include T1 BPOs
 
-        ' Flag for favorites 
-        If rbtnCalcBPFavorites.Checked Then
-            WhereClause = "WHERE FAVORITE = 1 AND "
-        Else
-            WhereClause = "WHERE "
-        End If
+        WhereClause = "WHERE "
 
         ' Add all the items to the where clause
         WhereClause = WhereClause & RaceClause & " AND (" & ItemTypes & ") AND (((" & ItemTypeNumbers & ") " & T2Query & T3Query & "))" & SizesClause & ComboType & NPCBPOsClause & " "
@@ -6737,7 +6732,6 @@ ExitCalc:
             chkCalcCanBuild.Checked = True
             rbtnCalcBPOwned.Checked = True
             rbtnCalcAllBPs.Checked = False
-            rbtnCalcBPFavorites.Checked = False
         End If
     End Sub
 
@@ -7738,6 +7732,10 @@ NextIteration:
 
     Private Sub chkDisableTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableTracking.CheckedChanged
         AutoSave()
+    End Sub
+
+    Private Sub FrmShoppingList1_Load(sender As Object, e As EventArgs) Handles FrmShoppingList1.Load
+
     End Sub
 
 #End Region

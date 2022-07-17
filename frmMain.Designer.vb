@@ -24,8 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.mnuStripMain = New System.Windows.Forms.MenuStrip()
         Me.mnuEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuManageBlueprintsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,7 +57,6 @@ Partial Class frmMain
         Me.chkCalcCanBuild = New MetroFramework.Controls.MetroCheckBox()
         Me.autoShopping = New MetroFramework.Controls.MetroCheckBox()
         Me.gbCalcBPSelect = New System.Windows.Forms.GroupBox()
-        Me.rbtnCalcBPFavorites = New MetroFramework.Controls.MetroRadioButton()
         Me.rbtnCalcAllBPs = New MetroFramework.Controls.MetroRadioButton()
         Me.rbtnCalcBPOwned = New MetroFramework.Controls.MetroRadioButton()
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
@@ -85,6 +84,7 @@ Partial Class frmMain
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         Me.LabelVersion = New MetroFramework.Controls.MetroLabel()
         Me.ReportBugIcon = New System.Windows.Forms.PictureBox()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
@@ -96,10 +96,10 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
-        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroRadioButton1 = New MetroFramework.Controls.MetroRadioButton()
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
-        Me.gbCalcBPSelect.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -117,7 +117,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1882, 28)
+        Me.mnuStripMain.Size = New System.Drawing.Size(1656, 28)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -264,7 +264,7 @@ Partial Class frmMain
         '
         Me.mnuChar.FormattingEnabled = True
         Me.mnuChar.ItemHeight = 24
-        Me.mnuChar.Location = New System.Drawing.Point(35, 168)
+        Me.mnuChar.Location = New System.Drawing.Point(282, 36)
         Me.mnuChar.Name = "mnuChar"
         Me.mnuChar.Size = New System.Drawing.Size(276, 30)
         Me.mnuChar.TabIndex = 88
@@ -274,8 +274,10 @@ Partial Class frmMain
         '
         Me.chkCalcCanBuild.AutoSize = True
         Me.chkCalcCanBuild.BackColor = System.Drawing.Color.Transparent
+        Me.chkCalcCanBuild.Checked = True
+        Me.chkCalcCanBuild.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkCalcCanBuild.ForeColor = System.Drawing.Color.White
-        Me.chkCalcCanBuild.Location = New System.Drawing.Point(282, 404)
+        Me.chkCalcCanBuild.Location = New System.Drawing.Point(125, 30)
         Me.chkCalcCanBuild.Margin = New System.Windows.Forms.Padding(4)
         Me.chkCalcCanBuild.Name = "chkCalcCanBuild"
         Me.chkCalcCanBuild.Size = New System.Drawing.Size(206, 17)
@@ -283,6 +285,7 @@ Partial Class frmMain
         Me.chkCalcCanBuild.Text = "Only Calculate Items I Can Build"
         Me.chkCalcCanBuild.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.chkCalcCanBuild.UseSelectable = True
+        Me.chkCalcCanBuild.Visible = False
         '
         'autoShopping
         '
@@ -301,9 +304,6 @@ Partial Class frmMain
         'gbCalcBPSelect
         '
         Me.gbCalcBPSelect.BackColor = System.Drawing.Color.Transparent
-        Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPFavorites)
-        Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcAllBPs)
-        Me.gbCalcBPSelect.Controls.Add(Me.rbtnCalcBPOwned)
         Me.gbCalcBPSelect.ForeColor = System.Drawing.Color.White
         Me.gbCalcBPSelect.Location = New System.Drawing.Point(78, 359)
         Me.gbCalcBPSelect.Margin = New System.Windows.Forms.Padding(4)
@@ -314,23 +314,11 @@ Partial Class frmMain
         Me.gbCalcBPSelect.TabStop = False
         Me.gbCalcBPSelect.Text = "Load:"
         '
-        'rbtnCalcBPFavorites
-        '
-        Me.rbtnCalcBPFavorites.AutoSize = True
-        Me.rbtnCalcBPFavorites.Location = New System.Drawing.Point(10, 55)
-        Me.rbtnCalcBPFavorites.Margin = New System.Windows.Forms.Padding(4)
-        Me.rbtnCalcBPFavorites.Name = "rbtnCalcBPFavorites"
-        Me.rbtnCalcBPFavorites.Size = New System.Drawing.Size(76, 17)
-        Me.rbtnCalcBPFavorites.TabIndex = 2
-        Me.rbtnCalcBPFavorites.Text = "Favorites"
-        Me.rbtnCalcBPFavorites.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.rbtnCalcBPFavorites.UseSelectable = True
-        '
         'rbtnCalcAllBPs
         '
         Me.rbtnCalcAllBPs.AutoSize = True
         Me.rbtnCalcAllBPs.Checked = True
-        Me.rbtnCalcAllBPs.Location = New System.Drawing.Point(10, 18)
+        Me.rbtnCalcAllBPs.Location = New System.Drawing.Point(78, 448)
         Me.rbtnCalcAllBPs.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnCalcAllBPs.Name = "rbtnCalcAllBPs"
         Me.rbtnCalcAllBPs.Size = New System.Drawing.Size(99, 17)
@@ -343,12 +331,12 @@ Partial Class frmMain
         'rbtnCalcBPOwned
         '
         Me.rbtnCalcBPOwned.AutoSize = True
-        Me.rbtnCalcBPOwned.Location = New System.Drawing.Point(10, 36)
+        Me.rbtnCalcBPOwned.Location = New System.Drawing.Point(235, 377)
         Me.rbtnCalcBPOwned.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnCalcBPOwned.Name = "rbtnCalcBPOwned"
-        Me.rbtnCalcBPOwned.Size = New System.Drawing.Size(89, 17)
+        Me.rbtnCalcBPOwned.Size = New System.Drawing.Size(199, 17)
         Me.rbtnCalcBPOwned.TabIndex = 1
-        Me.rbtnCalcBPOwned.Text = "Owned BPs"
+        Me.rbtnCalcBPOwned.Text = "Find New Profitable Blueprints"
         Me.rbtnCalcBPOwned.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.rbtnCalcBPOwned.UseSelectable = True
         '
@@ -375,7 +363,7 @@ Partial Class frmMain
         '
         'lblCharacterData
         '
-        Me.lblCharacterData.Location = New System.Drawing.Point(512, 437)
+        Me.lblCharacterData.Location = New System.Drawing.Point(362, 565)
         Me.lblCharacterData.Name = "lblCharacterData"
         Me.lblCharacterData.Size = New System.Drawing.Size(289, 58)
         Me.lblCharacterData.TabIndex = 90
@@ -385,9 +373,9 @@ Partial Class frmMain
         '
         'MetroLabel1
         '
-        Me.MetroLabel1.Location = New System.Drawing.Point(35, 100)
+        Me.MetroLabel1.Location = New System.Drawing.Point(35, 36)
         Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(423, 34)
+        Me.MetroLabel1.Size = New System.Drawing.Size(194, 34)
         Me.MetroLabel1.TabIndex = 91
         Me.MetroLabel1.Text = "Pick a character or add one"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -498,15 +486,19 @@ Partial Class frmMain
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
-        Me.TabControl1.Location = New System.Drawing.Point(23, 165)
+        Me.TabControl1.Location = New System.Drawing.Point(20, 91)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1877, 897)
+        Me.TabControl1.Size = New System.Drawing.Size(1662, 811)
         Me.TabControl1.TabIndex = 95
         '
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer), CType(CType(14, Byte), Integer))
+        Me.TabPage1.Controls.Add(Me.MetroRadioButton1)
+        Me.TabPage1.Controls.Add(Me.rbtnCalcAllBPs)
+        Me.TabPage1.Controls.Add(Me.MetroLabel3)
+        Me.TabPage1.Controls.Add(Me.rbtnCalcBPOwned)
         Me.TabPage1.Controls.Add(Me.FrmShoppingList1)
         Me.TabPage1.Controls.Add(Me.trkTrips)
         Me.TabPage1.Controls.Add(Me.btnAddChar)
@@ -519,7 +511,6 @@ Partial Class frmMain
         Me.TabPage1.Controls.Add(Me.facilityPicker)
         Me.TabPage1.Controls.Add(Me.gbCalcBPSelect)
         Me.TabPage1.Controls.Add(Me.CalcBaseFacility)
-        Me.TabPage1.Controls.Add(Me.chkCalcCanBuild)
         Me.TabPage1.Controls.Add(Me.pnlStatus)
         Me.TabPage1.Controls.Add(Me.btnCalcCalculate)
         Me.TabPage1.Controls.Add(Me.btnDownloadPrices)
@@ -528,23 +519,23 @@ Partial Class frmMain
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1869, 868)
+        Me.TabPage1.Size = New System.Drawing.Size(1654, 782)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "TabPage1"
         '
         'FrmShoppingList1
         '
         Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 30)
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(848, 16)
         Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
         Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(927, 814)
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(790, 759)
         Me.FrmShoppingList1.TabIndex = 95
         '
         'trkTrips
         '
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
-        Me.trkTrips.Location = New System.Drawing.Point(539, 168)
+        Me.trkTrips.Location = New System.Drawing.Point(331, 118)
         Me.trkTrips.Maximum = 6
         Me.trkTrips.Minimum = 2
         Me.trkTrips.Name = "trkTrips"
@@ -555,7 +546,7 @@ Partial Class frmMain
         '
         'btnAddChar
         '
-        Me.btnAddChar.Location = New System.Drawing.Point(338, 168)
+        Me.btnAddChar.Location = New System.Drawing.Point(619, 36)
         Me.btnAddChar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddChar.Name = "btnAddChar"
         Me.btnAddChar.Size = New System.Drawing.Size(120, 36)
@@ -581,7 +572,7 @@ Partial Class frmMain
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1869, 868)
+        Me.TabPage2.Size = New System.Drawing.Size(1654, 782)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         '
@@ -596,12 +587,12 @@ Partial Class frmMain
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem3, ListViewItem4})
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
         Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
         Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 717)
+        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 681)
         Me.lstManufacturing.Sorting = System.Windows.Forms.SortOrder.Descending
         Me.lstManufacturing.TabIndex = 94
         Me.lstManufacturing.UseCompatibleStateImageBehavior = False
@@ -617,7 +608,7 @@ Partial Class frmMain
         Me.TabPage3.Controls.Add(Me.btnManageChar)
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(1869, 868)
+        Me.TabPage3.Size = New System.Drawing.Size(1654, 782)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "TabPage3"
         '
@@ -634,8 +625,19 @@ Partial Class frmMain
         Me.Panel1.Controls.Add(Me.btnReportbug)
         Me.Panel1.Location = New System.Drawing.Point(55, 38)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(647, 746)
+        Me.Panel1.Size = New System.Drawing.Size(647, 651)
         Me.Panel1.TabIndex = 107
+        '
+        'chkDisableTracking
+        '
+        Me.chkDisableTracking.AutoSize = True
+        Me.chkDisableTracking.Location = New System.Drawing.Point(17, 452)
+        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDisableTracking.Name = "chkDisableTracking"
+        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
+        Me.chkDisableTracking.TabIndex = 108
+        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
+        Me.chkDisableTracking.UseVisualStyleBackColor = True
         '
         'LabelVersion
         '
@@ -741,7 +743,7 @@ Partial Class frmMain
         '
         Me.btnResetAll.BackColor = System.Drawing.Color.Red
         Me.btnResetAll.ForeColor = System.Drawing.Color.DarkRed
-        Me.btnResetAll.Location = New System.Drawing.Point(1233, 748)
+        Me.btnResetAll.Location = New System.Drawing.Point(1040, 418)
         Me.btnResetAll.Margin = New System.Windows.Forms.Padding(4)
         Me.btnResetAll.Name = "btnResetAll"
         Me.btnResetAll.Size = New System.Drawing.Size(120, 36)
@@ -751,7 +753,7 @@ Partial Class frmMain
         '
         'btnManageChar
         '
-        Me.btnManageChar.Location = New System.Drawing.Point(1019, 748)
+        Me.btnManageChar.Location = New System.Drawing.Point(815, 418)
         Me.btnManageChar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnManageChar.Name = "btnManageChar"
         Me.btnManageChar.Size = New System.Drawing.Size(120, 36)
@@ -760,16 +762,27 @@ Partial Class frmMain
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
         '
-        'chkDisableTracking
+        'MetroLabel3
         '
-        Me.chkDisableTracking.AutoSize = True
-        Me.chkDisableTracking.Location = New System.Drawing.Point(17, 452)
-        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDisableTracking.Name = "chkDisableTracking"
-        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
-        Me.chkDisableTracking.TabIndex = 108
-        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
-        Me.chkDisableTracking.UseVisualStyleBackColor = True
+        Me.MetroLabel3.Location = New System.Drawing.Point(35, 118)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(236, 57)
+        Me.MetroLabel3.TabIndex = 96
+        Me.MetroLabel3.Text = "Select more trips for more profit or less trips for less travel time"
+        Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel3.WrapToLine = True
+        '
+        'MetroRadioButton1
+        '
+        Me.MetroRadioButton1.AutoSize = True
+        Me.MetroRadioButton1.Location = New System.Drawing.Point(496, 377)
+        Me.MetroRadioButton1.Margin = New System.Windows.Forms.Padding(4)
+        Me.MetroRadioButton1.Name = "MetroRadioButton1"
+        Me.MetroRadioButton1.Size = New System.Drawing.Size(194, 17)
+        Me.MetroRadioButton1.TabIndex = 97
+        Me.MetroRadioButton1.Text = "Calculate Profit My Blueprints"
+        Me.MetroRadioButton1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroRadioButton1.UseSelectable = True
         '
         'frmMain
         '
@@ -777,9 +790,10 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1922, 1094)
+        Me.ClientSize = New System.Drawing.Size(1696, 913)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.mnuStripMain)
+        Me.Controls.Add(Me.chkCalcCanBuild)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.mnuStripMain
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -793,8 +807,6 @@ Partial Class frmMain
         Me.mnuStripMain.ResumeLayout(False)
         Me.mnuStripMain.PerformLayout()
         Me.ListOptionsMenu.ResumeLayout(False)
-        Me.gbCalcBPSelect.ResumeLayout(False)
-        Me.gbCalcBPSelect.PerformLayout()
         Me.gbCalcTextColors.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
@@ -839,7 +851,6 @@ Partial Class frmMain
     Friend WithEvents btnCalcCalculate As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroProgressBar As MetroFramework.Controls.MetroProgressBar
     Friend WithEvents gbCalcBPSelect As GroupBox
-    Friend WithEvents rbtnCalcBPFavorites As MetroFramework.Controls.MetroRadioButton
     Friend WithEvents rbtnCalcAllBPs As MetroFramework.Controls.MetroRadioButton
     Friend WithEvents rbtnCalcBPOwned As MetroFramework.Controls.MetroRadioButton
     Friend WithEvents pnlStatus As MetroFramework.Controls.MetroLabel
@@ -881,4 +892,6 @@ Partial Class frmMain
     Friend WithEvents FrmShoppingList1 As frmShoppingList
     Friend WithEvents Panel1 As Panel
     Friend WithEvents chkDisableTracking As CheckBox
+    Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroRadioButton1 As MetroFramework.Controls.MetroRadioButton
 End Class
