@@ -24,8 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.ttBP = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
@@ -57,7 +57,6 @@ Partial Class frmMain
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         Me.btnHelp = New MetroFramework.Controls.MetroButton()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
@@ -337,17 +336,6 @@ Partial Class frmMain
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel1.WrapToLine = True
         '
-        'chkDisableTracking
-        '
-        Me.chkDisableTracking.AutoSize = True
-        Me.chkDisableTracking.Location = New System.Drawing.Point(575, 30)
-        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
-        Me.chkDisableTracking.Name = "chkDisableTracking"
-        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
-        Me.chkDisableTracking.TabIndex = 108
-        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
-        Me.chkDisableTracking.UseVisualStyleBackColor = True
-        '
         'btnHelp
         '
         Me.btnHelp.BackColor = System.Drawing.Color.Red
@@ -393,7 +381,7 @@ Partial Class frmMain
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem3, ListViewItem4})
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
         Me.lstManufacturing.Location = New System.Drawing.Point(4, 15)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
@@ -474,7 +462,6 @@ Partial Class frmMain
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1631, 890)
         Me.Controls.Add(Me.MetroPanel1)
-        Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.btnHelp)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
         Me.Controls.Add(Me.chkCalcCanBuild)
@@ -532,7 +519,6 @@ Partial Class frmMain
     Friend WithEvents trkTrips As MetroFramework.Controls.MetroTrackBar
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents FrmShoppingList1 As frmShoppingList
-    Friend WithEvents chkDisableTracking As CheckBox
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel

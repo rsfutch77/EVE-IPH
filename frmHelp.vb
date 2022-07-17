@@ -102,4 +102,9 @@ Public Class frmHelp
         End If
 
     End Sub
+
+    Private Sub chkDisableTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableTracking.CheckedChanged
+        frmMain.AutoSave()
+    End Sub
+
 End Class

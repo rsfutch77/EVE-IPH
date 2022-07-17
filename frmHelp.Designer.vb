@@ -33,6 +33,7 @@ Partial Class frmHelp
         Me.btnReportbug = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
+        Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,11 +152,24 @@ Partial Class frmHelp
         Me.btnResetAll.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnResetAll.UseSelectable = True
         '
+        'chkDisableTracking
+        '
+        Me.chkDisableTracking.AutoSize = True
+        Me.chkDisableTracking.ForeColor = System.Drawing.SystemColors.ActiveBorder
+        Me.chkDisableTracking.Location = New System.Drawing.Point(139, 598)
+        Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
+        Me.chkDisableTracking.Name = "chkDisableTracking"
+        Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
+        Me.chkDisableTracking.TabIndex = 117
+        Me.chkDisableTracking.Text = "Disable Anonomous Usage Tracking"
+        Me.chkDisableTracking.UseVisualStyleBackColor = True
+        '
         'frmHelp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(569, 633)
+        Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.btnResetAll)
         Me.Controls.Add(Me.btnManageChar)
         Me.Controls.Add(Me.btnReportbug)
@@ -179,6 +193,7 @@ Partial Class frmHelp
         CType(Me.VisitWebIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PateronIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -192,4 +207,5 @@ Partial Class frmHelp
     Friend WithEvents btnReportbug As MetroFramework.Controls.MetroButton
     Friend WithEvents btnManageChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton
+    Friend WithEvents chkDisableTracking As CheckBox
 End Class

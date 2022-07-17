@@ -7564,29 +7564,25 @@ NextIteration:
 
 #End Region
 
-#Region "Settings Tab"
+#Region "Settings"
 
     Private Sub LoadFormSettings()
 
         UserApplicationSettings = AllSettings.LoadApplicationSettings()
 
-        chkDisableTracking.Checked = UserApplicationSettings.DisableGATracking
+        frmHelp.chkDisableTracking.Checked = UserApplicationSettings.DisableGATracking
 
     End Sub
 
-    Private Sub AutoSave()
+    Public Sub AutoSave()
 
         Dim Settings As New ProgramSettings
 
-        UserApplicationSettings.DisableGATracking = chkDisableTracking.Checked
+        UserApplicationSettings.DisableGATracking = frmHelp.chkDisableTracking.Checked
 
         ' Save the data in the XML file
         Call Settings.SaveApplicationSettings(UserApplicationSettings)
 
-    End Sub
-
-    Private Sub chkDisableTracking_CheckedChanged(sender As Object, e As EventArgs) Handles chkDisableTracking.CheckedChanged
-        AutoSave()
     End Sub
 
     Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
