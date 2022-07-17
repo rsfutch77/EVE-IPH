@@ -31,7 +31,6 @@ Partial Class frmHelp
         Me.btnDonate = New MetroFramework.Controls.MetroButton()
         Me.btnVisitweb = New MetroFramework.Controls.MetroButton()
         Me.btnReportbug = New MetroFramework.Controls.MetroButton()
-        Me.btnManageChar = New MetroFramework.Controls.MetroButton()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         CType(Me.ReportBugIcon, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,7 +41,7 @@ Partial Class frmHelp
         'LabelVersion
         '
         Me.LabelVersion.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.LabelVersion.Location = New System.Drawing.Point(30, 71)
+        Me.LabelVersion.Location = New System.Drawing.Point(22, 71)
         Me.LabelVersion.Name = "LabelVersion"
         Me.LabelVersion.Size = New System.Drawing.Size(181, 35)
         Me.LabelVersion.TabIndex = 108
@@ -55,7 +54,7 @@ Partial Class frmHelp
         '
         Me.ReportBugIcon.ErrorImage = Nothing
         Me.ReportBugIcon.Image = CType(resources.GetObject("ReportBugIcon.Image"), System.Drawing.Image)
-        Me.ReportBugIcon.Location = New System.Drawing.Point(33, 436)
+        Me.ReportBugIcon.Location = New System.Drawing.Point(110, 436)
         Me.ReportBugIcon.Name = "ReportBugIcon"
         Me.ReportBugIcon.Size = New System.Drawing.Size(57, 65)
         Me.ReportBugIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -64,7 +63,6 @@ Partial Class frmHelp
         '
         'MetroLabel2
         '
-        Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel2.Location = New System.Drawing.Point(30, 106)
         Me.MetroLabel2.Name = "MetroLabel2"
         Me.MetroLabel2.Size = New System.Drawing.Size(509, 174)
@@ -77,7 +75,7 @@ Partial Class frmHelp
         '
         Me.VisitWebIcon.ErrorImage = Nothing
         Me.VisitWebIcon.Image = CType(resources.GetObject("VisitWebIcon.Image"), System.Drawing.Image)
-        Me.VisitWebIcon.Location = New System.Drawing.Point(33, 362)
+        Me.VisitWebIcon.Location = New System.Drawing.Point(110, 360)
         Me.VisitWebIcon.Name = "VisitWebIcon"
         Me.VisitWebIcon.Size = New System.Drawing.Size(57, 65)
         Me.VisitWebIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -88,7 +86,7 @@ Partial Class frmHelp
         '
         Me.PateronIcon.ErrorImage = Nothing
         Me.PateronIcon.Image = CType(resources.GetObject("PateronIcon.Image"), System.Drawing.Image)
-        Me.PateronIcon.Location = New System.Drawing.Point(33, 289)
+        Me.PateronIcon.Location = New System.Drawing.Point(110, 283)
         Me.PateronIcon.Name = "PateronIcon"
         Me.PateronIcon.Size = New System.Drawing.Size(57, 65)
         Me.PateronIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -97,53 +95,45 @@ Partial Class frmHelp
         '
         'btnDonate
         '
-        Me.btnDonate.Location = New System.Drawing.Point(110, 289)
+        Me.btnDonate.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.btnDonate.Location = New System.Drawing.Point(185, 284)
         Me.btnDonate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDonate.Name = "btnDonate"
-        Me.btnDonate.Size = New System.Drawing.Size(266, 52)
+        Me.btnDonate.Size = New System.Drawing.Size(266, 65)
         Me.btnDonate.TabIndex = 112
-        Me.btnDonate.Text = "Donate to the original creator of EVEIPH"
+        Me.btnDonate.Text = "Donate to the original " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "creator of EVEIPH"
         Me.btnDonate.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnDonate.UseSelectable = True
         '
         'btnVisitweb
         '
-        Me.btnVisitweb.Location = New System.Drawing.Point(110, 362)
+        Me.btnVisitweb.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.btnVisitweb.Location = New System.Drawing.Point(185, 360)
         Me.btnVisitweb.Margin = New System.Windows.Forms.Padding(4)
         Me.btnVisitweb.Name = "btnVisitweb"
-        Me.btnVisitweb.Size = New System.Drawing.Size(266, 52)
+        Me.btnVisitweb.Size = New System.Drawing.Size(266, 65)
         Me.btnVisitweb.TabIndex = 113
-        Me.btnVisitweb.Text = "Visit EasyIPH.com for Tips and Tricks"
+        Me.btnVisitweb.Text = "Visit EasyIPH.com for " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Tips and Tricks"
         Me.btnVisitweb.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnVisitweb.UseSelectable = True
         '
         'btnReportbug
         '
-        Me.btnReportbug.Location = New System.Drawing.Point(110, 449)
+        Me.btnReportbug.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.btnReportbug.Location = New System.Drawing.Point(185, 436)
         Me.btnReportbug.Margin = New System.Windows.Forms.Padding(4)
         Me.btnReportbug.Name = "btnReportbug"
-        Me.btnReportbug.Size = New System.Drawing.Size(266, 52)
+        Me.btnReportbug.Size = New System.Drawing.Size(266, 65)
         Me.btnReportbug.TabIndex = 114
-        Me.btnReportbug.Text = "Report a Bug or Suggest a Feature"
+        Me.btnReportbug.Text = "Report a Bug or " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Suggest a Feature"
         Me.btnReportbug.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnReportbug.UseSelectable = True
-        '
-        'btnManageChar
-        '
-        Me.btnManageChar.Location = New System.Drawing.Point(69, 543)
-        Me.btnManageChar.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnManageChar.Name = "btnManageChar"
-        Me.btnManageChar.Size = New System.Drawing.Size(120, 36)
-        Me.btnManageChar.TabIndex = 115
-        Me.btnManageChar.Text = "Manage Characters"
-        Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnManageChar.UseSelectable = True
         '
         'btnResetAll
         '
         Me.btnResetAll.BackColor = System.Drawing.Color.Red
         Me.btnResetAll.ForeColor = System.Drawing.Color.DarkRed
-        Me.btnResetAll.Location = New System.Drawing.Point(344, 543)
+        Me.btnResetAll.Location = New System.Drawing.Point(218, 519)
         Me.btnResetAll.Margin = New System.Windows.Forms.Padding(4)
         Me.btnResetAll.Name = "btnResetAll"
         Me.btnResetAll.Size = New System.Drawing.Size(120, 36)
@@ -156,7 +146,7 @@ Partial Class frmHelp
         '
         Me.chkDisableTracking.AutoSize = True
         Me.chkDisableTracking.ForeColor = System.Drawing.SystemColors.ActiveBorder
-        Me.chkDisableTracking.Location = New System.Drawing.Point(139, 598)
+        Me.chkDisableTracking.Location = New System.Drawing.Point(156, 569)
         Me.chkDisableTracking.Margin = New System.Windows.Forms.Padding(4)
         Me.chkDisableTracking.Name = "chkDisableTracking"
         Me.chkDisableTracking.Size = New System.Drawing.Size(251, 20)
@@ -168,10 +158,9 @@ Partial Class frmHelp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(569, 633)
+        Me.ClientSize = New System.Drawing.Size(569, 606)
         Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.btnResetAll)
-        Me.Controls.Add(Me.btnManageChar)
         Me.Controls.Add(Me.btnReportbug)
         Me.Controls.Add(Me.btnVisitweb)
         Me.Controls.Add(Me.btnDonate)
@@ -205,7 +194,6 @@ Partial Class frmHelp
     Friend WithEvents btnDonate As MetroFramework.Controls.MetroButton
     Friend WithEvents btnVisitweb As MetroFramework.Controls.MetroButton
     Friend WithEvents btnReportbug As MetroFramework.Controls.MetroButton
-    Friend WithEvents btnManageChar As MetroFramework.Controls.MetroButton
     Friend WithEvents btnResetAll As MetroFramework.Controls.MetroButton
     Friend WithEvents chkDisableTracking As CheckBox
 End Class
