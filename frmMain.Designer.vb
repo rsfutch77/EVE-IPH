@@ -24,8 +24,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Me.ttBP = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
@@ -52,8 +52,6 @@ Partial Class frmMain
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
         Me.lblCharacterData = New MetroFramework.Controls.MetroLabel()
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
@@ -67,9 +65,13 @@ Partial Class frmMain
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.pnlFacility = New MetroFramework.Controls.MetroPanel()
+        Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
         Me.ListOptionsMenu.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
+        Me.pnlFacility.SuspendLayout()
+        Me.MetroPanel1.SuspendLayout()
+        Me.MetroPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ttBP
@@ -131,7 +133,7 @@ Partial Class frmMain
         'btnDownloadPrices
         '
         Me.btnDownloadPrices.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.btnDownloadPrices.Location = New System.Drawing.Point(22, 465)
+        Me.btnDownloadPrices.Location = New System.Drawing.Point(7, 473)
         Me.btnDownloadPrices.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDownloadPrices.Name = "btnDownloadPrices"
         Me.btnDownloadPrices.Size = New System.Drawing.Size(156, 56)
@@ -143,7 +145,7 @@ Partial Class frmMain
         'btnCalcCalculate
         '
         Me.btnCalcCalculate.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.btnCalcCalculate.Location = New System.Drawing.Point(209, 465)
+        Me.btnCalcCalculate.Location = New System.Drawing.Point(194, 473)
         Me.btnCalcCalculate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCalcCalculate.Name = "btnCalcCalculate"
         Me.btnCalcCalculate.Size = New System.Drawing.Size(156, 56)
@@ -154,7 +156,7 @@ Partial Class frmMain
         '
         'MetroProgressBar
         '
-        Me.MetroProgressBar.Location = New System.Drawing.Point(395, 495)
+        Me.MetroProgressBar.Location = New System.Drawing.Point(380, 503)
         Me.MetroProgressBar.Name = "MetroProgressBar"
         Me.MetroProgressBar.Size = New System.Drawing.Size(442, 26)
         Me.MetroProgressBar.TabIndex = 76
@@ -166,7 +168,7 @@ Partial Class frmMain
         Me.mnuChar.FormattingEnabled = True
         Me.mnuChar.ItemHeight = 29
         Me.mnuChar.Items.AddRange(New Object() {"Select A Character..."})
-        Me.mnuChar.Location = New System.Drawing.Point(148, 60)
+        Me.mnuChar.Location = New System.Drawing.Point(140, 67)
         Me.mnuChar.Name = "mnuChar"
         Me.mnuChar.Size = New System.Drawing.Size(330, 35)
         Me.mnuChar.TabIndex = 88
@@ -196,7 +198,7 @@ Partial Class frmMain
         Me.autoShopping.BackColor = System.Drawing.Color.Transparent
         Me.autoShopping.FontSize = MetroFramework.MetroCheckBoxSize.Medium
         Me.autoShopping.ForeColor = System.Drawing.Color.White
-        Me.autoShopping.Location = New System.Drawing.Point(471, 410)
+        Me.autoShopping.Location = New System.Drawing.Point(463, 417)
         Me.autoShopping.Margin = New System.Windows.Forms.Padding(4)
         Me.autoShopping.Name = "autoShopping"
         Me.autoShopping.Size = New System.Drawing.Size(258, 20)
@@ -210,7 +212,7 @@ Partial Class frmMain
         Me.rbtnCalcAllBPs.AutoSize = True
         Me.rbtnCalcAllBPs.Checked = True
         Me.rbtnCalcAllBPs.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.rbtnCalcAllBPs.Location = New System.Drawing.Point(471, 375)
+        Me.rbtnCalcAllBPs.Location = New System.Drawing.Point(463, 382)
         Me.rbtnCalcAllBPs.Margin = New System.Windows.Forms.Padding(4)
         Me.rbtnCalcAllBPs.Name = "rbtnCalcAllBPs"
         Me.rbtnCalcAllBPs.Size = New System.Drawing.Size(226, 20)
@@ -237,7 +239,7 @@ Partial Class frmMain
         '
         Me.pnlStatus.BackColor = System.Drawing.Color.Transparent
         Me.pnlStatus.ForeColor = System.Drawing.Color.Transparent
-        Me.pnlStatus.Location = New System.Drawing.Point(441, 457)
+        Me.pnlStatus.Location = New System.Drawing.Point(426, 465)
         Me.pnlStatus.Name = "pnlStatus"
         Me.pnlStatus.Size = New System.Drawing.Size(354, 35)
         Me.pnlStatus.TabIndex = 86
@@ -248,7 +250,7 @@ Partial Class frmMain
         'lblCharacterData
         '
         Me.lblCharacterData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCharacterData.Location = New System.Drawing.Point(22, 541)
+        Me.lblCharacterData.Location = New System.Drawing.Point(7, 549)
         Me.lblCharacterData.Name = "lblCharacterData"
         Me.lblCharacterData.Size = New System.Drawing.Size(815, 37)
         Me.lblCharacterData.TabIndex = 90
@@ -261,7 +263,7 @@ Partial Class frmMain
         '
         Me.lblRecommendation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblRecommendation.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.lblRecommendation.Location = New System.Drawing.Point(22, 590)
+        Me.lblRecommendation.Location = New System.Drawing.Point(7, 603)
         Me.lblRecommendation.Name = "lblRecommendation"
         Me.lblRecommendation.Size = New System.Drawing.Size(815, 175)
         Me.lblRecommendation.TabIndex = 88
@@ -269,48 +271,12 @@ Partial Class frmMain
         Me.lblRecommendation.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.lblRecommendation.WrapToLine = True
         '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(20, 91)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1620, 811)
-        Me.TabControl1.TabIndex = 95
-        '
-        'TabPage1
-        '
-        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.TabPage1.Controls.Add(Me.pnlStatus)
-        Me.TabPage1.Controls.Add(Me.rbtnCalcAllBPs)
-        Me.TabPage1.Controls.Add(Me.FrmShoppingList1)
-        Me.TabPage1.Controls.Add(Me.autoShopping)
-        Me.TabPage1.Controls.Add(Me.trkTrips)
-        Me.TabPage1.Controls.Add(Me.btnAddChar)
-        Me.TabPage1.Controls.Add(Me.lblRecommendation)
-        Me.TabPage1.Controls.Add(Me.mnuChar)
-        Me.TabPage1.Controls.Add(Me.MetroProgressBar)
-        Me.TabPage1.Controls.Add(Me.CalcBaseFacility)
-        Me.TabPage1.Controls.Add(Me.btnCalcCalculate)
-        Me.TabPage1.Controls.Add(Me.btnDownloadPrices)
-        Me.TabPage1.Controls.Add(Me.lblCharacterData)
-        Me.TabPage1.Controls.Add(Me.MetroLabel4)
-        Me.TabPage1.Controls.Add(Me.MetroLabel3)
-        Me.TabPage1.Controls.Add(Me.MetroLabel1)
-        Me.TabPage1.ForeColor = System.Drawing.Color.DimGray
-        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1612, 782)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "TabPage1"
-        '
         'trkTrips
         '
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
         Me.trkTrips.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!)
         Me.trkTrips.LargeChange = 4
-        Me.trkTrips.Location = New System.Drawing.Point(179, 201)
+        Me.trkTrips.Location = New System.Drawing.Point(171, 208)
         Me.trkTrips.Maximum = 6
         Me.trkTrips.Minimum = 2
         Me.trkTrips.Name = "trkTrips"
@@ -323,7 +289,7 @@ Partial Class frmMain
         'btnAddChar
         '
         Me.btnAddChar.FontSize = MetroFramework.MetroButtonSize.Tall
-        Me.btnAddChar.Location = New System.Drawing.Point(523, 49)
+        Me.btnAddChar.Location = New System.Drawing.Point(515, 56)
         Me.btnAddChar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddChar.Name = "btnAddChar"
         Me.btnAddChar.Size = New System.Drawing.Size(156, 56)
@@ -335,7 +301,7 @@ Partial Class frmMain
         'MetroLabel4
         '
         Me.MetroLabel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MetroLabel4.Location = New System.Drawing.Point(22, 358)
+        Me.MetroLabel4.Location = New System.Drawing.Point(14, 365)
         Me.MetroLabel4.Name = "MetroLabel4"
         Me.MetroLabel4.Size = New System.Drawing.Size(815, 90)
         Me.MetroLabel4.TabIndex = 97
@@ -349,7 +315,7 @@ Partial Class frmMain
         '
         Me.MetroLabel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel3.Location = New System.Drawing.Point(166, 136)
+        Me.MetroLabel3.Location = New System.Drawing.Point(158, 143)
         Me.MetroLabel3.Name = "MetroLabel3"
         Me.MetroLabel3.Size = New System.Drawing.Size(491, 134)
         Me.MetroLabel3.TabIndex = 96
@@ -362,7 +328,7 @@ Partial Class frmMain
         '
         Me.MetroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel1.Location = New System.Drawing.Point(131, 8)
+        Me.MetroLabel1.Location = New System.Drawing.Point(123, 15)
         Me.MetroLabel1.Name = "MetroLabel1"
         Me.MetroLabel1.Size = New System.Drawing.Size(566, 113)
         Me.MetroLabel1.TabIndex = 98
@@ -387,7 +353,7 @@ Partial Class frmMain
         Me.btnHelp.BackColor = System.Drawing.Color.Red
         Me.btnHelp.FontSize = MetroFramework.MetroButtonSize.Tall
         Me.btnHelp.ForeColor = System.Drawing.Color.DarkRed
-        Me.btnHelp.Location = New System.Drawing.Point(1587, 46)
+        Me.btnHelp.Location = New System.Drawing.Point(1502, 18)
         Me.btnHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.btnHelp.Name = "btnHelp"
         Me.btnHelp.Size = New System.Drawing.Size(50, 50)
@@ -400,7 +366,7 @@ Partial Class frmMain
         '
         Me.FrmShoppingList1.AutoSize = True
         Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 8)
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(842, 12)
         Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
         Me.FrmShoppingList1.Name = "FrmShoppingList1"
         Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
@@ -410,7 +376,7 @@ Partial Class frmMain
         '
         Me.CalcBaseFacility.BackColor = System.Drawing.Color.Transparent
         Me.CalcBaseFacility.ForeColor = System.Drawing.Color.Transparent
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(59, 285)
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(6, 11)
         Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
         Me.CalcBaseFacility.Name = "CalcBaseFacility"
         Me.CalcBaseFacility.Size = New System.Drawing.Size(780, 58)
@@ -427,8 +393,8 @@ Partial Class frmMain
         Me.lstManufacturing.FullRowSelect = True
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
-        Me.lstManufacturing.Location = New System.Drawing.Point(40, 164)
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem3, ListViewItem4})
+        Me.lstManufacturing.Location = New System.Drawing.Point(4, 15)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
         Me.lstManufacturing.OwnerDraw = True
@@ -440,19 +406,79 @@ Partial Class frmMain
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
         Me.lstManufacturing.Visible = False
         '
+        'pnlFacility
+        '
+        Me.pnlFacility.Controls.Add(Me.CalcBaseFacility)
+        Me.pnlFacility.HorizontalScrollbarBarColor = True
+        Me.pnlFacility.HorizontalScrollbarHighlightOnWheel = False
+        Me.pnlFacility.HorizontalScrollbarSize = 10
+        Me.pnlFacility.Location = New System.Drawing.Point(14, 286)
+        Me.pnlFacility.Name = "pnlFacility"
+        Me.pnlFacility.Size = New System.Drawing.Size(815, 76)
+        Me.pnlFacility.TabIndex = 110
+        Me.pnlFacility.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.pnlFacility.VerticalScrollbarBarColor = True
+        Me.pnlFacility.VerticalScrollbarHighlightOnWheel = False
+        Me.pnlFacility.VerticalScrollbarSize = 10
+        '
+        'MetroPanel1
+        '
+        Me.MetroPanel1.Controls.Add(Me.pnlFacility)
+        Me.MetroPanel1.Controls.Add(Me.rbtnCalcAllBPs)
+        Me.MetroPanel1.Controls.Add(Me.pnlStatus)
+        Me.MetroPanel1.Controls.Add(Me.autoShopping)
+        Me.MetroPanel1.Controls.Add(Me.btnAddChar)
+        Me.MetroPanel1.Controls.Add(Me.trkTrips)
+        Me.MetroPanel1.Controls.Add(Me.lblRecommendation)
+        Me.MetroPanel1.Controls.Add(Me.mnuChar)
+        Me.MetroPanel1.Controls.Add(Me.FrmShoppingList1)
+        Me.MetroPanel1.Controls.Add(Me.MetroLabel4)
+        Me.MetroPanel1.Controls.Add(Me.lblCharacterData)
+        Me.MetroPanel1.Controls.Add(Me.MetroLabel3)
+        Me.MetroPanel1.Controls.Add(Me.btnDownloadPrices)
+        Me.MetroPanel1.Controls.Add(Me.MetroLabel1)
+        Me.MetroPanel1.Controls.Add(Me.btnCalcCalculate)
+        Me.MetroPanel1.Controls.Add(Me.MetroProgressBar)
+        Me.MetroPanel1.HorizontalScrollbarBarColor = True
+        Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.HorizontalScrollbarSize = 10
+        Me.MetroPanel1.Location = New System.Drawing.Point(8, 67)
+        Me.MetroPanel1.Name = "MetroPanel1"
+        Me.MetroPanel1.Size = New System.Drawing.Size(1603, 801)
+        Me.MetroPanel1.TabIndex = 110
+        Me.MetroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroPanel1.VerticalScrollbarBarColor = True
+        Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.VerticalScrollbarSize = 10
+        '
+        'MetroPanel2
+        '
+        Me.MetroPanel2.Controls.Add(Me.lstManufacturing)
+        Me.MetroPanel2.HorizontalScrollbarBarColor = True
+        Me.MetroPanel2.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel2.HorizontalScrollbarSize = 10
+        Me.MetroPanel2.Location = New System.Drawing.Point(23, 77)
+        Me.MetroPanel2.Name = "MetroPanel2"
+        Me.MetroPanel2.Size = New System.Drawing.Size(1572, 783)
+        Me.MetroPanel2.TabIndex = 111
+        Me.MetroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroPanel2.VerticalScrollbarBarColor = True
+        Me.MetroPanel2.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel2.VerticalScrollbarSize = 10
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1661, 927)
+        Me.ClientSize = New System.Drawing.Size(1631, 890)
+        Me.Controls.Add(Me.MetroPanel1)
         Me.Controls.Add(Me.chkDisableTracking)
         Me.Controls.Add(Me.btnHelp)
-        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
         Me.Controls.Add(Me.chkCalcCanBuild)
-        Me.Controls.Add(Me.lstManufacturing)
+        Me.Controls.Add(Me.MetroPanel2)
         Me.ForeColor = System.Drawing.Color.White
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -464,9 +490,10 @@ Partial Class frmMain
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.TransparencyKey = System.Drawing.Color.LightBlue
         Me.ListOptionsMenu.ResumeLayout(False)
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
+        Me.pnlFacility.ResumeLayout(False)
+        Me.MetroPanel1.ResumeLayout(False)
+        Me.MetroPanel1.PerformLayout()
+        Me.MetroPanel2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -499,8 +526,6 @@ Partial Class frmMain
     Friend WithEvents lblCharacterData As MetroFramework.Controls.MetroLabel
     Friend WithEvents lblRecommendation As MetroFramework.Controls.MetroLabel
     Friend WithEvents lstManufacturing As ManufacturingListView
-    Friend WithEvents TabControl1 As TabControl
-    Friend WithEvents TabPage1 As TabPage
     Friend WithEvents btnAddChar As MetroFramework.Controls.MetroButton
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
@@ -512,4 +537,7 @@ Partial Class frmMain
     Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents btnHelp As MetroFramework.Controls.MetroButton
+    Friend WithEvents pnlFacility As MetroFramework.Controls.MetroPanel
+    Friend WithEvents MetroPanel1 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
 End Class
