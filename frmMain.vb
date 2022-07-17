@@ -2440,7 +2440,7 @@ ExitSub:
         Me.Refresh()
         Cursor.Current = Cursors.Default
         MetroProgressBar.Visible = True
-        pnlStatus.Text = ""
+        pnlStatus.Text = "Price Update Complete!"
 
     End Sub
 
@@ -2508,18 +2508,18 @@ ExitSub:
             If Not MP.UpdateESIMarketOrders(Items) Then
                 ' Update Failed, don't reload everything
                 Call MsgBox("Some prices did not update from stations. Please try again.", vbInformation, Application.ProductName)
-                pnlStatus.Text = ""
+                pnlStatus.Text = "Price Update Failure"
                 Exit Sub
             End If
 
             If CancelThreading Then
                 ' They had a ton of errors
                 Call MsgBox("You had an excessive amount of errors while attempting to update station orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                pnlStatus.Text = "Price Update Failure"
                 CancelThreading = False
                 Exit Sub
             End If
 
-            pnlStatus.Text = ""
             Application.DoEvents()
 
             ' Now, based on the region and selected items, select the public upwell structures and get each set of market data from those
@@ -2532,18 +2532,18 @@ ExitSub:
                 If Not ESIData.UpdateStructureMarketOrders(PriceRegions, PriceSystem, SelectedCharacter.CharacterTokenData, MetroProgressBar) Then
                     ' Update Failed, don't reload everything
                     Call MsgBox("Some prices did not update from public structures. Please try again.", vbInformation, Application.ProductName)
-                    pnlStatus.Text = ""
+                    pnlStatus.Text = "Price Update Failure"
                     Exit Sub
                 End If
 
                 If CancelThreading Then
                     ' They had a ton of errors
                     Call MsgBox("You had an excessive amount of errors while attempting to update structure orders and the process was canceled. Please try again later.", vbCritical, Application.ProductName)
+                    pnlStatus.Text = "Price Update Failure"
                     CancelThreading = False
                     Exit Sub
                 End If
 
-                pnlStatus.Text = ""
             End If
         End If
 
@@ -2752,7 +2752,6 @@ ExitSub:
 
         ' Done updating, hide the progress bar
         MetroProgressBar.Visible = True
-        pnlStatus.Text = "Price Update Complete!"
         Application.DoEvents()
 
     End Sub
@@ -3177,7 +3176,6 @@ ExitSub:
         CancelUpdatePrices = False
         MetroProgressBar.Visible = True
         UpdatePricesCache = True
-        pnlStatus.Text = ""
         Application.DoEvents()
 
     End Function
@@ -3293,7 +3291,8 @@ ExitSub:
         ' Reset
         Cursor.Current = Cursors.Default
         Application.DoEvents()
-        pnlStatus.Text = ""
+
+        pnlStatus.Text = "Calculation status will appear here..."
 
     End Sub
 
@@ -5330,7 +5329,6 @@ ExitPRocessing:
                 MetroProgressBar.Value = 0
                 MetroProgressBar.Visible = True
                 Cursor.Current = Cursors.Default
-                pnlStatus.Text = ""
 
                 ' BPs were calcualted so enable it
                 AddToShoppingListToolStripMenuItem.Enabled = True
@@ -5516,7 +5514,6 @@ DisplayResults:
 ExitCalc:
         MetroProgressBar.Value = 0
         MetroProgressBar.Visible = True
-        pnlStatus.Text = ""
         lstManufacturing.EndUpdate()
 
         ' Enable all the controls
@@ -5963,7 +5960,6 @@ ExitCalc:
         Cursor.Current = Cursors.Default
         Me.Refresh()
         Application.DoEvents()
-        pnlStatus.Text = ""
 
     End Sub
 
