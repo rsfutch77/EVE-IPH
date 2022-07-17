@@ -66,7 +66,7 @@ Public Class frmAddCharacter
                     Cursor.Current = Cursors.WaitCursor
                     Application.DoEvents()
                     Call SetDefaultCharacter(rsCheck.GetString(0))
-            		Cursor.Current = Cursors.Default
+                    Cursor.Current = Cursors.Default
                     Application.DoEvents()
                 End If
             Else
