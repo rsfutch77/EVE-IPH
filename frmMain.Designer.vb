@@ -52,13 +52,6 @@ Partial Class frmMain
         Me.pnlStatus = New MetroFramework.Controls.MetroLabel()
         Me.lblCharacterData = New MetroFramework.Controls.MetroLabel()
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
-        Me.gbCalcTextColors = New System.Windows.Forms.GroupBox()
-        Me.lblCalcColorCode6 = New System.Windows.Forms.Label()
-        Me.lblCalcColorCode3 = New System.Windows.Forms.Label()
-        Me.lblCalcColorCode4 = New System.Windows.Forms.Label()
-        Me.lblCalcColorCode5 = New System.Windows.Forms.Label()
-        Me.lblCalcColorCode2 = New System.Windows.Forms.Label()
-        Me.lblCalcColorCode1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
@@ -67,6 +60,7 @@ Partial Class frmMain
         Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -86,9 +80,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ListOptionsMenu.SuspendLayout()
-        Me.gbCalcTextColors.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -296,96 +288,6 @@ Partial Class frmMain
         Me.lblRecommendation.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.lblRecommendation.WrapToLine = True
         '
-        'gbCalcTextColors
-        '
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode6)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode3)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode4)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode5)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode2)
-        Me.gbCalcTextColors.Controls.Add(Me.lblCalcColorCode1)
-        Me.gbCalcTextColors.Location = New System.Drawing.Point(18, 22)
-        Me.gbCalcTextColors.Margin = New System.Windows.Forms.Padding(4)
-        Me.gbCalcTextColors.Name = "gbCalcTextColors"
-        Me.gbCalcTextColors.Padding = New System.Windows.Forms.Padding(4)
-        Me.gbCalcTextColors.Size = New System.Drawing.Size(185, 38)
-        Me.gbCalcTextColors.TabIndex = 93
-        Me.gbCalcTextColors.TabStop = False
-        '
-        'lblCalcColorCode6
-        '
-        Me.lblCalcColorCode6.BackColor = System.Drawing.Color.LightGreen
-        Me.lblCalcColorCode6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblCalcColorCode6.Location = New System.Drawing.Point(69, 12)
-        Me.lblCalcColorCode6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode6.Name = "lblCalcColorCode6"
-        Me.lblCalcColorCode6.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode6.TabIndex = 5
-        Me.lblCalcColorCode6.Text = "T"
-        Me.lblCalcColorCode6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcColorCode3
-        '
-        Me.lblCalcColorCode3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode3.ForeColor = System.Drawing.Color.DarkGreen
-        Me.lblCalcColorCode3.Location = New System.Drawing.Point(159, 12)
-        Me.lblCalcColorCode3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode3.Name = "lblCalcColorCode3"
-        Me.lblCalcColorCode3.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode3.TabIndex = 2
-        Me.lblCalcColorCode3.Text = "T"
-        Me.lblCalcColorCode3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcColorCode4
-        '
-        Me.lblCalcColorCode4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode4.ForeColor = System.Drawing.Color.DarkOrange
-        Me.lblCalcColorCode4.Location = New System.Drawing.Point(136, 12)
-        Me.lblCalcColorCode4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode4.Name = "lblCalcColorCode4"
-        Me.lblCalcColorCode4.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode4.TabIndex = 3
-        Me.lblCalcColorCode4.Text = "T"
-        Me.lblCalcColorCode4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcColorCode5
-        '
-        Me.lblCalcColorCode5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode5.ForeColor = System.Drawing.Color.DarkRed
-        Me.lblCalcColorCode5.Location = New System.Drawing.Point(114, 12)
-        Me.lblCalcColorCode5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode5.Name = "lblCalcColorCode5"
-        Me.lblCalcColorCode5.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode5.TabIndex = 4
-        Me.lblCalcColorCode5.Text = "T"
-        Me.lblCalcColorCode5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcColorCode2
-        '
-        Me.lblCalcColorCode2.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.lblCalcColorCode2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode2.ForeColor = System.Drawing.Color.Black
-        Me.lblCalcColorCode2.Location = New System.Drawing.Point(91, 12)
-        Me.lblCalcColorCode2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode2.Name = "lblCalcColorCode2"
-        Me.lblCalcColorCode2.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode2.TabIndex = 1
-        Me.lblCalcColorCode2.Text = "T"
-        Me.lblCalcColorCode2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblCalcColorCode1
-        '
-        Me.lblCalcColorCode1.BackColor = System.Drawing.Color.BlanchedAlmond
-        Me.lblCalcColorCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCalcColorCode1.Location = New System.Drawing.Point(46, 12)
-        Me.lblCalcColorCode1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblCalcColorCode1.Name = "lblCalcColorCode1"
-        Me.lblCalcColorCode1.Size = New System.Drawing.Size(18, 18)
-        Me.lblCalcColorCode1.TabIndex = 0
-        Me.lblCalcColorCode1.Text = "T"
-        Me.lblCalcColorCode1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
@@ -497,10 +399,22 @@ Partial Class frmMain
         Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel3.WrapToLine = True
         '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.MetroLabel1.Location = New System.Drawing.Point(131, 8)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(566, 113)
+        Me.MetroLabel1.TabIndex = 98
+        Me.MetroLabel1.Text = "Select or add a character"
+        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.MetroLabel1.WrapToLine = True
+        '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.TabPage2.Controls.Add(Me.gbCalcTextColors)
         Me.TabPage2.Controls.Add(Me.lstManufacturing)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
@@ -695,19 +609,6 @@ Partial Class frmMain
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
         '
-        'MetroLabel1
-        '
-        Me.MetroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel1.Location = New System.Drawing.Point(131, 8)
-        Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(566, 113)
-        Me.MetroLabel1.TabIndex = 98
-        Me.MetroLabel1.Text = "Select or add a character"
-        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel1.WrapToLine = True
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -729,7 +630,6 @@ Partial Class frmMain
         Me.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.TransparencyKey = System.Drawing.Color.LightBlue
         Me.ListOptionsMenu.ResumeLayout(False)
-        Me.gbCalcTextColors.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -771,13 +671,6 @@ Partial Class frmMain
     Friend WithEvents chkCalcCanBuild As MetroFramework.Controls.MetroCheckBox
     Friend WithEvents lblCharacterData As MetroFramework.Controls.MetroLabel
     Friend WithEvents lblRecommendation As MetroFramework.Controls.MetroLabel
-    Friend WithEvents gbCalcTextColors As GroupBox
-    Friend WithEvents lblCalcColorCode6 As Label
-    Friend WithEvents lblCalcColorCode3 As Label
-    Friend WithEvents lblCalcColorCode4 As Label
-    Friend WithEvents lblCalcColorCode5 As Label
-    Friend WithEvents lblCalcColorCode2 As Label
-    Friend WithEvents lblCalcColorCode1 As Label
     Friend WithEvents lstManufacturing As ManufacturingListView
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage

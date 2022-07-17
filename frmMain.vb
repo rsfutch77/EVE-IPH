@@ -520,14 +520,6 @@ Public Class frmMain
         On Error GoTo 0
     End Sub
 
-    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Application.DoEvents()
-        If ShowSupportSplash() Then
-            Dim f1 As New frmsupportSplash
-            f1.ShowDialog()
-        End If
-    End Sub
-
     ' If the text file is there, read the counter in it. Only show the splash on the first run and after every 100 uses
     Private Function ShowSupportSplash() As Boolean
         Dim ReturnValue As Boolean = True
@@ -5033,7 +5025,6 @@ ExitPRocessing:
                 ListRowFormats = New List(Of RowFormat)
 
                 ' Disable all the controls individulally so we can use cancel button
-                gbCalcTextColors.Enabled = False
                 lstManufacturing.Enabled = False
 
                 Dim MH As New MarketPriceInterface(MetroProgressBar)
@@ -5549,7 +5540,6 @@ ExitCalc:
         lstManufacturing.EndUpdate()
 
         ' Enable all the controls
-        gbCalcTextColors.Enabled = True
         lstManufacturing.Enabled = True
 
         Application.UseWaitCursor = False
