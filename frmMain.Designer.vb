@@ -49,7 +49,6 @@ Partial Class frmMain
         Me.ttMining = New System.Windows.Forms.ToolTip(Me.components)
         Me.ttPI = New System.Windows.Forms.ToolTip(Me.components)
         Me.CalcImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.btnCancelUpdate = New MetroFramework.Controls.MetroButton()
         Me.btnDownloadPrices = New MetroFramework.Controls.MetroButton()
         Me.btnCalcCalculate = New MetroFramework.Controls.MetroButton()
         Me.MetroProgressBar = New MetroFramework.Controls.MetroProgressBar()
@@ -74,15 +73,9 @@ Partial Class frmMain
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
-        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
@@ -97,6 +90,12 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnResetAll = New MetroFramework.Controls.MetroButton()
         Me.btnManageChar = New MetroFramework.Controls.MetroButton()
+        Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
+        Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
+        Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.mnuStripMain.SuspendLayout()
         Me.ListOptionsMenu.SuspendLayout()
         Me.gbCalcTextColors.SuspendLayout()
@@ -116,7 +115,7 @@ Partial Class frmMain
         Me.mnuStripMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdit, Me.ViewToolStripMenuItem})
         Me.mnuStripMain.Location = New System.Drawing.Point(20, 60)
         Me.mnuStripMain.Name = "mnuStripMain"
-        Me.mnuStripMain.Size = New System.Drawing.Size(1613, 30)
+        Me.mnuStripMain.Size = New System.Drawing.Size(1621, 30)
         Me.mnuStripMain.TabIndex = 0
         Me.mnuStripMain.Text = "MainMenu"
         '
@@ -218,34 +217,25 @@ Partial Class frmMain
         Me.CalcImageList.Images.SetKeyName(7, "Green Up Arrow.bmp")
         Me.CalcImageList.Images.SetKeyName(8, "Red Down Arrow.bmp")
         '
-        'btnCancelUpdate
-        '
-        Me.btnCancelUpdate.Location = New System.Drawing.Point(722, 489)
-        Me.btnCancelUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCancelUpdate.Name = "btnCancelUpdate"
-        Me.btnCancelUpdate.Size = New System.Drawing.Size(128, 40)
-        Me.btnCancelUpdate.TabIndex = 13
-        Me.btnCancelUpdate.Text = "Cancel Update"
-        Me.btnCancelUpdate.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.btnCancelUpdate.UseSelectable = True
-        '
         'btnDownloadPrices
         '
-        Me.btnDownloadPrices.Location = New System.Drawing.Point(35, 489)
+        Me.btnDownloadPrices.FontSize = MetroFramework.MetroButtonSize.Tall
+        Me.btnDownloadPrices.Location = New System.Drawing.Point(35, 473)
         Me.btnDownloadPrices.Margin = New System.Windows.Forms.Padding(4)
         Me.btnDownloadPrices.Name = "btnDownloadPrices"
-        Me.btnDownloadPrices.Size = New System.Drawing.Size(141, 40)
+        Me.btnDownloadPrices.Size = New System.Drawing.Size(156, 56)
         Me.btnDownloadPrices.TabIndex = 12
-        Me.btnDownloadPrices.Text = "Download Prices"
+        Me.btnDownloadPrices.Text = "Download" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Prices"
         Me.btnDownloadPrices.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnDownloadPrices.UseSelectable = True
         '
         'btnCalcCalculate
         '
-        Me.btnCalcCalculate.Location = New System.Drawing.Point(185, 489)
+        Me.btnCalcCalculate.FontSize = MetroFramework.MetroButtonSize.Tall
+        Me.btnCalcCalculate.Location = New System.Drawing.Point(222, 473)
         Me.btnCalcCalculate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCalcCalculate.Name = "btnCalcCalculate"
-        Me.btnCalcCalculate.Size = New System.Drawing.Size(141, 40)
+        Me.btnCalcCalculate.Size = New System.Drawing.Size(156, 56)
         Me.btnCalcCalculate.TabIndex = 21
         Me.btnCalcCalculate.Text = "Calculate"
         Me.btnCalcCalculate.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -253,19 +243,20 @@ Partial Class frmMain
         '
         'MetroProgressBar
         '
-        Me.MetroProgressBar.Location = New System.Drawing.Point(335, 489)
+        Me.MetroProgressBar.Location = New System.Drawing.Point(408, 473)
         Me.MetroProgressBar.Name = "MetroProgressBar"
-        Me.MetroProgressBar.Size = New System.Drawing.Size(380, 40)
+        Me.MetroProgressBar.Size = New System.Drawing.Size(442, 56)
         Me.MetroProgressBar.TabIndex = 76
         Me.MetroProgressBar.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'mnuChar
         '
+        Me.mnuChar.FontSize = MetroFramework.MetroComboBoxSize.Tall
         Me.mnuChar.FormattingEnabled = True
-        Me.mnuChar.ItemHeight = 24
-        Me.mnuChar.Location = New System.Drawing.Point(331, 40)
+        Me.mnuChar.ItemHeight = 29
+        Me.mnuChar.Location = New System.Drawing.Point(331, 46)
         Me.mnuChar.Name = "mnuChar"
-        Me.mnuChar.Size = New System.Drawing.Size(330, 30)
+        Me.mnuChar.Size = New System.Drawing.Size(330, 35)
         Me.mnuChar.TabIndex = 88
         Me.mnuChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.mnuChar.UseSelectable = True
@@ -333,9 +324,10 @@ Partial Class frmMain
         'pnlStatus
         '
         Me.pnlStatus.BackColor = System.Drawing.Color.Transparent
-        Me.pnlStatus.Location = New System.Drawing.Point(346, 501)
+        Me.pnlStatus.ForeColor = System.Drawing.Color.Transparent
+        Me.pnlStatus.Location = New System.Drawing.Point(454, 486)
         Me.pnlStatus.Name = "pnlStatus"
-        Me.pnlStatus.Size = New System.Drawing.Size(354, 20)
+        Me.pnlStatus.Size = New System.Drawing.Size(354, 35)
         Me.pnlStatus.TabIndex = 86
         Me.pnlStatus.Text = "Calculation status will appear here..."
         Me.pnlStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -355,7 +347,7 @@ Partial Class frmMain
         '
         Me.lblCharacterData.Location = New System.Drawing.Point(35, 549)
         Me.lblCharacterData.Name = "lblCharacterData"
-        Me.lblCharacterData.Size = New System.Drawing.Size(805, 37)
+        Me.lblCharacterData.Size = New System.Drawing.Size(815, 37)
         Me.lblCharacterData.TabIndex = 90
         Me.lblCharacterData.Text = "Market/Wallet/Job data not updated yet, click Calculate to begin..."
         Me.lblCharacterData.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -363,11 +355,11 @@ Partial Class frmMain
         '
         'MetroLabel1
         '
-        Me.MetroLabel1.Location = New System.Drawing.Point(35, 36)
+        Me.MetroLabel1.Location = New System.Drawing.Point(35, 46)
         Me.MetroLabel1.Name = "MetroLabel1"
         Me.MetroLabel1.Size = New System.Drawing.Size(236, 34)
         Me.MetroLabel1.TabIndex = 91
-        Me.MetroLabel1.Text = "Pick a character or add one"
+        Me.MetroLabel1.Text = "Pick a character or add a new one"
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         '
         'lblRecommendation
@@ -494,7 +486,6 @@ Partial Class frmMain
         Me.TabPage1.Controls.Add(Me.trkTrips)
         Me.TabPage1.Controls.Add(Me.btnAddChar)
         Me.TabPage1.Controls.Add(Me.lblRecommendation)
-        Me.TabPage1.Controls.Add(Me.btnCancelUpdate)
         Me.TabPage1.Controls.Add(Me.MetroLabel1)
         Me.TabPage1.Controls.Add(Me.mnuChar)
         Me.TabPage1.Controls.Add(Me.MetroProgressBar)
@@ -524,6 +515,7 @@ Partial Class frmMain
         '
         'MetroLabel3
         '
+        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
         Me.MetroLabel3.Location = New System.Drawing.Point(35, 118)
         Me.MetroLabel3.Name = "MetroLabel3"
         Me.MetroLabel3.Size = New System.Drawing.Size(236, 57)
@@ -532,23 +524,16 @@ Partial Class frmMain
         Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel3.WrapToLine = True
         '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 8)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(742, 759)
-        Me.FrmShoppingList1.TabIndex = 95
-        '
         'trkTrips
         '
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
+        Me.trkTrips.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!)
+        Me.trkTrips.LargeChange = 4
         Me.trkTrips.Location = New System.Drawing.Point(331, 118)
         Me.trkTrips.Maximum = 6
         Me.trkTrips.Minimum = 2
         Me.trkTrips.Name = "trkTrips"
-        Me.trkTrips.Size = New System.Drawing.Size(491, 62)
+        Me.trkTrips.Size = New System.Drawing.Size(491, 57)
         Me.trkTrips.TabIndex = 94
         Me.trkTrips.Text = "Trips"
         Me.trkTrips.Theme = MetroFramework.MetroThemeStyle.Dark
@@ -559,20 +544,11 @@ Partial Class frmMain
         Me.btnAddChar.Location = New System.Drawing.Point(692, 36)
         Me.btnAddChar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddChar.Name = "btnAddChar"
-        Me.btnAddChar.Size = New System.Drawing.Size(130, 40)
+        Me.btnAddChar.Size = New System.Drawing.Size(156, 56)
         Me.btnAddChar.TabIndex = 92
         Me.btnAddChar.Text = "Add Character"
         Me.btnAddChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnAddChar.UseSelectable = True
-        '
-        'CalcBaseFacility
-        '
-        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CalcBaseFacility.Location = New System.Drawing.Point(35, 277)
-        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
-        Me.CalcBaseFacility.Name = "CalcBaseFacility"
-        Me.CalcBaseFacility.Size = New System.Drawing.Size(787, 58)
-        Me.CalcBaseFacility.TabIndex = 0
         '
         'TabPage2
         '
@@ -585,29 +561,6 @@ Partial Class frmMain
         Me.TabPage2.Size = New System.Drawing.Size(1612, 782)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
-        '
-        'lstManufacturing
-        '
-        Me.lstManufacturing.AllowColumnReorder = True
-        Me.lstManufacturing.AllowSorting = True
-        Me.lstManufacturing.BackColor = System.Drawing.Color.Gray
-        Me.lstManufacturing.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
-        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
-        Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.lstManufacturing.FullRowSelect = True
-        Me.lstManufacturing.GridLines = True
-        Me.lstManufacturing.HideSelection = False
-        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
-        Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
-        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
-        Me.lstManufacturing.Name = "lstManufacturing"
-        Me.lstManufacturing.OwnerDraw = True
-        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 681)
-        Me.lstManufacturing.Sorting = System.Windows.Forms.SortOrder.Descending
-        Me.lstManufacturing.TabIndex = 94
-        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
-        Me.lstManufacturing.UseSelectable = True
-        Me.lstManufacturing.View = System.Windows.Forms.View.Details
         '
         'TabPage3
         '
@@ -772,13 +725,54 @@ Partial Class frmMain
         Me.btnManageChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnManageChar.UseSelectable = True
         '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(857, 8)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(742, 759)
+        Me.FrmShoppingList1.TabIndex = 95
+        '
+        'CalcBaseFacility
+        '
+        Me.CalcBaseFacility.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CalcBaseFacility.Location = New System.Drawing.Point(35, 277)
+        Me.CalcBaseFacility.Margin = New System.Windows.Forms.Padding(5)
+        Me.CalcBaseFacility.Name = "CalcBaseFacility"
+        Me.CalcBaseFacility.Size = New System.Drawing.Size(787, 58)
+        Me.CalcBaseFacility.TabIndex = 0
+        '
+        'lstManufacturing
+        '
+        Me.lstManufacturing.AllowColumnReorder = True
+        Me.lstManufacturing.AllowSorting = True
+        Me.lstManufacturing.BackColor = System.Drawing.Color.Gray
+        Me.lstManufacturing.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.lstManufacturing.ContextMenuStrip = Me.ListOptionsMenu
+        Me.lstManufacturing.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.lstManufacturing.FullRowSelect = True
+        Me.lstManufacturing.GridLines = True
+        Me.lstManufacturing.HideSelection = False
+        Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
+        Me.lstManufacturing.Location = New System.Drawing.Point(18, 82)
+        Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstManufacturing.Name = "lstManufacturing"
+        Me.lstManufacturing.OwnerDraw = True
+        Me.lstManufacturing.Size = New System.Drawing.Size(1581, 681)
+        Me.lstManufacturing.Sorting = System.Windows.Forms.SortOrder.Descending
+        Me.lstManufacturing.TabIndex = 94
+        Me.lstManufacturing.UseCompatibleStateImageBehavior = False
+        Me.lstManufacturing.UseSelectable = True
+        Me.lstManufacturing.View = System.Windows.Forms.View.Details
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1653, 913)
+        Me.ClientSize = New System.Drawing.Size(1661, 927)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
         Me.Controls.Add(Me.mnuStripMain)
@@ -835,7 +829,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents FavoriteBlueprintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CalcBaseFacility As ManufacturingFacility
-    Friend WithEvents btnCancelUpdate As MetroFramework.Controls.MetroButton
     Friend WithEvents btnDownloadPrices As MetroFramework.Controls.MetroButton
     Friend WithEvents btnCalcCalculate As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroProgressBar As MetroFramework.Controls.MetroProgressBar

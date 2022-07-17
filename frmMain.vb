@@ -1115,7 +1115,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub btnCancelUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelUpdate.Click
+    Private Sub btnCancelUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CancelUpdatePrices = True
     End Sub
 
@@ -2070,9 +2070,6 @@ Public Class frmMain
         RunUpdatePriceList = True
         RefreshList = True
 
-        ' Disable cancel
-        btnCancelUpdate.Enabled = False
-
         ' Preload the systems combo
         Call LoadPriceSolarSystems()
 
@@ -2344,9 +2341,6 @@ Public Class frmMain
         ' Working
         Call DisableUpdatePricesTab(True)
 
-        ' Enable cancel
-        btnCancelUpdate.Enabled = True
-
         Me.Refresh()
         Cursor.Current = Cursors.WaitCursor
         pnlStatus.Text = "Initializing Query..."
@@ -2487,12 +2481,9 @@ ExitSub:
         ' Enable tab
         Call DisableUpdatePricesTab(False)
 
-        ' Disable cancel
-        btnCancelUpdate.Enabled = False
-
         Me.Refresh()
         Cursor.Current = Cursors.Default
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
         pnlStatus.Text = ""
 
     End Sub
@@ -2804,7 +2795,7 @@ ExitSub:
         Call EVEDB.CommitSQLiteTransaction()
 
         ' Done updating, hide the progress bar
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
         pnlStatus.Text = ""
         Application.DoEvents()
 
@@ -3160,7 +3151,7 @@ ExitSub:
         Next
 
         ' Don't show until download is done
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
         ' Reset the value of the progress bar
         MetroProgressBar.Value = 0
         ' Set the maximum updates for the progress bar
@@ -3228,7 +3219,7 @@ ExitSub:
 
         ' Done updating, hide the progress bar
         CancelUpdatePrices = False
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
         UpdatePricesCache = True
         pnlStatus.Text = ""
         Application.DoEvents()
@@ -5065,7 +5056,7 @@ ExitPRocessing:
 
                 ' First thing we want to do is update the manufactured item prices
                 pnlStatus.Text = "Updating Market History..."
-                MetroProgressBar.Visible = False
+                MetroProgressBar.Visible = True
                 Application.DoEvents()
 
                 ' First find out which of the typeIDs in BaseItems have MarketID's
@@ -5382,7 +5373,7 @@ ExitPRocessing:
 
                 ' Done processing the blueprints
                 MetroProgressBar.Value = 0
-                MetroProgressBar.Visible = False
+                MetroProgressBar.Visible = True
                 Cursor.Current = Cursors.Default
                 pnlStatus.Text = ""
 
@@ -5569,7 +5560,7 @@ DisplayResults:
 
 ExitCalc:
         MetroProgressBar.Value = 0
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
         pnlStatus.Text = ""
         lstManufacturing.EndUpdate()
 
@@ -6013,7 +6004,7 @@ ExitCalc:
 
         ' Done processing the blueprints
         MetroProgressBar.Value = 0
-        MetroProgressBar.Visible = False
+        MetroProgressBar.Visible = True
 
         Cursor.Current = Cursors.Default
         Me.Refresh()
@@ -7046,7 +7037,7 @@ ExitCalc:
 
             Call IncrementToolStripProgressBar(MetroProgressBar)
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
+            MetroProgressBar.Visible = True
             pnlStatus.Text = "Checking Active Jobs..."
 
             'Subtract any active jobs
@@ -7151,7 +7142,7 @@ NextIteration:
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
+            MetroProgressBar.Visible = True
 
             pnlStatus.Text = "Autoshopping for material volume..."
             MetroProgressBar.Minimum = 0
@@ -7161,7 +7152,7 @@ NextIteration:
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
+            MetroProgressBar.Visible = True
 
             pnlStatus.Text = "Autoshopping for built volume..."
             MetroProgressBar.Minimum = 0
@@ -7171,7 +7162,7 @@ NextIteration:
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = False
+            MetroProgressBar.Visible = True
 
         End If 'End if at least one manufacturing item was calculated
 
