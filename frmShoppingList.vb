@@ -433,8 +433,9 @@ Public Class frmShoppingList
 
             Call TotalShoppingList.SetPriceData(BFI, True, ItemBuyTypeList)
 
-            lblTotalProfit.Text = FormatNumber(TotalShoppingList.GetTotalProfit(), 2) & " ISK"
-            lblAvgIPH.Text = FormatNumber(TotalShoppingList.GetTotalIPH(), 2) & " ISK"
+            lblMonthlyProfit.Text = FormatNumber(TotalShoppingList.GetTotalProfit() * 4, 0) & " ISK" 'Each autoshop seeks a week of profit so 1 month = 4 weeks of profit
+            lblTotalProfit.Text = FormatNumber(TotalShoppingList.GetTotalProfit(), 0) & " ISK"
+            lblAvgIPH.Text = FormatNumber(TotalShoppingList.GetTotalIPH(), 0) & " ISK"
 
         End If
 

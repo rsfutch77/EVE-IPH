@@ -38,12 +38,12 @@ Partial Class frmShoppingList
         Me.DeleteMaterial = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.lblItemstoBuy = New System.Windows.Forms.Label()
-        Me.lblItemstoBuild = New System.Windows.Forms.Label()
         Me.lstBuy = New Easy_IPH.MyListView()
         Me.lstItems = New Easy_IPH.MyListView()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblMonthlyProfit = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.DeleteBuildStrip.SuspendLayout()
         Me.DeleteItemStrip.SuspendLayout()
         Me.DeleteMaterialStrip.SuspendLayout()
@@ -51,13 +51,16 @@ Partial Class frmShoppingList
         '
         'btnCopy
         '
+        Me.btnCopy.BackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.btnCopy.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.btnCopy.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btnCopy.Location = New System.Drawing.Point(9, 679)
         Me.btnCopy.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(118, 40)
+        Me.btnCopy.Size = New System.Drawing.Size(396, 72)
         Me.btnCopy.TabIndex = 0
         Me.btnCopy.Text = "Copy List"
-        Me.btnCopy.UseVisualStyleBackColor = True
+        Me.btnCopy.UseVisualStyleBackColor = False
         '
         'DeleteBuildStrip
         '
@@ -168,36 +171,16 @@ Partial Class frmShoppingList
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
         '
-        'lblItemstoBuy
-        '
-        Me.lblItemstoBuy.Location = New System.Drawing.Point(9, 5)
-        Me.lblItemstoBuy.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblItemstoBuy.Name = "lblItemstoBuy"
-        Me.lblItemstoBuy.Size = New System.Drawing.Size(537, 19)
-        Me.lblItemstoBuy.TabIndex = 71
-        Me.lblItemstoBuy.Text = "Items to Buy"
-        Me.lblItemstoBuy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblItemstoBuild
-        '
-        Me.lblItemstoBuild.Location = New System.Drawing.Point(8, 402)
-        Me.lblItemstoBuild.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblItemstoBuild.Name = "lblItemstoBuild"
-        Me.lblItemstoBuild.Size = New System.Drawing.Size(397, 18)
-        Me.lblItemstoBuild.TabIndex = 72
-        Me.lblItemstoBuild.Text = "Items to Build"
-        Me.lblItemstoBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'lstBuy
         '
         Me.lstBuy.ContextMenuStrip = Me.DeleteMaterialStrip
         Me.lstBuy.FullRowSelect = True
         Me.lstBuy.GridLines = True
         Me.lstBuy.HideSelection = False
-        Me.lstBuy.Location = New System.Drawing.Point(9, 25)
+        Me.lstBuy.Location = New System.Drawing.Point(9, 47)
         Me.lstBuy.Margin = New System.Windows.Forms.Padding(4)
         Me.lstBuy.Name = "lstBuy"
-        Me.lstBuy.Size = New System.Drawing.Size(622, 374)
+        Me.lstBuy.Size = New System.Drawing.Size(726, 352)
         Me.lstBuy.TabIndex = 37
         Me.lstBuy.TabStop = False
         Me.lstBuy.UseCompatibleStateImageBehavior = False
@@ -208,10 +191,10 @@ Partial Class frmShoppingList
         Me.lstItems.ContextMenuStrip = Me.DeleteItemStrip
         Me.lstItems.FullRowSelect = True
         Me.lstItems.HideSelection = False
-        Me.lstItems.Location = New System.Drawing.Point(8, 424)
+        Me.lstItems.Location = New System.Drawing.Point(8, 441)
         Me.lstItems.Margin = New System.Windows.Forms.Padding(4)
         Me.lstItems.Name = "lstItems"
-        Me.lstItems.Size = New System.Drawing.Size(397, 246)
+        Me.lstItems.Size = New System.Drawing.Size(397, 229)
         Me.lstItems.TabIndex = 38
         Me.lstItems.TabStop = False
         Me.lstItems.UseCompatibleStateImageBehavior = False
@@ -229,30 +212,54 @@ Partial Class frmShoppingList
         Me.Label1.Text = "Monthly Profit:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'lblMonthlyProfit
+        '
+        Me.lblMonthlyProfit.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.lblMonthlyProfit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblMonthlyProfit.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.lblMonthlyProfit.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lblMonthlyProfit.Location = New System.Drawing.Point(425, 700)
+        Me.lblMonthlyProfit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblMonthlyProfit.Name = "lblMonthlyProfit"
+        Me.lblMonthlyProfit.Size = New System.Drawing.Size(310, 51)
+        Me.lblMonthlyProfit.TabIndex = 74
+        Me.lblMonthlyProfit.Text = "1,250,000,000 ISK"
+        Me.lblMonthlyProfit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'Label2
         '
-        Me.Label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Impact", 15.0!)
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label2.Location = New System.Drawing.Point(425, 700)
+        Me.Label2.Location = New System.Drawing.Point(130, 403)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(310, 51)
-        Me.Label2.TabIndex = 74
-        Me.Label2.Text = "1,250,000,000 ISK"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label2.Size = New System.Drawing.Size(160, 32)
+        Me.Label2.TabIndex = 75
+        Me.Label2.Text = "Items To Build"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Impact", 15.0!)
+        Me.Label3.Location = New System.Drawing.Point(278, 11)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(144, 32)
+        Me.Label3.TabIndex = 76
+        Me.Label3.Text = "Items To Buy"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'frmShoppingList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblMonthlyProfit)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtListEdit)
-        Me.Controls.Add(Me.lblItemstoBuild)
-        Me.Controls.Add(Me.lblItemstoBuy)
         Me.Controls.Add(Me.lstBuy)
         Me.Controls.Add(Me.lblAvgIPH)
         Me.Controls.Add(Me.lstItems)
@@ -262,7 +269,7 @@ Partial Class frmShoppingList
         Me.Controls.Add(Me.btnCopy)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmShoppingList"
-        Me.Size = New System.Drawing.Size(804, 760)
+        Me.Size = New System.Drawing.Size(750, 760)
         Me.DeleteBuildStrip.ResumeLayout(False)
         Me.DeleteItemStrip.ResumeLayout(False)
         Me.DeleteMaterialStrip.ResumeLayout(False)
@@ -287,8 +294,8 @@ Partial Class frmShoppingList
     Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents lstBuy As Easy_IPH.MyListView
     Friend WithEvents lstItems As Easy_IPH.MyListView
-    Friend WithEvents lblItemstoBuy As System.Windows.Forms.Label
-    Friend WithEvents lblItemstoBuild As System.Windows.Forms.Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblMonthlyProfit As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
 End Class
