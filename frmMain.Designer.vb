@@ -59,7 +59,6 @@ Partial Class frmMain
         Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.chkDisableTracking = New System.Windows.Forms.CheckBox()
         Me.btnHelp = New MetroFramework.Controls.MetroButton()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
@@ -71,7 +70,6 @@ Partial Class frmMain
         Me.ListOptionsMenu.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ttBP
@@ -274,7 +272,6 @@ Partial Class frmMain
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(20, 91)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -374,17 +371,6 @@ Partial Class frmMain
         Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.MetroLabel1.WrapToLine = True
         '
-        'TabPage2
-        '
-        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer), CType(CType(17, Byte), Integer))
-        Me.TabPage2.Controls.Add(Me.lstManufacturing)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1612, 782)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        '
         'chkDisableTracking
         '
         Me.chkDisableTracking.AutoSize = True
@@ -442,7 +428,7 @@ Partial Class frmMain
         Me.lstManufacturing.GridLines = True
         Me.lstManufacturing.HideSelection = False
         Me.lstManufacturing.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2})
-        Me.lstManufacturing.Location = New System.Drawing.Point(7, 36)
+        Me.lstManufacturing.Location = New System.Drawing.Point(40, 164)
         Me.lstManufacturing.Margin = New System.Windows.Forms.Padding(4)
         Me.lstManufacturing.Name = "lstManufacturing"
         Me.lstManufacturing.OwnerDraw = True
@@ -452,6 +438,7 @@ Partial Class frmMain
         Me.lstManufacturing.UseCompatibleStateImageBehavior = False
         Me.lstManufacturing.UseSelectable = True
         Me.lstManufacturing.View = System.Windows.Forms.View.Details
+        Me.lstManufacturing.Visible = False
         '
         'frmMain
         '
@@ -465,6 +452,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.rbtnCalcBPOwned)
         Me.Controls.Add(Me.chkCalcCanBuild)
+        Me.Controls.Add(Me.lstManufacturing)
         Me.ForeColor = System.Drawing.Color.White
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -479,7 +467,6 @@ Partial Class frmMain
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
-        Me.TabPage2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -514,7 +501,6 @@ Partial Class frmMain
     Friend WithEvents lstManufacturing As ManufacturingListView
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents btnAddChar As MetroFramework.Controls.MetroButton
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
