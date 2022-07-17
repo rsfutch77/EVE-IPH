@@ -107,14 +107,6 @@ Public Class ManufacturingFacility
     Public Sub InitializeControl(ByVal SentSelectedCharacterID As Long, FormLocation As ProgramLocation,
                                  ByVal InitialProductionType As ProductionType, ByRef ControlForm As Form)
 
-        Const SolarSystemWidthCalc As Integer = 157
-
-        Const RegionWidthCalc As Integer = 133
-
-        Const FacilityArrayWidthCalc As Integer = 295
-
-        Const LeftObjectLocation As Integer = 3
-
         ' Save for later
         SelectedLocation = FormLocation
         SelectedProductionType = InitialProductionType
@@ -145,17 +137,11 @@ Public Class ManufacturingFacility
 
 
                 cmbFacilityRegion.Text = InitialRegionComboText
-                cmbFacilityRegion.Width = RegionWidthCalc
                 cmbFacilityRegion.Visible = True
 
-                cmbFacilitySystem.Top = cmbFacilityRegion.Top
-                cmbFacilitySystem.Width = SolarSystemWidthCalc
                 cmbFacilitySystem.Text = InitialSolarSystemComboText
                 cmbFacilitySystem.Visible = True
 
-                cmbFacility.Top = cmbFacilityRegion.Top
-                cmbFacility.Left = LeftObjectLocation + RegionWidthCalc + SolarSystemWidthCalc + 1
-                cmbFacility.Width = FacilityArrayWidthCalc
                 cmbFacility.Text = InitialFacilityComboText
                 cmbFacility.Visible = True
 

@@ -33,7 +33,8 @@ Partial Class ManufacturingFacility
         '
         Me.cmbFacility.FormattingEnabled = True
         Me.cmbFacility.ItemHeight = 24
-        Me.cmbFacility.Location = New System.Drawing.Point(398, 13)
+        Me.cmbFacility.Items.AddRange(New Object() {"default"})
+        Me.cmbFacility.Location = New System.Drawing.Point(400, 13)
         Me.cmbFacility.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacility.Name = "cmbFacility"
         Me.cmbFacility.Size = New System.Drawing.Size(387, 30)
@@ -45,7 +46,7 @@ Partial Class ManufacturingFacility
         '
         Me.cmbFacilitySystem.FormattingEnabled = True
         Me.cmbFacilitySystem.ItemHeight = 24
-        Me.cmbFacilitySystem.Location = New System.Drawing.Point(182, 13)
+        Me.cmbFacilitySystem.Location = New System.Drawing.Point(184, 13)
         Me.cmbFacilitySystem.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbFacilitySystem.Name = "cmbFacilitySystem"
         Me.cmbFacilitySystem.Size = New System.Drawing.Size(208, 30)
@@ -70,12 +71,12 @@ Partial Class ManufacturingFacility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(798, 51)
         Me.Controls.Add(Me.cmbFacility)
         Me.Controls.Add(Me.cmbFacilitySystem)
         Me.Controls.Add(Me.cmbFacilityRegion)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "ManufacturingFacility"
+        Me.Size = New System.Drawing.Size(798, 51)
         Me.ResumeLayout(False)
 
     End Sub
