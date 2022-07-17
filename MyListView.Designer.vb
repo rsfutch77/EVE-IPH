@@ -22,7 +22,14 @@ Partial Class MyListView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        Me.SuspendLayout()
+        '
+        'MyListView
+        '
+        Me.BackColor = System.Drawing.Color.Black
+        Me.ForeColor = System.Drawing.Color.LightGray
+        Me.ResumeLayout(False)
+
     End Sub
 
 End Class

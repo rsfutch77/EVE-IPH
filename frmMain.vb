@@ -2752,7 +2752,7 @@ ExitSub:
 
         ' Done updating, hide the progress bar
         MetroProgressBar.Visible = True
-        pnlStatus.Text = ""
+        pnlStatus.Text = "Price Update Complete!"
         Application.DoEvents()
 
     End Sub
@@ -7570,6 +7570,10 @@ NextIteration:
 
         Call f1.ShowDialog()
 
+    End Sub
+
+    Private Sub trkTrips_Scroll(sender As Object, e As ScrollEventArgs) Handles trkTrips.Scroll
+        lbltrips.Text = CStr(trkTrips.Value)
     End Sub
 
 #End Region

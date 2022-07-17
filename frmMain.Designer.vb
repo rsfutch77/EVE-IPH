@@ -54,17 +54,18 @@ Partial Class frmMain
         Me.lblRecommendation = New MetroFramework.Controls.MetroLabel()
         Me.trkTrips = New MetroFramework.Controls.MetroTrackBar()
         Me.btnAddChar = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
+        Me.lblAutoshop = New MetroFramework.Controls.MetroLabel()
+        Me.lblTripInstructions = New MetroFramework.Controls.MetroLabel()
+        Me.lblCharacter = New MetroFramework.Controls.MetroLabel()
         Me.btnHelp = New MetroFramework.Controls.MetroButton()
+        Me.pnlFacility = New MetroFramework.Controls.MetroPanel()
+        Me.lbltrips = New System.Windows.Forms.Label()
         Me.FrmShoppingList1 = New Easy_IPH.frmShoppingList()
         Me.CalcBaseFacility = New Easy_IPH.ManufacturingFacility()
         Me.lstManufacturing = New Easy_IPH.ManufacturingListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.pnlFacility = New MetroFramework.Controls.MetroPanel()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
         Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
         Me.ListOptionsMenu.SuspendLayout()
@@ -275,7 +276,7 @@ Partial Class frmMain
         Me.trkTrips.BackColor = System.Drawing.Color.Transparent
         Me.trkTrips.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!)
         Me.trkTrips.LargeChange = 4
-        Me.trkTrips.Location = New System.Drawing.Point(171, 208)
+        Me.trkTrips.Location = New System.Drawing.Point(89, 208)
         Me.trkTrips.Maximum = 6
         Me.trkTrips.Minimum = 2
         Me.trkTrips.Name = "trkTrips"
@@ -297,44 +298,44 @@ Partial Class frmMain
         Me.btnAddChar.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnAddChar.UseSelectable = True
         '
-        'MetroLabel4
+        'lblAutoshop
         '
-        Me.MetroLabel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MetroLabel4.Location = New System.Drawing.Point(14, 365)
-        Me.MetroLabel4.Name = "MetroLabel4"
-        Me.MetroLabel4.Size = New System.Drawing.Size(815, 90)
-        Me.MetroLabel4.TabIndex = 97
-        Me.MetroLabel4.Text = "Find new profitable blueprints or find out which" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "of your existing blueprints is " &
+        Me.lblAutoshop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblAutoshop.Location = New System.Drawing.Point(14, 365)
+        Me.lblAutoshop.Name = "lblAutoshop"
+        Me.lblAutoshop.Size = New System.Drawing.Size(815, 90)
+        Me.lblAutoshop.TabIndex = 97
+        Me.lblAutoshop.Text = "Find new profitable blueprints or find out which" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "of your existing blueprints is " &
     "most profitable"
-        Me.MetroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MetroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel4.WrapToLine = True
+        Me.lblAutoshop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblAutoshop.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.lblAutoshop.WrapToLine = True
         '
-        'MetroLabel3
+        'lblTripInstructions
         '
-        Me.MetroLabel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MetroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel3.Location = New System.Drawing.Point(158, 143)
-        Me.MetroLabel3.Name = "MetroLabel3"
-        Me.MetroLabel3.Size = New System.Drawing.Size(491, 134)
-        Me.MetroLabel3.TabIndex = 96
-        Me.MetroLabel3.Text = "Select more trips for more profit or less trips for less travel time"
-        Me.MetroLabel3.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.MetroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel3.WrapToLine = True
+        Me.lblTripInstructions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblTripInstructions.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.lblTripInstructions.Location = New System.Drawing.Point(76, 143)
+        Me.lblTripInstructions.Name = "lblTripInstructions"
+        Me.lblTripInstructions.Size = New System.Drawing.Size(491, 134)
+        Me.lblTripInstructions.TabIndex = 96
+        Me.lblTripInstructions.Text = "Select more trips for more profit or less trips for less travel time"
+        Me.lblTripInstructions.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblTripInstructions.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.lblTripInstructions.WrapToLine = True
         '
-        'MetroLabel1
+        'lblCharacter
         '
-        Me.MetroLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MetroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel1.Location = New System.Drawing.Point(123, 15)
-        Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(566, 113)
-        Me.MetroLabel1.TabIndex = 98
-        Me.MetroLabel1.Text = "Select or add a character"
-        Me.MetroLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.MetroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark
-        Me.MetroLabel1.WrapToLine = True
+        Me.lblCharacter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblCharacter.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.lblCharacter.Location = New System.Drawing.Point(123, 15)
+        Me.lblCharacter.Name = "lblCharacter"
+        Me.lblCharacter.Size = New System.Drawing.Size(566, 113)
+        Me.lblCharacter.TabIndex = 98
+        Me.lblCharacter.Text = "Select or add a character"
+        Me.lblCharacter.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblCharacter.Theme = MetroFramework.MetroThemeStyle.Dark
+        Me.lblCharacter.WrapToLine = True
         '
         'btnHelp
         '
@@ -350,15 +351,6 @@ Partial Class frmMain
         Me.btnHelp.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnHelp.UseSelectable = True
         '
-        'FrmShoppingList1
-        '
-        Me.FrmShoppingList1.AutoSize = True
-        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.FrmShoppingList1.Location = New System.Drawing.Point(842, 12)
-        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
-        Me.FrmShoppingList1.Name = "FrmShoppingList1"
-        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
-        Me.FrmShoppingList1.TabIndex = 95
         '
         'CalcBaseFacility
         '
@@ -411,6 +403,7 @@ Partial Class frmMain
         '
         'MetroPanel1
         '
+        Me.MetroPanel1.Controls.Add(Me.lbltrips)
         Me.MetroPanel1.Controls.Add(Me.pnlFacility)
         Me.MetroPanel1.Controls.Add(Me.rbtnCalcAllBPs)
         Me.MetroPanel1.Controls.Add(Me.pnlStatus)
@@ -420,11 +413,11 @@ Partial Class frmMain
         Me.MetroPanel1.Controls.Add(Me.lblRecommendation)
         Me.MetroPanel1.Controls.Add(Me.mnuChar)
         Me.MetroPanel1.Controls.Add(Me.FrmShoppingList1)
-        Me.MetroPanel1.Controls.Add(Me.MetroLabel4)
+        Me.MetroPanel1.Controls.Add(Me.lblAutoshop)
         Me.MetroPanel1.Controls.Add(Me.lblCharacterData)
-        Me.MetroPanel1.Controls.Add(Me.MetroLabel3)
+        Me.MetroPanel1.Controls.Add(Me.lblTripInstructions)
         Me.MetroPanel1.Controls.Add(Me.btnDownloadPrices)
-        Me.MetroPanel1.Controls.Add(Me.MetroLabel1)
+        Me.MetroPanel1.Controls.Add(Me.lblCharacter)
         Me.MetroPanel1.Controls.Add(Me.btnCalcCalculate)
         Me.MetroPanel1.Controls.Add(Me.MetroProgressBar)
         Me.MetroPanel1.HorizontalScrollbarBarColor = True
@@ -438,6 +431,28 @@ Partial Class frmMain
         Me.MetroPanel1.VerticalScrollbarBarColor = True
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel1.VerticalScrollbarSize = 10
+        '
+        'lbltrips
+        '
+        Me.lbltrips.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lbltrips.Font = New System.Drawing.Font("Impact", 25.0!)
+        Me.lbltrips.Location = New System.Drawing.Point(592, 156)
+        Me.lbltrips.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lbltrips.Name = "lbltrips"
+        Me.lbltrips.Size = New System.Drawing.Size(144, 107)
+        Me.lbltrips.TabIndex = 111
+        Me.lbltrips.Text = "4"
+        Me.lbltrips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'FrmShoppingList1
+        '
+        Me.FrmShoppingList1.AutoSize = True
+        Me.FrmShoppingList1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.FrmShoppingList1.Location = New System.Drawing.Point(842, 12)
+        Me.FrmShoppingList1.Margin = New System.Windows.Forms.Padding(4)
+        Me.FrmShoppingList1.Name = "FrmShoppingList1"
+        Me.FrmShoppingList1.Size = New System.Drawing.Size(748, 767)
+        Me.FrmShoppingList1.TabIndex = 95
         '
         'MetroPanel2
         '
@@ -519,11 +534,12 @@ Partial Class frmMain
     Friend WithEvents trkTrips As MetroFramework.Controls.MetroTrackBar
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents FrmShoppingList1 As frmShoppingList
-    Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
-    Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents lblTripInstructions As MetroFramework.Controls.MetroLabel
+    Friend WithEvents lblAutoshop As MetroFramework.Controls.MetroLabel
+    Friend WithEvents lblCharacter As MetroFramework.Controls.MetroLabel
     Friend WithEvents btnHelp As MetroFramework.Controls.MetroButton
     Friend WithEvents pnlFacility As MetroFramework.Controls.MetroPanel
     Friend WithEvents MetroPanel1 As MetroFramework.Controls.MetroPanel
     Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents lbltrips As Label
 End Class
