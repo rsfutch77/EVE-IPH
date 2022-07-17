@@ -1115,16 +1115,6 @@ Public Class frmMain
         End
     End Sub
 
-    Private Sub mnuManageBlueprintsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim f1 = New frmBlueprintManagement
-        f1.Show()
-        Call ResetRefresh()
-        ' Reload the bp if there is one loaded so we get the most updated bps
-        'If Not IsNothing(SelectedBlueprint) Then
-        '    Call SelectBlueprint(False)
-        'End If
-    End Sub
-
     Public Sub ResetTabs(Optional ResetBPTab As Boolean = True)
 
         Me.Enabled = False
@@ -1212,16 +1202,6 @@ Public Class frmMain
                 Call ResetRefresh()
             End If
         End If
-    End Sub
-
-    Private Sub lblBPInventStatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim f1 As New frmReqSkills(SkillType.InventionReqSkills)
-        f1.Show()
-    End Sub
-
-    Private Sub lblReverseEngineerStatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim f1 As New frmReqSkills(SkillType.REReqSkills)
-        f1.Show()
     End Sub
 
     Private Sub txtBPCCosts_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)

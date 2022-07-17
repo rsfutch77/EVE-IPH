@@ -14,13 +14,6 @@ Public Class frmHelp
         Call Process.Start("https://github.com/rsfutch77/EasyIPH/issues")
     End Sub
 
-    Private Sub btnManageChar_Click(sender As Object, e As EventArgs)
-        Dim f1 As New frmManageAccounts
-
-        Call f1.ShowDialog()
-
-    End Sub
-
     Private Sub btnResetAll_Click(sender As Object, e As EventArgs) Handles btnResetAll.Click
         Dim Response As MsgBoxResult
 
