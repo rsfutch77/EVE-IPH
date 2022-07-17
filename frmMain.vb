@@ -3292,6 +3292,7 @@ ExitSub:
         Cursor.Current = Cursors.Default
         Application.DoEvents()
 
+        'Reset default status text after initial load
         pnlStatus.Text = "Calculation status will appear here..."
 
     End Sub
@@ -6697,7 +6698,8 @@ ExitCalc:
 
         'Check if the player can fly a freighter and get the amount of space in their cargohold
         'Check base skills, then check racial skills, then check if they have one already or at least enough money
-        Dim cargoVolume As Double = 5000 '5000 is the default volume if they don't have any other ships
+        Const DefaultCargoVolume = 5000
+        Dim cargoVolume As Double = DefaultCargoVolume '5000 is the default volume if they don't have any other ships
         Dim transportFreighter As Boolean = False
         If SelectedCharacter.Skills.GetSkillLevel(3327) = 5 And SelectedCharacter.Skills.GetSkillLevel(20342) = 5 Then
             If SelectedCharacter.Skills.GetSkillLevel(3340) > 2 And SelectedCharacter.Skills.GetSkillLevel(20527) > 0 Then
@@ -6764,6 +6766,7 @@ ExitCalc:
         End If
 
         'Check if they can transport with an industrial
+        'This will overwrite any recommendations about freighters
         Dim transportindustrial As Boolean = False
         If transportFreighter = False Then
             If SelectedCharacter.Skills.GetSkillLevel(3327) > 2 Then
@@ -6825,10 +6828,13 @@ ExitCalc:
             Else
                 lblRecommendation.Text = "You should train for an industrial."
             End If
-            lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
+            'If we couldn't find an industrial or they can't fly one
+            If cargoVolume = DefaultCargoVolume Then
+                lblRecommendation.Text = lblRecommendation.Text + " An industrial can make a lot more money with more materials and making fewer trips. No suitable ships have been detected in your account, we'll use a default cargo volume instead."
+            End If
         End If
 
-        Return cargoVolume
+            Return cargoVolume
 
     End Function
 
