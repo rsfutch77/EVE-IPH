@@ -6992,31 +6992,25 @@ NextIteration:
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 100
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.AffordableShoppingItemQuantity(SelectedCharacter.WalletData.Wallet)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
 
             pnlStatus.Text = "Autoshopping for material volume..."
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 100
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.MaterialVolumeShoppingItemQuantity(cargoVolume)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
 
             pnlStatus.Text = "Autoshopping for built volume..."
             MetroProgressBar.Minimum = 0
             MetroProgressBar.Maximum = 100
             MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
             Application.DoEvents() 'Display the message before we get started
             Call TotalShoppingList.BuiltVolumeShoppingItemQuantity(cargoVolume)
-            MetroProgressBar.Value = 0
-            MetroProgressBar.Visible = True
+
+            'End of Autoshop, set to 100 even if it didn't need to autoshop for built volume
+            MetroProgressBar.Value = 100
 
         End If 'End if at least one manufacturing item was calculated
 
