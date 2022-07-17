@@ -59,7 +59,7 @@ Partial Class frmShoppingList
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(726, 61)
         Me.btnCopy.TabIndex = 0
-        Me.btnCopy.Text = "Copy Buy List"
+        Me.btnCopy.Text = "Copy Buy List to Clipboard"
         Me.btnCopy.Theme = MetroFramework.MetroThemeStyle.Dark
         Me.btnCopy.UseSelectable = True
         '
@@ -174,7 +174,9 @@ Partial Class frmShoppingList
         '
         'lstBuy
         '
+        Me.lstBuy.BackColor = System.Drawing.Color.Black
         Me.lstBuy.ContextMenuStrip = Me.DeleteMaterialStrip
+        Me.lstBuy.ForeColor = System.Drawing.Color.LightGray
         Me.lstBuy.FullRowSelect = True
         Me.lstBuy.GridLines = True
         Me.lstBuy.HideSelection = False
@@ -189,7 +191,9 @@ Partial Class frmShoppingList
         '
         'lstItems
         '
+        Me.lstItems.BackColor = System.Drawing.Color.Black
         Me.lstItems.ContextMenuStrip = Me.DeleteItemStrip
+        Me.lstItems.ForeColor = System.Drawing.Color.LightGray
         Me.lstItems.FullRowSelect = True
         Me.lstItems.HideSelection = False
         Me.lstItems.Location = New System.Drawing.Point(8, 517)
